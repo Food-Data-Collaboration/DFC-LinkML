@@ -6,6 +6,10 @@ description: LinkML schema converted from DFC Business Ontology v2.0.0. Part of 
 version: 2.0.0
 prefixes:
   dfc-b: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+  dfc-f: http://w3id.org/dfc/taxonomies/facets.rdf#
+  dfc-m: http://w3id.org/dfc/taxonomies/measures.rdf#
+  dfc-pt: http://w3id.org/dfc/taxonomies/productTypes.rdf#
+  dfc-v: http://w3id.org/dfc/taxonomies/vocabulary.rdf#
   linkml: https://w3id.org/linkml/
 imports:
 - linkml:types
@@ -978,22 +982,22 @@ enums:
   Facet:
     permissible_values:
       Fairtrade_Max_Haavelar:
-        meaning: dfc-f:Fairtrade_Max_Haavelar
+        meaning: dfc-f:FairTradeMaxHaavelar
         description: Fairtrade Max Haavelar
       Glossaire_des_facettes_de_produit:
-        meaning: dfc-f:Glossaire_des_facettes_de_produit
+        meaning: dfc-f:DFCProductGlossaryFacet
         description: Glossaire des facettes de produit
       Product_glossary_facets:
-        meaning: dfc-f:Product_glossary_facets
+        meaning: dfc-f:DFCProductGlossaryFacet
         description: Product glossary facets
       Ethical_label:
-        meaning: dfc-f:Ethical_label
+        meaning: dfc-f:EthicalLabel
         description: Ethical label
       Label_thique:
-        meaning: dfc-f:Label_thique
+        meaning: dfc-f:EthicalLabel
         description: Label éthique
       South_East_England:
-        meaning: dfc-f:South_East_England
+        meaning: dfc-f:EnglandSE
         description: South East England
       Hampshire:
         meaning: dfc-f:Hampshire
@@ -1002,7 +1006,7 @@ enums:
         meaning: dfc-f:Kent
         description: Kent
       Isle_of_Wight:
-        meaning: dfc-f:Isle_of_Wight
+        meaning: dfc-f:IsleOfWight
         description: Isle of Wight
       Berkshire:
         meaning: dfc-f:Berkshire
@@ -1011,7 +1015,7 @@ enums:
         meaning: dfc-f:Oxfordshire
         description: Oxfordshire
       West_Sussex:
-        meaning: dfc-f:West_Sussex
+        meaning: dfc-f:WestSussex
         description: West Sussex
       Buckinghamshire:
         meaning: dfc-f:Buckinghamshire
@@ -1020,7 +1024,7 @@ enums:
         meaning: dfc-f:Surrey
         description: Surrey
       East_Sussex:
-        meaning: dfc-f:East_Sussex
+        meaning: dfc-f:EastSussex
         description: East Sussex
       Angleterre:
         meaning: dfc-f:Angleterre
@@ -1029,16 +1033,16 @@ enums:
         meaning: dfc-f:England
         description: England
       Riche_en_fibres:
-        meaning: dfc-f:Riche_en_fibres
+        meaning: dfc-f:HighFibre
         description: Riche en fibres
       High_fibre:
-        meaning: dfc-f:High_fibre
+        meaning: dfc-f:HighFibre
         description: High fibre
       Allgation_nutritionnelle:
-        meaning: dfc-f:Allgation_nutritionnelle
+        meaning: dfc-f:NutritionalClaim
         description: Allégation nutritionnelle
       Nutritional_claim:
-        meaning: dfc-f:Nutritional_claim
+        meaning: dfc-f:NutritionalClaim
         description: Nutritional claim
       Funghi:
         meaning: dfc-f:Funghi
@@ -1047,10 +1051,10 @@ enums:
         meaning: dfc-f:Champignon
         description: Champignon
       Source_naturelle_dorigine:
-        meaning: dfc-f:Source_naturelle_dorigine
+        meaning: dfc-f:NatureOrigin
         description: Source naturelle d'origine
       Natural_origin:
-        meaning: dfc-f:Natural_origin
+        meaning: dfc-f:NatureOrigin
         description: Natural origin
       Miel:
         meaning: dfc-f:Miel
@@ -1065,25 +1069,25 @@ enums:
         meaning: dfc-f:Bee
         description: Bee
       Indication_gographique_de_provenance:
-        meaning: dfc-f:Indication_gographique_de_provenance
+        meaning: dfc-f:IGPEU
         description: Indication géographique de provenance
       Local_label:
-        meaning: dfc-f:Local_label
+        meaning: dfc-f:LocalLabel
         description: Local label
       Label_local:
-        meaning: dfc-f:Label_local
+        meaning: dfc-f:LocalLabel
         description: Label local
       Wax:
         meaning: dfc-f:Wax
         description: Wax
       Cire_dabeille:
-        meaning: dfc-f:Cire_dabeille
+        meaning: dfc-f:BeeWax
         description: Cire d'abeille
       Pollen:
         meaning: dfc-f:Pollen
         description: Pollen
       Venim_dabeille:
-        meaning: dfc-f:Venim_dabeille
+        meaning: dfc-f:BeeVenom
         description: Venim d'abeille
       Venom:
         meaning: dfc-f:Venom
@@ -1092,43 +1096,43 @@ enums:
         meaning: dfc-f:Propolis
         description: Propolis
       Part_or_product_of_animal:
-        meaning: dfc-f:Part_or_product_of_animal
+        meaning: dfc-f:AnimalPartOrigin
         description: Part or product of animal
       Partie_ou_produit_dun_animal:
-        meaning: dfc-f:Partie_ou_produit_dun_animal
+        meaning: dfc-f:AnimalPartOrigin
         description: Partie ou produit d'un animal
       Marine_Stewardship_Council:
-        meaning: dfc-f:Marine_Stewardship_Council
+        meaning: dfc-f:MSC
         description: Marine Stewardship Council
       Pche_durable_MSC:
-        meaning: dfc-f:Pche_durable_MSC
+        meaning: dfc-f:MSC
         description: Pêche durable MSC
       Bleu_Blanc_Coeur:
-        meaning: dfc-f:Bleu_Blanc_Coeur
+        meaning: dfc-f:BleuBlancCoeurFR
         description: Bleu-Blanc-Coeur
       Fort_durable_FSC:
-        meaning: dfc-f:Fort_durable_FSC
+        meaning: dfc-f:FSC
         description: Forêt durable FSC
       Forest_Stewardship_Council:
-        meaning: dfc-f:Forest_Stewardship_Council
+        meaning: dfc-f:FSC
         description: Forest Stewardship Council
       Label_Rouge:
-        meaning: dfc-f:Label_Rouge
+        meaning: dfc-f:LabelRougeFR
         description: Label Rouge
       Rainforest_Alliance:
-        meaning: dfc-f:Rainforest_Alliance
+        meaning: dfc-f:RainforestAlliance
         description: Rainforest Alliance
       Milk_fed:
-        meaning: dfc-f:Milk_fed
+        meaning: dfc-f:MilkFed
         description: Milk-fed
       Nourri_au_lait:
-        meaning: dfc-f:Nourri_au_lait
+        meaning: dfc-f:MilkFed
         description: Nourri au lait
       High_Environnemental_Value:
-        meaning: dfc-f:High_Environnemental_Value
+        meaning: dfc-f:HEV
         description: High Environnemental Value
       Haute_Valeur_Environnementale:
-        meaning: dfc-f:Haute_Valeur_Environnementale
+        meaning: dfc-f:HEV
         description: Haute Valeur Environnementale
       Certification:
         meaning: dfc-f:Certification
@@ -1140,10 +1144,10 @@ enums:
         meaning: dfc-f:Europe
         description: Europe
       Hens_body:
-        meaning: dfc-f:Hens_body
+        meaning: dfc-f:HenBody
         description: Hen's body
       Partie_de_poule:
-        meaning: dfc-f:Partie_de_poule
+        meaning: dfc-f:HenBody
         description: Partie de poule
       Hen:
         meaning: dfc-f:Hen
@@ -1152,223 +1156,223 @@ enums:
         meaning: dfc-f:Poule
         description: Poule
       Enrichi_en_nutriment:
-        meaning: dfc-f:Enrichi_en_nutriment
+        meaning: dfc-f:IncreasedNutrient
         description: Enrichi en nutriment
       Increased_nutrient:
-        meaning: dfc-f:Increased_nutrient
+        meaning: dfc-f:IncreasedNutrient
         description: Increased nutrient
       Source_of_protein:
-        meaning: dfc-f:Source_of_protein
+        meaning: dfc-f:SourceOfProtein
         description: Source of protein
       Source_de_protine:
-        meaning: dfc-f:Source_de_protine
+        meaning: dfc-f:SourceOfProtein
         description: Source de protéine
       High_omega_3_fatty_acids:
-        meaning: dfc-f:High_omega_3_fatty_acids
+        meaning: dfc-f:HighOmega3FattyAcids
         description: High omega-3 fatty acids
       Riche_en_acide_gras_Omga_3:
-        meaning: dfc-f:Riche_en_acide_gras_Omga_3
+        meaning: dfc-f:RicheEnAcideGrasOmega3
         description: Riche en acide gras Oméga-3
       Source_de_fibres:
-        meaning: dfc-f:Source_de_fibres
+        meaning: dfc-f:SourceOfFibre
         description: Source de fibres
       Source_of_fibre:
-        meaning: dfc-f:Source_of_fibre
+        meaning: dfc-f:SourceOfFibre
         description: Source of fibre
       High_protein:
-        meaning: dfc-f:High_protein
+        meaning: dfc-f:HighProtein
         description: High protein
       Riche_en_protines:
-        meaning: dfc-f:Riche_en_protines
+        meaning: dfc-f:HighProtein
         description: Riche en protéines
       Low_sodiumsalt:
-        meaning: dfc-f:Low_sodiumsalt
+        meaning: dfc-f:LowSodiumSalt
         description: Low sodium/salt
       Pauvre_en_sodiumsel:
-        meaning: dfc-f:Pauvre_en_sodiumsel
+        meaning: dfc-f:LowSodiumSalt
         description: Pauvre en sodium/sel
       Saturated_fat_free:
-        meaning: dfc-f:Saturated_fat_free
+        meaning: dfc-f:SaturatedFatFree
         description: Saturated fat-free
       Sans_graisses_satures:
-        meaning: dfc-f:Sans_graisses_satures
+        meaning: dfc-f:SaturatedFatFree
         description: Sans graisses saturées
       High_vitamins_andor_minerals:
-        meaning: dfc-f:High_vitamins_andor_minerals
+        meaning: dfc-f:HighVitaminsMinerals
         description: High vitamins and/or minerals
       Riche_en_vitamines_etou_de_minraux:
-        meaning: dfc-f:Riche_en_vitamines_etou_de_minraux
+        meaning: dfc-f:HighVitaminsMinerals
         description: Riche en vitamines et/ou de minéraux
       AllgLight:
-        meaning: dfc-f:AllgLight
+        meaning: dfc-f:Light
         description: Allégé/Light
       LightLite:
-        meaning: dfc-f:LightLite
+        meaning: dfc-f:Light
         description: Light/Lite
       Trs_pauvre_en_sodiumsel:
-        meaning: dfc-f:Trs_pauvre_en_sodiumsel
+        meaning: dfc-f:VeryLowSodiumSalt
         description: Très pauvre en sodium/sel
       Very_low_sodiumsalt:
-        meaning: dfc-f:Very_low_sodiumsalt
+        meaning: dfc-f:VeryLowSodiumSalt
         description: Very low sodium/salt
       Low_saturated_fat:
-        meaning: dfc-f:Low_saturated_fat
+        meaning: dfc-f:LowSaturatedFat
         description: Low saturated fat
       Faible_teneur_en_graisses_satures:
-        meaning: dfc-f:Faible_teneur_en_graisses_satures
+        meaning: dfc-f:LowSaturatedFat
         description: Faible teneur en graisses saturées
       Reduced_nutrient:
-        meaning: dfc-f:Reduced_nutrient
+        meaning: dfc-f:ReducedNutrient
         description: Reduced nutrient
       Rduit_en_nutriment:
-        meaning: dfc-f:Rduit_en_nutriment
+        meaning: dfc-f:ReducedNutrient
         description: Réduit en nutriment
       Faible_teneur_en_matire_grasse:
-        meaning: dfc-f:Faible_teneur_en_matire_grasse
+        meaning: dfc-f:LowFat
         description: Faible teneur en matière grasse
       Low_fat:
-        meaning: dfc-f:Low_fat
+        meaning: dfc-f:LowFat
         description: Low fat
       Contains_nutrient_or_other_substance:
-        meaning: dfc-f:Contains_nutrient_or_other_substance
+        meaning: dfc-f:ContainsNutrientOrSubstance
         description: Contains nutrient or other substance
       Contient_nutriment_ou_autre_substance:
-        meaning: dfc-f:Contient_nutriment_ou_autre_substance
+        meaning: dfc-f:ContainsNutrientOrSubstance
         description: Contient nutriment ou autre substance
       Faible_teneur_en_sucres:
-        meaning: dfc-f:Faible_teneur_en_sucres
+        meaning: dfc-f:LowSugars
         description: Faible teneur en sucres
       Low_sugars:
-        meaning: dfc-f:Low_sugars
+        meaning: dfc-f:LowSugars
         description: Low sugars
       Sans_sodiumsel_ajout:
-        meaning: dfc-f:Sans_sodiumsel_ajout
+        meaning: dfc-f:NoAddedSodiumSalt
         description: Sans sodium/sel ajouté
       No_added_sodiumsalt:
-        meaning: dfc-f:No_added_sodiumsalt
+        meaning: dfc-f:NoAddedSodiumSalt
         description: No added sodium/salt
       Riche_en_graisses_polyinsatures:
-        meaning: dfc-f:Riche_en_graisses_polyinsatures
+        meaning: dfc-f:HighPolyunsaturatedFat
         description: Riche en graisses polyinsaturées
       High_polyunsaturated_fat:
-        meaning: dfc-f:High_polyunsaturated_fat
+        meaning: dfc-f:HighPolyunsaturatedFat
         description: High polyunsaturated fat
       Source_of_vitamins_andor_minerals:
-        meaning: dfc-f:Source_of_vitamins_andor_minerals
+        meaning: dfc-f:SourceOfVitaminsMinerals
         description: Source of vitamins and/or minerals
       Source_de_vitamines_etou_de_minraux:
-        meaning: dfc-f:Source_de_vitamines_etou_de_minraux
+        meaning: dfc-f:SourceOfVitaminsMinerals
         description: Source de vitamines et/ou de minéraux
       Riche_en_graisses_insatures:
-        meaning: dfc-f:Riche_en_graisses_insatures
+        meaning: dfc-f:HighUnsaturatedFat
         description: Riche en graisses insaturées
       High_unsaturated_fat:
-        meaning: dfc-f:High_unsaturated_fat
+        meaning: dfc-f:HighUnsaturatedFat
         description: High unsaturated fat
       NaturallyNatural:
-        meaning: dfc-f:NaturallyNatural
+        meaning: dfc-f:Natural
         description: Naturally/Natural
       Sodium_free_or_salt_free:
-        meaning: dfc-f:Sodium_free_or_salt_free
+        meaning: dfc-f:SodiumOrSaltFree
         description: Sodium-free or salt-free
       Sans_sodium_ou_sans_sel:
-        meaning: dfc-f:Sans_sodium_ou_sans_sel
+        meaning: dfc-f:SodiumOrSaltFree
         description: Sans sodium ou sans sel
       LowLight:
-        meaning: dfc-f:LowLight
+        meaning: dfc-f:LowEnergy
         description: Low/Light
       Sugars_free:
-        meaning: dfc-f:Sugars_free
+        meaning: dfc-f:SugarsFree
         description: Sugars-free
       With_no_added_sugars:
-        meaning: dfc-f:With_no_added_sugars
+        meaning: dfc-f:NoAddedSugars
         description: With no added sugars
       Sans_sucres_ajouts:
-        meaning: dfc-f:Sans_sucres_ajouts
+        meaning: dfc-f:NoAddedSugars
         description: Sans sucres ajoutés
       Riche_en_graisses_monoinsatures:
-        meaning: dfc-f:Riche_en_graisses_monoinsatures
+        meaning: dfc-f:HighMonounsaturatedFat
         description: Riche en graisses monoinsaturées
       High_monounsaturated_fat:
-        meaning: dfc-f:High_monounsaturated_fat
+        meaning: dfc-f:HighMonounsaturatedFat
         description: High monounsaturated fat
       Sans_apport_nergtique:
-        meaning: dfc-f:Sans_apport_nergtique
+        meaning: dfc-f:EnergyFree
         description: Sans apport énergétique
       Energy_free:
-        meaning: dfc-f:Energy_free
+        meaning: dfc-f:EnergyFree
         description: Energy free
       Sans_matires_grasses:
-        meaning: dfc-f:Sans_matires_grasses
+        meaning: dfc-f:FatFree
         description: Sans matières grasses
       Fat_free:
-        meaning: dfc-f:Fat_free
+        meaning: dfc-f:FatFree
         description: Fat-free
       Source_of_omega_3_fatty_acids:
-        meaning: dfc-f:Source_of_omega_3_fatty_acids
+        meaning: dfc-f:SourceOfOmega3FattyAcids
         description: Source of omega-3 fatty acids
       Source_dacide_gras_Omga_3:
-        meaning: dfc-f:Source_dacide_gras_Omga_3
+        meaning: dfc-f:SourceDacideGrasOmega3
         description: Source d'acide gras Oméga-3
       Faible_valeur_nergtique:
-        meaning: dfc-f:Faible_valeur_nergtique
+        meaning: dfc-f:LowEnergy
         description: Faible valeur énergétique
       Low_energy:
-        meaning: dfc-f:Low_energy
+        meaning: dfc-f:LowEnergy
         description: Low energy
       Valeur_nergtique_rduite:
-        meaning: dfc-f:Valeur_nergtique_rduite
+        meaning: dfc-f:EnergyReduced
         description: Valeur énergétique réduite
       Energy_reduced:
-        meaning: dfc-f:Energy_reduced
+        meaning: dfc-f:EnergyReduced
         description: Energy reduced
       Allgations_nutritionnelles_et_de_sant:
-        meaning: dfc-f:Allgations_nutritionnelles_et_de_sant
+        meaning: dfc-f:NutritionAndHealthClaim
         description: Allégations nutritionnelles et de santé
       Nutrition_and_health_claims:
-        meaning: dfc-f:Nutrition_and_health_claims
+        meaning: dfc-f:NutritionAndHealthClaim
         description: Nutrition and health claims
       Grand_Est:
-        meaning: dfc-f:Grand_Est
+        meaning: dfc-f:GrandEst
         description: Grand Est
       France:
         meaning: dfc-f:France
         description: France
       Buf:
-        meaning: dfc-f:Buf
+        meaning: dfc-f:Beef
         description: Bœuf
       Bull:
         meaning: dfc-f:Bull
         description: Bull
       Bulls_body:
-        meaning: dfc-f:Bulls_body
+        meaning: dfc-f:BullsBody
         description: Bull's body
       Partie_du_boeuf:
-        meaning: dfc-f:Partie_du_boeuf
+        meaning: dfc-f:Beef
         description: Partie du boeuf
       Algue:
-        meaning: dfc-f:Algue
+        meaning: dfc-f:Algae
         description: Algue
       Algae:
         meaning: dfc-f:Algae
         description: Algae
       Unknown_nature_origin:
-        meaning: dfc-f:Unknown_nature_origin
+        meaning: dfc-f:UnknownNatureOrigin
         description: Unknown nature origin
       Source_dorigine_inconnue:
-        meaning: dfc-f:Source_dorigine_inconnue
+        meaning: dfc-f:UnknownNatureOrigin
         description: Source d'origine inconnue
       Origine_multiple:
-        meaning: dfc-f:Origine_multiple
+        meaning: dfc-f:MultiNatureOrigin
         description: Origine multiple
       Multiorigin:
-        meaning: dfc-f:Multiorigin
+        meaning: dfc-f:MultiNatureOrigin
         description: Multiorigin
       Animal:
         meaning: dfc-f:Animal
         description: Animal
       Eau:
-        meaning: dfc-f:Eau
+        meaning: dfc-f:Water
         description: Eau
       Water:
         meaning: dfc-f:Water
@@ -1383,46 +1387,46 @@ enums:
         meaning: dfc-f:Mineral
         description: Mineral
       Minral:
-        meaning: dfc-f:Minral
+        meaning: dfc-f:Mineral
         description: Minéral
       Bacteria:
         meaning: dfc-f:Bacteria
         description: Bacteria
       Bactrie:
-        meaning: dfc-f:Bactrie
+        meaning: dfc-f:Bacteria
         description: Bactérie
       Centre_Val_de_Loire:
-        meaning: dfc-f:Centre_Val_de_Loire
+        meaning: dfc-f:CentreValDeLoire
         description: Centre-Val de Loire
       North_America:
-        meaning: dfc-f:North_America
+        meaning: dfc-f:NorthAmerica
         description: North America
       Amrique_du_Nord:
-        meaning: dfc-f:Amrique_du_Nord
+        meaning: dfc-f:NorthAmerica
         description: Amérique du Nord
       Origine_gographique:
-        meaning: dfc-f:Origine_gographique
+        meaning: dfc-f:GeographicOrigin
         description: Origine géographique
       Territorial_origin:
-        meaning: dfc-f:Territorial_origin
+        meaning: dfc-f:TerritorialOrigin
         description: Territorial origin
       Label_biodynamie:
-        meaning: dfc-f:Label_biodynamie
+        meaning: dfc-f:BiodynamicLabel
         description: Label biodynamie
       Biodynamic_label:
-        meaning: dfc-f:Biodynamic_label
+        meaning: dfc-f:BiodynamicLabel
         description: Biodynamic label
       Demeter:
         meaning: dfc-f:Demeter
         description: Demeter
       Origine_territorial_multiple:
-        meaning: dfc-f:Origine_territorial_multiple
+        meaning: dfc-f:MultiTerritorialOrigin
         description: Origine territorial multiple
       Multi_territorial_origin:
-        meaning: dfc-f:Multi_territorial_origin
+        meaning: dfc-f:MultiTerritorialOrigin
         description: Multi-territorial origin
       South_West_England:
-        meaning: dfc-f:South_West_England
+        meaning: dfc-f:EnglandSW
         description: South West England
       Cornwall:
         meaning: dfc-f:Cornwall
@@ -1449,16 +1453,16 @@ enums:
         meaning: dfc-f:Renfrewshire
         description: Renfrewshire
       South_Western_Scotland:
-        meaning: dfc-f:South_Western_Scotland
+        meaning: dfc-f:SouthWesternScotland
         description: South Western Scotland
       Lancashire:
         meaning: dfc-f:Lancashire
         description: Lancashire
       North_West_England:
-        meaning: dfc-f:North_West_England
+        meaning: dfc-f:NorthWestEngland
         description: North West England
       Bourgogne_Franche_Comt:
-        meaning: dfc-f:Bourgogne_Franche_Comt
+        meaning: dfc-f:BourgogneFranche Comte
         description: Bourgogne-Franche-Comté
       Ewe:
         meaning: dfc-f:Ewe
@@ -1509,73 +1513,73 @@ enums:
         meaning: dfc-f:Chvre
         description: Chèvre
       Partie_dorigine:
-        meaning: dfc-f:Partie_dorigine
+        meaning: dfc-f:PartOfOrigin
         description: Partie d'origine
       Part_of_origin:
-        meaning: dfc-f:Part_of_origin
+        meaning: dfc-f:PartOfOrigin
         description: Part of origin
       Pigs_body:
-        meaning: dfc-f:Pigs_body
+        meaning: dfc-f:PigBody
         description: Pig's body
       Partie_du_cochon:
-        meaning: dfc-f:Partie_du_cochon
+        meaning: dfc-f:PigBody
         description: Partie du cochon
       Partie_ou_produit_dune_plante:
-        meaning: dfc-f:Partie_ou_produit_dune_plante
+        meaning: dfc-f:PlantPartOrigin
         description: Partie ou produit d'une plante
       Part_or_product_of_plant:
-        meaning: dfc-f:Part_or_product_of_plant
+        meaning: dfc-f:PlantPartOrigin
         description: Part or product of plant
       Unknown_part_origin:
-        meaning: dfc-f:Unknown_part_origin
+        meaning: dfc-f:UnknownPartOrigin
         description: Unknown part origin
       Partie_dorigine_inconnue:
-        meaning: dfc-f:Partie_dorigine_inconnue
+        meaning: dfc-f:UnknownPartOrigin
         description: Partie d'origine inconnue
       Other_claim:
-        meaning: dfc-f:Other_claim
+        meaning: dfc-f:OtherClaim
         description: Other claim
       Autre_allgation:
-        meaning: dfc-f:Autre_allgation
+        meaning: dfc-f:OtherClaim
         description: Autre allégation
       Vegetarian:
         meaning: dfc-f:Vegetarian
         description: Vegetarian
       Vgtarien:
-        meaning: dfc-f:Vgtarien
+        meaning: dfc-f:Vegetarian
         description: Végétarien
       Sans_gluten:
-        meaning: dfc-f:Sans_gluten
+        meaning: dfc-f:GlutenFree
         description: Sans gluten
       Gluten_free:
-        meaning: dfc-f:Gluten_free
+        meaning: dfc-f:GlutenFree
         description: Gluten free
       Vegan:
         meaning: dfc-f:Vegan
         description: Vegan
       Paysans_de_Nature:
-        meaning: dfc-f:Paysans_de_Nature
+        meaning: dfc-f:PaysansDeNatureFR
         description: Paysans de Nature
       Organic_label:
-        meaning: dfc-f:Organic_label
+        meaning: dfc-f:OrganicLabel
         description: Organic label
       Label_biologique:
-        meaning: dfc-f:Label_biologique
+        meaning: dfc-f:OrganicLabel
         description: Label biologique
       Agriculture_Biologique_EU:
-        meaning: dfc-f:Agriculture_Biologique_EU
+        meaning: dfc-f:EUOrganicFarming
         description: Agriculture Biologique EU
       EU_Organic_Farming:
-        meaning: dfc-f:EU_Organic_Farming
+        meaning: dfc-f:EUOrganicFarming
         description: EU Organic Farming
       Nature_et_progrs:
-        meaning: dfc-f:Nature_et_progrs
+        meaning: dfc-f:NatureetProgres
         description: Nature et progrès
       Agriculture_Biologique:
-        meaning: dfc-f:Agriculture_Biologique
+        meaning: dfc-f:OrganicFarming
         description: Agriculture Biologique
       Bio_Coherence:
-        meaning: dfc-f:Bio_Coherence
+        meaning: dfc-f:BioCoherence
         description: Bio Coherence
       Merseyside:
         meaning: dfc-f:Merseyside
@@ -1587,7 +1591,7 @@ enums:
         meaning: dfc-f:Cumbria
         description: Cumbria
       Greater_Manchester:
-        meaning: dfc-f:Greater_Manchester
+        meaning: dfc-f:GreaterManchester
         description: Greater Manchester
       Italie:
         meaning: dfc-f:Italie
@@ -1605,7 +1609,7 @@ enums:
         meaning: dfc-f:Netherlands
         description: Netherlands
       Pays_bas:
-        meaning: dfc-f:Pays_bas
+        meaning: dfc-f:PaysBas
         description: Pays bas
       Allemagne:
         meaning: dfc-f:Allemagne
@@ -1620,10 +1624,10 @@ enums:
         meaning: dfc-f:Espagne
         description: Espagne
       Rpublique_dIrlande:
-        meaning: dfc-f:Rpublique_dIrlande
+        meaning: dfc-f:RepublicOfIreland
         description: République d'Irlande
       Republic_of_Ireland:
-        meaning: dfc-f:Republic_of_Ireland
+        meaning: dfc-f:RepublicOfIreland
         description: Republic of Ireland
       Switzerland:
         meaning: dfc-f:Switzerland
@@ -1632,16 +1636,16 @@ enums:
         meaning: dfc-f:Suisse
         description: Suisse
       Royaume_Uni:
-        meaning: dfc-f:Royaume_Uni
+        meaning: dfc-f:UnitedKingdom
         description: Royaume Uni
       United_Kingdom:
-        meaning: dfc-f:United_Kingdom
+        meaning: dfc-f:UnitedKingdom
         description: United Kingdom
       Appellation_dorigine_contrle:
-        meaning: dfc-f:Appellation_dorigine_contrle
+        meaning: dfc-f:AOCFR
         description: Appellation d’origine contrôlée
       East_of_England:
-        meaning: dfc-f:East_of_England
+        meaning: dfc-f:EastOfEngland
         description: East of England
       Cambridgeshire:
         meaning: dfc-f:Cambridgeshire
@@ -1665,16 +1669,16 @@ enums:
         meaning: dfc-f:Northamptonshire
         description: Northamptonshire
       East_Midlands:
-        meaning: dfc-f:East_Midlands
+        meaning: dfc-f:EastMidlands
         description: East Midlands
       Dumfries_and_Galloway:
-        meaning: dfc-f:Dumfries_and_Galloway
+        meaning: dfc-f:DumfriesAndGalloway
         description: Dumfries and Galloway
       West_Midlands:
-        meaning: dfc-f:West_Midlands
+        meaning: dfc-f:WestMidlands
         description: West Midlands
       West_Midlands_Conurbation:
-        meaning: dfc-f:West_Midlands_Conurbation
+        meaning: dfc-f:WestMidlandsConurbation
         description: West Midlands Conurbation
       Warwickshire:
         meaning: dfc-f:Warwickshire
@@ -1692,46 +1696,46 @@ enums:
         meaning: dfc-f:Worcestershire
         description: Worcestershire
       Yorkshire_and_The_Humber:
-        meaning: dfc-f:Yorkshire_and_The_Humber
+        meaning: dfc-f:YorkshireAndTheHumber
         description: Yorkshire and The Humber
       Lincolnshire:
         meaning: dfc-f:Lincolnshire
         description: Lincolnshire
       South_Yorkshire:
-        meaning: dfc-f:South_Yorkshire
+        meaning: dfc-f:SouthYorkshire
         description: South Yorkshire
       North_Yorkshire:
-        meaning: dfc-f:North_Yorkshire
+        meaning: dfc-f:NorthYorkshire
         description: North Yorkshire
       West_Yorkshire:
-        meaning: dfc-f:West_Yorkshire
+        meaning: dfc-f:WestYorkshire
         description: West Yorkshire
       East_Riding_of_Yorkshire:
-        meaning: dfc-f:East_Riding_of_Yorkshire
+        meaning: dfc-f:EastRidingOfYorkshire
         description: East Riding of Yorkshire
       Health_claim:
-        meaning: dfc-f:Health_claim
+        meaning: dfc-f:HealthClaim
         description: Health claim
       Allgation_sant:
-        meaning: dfc-f:Allgation_sant
+        meaning: dfc-f:AllgationSant
         description: Allégation santé
       London:
         meaning: dfc-f:London
         description: London
       North_East_England:
-        meaning: dfc-f:North_East_England
+        meaning: dfc-f:NorthEastEngland
         description: North East England
       Label_marketing:
-        meaning: dfc-f:Label_marketing
+        meaning: dfc-f:LabelMarketing
         description: Label marketing
       Marketing_label:
-        meaning: dfc-f:Marketing_label
+        meaning: dfc-f:MarketingLabel
         description: Marketing label
       Label_inconnu:
-        meaning: dfc-f:Label_inconnu
+        meaning: dfc-f:LabelInconnu
         description: Label inconnu
       Unknown_label:
-        meaning: dfc-f:Unknown_label
+        meaning: dfc-f:UnknownLabel
         description: Unknown label
       Seed:
         meaning: dfc-f:Seed
@@ -1752,10 +1756,10 @@ enums:
         meaning: dfc-f:Africa
         description: Africa
       Amrique_du_Sud:
-        meaning: dfc-f:Amrique_du_Sud
+        meaning: dfc-f:AmriqueDuSud
         description: Amérique du Sud
       South_America:
-        meaning: dfc-f:South_America
+        meaning: dfc-f:SouthAmerica
         description: South America
       Asie:
         meaning: dfc-f:Asie
@@ -1764,40 +1768,40 @@ enums:
         meaning: dfc-f:Asia
         description: Asia
       Origine_territoriale_inconnue:
-        meaning: dfc-f:Origine_territoriale_inconnue
+        meaning: dfc-f:OrigineTerritorialeInconnue
         description: Origine territoriale inconnue
       Unknown_territorial_origin:
-        meaning: dfc-f:Unknown_territorial_origin
+        meaning: dfc-f:UnknownTerritorialOrigin
         description: Unknown territorial origin
       Wales:
         meaning: dfc-f:Wales
         description: Wales
       Pays_de_Galles:
-        meaning: dfc-f:Pays_de_Galles
+        meaning: dfc-f:PaysDeGalles
         description: Pays de Galles
       Sheeps_body:
-        meaning: dfc-f:Sheeps_body
+        meaning: dfc-f:SheepsBody
         description: Sheep's body
       Partie_de_mouton:
-        meaning: dfc-f:Partie_de_mouton
+        meaning: dfc-f:PartieDeMouton
         description: Partie de mouton
       Nouvelle_Aquitaine:
-        meaning: dfc-f:Nouvelle_Aquitaine
+        meaning: dfc-f:NouvelleAquitaine
         description: Nouvelle-Aquitaine
       Reconnu_Saveur_de_lanne:
-        meaning: dfc-f:Reconnu_Saveur_de_lanne
+        meaning: dfc-f:TasteOfTheYear
         description: Reconnu Saveur de l’année
       Taste_of_the_year:
-        meaning: dfc-f:Taste_of_the_year
+        meaning: dfc-f:TasteOfTheYear
         description: Taste of the year
       Hauts_de_France:
-        meaning: dfc-f:Hauts_de_France
+        meaning: dfc-f:HautsDeFrance
         description: Hauts-de-France
       New_Zealand:
-        meaning: dfc-f:New_Zealand
+        meaning: dfc-f:NewZealand
         description: New Zealand
       Nouvelle_Zlande:
-        meaning: dfc-f:Nouvelle_Zlande
+        meaning: dfc-f:NewZealand
         description: Nouvelle Zélande
       Fleur:
         meaning: dfc-f:Fleur
@@ -1806,67 +1810,67 @@ enums:
         meaning: dfc-f:Flower
         description: Flower
       Product_of_the_year:
-        meaning: dfc-f:Product_of_the_year
+        meaning: dfc-f:ProductOfTheYear
         description: Product of the year
       Elu_produit_de_lanne:
-        meaning: dfc-f:Elu_produit_de_lanne
+        meaning: dfc-f:ProductOfTheYear
         description: Elu produit de l'année
       Container_Information:
-        meaning: dfc-f:Container_Information
+        meaning: dfc-f:ContainerInformation
         description: Container Information
       Partie_de_chvre:
-        meaning: dfc-f:Partie_de_chvre
+        meaning: dfc-f:GoatBody
         description: Partie de chèvre
       Goats_body:
-        meaning: dfc-f:Goats_body
+        meaning: dfc-f:GoatBody
         description: Goat's body
       Lait_de_brebis:
-        meaning: dfc-f:Lait_de_brebis
+        meaning: dfc-f:SheepMilk
         description: Lait de brebis
       Goat_milk:
-        meaning: dfc-f:Goat_milk
+        meaning: dfc-f:GoatMilk
         description: Goat milk
       Pays_de_la_Loire:
-        meaning: dfc-f:Pays_de_la_Loire
+        meaning: dfc-f:PaysDeLaLoire
         description: Pays de la Loire
       Bulbe:
-        meaning: dfc-f:Bulbe
+        meaning: dfc-f:Bulb
         description: Bulbe
       Bulb:
         meaning: dfc-f:Bulb
         description: Bulb
       Chickens_body:
-        meaning: dfc-f:Chickens_body
+        meaning: dfc-f:ChickenBody
         description: Chicken's body
       Partie_du_poulet:
-        meaning: dfc-f:Partie_du_poulet
+        meaning: dfc-f:ChickenBody
         description: Partie du poulet
       Irlande_du_Nord:
-        meaning: dfc-f:Irlande_du_Nord
+        meaning: dfc-f:NorthernIreland
         description: Irlande du Nord
       Northern_Ireland:
-        meaning: dfc-f:Northern_Ireland
+        meaning: dfc-f:NorthernIreland
         description: Northern Ireland
       Partie_de_brebis:
-        meaning: dfc-f:Partie_de_brebis
+        meaning: dfc-f:EweBody
         description: Partie de brebis
       Ewes_body:
-        meaning: dfc-f:Ewes_body
+        meaning: dfc-f:EweBody
         description: Ewe's body
       Sheep_milk:
-        meaning: dfc-f:Sheep_milk
+        meaning: dfc-f:SheepMilk
         description: Sheep milk
       Hens_egg:
-        meaning: dfc-f:Hens_egg
+        meaning: dfc-f:HenEgg
         description: Hen's egg
       uf_de_poule:
-        meaning: dfc-f:uf_de_poule
+        meaning: dfc-f:HenEgg
         description: Œuf de poule
       Derbyshire:
         meaning: dfc-f:Derbyshire
         description: Derbyshire
       Tyne__Wear:
-        meaning: dfc-f:Tyne__Wear
+        meaning: dfc-f:TyneAndWear
         description: Tyne & Wear
       Dunbartonshire:
         meaning: dfc-f:Dunbartonshire
@@ -1875,25 +1879,25 @@ enums:
         meaning: dfc-f:Leicestershire
         description: Leicestershire
       Provence_Alpes_Cte_dAzur:
-        meaning: dfc-f:Provence_Alpes_Cte_dAzur
+        meaning: dfc-f:ProvenceAlpesCteAzur
         description: Provence-Alpes-Côte d’Azur
       Plante_entire:
-        meaning: dfc-f:Plante_entire
+        meaning: dfc-f:WholePlant
         description: Plante entière
       Whole_plant:
-        meaning: dfc-f:Whole_plant
+        meaning: dfc-f:WholePlant
         description: Whole plant
       Roosters_body:
-        meaning: dfc-f:Roosters_body
+        meaning: dfc-f:RoosterBody
         description: Rooster's body
       Partie_de_coq:
-        meaning: dfc-f:Partie_de_coq
+        meaning: dfc-f:RoosterBody
         description: Partie de coq
       Scottish_Borders:
-        meaning: dfc-f:Scottish_Borders
+        meaning: dfc-f:ScottishBorders
         description: Scottish Borders
       Eastern_Scotland:
-        meaning: dfc-f:Eastern_Scotland
+        meaning: dfc-f:EasternScotland
         description: Eastern Scotland
       Nottinghamshire:
         meaning: dfc-f:Nottinghamshire
@@ -1902,22 +1906,22 @@ enums:
         meaning: dfc-f:Ayrshire
         description: Ayrshire
       County_Durham:
-        meaning: dfc-f:County_Durham
+        meaning: dfc-f:CountyDurham
         description: County Durham
       Northumberland:
         meaning: dfc-f:Northumberland
         description: Northumberland
       Quails_egg:
-        meaning: dfc-f:Quails_egg
+        meaning: dfc-f:QuailsEgg
         description: Quail's egg
       uf_de_caille:
-        meaning: dfc-f:uf_de_caille
+        meaning: dfc-f:ufDeCaille
         description: Œuf de caille
       Statut_gographique_protg:
-        meaning: dfc-f:Statut_gographique_protg
+        meaning: dfc-f:ProtectedGeographicalStatus
         description: Statut géographique protégé
       Protected_Geographical_Status:
-        meaning: dfc-f:Protected_Geographical_Status
+        meaning: dfc-f:ProtectedGeographicalStatus
         description: Protected Geographical Status
       Normandy:
         meaning: dfc-f:Normandy
@@ -1944,13 +1948,13 @@ enums:
         meaning: dfc-f:Corsica
         description: Corsica
       Ile_de_France:
-        meaning: dfc-f:Ile_de_France
+        meaning: dfc-f:IleDeFrance
         description: Ile-de-France
       le_de_France:
-        meaning: dfc-f:le_de_France
+        meaning: dfc-f:IleDeFrance
         description: Île-de-France
       Auvergne_Rhne_Alpes:
-        meaning: dfc-f:Auvergne_Rhne_Alpes
+        meaning: dfc-f:AuvergneRhneAlpes
         description: Auvergne-Rhône-Alpes
       Package:
         meaning: dfc-f:Package
@@ -1962,28 +1966,28 @@ enums:
         meaning: dfc-f:Ecosse
         description: Ecosse
       Highlands_and_Islands:
-        meaning: dfc-f:Highlands_and_Islands
+        meaning: dfc-f:HighlandsAndIslands
         description: Highlands and Islands
       North_East_Scotland:
-        meaning: dfc-f:North_East_Scotland
+        meaning: dfc-f:NorthEastScotland
         description: North East Scotland
       Aberdeenshire:
         meaning: dfc-f:Aberdeenshire
         description: Aberdeenshire
       Partie_de_vache:
-        meaning: dfc-f:Partie_de_vache
+        meaning: dfc-f:CowBody
         description: Partie de vache
       Cows_body:
-        meaning: dfc-f:Cows_body
+        meaning: dfc-f:CowBody
         description: Cow's body
       Lait_de_vache:
-        meaning: dfc-f:Lait_de_vache
+        meaning: dfc-f:CowMilk
         description: Lait de vache
       Cow_milk:
-        meaning: dfc-f:Cow_milk
+        meaning: dfc-f:CowMilk
         description: Cow milk
       Appellation_dorigine_protge:
-        meaning: dfc-f:Appellation_dorigine_protge
+        meaning: dfc-f:AOPEU
         description: Appellation d’origine protégée
       Australie:
         meaning: dfc-f:Australie
@@ -1998,7 +2002,7 @@ enums:
         meaning: dfc-f:Leaf
         description: Leaf
       Feuille:
-        meaning: dfc-f:Feuille
+        meaning: dfc-f:Leaf
         description: Feuille
       Lothian:
         meaning: dfc-f:Lothian
@@ -2013,13 +2017,13 @@ enums:
         meaning: dfc-f:Stem
         description: Stem
       Tige:
-        meaning: dfc-f:Tige
+        meaning: dfc-f:Stem
         description: Tige
       Root:
         meaning: dfc-f:Root
         description: Root
       Racine:
-        meaning: dfc-f:Racine
+        meaning: dfc-f:Root
         description: Racine
       Edinburgh:
         meaning: dfc-f:Edinburgh
@@ -2051,16 +2055,16 @@ enums:
         meaning: dfc-f:snails
         description: snails
       meat_product:
-        meaning: dfc-f:meat_product
+        meaning: dfc-f:meatProduct
         description: meat product
       produit_carn:
-        meaning: dfc-f:produit_carn
+        meaning: dfc-f:produitCarn
         description: produit carné
       topinambour:
         meaning: dfc-f:topinambour
         description: topinambour
       jerusalem_artichoke:
-        meaning: dfc-f:jerusalem_artichoke
+        meaning: dfc-f:jerusalemArtichoke
         description: jerusalem artichoke
       lgume:
         meaning: dfc-f:lgume
@@ -2075,31 +2079,31 @@ enums:
         meaning: dfc-f:soupe
         description: soupe
       lgume_transform:
-        meaning: dfc-f:lgume_transform
+        meaning: dfc-f:lgumeTransform
         description: légume transformé
       processed_vegetable:
-        meaning: dfc-f:processed_vegetable
+        meaning: dfc-f:processedVegetable
         description: processed vegetable
       Venison:
         meaning: dfc-f:Venison
         description: Venison
       Viande_de_cerf:
-        meaning: dfc-f:Viande_de_cerf
+        meaning: dfc-f:ViandeDeCerf
         description: Viande de cerf
       flavored_yogurt:
-        meaning: dfc-f:flavored_yogurt
+        meaning: dfc-f:flavoredYogurt
         description: flavored yogurt
       yaourt_aromatis:
-        meaning: dfc-f:yaourt_aromatis
+        meaning: dfc-f:yaourtAromatis
         description: yaourt aromatisé
       cow_dairy_product:
-        meaning: dfc-f:cow_dairy_product
+        meaning: dfc-f:cowDairyProduct
         description: cow dairy product
       produit_laitier_de_vache:
-        meaning: dfc-f:produit_laitier_de_vache
+        meaning: dfc-f:produitLaitierDeVache
         description: produit laitier de vache
       pomme_de_terre:
-        meaning: dfc-f:pomme_de_terre
+        meaning: dfc-f:pommeDeTerre
         description: pomme de terre
       potato:
         meaning: dfc-f:potato
@@ -2165,16 +2169,16 @@ enums:
         meaning: dfc-f:chalote
         description: échalote
       lgume_de_quatrime_gamme:
-        meaning: dfc-f:lgume_de_quatrime_gamme
+        meaning: dfc-f:lgumeDeQuatrimeGamme
         description: légume de quatrième gamme
       fourth_range_vegetable:
-        meaning: dfc-f:fourth_range_vegetable
+        meaning: dfc-f:fourthRangeVegetable
         description: fourth range vegetable
       non_local_vegetable:
-        meaning: dfc-f:non_local_vegetable
+        meaning: dfc-f:nonLocalVegetable
         description: non local vegetable
       lgume_non_local:
-        meaning: dfc-f:lgume_non_local
+        meaning: dfc-f:lgumeNonLocal
         description: légume non local
       radis:
         meaning: dfc-f:radis
@@ -2192,10 +2196,10 @@ enums:
         meaning: dfc-f:rutabaga
         description: rutabaga
       cleri_branche:
-        meaning: dfc-f:cleri_branche
+        meaning: dfc-f:cleriBranche
         description: céleri branche
       celery_branch:
-        meaning: dfc-f:celery_branch
+        meaning: dfc-f:celeryBranch
         description: celery branch
       artichaut:
         meaning: dfc-f:artichaut
@@ -2228,7 +2232,7 @@ enums:
         meaning: dfc-f:poireau
         description: poireau
       betterave_rouge:
-        meaning: dfc-f:betterave_rouge
+        meaning: dfc-f:betteraveRouge
         description: betterave rouge
       beetroot:
         meaning: dfc-f:beetroot
@@ -2255,28 +2259,28 @@ enums:
         meaning: dfc-f:fenouil
         description: fenouil
       Patate_douce:
-        meaning: dfc-f:Patate_douce
+        meaning: dfc-f:PatateDouce
         description: Patate douce
       yam:
         meaning: dfc-f:yam
         description: yam
       lgume_de_cinquime_gamme:
-        meaning: dfc-f:lgume_de_cinquime_gamme
+        meaning: dfc-f:lgumeDeCinquimeGamme
         description: légume de cinquième gamme
       fifth_range_vegetable:
-        meaning: dfc-f:fifth_range_vegetable
+        meaning: dfc-f:fifthRangeVegetable
         description: fifth range vegetable
       celeriac:
         meaning: dfc-f:celeriac
         description: celeriac
       cleri_rave:
-        meaning: dfc-f:cleri_rave
+        meaning: dfc-f:cleriRave
         description: céleri-rave
       dried_vegetable:
-        meaning: dfc-f:dried_vegetable
+        meaning: dfc-f:driedVegetable
         description: dried vegetable
       lgume_sec:
-        meaning: dfc-f:lgume_sec
+        meaning: dfc-f:lgumeSec
         description: légume sec
       oignon:
         meaning: dfc-f:oignon
@@ -2288,7 +2292,7 @@ enums:
         meaning: dfc-f:aillet
         description: aillet
       green_garlic:
-        meaning: dfc-f:green_garlic
+        meaning: dfc-f:greenGarlic
         description: green garlic
       aubergine:
         meaning: dfc-f:aubergine
@@ -2312,22 +2316,22 @@ enums:
         meaning: dfc-f:champignon
         description: champignon
       crepe_and_galette:
-        meaning: dfc-f:crepe_and_galette
+        meaning: dfc-f:crepeAndGalette
         description: crepe and galette
       crpe_et_galette:
-        meaning: dfc-f:crpe_et_galette
+        meaning: dfc-f:crpeEtGalette
         description: crêpe et galette
       picerie_sale:
-        meaning: dfc-f:picerie_sale
+        meaning: dfc-f:picerieSale
         description: épicerie salée
       savory_groceries:
-        meaning: dfc-f:savory_groceries
+        meaning: dfc-f:savoryGroceries
         description: savory groceries
       piment:
         meaning: dfc-f:piment
         description: piment
       chilli_pepper:
-        meaning: dfc-f:chilli_pepper
+        meaning: dfc-f:chilliPepper
         description: chilli pepper
       chive:
         meaning: dfc-f:chive
@@ -2390,7 +2394,7 @@ enums:
         meaning: dfc-f:thyme
         description: thyme
       bay_laurel:
-        meaning: dfc-f:bay_laurel
+        meaning: dfc-f:bayLaurel
         description: bay laurel
       laurier:
         meaning: dfc-f:laurier
@@ -2423,7 +2427,7 @@ enums:
         meaning: dfc-f:berry
         description: berry
       petit_fruit:
-        meaning: dfc-f:petit_fruit
+        meaning: dfc-f:petitFruit
         description: petit fruit
       cherry:
         meaning: dfc-f:cherry
@@ -2468,13 +2472,13 @@ enums:
         meaning: dfc-f:nectarine
         description: nectarine
       non_local_fruit:
-        meaning: dfc-f:non_local_fruit
+        meaning: dfc-f:nonLocalFruit
         description: non local fruit
       fruit_non_local:
-        meaning: dfc-f:fruit_non_local
+        meaning: dfc-f:fruitNonLocal
         description: fruit non local
       fruit__coque:
-        meaning: dfc-f:fruit__coque
+        meaning: dfc-f:fruitCoque
         description: fruit à coque
       nut:
         meaning: dfc-f:nut
@@ -2543,7 +2547,7 @@ enums:
         meaning: dfc-f:gooseberry
         description: gooseberry
       groseille__maquereau:
-        meaning: dfc-f:groseille__maquereau
+        meaning: dfc-f:groseilleMaquereau
         description: groseille à maquereau
       fraise:
         meaning: dfc-f:fraise
@@ -2558,40 +2562,40 @@ enums:
         meaning: dfc-f:cassis
         description: cassis
       picerie_locale:
-        meaning: dfc-f:picerie_locale
+        meaning: dfc-f:picerieLocale
         description: épicerie locale
       local_grocery_store:
-        meaning: dfc-f:local_grocery_store
+        meaning: dfc-f:localGroceryStore
         description: local grocery store
       produits_sec:
-        meaning: dfc-f:produits_sec
+        meaning: dfc-f:produitsSec
         description: produits sec
       dried_goods:
-        meaning: dfc-f:dried_goods
+        meaning: dfc-f:driedGoods
         description: dried goods
       plat_cuisin:
-        meaning: dfc-f:plat_cuisin
+        meaning: dfc-f:platCuisin
         description: plat cuisiné
       ready_meal:
-        meaning: dfc-f:ready_meal
+        meaning: dfc-f:readyMeal
         description: ready meal
       sweet_groceries:
-        meaning: dfc-f:sweet_groceries
+        meaning: dfc-f:sweetGroceries
         description: sweet groceries
       picerie_sucre:
-        meaning: dfc-f:picerie_sucre
+        meaning: dfc-f:picerieSucre
         description: épicerie sucrée
       processed_fruit:
-        meaning: dfc-f:processed_fruit
+        meaning: dfc-f:processedFruit
         description: processed fruit
       fruit_transform:
-        meaning: dfc-f:fruit_transform
+        meaning: dfc-f:fruitTransform
         description: fruit transformé
       cauliflower:
         meaning: dfc-f:cauliflower
         description: cauliflower
       chou_fleur:
-        meaning: dfc-f:chou_fleur
+        meaning: dfc-f:chouFleur
         description: chou-fleur
       lemonade:
         meaning: dfc-f:lemonade
@@ -2600,10 +2604,10 @@ enums:
         meaning: dfc-f:limonade
         description: limonade
       boisson_non_alcoolise:
-        meaning: dfc-f:boisson_non_alcoolise
+        meaning: dfc-f:boissonNonAlcoolise
         description: boisson non alcoolisée
       soft_drink:
-        meaning: dfc-f:soft_drink
+        meaning: dfc-f:softDrink
         description: soft drink
       salt:
         meaning: dfc-f:salt
@@ -2612,10 +2616,10 @@ enums:
         meaning: dfc-f:sel
         description: sel
       brussels_sprouts:
-        meaning: dfc-f:brussels_sprouts
+        meaning: dfc-f:brusselsSprouts
         description: brussels sprouts
       choux_de_bruxelles:
-        meaning: dfc-f:choux_de_bruxelles
+        meaning: dfc-f:chouxDeBruxelles
         description: choux de bruxelles
       drink:
         meaning: dfc-f:drink
@@ -2624,10 +2628,10 @@ enums:
         meaning: dfc-f:boisson
         description: boisson
       produit_laitier:
-        meaning: dfc-f:produit_laitier
+        meaning: dfc-f:produitLaitier
         description: produit laitier
       dairy_product:
-        meaning: dfc-f:dairy_product
+        meaning: dfc-f:dairyProduct
         description: dairy product
       bakery:
         meaning: dfc-f:bakery
@@ -2639,7 +2643,7 @@ enums:
         meaning: dfc-f:inedible
         description: inedible
       non_alimentaire:
-        meaning: dfc-f:non_alimentaire
+        meaning: dfc-f:nonAlimentaire
         description: non alimentaire
       frozen:
         meaning: dfc-f:frozen
@@ -2648,28 +2652,28 @@ enums:
         meaning: dfc-f:surgel
         description: surgelé
       hierloom_tomato:
-        meaning: dfc-f:hierloom_tomato
+        meaning: dfc-f:hierloomTomato
         description: hierloom tomato
       tomate_ancienne:
-        meaning: dfc-f:tomate_ancienne
+        meaning: dfc-f:tomateAncienne
         description: tomate ancienne
       tomate_cerise:
-        meaning: dfc-f:tomate_cerise
+        meaning: dfc-f:tomateCerise
         description: tomate cerise
       cherry_tomato:
-        meaning: dfc-f:cherry_tomato
+        meaning: dfc-f:cherryTomato
         description: cherry tomato
       round_tomato:
-        meaning: dfc-f:round_tomato
+        meaning: dfc-f:roundTomato
         description: round tomato
       tomate_ronde:
-        meaning: dfc-f:tomate_ronde
+        meaning: dfc-f:tomateRonde
         description: tomate ronde
       tomate_en_grappe:
-        meaning: dfc-f:tomate_en_grappe
+        meaning: dfc-f:tomateEnGrappe
         description: tomate en grappe
       cluster_tomato:
-        meaning: dfc-f:cluster_tomato
+        meaning: dfc-f:clusterTomato
         description: cluster tomato
       shellfish:
         meaning: dfc-f:shellfish
@@ -2678,10 +2682,10 @@ enums:
         meaning: dfc-f:crustacs
         description: crustacés
       fishery_product:
-        meaning: dfc-f:fishery_product
+        meaning: dfc-f:fisheryProduct
         description: fishery product
       produit_de_la_pche:
-        meaning: dfc-f:produit_de_la_pche
+        meaning: dfc-f:produitDeLaPche
         description: produit de la pêche
       viennoiserie:
         meaning: dfc-f:viennoiserie
@@ -2723,22 +2727,22 @@ enums:
         meaning: dfc-f:crale
         description: céréale
       sheep_natural_yogurt:
-        meaning: dfc-f:sheep_natural_yogurt
+        meaning: dfc-f:sheepNaturalYogurt
         description: sheep natural yogurt
       yaourt_de_brebis_nature:
-        meaning: dfc-f:yaourt_de_brebis_nature
+        meaning: dfc-f:yaourtDeBrebisNature
         description: yaourt de brebis nature
       produit_laitier_de_brebis:
-        meaning: dfc-f:produit_laitier_de_brebis
+        meaning: dfc-f:produitLaitierDeBrebis
         description: produit laitier de brebis
       sheep_dairy_product:
-        meaning: dfc-f:sheep_dairy_product
+        meaning: dfc-f:sheepDairyProduct
         description: sheep dairy product
       crme_frache:
-        meaning: dfc-f:crme_frache
+        meaning: dfc-f:crmeFrache
         description: crème fraîche
       fresh_cream:
-        meaning: dfc-f:fresh_cream
+        meaning: dfc-f:freshCream
         description: fresh cream
       rocket:
         meaning: dfc-f:rocket
@@ -2747,10 +2751,10 @@ enums:
         meaning: dfc-f:roquette
         description: roquette
       pie_pastry:
-        meaning: dfc-f:pie_pastry
+        meaning: dfc-f:piePastry
         description: pie pastry
       pte__tarte:
-        meaning: dfc-f:pte__tarte
+        meaning: dfc-f:pteTarte
         description: pâte à tarte
       morel:
         meaning: dfc-f:morel
@@ -2759,22 +2763,22 @@ enums:
         meaning: dfc-f:morille
         description: morille
       fromage_frais_de_chvre:
-        meaning: dfc-f:fromage_frais_de_chvre
+        meaning: dfc-f:fromageFraisDeChvre
         description: fromage frais de chèvre
       goat_fresh_cheese:
-        meaning: dfc-f:goat_fresh_cheese
+        meaning: dfc-f:goatFreshCheese
         description: goat fresh cheese
       produit_laitier_de_chvre:
-        meaning: dfc-f:produit_laitier_de_chvre
+        meaning: dfc-f:produitLaitierDeChvre
         description: produit laitier de chèvre
       goat_dairy_product:
-        meaning: dfc-f:goat_dairy_product
+        meaning: dfc-f:goatDairyProduct
         description: goat dairy product
       smooth_cabbage:
-        meaning: dfc-f:smooth_cabbage
+        meaning: dfc-f:smoothCabbage
         description: smooth cabbage
       chou_lisse:
-        meaning: dfc-f:chou_lisse
+        meaning: dfc-f:chouLisse
         description: chou lisse
       veau:
         meaning: dfc-f:veau
@@ -2783,10 +2787,10 @@ enums:
         meaning: dfc-f:veal
         description: veal
       goat_mature_cheese:
-        meaning: dfc-f:goat_mature_cheese
+        meaning: dfc-f:goatMatureCheese
         description: goat mature cheese
       fromage_de_chvre_affin:
-        meaning: dfc-f:fromage_de_chvre_affin
+        meaning: dfc-f:fromageDeChvreAffin
         description: fromage de chèvre affiné
       graine:
         meaning: dfc-f:graine
@@ -2816,7 +2820,7 @@ enums:
         meaning: dfc-f:pois
         description: pois
       viande_bovine:
-        meaning: dfc-f:viande_bovine
+        meaning: dfc-f:viandeBovine
         description: viande bovine
       beef:
         meaning: dfc-f:beef
@@ -2846,34 +2850,34 @@ enums:
         meaning: dfc-f:rabbit
         description: rabbit
       fromage_affin:
-        meaning: dfc-f:fromage_affin
+        meaning: dfc-f:fromageAffin
         description: fromage affiné
       mature_cheese:
-        meaning: dfc-f:mature_cheese
+        meaning: dfc-f:matureCheese
         description: mature cheese
       bluefoot_mushroom:
-        meaning: dfc-f:bluefoot_mushroom
+        meaning: dfc-f:bluefootMushroom
         description: bluefoot mushroom
       Pied_bleu:
-        meaning: dfc-f:Pied_bleu
+        meaning: dfc-f:PiedBleu
         description: Pied-bleu
       canned_vegetable:
-        meaning: dfc-f:canned_vegetable
+        meaning: dfc-f:cannedVegetable
         description: canned vegetable
       lgume_en_conserve:
-        meaning: dfc-f:lgume_en_conserve
+        meaning: dfc-f:lgumeEnConserve
         description: légume en conserve
       fromage_affin_de_brebis:
-        meaning: dfc-f:fromage_affin_de_brebis
+        meaning: dfc-f:fromageAffinDeBrebis
         description: fromage affiné de brebis
       sheep_mature_cheese:
-        meaning: dfc-f:sheep_mature_cheese
+        meaning: dfc-f:sheepMatureCheese
         description: sheep mature cheese
       yaourt_sucr_de_chvre:
-        meaning: dfc-f:yaourt_sucr_de_chvre
+        meaning: dfc-f:yaourtSucrDeChvre
         description: yaourt sucré de chèvre
       goat_sweet_yogurt:
-        meaning: dfc-f:goat_sweet_yogurt
+        meaning: dfc-f:goatSweetYogurt
         description: goat sweet yogurt
       pastry:
         meaning: dfc-f:pastry
@@ -2882,10 +2886,10 @@ enums:
         meaning: dfc-f:ptisserie
         description: pâtisserie
       chou_pomm:
-        meaning: dfc-f:chou_pomm
+        meaning: dfc-f:chouPomm
         description: chou pommé
       savoy_cabbage:
-        meaning: dfc-f:savoy_cabbage
+        meaning: dfc-f:savoyCabbage
         description: savoy cabbage
       pinards:
         meaning: dfc-f:pinards
@@ -2894,10 +2898,10 @@ enums:
         meaning: dfc-f:spinach
         description: spinach
       mlange_de_salades:
-        meaning: dfc-f:mlange_de_salades
+        meaning: dfc-f:mlangeDeSalades
         description: mélange de salades
       salad_mix:
-        meaning: dfc-f:salad_mix
+        meaning: dfc-f:saladMix
         description: salad mix
       laitue:
         meaning: dfc-f:laitue
@@ -2906,7 +2910,7 @@ enums:
         meaning: dfc-f:lettuce
         description: lettuce
       corn_saladlambs_lettuce:
-        meaning: dfc-f:corn_saladlambs_lettuce
+        meaning: dfc-f:cornSaladlambsLettuce
         description: corn salad/lambs lettuce
       mche:
         meaning: dfc-f:mche
@@ -2942,64 +2946,64 @@ enums:
         meaning: dfc-f:endive
         description: endive
       autre_produit_laitier:
-        meaning: dfc-f:autre_produit_laitier
+        meaning: dfc-f:autreProduitLaitier
         description: autre produit laitier
       other_dairy_product:
-        meaning: dfc-f:other_dairy_product
+        meaning: dfc-f:otherDairyProduct
         description: other dairy product
       dessert_lact_de_chvre:
-        meaning: dfc-f:dessert_lact_de_chvre
+        meaning: dfc-f:dessertLactDeChvre
         description: dessert lacté de chèvre
       goat_dairy_dessert:
-        meaning: dfc-f:goat_dairy_dessert
+        meaning: dfc-f:goatDairyDessert
         description: goat dairy dessert
       goat_flavored_yogurt:
-        meaning: dfc-f:goat_flavored_yogurt
+        meaning: dfc-f:goatFlavoredYogurt
         description: goat flavored yogurt
       yaourt_de_chvre_aromatis:
-        meaning: dfc-f:yaourt_de_chvre_aromatis
+        meaning: dfc-f:yaourtDeChvreAromatis
         description: yaourt de chèvre aromatisé
       goat_natural_yogurt:
-        meaning: dfc-f:goat_natural_yogurt
+        meaning: dfc-f:goatNaturalYogurt
         description: goat natural yogurt
       yaourt_nature_de_chvre:
-        meaning: dfc-f:yaourt_nature_de_chvre
+        meaning: dfc-f:yaourtNatureDeChvre
         description: yaourt nature de chèvre
       yaourt_de_chvre_aux_fruits:
-        meaning: dfc-f:yaourt_de_chvre_aux_fruits
+        meaning: dfc-f:yaourtDeChvreAuxFruits
         description: yaourt de chèvre aux fruits
       goat_yogurt_with_fruits:
-        meaning: dfc-f:goat_yogurt_with_fruits
+        meaning: dfc-f:goatYogurtWithFruits
         description: goat yogurt with fruits
       goat_milk:
-        meaning: dfc-f:goat_milk
+        meaning: dfc-f:goatMilk
         description: goat milk
       lait_de_chvre:
-        meaning: dfc-f:lait_de_chvre
+        meaning: dfc-f:laitDeChvre
         description: lait de chèvre
       yaourt_de_chvre_sur_lit_de_fruits:
-        meaning: dfc-f:yaourt_de_chvre_sur_lit_de_fruits
+        meaning: dfc-f:yaourtDeChvreSurLitDeFruits
         description: yaourt de chèvre sur lit de fruits
       goat_yogurt_on_a_bed_of_fruit:
-        meaning: dfc-f:goat_yogurt_on_a_bed_of_fruit
+        meaning: dfc-f:goatYogurtOnABedOfFruit
         description: goat yogurt on a bed of fruit
       viande_surgele:
-        meaning: dfc-f:viande_surgele
+        meaning: dfc-f:viandeSurgele
         description: viande surgelée
       frozen_meat:
-        meaning: dfc-f:frozen_meat
+        meaning: dfc-f:frozenMeat
         description: frozen meat
       frozen_meal:
-        meaning: dfc-f:frozen_meal
+        meaning: dfc-f:frozenMeal
         description: frozen meal
       plat_surgel:
-        meaning: dfc-f:plat_surgel
+        meaning: dfc-f:platSurgel
         description: plat surgelé
       bottled_vegetable:
-        meaning: dfc-f:bottled_vegetable
+        meaning: dfc-f:bottledVegetable
         description: bottled vegetable
       lgume_en_bocal:
-        meaning: dfc-f:lgume_en_bocal
+        meaning: dfc-f:lgumeEnBocal
         description: légume en bocal
       biscuit:
         meaning: dfc-f:biscuit
@@ -3008,13 +3012,13 @@ enums:
         meaning: dfc-f:lactaire
         description: lactaire
       milky_mushroom:
-        meaning: dfc-f:milky_mushroom
+        meaning: dfc-f:milkyMushroom
         description: milky mushroom
       frozen_vegetable:
-        meaning: dfc-f:frozen_vegetable
+        meaning: dfc-f:frozenVegetable
         description: frozen vegetable
       lgume_surgel:
-        meaning: dfc-f:lgume_surgel
+        meaning: dfc-f:lgumeSurgel
         description: légume surgelé
       fish:
         meaning: dfc-f:fish
@@ -3023,10 +3027,10 @@ enums:
         meaning: dfc-f:poisson
         description: poisson
       grilling_meat:
-        meaning: dfc-f:grilling_meat
+        meaning: dfc-f:grillingMeat
         description: grilling meat
       viande__griller:
-        meaning: dfc-f:viande__griller
+        meaning: dfc-f:viandeGriller
         description: viande à griller
       confiserie:
         meaning: dfc-f:confiserie
@@ -3038,7 +3042,7 @@ enums:
         meaning: dfc-f:coulemelle
         description: coulemelle
       parasol_mushroom:
-        meaning: dfc-f:parasol_mushroom
+        meaning: dfc-f:parasolMushroom
         description: parasol mushroom
       butternut:
         meaning: dfc-f:butternut
@@ -3050,19 +3054,19 @@ enums:
         meaning: dfc-f:pumpkin
         description: pumpkin
       hierloom_squash:
-        meaning: dfc-f:hierloom_squash
+        meaning: dfc-f:hierloomSquash
         description: hierloom squash
       varit_ancienne_de_courge:
-        meaning: dfc-f:varit_ancienne_de_courge
+        meaning: dfc-f:varitAncienneDeCourge
         description: variété ancienne de courge
       uchiki_kuri_squash:
-        meaning: dfc-f:uchiki_kuri_squash
+        meaning: dfc-f:uchikiKuriSquash
         description: uchiki kuri squash
       potimarron:
         meaning: dfc-f:potimarron
         description: potimarron
       pattypan_squash:
-        meaning: dfc-f:pattypan_squash
+        meaning: dfc-f:pattypanSquash
         description: pattypan squash
       ptisson:
         meaning: dfc-f:ptisson
@@ -3074,16 +3078,16 @@ enums:
         meaning: dfc-f:pain
         description: pain
       autre_fromage:
-        meaning: dfc-f:autre_fromage
+        meaning: dfc-f:autreFromage
         description: autre fromage
       other_cheese:
-        meaning: dfc-f:other_cheese
+        meaning: dfc-f:otherCheese
         description: other cheese
       autre_lait:
-        meaning: dfc-f:autre_lait
+        meaning: dfc-f:autreLait
         description: autre lait
       other_milk:
-        meaning: dfc-f:other_milk
+        meaning: dfc-f:otherMilk
         description: other milk
       ferment:
         meaning: dfc-f:ferment
@@ -3095,10 +3099,10 @@ enums:
         meaning: dfc-f:apritif
         description: apéritif
       boisson_alcoolise:
-        meaning: dfc-f:boisson_alcoolise
+        meaning: dfc-f:boissonAlcoolise
         description: boisson alcoolisée
       alcoholic_beverage:
-        meaning: dfc-f:alcoholic_beverage
+        meaning: dfc-f:alcoholicBeverage
         description: alcoholic beverage
       snack:
         meaning: dfc-f:snack
@@ -3110,10 +3114,10 @@ enums:
         meaning: dfc-f:cosmtique
         description: cosmétique
       cooked_meat:
-        meaning: dfc-f:cooked_meat
+        meaning: dfc-f:cookedMeat
         description: cooked meat
       viande_cuite:
-        meaning: dfc-f:viande_cuite
+        meaning: dfc-f:viandeCuite
         description: viande cuite
       charcuterie:
         meaning: dfc-f:charcuterie
@@ -3122,10 +3126,10 @@ enums:
         meaning: dfc-f:delicatessen
         description: delicatessen
       viande_frache:
-        meaning: dfc-f:viande_frache
+        meaning: dfc-f:viandeFrache
         description: viande fraîche
       fresh_meat:
-        meaning: dfc-f:fresh_meat
+        meaning: dfc-f:freshMeat
         description: fresh meat
       salaison:
         meaning: dfc-f:salaison
@@ -3137,7 +3141,7 @@ enums:
         meaning: dfc-f:pintade
         description: pintade
       guinea_fowl:
-        meaning: dfc-f:guinea_fowl
+        meaning: dfc-f:guineaFowl
         description: guinea fowl
       dinde:
         meaning: dfc-f:dinde
@@ -3158,10 +3162,10 @@ enums:
         meaning: dfc-f:duck
         description: duck
       festive_poultry:
-        meaning: dfc-f:festive_poultry
+        meaning: dfc-f:festivePoultry
         description: festive poultry
       volaille_festive:
-        meaning: dfc-f:volaille_festive
+        meaning: dfc-f:volailleFestive
         description: volaille festive
       pigeon:
         meaning: dfc-f:pigeon
@@ -3179,7 +3183,7 @@ enums:
         meaning: dfc-f:digestif
         description: digestif
       chou_rave:
-        meaning: dfc-f:chou_rave
+        meaning: dfc-f:chouRave
         description: chou-rave
       kohlrabi:
         meaning: dfc-f:kohlrabi
@@ -3191,40 +3195,40 @@ enums:
         meaning: dfc-f:beurre
         description: beurre
       chou_rouge:
-        meaning: dfc-f:chou_rouge
+        meaning: dfc-f:chouRouge
         description: chou rouge
       red_cabbage:
-        meaning: dfc-f:red_cabbage
+        meaning: dfc-f:redCabbage
         description: red cabbage
       chou_romanesco:
-        meaning: dfc-f:chou_romanesco
+        meaning: dfc-f:chouRomanesco
         description: chou romanesco
       romanesco_cauliflower:
-        meaning: dfc-f:romanesco_cauliflower
+        meaning: dfc-f:romanescoCauliflower
         description: romanesco cauliflower
       broccoli_cabbage:
-        meaning: dfc-f:broccoli_cabbage
+        meaning: dfc-f:broccoliCabbage
         description: broccoli cabbage
       chou_brocoli:
-        meaning: dfc-f:chou_brocoli
+        meaning: dfc-f:chouBrocoli
         description: chou brocoli
       chou_fris:
-        meaning: dfc-f:chou_fris
+        meaning: dfc-f:chouFris
         description: chou frisé
       curly_kale:
-        meaning: dfc-f:curly_kale
+        meaning: dfc-f:curlyKale
         description: curly kale
       chou_kale:
-        meaning: dfc-f:chou_kale
+        meaning: dfc-f:chouKale
         description: chou kale
       kale:
         meaning: dfc-f:kale
         description: kale
       chou_chinois:
-        meaning: dfc-f:chou_chinois
+        meaning: dfc-f:chouChinois
         description: chou chinois
       chinese_cabbage:
-        meaning: dfc-f:chinese_cabbage
+        meaning: dfc-f:chineseCabbage
         description: chinese cabbage
       honey:
         meaning: dfc-f:honey
@@ -3239,10 +3243,10 @@ enums:
         meaning: dfc-f:confiture
         description: confiture
       frozen_fruit:
-        meaning: dfc-f:frozen_fruit
+        meaning: dfc-f:frozenFruit
         description: frozen fruit
       fruit_surgel:
-        meaning: dfc-f:fruit_surgel
+        meaning: dfc-f:fruitSurgel
         description: fruit surgelé
       coquillage:
         meaning: dfc-f:coquillage
@@ -3257,22 +3261,22 @@ enums:
         meaning: dfc-f:porcini
         description: porcini
       fruit_juice:
-        meaning: dfc-f:fruit_juice
+        meaning: dfc-f:fruitJuice
         description: fruit juice
       jus_de_fruits:
-        meaning: dfc-f:jus_de_fruits
+        meaning: dfc-f:jusDeFruits
         description: jus de fruits
       button_mushroom:
-        meaning: dfc-f:button_mushroom
+        meaning: dfc-f:buttonMushroom
         description: button mushroom
       champignon_de_Paris:
-        meaning: dfc-f:champignon_de_Paris
+        meaning: dfc-f:champignonDeParis
         description: champignon de Paris
       girolle:
         meaning: dfc-f:girolle
         description: girolle
       girolle_mushroom:
-        meaning: dfc-f:girolle_mushroom
+        meaning: dfc-f:girolleMushroom
         description: girolle mushroom
       truffe:
         meaning: dfc-f:truffe
@@ -3281,10 +3285,10 @@ enums:
         meaning: dfc-f:truffle
         description: truffle
       Pied_de_mouton:
-        meaning: dfc-f:Pied_de_mouton
+        meaning: dfc-f:PiedDeMouton
         description: Pied-de-mouton
       sheepfoot_mushroom:
-        meaning: dfc-f:sheepfoot_mushroom
+        meaning: dfc-f:sheepfootMushroom
         description: sheepfoot mushroom
       mousseron:
         meaning: dfc-f:mousseron
@@ -3293,31 +3297,31 @@ enums:
         meaning: dfc-f:chanterelle
         description: chanterelle
       chanterelle_mushroom:
-        meaning: dfc-f:chanterelle_mushroom
+        meaning: dfc-f:chanterelleMushroom
         description: chanterelle mushroom
       oyster_mushroom:
-        meaning: dfc-f:oyster_mushroom
+        meaning: dfc-f:oysterMushroom
         description: oyster mushroom
       pleurote:
         meaning: dfc-f:pleurote
         description: pleurote
       deaths_trumpet:
-        meaning: dfc-f:deaths_trumpet
+        meaning: dfc-f:deathsTrumpet
         description: deaths trumpet
       trompette_de_la_mort:
-        meaning: dfc-f:trompette_de_la_mort
+        meaning: dfc-f:trompetteDeLaMort
         description: trompette de la mort
       cream_cheese:
-        meaning: dfc-f:cream_cheese
+        meaning: dfc-f:creamCheese
         description: cream cheese
       fromage_blanc:
-        meaning: dfc-f:fromage_blanc
+        meaning: dfc-f:fromageBlanc
         description: fromage blanc
       sheep_sweet_yogurt:
-        meaning: dfc-f:sheep_sweet_yogurt
+        meaning: dfc-f:sheepSweetYogurt
         description: sheep sweet yogurt
       yaourt_sucr_de_brebis:
-        meaning: dfc-f:yaourt_sucr_de_brebis
+        meaning: dfc-f:yaourtSucrDeBrebis
         description: yaourt sucré de brebis
       semolina:
         meaning: dfc-f:semolina
@@ -3332,7 +3336,7 @@ enums:
         meaning: dfc-f:oil
         description: oil
       canned_goods:
-        meaning: dfc-f:canned_goods
+        meaning: dfc-f:cannedGoods
         description: canned goods
       ptes:
         meaning: dfc-f:ptes
@@ -3347,85 +3351,85 @@ enums:
         meaning: dfc-f:riz
         description: riz
       yaourt_sur_lit_de_fruits:
-        meaning: dfc-f:yaourt_sur_lit_de_fruits
+        meaning: dfc-f:yaourtSurLitDeFruits
         description: yaourt sur lit de fruits
       yogurt_on_a_bed_of_fruit:
-        meaning: dfc-f:yogurt_on_a_bed_of_fruit
+        meaning: dfc-f:yogurtOnABedOfFruit
         description: yogurt on a bed of fruit
       pulse:
         meaning: dfc-f:pulse
         description: pulse
       sheep_dairy_dessert:
-        meaning: dfc-f:sheep_dairy_dessert
+        meaning: dfc-f:sheepDairyDessert
         description: sheep dairy dessert
       dessert_lact_de_brebis:
-        meaning: dfc-f:dessert_lact_de_brebis
+        meaning: dfc-f:dessertLactDeBrebis
         description: dessert lacté de brebis
       sheep_flavored_yogurt:
-        meaning: dfc-f:sheep_flavored_yogurt
+        meaning: dfc-f:sheepFlavoredYogurt
         description: sheep flavored yogurt
       yaourt_de_brebis_aromatis:
-        meaning: dfc-f:yaourt_de_brebis_aromatis
+        meaning: dfc-f:yaourtDeBrebisAromatis
         description: yaourt de brebis aromatisé
       sheep_fresh_cheese:
-        meaning: dfc-f:sheep_fresh_cheese
+        meaning: dfc-f:sheepFreshCheese
         description: sheep fresh cheese
       Fromage_frais_de_brebis:
-        meaning: dfc-f:Fromage_frais_de_brebis
+        meaning: dfc-f:FromageFraisDeBrebis
         description: Fromage frais de brebis
       lait_de_brebis:
-        meaning: dfc-f:lait_de_brebis
+        meaning: dfc-f:laitDeBrebis
         description: lait de brebis
       sheep_milk:
-        meaning: dfc-f:sheep_milk
+        meaning: dfc-f:sheepMilk
         description: sheep milk
       sheep_yogurt_on_a_bed_of_fruit:
-        meaning: dfc-f:sheep_yogurt_on_a_bed_of_fruit
+        meaning: dfc-f:sheepYogurtOnABedOfFruit
         description: sheep yogurt on a bed of fruit
       yaourt_de_brebis_sur_lit_de_fruits:
-        meaning: dfc-f:yaourt_de_brebis_sur_lit_de_fruits
+        meaning: dfc-f:yaourtDeBrebisSurLitDeFruits
         description: yaourt de brebis sur lit de fruits
       sheep_yogurt_with_fruits:
-        meaning: dfc-f:sheep_yogurt_with_fruits
+        meaning: dfc-f:sheepYogurtWithFruits
         description: sheep yogurt with fruits
       yaourt_de_brebis_aux_fruits:
-        meaning: dfc-f:yaourt_de_brebis_aux_fruits
+        meaning: dfc-f:yaourtDeBrebisAuxFruits
         description: yaourt de brebis aux fruits
       fruit_en_compote:
-        meaning: dfc-f:fruit_en_compote
+        meaning: dfc-f:fruitEnCompote
         description: fruit en compote
       fruit_in_compote:
-        meaning: dfc-f:fruit_in_compote
+        meaning: dfc-f:fruitInCompote
         description: fruit in compote
       fruit_en_bocal:
-        meaning: dfc-f:fruit_en_bocal
+        meaning: dfc-f:fruitEnBocal
         description: fruit en bocal
       bottled_fruit:
-        meaning: dfc-f:bottled_fruit
+        meaning: dfc-f:bottledFruit
         description: bottled fruit
       canned_fruit:
-        meaning: dfc-f:canned_fruit
+        meaning: dfc-f:cannedFruit
         description: canned fruit
       fruit_en_conserve:
-        meaning: dfc-f:fruit_en_conserve
+        meaning: dfc-f:fruitEnConserve
         description: fruit en conserve
       fruit_sec:
-        meaning: dfc-f:fruit_sec
+        meaning: dfc-f:fruitSec
         description: fruit sec
       dried_fruit:
-        meaning: dfc-f:dried_fruit
+        meaning: dfc-f:driedFruit
         description: dried fruit
       dairy_dessert:
-        meaning: dfc-f:dairy_dessert
+        meaning: dfc-f:dairyDessert
         description: dairy dessert
       dessert_lact:
-        meaning: dfc-f:dessert_lact
+        meaning: dfc-f:dessertLact
         description: dessert lacté
       fresh_cheese:
-        meaning: dfc-f:fresh_cheese
+        meaning: dfc-f:freshCheese
         description: fresh cheese
       fromage_frais:
-        meaning: dfc-f:fromage_frais
+        meaning: dfc-f:fromageFrais
         description: fromage frais
       lait:
         meaning: dfc-f:lait
@@ -3434,22 +3438,22 @@ enums:
         meaning: dfc-f:milk
         description: milk
       yaourt_nature:
-        meaning: dfc-f:yaourt_nature
+        meaning: dfc-f:yaourtNature
         description: yaourt nature
       natural_yogurt:
-        meaning: dfc-f:natural_yogurt
+        meaning: dfc-f:naturalYogurt
         description: natural yogurt
       yaourt_sucr:
-        meaning: dfc-f:yaourt_sucr
+        meaning: dfc-f:yaourtSucr
         description: yaourt sucré
       sweet_yogurt:
-        meaning: dfc-f:sweet_yogurt
+        meaning: dfc-f:sweetYogurt
         description: sweet yogurt
       yaourt_aux_fruits:
-        meaning: dfc-f:yaourt_aux_fruits
+        meaning: dfc-f:yaourtAuxFruits
         description: yaourt aux fruits
       yogurt_with_fruits:
-        meaning: dfc-f:yogurt_with_fruits
+        meaning: dfc-f:yogurtWithFruits
         description: yogurt with fruits
       flour:
         meaning: dfc-f:flour
@@ -3470,16 +3474,16 @@ enums:
         meaning: dfc-f:plante
         description: plante
       aromate_sec:
-        meaning: dfc-f:aromate_sec
+        meaning: dfc-f:aromateSec
         description: aromate sec
       dried_herb:
-        meaning: dfc-f:dried_herb
+        meaning: dfc-f:driedHerb
         description: dried herb
       viande__mijoter:
-        meaning: dfc-f:viande__mijoter
+        meaning: dfc-f:viandeMijoter
         description: viande à mijoter
       simmering_meat:
-        meaning: dfc-f:simmering_meat
+        meaning: dfc-f:simmeringMeat
         description: simmering meat
       wine:
         meaning: dfc-f:wine
@@ -3504,23 +3508,20 @@ enums:
         description: cidre
   Measure:
     permissible_values:
-      6_pack:
-        meaning: dfc-f:6_pack
-        description: 6 pack
       pack_de_6:
-        meaning: dfc-f:pack_de_6
+        meaning: dfc-f:packDe6
         description: pack de 6
       Product_measure_glossary_:
-        meaning: dfc-f:Product_measure_glossary_
+        meaning: dfc-f:ProductMeasureGlossary
         description: 'Product measure glossary '
       Glossaire_mesure_produit:
-        meaning: dfc-f:Glossaire_mesure_produit
+        meaning: dfc-f:GlossaireMesureProduit
         description: Glossaire mesure produit
       Quantity_unit:
-        meaning: dfc-f:Quantity_unit
+        meaning: dfc-f:QuantityUnit
         description: Quantity unit
       Unit_de_quantit:
-        meaning: dfc-f:Unit_de_quantit
+        meaning: dfc-f:UnitDeQuantit
         description: Unité de quantité
       Largeur:
         meaning: dfc-f:Largeur
@@ -3529,10 +3530,10 @@ enums:
         meaning: dfc-f:Width
         description: Width
       Physical_dimension:
-        meaning: dfc-f:Physical_dimension
+        meaning: dfc-f:PhysicalDimension
         description: Physical dimension
       Dimension_physique:
-        meaning: dfc-f:Dimension_physique
+        meaning: dfc-f:DimensionPhysique
         description: Dimension physique
       douzaine:
         meaning: dfc-f:douzaine
@@ -3568,10 +3569,10 @@ enums:
         meaning: dfc-f:euro
         description: euro
       Currency_unit:
-        meaning: dfc-f:Currency_unit
+        meaning: dfc-f:CurrencyUnit
         description: Currency unit
       Unit_de_devise_montaire:
-        meaning: dfc-f:Unit_de_devise_montaire
+        meaning: dfc-f:UnitDeDeviseMontaire
         description: Unité de devise monétaire
       tasse:
         meaning: dfc-f:tasse
@@ -3616,11 +3617,8 @@ enums:
         meaning: dfc-f:bote
         description: boîte
       pack_de_4:
-        meaning: dfc-f:pack_de_4
+        meaning: dfc-f:packDe4
         description: pack de 4
-      4_pack:
-        meaning: dfc-f:4_pack
-        description: 4 pack
       net:
         meaning: dfc-f:net
         description: net
@@ -3655,25 +3653,25 @@ enums:
         meaning: dfc-f:palette
         description: palette
       beer_crate:
-        meaning: dfc-f:beer_crate
+        meaning: dfc-f:beerCrate
         description: beer crate
       casier__bire:
-        meaning: dfc-f:casier__bire
+        meaning: dfc-f:casierBire
         description: casier à bière
       carton:
         meaning: dfc-f:carton
         description: carton
       half_dozen:
-        meaning: dfc-f:half_dozen
+        meaning: dfc-f:halfDozen
         description: half dozen
       demi_douzaine:
-        meaning: dfc-f:demi_douzaine
+        meaning: dfc-f:demiDouzaine
         description: demi-douzaine
       grain_bulk:
-        meaning: dfc-f:grain_bulk
+        meaning: dfc-f:grainBulk
         description: grain bulk
       grain_en_vrac:
-        meaning: dfc-f:grain_en_vrac
+        meaning: dfc-f:grainEnVrac
         description: grain en vrac
       gram:
         meaning: dfc-f:gram
@@ -3700,7 +3698,7 @@ enums:
         meaning: dfc-f:tub
         description: tub
       bote_de_conserve:
-        meaning: dfc-f:bote_de_conserve
+        meaning: dfc-f:boteDeConserve
         description: boîte de conserve
       tin:
         meaning: dfc-f:tin
@@ -3715,10 +3713,10 @@ enums:
         meaning: dfc-f:once
         description: once
       gallon_UK:
-        meaning: dfc-f:gallon_UK
+        meaning: dfc-f:gallonUK
         description: gallon (UK)
       gallon_GB:
-        meaning: dfc-f:gallon_GB
+        meaning: dfc-f:gallonGB
         description: gallon (GB)
       panier:
         meaning: dfc-f:panier
@@ -3811,10 +3809,10 @@ enums:
         meaning: dfc-f:poche
         description: poche
       nodule_bulk:
-        meaning: dfc-f:nodule_bulk
+        meaning: dfc-f:noduleBulk
         description: nodule bulk
       nodule_en_vrac:
-        meaning: dfc-f:nodule_en_vrac
+        meaning: dfc-f:noduleEnVrac
         description: nodule en vrac
       mtre:
         meaning: dfc-f:mtre
@@ -3835,16 +3833,16 @@ enums:
         meaning: dfc-f:pice
         description: pièce
       poudre_en_vrac:
-        meaning: dfc-f:poudre_en_vrac
+        meaning: dfc-f:poudreEnVrac
         description: poudre en vrac
       powder_bulk:
-        meaning: dfc-f:powder_bulk
+        meaning: dfc-f:powderBulk
         description: powder bulk
       liquide_en_vrac:
-        meaning: dfc-f:liquide_en_vrac
+        meaning: dfc-f:liquideEnVrac
         description: liquide en vrac
       liquid_bulk:
-        meaning: dfc-f:liquid_bulk
+        meaning: dfc-f:liquidBulk
         description: liquid bulk
       bocal:
         meaning: dfc-f:bocal
@@ -3883,16 +3881,16 @@ enums:
         meaning: dfc-f:Unit
         description: Unit
       Graisse_sature:
-        meaning: dfc-f:Graisse_sature
+        meaning: dfc-f:GraisseSature
         description: Graisse saturée
       Saturated_fat:
-        meaning: dfc-f:Saturated_fat
+        meaning: dfc-f:SaturatedFat
         description: Saturated fat
       Dimension_nutritionnelle:
-        meaning: dfc-f:Dimension_nutritionnelle
+        meaning: dfc-f:DimensionNutritionnelle
         description: Dimension nutritionnelle
       Nutrient_dimension:
-        meaning: dfc-f:Nutrient_dimension
+        meaning: dfc-f:NutrientDimension
         description: Nutrient dimension
       Copper:
         meaning: dfc-f:Copper
@@ -3922,16 +3920,16 @@ enums:
         meaning: dfc-f:Selenium
         description: Selenium
       Graisse_poly_insature:
-        meaning: dfc-f:Graisse_poly_insature
+        meaning: dfc-f:GraissePolyInsature
         description: Graisse poly-insaturée
       Poly_unsaturated_fat:
-        meaning: dfc-f:Poly_unsaturated_fat
+        meaning: dfc-f:PolyUnsaturatedFat
         description: Poly-unsaturated fat
       Vitamine_B6:
-        meaning: dfc-f:Vitamine_B6
+        meaning: dfc-f:VitamineB6
         description: Vitamine B6
       Vitamin_B6:
-        meaning: dfc-f:Vitamin_B6
+        meaning: dfc-f:VitaminB6
         description: Vitamin B6
       Protine:
         meaning: dfc-f:Protine
@@ -3961,25 +3959,25 @@ enums:
         meaning: dfc-f:Magnsium
         description: Magnésium
       Vitamin_E:
-        meaning: dfc-f:Vitamin_E
+        meaning: dfc-f:VitaminE
         description: Vitamin E
       Vitamine_E:
-        meaning: dfc-f:Vitamine_E
+        meaning: dfc-f:VitamineE
         description: Vitamine E
       Iodine:
         meaning: dfc-f:Iodine
         description: Iodine
       Vitamine_D:
-        meaning: dfc-f:Vitamine_D
+        meaning: dfc-f:VitamineD
         description: Vitamine D
       Vitamin_D:
-        meaning: dfc-f:Vitamin_D
+        meaning: dfc-f:VitaminD
         description: Vitamin D
       Graisse_monosature:
-        meaning: dfc-f:Graisse_monosature
+        meaning: dfc-f:GraisseMonosature
         description: Graisse monosaturée
       Monosaturated_fat:
-        meaning: dfc-f:Monosaturated_fat
+        meaning: dfc-f:MonosaturatedFat
         description: Monosaturated fat
       Zinc:
         meaning: dfc-f:Zinc
@@ -4006,22 +4004,22 @@ enums:
         meaning: dfc-f:Manganese
         description: Manganese
       Vitamine_C:
-        meaning: dfc-f:Vitamine_C
+        meaning: dfc-f:VitamineC
         description: Vitamine C
       Vitamin_C:
-        meaning: dfc-f:Vitamin_C
+        meaning: dfc-f:VitaminC
         description: Vitamin C
       Vitamine_B12:
-        meaning: dfc-f:Vitamine_B12
+        meaning: dfc-f:VitamineB12
         description: Vitamine B12
       Vitamin_B12:
-        meaning: dfc-f:Vitamin_B12
+        meaning: dfc-f:VitaminB12
         description: Vitamin B12
       Vitamin_K:
-        meaning: dfc-f:Vitamin_K
+        meaning: dfc-f:VitaminK
         description: Vitamin K
       Vitamine_K:
-        meaning: dfc-f:Vitamine_K
+        meaning: dfc-f:VitamineK
         description: Vitamine K
       Cholesterol:
         meaning: dfc-f:Cholesterol
@@ -4030,16 +4028,16 @@ enums:
         meaning: dfc-f:Cholestrol
         description: Cholestérol
       Folic_acid:
-        meaning: dfc-f:Folic_acid
+        meaning: dfc-f:FolicAcid
         description: Folic acid
       Acide_folique:
-        meaning: dfc-f:Acide_folique
+        meaning: dfc-f:AcideFolique
         description: Acide folique
       Transfat:
         meaning: dfc-f:Transfat
         description: Transfat
       Graisse_trans:
-        meaning: dfc-f:Graisse_trans
+        meaning: dfc-f:GraisseTrans
         description: Graisse trans
       Chrome:
         meaning: dfc-f:Chrome
@@ -4057,10 +4055,10 @@ enums:
         meaning: dfc-f:Fer
         description: Fer
       Vitamine_A:
-        meaning: dfc-f:Vitamine_A
+        meaning: dfc-f:VitamineA
         description: Vitamine A
       Vitamin_A:
-        meaning: dfc-f:Vitamin_A
+        meaning: dfc-f:VitaminA
         description: Vitamin A
       Crustacs:
         meaning: dfc-f:Crustacs
@@ -4069,10 +4067,10 @@ enums:
         meaning: dfc-f:Crustaceans
         description: Crustaceans
       Allergen_dimension:
-        meaning: dfc-f:Allergen_dimension
+        meaning: dfc-f:AllergenDimension
         description: Allergen dimension
       Dimension_allergne:
-        meaning: dfc-f:Dimension_allergne
+        meaning: dfc-f:DimensionAllergne
         description: Dimension allergène
       Soy:
         meaning: dfc-f:Soy
@@ -4081,28 +4079,20 @@ enums:
         meaning: dfc-f:Soja
         description: Soja
       Labelling_dimension:
-        meaning: dfc-f:Labelling_dimension
+        meaning: dfc-f:LabellingDimension
         description: Labelling dimension
       Dimension_score_de_labellisation:
-        meaning: dfc-f:Dimension_score_de_labellisation
+        meaning: dfc-f:DimensionScoreDeLabellisation
         description: Dimension score de labellisation
       Nutri_score:
-        meaning: dfc-f:Nutri_score
+        meaning: dfc-f:NutriScore
         description: Nutri-score
       Eco_score:
-        meaning: dfc-f:Eco_score
+        meaning: dfc-f:EcoScore
         description: Eco-score
       Planet_score:
-        meaning: dfc-f:Planet_score
+        meaning: dfc-f:PlanetScore
         description: Planet-score
-      Anhydride_sulfureux_et_sulfites_en_concentration_de_plus_de_10mgkg_ou_10_mgl_exprims_en_SO2:
-        meaning: dfc-f:Anhydride_sulfureux_et_sulfites_en_concentration_de_plus_de_10mgkg_ou_10_mgl_exprims_en_SO2
-        description: Anhydride sulfureux et sulfites en concentration de plus de 10mg/kg
-          ou 10 mg/l (exprimés en SO2)
-      Sulfur_dioxide_and_sulphites_in_a_concentration_of_more_than_10mgkg_or_10mgl_expressed_as_SO2:
-        meaning: dfc-f:Sulfur_dioxide_and_sulphites_in_a_concentration_of_more_than_10mgkg_or_10mgl_expressed_as_SO2
-        description: Sulfur dioxide and sulphites in a concentration of more than
-          10mg/kg or 10mg/l (expressed as SO2)
       Celeriac:
         meaning: dfc-f:Celeriac
         description: Celeriac
@@ -4113,10 +4103,10 @@ enums:
         meaning: dfc-f:Lupin
         description: Lupin
       Graines_de_ssame:
-        meaning: dfc-f:Graines_de_ssame
+        meaning: dfc-f:GrainesDeSsame
         description: Graines de sésame
       Sesame_seeds:
-        meaning: dfc-f:Sesame_seeds
+        meaning: dfc-f:SesameSeeds
         description: Sesame seeds
       Mustard:
         meaning: dfc-f:Mustard
@@ -4137,22 +4127,22 @@ enums:
         meaning: dfc-f:Mollusques
         description: Mollusques
       Cereals_containing_gluten:
-        meaning: dfc-f:Cereals_containing_gluten
+        meaning: dfc-f:CerealsContainingGluten
         description: Cereals containing gluten
       Crales_contenant_du_gluten:
-        meaning: dfc-f:Crales_contenant_du_gluten
+        meaning: dfc-f:CralesContenantDuGluten
         description: Céréales contenant du gluten
       Fruits__coque:
-        meaning: dfc-f:Fruits__coque
+        meaning: dfc-f:FruitsCoque
         description: Fruits à coque
       Nuts:
         meaning: dfc-f:Nuts
         description: Nuts
       Milk_and_lactose_based_products:
-        meaning: dfc-f:Milk_and_lactose_based_products
+        meaning: dfc-f:MilkAndLactoseBasedProducts
         description: Milk and lactose-based products
       Lait_et_produits__base_de_lactose:
-        meaning: dfc-f:Lait_et_produits__base_de_lactose
+        meaning: dfc-f:LaitEtProduitsBaseDeLactose
         description: Lait et produits à base de lactose
       Arachides:
         meaning: dfc-f:Arachides
@@ -4167,72 +4157,72 @@ enums:
         meaning: dfc-f:Poissons
         description: Poissons
       dollar_canadien:
-        meaning: dfc-f:dollar_canadien
+        meaning: dfc-f:dollarCanadien
         description: dollar canadien
       canadian_dollar:
-        meaning: dfc-f:canadian_dollar
+        meaning: dfc-f:canadianDollar
         description: canadian dollar
       dollar_australien:
-        meaning: dfc-f:dollar_australien
+        meaning: dfc-f:dollarAustralien
         description: dollar australien
       australian_dollar:
-        meaning: dfc-f:australian_dollar
+        meaning: dfc-f:australianDollar
         description: australian dollar
       pound_sterling:
-        meaning: dfc-f:pound_sterling
+        meaning: dfc-f:poundSterling
         description: pound sterling
       livre_sterling:
-        meaning: dfc-f:livre_sterling
+        meaning: dfc-f:livreSterling
         description: livre sterling
       US_Dollar:
-        meaning: dfc-f:US_Dollar
+        meaning: dfc-f:USDollar
         description: US Dollar
       Dollar_US:
-        meaning: dfc-f:Dollar_US
+        meaning: dfc-f:DollarUS
         description: Dollar US
   Scope:
     permissible_values:
       Authorization_scopes:
-        meaning: dfc-f:Authorization_scopes
+        meaning: dfc-f:AuthorizationScopes
         description: Authorization scopes
       Primtres_dautorisation:
-        meaning: dfc-f:Primtres_dautorisation
+        meaning: dfc-f:PrimtresDautorisation
         description: Périmètres d'autorisation
       Lire_les_commandes_de_lentreprise:
-        meaning: dfc-f:Lire_les_commandes_de_lentreprise
+        meaning: dfc-f:LireLesCommandesDeLentreprise
         description: Lire les commandes de l'entreprise
       Read_enterprise_orders:
-        meaning: dfc-f:Read_enterprise_orders
+        meaning: dfc-f:ReadEnterpriseOrders
         description: Read enterprise orders
       Lire_les_donnes_de_lentreprise:
-        meaning: dfc-f:Lire_les_donnes_de_lentreprise
+        meaning: dfc-f:LireLesDonnesDeLentreprise
         description: Lire les données de l'entreprise
       Read_enterprise_data:
-        meaning: dfc-f:Read_enterprise_data
+        meaning: dfc-f:ReadEnterpriseData
         description: Read enterprise data
       Write_enterprise_products:
-        meaning: dfc-f:Write_enterprise_products
+        meaning: dfc-f:WriteEnterpriseProducts
         description: Write enterprise products
       crire_les_produits_de_lentreprise:
-        meaning: dfc-f:crire_les_produits_de_lentreprise
+        meaning: dfc-f:crireLesProduitsDeLentreprise
         description: Écrire les produits de l'entreprise
       crire_les_commandes_de_lentreprise:
-        meaning: dfc-f:crire_les_commandes_de_lentreprise
+        meaning: dfc-f:crireLesCommandesDeLentreprise
         description: Écrire les commandes de l'entreprise
       Write_enterprise_orders:
-        meaning: dfc-f:Write_enterprise_orders
+        meaning: dfc-f:WriteEnterpriseOrders
         description: Write enterprise orders
       Write_enterprise_data:
-        meaning: dfc-f:Write_enterprise_data
+        meaning: dfc-f:WriteEnterpriseData
         description: Write enterprise data
       crire_les_donnes_de_lentreprise:
-        meaning: dfc-f:crire_les_donnes_de_lentreprise
+        meaning: dfc-f:crireLesDonnesDeLentreprise
         description: Écrire les données de l'entreprise
       Read_enterprise_products:
-        meaning: dfc-f:Read_enterprise_products
+        meaning: dfc-f:ReadEnterpriseProducts
         description: Read enterprise products
       Lire_les_produits_de_lentreprise:
-        meaning: dfc-f:Lire_les_produits_de_lentreprise
+        meaning: dfc-f:LireLesProduitsDeLentreprise
         description: Lire les produits de l'entreprise
   VocabularyTerm:
     permissible_values:
@@ -4240,25 +4230,25 @@ enums:
         meaning: dfc-f:Held
         description: Held
       Order_status:
-        meaning: dfc-f:Order_status
+        meaning: dfc-f:OrderStatus
         description: Order status
       Fulfilment_state:
-        meaning: dfc-f:Fulfilment_state
+        meaning: dfc-f:FulfilmentState
         description: Fulfilment state
       Fulfilment_status:
-        meaning: dfc-f:Fulfilment_status
+        meaning: dfc-f:FulfilmentStatus
         description: Fulfilment status
       Order_state:
-        meaning: dfc-f:Order_state
+        meaning: dfc-f:OrderState
         description: Order state
       DFC_Vocabulary:
-        meaning: dfc-f:DFC_Vocabulary
+        meaning: dfc-f:DFCVocabulary
         description: DFC_Vocabulary
       move:
         meaning: dfc-f:move
         description: move
       Transformation_type:
-        meaning: dfc-f:Transformation_type
+        meaning: dfc-f:TransformationType
         description: Transformation type
       Unfulfilled:
         meaning: dfc-f:Unfulfilled
@@ -4309,10 +4299,10 @@ enums:
         meaning: dfc-f:accept
         description: accept
       Payment_status:
-        meaning: dfc-f:Payment_status
+        meaning: dfc-f:PaymentStatus
         description: Payment status
       Payment_state:
-        meaning: dfc-f:Payment_state
+        meaning: dfc-f:PaymentState
         description: Payment state
       Paid:
         meaning: dfc-f:Paid
