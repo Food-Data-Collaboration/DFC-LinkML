@@ -1,0 +1,4331 @@
+id: https://w3id.org/dfc/linkml
+name: dfc_business
+title: DFC Business Ontology (LinkML)
+description: LinkML schema converted from DFC Business Ontology v2.0.0. Part of the
+  DFC schema suite.
+version: 2.0.0
+prefixes:
+  dfc-b: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+  linkml: https://w3id.org/linkml/
+imports:
+- linkml:types
+default_prefix: dfc-b
+classes:
+  Address:
+    description: 'Class from DFC Business Ontology: #Address'
+    is_a: Where_Subject
+  Agent:
+    description: 'Class from DFC Business Ontology: #Agent'
+    is_a: Who_Subject
+  AllergenCharacteristic:
+    description: 'Class from DFC Business Ontology: #AllergenCharacteristic'
+    tree_root: true
+  AsPlannedConsumptionFlow:
+    description: 'Class from DFC Business Ontology: #AsPlannedConsumptionFlow'
+    is_a: ConsumptionFlow
+  AsPlannedLocalConsumptionFlow:
+    description: 'Class from DFC Business Ontology: #AsPlannedLocalConsumptionFlow'
+    is_a: ConsumptionFlow
+  AsPlannedLocalProductionFlow:
+    description: 'Class from DFC Business Ontology: #AsPlannedLocalProductionFlow'
+    is_a: ProductionFlow
+  AsPlannedLocalTransformation:
+    description: 'Class from DFC Business Ontology: #AsPlannedLocalTransformation'
+    is_a: Transformation
+  AsPlannedProductionFlow:
+    description: 'Class from DFC Business Ontology: #AsPlannedProductionFlow'
+    is_a: ProductionFlow
+  AsPlannedTransformation:
+    description: 'Class from DFC Business Ontology: #AsPlannedTransformation'
+    is_a: Transformation
+  AsRealizedConsumptionFlow:
+    description: 'Class from DFC Business Ontology: #AsRealizedConsumptionFlow'
+    is_a: ConsumptionFlow
+  AsRealizedProductionFlow:
+    description: 'Class from DFC Business Ontology: #AsRealizedProductionFlow'
+    is_a: ProductionFlow
+  AsRealizedTransformation:
+    description: 'Class from DFC Business Ontology: #AsRealizedTransformation'
+    is_a: Transformation
+  Brand:
+    description: 'Class from DFC Business Ontology: #Brand'
+    is_a: What_Subject
+  Catalog:
+    description: 'Class from DFC Business Ontology: #Catalog'
+    is_a: Where_Subject
+  CatalogItem:
+    description: 'Class from DFC Business Ontology: #CatalogItem'
+    is_a: DFC_BusinessOntology_Relation
+  Certfication:
+    description: 'Class from DFC Business Ontology: #Certfication'
+    is_a: What_Subject
+  ConsumptionFlow:
+    description: 'Class from DFC Business Ontology: #ConsumptionFlow'
+    is_a: DFC_BusinessOntology_Relation
+  Coordination:
+    description: 'Class from DFC Business Ontology: #Coordination'
+    is_a: DFC_BusinessOntology_Relation
+  CustomerCategory:
+    description: 'Class from DFC Business Ontology: #CustomerCategory'
+    is_a: Who_Subject
+  DFC_BusinessOntology_Characteristic:
+    description: 'Class from DFC Business Ontology: #DFC_BusinessOntology_Characteristic'
+    is_a: RepresentedThing
+  DFC_BusinessOntology_Relation:
+    description: 'Class from DFC Business Ontology: #DFC_BusinessOntology_Relation'
+    is_a: RepresentedThing
+  DFC_BusinessOntology_Subject:
+    description: 'Class from DFC Business Ontology: #DFC_BusinessOntology_Subject'
+    is_a: RepresentedThing
+  DefinedProduct:
+    description: 'Class from DFC Business Ontology: #DefinedProduct'
+    is_a: What_Subject
+  DeliveryOption:
+    description: 'Class from DFC Business Ontology: #DeliveryOption'
+    is_a: ShippingOption
+  DeliveryStep:
+    description: 'Class from DFC Business Ontology: #DeliveryStep'
+    is_a: Step
+  Enterprise:
+    description: 'Class from DFC Business Ontology: #Enterprise'
+    is_a: Agent
+  Feature:
+    description: 'Class from DFC Business Ontology: #Feature'
+    tree_root: true
+  FunctionalProduct:
+    description: 'Class from DFC Business Ontology: #FunctionalProduct'
+    is_a: DefinedProduct
+  Geometry:
+    description: 'Class from DFC Business Ontology: #Geometry'
+    tree_root: true
+  How_Subject:
+    description: 'Class from DFC Business Ontology: #How_Subject'
+    is_a: DFC_BusinessOntology_Subject
+  Individual:
+    description: 'Class from DFC Business Ontology: #Individual'
+    tree_root: true
+  Ingredient:
+    description: 'Class from DFC Business Ontology: #Ingredient'
+    is_a: What_Subject
+  LabellingCharacteristic:
+    description: 'Class from DFC Business Ontology: #LabellingCharacteristic'
+    tree_root: true
+  Length:
+    description: 'Class from DFC Business Ontology: #Length'
+    is_a: QuantitativeValue
+  LocalizedProduct:
+    description: 'Class from DFC Business Ontology: #LocalizedProduct'
+    is_a: What_Subject
+  NutrientCharacteristic:
+    description: 'Class from DFC Business Ontology: #NutrientCharacteristic'
+    tree_root: true
+  Offer:
+    description: 'Class from DFC Business Ontology: #Offer'
+    is_a: DFC_BusinessOntology_Relation
+  Order:
+    description: 'Class from DFC Business Ontology: #Order'
+    is_a: DFC_BusinessOntology_Relation
+  OrderLine:
+    description: 'Class from DFC Business Ontology: #OrderLine'
+    is_a: DFC_BusinessOntology_Relation
+  Organization:
+    description: 'Class from DFC Business Ontology: #Organization'
+    is_a: Agent
+  PaymentMethod:
+    description: 'Class from DFC Business Ontology: #PaymentMethod'
+    is_a: How_Subject
+  Person:
+    description: 'Class from DFC Business Ontology: #Person'
+    is_a: Agent
+  PhoneNumber:
+    description: 'Class from DFC Business Ontology: #PhoneNumber'
+    is_a: What_Subject
+  PhysicalCharacteristic:
+    description: 'Class from DFC Business Ontology: #PhysicalCharacteristic'
+    tree_root: true
+  PhysicalPlace:
+    description: 'Class from DFC Business Ontology: #PhysicalPlace'
+    is_a: Place
+  PhysicalProduct:
+    description: 'Class from DFC Business Ontology: #PhysicalProduct'
+    is_a: What_Subject
+  PickUpStep:
+    description: 'Class from DFC Business Ontology: #PickUpStep'
+    is_a: Step
+  PickupOption:
+    description: 'Class from DFC Business Ontology: #PickupOption'
+    is_a: ShippingOption
+  Place:
+    description: 'Class from DFC Business Ontology: #Place'
+    is_a: Where_Subject
+  Point:
+    description: 'Class from DFC Business Ontology: #Point'
+    is_a: Geometry
+  Polygon:
+    description: 'Class from DFC Business Ontology: #Polygon'
+    is_a: Geometry
+  Price:
+    description: 'Class from DFC Business Ontology: #Price'
+    tree_root: true
+  ProductBatch:
+    description: 'Class from DFC Business Ontology: #ProductBatch'
+    is_a: What_Subject
+  ProductOption:
+    description: 'Class from DFC Business Ontology: #ProductOption'
+    is_a: What_Subject
+  ProductOptionValue:
+    description: 'Class from DFC Business Ontology: #ProductOptionValue'
+    is_a: What_Subject
+  ProductionFlow:
+    description: 'Class from DFC Business Ontology: #ProductionFlow'
+    is_a: DFC_BusinessOntology_Relation
+  Properties:
+    description: 'Class from DFC Business Ontology: #Properties'
+    tree_root: true
+  QuantitativeValue:
+    description: 'Class from DFC Business Ontology: #QuantitativeValue'
+    is_a: RepresentedThing
+  RealStock:
+    description: 'Class from DFC Business Ontology: #RealStock'
+    is_a: Stock
+  RepresentedThing:
+    description: 'Class from DFC Business Ontology: #RepresentedThing'
+    tree_root: true
+  Route:
+    description: 'Class from DFC Business Ontology: #Route'
+    is_a: Where_Subject
+  SaleSession:
+    description: 'Class from DFC Business Ontology: #SaleSession'
+    is_a: DFC_BusinessOntology_Relation
+  Shipment:
+    description: 'Class from DFC Business Ontology: #Shipment'
+    is_a: DFC_BusinessOntology_Relation
+  ShippingOption:
+    description: 'Class from DFC Business Ontology: #ShippingOption'
+    is_a: How_Subject
+  SocialMedia:
+    description: 'Class from DFC Business Ontology: #SocialMedia'
+    is_a: What_Subject
+  Step:
+    description: 'Class from DFC Business Ontology: #Step'
+    is_a: Where_Subject
+  Stock:
+    description: 'Class from DFC Business Ontology: #Stock'
+    is_a: DFC_BusinessOntology_Relation
+  SuppliedProduct:
+    description: 'Class from DFC Business Ontology: #SuppliedProduct'
+    is_a: DefinedProduct
+  TechnicalProduct:
+    description: 'Class from DFC Business Ontology: #TechnicalProduct'
+    is_a: DefinedProduct
+  Temperature:
+    description: 'Class from DFC Business Ontology: #Temperature'
+    is_a: QuantitativeValue
+  TemplateSaleSession:
+    description: 'Class from DFC Business Ontology: #TemplateSaleSession'
+    is_a: DFC_BusinessOntology_Relation
+  TheoriticalStock:
+    description: 'Class from DFC Business Ontology: #TheoriticalStock'
+    is_a: Stock
+  Transaction:
+    description: 'Class from DFC Business Ontology: #Transaction'
+    is_a: How_Subject
+  Transformation:
+    description: 'Class from DFC Business Ontology: #Transformation'
+    is_a: How_Subject
+  Value_RECUR:
+    description: 'Class from DFC Business Ontology: #Value_RECUR'
+    tree_root: true
+  Variant:
+    description: 'Class from DFC Business Ontology: #Variant'
+    is_a: DefinedProduct
+  VariantCaracteristic:
+    description: 'Class from DFC Business Ontology: #VariantCaracteristic'
+    is_a: What_Subject
+  Vehicle:
+    description: 'Class from DFC Business Ontology: #Vehicle'
+    is_a: What_Subject
+  Vevent:
+    description: 'Class from DFC Business Ontology: #Vevent'
+    tree_root: true
+  VirtualPlace:
+    description: 'Class from DFC Business Ontology: #VirtualPlace'
+    is_a: Place
+  Volume:
+    description: 'Class from DFC Business Ontology: #Volume'
+    is_a: QuantitativeValue
+  Weight:
+    description: 'Class from DFC Business Ontology: #Weight'
+    is_a: QuantitativeValue
+  What_Subject:
+    description: 'Class from DFC Business Ontology: #What_Subject'
+    is_a: DFC_BusinessOntology_Subject
+  Where_Subject:
+    description: 'Class from DFC Business Ontology: #Where_Subject'
+    is_a: DFC_BusinessOntology_Subject
+  Who_Subject:
+    description: 'Class from DFC Business Ontology: #Who_Subject'
+    is_a: DFC_BusinessOntology_Subject
+slots:
+  DFC_BusinessOntology_ObjectProperty:
+    description: 'Object property: #DFC_BusinessOntology_ObjectProperty'
+  DFC_Interface_Property:
+    description: 'Object property: #DFC_Interface_Property'
+  addressOf:
+    description: 'Object property: #addressOf'
+    domain: Address
+  affiliatedTo:
+    description: 'Object property: #affiliatedTo'
+    domain: Agent
+  affiliates:
+    description: 'Object property: #affiliates'
+    domain: Organization
+  allergenCharacteristicOf:
+    description: 'Object property: #allergenCharacteristicOf'
+    domain: AllergenCharacteristic
+  basedAt:
+    description: 'Object property: #basedAt'
+    domain: Vehicle
+  belongsTo:
+    description: 'Object property: #belongsTo'
+    domain: Order
+  brandOf:
+    description: 'Object property: #brandOf'
+    domain: Brand
+  certificateOf:
+    description: 'Object property: #certificateOf'
+  certifies:
+    description: 'Object property: #certifies'
+    domain: Certfication
+  characteristicOf:
+    description: 'Object property: #characteristicOf'
+    domain: DFC_BusinessOntology_Characteristic
+  claimOf:
+    description: 'Object property: #claimOf'
+  composedOf:
+    description: 'Object property: #composedOf'
+    domain: Ingredient
+  composes:
+    description: 'Object property: #composes'
+    domain: DefinedProduct
+  concernedBy:
+    description: 'Object property: #concernedBy'
+  concerns:
+    description: 'Object property: #concerns'
+  constituedBy:
+    description: 'Object property: #constituedBy'
+  constitutes:
+    description: 'Object property: #constitutes'
+  consumedBy:
+    description: 'Object property: #consumedBy'
+  consumes:
+    description: 'Object property: #consumes'
+    domain: ConsumptionFlow
+  containerInformationOf:
+    description: 'Object property: #containerInformationOf'
+  coordinatedBy:
+    description: 'Object property: #coordinatedBy'
+    domain: Coordination
+  coordinate_value:
+    description: Data property
+    range: string
+  definedBy:
+    description: 'Object property: #definedBy'
+    domain: CustomerCategory
+  defines:
+    description: 'Object property: #defines'
+    domain: Organization
+  deliveredAt:
+    description: 'Object property: #deliveredAt'
+    domain: DeliveryOption
+  delivery:
+    description: 'Object property: #delivery'
+    domain: Step
+  endsAt:
+    description: 'Object property: #endsAt'
+    domain: Shipment
+  facetOf:
+    description: 'Object property: #facetOf'
+  from:
+    description: 'Object property: #from'
+    domain: Transaction
+  fulfills:
+    description: 'Object property: #fulfills'
+    domain: PhysicalProduct
+  geographicalOriginOf:
+    description: 'Object property: #geographicalOriginOf'
+  geometry:
+    description: 'Object property: #geometry'
+    domain: Feature
+  hasAddress:
+    description: 'Object property: #hasAddress'
+  hasAllergenCharacteristic:
+    description: 'Object property: #hasAllergenCharacteristic'
+    domain: DefinedProduct
+  hasAllergenDimension:
+    description: 'Object property: #hasAllergenDimension'
+    domain: AllergenCharacteristic
+  hasBrand:
+    description: 'Object property: #hasBrand'
+    domain: DefinedProduct
+  hasCertification:
+    description: 'Object property: #hasCertification'
+    domain: DefinedProduct
+  hasCharacteristic:
+    description: 'Object property: #hasCharacteristic'
+    domain: DefinedProduct
+  hasClaim:
+    description: 'Object property: #hasClaim'
+    domain: DefinedProduct
+  hasContainerInformation:
+    description: 'Object property: #hasContainerInformation'
+    domain: DefinedProduct
+  hasCountry:
+    description: 'Object property: #hasCountry'
+    domain: Address
+  hasDimension:
+    description: 'Object property: #hasDimension'
+    domain: DFC_BusinessOntology_Characteristic
+  hasFacet:
+    description: 'Object property: #hasFacet'
+  hasFulfilmentStatus:
+    description: 'Object property: #hasFulfilmentStatus'
+    domain: Order
+  hasGeoJsonFeature:
+    description: 'Object property: #hasGeoJsonFeature'
+  hasGeographicalOrigin:
+    description: 'Object property: #hasGeographicalOrigin'
+    domain: DefinedProduct
+  hasIngredient:
+    description: 'Object property: #hasIngredient'
+    domain: DefinedProduct
+  hasInput:
+    description: 'Object property: #hasInput'
+  hasLabellingCharacteristic:
+    description: 'Object property: #hasLabellingCharacteristic'
+    domain: DefinedProduct
+  hasLabellingDimension:
+    description: 'Object property: #hasLabellingDimension'
+    domain: LabellingCharacteristic
+  hasMainContact:
+    description: 'Object property: #hasMainContact'
+  hasMember:
+    description: 'Object property: #hasMember'
+    domain: CustomerCategory
+  hasNatureOrigin:
+    description: 'Object property: #hasNatureOrigin'
+    domain: DefinedProduct
+  hasNutrientCharacteristic:
+    description: 'Object property: #hasNutrientCharacteristic'
+    domain: DefinedProduct
+  hasNutrientDimension:
+    description: 'Object property: #hasNutrientDimension'
+    domain: NutrientCharacteristic
+  hasObject:
+    description: 'Object property: #hasObject'
+    domain: Coordination
+  hasOffer:
+    description: 'Object property: #hasOffer'
+    domain: CustomerCategory
+  hasOption:
+    description: 'Object property: #hasOption'
+    domain: SaleSession
+  hasOrderStatus:
+    description: 'Object property: #hasOrderStatus'
+    domain: Order
+  hasOutput:
+    description: 'Object property: #hasOutput'
+  hasPart:
+    description: 'Object property: #hasPart'
+    domain: Order
+  hasPartOrigin:
+    description: 'Object property: #hasPartOrigin'
+    domain: DefinedProduct
+  hasPaymentMethod:
+    description: 'Object property: #hasPaymentMethod'
+    domain: Order
+  hasPaymentStatus:
+    description: 'Object property: #hasPaymentStatus'
+    domain: Order
+  hasPhoneNumber:
+    description: 'Object property: #hasPhoneNumber'
+  hasPhysicalCharacteristic:
+    description: 'Object property: #hasPhysicalCharacteristic'
+    domain: DefinedProduct
+  hasPhysicalDimension:
+    description: 'Object property: #hasPhysicalDimension'
+    domain: PhysicalCharacteristic
+  hasPrice:
+    description: 'Object property: #hasPrice'
+  hasProductOption:
+    description: 'Object property: #hasProductOption'
+    domain: VariantCaracteristic
+  hasProductOptionValue:
+    description: 'Object property: #hasProductOptionValue'
+    domain: VariantCaracteristic
+  hasQuantity:
+    description: 'Object property: #hasQuantity'
+  hasReference:
+    description: 'Object property: #hasReference'
+    domain: LocalizedProduct
+  hasReferenceProductOption:
+    description: 'Object property: #hasReferenceProductOption'
+    domain: DefinedProduct
+  hasReferenceProductOptionValue:
+    description: 'Object property: #hasReferenceProductOptionValue'
+    domain: ProductOption
+  hasSocialMedia:
+    description: 'Object property: #hasSocialMedia'
+    domain: Agent
+  hasStatus:
+    description: 'Object property: #hasStatus'
+  hasStep:
+    description: 'Object property: #hasStep'
+    domain: Route
+  hasTemperature:
+    description: 'Object property: #hasTemperature'
+    domain: SuppliedProduct
+  hasTemplateSaleSession:
+    description: 'Object property: #hasTemplateSaleSession'
+    domain: Organization
+  hasTransformationType:
+    description: 'Object property: #hasTransformationType'
+    domain: AsPlannedTransformation
+  hasType:
+    description: 'Object property: #hasType'
+    domain: DefinedProduct
+  hasUnit:
+    description: 'Object property: #hasUnit'
+  hasVariant:
+    description: 'Object property: #hasVariant'
+    domain: DefinedProduct
+  hasVariantCaracteristic:
+    description: 'Object property: #hasVariantCaracteristic'
+    domain: Variant
+  holds:
+    description: 'Object property: #holds'
+    domain: SaleSession
+  hostedAt:
+    description: 'Object property: #hostedAt'
+  hosts:
+    description: 'Object property: #hosts'
+    domain: Place
+  identifiedBy:
+    description: 'Object property: #identifiedBy'
+    domain: RealStock
+  identifies:
+    description: 'Object property: #identifies'
+    domain: ProductBatch
+  industrializedBy:
+    description: 'Object property: #industrializedBy'
+    domain: TechnicalProduct
+  industrializes:
+    description: 'Object property: #industrializes'
+    domain: SuppliedProduct
+  inputOf:
+    description: 'Object property: #inputOf'
+    domain: ConsumptionFlow
+  isAvailableDuring:
+    description: 'Object property: #isAvailableDuring'
+    domain: Vehicle
+  isCertifiedBy:
+    description: 'Object property: #isCertifiedBy'
+    domain: Organization
+  isFulfilledBy:
+    description: 'Object property: #isFulfilledBy'
+    domain: OrderLine
+  isIngredientOf:
+    description: 'Object property: #isIngredientOf'
+    domain: Ingredient
+  isMemberOf:
+    description: 'Object property: #isMemberOf'
+    domain: Agent
+  isOpenDuring:
+    description: 'Object property: #isOpenDuring'
+    domain: PhysicalPlace
+  isPriceOf:
+    description: 'Object property: #isPriceOf'
+    domain: Price
+  isShippedIn:
+    description: 'Object property: #isShippedIn'
+    domain: Shipment
+  isStepOf:
+    description: 'Object property: #isStepOf'
+    domain: Step
+  isTemperatureOf:
+    description: 'Object property: #isTemperatureOf'
+    domain: Temperature
+  isTemplateSaleSessionOf:
+    description: 'Object property: #isTemplateSaleSessionOf'
+    domain: TemplateSaleSession
+  isVariantOf:
+    description: 'Object property: #isVariantOf'
+    domain: Variant
+  labellingCharacteristicOf:
+    description: 'Object property: #labellingCharacteristicOf'
+    domain: LabellingCharacteristic
+  listedIn:
+    description: 'Object property: #listedIn'
+  lists:
+    description: 'Object property: #lists'
+  localizedBy:
+    description: 'Object property: #localizedBy'
+    domain: TheoriticalStock
+  localizes:
+    description: 'Object property: #localizes'
+    domain: PhysicalPlace
+  mainContactOf:
+    description: 'Object property: #mainContactOf'
+    domain: Person
+  maintainedBy:
+    description: 'Object property: #maintainedBy'
+    domain: Catalog
+  maintains:
+    description: 'Object property: #maintains'
+    domain: Organization
+  managedBy:
+    description: 'Object property: #managedBy'
+    domain: CatalogItem
+  manages:
+    description: 'Object property: #manages'
+    domain: Organization
+  natureOriginOf:
+    description: 'Object property: #natureOriginOf'
+  nutrientCharacteristicOf:
+    description: 'Object property: #nutrientCharacteristicOf'
+    domain: NutrientCharacteristic
+  objectOf:
+    description: 'Object property: #objectOf'
+    domain: SaleSession
+  offeredThrough:
+    description: 'Object property: #offeredThrough'
+    domain: CatalogItem
+  offers:
+    description: 'Object property: #offers'
+    domain: Offer
+  offersTo:
+    description: 'Object property: #offersTo'
+    domain: Offer
+  optionOf:
+    description: 'Object property: #optionOf'
+    domain: ShippingOption
+  orderedBy:
+    description: 'Object property: #orderedBy'
+    domain: Order
+  orders:
+    description: 'Object property: #orders'
+    domain: Agent
+  outputOf:
+    description: 'Object property: #outputOf'
+    domain: ProductionFlow
+  ownedBy:
+    description: 'Object property: #ownedBy'
+  owns:
+    description: 'Object property: #owns'
+    domain: Agent
+  paidWith:
+    description: 'Object property: #paidWith'
+    domain: PaymentMethod
+  partOf:
+    description: 'Object property: #partOf'
+    domain: OrderLine
+  partOriginOf:
+    description: 'Object property: #partOriginOf'
+  phoneNumberOf:
+    description: 'Object property: #phoneNumberOf'
+    domain: PhoneNumber
+  physicalCharacteristicOf:
+    description: 'Object property: #physicalCharacteristicOf'
+    domain: PhysicalCharacteristic
+  pickUp:
+    description: 'Object property: #pickUp'
+    domain: Step
+  pickedUpAt:
+    description: 'Object property: #pickedUpAt'
+    domain: PickupOption
+  processOf:
+    description: 'Object property: #processOf'
+    domain: DefinedProduct
+  producedBy:
+    description: 'Object property: #producedBy'
+  produces:
+    description: 'Object property: #produces'
+    domain: ProductionFlow
+  properties:
+    description: 'Object property: #properties'
+    domain: Feature
+  proposedBy:
+    description: 'Object property: #proposedBy'
+    domain: TechnicalProduct
+  proposes:
+    description: 'Object property: #proposes'
+    domain: Organization
+  referenceOf:
+    description: 'Object property: #referenceOf'
+    domain: SuppliedProduct
+  referencedBy:
+    description: 'Object property: #referencedBy'
+    domain: DefinedProduct
+  references:
+    description: 'Object property: #references'
+    domain: CatalogItem
+  refersTo:
+    description: 'Object property: #refersTo'
+    domain: DeliveryOption
+  representedBy:
+    description: 'Object property: #representedBy'
+    domain: LocalizedProduct
+  represents:
+    description: 'Object property: #represents'
+    domain: PhysicalProduct
+  requestedBy:
+    description: 'Object property: #requestedBy'
+    domain: FunctionalProduct
+  requests:
+    description: 'Object property: #requests'
+    domain: Agent
+  rrule:
+    description: 'Object property: #rrule'
+    domain: Vevent
+  satisfiedBy:
+    description: 'Object property: #satisfiedBy'
+    domain: FunctionalProduct
+  satisfies:
+    description: 'Object property: #satisfies'
+    domain: TechnicalProduct
+  selectedBy:
+    description: 'Object property: #selectedBy'
+    domain: ShippingOption
+  selects:
+    description: 'Object property: #selects'
+    domain: Order
+  sells:
+    description: 'Object property: #sells'
+    domain: Agent
+  ships:
+    description: 'Object property: #ships'
+    domain: Vehicle
+  socialMediaOf:
+    description: 'Object property: #socialMediaOf'
+    domain: SocialMedia
+  soldBy:
+    description: 'Object property: #soldBy'
+    domain: Order
+  startsAt:
+    description: 'Object property: #startsAt'
+    domain: Shipment
+  storedIn:
+    description: 'Object property: #storedIn'
+    domain: RealStock
+  stores:
+    description: 'Object property: #stores'
+    domain: PhysicalPlace
+  suppliedBy:
+    description: 'Object property: #suppliedBy'
+    domain: SuppliedProduct
+  supplies:
+    description: 'Object property: #supplies'
+    domain: Organization
+  suppliesTo:
+    description: 'Object property: #suppliesTo'
+  to:
+    description: 'Object property: #to'
+    domain: Transaction
+  tracedBy:
+    description: 'Object property: #tracedBy'
+    domain: PhysicalProduct
+  traces:
+    description: 'Object property: #traces'
+    domain: ProductBatch
+  transformedBy:
+    description: 'Object property: #transformedBy'
+    domain: AsPlannedLocalTransformation
+  transforms:
+    description: 'Object property: #transforms'
+    domain: Organization
+  transportedBy:
+    description: 'Object property: #transportedBy'
+    domain: Stock
+  transports:
+    description: 'Object property: #transports'
+    domain: Shipment
+  typeOf:
+    description: 'Object property: #typeOf'
+  useVehicle:
+    description: 'Object property: #useVehicle'
+    domain: Route
+  usedInRoute:
+    description: 'Object property: #usedInRoute'
+    domain: Vehicle
+  uses:
+    description: 'Object property: #uses'
+  Image:
+    description: Data property
+    range: string
+  URL:
+    description: Data property
+    range: string
+  VATnumber:
+    description: Data property
+    range: string
+  VATrate:
+    description: Data property
+    range: string
+  VATstatus:
+    description: Data property
+    range: string
+  accessibilityInfo:
+    description: Data property
+    range: string
+  arrivalDate:
+    description: Data property
+    range: string
+  availabilityDate:
+    description: Data property
+    range: string
+  availabilityTime:
+    description: Data property
+    range: string
+  batchNumber:
+    description: Data property
+    range: string
+  bestBeforeDate:
+    description: Data property
+    range: string
+  brand:
+    description: Data property
+    range: string
+  byday:
+    description: Data property
+    range: string
+  bymonth:
+    description: Data property
+    range: string
+  certiferReference:
+    description: Data property
+    range: string
+  certificationScore:
+    description: Data property
+    range: string
+  city:
+    description: Data property
+    range: string
+  claim:
+    description: Data property
+    range: string
+  closes:
+    description: Data property
+    range: string
+  cost:
+    description: Data property
+    range: string
+  country:
+    description: Data property
+    range: string
+  countryCode:
+    description: Data property
+    range: string
+  date:
+    description: Data property
+    range: string
+  deliveryCondition:
+    description: Data property
+    range: string
+  deliveryConstraint:
+    description: Data property
+    range: string
+  description:
+    description: Data property
+    range: string
+  discount:
+    description: Data property
+    range: string
+  dtend:
+    description: Data property
+    range: string
+  dtstart:
+    description: Data property
+    range: string
+  duration:
+    description: Data property
+    range: string
+  email:
+    description: Data property
+    range: string
+  endDate:
+    description: Data property
+    range: string
+  enterpriseID:
+    description: Data property
+    range: string
+  expiryDate:
+    description: Data property
+    range: string
+  extraAvailabilityTime:
+    description: Data property
+    range: string
+  extraDeliveryCondition:
+    description: Data property
+    range: string
+  familyName:
+    description: Data property
+    range: string
+  fee:
+    description: Data property
+    range: string
+  firstName:
+    description: Data property
+    range: string
+  freq:
+    description: Data property
+    range: string
+  frozen:
+    description: Data property
+    range: string
+  hasPercentageOfAlcoholByVolume:
+    description: Data property
+    range: string
+  interval:
+    description: Data property
+    range: string
+  invoiceNumber:
+    description: Data property
+    range: string
+  latitude:
+    description: Data property
+    range: string
+  lifetime:
+    description: Data property
+    range: string
+  logo:
+    description: Data property
+    range: string
+  longitude:
+    description: Data property
+    range: string
+  marginPercent:
+    description: Data property
+    range: string
+  maxValue:
+    description: Data property
+    range: float
+  minValue:
+    description: Data property
+    range: float
+  name:
+    description: Data property
+    range: string
+  operatorId:
+    description: Data property
+    range: string
+  orderNumber:
+    description: Data property
+    range: string
+  paymentMethodProvider:
+    description: Data property
+    range: string
+  paymentMethodType:
+    description: Data property
+    range: string
+  phoneNumber:
+    description: Data property
+    range: string
+  physicalCharacteristics:
+    description: Data property
+    range: string
+  postcode:
+    description: Data property
+    range: string
+  productionDate:
+    description: Data property
+    range: string
+  quantity:
+    description: Data property
+    range: string
+  refrigerated:
+    description: Data property
+    range: string
+  region:
+    description: Data property
+    range: string
+  sku:
+    description: Data property
+    range: string
+  specificCondition:
+    description: Data property
+    range: string
+  startDate:
+    description: Data property
+    range: string
+  stockLimitation:
+    description: Data property
+    range: string
+  street:
+    description: Data property
+    range: string
+  totalTheoriticalStock:
+    description: Data property
+    range: string
+  value:
+    description: Data property
+    range: string
+  websitePage:
+    description: Data property
+    range: string
+see_also:
+- https://docs.dfc-standard.org/
+enums:
+  Facet:
+    permissible_values:
+      Fairtrade_Max_Haavelar:
+        meaning: dfc-f:Fairtrade_Max_Haavelar
+        description: Fairtrade Max Haavelar
+      Glossaire_des_facettes_de_produit:
+        meaning: dfc-f:Glossaire_des_facettes_de_produit
+        description: Glossaire des facettes de produit
+      Product_glossary_facets:
+        meaning: dfc-f:Product_glossary_facets
+        description: Product glossary facets
+      Ethical_label:
+        meaning: dfc-f:Ethical_label
+        description: Ethical label
+      Label_thique:
+        meaning: dfc-f:Label_thique
+        description: Label éthique
+      South_East_England:
+        meaning: dfc-f:South_East_England
+        description: South East England
+      Hampshire:
+        meaning: dfc-f:Hampshire
+        description: Hampshire
+      Kent:
+        meaning: dfc-f:Kent
+        description: Kent
+      Isle_of_Wight:
+        meaning: dfc-f:Isle_of_Wight
+        description: Isle of Wight
+      Berkshire:
+        meaning: dfc-f:Berkshire
+        description: Berkshire
+      Oxfordshire:
+        meaning: dfc-f:Oxfordshire
+        description: Oxfordshire
+      West_Sussex:
+        meaning: dfc-f:West_Sussex
+        description: West Sussex
+      Buckinghamshire:
+        meaning: dfc-f:Buckinghamshire
+        description: Buckinghamshire
+      Surrey:
+        meaning: dfc-f:Surrey
+        description: Surrey
+      East_Sussex:
+        meaning: dfc-f:East_Sussex
+        description: East Sussex
+      Angleterre:
+        meaning: dfc-f:Angleterre
+        description: Angleterre
+      England:
+        meaning: dfc-f:England
+        description: England
+      Riche_en_fibres:
+        meaning: dfc-f:Riche_en_fibres
+        description: Riche en fibres
+      High_fibre:
+        meaning: dfc-f:High_fibre
+        description: High fibre
+      Allgation_nutritionnelle:
+        meaning: dfc-f:Allgation_nutritionnelle
+        description: Allégation nutritionnelle
+      Nutritional_claim:
+        meaning: dfc-f:Nutritional_claim
+        description: Nutritional claim
+      Funghi:
+        meaning: dfc-f:Funghi
+        description: Funghi
+      Champignon:
+        meaning: dfc-f:Champignon
+        description: Champignon
+      Source_naturelle_dorigine:
+        meaning: dfc-f:Source_naturelle_dorigine
+        description: Source naturelle d'origine
+      Natural_origin:
+        meaning: dfc-f:Natural_origin
+        description: Natural origin
+      Miel:
+        meaning: dfc-f:Miel
+        description: Miel
+      Honey:
+        meaning: dfc-f:Honey
+        description: Honey
+      Abeille:
+        meaning: dfc-f:Abeille
+        description: Abeille
+      Bee:
+        meaning: dfc-f:Bee
+        description: Bee
+      Indication_gographique_de_provenance:
+        meaning: dfc-f:Indication_gographique_de_provenance
+        description: Indication géographique de provenance
+      Local_label:
+        meaning: dfc-f:Local_label
+        description: Local label
+      Label_local:
+        meaning: dfc-f:Label_local
+        description: Label local
+      Wax:
+        meaning: dfc-f:Wax
+        description: Wax
+      Cire_dabeille:
+        meaning: dfc-f:Cire_dabeille
+        description: Cire d'abeille
+      Pollen:
+        meaning: dfc-f:Pollen
+        description: Pollen
+      Venim_dabeille:
+        meaning: dfc-f:Venim_dabeille
+        description: Venim d'abeille
+      Venom:
+        meaning: dfc-f:Venom
+        description: Venom
+      Propolis:
+        meaning: dfc-f:Propolis
+        description: Propolis
+      Part_or_product_of_animal:
+        meaning: dfc-f:Part_or_product_of_animal
+        description: Part or product of animal
+      Partie_ou_produit_dun_animal:
+        meaning: dfc-f:Partie_ou_produit_dun_animal
+        description: Partie ou produit d'un animal
+      Marine_Stewardship_Council:
+        meaning: dfc-f:Marine_Stewardship_Council
+        description: Marine Stewardship Council
+      Pche_durable_MSC:
+        meaning: dfc-f:Pche_durable_MSC
+        description: Pêche durable MSC
+      Bleu_Blanc_Coeur:
+        meaning: dfc-f:Bleu_Blanc_Coeur
+        description: Bleu-Blanc-Coeur
+      Fort_durable_FSC:
+        meaning: dfc-f:Fort_durable_FSC
+        description: Forêt durable FSC
+      Forest_Stewardship_Council:
+        meaning: dfc-f:Forest_Stewardship_Council
+        description: Forest Stewardship Council
+      Label_Rouge:
+        meaning: dfc-f:Label_Rouge
+        description: Label Rouge
+      Rainforest_Alliance:
+        meaning: dfc-f:Rainforest_Alliance
+        description: Rainforest Alliance
+      Milk_fed:
+        meaning: dfc-f:Milk_fed
+        description: Milk-fed
+      Nourri_au_lait:
+        meaning: dfc-f:Nourri_au_lait
+        description: Nourri au lait
+      High_Environnemental_Value:
+        meaning: dfc-f:High_Environnemental_Value
+        description: High Environnemental Value
+      Haute_Valeur_Environnementale:
+        meaning: dfc-f:Haute_Valeur_Environnementale
+        description: Haute Valeur Environnementale
+      Certification:
+        meaning: dfc-f:Certification
+        description: Certification
+      Portugal:
+        meaning: dfc-f:Portugal
+        description: Portugal
+      Europe:
+        meaning: dfc-f:Europe
+        description: Europe
+      Hens_body:
+        meaning: dfc-f:Hens_body
+        description: Hen's body
+      Partie_de_poule:
+        meaning: dfc-f:Partie_de_poule
+        description: Partie de poule
+      Hen:
+        meaning: dfc-f:Hen
+        description: Hen
+      Poule:
+        meaning: dfc-f:Poule
+        description: Poule
+      Enrichi_en_nutriment:
+        meaning: dfc-f:Enrichi_en_nutriment
+        description: Enrichi en nutriment
+      Increased_nutrient:
+        meaning: dfc-f:Increased_nutrient
+        description: Increased nutrient
+      Source_of_protein:
+        meaning: dfc-f:Source_of_protein
+        description: Source of protein
+      Source_de_protine:
+        meaning: dfc-f:Source_de_protine
+        description: Source de protéine
+      High_omega_3_fatty_acids:
+        meaning: dfc-f:High_omega_3_fatty_acids
+        description: High omega-3 fatty acids
+      Riche_en_acide_gras_Omga_3:
+        meaning: dfc-f:Riche_en_acide_gras_Omga_3
+        description: Riche en acide gras Oméga-3
+      Source_de_fibres:
+        meaning: dfc-f:Source_de_fibres
+        description: Source de fibres
+      Source_of_fibre:
+        meaning: dfc-f:Source_of_fibre
+        description: Source of fibre
+      High_protein:
+        meaning: dfc-f:High_protein
+        description: High protein
+      Riche_en_protines:
+        meaning: dfc-f:Riche_en_protines
+        description: Riche en protéines
+      Low_sodiumsalt:
+        meaning: dfc-f:Low_sodiumsalt
+        description: Low sodium/salt
+      Pauvre_en_sodiumsel:
+        meaning: dfc-f:Pauvre_en_sodiumsel
+        description: Pauvre en sodium/sel
+      Saturated_fat_free:
+        meaning: dfc-f:Saturated_fat_free
+        description: Saturated fat-free
+      Sans_graisses_satures:
+        meaning: dfc-f:Sans_graisses_satures
+        description: Sans graisses saturées
+      High_vitamins_andor_minerals:
+        meaning: dfc-f:High_vitamins_andor_minerals
+        description: High vitamins and/or minerals
+      Riche_en_vitamines_etou_de_minraux:
+        meaning: dfc-f:Riche_en_vitamines_etou_de_minraux
+        description: Riche en vitamines et/ou de minéraux
+      AllgLight:
+        meaning: dfc-f:AllgLight
+        description: Allégé/Light
+      LightLite:
+        meaning: dfc-f:LightLite
+        description: Light/Lite
+      Trs_pauvre_en_sodiumsel:
+        meaning: dfc-f:Trs_pauvre_en_sodiumsel
+        description: Très pauvre en sodium/sel
+      Very_low_sodiumsalt:
+        meaning: dfc-f:Very_low_sodiumsalt
+        description: Very low sodium/salt
+      Low_saturated_fat:
+        meaning: dfc-f:Low_saturated_fat
+        description: Low saturated fat
+      Faible_teneur_en_graisses_satures:
+        meaning: dfc-f:Faible_teneur_en_graisses_satures
+        description: Faible teneur en graisses saturées
+      Reduced_nutrient:
+        meaning: dfc-f:Reduced_nutrient
+        description: Reduced nutrient
+      Rduit_en_nutriment:
+        meaning: dfc-f:Rduit_en_nutriment
+        description: Réduit en nutriment
+      Faible_teneur_en_matire_grasse:
+        meaning: dfc-f:Faible_teneur_en_matire_grasse
+        description: Faible teneur en matière grasse
+      Low_fat:
+        meaning: dfc-f:Low_fat
+        description: Low fat
+      Contains_nutrient_or_other_substance:
+        meaning: dfc-f:Contains_nutrient_or_other_substance
+        description: Contains nutrient or other substance
+      Contient_nutriment_ou_autre_substance:
+        meaning: dfc-f:Contient_nutriment_ou_autre_substance
+        description: Contient nutriment ou autre substance
+      Faible_teneur_en_sucres:
+        meaning: dfc-f:Faible_teneur_en_sucres
+        description: Faible teneur en sucres
+      Low_sugars:
+        meaning: dfc-f:Low_sugars
+        description: Low sugars
+      Sans_sodiumsel_ajout:
+        meaning: dfc-f:Sans_sodiumsel_ajout
+        description: Sans sodium/sel ajouté
+      No_added_sodiumsalt:
+        meaning: dfc-f:No_added_sodiumsalt
+        description: No added sodium/salt
+      Riche_en_graisses_polyinsatures:
+        meaning: dfc-f:Riche_en_graisses_polyinsatures
+        description: Riche en graisses polyinsaturées
+      High_polyunsaturated_fat:
+        meaning: dfc-f:High_polyunsaturated_fat
+        description: High polyunsaturated fat
+      Source_of_vitamins_andor_minerals:
+        meaning: dfc-f:Source_of_vitamins_andor_minerals
+        description: Source of vitamins and/or minerals
+      Source_de_vitamines_etou_de_minraux:
+        meaning: dfc-f:Source_de_vitamines_etou_de_minraux
+        description: Source de vitamines et/ou de minéraux
+      Riche_en_graisses_insatures:
+        meaning: dfc-f:Riche_en_graisses_insatures
+        description: Riche en graisses insaturées
+      High_unsaturated_fat:
+        meaning: dfc-f:High_unsaturated_fat
+        description: High unsaturated fat
+      NaturallyNatural:
+        meaning: dfc-f:NaturallyNatural
+        description: Naturally/Natural
+      Sodium_free_or_salt_free:
+        meaning: dfc-f:Sodium_free_or_salt_free
+        description: Sodium-free or salt-free
+      Sans_sodium_ou_sans_sel:
+        meaning: dfc-f:Sans_sodium_ou_sans_sel
+        description: Sans sodium ou sans sel
+      LowLight:
+        meaning: dfc-f:LowLight
+        description: Low/Light
+      Sugars_free:
+        meaning: dfc-f:Sugars_free
+        description: Sugars-free
+      With_no_added_sugars:
+        meaning: dfc-f:With_no_added_sugars
+        description: With no added sugars
+      Sans_sucres_ajouts:
+        meaning: dfc-f:Sans_sucres_ajouts
+        description: Sans sucres ajoutés
+      Riche_en_graisses_monoinsatures:
+        meaning: dfc-f:Riche_en_graisses_monoinsatures
+        description: Riche en graisses monoinsaturées
+      High_monounsaturated_fat:
+        meaning: dfc-f:High_monounsaturated_fat
+        description: High monounsaturated fat
+      Sans_apport_nergtique:
+        meaning: dfc-f:Sans_apport_nergtique
+        description: Sans apport énergétique
+      Energy_free:
+        meaning: dfc-f:Energy_free
+        description: Energy free
+      Sans_matires_grasses:
+        meaning: dfc-f:Sans_matires_grasses
+        description: Sans matières grasses
+      Fat_free:
+        meaning: dfc-f:Fat_free
+        description: Fat-free
+      Source_of_omega_3_fatty_acids:
+        meaning: dfc-f:Source_of_omega_3_fatty_acids
+        description: Source of omega-3 fatty acids
+      Source_dacide_gras_Omga_3:
+        meaning: dfc-f:Source_dacide_gras_Omga_3
+        description: Source d'acide gras Oméga-3
+      Faible_valeur_nergtique:
+        meaning: dfc-f:Faible_valeur_nergtique
+        description: Faible valeur énergétique
+      Low_energy:
+        meaning: dfc-f:Low_energy
+        description: Low energy
+      Valeur_nergtique_rduite:
+        meaning: dfc-f:Valeur_nergtique_rduite
+        description: Valeur énergétique réduite
+      Energy_reduced:
+        meaning: dfc-f:Energy_reduced
+        description: Energy reduced
+      Allgations_nutritionnelles_et_de_sant:
+        meaning: dfc-f:Allgations_nutritionnelles_et_de_sant
+        description: Allégations nutritionnelles et de santé
+      Nutrition_and_health_claims:
+        meaning: dfc-f:Nutrition_and_health_claims
+        description: Nutrition and health claims
+      Grand_Est:
+        meaning: dfc-f:Grand_Est
+        description: Grand Est
+      France:
+        meaning: dfc-f:France
+        description: France
+      Buf:
+        meaning: dfc-f:Buf
+        description: Bœuf
+      Bull:
+        meaning: dfc-f:Bull
+        description: Bull
+      Bulls_body:
+        meaning: dfc-f:Bulls_body
+        description: Bull's body
+      Partie_du_boeuf:
+        meaning: dfc-f:Partie_du_boeuf
+        description: Partie du boeuf
+      Algue:
+        meaning: dfc-f:Algue
+        description: Algue
+      Algae:
+        meaning: dfc-f:Algae
+        description: Algae
+      Unknown_nature_origin:
+        meaning: dfc-f:Unknown_nature_origin
+        description: Unknown nature origin
+      Source_dorigine_inconnue:
+        meaning: dfc-f:Source_dorigine_inconnue
+        description: Source d'origine inconnue
+      Origine_multiple:
+        meaning: dfc-f:Origine_multiple
+        description: Origine multiple
+      Multiorigin:
+        meaning: dfc-f:Multiorigin
+        description: Multiorigin
+      Animal:
+        meaning: dfc-f:Animal
+        description: Animal
+      Eau:
+        meaning: dfc-f:Eau
+        description: Eau
+      Water:
+        meaning: dfc-f:Water
+        description: Water
+      Plant:
+        meaning: dfc-f:Plant
+        description: Plant
+      Plante:
+        meaning: dfc-f:Plante
+        description: Plante
+      Mineral:
+        meaning: dfc-f:Mineral
+        description: Mineral
+      Minral:
+        meaning: dfc-f:Minral
+        description: Minéral
+      Bacteria:
+        meaning: dfc-f:Bacteria
+        description: Bacteria
+      Bactrie:
+        meaning: dfc-f:Bactrie
+        description: Bactérie
+      Centre_Val_de_Loire:
+        meaning: dfc-f:Centre_Val_de_Loire
+        description: Centre-Val de Loire
+      North_America:
+        meaning: dfc-f:North_America
+        description: North America
+      Amrique_du_Nord:
+        meaning: dfc-f:Amrique_du_Nord
+        description: Amérique du Nord
+      Origine_gographique:
+        meaning: dfc-f:Origine_gographique
+        description: Origine géographique
+      Territorial_origin:
+        meaning: dfc-f:Territorial_origin
+        description: Territorial origin
+      Label_biodynamie:
+        meaning: dfc-f:Label_biodynamie
+        description: Label biodynamie
+      Biodynamic_label:
+        meaning: dfc-f:Biodynamic_label
+        description: Biodynamic label
+      Demeter:
+        meaning: dfc-f:Demeter
+        description: Demeter
+      Origine_territorial_multiple:
+        meaning: dfc-f:Origine_territorial_multiple
+        description: Origine territorial multiple
+      Multi_territorial_origin:
+        meaning: dfc-f:Multi_territorial_origin
+        description: Multi-territorial origin
+      South_West_England:
+        meaning: dfc-f:South_West_England
+        description: South West England
+      Cornwall:
+        meaning: dfc-f:Cornwall
+        description: Cornwall
+      Gloucestershire:
+        meaning: dfc-f:Gloucestershire
+        description: Gloucestershire
+      Dorset:
+        meaning: dfc-f:Dorset
+        description: Dorset
+      Somerset:
+        meaning: dfc-f:Somerset
+        description: Somerset
+      Wiltshire:
+        meaning: dfc-f:Wiltshire
+        description: Wiltshire
+      Devon:
+        meaning: dfc-f:Devon
+        description: Devon
+      Bristol:
+        meaning: dfc-f:Bristol
+        description: Bristol
+      Renfrewshire:
+        meaning: dfc-f:Renfrewshire
+        description: Renfrewshire
+      South_Western_Scotland:
+        meaning: dfc-f:South_Western_Scotland
+        description: South Western Scotland
+      Lancashire:
+        meaning: dfc-f:Lancashire
+        description: Lancashire
+      North_West_England:
+        meaning: dfc-f:North_West_England
+        description: North West England
+      Bourgogne_Franche_Comt:
+        meaning: dfc-f:Bourgogne_Franche_Comt
+        description: Bourgogne-Franche-Comté
+      Ewe:
+        meaning: dfc-f:Ewe
+        description: Ewe
+      Brebis:
+        meaning: dfc-f:Brebis
+        description: Brebis
+      Cochon:
+        meaning: dfc-f:Cochon
+        description: Cochon
+      Pig:
+        meaning: dfc-f:Pig
+        description: Pig
+      Mouton:
+        meaning: dfc-f:Mouton
+        description: Mouton
+      Sheep:
+        meaning: dfc-f:Sheep
+        description: Sheep
+      Quail:
+        meaning: dfc-f:Quail
+        description: Quail
+      Caille:
+        meaning: dfc-f:Caille
+        description: Caille
+      Vache:
+        meaning: dfc-f:Vache
+        description: Vache
+      Cow:
+        meaning: dfc-f:Cow
+        description: Cow
+      Chicken:
+        meaning: dfc-f:Chicken
+        description: Chicken
+      Poulet:
+        meaning: dfc-f:Poulet
+        description: Poulet
+      Rooster:
+        meaning: dfc-f:Rooster
+        description: Rooster
+      Coq:
+        meaning: dfc-f:Coq
+        description: Coq
+      Goat:
+        meaning: dfc-f:Goat
+        description: Goat
+      Chvre:
+        meaning: dfc-f:Chvre
+        description: Chèvre
+      Partie_dorigine:
+        meaning: dfc-f:Partie_dorigine
+        description: Partie d'origine
+      Part_of_origin:
+        meaning: dfc-f:Part_of_origin
+        description: Part of origin
+      Pigs_body:
+        meaning: dfc-f:Pigs_body
+        description: Pig's body
+      Partie_du_cochon:
+        meaning: dfc-f:Partie_du_cochon
+        description: Partie du cochon
+      Partie_ou_produit_dune_plante:
+        meaning: dfc-f:Partie_ou_produit_dune_plante
+        description: Partie ou produit d'une plante
+      Part_or_product_of_plant:
+        meaning: dfc-f:Part_or_product_of_plant
+        description: Part or product of plant
+      Unknown_part_origin:
+        meaning: dfc-f:Unknown_part_origin
+        description: Unknown part origin
+      Partie_dorigine_inconnue:
+        meaning: dfc-f:Partie_dorigine_inconnue
+        description: Partie d'origine inconnue
+      Other_claim:
+        meaning: dfc-f:Other_claim
+        description: Other claim
+      Autre_allgation:
+        meaning: dfc-f:Autre_allgation
+        description: Autre allégation
+      Vegetarian:
+        meaning: dfc-f:Vegetarian
+        description: Vegetarian
+      Vgtarien:
+        meaning: dfc-f:Vgtarien
+        description: Végétarien
+      Sans_gluten:
+        meaning: dfc-f:Sans_gluten
+        description: Sans gluten
+      Gluten_free:
+        meaning: dfc-f:Gluten_free
+        description: Gluten free
+      Vegan:
+        meaning: dfc-f:Vegan
+        description: Vegan
+      Paysans_de_Nature:
+        meaning: dfc-f:Paysans_de_Nature
+        description: Paysans de Nature
+      Organic_label:
+        meaning: dfc-f:Organic_label
+        description: Organic label
+      Label_biologique:
+        meaning: dfc-f:Label_biologique
+        description: Label biologique
+      Agriculture_Biologique_EU:
+        meaning: dfc-f:Agriculture_Biologique_EU
+        description: Agriculture Biologique EU
+      EU_Organic_Farming:
+        meaning: dfc-f:EU_Organic_Farming
+        description: EU Organic Farming
+      Nature_et_progrs:
+        meaning: dfc-f:Nature_et_progrs
+        description: Nature et progrès
+      Agriculture_Biologique:
+        meaning: dfc-f:Agriculture_Biologique
+        description: Agriculture Biologique
+      Bio_Coherence:
+        meaning: dfc-f:Bio_Coherence
+        description: Bio Coherence
+      Merseyside:
+        meaning: dfc-f:Merseyside
+        description: Merseyside
+      Cheshire:
+        meaning: dfc-f:Cheshire
+        description: Cheshire
+      Cumbria:
+        meaning: dfc-f:Cumbria
+        description: Cumbria
+      Greater_Manchester:
+        meaning: dfc-f:Greater_Manchester
+        description: Greater Manchester
+      Italie:
+        meaning: dfc-f:Italie
+        description: Italie
+      Italy:
+        meaning: dfc-f:Italy
+        description: Italy
+      Belgium:
+        meaning: dfc-f:Belgium
+        description: Belgium
+      Belgique:
+        meaning: dfc-f:Belgique
+        description: Belgique
+      Netherlands:
+        meaning: dfc-f:Netherlands
+        description: Netherlands
+      Pays_bas:
+        meaning: dfc-f:Pays_bas
+        description: Pays bas
+      Allemagne:
+        meaning: dfc-f:Allemagne
+        description: Allemagne
+      Germany:
+        meaning: dfc-f:Germany
+        description: Germany
+      Spain:
+        meaning: dfc-f:Spain
+        description: Spain
+      Espagne:
+        meaning: dfc-f:Espagne
+        description: Espagne
+      Rpublique_dIrlande:
+        meaning: dfc-f:Rpublique_dIrlande
+        description: République d'Irlande
+      Republic_of_Ireland:
+        meaning: dfc-f:Republic_of_Ireland
+        description: Republic of Ireland
+      Switzerland:
+        meaning: dfc-f:Switzerland
+        description: Switzerland
+      Suisse:
+        meaning: dfc-f:Suisse
+        description: Suisse
+      Royaume_Uni:
+        meaning: dfc-f:Royaume_Uni
+        description: Royaume Uni
+      United_Kingdom:
+        meaning: dfc-f:United_Kingdom
+        description: United Kingdom
+      Appellation_dorigine_contrle:
+        meaning: dfc-f:Appellation_dorigine_contrle
+        description: Appellation d’origine contrôlée
+      East_of_England:
+        meaning: dfc-f:East_of_England
+        description: East of England
+      Cambridgeshire:
+        meaning: dfc-f:Cambridgeshire
+        description: Cambridgeshire
+      Hertfordshire:
+        meaning: dfc-f:Hertfordshire
+        description: Hertfordshire
+      Norfolk:
+        meaning: dfc-f:Norfolk
+        description: Norfolk
+      Essex:
+        meaning: dfc-f:Essex
+        description: Essex
+      Suffolk:
+        meaning: dfc-f:Suffolk
+        description: Suffolk
+      Bedfordshire:
+        meaning: dfc-f:Bedfordshire
+        description: Bedfordshire
+      Northamptonshire:
+        meaning: dfc-f:Northamptonshire
+        description: Northamptonshire
+      East_Midlands:
+        meaning: dfc-f:East_Midlands
+        description: East Midlands
+      Dumfries_and_Galloway:
+        meaning: dfc-f:Dumfries_and_Galloway
+        description: Dumfries and Galloway
+      West_Midlands:
+        meaning: dfc-f:West_Midlands
+        description: West Midlands
+      West_Midlands_Conurbation:
+        meaning: dfc-f:West_Midlands_Conurbation
+        description: West Midlands Conurbation
+      Warwickshire:
+        meaning: dfc-f:Warwickshire
+        description: Warwickshire
+      Staffordshire:
+        meaning: dfc-f:Staffordshire
+        description: Staffordshire
+      Shropshire:
+        meaning: dfc-f:Shropshire
+        description: Shropshire
+      Herefordshire:
+        meaning: dfc-f:Herefordshire
+        description: Herefordshire
+      Worcestershire:
+        meaning: dfc-f:Worcestershire
+        description: Worcestershire
+      Yorkshire_and_The_Humber:
+        meaning: dfc-f:Yorkshire_and_The_Humber
+        description: Yorkshire and The Humber
+      Lincolnshire:
+        meaning: dfc-f:Lincolnshire
+        description: Lincolnshire
+      South_Yorkshire:
+        meaning: dfc-f:South_Yorkshire
+        description: South Yorkshire
+      North_Yorkshire:
+        meaning: dfc-f:North_Yorkshire
+        description: North Yorkshire
+      West_Yorkshire:
+        meaning: dfc-f:West_Yorkshire
+        description: West Yorkshire
+      East_Riding_of_Yorkshire:
+        meaning: dfc-f:East_Riding_of_Yorkshire
+        description: East Riding of Yorkshire
+      Health_claim:
+        meaning: dfc-f:Health_claim
+        description: Health claim
+      Allgation_sant:
+        meaning: dfc-f:Allgation_sant
+        description: Allégation santé
+      London:
+        meaning: dfc-f:London
+        description: London
+      North_East_England:
+        meaning: dfc-f:North_East_England
+        description: North East England
+      Label_marketing:
+        meaning: dfc-f:Label_marketing
+        description: Label marketing
+      Marketing_label:
+        meaning: dfc-f:Marketing_label
+        description: Marketing label
+      Label_inconnu:
+        meaning: dfc-f:Label_inconnu
+        description: Label inconnu
+      Unknown_label:
+        meaning: dfc-f:Unknown_label
+        description: Unknown label
+      Seed:
+        meaning: dfc-f:Seed
+        description: Seed
+      Graine:
+        meaning: dfc-f:Graine
+        description: Graine
+      Ocanie:
+        meaning: dfc-f:Ocanie
+        description: Océanie
+      Oceania:
+        meaning: dfc-f:Oceania
+        description: Oceania
+      Afrique:
+        meaning: dfc-f:Afrique
+        description: Afrique
+      Africa:
+        meaning: dfc-f:Africa
+        description: Africa
+      Amrique_du_Sud:
+        meaning: dfc-f:Amrique_du_Sud
+        description: Amérique du Sud
+      South_America:
+        meaning: dfc-f:South_America
+        description: South America
+      Asie:
+        meaning: dfc-f:Asie
+        description: Asie
+      Asia:
+        meaning: dfc-f:Asia
+        description: Asia
+      Origine_territoriale_inconnue:
+        meaning: dfc-f:Origine_territoriale_inconnue
+        description: Origine territoriale inconnue
+      Unknown_territorial_origin:
+        meaning: dfc-f:Unknown_territorial_origin
+        description: Unknown territorial origin
+      Wales:
+        meaning: dfc-f:Wales
+        description: Wales
+      Pays_de_Galles:
+        meaning: dfc-f:Pays_de_Galles
+        description: Pays de Galles
+      Sheeps_body:
+        meaning: dfc-f:Sheeps_body
+        description: Sheep's body
+      Partie_de_mouton:
+        meaning: dfc-f:Partie_de_mouton
+        description: Partie de mouton
+      Nouvelle_Aquitaine:
+        meaning: dfc-f:Nouvelle_Aquitaine
+        description: Nouvelle-Aquitaine
+      Reconnu_Saveur_de_lanne:
+        meaning: dfc-f:Reconnu_Saveur_de_lanne
+        description: Reconnu Saveur de l’année
+      Taste_of_the_year:
+        meaning: dfc-f:Taste_of_the_year
+        description: Taste of the year
+      Hauts_de_France:
+        meaning: dfc-f:Hauts_de_France
+        description: Hauts-de-France
+      New_Zealand:
+        meaning: dfc-f:New_Zealand
+        description: New Zealand
+      Nouvelle_Zlande:
+        meaning: dfc-f:Nouvelle_Zlande
+        description: Nouvelle Zélande
+      Fleur:
+        meaning: dfc-f:Fleur
+        description: Fleur
+      Flower:
+        meaning: dfc-f:Flower
+        description: Flower
+      Product_of_the_year:
+        meaning: dfc-f:Product_of_the_year
+        description: Product of the year
+      Elu_produit_de_lanne:
+        meaning: dfc-f:Elu_produit_de_lanne
+        description: Elu produit de l'année
+      Container_Information:
+        meaning: dfc-f:Container_Information
+        description: Container Information
+      Partie_de_chvre:
+        meaning: dfc-f:Partie_de_chvre
+        description: Partie de chèvre
+      Goats_body:
+        meaning: dfc-f:Goats_body
+        description: Goat's body
+      Lait_de_brebis:
+        meaning: dfc-f:Lait_de_brebis
+        description: Lait de brebis
+      Goat_milk:
+        meaning: dfc-f:Goat_milk
+        description: Goat milk
+      Pays_de_la_Loire:
+        meaning: dfc-f:Pays_de_la_Loire
+        description: Pays de la Loire
+      Bulbe:
+        meaning: dfc-f:Bulbe
+        description: Bulbe
+      Bulb:
+        meaning: dfc-f:Bulb
+        description: Bulb
+      Chickens_body:
+        meaning: dfc-f:Chickens_body
+        description: Chicken's body
+      Partie_du_poulet:
+        meaning: dfc-f:Partie_du_poulet
+        description: Partie du poulet
+      Irlande_du_Nord:
+        meaning: dfc-f:Irlande_du_Nord
+        description: Irlande du Nord
+      Northern_Ireland:
+        meaning: dfc-f:Northern_Ireland
+        description: Northern Ireland
+      Partie_de_brebis:
+        meaning: dfc-f:Partie_de_brebis
+        description: Partie de brebis
+      Ewes_body:
+        meaning: dfc-f:Ewes_body
+        description: Ewe's body
+      Sheep_milk:
+        meaning: dfc-f:Sheep_milk
+        description: Sheep milk
+      Hens_egg:
+        meaning: dfc-f:Hens_egg
+        description: Hen's egg
+      uf_de_poule:
+        meaning: dfc-f:uf_de_poule
+        description: Œuf de poule
+      Derbyshire:
+        meaning: dfc-f:Derbyshire
+        description: Derbyshire
+      Tyne__Wear:
+        meaning: dfc-f:Tyne__Wear
+        description: Tyne & Wear
+      Dunbartonshire:
+        meaning: dfc-f:Dunbartonshire
+        description: Dunbartonshire
+      Leicestershire:
+        meaning: dfc-f:Leicestershire
+        description: Leicestershire
+      Provence_Alpes_Cte_dAzur:
+        meaning: dfc-f:Provence_Alpes_Cte_dAzur
+        description: Provence-Alpes-Côte d’Azur
+      Plante_entire:
+        meaning: dfc-f:Plante_entire
+        description: Plante entière
+      Whole_plant:
+        meaning: dfc-f:Whole_plant
+        description: Whole plant
+      Roosters_body:
+        meaning: dfc-f:Roosters_body
+        description: Rooster's body
+      Partie_de_coq:
+        meaning: dfc-f:Partie_de_coq
+        description: Partie de coq
+      Scottish_Borders:
+        meaning: dfc-f:Scottish_Borders
+        description: Scottish Borders
+      Eastern_Scotland:
+        meaning: dfc-f:Eastern_Scotland
+        description: Eastern Scotland
+      Nottinghamshire:
+        meaning: dfc-f:Nottinghamshire
+        description: Nottinghamshire
+      Ayrshire:
+        meaning: dfc-f:Ayrshire
+        description: Ayrshire
+      County_Durham:
+        meaning: dfc-f:County_Durham
+        description: County Durham
+      Northumberland:
+        meaning: dfc-f:Northumberland
+        description: Northumberland
+      Quails_egg:
+        meaning: dfc-f:Quails_egg
+        description: Quail's egg
+      uf_de_caille:
+        meaning: dfc-f:uf_de_caille
+        description: Œuf de caille
+      Statut_gographique_protg:
+        meaning: dfc-f:Statut_gographique_protg
+        description: Statut géographique protégé
+      Protected_Geographical_Status:
+        meaning: dfc-f:Protected_Geographical_Status
+        description: Protected Geographical Status
+      Normandy:
+        meaning: dfc-f:Normandy
+        description: Normandy
+      Normandie:
+        meaning: dfc-f:Normandie
+        description: Normandie
+      Bretagne:
+        meaning: dfc-f:Bretagne
+        description: Bretagne
+      Brittany:
+        meaning: dfc-f:Brittany
+        description: Brittany
+      Occitania:
+        meaning: dfc-f:Occitania
+        description: Occitania
+      Occitanie:
+        meaning: dfc-f:Occitanie
+        description: Occitanie
+      Corse:
+        meaning: dfc-f:Corse
+        description: Corse
+      Corsica:
+        meaning: dfc-f:Corsica
+        description: Corsica
+      Ile_de_France:
+        meaning: dfc-f:Ile_de_France
+        description: Ile-de-France
+      le_de_France:
+        meaning: dfc-f:le_de_France
+        description: Île-de-France
+      Auvergne_Rhne_Alpes:
+        meaning: dfc-f:Auvergne_Rhne_Alpes
+        description: Auvergne-Rhône-Alpes
+      Package:
+        meaning: dfc-f:Package
+        description: Package
+      Scotland:
+        meaning: dfc-f:Scotland
+        description: Scotland
+      Ecosse:
+        meaning: dfc-f:Ecosse
+        description: Ecosse
+      Highlands_and_Islands:
+        meaning: dfc-f:Highlands_and_Islands
+        description: Highlands and Islands
+      North_East_Scotland:
+        meaning: dfc-f:North_East_Scotland
+        description: North East Scotland
+      Aberdeenshire:
+        meaning: dfc-f:Aberdeenshire
+        description: Aberdeenshire
+      Partie_de_vache:
+        meaning: dfc-f:Partie_de_vache
+        description: Partie de vache
+      Cows_body:
+        meaning: dfc-f:Cows_body
+        description: Cow's body
+      Lait_de_vache:
+        meaning: dfc-f:Lait_de_vache
+        description: Lait de vache
+      Cow_milk:
+        meaning: dfc-f:Cow_milk
+        description: Cow milk
+      Appellation_dorigine_protge:
+        meaning: dfc-f:Appellation_dorigine_protge
+        description: Appellation d’origine protégée
+      Australie:
+        meaning: dfc-f:Australie
+        description: Australie
+      Australia:
+        meaning: dfc-f:Australia
+        description: Australia
+      Lanarkshire:
+        meaning: dfc-f:Lanarkshire
+        description: Lanarkshire
+      Leaf:
+        meaning: dfc-f:Leaf
+        description: Leaf
+      Feuille:
+        meaning: dfc-f:Feuille
+        description: Feuille
+      Lothian:
+        meaning: dfc-f:Lothian
+        description: Lothian
+      Fruit:
+        meaning: dfc-f:Fruit
+        description: Fruit
+      Rutland:
+        meaning: dfc-f:Rutland
+        description: Rutland
+      Stem:
+        meaning: dfc-f:Stem
+        description: Stem
+      Tige:
+        meaning: dfc-f:Tige
+        description: Tige
+      Root:
+        meaning: dfc-f:Root
+        description: Root
+      Racine:
+        meaning: dfc-f:Racine
+        description: Racine
+      Edinburgh:
+        meaning: dfc-f:Edinburgh
+        description: Edinburgh
+      Tubercule:
+        meaning: dfc-f:Tubercule
+        description: Tubercule
+      Tuber:
+        meaning: dfc-f:Tuber
+        description: Tuber
+  ProductType:
+    permissible_values:
+      poulet:
+        meaning: dfc-f:poulet
+        description: poulet
+      chicken:
+        meaning: dfc-f:chicken
+        description: chicken
+      volaille:
+        meaning: dfc-f:volaille
+        description: volaille
+      poultry:
+        meaning: dfc-f:poultry
+        description: poultry
+      escargots:
+        meaning: dfc-f:escargots
+        description: escargots
+      snails:
+        meaning: dfc-f:snails
+        description: snails
+      meat_product:
+        meaning: dfc-f:meat_product
+        description: meat product
+      produit_carn:
+        meaning: dfc-f:produit_carn
+        description: produit carné
+      topinambour:
+        meaning: dfc-f:topinambour
+        description: topinambour
+      jerusalem_artichoke:
+        meaning: dfc-f:jerusalem_artichoke
+        description: jerusalem artichoke
+      lgume:
+        meaning: dfc-f:lgume
+        description: légume
+      vegetable:
+        meaning: dfc-f:vegetable
+        description: vegetable
+      soup:
+        meaning: dfc-f:soup
+        description: soup
+      soupe:
+        meaning: dfc-f:soupe
+        description: soupe
+      lgume_transform:
+        meaning: dfc-f:lgume_transform
+        description: légume transformé
+      processed_vegetable:
+        meaning: dfc-f:processed_vegetable
+        description: processed vegetable
+      Venison:
+        meaning: dfc-f:Venison
+        description: Venison
+      Viande_de_cerf:
+        meaning: dfc-f:Viande_de_cerf
+        description: Viande de cerf
+      flavored_yogurt:
+        meaning: dfc-f:flavored_yogurt
+        description: flavored yogurt
+      yaourt_aromatis:
+        meaning: dfc-f:yaourt_aromatis
+        description: yaourt aromatisé
+      cow_dairy_product:
+        meaning: dfc-f:cow_dairy_product
+        description: cow dairy product
+      produit_laitier_de_vache:
+        meaning: dfc-f:produit_laitier_de_vache
+        description: produit laitier de vache
+      pomme_de_terre:
+        meaning: dfc-f:pomme_de_terre
+        description: pomme de terre
+      potato:
+        meaning: dfc-f:potato
+        description: potato
+      bean:
+        meaning: dfc-f:bean
+        description: bean
+      haricot:
+        meaning: dfc-f:haricot
+        description: haricot
+      garlic:
+        meaning: dfc-f:garlic
+        description: garlic
+      ail:
+        meaning: dfc-f:ail
+        description: ail
+      parsnip:
+        meaning: dfc-f:parsnip
+        description: parsnip
+      panais:
+        meaning: dfc-f:panais
+        description: panais
+      navet:
+        meaning: dfc-f:navet
+        description: navet
+      turnip:
+        meaning: dfc-f:turnip
+        description: turnip
+      tomate:
+        meaning: dfc-f:tomate
+        description: tomate
+      tomato:
+        meaning: dfc-f:tomato
+        description: tomato
+      pepper:
+        meaning: dfc-f:pepper
+        description: pepper
+      poivron:
+        meaning: dfc-f:poivron
+        description: poivron
+      asparagus:
+        meaning: dfc-f:asparagus
+        description: asparagus
+      asperges:
+        meaning: dfc-f:asperges
+        description: asperges
+      squash:
+        meaning: dfc-f:squash
+        description: squash
+      courge:
+        meaning: dfc-f:courge
+        description: courge
+      cabbage:
+        meaning: dfc-f:cabbage
+        description: cabbage
+      chou:
+        meaning: dfc-f:chou
+        description: chou
+      shallot:
+        meaning: dfc-f:shallot
+        description: shallot
+      chalote:
+        meaning: dfc-f:chalote
+        description: échalote
+      lgume_de_quatrime_gamme:
+        meaning: dfc-f:lgume_de_quatrime_gamme
+        description: légume de quatrième gamme
+      fourth_range_vegetable:
+        meaning: dfc-f:fourth_range_vegetable
+        description: fourth range vegetable
+      non_local_vegetable:
+        meaning: dfc-f:non_local_vegetable
+        description: non local vegetable
+      lgume_non_local:
+        meaning: dfc-f:lgume_non_local
+        description: légume non local
+      radis:
+        meaning: dfc-f:radis
+        description: radis
+      radish:
+        meaning: dfc-f:radish
+        description: radish
+      rhubarb:
+        meaning: dfc-f:rhubarb
+        description: rhubarb
+      rhubarbe:
+        meaning: dfc-f:rhubarbe
+        description: rhubarbe
+      rutabaga:
+        meaning: dfc-f:rutabaga
+        description: rutabaga
+      cleri_branche:
+        meaning: dfc-f:cleri_branche
+        description: céleri branche
+      celery_branch:
+        meaning: dfc-f:celery_branch
+        description: celery branch
+      artichaut:
+        meaning: dfc-f:artichaut
+        description: artichaut
+      artichoke:
+        meaning: dfc-f:artichoke
+        description: artichoke
+      blettes:
+        meaning: dfc-f:blettes
+        description: blettes
+      chard:
+        meaning: dfc-f:chard
+        description: chard
+      cucumber:
+        meaning: dfc-f:cucumber
+        description: cucumber
+      concombre:
+        meaning: dfc-f:concombre
+        description: concombre
+      carotte:
+        meaning: dfc-f:carotte
+        description: carotte
+      carrot:
+        meaning: dfc-f:carrot
+        description: carrot
+      leek:
+        meaning: dfc-f:leek
+        description: leek
+      poireau:
+        meaning: dfc-f:poireau
+        description: poireau
+      betterave_rouge:
+        meaning: dfc-f:betterave_rouge
+        description: betterave rouge
+      beetroot:
+        meaning: dfc-f:beetroot
+        description: beetroot
+      salade:
+        meaning: dfc-f:salade
+        description: salade
+      salad:
+        meaning: dfc-f:salad
+        description: salad
+      salsify:
+        meaning: dfc-f:salsify
+        description: salsify
+      salsifis:
+        meaning: dfc-f:salsifis
+        description: salsifis
+      courgette:
+        meaning: dfc-f:courgette
+        description: courgette
+      fennel:
+        meaning: dfc-f:fennel
+        description: fennel
+      fenouil:
+        meaning: dfc-f:fenouil
+        description: fenouil
+      Patate_douce:
+        meaning: dfc-f:Patate_douce
+        description: Patate douce
+      yam:
+        meaning: dfc-f:yam
+        description: yam
+      lgume_de_cinquime_gamme:
+        meaning: dfc-f:lgume_de_cinquime_gamme
+        description: légume de cinquième gamme
+      fifth_range_vegetable:
+        meaning: dfc-f:fifth_range_vegetable
+        description: fifth range vegetable
+      celeriac:
+        meaning: dfc-f:celeriac
+        description: celeriac
+      cleri_rave:
+        meaning: dfc-f:cleri_rave
+        description: céleri-rave
+      dried_vegetable:
+        meaning: dfc-f:dried_vegetable
+        description: dried vegetable
+      lgume_sec:
+        meaning: dfc-f:lgume_sec
+        description: légume sec
+      oignon:
+        meaning: dfc-f:oignon
+        description: oignon
+      onion:
+        meaning: dfc-f:onion
+        description: onion
+      aillet:
+        meaning: dfc-f:aillet
+        description: aillet
+      green_garlic:
+        meaning: dfc-f:green_garlic
+        description: green garlic
+      aubergine:
+        meaning: dfc-f:aubergine
+        description: aubergine
+      eggplant:
+        meaning: dfc-f:eggplant
+        description: eggplant
+      herb:
+        meaning: dfc-f:herb
+        description: herb
+      aromate:
+        meaning: dfc-f:aromate
+        description: aromate
+      melon:
+        meaning: dfc-f:melon
+        description: melon
+      mushroom:
+        meaning: dfc-f:mushroom
+        description: mushroom
+      champignon:
+        meaning: dfc-f:champignon
+        description: champignon
+      crepe_and_galette:
+        meaning: dfc-f:crepe_and_galette
+        description: crepe and galette
+      crpe_et_galette:
+        meaning: dfc-f:crpe_et_galette
+        description: crêpe et galette
+      picerie_sale:
+        meaning: dfc-f:picerie_sale
+        description: épicerie salée
+      savory_groceries:
+        meaning: dfc-f:savory_groceries
+        description: savory groceries
+      piment:
+        meaning: dfc-f:piment
+        description: piment
+      chilli_pepper:
+        meaning: dfc-f:chilli_pepper
+        description: chilli pepper
+      chive:
+        meaning: dfc-f:chive
+        description: chive
+      ciboulette:
+        meaning: dfc-f:ciboulette
+        description: ciboulette
+      basil:
+        meaning: dfc-f:basil
+        description: basil
+      basilic:
+        meaning: dfc-f:basilic
+        description: basilic
+      cerfeuil:
+        meaning: dfc-f:cerfeuil
+        description: cerfeuil
+      chervil:
+        meaning: dfc-f:chervil
+        description: chervil
+      sage:
+        meaning: dfc-f:sage
+        description: sage
+      sauge:
+        meaning: dfc-f:sauge
+        description: sauge
+      parsley:
+        meaning: dfc-f:parsley
+        description: parsley
+      persil:
+        meaning: dfc-f:persil
+        description: persil
+      aneth:
+        meaning: dfc-f:aneth
+        description: aneth
+      dill:
+        meaning: dfc-f:dill
+        description: dill
+      coriander:
+        meaning: dfc-f:coriander
+        description: coriander
+      coriandre:
+        meaning: dfc-f:coriandre
+        description: coriandre
+      romarin:
+        meaning: dfc-f:romarin
+        description: romarin
+      rosemary:
+        meaning: dfc-f:rosemary
+        description: rosemary
+      menthe:
+        meaning: dfc-f:menthe
+        description: menthe
+      mint:
+        meaning: dfc-f:mint
+        description: mint
+      thym:
+        meaning: dfc-f:thym
+        description: thym
+      thyme:
+        meaning: dfc-f:thyme
+        description: thyme
+      bay_laurel:
+        meaning: dfc-f:bay_laurel
+        description: bay laurel
+      laurier:
+        meaning: dfc-f:laurier
+        description: laurier
+      tarragon:
+        meaning: dfc-f:tarragon
+        description: tarragon
+      estragon:
+        meaning: dfc-f:estragon
+        description: estragon
+      fruit:
+        meaning: dfc-f:fruit
+        description: fruit
+      fruits:
+        meaning: dfc-f:fruits
+        description: fruits
+      apples:
+        meaning: dfc-f:apples
+        description: apples
+      pomme:
+        meaning: dfc-f:pomme
+        description: pomme
+      abricot:
+        meaning: dfc-f:abricot
+        description: abricot
+      apricot:
+        meaning: dfc-f:apricot
+        description: apricot
+      berry:
+        meaning: dfc-f:berry
+        description: berry
+      petit_fruit:
+        meaning: dfc-f:petit_fruit
+        description: petit fruit
+      cherry:
+        meaning: dfc-f:cherry
+        description: cherry
+      cerise:
+        meaning: dfc-f:cerise
+        description: cerise
+      clmentine:
+        meaning: dfc-f:clmentine
+        description: clémentine
+      clementine:
+        meaning: dfc-f:clementine
+        description: clementine
+      figue:
+        meaning: dfc-f:figue
+        description: figue
+      fig:
+        meaning: dfc-f:fig
+        description: fig
+      grape:
+        meaning: dfc-f:grape
+        description: grape
+      raisin:
+        meaning: dfc-f:raisin
+        description: raisin
+      kiwi:
+        meaning: dfc-f:kiwi
+        description: kiwi
+      citron:
+        meaning: dfc-f:citron
+        description: citron
+      lemon:
+        meaning: dfc-f:lemon
+        description: lemon
+      mandarine:
+        meaning: dfc-f:mandarine
+        description: mandarine
+      mandarin:
+        meaning: dfc-f:mandarin
+        description: mandarin
+      nectarine:
+        meaning: dfc-f:nectarine
+        description: nectarine
+      non_local_fruit:
+        meaning: dfc-f:non_local_fruit
+        description: non local fruit
+      fruit_non_local:
+        meaning: dfc-f:fruit_non_local
+        description: fruit non local
+      fruit__coque:
+        meaning: dfc-f:fruit__coque
+        description: fruit à coque
+      nut:
+        meaning: dfc-f:nut
+        description: nut
+      orange:
+        meaning: dfc-f:orange
+        description: orange
+      peach:
+        meaning: dfc-f:peach
+        description: peach
+      pche:
+        meaning: dfc-f:pche
+        description: pêche
+      pear:
+        meaning: dfc-f:pear
+        description: pear
+      poire:
+        meaning: dfc-f:poire
+        description: poire
+      plum:
+        meaning: dfc-f:plum
+        description: plum
+      prune:
+        meaning: dfc-f:prune
+        description: prune
+      pruneau:
+        meaning: dfc-f:pruneau
+        description: pruneau
+      quince:
+        meaning: dfc-f:quince
+        description: quince
+      coing:
+        meaning: dfc-f:coing
+        description: coing
+      nfle:
+        meaning: dfc-f:nfle
+        description: nèfle
+      medlar:
+        meaning: dfc-f:medlar
+        description: medlar
+      blueberry:
+        meaning: dfc-f:blueberry
+        description: blueberry
+      myrtille:
+        meaning: dfc-f:myrtille
+        description: myrtille
+      currant:
+        meaning: dfc-f:currant
+        description: currant
+      groseille:
+        meaning: dfc-f:groseille
+        description: groseille
+      mre:
+        meaning: dfc-f:mre
+        description: mûre
+      blackberry:
+        meaning: dfc-f:blackberry
+        description: blackberry
+      framboise:
+        meaning: dfc-f:framboise
+        description: framboise
+      raspberry:
+        meaning: dfc-f:raspberry
+        description: raspberry
+      gooseberry:
+        meaning: dfc-f:gooseberry
+        description: gooseberry
+      groseille__maquereau:
+        meaning: dfc-f:groseille__maquereau
+        description: groseille à maquereau
+      fraise:
+        meaning: dfc-f:fraise
+        description: fraise
+      strawberry:
+        meaning: dfc-f:strawberry
+        description: strawberry
+      blackcurrant:
+        meaning: dfc-f:blackcurrant
+        description: blackcurrant
+      cassis:
+        meaning: dfc-f:cassis
+        description: cassis
+      picerie_locale:
+        meaning: dfc-f:picerie_locale
+        description: épicerie locale
+      local_grocery_store:
+        meaning: dfc-f:local_grocery_store
+        description: local grocery store
+      produits_sec:
+        meaning: dfc-f:produits_sec
+        description: produits sec
+      dried_goods:
+        meaning: dfc-f:dried_goods
+        description: dried goods
+      plat_cuisin:
+        meaning: dfc-f:plat_cuisin
+        description: plat cuisiné
+      ready_meal:
+        meaning: dfc-f:ready_meal
+        description: ready meal
+      sweet_groceries:
+        meaning: dfc-f:sweet_groceries
+        description: sweet groceries
+      picerie_sucre:
+        meaning: dfc-f:picerie_sucre
+        description: épicerie sucrée
+      processed_fruit:
+        meaning: dfc-f:processed_fruit
+        description: processed fruit
+      fruit_transform:
+        meaning: dfc-f:fruit_transform
+        description: fruit transformé
+      cauliflower:
+        meaning: dfc-f:cauliflower
+        description: cauliflower
+      chou_fleur:
+        meaning: dfc-f:chou_fleur
+        description: chou-fleur
+      lemonade:
+        meaning: dfc-f:lemonade
+        description: lemonade
+      limonade:
+        meaning: dfc-f:limonade
+        description: limonade
+      boisson_non_alcoolise:
+        meaning: dfc-f:boisson_non_alcoolise
+        description: boisson non alcoolisée
+      soft_drink:
+        meaning: dfc-f:soft_drink
+        description: soft drink
+      salt:
+        meaning: dfc-f:salt
+        description: salt
+      sel:
+        meaning: dfc-f:sel
+        description: sel
+      brussels_sprouts:
+        meaning: dfc-f:brussels_sprouts
+        description: brussels sprouts
+      choux_de_bruxelles:
+        meaning: dfc-f:choux_de_bruxelles
+        description: choux de bruxelles
+      drink:
+        meaning: dfc-f:drink
+        description: drink
+      boisson:
+        meaning: dfc-f:boisson
+        description: boisson
+      produit_laitier:
+        meaning: dfc-f:produit_laitier
+        description: produit laitier
+      dairy_product:
+        meaning: dfc-f:dairy_product
+        description: dairy product
+      bakery:
+        meaning: dfc-f:bakery
+        description: bakery
+      boulangerie:
+        meaning: dfc-f:boulangerie
+        description: boulangerie
+      inedible:
+        meaning: dfc-f:inedible
+        description: inedible
+      non_alimentaire:
+        meaning: dfc-f:non_alimentaire
+        description: non alimentaire
+      frozen:
+        meaning: dfc-f:frozen
+        description: frozen
+      surgel:
+        meaning: dfc-f:surgel
+        description: surgelé
+      hierloom_tomato:
+        meaning: dfc-f:hierloom_tomato
+        description: hierloom tomato
+      tomate_ancienne:
+        meaning: dfc-f:tomate_ancienne
+        description: tomate ancienne
+      tomate_cerise:
+        meaning: dfc-f:tomate_cerise
+        description: tomate cerise
+      cherry_tomato:
+        meaning: dfc-f:cherry_tomato
+        description: cherry tomato
+      round_tomato:
+        meaning: dfc-f:round_tomato
+        description: round tomato
+      tomate_ronde:
+        meaning: dfc-f:tomate_ronde
+        description: tomate ronde
+      tomate_en_grappe:
+        meaning: dfc-f:tomate_en_grappe
+        description: tomate en grappe
+      cluster_tomato:
+        meaning: dfc-f:cluster_tomato
+        description: cluster tomato
+      shellfish:
+        meaning: dfc-f:shellfish
+        description: shellfish
+      crustacs:
+        meaning: dfc-f:crustacs
+        description: crustacés
+      fishery_product:
+        meaning: dfc-f:fishery_product
+        description: fishery product
+      produit_de_la_pche:
+        meaning: dfc-f:produit_de_la_pche
+        description: produit de la pêche
+      viennoiserie:
+        meaning: dfc-f:viennoiserie
+        description: viennoiserie
+      flake:
+        meaning: dfc-f:flake
+        description: flake
+      flocon:
+        meaning: dfc-f:flocon
+        description: flocon
+      amande:
+        meaning: dfc-f:amande
+        description: amande
+      almond:
+        meaning: dfc-f:almond
+        description: almond
+      chestnut:
+        meaning: dfc-f:chestnut
+        description: chestnut
+      marron:
+        meaning: dfc-f:marron
+        description: marron
+      noisette:
+        meaning: dfc-f:noisette
+        description: noisette
+      hazelnut:
+        meaning: dfc-f:hazelnut
+        description: hazelnut
+      noix:
+        meaning: dfc-f:noix
+        description: noix
+      walnut:
+        meaning: dfc-f:walnut
+        description: walnut
+      grain:
+        meaning: dfc-f:grain
+        description: grain
+      crale:
+        meaning: dfc-f:crale
+        description: céréale
+      sheep_natural_yogurt:
+        meaning: dfc-f:sheep_natural_yogurt
+        description: sheep natural yogurt
+      yaourt_de_brebis_nature:
+        meaning: dfc-f:yaourt_de_brebis_nature
+        description: yaourt de brebis nature
+      produit_laitier_de_brebis:
+        meaning: dfc-f:produit_laitier_de_brebis
+        description: produit laitier de brebis
+      sheep_dairy_product:
+        meaning: dfc-f:sheep_dairy_product
+        description: sheep dairy product
+      crme_frache:
+        meaning: dfc-f:crme_frache
+        description: crème fraîche
+      fresh_cream:
+        meaning: dfc-f:fresh_cream
+        description: fresh cream
+      rocket:
+        meaning: dfc-f:rocket
+        description: rocket
+      roquette:
+        meaning: dfc-f:roquette
+        description: roquette
+      pie_pastry:
+        meaning: dfc-f:pie_pastry
+        description: pie pastry
+      pte__tarte:
+        meaning: dfc-f:pte__tarte
+        description: pâte à tarte
+      morel:
+        meaning: dfc-f:morel
+        description: morel
+      morille:
+        meaning: dfc-f:morille
+        description: morille
+      fromage_frais_de_chvre:
+        meaning: dfc-f:fromage_frais_de_chvre
+        description: fromage frais de chèvre
+      goat_fresh_cheese:
+        meaning: dfc-f:goat_fresh_cheese
+        description: goat fresh cheese
+      produit_laitier_de_chvre:
+        meaning: dfc-f:produit_laitier_de_chvre
+        description: produit laitier de chèvre
+      goat_dairy_product:
+        meaning: dfc-f:goat_dairy_product
+        description: goat dairy product
+      smooth_cabbage:
+        meaning: dfc-f:smooth_cabbage
+        description: smooth cabbage
+      chou_lisse:
+        meaning: dfc-f:chou_lisse
+        description: chou lisse
+      veau:
+        meaning: dfc-f:veau
+        description: veau
+      veal:
+        meaning: dfc-f:veal
+        description: veal
+      goat_mature_cheese:
+        meaning: dfc-f:goat_mature_cheese
+        description: goat mature cheese
+      fromage_de_chvre_affin:
+        meaning: dfc-f:fromage_de_chvre_affin
+        description: fromage de chèvre affiné
+      graine:
+        meaning: dfc-f:graine
+        description: graine
+      seed:
+        meaning: dfc-f:seed
+        description: seed
+      quinoa:
+        meaning: dfc-f:quinoa
+        description: quinoa
+      beans:
+        meaning: dfc-f:beans
+        description: beans
+      haricots:
+        meaning: dfc-f:haricots
+        description: haricots
+      lentilles:
+        meaning: dfc-f:lentilles
+        description: lentilles
+      lentils:
+        meaning: dfc-f:lentils
+        description: lentils
+      peas:
+        meaning: dfc-f:peas
+        description: peas
+      pois:
+        meaning: dfc-f:pois
+        description: pois
+      viande_bovine:
+        meaning: dfc-f:viande_bovine
+        description: viande bovine
+      beef:
+        meaning: dfc-f:beef
+        description: beef
+      egg:
+        meaning: dfc-f:egg
+        description: egg
+      uf:
+        meaning: dfc-f:uf
+        description: œuf
+      agneau:
+        meaning: dfc-f:agneau
+        description: agneau
+      lamb:
+        meaning: dfc-f:lamb
+        description: lamb
+      porc:
+        meaning: dfc-f:porc
+        description: porc
+      pork:
+        meaning: dfc-f:pork
+        description: pork
+      lapin:
+        meaning: dfc-f:lapin
+        description: lapin
+      rabbit:
+        meaning: dfc-f:rabbit
+        description: rabbit
+      fromage_affin:
+        meaning: dfc-f:fromage_affin
+        description: fromage affiné
+      mature_cheese:
+        meaning: dfc-f:mature_cheese
+        description: mature cheese
+      bluefoot_mushroom:
+        meaning: dfc-f:bluefoot_mushroom
+        description: bluefoot mushroom
+      Pied_bleu:
+        meaning: dfc-f:Pied_bleu
+        description: Pied-bleu
+      canned_vegetable:
+        meaning: dfc-f:canned_vegetable
+        description: canned vegetable
+      lgume_en_conserve:
+        meaning: dfc-f:lgume_en_conserve
+        description: légume en conserve
+      fromage_affin_de_brebis:
+        meaning: dfc-f:fromage_affin_de_brebis
+        description: fromage affiné de brebis
+      sheep_mature_cheese:
+        meaning: dfc-f:sheep_mature_cheese
+        description: sheep mature cheese
+      yaourt_sucr_de_chvre:
+        meaning: dfc-f:yaourt_sucr_de_chvre
+        description: yaourt sucré de chèvre
+      goat_sweet_yogurt:
+        meaning: dfc-f:goat_sweet_yogurt
+        description: goat sweet yogurt
+      pastry:
+        meaning: dfc-f:pastry
+        description: pastry
+      ptisserie:
+        meaning: dfc-f:ptisserie
+        description: pâtisserie
+      chou_pomm:
+        meaning: dfc-f:chou_pomm
+        description: chou pommé
+      savoy_cabbage:
+        meaning: dfc-f:savoy_cabbage
+        description: savoy cabbage
+      pinards:
+        meaning: dfc-f:pinards
+        description: épinards
+      spinach:
+        meaning: dfc-f:spinach
+        description: spinach
+      mlange_de_salades:
+        meaning: dfc-f:mlange_de_salades
+        description: mélange de salades
+      salad_mix:
+        meaning: dfc-f:salad_mix
+        description: salad mix
+      laitue:
+        meaning: dfc-f:laitue
+        description: laitue
+      lettuce:
+        meaning: dfc-f:lettuce
+        description: lettuce
+      corn_saladlambs_lettuce:
+        meaning: dfc-f:corn_saladlambs_lettuce
+        description: corn salad/lambs lettuce
+      mche:
+        meaning: dfc-f:mche
+        description: mâche
+      chicory:
+        meaning: dfc-f:chicory
+        description: chicory
+      chicore:
+        meaning: dfc-f:chicore
+        description: chicorée
+      dandelion:
+        meaning: dfc-f:dandelion
+        description: dandelion
+      pissenlit:
+        meaning: dfc-f:pissenlit
+        description: pissenlit
+      Purslane:
+        meaning: dfc-f:Purslane
+        description: Purslane
+      Pourpier:
+        meaning: dfc-f:Pourpier
+        description: Pourpier
+      mesclun:
+        meaning: dfc-f:mesclun
+        description: mesclun
+      cress:
+        meaning: dfc-f:cress
+        description: cress
+      cresson:
+        meaning: dfc-f:cresson
+        description: cresson
+      endive:
+        meaning: dfc-f:endive
+        description: endive
+      autre_produit_laitier:
+        meaning: dfc-f:autre_produit_laitier
+        description: autre produit laitier
+      other_dairy_product:
+        meaning: dfc-f:other_dairy_product
+        description: other dairy product
+      dessert_lact_de_chvre:
+        meaning: dfc-f:dessert_lact_de_chvre
+        description: dessert lacté de chèvre
+      goat_dairy_dessert:
+        meaning: dfc-f:goat_dairy_dessert
+        description: goat dairy dessert
+      goat_flavored_yogurt:
+        meaning: dfc-f:goat_flavored_yogurt
+        description: goat flavored yogurt
+      yaourt_de_chvre_aromatis:
+        meaning: dfc-f:yaourt_de_chvre_aromatis
+        description: yaourt de chèvre aromatisé
+      goat_natural_yogurt:
+        meaning: dfc-f:goat_natural_yogurt
+        description: goat natural yogurt
+      yaourt_nature_de_chvre:
+        meaning: dfc-f:yaourt_nature_de_chvre
+        description: yaourt nature de chèvre
+      yaourt_de_chvre_aux_fruits:
+        meaning: dfc-f:yaourt_de_chvre_aux_fruits
+        description: yaourt de chèvre aux fruits
+      goat_yogurt_with_fruits:
+        meaning: dfc-f:goat_yogurt_with_fruits
+        description: goat yogurt with fruits
+      goat_milk:
+        meaning: dfc-f:goat_milk
+        description: goat milk
+      lait_de_chvre:
+        meaning: dfc-f:lait_de_chvre
+        description: lait de chèvre
+      yaourt_de_chvre_sur_lit_de_fruits:
+        meaning: dfc-f:yaourt_de_chvre_sur_lit_de_fruits
+        description: yaourt de chèvre sur lit de fruits
+      goat_yogurt_on_a_bed_of_fruit:
+        meaning: dfc-f:goat_yogurt_on_a_bed_of_fruit
+        description: goat yogurt on a bed of fruit
+      viande_surgele:
+        meaning: dfc-f:viande_surgele
+        description: viande surgelée
+      frozen_meat:
+        meaning: dfc-f:frozen_meat
+        description: frozen meat
+      frozen_meal:
+        meaning: dfc-f:frozen_meal
+        description: frozen meal
+      plat_surgel:
+        meaning: dfc-f:plat_surgel
+        description: plat surgelé
+      bottled_vegetable:
+        meaning: dfc-f:bottled_vegetable
+        description: bottled vegetable
+      lgume_en_bocal:
+        meaning: dfc-f:lgume_en_bocal
+        description: légume en bocal
+      biscuit:
+        meaning: dfc-f:biscuit
+        description: biscuit
+      lactaire:
+        meaning: dfc-f:lactaire
+        description: lactaire
+      milky_mushroom:
+        meaning: dfc-f:milky_mushroom
+        description: milky mushroom
+      frozen_vegetable:
+        meaning: dfc-f:frozen_vegetable
+        description: frozen vegetable
+      lgume_surgel:
+        meaning: dfc-f:lgume_surgel
+        description: légume surgelé
+      fish:
+        meaning: dfc-f:fish
+        description: fish
+      poisson:
+        meaning: dfc-f:poisson
+        description: poisson
+      grilling_meat:
+        meaning: dfc-f:grilling_meat
+        description: grilling meat
+      viande__griller:
+        meaning: dfc-f:viande__griller
+        description: viande à griller
+      confiserie:
+        meaning: dfc-f:confiserie
+        description: confiserie
+      confectionery:
+        meaning: dfc-f:confectionery
+        description: confectionery
+      coulemelle:
+        meaning: dfc-f:coulemelle
+        description: coulemelle
+      parasol_mushroom:
+        meaning: dfc-f:parasol_mushroom
+        description: parasol mushroom
+      butternut:
+        meaning: dfc-f:butternut
+        description: butternut
+      potiron:
+        meaning: dfc-f:potiron
+        description: potiron
+      pumpkin:
+        meaning: dfc-f:pumpkin
+        description: pumpkin
+      hierloom_squash:
+        meaning: dfc-f:hierloom_squash
+        description: hierloom squash
+      varit_ancienne_de_courge:
+        meaning: dfc-f:varit_ancienne_de_courge
+        description: variété ancienne de courge
+      uchiki_kuri_squash:
+        meaning: dfc-f:uchiki_kuri_squash
+        description: uchiki kuri squash
+      potimarron:
+        meaning: dfc-f:potimarron
+        description: potimarron
+      pattypan_squash:
+        meaning: dfc-f:pattypan_squash
+        description: pattypan squash
+      ptisson:
+        meaning: dfc-f:ptisson
+        description: pâtisson
+      bread:
+        meaning: dfc-f:bread
+        description: bread
+      pain:
+        meaning: dfc-f:pain
+        description: pain
+      autre_fromage:
+        meaning: dfc-f:autre_fromage
+        description: autre fromage
+      other_cheese:
+        meaning: dfc-f:other_cheese
+        description: other cheese
+      autre_lait:
+        meaning: dfc-f:autre_lait
+        description: autre lait
+      other_milk:
+        meaning: dfc-f:other_milk
+        description: other milk
+      ferment:
+        meaning: dfc-f:ferment
+        description: ferment
+      aperitif:
+        meaning: dfc-f:aperitif
+        description: aperitif
+      apritif:
+        meaning: dfc-f:apritif
+        description: apéritif
+      boisson_alcoolise:
+        meaning: dfc-f:boisson_alcoolise
+        description: boisson alcoolisée
+      alcoholic_beverage:
+        meaning: dfc-f:alcoholic_beverage
+        description: alcoholic beverage
+      snack:
+        meaning: dfc-f:snack
+        description: snack
+      cosmetic:
+        meaning: dfc-f:cosmetic
+        description: cosmetic
+      cosmtique:
+        meaning: dfc-f:cosmtique
+        description: cosmétique
+      cooked_meat:
+        meaning: dfc-f:cooked_meat
+        description: cooked meat
+      viande_cuite:
+        meaning: dfc-f:viande_cuite
+        description: viande cuite
+      charcuterie:
+        meaning: dfc-f:charcuterie
+        description: charcuterie
+      delicatessen:
+        meaning: dfc-f:delicatessen
+        description: delicatessen
+      viande_frache:
+        meaning: dfc-f:viande_frache
+        description: viande fraîche
+      fresh_meat:
+        meaning: dfc-f:fresh_meat
+        description: fresh meat
+      salaison:
+        meaning: dfc-f:salaison
+        description: salaison
+      salting:
+        meaning: dfc-f:salting
+        description: salting
+      pintade:
+        meaning: dfc-f:pintade
+        description: pintade
+      guinea_fowl:
+        meaning: dfc-f:guinea_fowl
+        description: guinea fowl
+      dinde:
+        meaning: dfc-f:dinde
+        description: dinde
+      turkey:
+        meaning: dfc-f:turkey
+        description: turkey
+      oie:
+        meaning: dfc-f:oie
+        description: oie
+      goose:
+        meaning: dfc-f:goose
+        description: goose
+      canard:
+        meaning: dfc-f:canard
+        description: canard
+      duck:
+        meaning: dfc-f:duck
+        description: duck
+      festive_poultry:
+        meaning: dfc-f:festive_poultry
+        description: festive poultry
+      volaille_festive:
+        meaning: dfc-f:volaille_festive
+        description: volaille festive
+      pigeon:
+        meaning: dfc-f:pigeon
+        description: pigeon
+      caille:
+        meaning: dfc-f:caille
+        description: caille
+      quail:
+        meaning: dfc-f:quail
+        description: quail
+      digestive:
+        meaning: dfc-f:digestive
+        description: digestive
+      digestif:
+        meaning: dfc-f:digestif
+        description: digestif
+      chou_rave:
+        meaning: dfc-f:chou_rave
+        description: chou-rave
+      kohlrabi:
+        meaning: dfc-f:kohlrabi
+        description: kohlrabi
+      butter:
+        meaning: dfc-f:butter
+        description: butter
+      beurre:
+        meaning: dfc-f:beurre
+        description: beurre
+      chou_rouge:
+        meaning: dfc-f:chou_rouge
+        description: chou rouge
+      red_cabbage:
+        meaning: dfc-f:red_cabbage
+        description: red cabbage
+      chou_romanesco:
+        meaning: dfc-f:chou_romanesco
+        description: chou romanesco
+      romanesco_cauliflower:
+        meaning: dfc-f:romanesco_cauliflower
+        description: romanesco cauliflower
+      broccoli_cabbage:
+        meaning: dfc-f:broccoli_cabbage
+        description: broccoli cabbage
+      chou_brocoli:
+        meaning: dfc-f:chou_brocoli
+        description: chou brocoli
+      chou_fris:
+        meaning: dfc-f:chou_fris
+        description: chou frisé
+      curly_kale:
+        meaning: dfc-f:curly_kale
+        description: curly kale
+      chou_kale:
+        meaning: dfc-f:chou_kale
+        description: chou kale
+      kale:
+        meaning: dfc-f:kale
+        description: kale
+      chou_chinois:
+        meaning: dfc-f:chou_chinois
+        description: chou chinois
+      chinese_cabbage:
+        meaning: dfc-f:chinese_cabbage
+        description: chinese cabbage
+      honey:
+        meaning: dfc-f:honey
+        description: honey
+      miel:
+        meaning: dfc-f:miel
+        description: miel
+      jam:
+        meaning: dfc-f:jam
+        description: jam
+      confiture:
+        meaning: dfc-f:confiture
+        description: confiture
+      frozen_fruit:
+        meaning: dfc-f:frozen_fruit
+        description: frozen fruit
+      fruit_surgel:
+        meaning: dfc-f:fruit_surgel
+        description: fruit surgelé
+      coquillage:
+        meaning: dfc-f:coquillage
+        description: coquillage
+      seashell:
+        meaning: dfc-f:seashell
+        description: seashell
+      cpes:
+        meaning: dfc-f:cpes
+        description: cèpes
+      porcini:
+        meaning: dfc-f:porcini
+        description: porcini
+      fruit_juice:
+        meaning: dfc-f:fruit_juice
+        description: fruit juice
+      jus_de_fruits:
+        meaning: dfc-f:jus_de_fruits
+        description: jus de fruits
+      button_mushroom:
+        meaning: dfc-f:button_mushroom
+        description: button mushroom
+      champignon_de_Paris:
+        meaning: dfc-f:champignon_de_Paris
+        description: champignon de Paris
+      girolle:
+        meaning: dfc-f:girolle
+        description: girolle
+      girolle_mushroom:
+        meaning: dfc-f:girolle_mushroom
+        description: girolle mushroom
+      truffe:
+        meaning: dfc-f:truffe
+        description: truffe
+      truffle:
+        meaning: dfc-f:truffle
+        description: truffle
+      Pied_de_mouton:
+        meaning: dfc-f:Pied_de_mouton
+        description: Pied-de-mouton
+      sheepfoot_mushroom:
+        meaning: dfc-f:sheepfoot_mushroom
+        description: sheepfoot mushroom
+      mousseron:
+        meaning: dfc-f:mousseron
+        description: mousseron
+      chanterelle:
+        meaning: dfc-f:chanterelle
+        description: chanterelle
+      chanterelle_mushroom:
+        meaning: dfc-f:chanterelle_mushroom
+        description: chanterelle mushroom
+      oyster_mushroom:
+        meaning: dfc-f:oyster_mushroom
+        description: oyster mushroom
+      pleurote:
+        meaning: dfc-f:pleurote
+        description: pleurote
+      deaths_trumpet:
+        meaning: dfc-f:deaths_trumpet
+        description: deaths trumpet
+      trompette_de_la_mort:
+        meaning: dfc-f:trompette_de_la_mort
+        description: trompette de la mort
+      cream_cheese:
+        meaning: dfc-f:cream_cheese
+        description: cream cheese
+      fromage_blanc:
+        meaning: dfc-f:fromage_blanc
+        description: fromage blanc
+      sheep_sweet_yogurt:
+        meaning: dfc-f:sheep_sweet_yogurt
+        description: sheep sweet yogurt
+      yaourt_sucr_de_brebis:
+        meaning: dfc-f:yaourt_sucr_de_brebis
+        description: yaourt sucré de brebis
+      semolina:
+        meaning: dfc-f:semolina
+        description: semolina
+      semoule:
+        meaning: dfc-f:semoule
+        description: semoule
+      huile:
+        meaning: dfc-f:huile
+        description: huile
+      oil:
+        meaning: dfc-f:oil
+        description: oil
+      canned_goods:
+        meaning: dfc-f:canned_goods
+        description: canned goods
+      ptes:
+        meaning: dfc-f:ptes
+        description: pâtes
+      pasta:
+        meaning: dfc-f:pasta
+        description: pasta
+      rice:
+        meaning: dfc-f:rice
+        description: rice
+      riz:
+        meaning: dfc-f:riz
+        description: riz
+      yaourt_sur_lit_de_fruits:
+        meaning: dfc-f:yaourt_sur_lit_de_fruits
+        description: yaourt sur lit de fruits
+      yogurt_on_a_bed_of_fruit:
+        meaning: dfc-f:yogurt_on_a_bed_of_fruit
+        description: yogurt on a bed of fruit
+      pulse:
+        meaning: dfc-f:pulse
+        description: pulse
+      sheep_dairy_dessert:
+        meaning: dfc-f:sheep_dairy_dessert
+        description: sheep dairy dessert
+      dessert_lact_de_brebis:
+        meaning: dfc-f:dessert_lact_de_brebis
+        description: dessert lacté de brebis
+      sheep_flavored_yogurt:
+        meaning: dfc-f:sheep_flavored_yogurt
+        description: sheep flavored yogurt
+      yaourt_de_brebis_aromatis:
+        meaning: dfc-f:yaourt_de_brebis_aromatis
+        description: yaourt de brebis aromatisé
+      sheep_fresh_cheese:
+        meaning: dfc-f:sheep_fresh_cheese
+        description: sheep fresh cheese
+      Fromage_frais_de_brebis:
+        meaning: dfc-f:Fromage_frais_de_brebis
+        description: Fromage frais de brebis
+      lait_de_brebis:
+        meaning: dfc-f:lait_de_brebis
+        description: lait de brebis
+      sheep_milk:
+        meaning: dfc-f:sheep_milk
+        description: sheep milk
+      sheep_yogurt_on_a_bed_of_fruit:
+        meaning: dfc-f:sheep_yogurt_on_a_bed_of_fruit
+        description: sheep yogurt on a bed of fruit
+      yaourt_de_brebis_sur_lit_de_fruits:
+        meaning: dfc-f:yaourt_de_brebis_sur_lit_de_fruits
+        description: yaourt de brebis sur lit de fruits
+      sheep_yogurt_with_fruits:
+        meaning: dfc-f:sheep_yogurt_with_fruits
+        description: sheep yogurt with fruits
+      yaourt_de_brebis_aux_fruits:
+        meaning: dfc-f:yaourt_de_brebis_aux_fruits
+        description: yaourt de brebis aux fruits
+      fruit_en_compote:
+        meaning: dfc-f:fruit_en_compote
+        description: fruit en compote
+      fruit_in_compote:
+        meaning: dfc-f:fruit_in_compote
+        description: fruit in compote
+      fruit_en_bocal:
+        meaning: dfc-f:fruit_en_bocal
+        description: fruit en bocal
+      bottled_fruit:
+        meaning: dfc-f:bottled_fruit
+        description: bottled fruit
+      canned_fruit:
+        meaning: dfc-f:canned_fruit
+        description: canned fruit
+      fruit_en_conserve:
+        meaning: dfc-f:fruit_en_conserve
+        description: fruit en conserve
+      fruit_sec:
+        meaning: dfc-f:fruit_sec
+        description: fruit sec
+      dried_fruit:
+        meaning: dfc-f:dried_fruit
+        description: dried fruit
+      dairy_dessert:
+        meaning: dfc-f:dairy_dessert
+        description: dairy dessert
+      dessert_lact:
+        meaning: dfc-f:dessert_lact
+        description: dessert lacté
+      fresh_cheese:
+        meaning: dfc-f:fresh_cheese
+        description: fresh cheese
+      fromage_frais:
+        meaning: dfc-f:fromage_frais
+        description: fromage frais
+      lait:
+        meaning: dfc-f:lait
+        description: lait
+      milk:
+        meaning: dfc-f:milk
+        description: milk
+      yaourt_nature:
+        meaning: dfc-f:yaourt_nature
+        description: yaourt nature
+      natural_yogurt:
+        meaning: dfc-f:natural_yogurt
+        description: natural yogurt
+      yaourt_sucr:
+        meaning: dfc-f:yaourt_sucr
+        description: yaourt sucré
+      sweet_yogurt:
+        meaning: dfc-f:sweet_yogurt
+        description: sweet yogurt
+      yaourt_aux_fruits:
+        meaning: dfc-f:yaourt_aux_fruits
+        description: yaourt aux fruits
+      yogurt_with_fruits:
+        meaning: dfc-f:yogurt_with_fruits
+        description: yogurt with fruits
+      flour:
+        meaning: dfc-f:flour
+        description: flour
+      farine:
+        meaning: dfc-f:farine
+        description: farine
+      flower:
+        meaning: dfc-f:flower
+        description: flower
+      fleur:
+        meaning: dfc-f:fleur
+        description: fleur
+      plant:
+        meaning: dfc-f:plant
+        description: plant
+      plante:
+        meaning: dfc-f:plante
+        description: plante
+      aromate_sec:
+        meaning: dfc-f:aromate_sec
+        description: aromate sec
+      dried_herb:
+        meaning: dfc-f:dried_herb
+        description: dried herb
+      viande__mijoter:
+        meaning: dfc-f:viande__mijoter
+        description: viande à mijoter
+      simmering_meat:
+        meaning: dfc-f:simmering_meat
+        description: simmering meat
+      wine:
+        meaning: dfc-f:wine
+        description: wine
+      vin:
+        meaning: dfc-f:vin
+        description: vin
+      beer:
+        meaning: dfc-f:beer
+        description: beer
+      bire:
+        meaning: dfc-f:bire
+        description: bière
+      smoothie:
+        meaning: dfc-f:smoothie
+        description: smoothie
+      cider:
+        meaning: dfc-f:cider
+        description: cider
+      cidre:
+        meaning: dfc-f:cidre
+        description: cidre
+  Measure:
+    permissible_values:
+      6_pack:
+        meaning: dfc-f:6_pack
+        description: 6 pack
+      pack_de_6:
+        meaning: dfc-f:pack_de_6
+        description: pack de 6
+      Product_measure_glossary_:
+        meaning: dfc-f:Product_measure_glossary_
+        description: 'Product measure glossary '
+      Glossaire_mesure_produit:
+        meaning: dfc-f:Glossaire_mesure_produit
+        description: Glossaire mesure produit
+      Quantity_unit:
+        meaning: dfc-f:Quantity_unit
+        description: Quantity unit
+      Unit_de_quantit:
+        meaning: dfc-f:Unit_de_quantit
+        description: Unité de quantité
+      Largeur:
+        meaning: dfc-f:Largeur
+        description: Largeur
+      Width:
+        meaning: dfc-f:Width
+        description: Width
+      Physical_dimension:
+        meaning: dfc-f:Physical_dimension
+        description: Physical dimension
+      Dimension_physique:
+        meaning: dfc-f:Dimension_physique
+        description: Dimension physique
+      douzaine:
+        meaning: dfc-f:douzaine
+        description: douzaine
+      dozen:
+        meaning: dfc-f:dozen
+        description: dozen
+      Volume:
+        meaning: dfc-f:Volume
+        description: Volume
+      Hauteur:
+        meaning: dfc-f:Hauteur
+        description: Hauteur
+      Height:
+        meaning: dfc-f:Height
+        description: Height
+      Depth:
+        meaning: dfc-f:Depth
+        description: Depth
+      Profondeur:
+        meaning: dfc-f:Profondeur
+        description: Profondeur
+      Weight:
+        meaning: dfc-f:Weight
+        description: Weight
+      Poids:
+        meaning: dfc-f:Poids
+        description: Poids
+      Dimension:
+        meaning: dfc-f:Dimension
+        description: Dimension
+      euro:
+        meaning: dfc-f:euro
+        description: euro
+      Currency_unit:
+        meaning: dfc-f:Currency_unit
+        description: Currency unit
+      Unit_de_devise_montaire:
+        meaning: dfc-f:Unit_de_devise_montaire
+        description: Unité de devise monétaire
+      tasse:
+        meaning: dfc-f:tasse
+        description: tasse
+      cup:
+        meaning: dfc-f:cup
+        description: cup
+      seau:
+        meaning: dfc-f:seau
+        description: seau
+      bucket:
+        meaning: dfc-f:bucket
+        description: bucket
+      milligramme:
+        meaning: dfc-f:milligramme
+        description: milligramme
+      milligram:
+        meaning: dfc-f:milligram
+        description: milligram
+      tablette:
+        meaning: dfc-f:tablette
+        description: tablette
+      tablet:
+        meaning: dfc-f:tablet
+        description: tablet
+      kit:
+        meaning: dfc-f:kit
+        description: kit
+      tonne:
+        meaning: dfc-f:tonne
+        description: tonne
+      inch:
+        meaning: dfc-f:inch
+        description: inch
+      pouce:
+        meaning: dfc-f:pouce
+        description: pouce
+      box:
+        meaning: dfc-f:box
+        description: box
+      bote:
+        meaning: dfc-f:bote
+        description: boîte
+      pack_de_4:
+        meaning: dfc-f:pack_de_4
+        description: pack de 4
+      4_pack:
+        meaning: dfc-f:4_pack
+        description: 4 pack
+      net:
+        meaning: dfc-f:net
+        description: net
+      filet:
+        meaning: dfc-f:filet
+        description: filet
+      bundle:
+        meaning: dfc-f:bundle
+        description: bundle
+      lot:
+        meaning: dfc-f:lot
+        description: lot
+      plateau:
+        meaning: dfc-f:plateau
+        description: plateau
+      tray:
+        meaning: dfc-f:tray
+        description: tray
+      centilitre:
+        meaning: dfc-f:centilitre
+        description: centilitre
+      can:
+        meaning: dfc-f:can
+        description: can
+      canette:
+        meaning: dfc-f:canette
+        description: canette
+      pallet:
+        meaning: dfc-f:pallet
+        description: pallet
+      palette:
+        meaning: dfc-f:palette
+        description: palette
+      beer_crate:
+        meaning: dfc-f:beer_crate
+        description: beer crate
+      casier__bire:
+        meaning: dfc-f:casier__bire
+        description: casier à bière
+      carton:
+        meaning: dfc-f:carton
+        description: carton
+      half_dozen:
+        meaning: dfc-f:half_dozen
+        description: half dozen
+      demi_douzaine:
+        meaning: dfc-f:demi_douzaine
+        description: demi-douzaine
+      grain_bulk:
+        meaning: dfc-f:grain_bulk
+        description: grain bulk
+      grain_en_vrac:
+        meaning: dfc-f:grain_en_vrac
+        description: grain en vrac
+      gram:
+        meaning: dfc-f:gram
+        description: gram
+      gramme:
+        meaning: dfc-f:gramme
+        description: gramme
+      crate:
+        meaning: dfc-f:crate
+        description: crate
+      cagette:
+        meaning: dfc-f:cagette
+        description: cagette
+      kilogram:
+        meaning: dfc-f:kilogram
+        description: kilogram
+      kilogramme:
+        meaning: dfc-f:kilogramme
+        description: kilogramme
+      bac:
+        meaning: dfc-f:bac
+        description: bac
+      tub:
+        meaning: dfc-f:tub
+        description: tub
+      bote_de_conserve:
+        meaning: dfc-f:bote_de_conserve
+        description: boîte de conserve
+      tin:
+        meaning: dfc-f:tin
+        description: tin
+      pot:
+        meaning: dfc-f:pot
+        description: pot
+      ounce:
+        meaning: dfc-f:ounce
+        description: ounce
+      once:
+        meaning: dfc-f:once
+        description: once
+      gallon_UK:
+        meaning: dfc-f:gallon_UK
+        description: gallon (UK)
+      gallon_GB:
+        meaning: dfc-f:gallon_GB
+        description: gallon (GB)
+      panier:
+        meaning: dfc-f:panier
+        description: panier
+      basket:
+        meaning: dfc-f:basket
+        description: basket
+      centimetre:
+        meaning: dfc-f:centimetre
+        description: centimetre
+      centimtre:
+        meaning: dfc-f:centimtre
+        description: centimètre
+      punnet:
+        meaning: dfc-f:punnet
+        description: punnet
+      barquette:
+        meaning: dfc-f:barquette
+        description: barquette
+      decilitre:
+        meaning: dfc-f:decilitre
+        description: decilitre
+      litre:
+        meaning: dfc-f:litre
+        description: litre
+      keg:
+        meaning: dfc-f:keg
+        description: keg
+      ft:
+        meaning: dfc-f:ft
+        description: fût
+      pound:
+        meaning: dfc-f:pound
+        description: pound
+      decimetre:
+        meaning: dfc-f:decimetre
+        description: decimetre
+      decimtre:
+        meaning: dfc-f:decimtre
+        description: decimètre
+      cask:
+        meaning: dfc-f:cask
+        description: cask
+      tonneau:
+        meaning: dfc-f:tonneau
+        description: tonneau
+      package:
+        meaning: dfc-f:package
+        description: package
+      colis:
+        meaning: dfc-f:colis
+        description: colis
+      bag:
+        meaning: dfc-f:bag
+        description: bag
+      sac:
+        meaning: dfc-f:sac
+        description: sac
+      bottle:
+        meaning: dfc-f:bottle
+        description: bottle
+      bouteille:
+        meaning: dfc-f:bouteille
+        description: bouteille
+      baril:
+        meaning: dfc-f:baril
+        description: baril
+      drum:
+        meaning: dfc-f:drum
+        description: drum
+      paire:
+        meaning: dfc-f:paire
+        description: paire
+      pair:
+        meaning: dfc-f:pair
+        description: pair
+      tube:
+        meaning: dfc-f:tube
+        description: tube
+      roll:
+        meaning: dfc-f:roll
+        description: roll
+      rouleau:
+        meaning: dfc-f:rouleau
+        description: rouleau
+      pouch:
+        meaning: dfc-f:pouch
+        description: pouch
+      poche:
+        meaning: dfc-f:poche
+        description: poche
+      nodule_bulk:
+        meaning: dfc-f:nodule_bulk
+        description: nodule bulk
+      nodule_en_vrac:
+        meaning: dfc-f:nodule_en_vrac
+        description: nodule en vrac
+      mtre:
+        meaning: dfc-f:mtre
+        description: mètre
+      metre:
+        meaning: dfc-f:metre
+        description: metre
+      packet:
+        meaning: dfc-f:packet
+        description: packet
+      sachet:
+        meaning: dfc-f:sachet
+        description: sachet
+      piece:
+        meaning: dfc-f:piece
+        description: piece
+      pice:
+        meaning: dfc-f:pice
+        description: pièce
+      poudre_en_vrac:
+        meaning: dfc-f:poudre_en_vrac
+        description: poudre en vrac
+      powder_bulk:
+        meaning: dfc-f:powder_bulk
+        description: powder bulk
+      liquide_en_vrac:
+        meaning: dfc-f:liquide_en_vrac
+        description: liquide en vrac
+      liquid_bulk:
+        meaning: dfc-f:liquid_bulk
+        description: liquid bulk
+      bocal:
+        meaning: dfc-f:bocal
+        description: bocal
+      jar:
+        meaning: dfc-f:jar
+        description: jar
+      millilitre:
+        meaning: dfc-f:millilitre
+        description: millilitre
+      milliliter:
+        meaning: dfc-f:milliliter
+        description: milliliter
+      pourcent:
+        meaning: dfc-f:pourcent
+        description: pourcent
+      percent:
+        meaning: dfc-f:percent
+        description: percent
+      kilometre:
+        meaning: dfc-f:kilometre
+        description: kilometre
+      kilomtre:
+        meaning: dfc-f:kilomtre
+        description: kilomètre
+      botte:
+        meaning: dfc-f:botte
+        description: botte
+      bunch:
+        meaning: dfc-f:bunch
+        description: bunch
+      Units:
+        meaning: dfc-f:Units
+        description: Unités
+      Unit:
+        meaning: dfc-f:Unit
+        description: Unit
+      Graisse_sature:
+        meaning: dfc-f:Graisse_sature
+        description: Graisse saturée
+      Saturated_fat:
+        meaning: dfc-f:Saturated_fat
+        description: Saturated fat
+      Dimension_nutritionnelle:
+        meaning: dfc-f:Dimension_nutritionnelle
+        description: Dimension nutritionnelle
+      Nutrient_dimension:
+        meaning: dfc-f:Nutrient_dimension
+        description: Nutrient dimension
+      Copper:
+        meaning: dfc-f:Copper
+        description: Copper
+      Carbohydrates:
+        meaning: dfc-f:Carbohydrates
+        description: Carbohydrates
+      Sodium:
+        meaning: dfc-f:Sodium
+        description: Sodium
+      Fluoride:
+        meaning: dfc-f:Fluoride
+        description: Fluoride
+      Starch:
+        meaning: dfc-f:Starch
+        description: Starch
+      Amidon:
+        meaning: dfc-f:Amidon
+        description: Amidon
+      Calcium:
+        meaning: dfc-f:Calcium
+        description: Calcium
+      Slnium:
+        meaning: dfc-f:Slnium
+        description: Sélénium
+      Selenium:
+        meaning: dfc-f:Selenium
+        description: Selenium
+      Graisse_poly_insature:
+        meaning: dfc-f:Graisse_poly_insature
+        description: Graisse poly-insaturée
+      Poly_unsaturated_fat:
+        meaning: dfc-f:Poly_unsaturated_fat
+        description: Poly-unsaturated fat
+      Vitamine_B6:
+        meaning: dfc-f:Vitamine_B6
+        description: Vitamine B6
+      Vitamin_B6:
+        meaning: dfc-f:Vitamin_B6
+        description: Vitamin B6
+      Protine:
+        meaning: dfc-f:Protine
+        description: Protéine
+      Protein:
+        meaning: dfc-f:Protein
+        description: Protein
+      Chloride:
+        meaning: dfc-f:Chloride
+        description: Chloride
+      Salt:
+        meaning: dfc-f:Salt
+        description: Salt
+      Sel:
+        meaning: dfc-f:Sel
+        description: Sel
+      Graisse:
+        meaning: dfc-f:Graisse
+        description: Graisse
+      Fat:
+        meaning: dfc-f:Fat
+        description: Fat
+      Magnesium:
+        meaning: dfc-f:Magnesium
+        description: Magnesium
+      Magnsium:
+        meaning: dfc-f:Magnsium
+        description: Magnésium
+      Vitamin_E:
+        meaning: dfc-f:Vitamin_E
+        description: Vitamin E
+      Vitamine_E:
+        meaning: dfc-f:Vitamine_E
+        description: Vitamine E
+      Iodine:
+        meaning: dfc-f:Iodine
+        description: Iodine
+      Vitamine_D:
+        meaning: dfc-f:Vitamine_D
+        description: Vitamine D
+      Vitamin_D:
+        meaning: dfc-f:Vitamin_D
+        description: Vitamin D
+      Graisse_monosature:
+        meaning: dfc-f:Graisse_monosature
+        description: Graisse monosaturée
+      Monosaturated_fat:
+        meaning: dfc-f:Monosaturated_fat
+        description: Monosaturated fat
+      Zinc:
+        meaning: dfc-f:Zinc
+        description: Zinc
+      Potassium:
+        meaning: dfc-f:Potassium
+        description: Potassium
+      Phosphore:
+        meaning: dfc-f:Phosphore
+        description: Phosphore
+      Phosphorus:
+        meaning: dfc-f:Phosphorus
+        description: Phosphorus
+      Sugars:
+        meaning: dfc-f:Sugars
+        description: Sugars
+      Sucres:
+        meaning: dfc-f:Sucres
+        description: Sucres
+      Manganse:
+        meaning: dfc-f:Manganse
+        description: Manganèse
+      Manganese:
+        meaning: dfc-f:Manganese
+        description: Manganese
+      Vitamine_C:
+        meaning: dfc-f:Vitamine_C
+        description: Vitamine C
+      Vitamin_C:
+        meaning: dfc-f:Vitamin_C
+        description: Vitamin C
+      Vitamine_B12:
+        meaning: dfc-f:Vitamine_B12
+        description: Vitamine B12
+      Vitamin_B12:
+        meaning: dfc-f:Vitamin_B12
+        description: Vitamin B12
+      Vitamin_K:
+        meaning: dfc-f:Vitamin_K
+        description: Vitamin K
+      Vitamine_K:
+        meaning: dfc-f:Vitamine_K
+        description: Vitamine K
+      Cholesterol:
+        meaning: dfc-f:Cholesterol
+        description: Cholesterol
+      Cholestrol:
+        meaning: dfc-f:Cholestrol
+        description: Cholestérol
+      Folic_acid:
+        meaning: dfc-f:Folic_acid
+        description: Folic acid
+      Acide_folique:
+        meaning: dfc-f:Acide_folique
+        description: Acide folique
+      Transfat:
+        meaning: dfc-f:Transfat
+        description: Transfat
+      Graisse_trans:
+        meaning: dfc-f:Graisse_trans
+        description: Graisse trans
+      Chrome:
+        meaning: dfc-f:Chrome
+        description: Chrome
+      Chromium:
+        meaning: dfc-f:Chromium
+        description: Chromium
+      Fibre:
+        meaning: dfc-f:Fibre
+        description: Fibre
+      Iron:
+        meaning: dfc-f:Iron
+        description: Iron
+      Fer:
+        meaning: dfc-f:Fer
+        description: Fer
+      Vitamine_A:
+        meaning: dfc-f:Vitamine_A
+        description: Vitamine A
+      Vitamin_A:
+        meaning: dfc-f:Vitamin_A
+        description: Vitamin A
+      Crustacs:
+        meaning: dfc-f:Crustacs
+        description: Crustacés
+      Crustaceans:
+        meaning: dfc-f:Crustaceans
+        description: Crustaceans
+      Allergen_dimension:
+        meaning: dfc-f:Allergen_dimension
+        description: Allergen dimension
+      Dimension_allergne:
+        meaning: dfc-f:Dimension_allergne
+        description: Dimension allergène
+      Soy:
+        meaning: dfc-f:Soy
+        description: Soy
+      Soja:
+        meaning: dfc-f:Soja
+        description: Soja
+      Labelling_dimension:
+        meaning: dfc-f:Labelling_dimension
+        description: Labelling dimension
+      Dimension_score_de_labellisation:
+        meaning: dfc-f:Dimension_score_de_labellisation
+        description: Dimension score de labellisation
+      Nutri_score:
+        meaning: dfc-f:Nutri_score
+        description: Nutri-score
+      Eco_score:
+        meaning: dfc-f:Eco_score
+        description: Eco-score
+      Planet_score:
+        meaning: dfc-f:Planet_score
+        description: Planet-score
+      Anhydride_sulfureux_et_sulfites_en_concentration_de_plus_de_10mgkg_ou_10_mgl_exprims_en_SO2:
+        meaning: dfc-f:Anhydride_sulfureux_et_sulfites_en_concentration_de_plus_de_10mgkg_ou_10_mgl_exprims_en_SO2
+        description: Anhydride sulfureux et sulfites en concentration de plus de 10mg/kg
+          ou 10 mg/l (exprimés en SO2)
+      Sulfur_dioxide_and_sulphites_in_a_concentration_of_more_than_10mgkg_or_10mgl_expressed_as_SO2:
+        meaning: dfc-f:Sulfur_dioxide_and_sulphites_in_a_concentration_of_more_than_10mgkg_or_10mgl_expressed_as_SO2
+        description: Sulfur dioxide and sulphites in a concentration of more than
+          10mg/kg or 10mg/l (expressed as SO2)
+      Celeriac:
+        meaning: dfc-f:Celeriac
+        description: Celeriac
+      Lupine:
+        meaning: dfc-f:Lupine
+        description: Lupine
+      Lupin:
+        meaning: dfc-f:Lupin
+        description: Lupin
+      Graines_de_ssame:
+        meaning: dfc-f:Graines_de_ssame
+        description: Graines de sésame
+      Sesame_seeds:
+        meaning: dfc-f:Sesame_seeds
+        description: Sesame seeds
+      Mustard:
+        meaning: dfc-f:Mustard
+        description: Mustard
+      Moutarde:
+        meaning: dfc-f:Moutarde
+        description: Moutarde
+      Oeufs:
+        meaning: dfc-f:Oeufs
+        description: Oeufs
+      Eggs:
+        meaning: dfc-f:Eggs
+        description: Eggs
+      Molluscs:
+        meaning: dfc-f:Molluscs
+        description: Molluscs
+      Mollusques:
+        meaning: dfc-f:Mollusques
+        description: Mollusques
+      Cereals_containing_gluten:
+        meaning: dfc-f:Cereals_containing_gluten
+        description: Cereals containing gluten
+      Crales_contenant_du_gluten:
+        meaning: dfc-f:Crales_contenant_du_gluten
+        description: Céréales contenant du gluten
+      Fruits__coque:
+        meaning: dfc-f:Fruits__coque
+        description: Fruits à coque
+      Nuts:
+        meaning: dfc-f:Nuts
+        description: Nuts
+      Milk_and_lactose_based_products:
+        meaning: dfc-f:Milk_and_lactose_based_products
+        description: Milk and lactose-based products
+      Lait_et_produits__base_de_lactose:
+        meaning: dfc-f:Lait_et_produits__base_de_lactose
+        description: Lait et produits à base de lactose
+      Arachides:
+        meaning: dfc-f:Arachides
+        description: Arachides
+      Peanuts:
+        meaning: dfc-f:Peanuts
+        description: Peanuts
+      fishs:
+        meaning: dfc-f:fishs
+        description: fishs
+      Poissons:
+        meaning: dfc-f:Poissons
+        description: Poissons
+      dollar_canadien:
+        meaning: dfc-f:dollar_canadien
+        description: dollar canadien
+      canadian_dollar:
+        meaning: dfc-f:canadian_dollar
+        description: canadian dollar
+      dollar_australien:
+        meaning: dfc-f:dollar_australien
+        description: dollar australien
+      australian_dollar:
+        meaning: dfc-f:australian_dollar
+        description: australian dollar
+      pound_sterling:
+        meaning: dfc-f:pound_sterling
+        description: pound sterling
+      livre_sterling:
+        meaning: dfc-f:livre_sterling
+        description: livre sterling
+      US_Dollar:
+        meaning: dfc-f:US_Dollar
+        description: US Dollar
+      Dollar_US:
+        meaning: dfc-f:Dollar_US
+        description: Dollar US
+  Scope:
+    permissible_values:
+      Authorization_scopes:
+        meaning: dfc-f:Authorization_scopes
+        description: Authorization scopes
+      Primtres_dautorisation:
+        meaning: dfc-f:Primtres_dautorisation
+        description: Périmètres d'autorisation
+      Lire_les_commandes_de_lentreprise:
+        meaning: dfc-f:Lire_les_commandes_de_lentreprise
+        description: Lire les commandes de l'entreprise
+      Read_enterprise_orders:
+        meaning: dfc-f:Read_enterprise_orders
+        description: Read enterprise orders
+      Lire_les_donnes_de_lentreprise:
+        meaning: dfc-f:Lire_les_donnes_de_lentreprise
+        description: Lire les données de l'entreprise
+      Read_enterprise_data:
+        meaning: dfc-f:Read_enterprise_data
+        description: Read enterprise data
+      Write_enterprise_products:
+        meaning: dfc-f:Write_enterprise_products
+        description: Write enterprise products
+      crire_les_produits_de_lentreprise:
+        meaning: dfc-f:crire_les_produits_de_lentreprise
+        description: Écrire les produits de l'entreprise
+      crire_les_commandes_de_lentreprise:
+        meaning: dfc-f:crire_les_commandes_de_lentreprise
+        description: Écrire les commandes de l'entreprise
+      Write_enterprise_orders:
+        meaning: dfc-f:Write_enterprise_orders
+        description: Write enterprise orders
+      Write_enterprise_data:
+        meaning: dfc-f:Write_enterprise_data
+        description: Write enterprise data
+      crire_les_donnes_de_lentreprise:
+        meaning: dfc-f:crire_les_donnes_de_lentreprise
+        description: Écrire les données de l'entreprise
+      Read_enterprise_products:
+        meaning: dfc-f:Read_enterprise_products
+        description: Read enterprise products
+      Lire_les_produits_de_lentreprise:
+        meaning: dfc-f:Lire_les_produits_de_lentreprise
+        description: Lire les produits de l'entreprise
+  VocabularyTerm:
+    permissible_values:
+      Held:
+        meaning: dfc-f:Held
+        description: Held
+      Order_status:
+        meaning: dfc-f:Order_status
+        description: Order status
+      Fulfilment_state:
+        meaning: dfc-f:Fulfilment_state
+        description: Fulfilment state
+      Fulfilment_status:
+        meaning: dfc-f:Fulfilment_status
+        description: Fulfilment status
+      Order_state:
+        meaning: dfc-f:Order_state
+        description: Order state
+      DFC_Vocabulary:
+        meaning: dfc-f:DFC_Vocabulary
+        description: DFC_Vocabulary
+      move:
+        meaning: dfc-f:move
+        description: move
+      Transformation_type:
+        meaning: dfc-f:Transformation_type
+        description: Transformation type
+      Unfulfilled:
+        meaning: dfc-f:Unfulfilled
+        description: Unfulfilled
+      Cancelled:
+        meaning: dfc-f:Cancelled
+        description: Cancelled
+      Fulfilled:
+        meaning: dfc-f:Fulfilled
+        description: Fulfilled
+      States:
+        meaning: dfc-f:States
+        description: States
+      Status:
+        meaning: dfc-f:Status
+        description: Status
+      modify:
+        meaning: dfc-f:modify
+        description: modify
+      separate:
+        meaning: dfc-f:separate
+        description: separate
+      pickup:
+        meaning: dfc-f:pickup
+        description: pickup
+      use:
+        meaning: dfc-f:use
+        description: use
+      consume:
+        meaning: dfc-f:consume
+        description: consume
+      lower:
+        meaning: dfc-f:lower
+        description: lower
+      produce:
+        meaning: dfc-f:produce
+        description: produce
+      combine:
+        meaning: dfc-f:combine
+        description: combine
+      raise:
+        meaning: dfc-f:raise
+        description: raise
+      dropoff:
+        meaning: dfc-f:dropoff
+        description: dropoff
+      accept:
+        meaning: dfc-f:accept
+        description: accept
+      Payment_status:
+        meaning: dfc-f:Payment_status
+        description: Payment status
+      Payment_state:
+        meaning: dfc-f:Payment_state
+        description: Payment state
+      Paid:
+        meaning: dfc-f:Paid
+        description: Paid
+      Unpaid:
+        meaning: dfc-f:Unpaid
+        description: Unpaid
+      Draft:
+        meaning: dfc-f:Draft
+        description: Draft
+      Complete:
+        meaning: dfc-f:Complete
+        description: Complete
+      FulfilmentState:
+        meaning: dfc-f:FulfilmentState
+        description: FulfilmentState

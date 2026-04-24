@@ -1,0 +1,42 @@
+@prefix dfc-t: <https://w3id.org/dfc/ontology/src/DFC_TechnicalOntology.owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dfc-t:DFCDitributedRepresentation a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Class from DFC Technical Ontology: #DFC_DitributedRepresentation" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass dfc-t:DFCDitributedRepresentation .
+
+dfc-t:FoafOrganization a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Class from DFC Technical Ontology: #foaf:Organization" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass dfc-t:FoafOrganization .
+
+dfc-t:FoafPerson a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Class from DFC Technical Ontology: #foaf:Person" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass dfc-t:FoafPerson .
+
+dfc-t:Platform a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Class from DFC Technical Ontology: #Platform" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass dfc-t:Platform .
+
+dfc-t:RepresentationPivot a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Class from DFC Technical Ontology: #RepresentationPivot" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass dfc-t:RepresentationPivot .
+
+dfc-t:RepresentedThing a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Class from DFC Technical Ontology: #RepresentedThing" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass dfc-t:RepresentedThing .
+
+

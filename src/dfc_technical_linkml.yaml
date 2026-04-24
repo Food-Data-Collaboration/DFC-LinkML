@@ -1,0 +1,42 @@
+id: https://w3id.org/dfc/linkml/technical
+name: dfc_technical
+title: DFC Technical Ontology (LinkML)
+description: LinkML schema converted from DFC Technical Ontology v4.0
+version: '4.0'
+prefixes:
+  dfc-t: https://w3id.org/dfc/ontology/src/DFC_TechnicalOntology.owl#
+  linkml: https://w3id.org/linkml/
+  foaf: http://xmlns.com/foaf/0.1/
+default_prefix: dfc-t
+imports:
+  - linkml:types
+classes:
+  DFC_DitributedRepresentation:
+    description: 'Class from DFC Technical Ontology: #DFC_DitributedRepresentation'
+    tree_root: true
+  Platform:
+    description: 'Class from DFC Technical Ontology: #Platform'
+    is_a: DFC_DitributedRepresentation
+  RepresentationPivot:
+    description: 'Class from DFC Technical Ontology: #RepresentationPivot'
+    is_a: DFC_DitributedRepresentation
+  RepresentedThing:
+    description: 'Class from DFC Technical Ontology: #RepresentedThing'
+    is_a: DFC_DitributedRepresentation
+  FoafOrganization:
+    description: 'Class from DFC Technical Ontology: #foaf:Organization'
+  FoafPerson:
+    description: 'Class from DFC Technical Ontology: #foaf:Person'
+slots:
+  DFC_TechnicalOntology_ObjectProperty:
+    description: 'Object property: #DFC_TechnicalOntology_ObjectProperty'
+    domain: RepresentedThing
+  hasPivot:
+    description: 'Object property: #hasPivot'
+    domain: RepresentedThing
+  hostedBy:
+    description: 'Object property: #hostedBy'
+    domain: RepresentedThing
+  represent:
+    description: 'Object property: #represent'
+    domain: RepresentedThing
