@@ -1,0 +1,77 @@
+{
+  "@context": "http://www.w3.org/2004/02/skos/core#",
+  "@graph": [
+    {
+      "@id": "dfc-pt:VEGETABLE",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Vegetable",
+      "skos:definition": "Vegetable"
+    },
+    {
+      "@id": "dfc-pt:VEGETABLE.ARTICHOKE",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Artichoke",
+      "skos:definition": "Artichoke"
+    },
+    {
+      "@id": "dfc-pt:VEGETABLE.TOMATO",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Tomato",
+      "skos:definition": "Tomato"
+    },
+    {
+      "@id": "dfc-pt:FRUIT",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Fruit",
+      "skos:definition": "Fruit"
+    },
+    {
+      "@id": "dfc-pt:FRUIT.APPLE",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Apple",
+      "skos:definition": "Apple"
+    },
+    {
+      "@id": "dfc-pt:DAIRY_PRODUCT",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Dairy product",
+      "skos:definition": "Dairy product"
+    },
+    {
+      "@id": "dfc-pt:DAIRY_PRODUCT.MILK",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Milk",
+      "skos:definition": "Milk"
+    },
+    {
+      "@id": "dfc-pt:DAIRY_PRODUCT.CHEESE",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Cheese",
+      "skos:definition": "Cheese"
+    },
+    {
+      "@id": "dfc-pt:MEAT",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Meat",
+      "skos:definition": "Meat"
+    },
+    {
+      "@id": "dfc-pt:MEAT.BEEF",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Beef",
+      "skos:definition": "Beef"
+    },
+    {
+      "@id": "dfc-pt:MEAT.LAMB",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Lamb",
+      "skos:definition": "Lamb"
+    },
+    {
+      "@id": "dfc-pt:BEVERAGE",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Beverage",
+      "skos:definition": "Beverage"
+    }
+  ]
+}

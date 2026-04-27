@@ -1,0 +1,71 @@
+{
+  "@context": "http://www.w3.org/2004/02/skos/core#",
+  "@graph": [
+    {
+      "@id": "dfc-f:FairTradeMaxHaavelar",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Fairtrade Max Haavelar",
+      "skos:definition": "Fairtrade Max Haavelar"
+    },
+    {
+      "@id": "dfc-f:EthicalLabel",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Ethical label",
+      "skos:definition": "Ethical label"
+    },
+    {
+      "@id": "dfc-f:LabelRougeFR",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Label Rouge",
+      "skos:definition": "Label Rouge"
+    },
+    {
+      "@id": "dfc-f:FSC",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Forest Stewardship Council",
+      "skos:definition": "Forest Stewardship Council"
+    },
+    {
+      "@id": "dfc-f:MSC",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Marine Stewardship Council",
+      "skos:definition": "Marine Stewardship Council"
+    },
+    {
+      "@id": "dfc-f:HighFibre",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "High fibre",
+      "skos:definition": "High fibre"
+    },
+    {
+      "@id": "dfc-f:England",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "England",
+      "skos:definition": "England"
+    },
+    {
+      "@id": "dfc-f:France",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "France",
+      "skos:definition": "France"
+    },
+    {
+      "@id": "dfc-f:Europe",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Europe",
+      "skos:definition": "Europe"
+    },
+    {
+      "@id": "dfc-f:Demeter",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Demeter",
+      "skos:definition": "Demeter"
+    },
+    {
+      "@id": "dfc-f:AB",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Agriculture Biologique",
+      "skos:definition": "Agriculture Biologique"
+    }
+  ]
+}

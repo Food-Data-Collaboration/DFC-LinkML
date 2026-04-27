@@ -1,0 +1,53 @@
+{
+  "@context": "http://www.w3.org/2004/02/skos/core#",
+  "@graph": [
+    {
+      "@id": "dfc-m:KILOGRAM",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Kilogram",
+      "skos:definition": "Kilogram"
+    },
+    {
+      "@id": "dfc-m:GRAM",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Gram",
+      "skos:definition": "Gram"
+    },
+    {
+      "@id": "dfc-m:LITRE",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Litre",
+      "skos:definition": "Litre"
+    },
+    {
+      "@id": "dfc-m:MILLILITRE",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Millilitre",
+      "skos:definition": "Millilitre"
+    },
+    {
+      "@id": "dfc-m:EURO",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Euro",
+      "skos:definition": "Euro"
+    },
+    {
+      "@id": "dfc-m:UNIT",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Unit",
+      "skos:definition": "Unit"
+    },
+    {
+      "@id": "dfc-m:TONNE",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Tonne",
+      "skos:definition": "Tonne"
+    },
+    {
+      "@id": "dfc-m:CALCIUM",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Calcium",
+      "skos:definition": "Calcium"
+    }
+  ]
+}
