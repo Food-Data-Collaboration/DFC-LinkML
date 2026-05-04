@@ -1,6 +1,10 @@
-# Dfc-models
+# dfc-linkml-connector
 
-LinkML schema converted from DFC Business Ontology v2.0.0. Part of the DFC schema suite.
+Ruby semantic object connector for the Data Food Consortium (DFC) standard.
+Generated from LinkML schema v2.0.0.
+
+Mimics the interface of [datafoodconsortium/connector-ruby](https://github.com/datafoodconsortium/connector-ruby)
+but with full class and property coverage from the LinkML schema.
 
 ## Schema Overview
 
@@ -10,91 +14,43 @@ LinkML schema converted from DFC Business Ontology v2.0.0. Part of the DFC schem
 
 ## Installation
 
-Add this line to your Gemfile:
-
 ```ruby
-gem 'dfc-models'
+gem 'dfc-linkml-connector'
 ```
-
-And then execute:
 
 ```bash
 bundle install
 ```
 
-Or install yourself:
-
-```bash
-gem build dfc-models.gemspec
-gem install dfc-models-2.0.0.gem
-```
-
 ## Usage
 
-### Rails Application
-
-1. Copy migration file:
-   ```bash
-   cp -r db/migrate/*your_migration_timestamp*_create_dfc_tables.rb your_rails_app/db/migrate/
-   rails db:migrate
-   ```
-
-2. Use models:
-   ```ruby
-   product = DefinedProduct.new
-   product.name = "Organic Apples"
-   product.save
-   ```
-
-### Standalone
-
 ```ruby
-require 'active_record'
-require 'dfc-models'
+require 'dfc_linkml_connector'
 
-# Configure database connection
-ActiveRecord::Base.establish_connection(
-  adapter: 'postgresql',
-  database: 'your_database'
+connector = DfcLinkmlConnector::DfcLinkmlConnector.instance
+
+# Load vocabularies
+connector.load_facets(JSON.parse(File.read("vocabularies/facets.jsonld")))
+connector.load_measures(JSON.parse(File.read("vocabularies/measures.jsonld")))
+
+# Create objects
+tomato = SuppliedProduct.new(
+  "https://myplatform.com/tomato",
+  name: "Tomato",
+  description: "Awesome tomato",
+  totalTheoreticalStock: 100
 )
 
-# Use models
-product = DefinedProduct.create(name: "Organic Apples", sku: "APL001")
+# Export to JSON-LD
+puts connector.export(tomato)
 ```
 
-## Models
+## Vocabularies
 
-### Product Classes
-- DefinedProduct - Base product definition
-- FunctionalProduct - Functional product variant
-- SuppliedProduct - Product supplied by an agent
-- TechnicalProduct - Technical specifications
-- LocalizedProduct - Localized product data
-
-### Order Classes
-- Order - Customer order
-- OrderLine - Line item in order
-- Offer - Product offer
-
-### Agent Classes
-- Organization - Business organization
-- Person - Individual person
-- Enterprise - Enterprise entity
-
-### Supporting Classes
-- Catalog - Product catalog
-- CatalogItem - Item in catalog
-- Address - Physical address
-- Price - Price value
-
-## Enumerations
-
-- Facet - Product facets (labels, certifications)
-- ProductType - Product type categories
-- Measure - Measurement units
-- Scope - Authorization scopes
-- VocabularyTerm - Standard vocabulary terms
+- `vocabularies/facet.jsonld` - Product facets
+- `vocabularies/measure.jsonld` - Measurement units
+- `vocabularies/product_type.jsonld` - Product types
 
 ## License
 
-AGPL-3.0 - see LICENSE file for details.
+AGPL-3.0

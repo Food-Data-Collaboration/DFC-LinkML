@@ -1,0 +1,2033 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dfc-v": "http://w3id.org/dfc/taxonomies/vocabulary.rdf#"
+  },
+  "@graph": [
+    {
+      "@id": "dfc-v:Measure",
+      "@type": [
+        "skos:ConceptScheme"
+      ],
+      "skos:prefLabel": "Measure",
+      "skos:hasTopConcept": [
+        "dfc-f:packDe6",
+        "dfc-f:ProductMeasureGlossary",
+        "dfc-f:GlossaireMesureProduit",
+        "dfc-f:QuantityUnit",
+        "dfc-f:UnitDeQuantit",
+        "dfc-f:Largeur",
+        "dfc-f:Width",
+        "dfc-f:PhysicalDimension",
+        "dfc-f:DimensionPhysique",
+        "dfc-f:douzaine",
+        "dfc-f:dozen",
+        "dfc-f:Volume",
+        "dfc-f:Hauteur",
+        "dfc-f:Height",
+        "dfc-f:Depth",
+        "dfc-f:Profondeur",
+        "dfc-f:Weight",
+        "dfc-f:Poids",
+        "dfc-f:Dimension",
+        "dfc-f:euro",
+        "dfc-f:CurrencyUnit",
+        "dfc-f:UnitDeDeviseMontaire",
+        "dfc-f:tasse",
+        "dfc-f:cup",
+        "dfc-f:seau",
+        "dfc-f:bucket",
+        "dfc-f:milligramme",
+        "dfc-f:milligram",
+        "dfc-f:tablette",
+        "dfc-f:tablet",
+        "dfc-f:kit",
+        "dfc-f:tonne",
+        "dfc-f:inch",
+        "dfc-f:pouce",
+        "dfc-f:box",
+        "dfc-f:bote",
+        "dfc-f:packDe4",
+        "dfc-f:net",
+        "dfc-f:filet",
+        "dfc-f:bundle",
+        "dfc-f:lot",
+        "dfc-f:plateau",
+        "dfc-f:tray",
+        "dfc-f:centilitre",
+        "dfc-f:can",
+        "dfc-f:canette",
+        "dfc-f:pallet",
+        "dfc-f:palette",
+        "dfc-f:beerCrate",
+        "dfc-f:casierBire",
+        "dfc-f:carton",
+        "dfc-f:halfDozen",
+        "dfc-f:demiDouzaine",
+        "dfc-f:grainBulk",
+        "dfc-f:grainEnVrac",
+        "dfc-f:gram",
+        "dfc-f:gramme",
+        "dfc-f:crate",
+        "dfc-f:cagette",
+        "dfc-f:kilogram",
+        "dfc-f:kilogramme",
+        "dfc-f:bac",
+        "dfc-f:tub",
+        "dfc-f:boteDeConserve",
+        "dfc-f:tin",
+        "dfc-f:pot",
+        "dfc-f:ounce",
+        "dfc-f:once",
+        "dfc-f:gallonUK",
+        "dfc-f:gallonGB",
+        "dfc-f:panier",
+        "dfc-f:basket",
+        "dfc-f:centimetre",
+        "dfc-f:centimtre",
+        "dfc-f:punnet",
+        "dfc-f:barquette",
+        "dfc-f:decilitre",
+        "dfc-f:litre",
+        "dfc-f:keg",
+        "dfc-f:ft",
+        "dfc-f:pound",
+        "dfc-f:decimetre",
+        "dfc-f:decimtre",
+        "dfc-f:cask",
+        "dfc-f:tonneau",
+        "dfc-f:package",
+        "dfc-f:colis",
+        "dfc-f:bag",
+        "dfc-f:sac",
+        "dfc-f:bottle",
+        "dfc-f:bouteille",
+        "dfc-f:baril",
+        "dfc-f:drum",
+        "dfc-f:paire",
+        "dfc-f:pair",
+        "dfc-f:tube",
+        "dfc-f:roll",
+        "dfc-f:rouleau",
+        "dfc-f:pouch",
+        "dfc-f:poche",
+        "dfc-f:noduleBulk",
+        "dfc-f:noduleEnVrac",
+        "dfc-f:mtre",
+        "dfc-f:metre",
+        "dfc-f:packet",
+        "dfc-f:sachet",
+        "dfc-f:piece",
+        "dfc-f:pice",
+        "dfc-f:poudreEnVrac",
+        "dfc-f:powderBulk",
+        "dfc-f:liquideEnVrac",
+        "dfc-f:liquidBulk",
+        "dfc-f:bocal",
+        "dfc-f:jar",
+        "dfc-f:millilitre",
+        "dfc-f:milliliter",
+        "dfc-f:pourcent",
+        "dfc-f:percent",
+        "dfc-f:kilometre",
+        "dfc-f:kilomtre",
+        "dfc-f:botte",
+        "dfc-f:bunch",
+        "dfc-f:Units",
+        "dfc-f:Unit",
+        "dfc-f:GraisseSature",
+        "dfc-f:SaturatedFat",
+        "dfc-f:DimensionNutritionnelle",
+        "dfc-f:NutrientDimension",
+        "dfc-f:Copper",
+        "dfc-f:Carbohydrates",
+        "dfc-f:Sodium",
+        "dfc-f:Fluoride",
+        "dfc-f:Starch",
+        "dfc-f:Amidon",
+        "dfc-f:Calcium",
+        "dfc-f:Slnium",
+        "dfc-f:Selenium",
+        "dfc-f:GraissePolyInsature",
+        "dfc-f:PolyUnsaturatedFat",
+        "dfc-f:VitamineB6",
+        "dfc-f:VitaminB6",
+        "dfc-f:Protine",
+        "dfc-f:Protein",
+        "dfc-f:Chloride",
+        "dfc-f:Salt",
+        "dfc-f:Sel",
+        "dfc-f:Graisse",
+        "dfc-f:Fat",
+        "dfc-f:Magnesium",
+        "dfc-f:Magnsium",
+        "dfc-f:VitaminE",
+        "dfc-f:VitamineE",
+        "dfc-f:Iodine",
+        "dfc-f:VitamineD",
+        "dfc-f:VitaminD",
+        "dfc-f:GraisseMonosature",
+        "dfc-f:MonosaturatedFat",
+        "dfc-f:Zinc",
+        "dfc-f:Potassium",
+        "dfc-f:Phosphore",
+        "dfc-f:Phosphorus",
+        "dfc-f:Sugars",
+        "dfc-f:Sucres",
+        "dfc-f:Manganse",
+        "dfc-f:Manganese",
+        "dfc-f:VitamineC",
+        "dfc-f:VitaminC",
+        "dfc-f:VitamineB12",
+        "dfc-f:VitaminB12",
+        "dfc-f:VitaminK",
+        "dfc-f:VitamineK",
+        "dfc-f:Cholesterol",
+        "dfc-f:Cholestrol",
+        "dfc-f:FolicAcid",
+        "dfc-f:AcideFolique",
+        "dfc-f:Transfat",
+        "dfc-f:GraisseTrans",
+        "dfc-f:Chrome",
+        "dfc-f:Chromium",
+        "dfc-f:Fibre",
+        "dfc-f:Iron",
+        "dfc-f:Fer",
+        "dfc-f:VitamineA",
+        "dfc-f:VitaminA",
+        "dfc-f:Crustacs",
+        "dfc-f:Crustaceans",
+        "dfc-f:AllergenDimension",
+        "dfc-f:DimensionAllergne",
+        "dfc-f:Soy",
+        "dfc-f:Soja",
+        "dfc-f:LabellingDimension",
+        "dfc-f:DimensionScoreDeLabellisation",
+        "dfc-f:NutriScore",
+        "dfc-f:EcoScore",
+        "dfc-f:PlanetScore",
+        "dfc-f:Celeriac",
+        "dfc-f:Lupine",
+        "dfc-f:Lupin",
+        "dfc-f:GrainesDeSsame",
+        "dfc-f:SesameSeeds",
+        "dfc-f:Mustard",
+        "dfc-f:Moutarde",
+        "dfc-f:Oeufs",
+        "dfc-f:Eggs",
+        "dfc-f:Molluscs",
+        "dfc-f:Mollusques",
+        "dfc-f:CerealsContainingGluten",
+        "dfc-f:CralesContenantDuGluten",
+        "dfc-f:FruitsCoque",
+        "dfc-f:Nuts",
+        "dfc-f:MilkAndLactoseBasedProducts",
+        "dfc-f:LaitEtProduitsBaseDeLactose",
+        "dfc-f:Arachides",
+        "dfc-f:Peanuts",
+        "dfc-f:fishs",
+        "dfc-f:Poissons",
+        "dfc-f:dollarCanadien",
+        "dfc-f:canadianDollar",
+        "dfc-f:dollarAustralien",
+        "dfc-f:australianDollar",
+        "dfc-f:poundSterling",
+        "dfc-f:livreSterling",
+        "dfc-f:USDollar",
+        "dfc-f:DollarUS"
+      ]
+    },
+    {
+      "@id": "dfc-f:packDe6",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pack de 6",
+      "skos:notation": "pack_de_6"
+    },
+    {
+      "@id": "dfc-f:ProductMeasureGlossary",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Product measure glossary ",
+      "skos:notation": "Product_measure_glossary_"
+    },
+    {
+      "@id": "dfc-f:GlossaireMesureProduit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Glossaire mesure produit",
+      "skos:notation": "Glossaire_mesure_produit"
+    },
+    {
+      "@id": "dfc-f:QuantityUnit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Quantity unit",
+      "skos:notation": "Quantity_unit"
+    },
+    {
+      "@id": "dfc-f:UnitDeQuantit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Unité de quantité",
+      "skos:notation": "Unit_de_quantit"
+    },
+    {
+      "@id": "dfc-f:Largeur",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Largeur",
+      "skos:notation": "Largeur"
+    },
+    {
+      "@id": "dfc-f:Width",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Width",
+      "skos:notation": "Width"
+    },
+    {
+      "@id": "dfc-f:PhysicalDimension",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Physical dimension",
+      "skos:notation": "Physical_dimension"
+    },
+    {
+      "@id": "dfc-f:DimensionPhysique",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Dimension physique",
+      "skos:notation": "Dimension_physique"
+    },
+    {
+      "@id": "dfc-f:douzaine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "douzaine",
+      "skos:notation": "douzaine"
+    },
+    {
+      "@id": "dfc-f:dozen",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dozen",
+      "skos:notation": "dozen"
+    },
+    {
+      "@id": "dfc-f:Volume",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Volume",
+      "skos:notation": "Volume"
+    },
+    {
+      "@id": "dfc-f:Hauteur",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Hauteur",
+      "skos:notation": "Hauteur"
+    },
+    {
+      "@id": "dfc-f:Height",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Height",
+      "skos:notation": "Height"
+    },
+    {
+      "@id": "dfc-f:Depth",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Depth",
+      "skos:notation": "Depth"
+    },
+    {
+      "@id": "dfc-f:Profondeur",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Profondeur",
+      "skos:notation": "Profondeur"
+    },
+    {
+      "@id": "dfc-f:Weight",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Weight",
+      "skos:notation": "Weight"
+    },
+    {
+      "@id": "dfc-f:Poids",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Poids",
+      "skos:notation": "Poids"
+    },
+    {
+      "@id": "dfc-f:Dimension",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Dimension",
+      "skos:notation": "Dimension"
+    },
+    {
+      "@id": "dfc-f:euro",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "euro",
+      "skos:notation": "euro"
+    },
+    {
+      "@id": "dfc-f:CurrencyUnit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Currency unit",
+      "skos:notation": "Currency_unit"
+    },
+    {
+      "@id": "dfc-f:UnitDeDeviseMontaire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Unité de devise monétaire",
+      "skos:notation": "Unit_de_devise_montaire"
+    },
+    {
+      "@id": "dfc-f:tasse",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tasse",
+      "skos:notation": "tasse"
+    },
+    {
+      "@id": "dfc-f:cup",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cup",
+      "skos:notation": "cup"
+    },
+    {
+      "@id": "dfc-f:seau",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "seau",
+      "skos:notation": "seau"
+    },
+    {
+      "@id": "dfc-f:bucket",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bucket",
+      "skos:notation": "bucket"
+    },
+    {
+      "@id": "dfc-f:milligramme",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "milligramme",
+      "skos:notation": "milligramme"
+    },
+    {
+      "@id": "dfc-f:milligram",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "milligram",
+      "skos:notation": "milligram"
+    },
+    {
+      "@id": "dfc-f:tablette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tablette",
+      "skos:notation": "tablette"
+    },
+    {
+      "@id": "dfc-f:tablet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tablet",
+      "skos:notation": "tablet"
+    },
+    {
+      "@id": "dfc-f:kit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "kit",
+      "skos:notation": "kit"
+    },
+    {
+      "@id": "dfc-f:tonne",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tonne",
+      "skos:notation": "tonne"
+    },
+    {
+      "@id": "dfc-f:inch",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "inch",
+      "skos:notation": "inch"
+    },
+    {
+      "@id": "dfc-f:pouce",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pouce",
+      "skos:notation": "pouce"
+    },
+    {
+      "@id": "dfc-f:box",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "box",
+      "skos:notation": "box"
+    },
+    {
+      "@id": "dfc-f:bote",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "boîte",
+      "skos:notation": "bote"
+    },
+    {
+      "@id": "dfc-f:packDe4",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pack de 4",
+      "skos:notation": "pack_de_4"
+    },
+    {
+      "@id": "dfc-f:net",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "net",
+      "skos:notation": "net"
+    },
+    {
+      "@id": "dfc-f:filet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "filet",
+      "skos:notation": "filet"
+    },
+    {
+      "@id": "dfc-f:bundle",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bundle",
+      "skos:notation": "bundle"
+    },
+    {
+      "@id": "dfc-f:lot",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lot",
+      "skos:notation": "lot"
+    },
+    {
+      "@id": "dfc-f:plateau",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "plateau",
+      "skos:notation": "plateau"
+    },
+    {
+      "@id": "dfc-f:tray",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tray",
+      "skos:notation": "tray"
+    },
+    {
+      "@id": "dfc-f:centilitre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "centilitre",
+      "skos:notation": "centilitre"
+    },
+    {
+      "@id": "dfc-f:can",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "can",
+      "skos:notation": "can"
+    },
+    {
+      "@id": "dfc-f:canette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "canette",
+      "skos:notation": "canette"
+    },
+    {
+      "@id": "dfc-f:pallet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pallet",
+      "skos:notation": "pallet"
+    },
+    {
+      "@id": "dfc-f:palette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "palette",
+      "skos:notation": "palette"
+    },
+    {
+      "@id": "dfc-f:beerCrate",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "beer crate",
+      "skos:notation": "beer_crate"
+    },
+    {
+      "@id": "dfc-f:casierBire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "casier à bière",
+      "skos:notation": "casier__bire"
+    },
+    {
+      "@id": "dfc-f:carton",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "carton",
+      "skos:notation": "carton"
+    },
+    {
+      "@id": "dfc-f:halfDozen",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "half dozen",
+      "skos:notation": "half_dozen"
+    },
+    {
+      "@id": "dfc-f:demiDouzaine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "demi-douzaine",
+      "skos:notation": "demi_douzaine"
+    },
+    {
+      "@id": "dfc-f:grainBulk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "grain bulk",
+      "skos:notation": "grain_bulk"
+    },
+    {
+      "@id": "dfc-f:grainEnVrac",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "grain en vrac",
+      "skos:notation": "grain_en_vrac"
+    },
+    {
+      "@id": "dfc-f:gram",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "gram",
+      "skos:notation": "gram"
+    },
+    {
+      "@id": "dfc-f:gramme",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "gramme",
+      "skos:notation": "gramme"
+    },
+    {
+      "@id": "dfc-f:crate",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "crate",
+      "skos:notation": "crate"
+    },
+    {
+      "@id": "dfc-f:cagette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cagette",
+      "skos:notation": "cagette"
+    },
+    {
+      "@id": "dfc-f:kilogram",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "kilogram",
+      "skos:notation": "kilogram"
+    },
+    {
+      "@id": "dfc-f:kilogramme",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "kilogramme",
+      "skos:notation": "kilogramme"
+    },
+    {
+      "@id": "dfc-f:bac",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bac",
+      "skos:notation": "bac"
+    },
+    {
+      "@id": "dfc-f:tub",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tub",
+      "skos:notation": "tub"
+    },
+    {
+      "@id": "dfc-f:boteDeConserve",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "boîte de conserve",
+      "skos:notation": "bote_de_conserve"
+    },
+    {
+      "@id": "dfc-f:tin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tin",
+      "skos:notation": "tin"
+    },
+    {
+      "@id": "dfc-f:pot",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pot",
+      "skos:notation": "pot"
+    },
+    {
+      "@id": "dfc-f:ounce",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "ounce",
+      "skos:notation": "ounce"
+    },
+    {
+      "@id": "dfc-f:once",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "once",
+      "skos:notation": "once"
+    },
+    {
+      "@id": "dfc-f:gallonUK",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "gallon (UK)",
+      "skos:notation": "gallon_UK"
+    },
+    {
+      "@id": "dfc-f:gallonGB",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "gallon (GB)",
+      "skos:notation": "gallon_GB"
+    },
+    {
+      "@id": "dfc-f:panier",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "panier",
+      "skos:notation": "panier"
+    },
+    {
+      "@id": "dfc-f:basket",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "basket",
+      "skos:notation": "basket"
+    },
+    {
+      "@id": "dfc-f:centimetre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "centimetre",
+      "skos:notation": "centimetre"
+    },
+    {
+      "@id": "dfc-f:centimtre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "centimètre",
+      "skos:notation": "centimtre"
+    },
+    {
+      "@id": "dfc-f:punnet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "punnet",
+      "skos:notation": "punnet"
+    },
+    {
+      "@id": "dfc-f:barquette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "barquette",
+      "skos:notation": "barquette"
+    },
+    {
+      "@id": "dfc-f:decilitre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "decilitre",
+      "skos:notation": "decilitre"
+    },
+    {
+      "@id": "dfc-f:litre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "litre",
+      "skos:notation": "litre"
+    },
+    {
+      "@id": "dfc-f:keg",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "keg",
+      "skos:notation": "keg"
+    },
+    {
+      "@id": "dfc-f:ft",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fût",
+      "skos:notation": "ft"
+    },
+    {
+      "@id": "dfc-f:pound",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pound",
+      "skos:notation": "pound"
+    },
+    {
+      "@id": "dfc-f:decimetre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "decimetre",
+      "skos:notation": "decimetre"
+    },
+    {
+      "@id": "dfc-f:decimtre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "decimètre",
+      "skos:notation": "decimtre"
+    },
+    {
+      "@id": "dfc-f:cask",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cask",
+      "skos:notation": "cask"
+    },
+    {
+      "@id": "dfc-f:tonneau",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tonneau",
+      "skos:notation": "tonneau"
+    },
+    {
+      "@id": "dfc-f:package",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "package",
+      "skos:notation": "package"
+    },
+    {
+      "@id": "dfc-f:colis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "colis",
+      "skos:notation": "colis"
+    },
+    {
+      "@id": "dfc-f:bag",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bag",
+      "skos:notation": "bag"
+    },
+    {
+      "@id": "dfc-f:sac",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sac",
+      "skos:notation": "sac"
+    },
+    {
+      "@id": "dfc-f:bottle",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bottle",
+      "skos:notation": "bottle"
+    },
+    {
+      "@id": "dfc-f:bouteille",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bouteille",
+      "skos:notation": "bouteille"
+    },
+    {
+      "@id": "dfc-f:baril",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "baril",
+      "skos:notation": "baril"
+    },
+    {
+      "@id": "dfc-f:drum",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "drum",
+      "skos:notation": "drum"
+    },
+    {
+      "@id": "dfc-f:paire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "paire",
+      "skos:notation": "paire"
+    },
+    {
+      "@id": "dfc-f:pair",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pair",
+      "skos:notation": "pair"
+    },
+    {
+      "@id": "dfc-f:tube",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tube",
+      "skos:notation": "tube"
+    },
+    {
+      "@id": "dfc-f:roll",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "roll",
+      "skos:notation": "roll"
+    },
+    {
+      "@id": "dfc-f:rouleau",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "rouleau",
+      "skos:notation": "rouleau"
+    },
+    {
+      "@id": "dfc-f:pouch",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pouch",
+      "skos:notation": "pouch"
+    },
+    {
+      "@id": "dfc-f:poche",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "poche",
+      "skos:notation": "poche"
+    },
+    {
+      "@id": "dfc-f:noduleBulk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "nodule bulk",
+      "skos:notation": "nodule_bulk"
+    },
+    {
+      "@id": "dfc-f:noduleEnVrac",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "nodule en vrac",
+      "skos:notation": "nodule_en_vrac"
+    },
+    {
+      "@id": "dfc-f:mtre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mètre",
+      "skos:notation": "mtre"
+    },
+    {
+      "@id": "dfc-f:metre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "metre",
+      "skos:notation": "metre"
+    },
+    {
+      "@id": "dfc-f:packet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "packet",
+      "skos:notation": "packet"
+    },
+    {
+      "@id": "dfc-f:sachet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sachet",
+      "skos:notation": "sachet"
+    },
+    {
+      "@id": "dfc-f:piece",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "piece",
+      "skos:notation": "piece"
+    },
+    {
+      "@id": "dfc-f:pice",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pièce",
+      "skos:notation": "pice"
+    },
+    {
+      "@id": "dfc-f:poudreEnVrac",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "poudre en vrac",
+      "skos:notation": "poudre_en_vrac"
+    },
+    {
+      "@id": "dfc-f:powderBulk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "powder bulk",
+      "skos:notation": "powder_bulk"
+    },
+    {
+      "@id": "dfc-f:liquideEnVrac",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "liquide en vrac",
+      "skos:notation": "liquide_en_vrac"
+    },
+    {
+      "@id": "dfc-f:liquidBulk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "liquid bulk",
+      "skos:notation": "liquid_bulk"
+    },
+    {
+      "@id": "dfc-f:bocal",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bocal",
+      "skos:notation": "bocal"
+    },
+    {
+      "@id": "dfc-f:jar",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "jar",
+      "skos:notation": "jar"
+    },
+    {
+      "@id": "dfc-f:millilitre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "millilitre",
+      "skos:notation": "millilitre"
+    },
+    {
+      "@id": "dfc-f:milliliter",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "milliliter",
+      "skos:notation": "milliliter"
+    },
+    {
+      "@id": "dfc-f:pourcent",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pourcent",
+      "skos:notation": "pourcent"
+    },
+    {
+      "@id": "dfc-f:percent",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "percent",
+      "skos:notation": "percent"
+    },
+    {
+      "@id": "dfc-f:kilometre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "kilometre",
+      "skos:notation": "kilometre"
+    },
+    {
+      "@id": "dfc-f:kilomtre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "kilomètre",
+      "skos:notation": "kilomtre"
+    },
+    {
+      "@id": "dfc-f:botte",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "botte",
+      "skos:notation": "botte"
+    },
+    {
+      "@id": "dfc-f:bunch",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bunch",
+      "skos:notation": "bunch"
+    },
+    {
+      "@id": "dfc-f:Units",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Unités",
+      "skos:notation": "Units"
+    },
+    {
+      "@id": "dfc-f:Unit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Unit",
+      "skos:notation": "Unit"
+    },
+    {
+      "@id": "dfc-f:GraisseSature",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Graisse saturée",
+      "skos:notation": "Graisse_sature"
+    },
+    {
+      "@id": "dfc-f:SaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Saturated fat",
+      "skos:notation": "Saturated_fat"
+    },
+    {
+      "@id": "dfc-f:DimensionNutritionnelle",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Dimension nutritionnelle",
+      "skos:notation": "Dimension_nutritionnelle"
+    },
+    {
+      "@id": "dfc-f:NutrientDimension",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Nutrient dimension",
+      "skos:notation": "Nutrient_dimension"
+    },
+    {
+      "@id": "dfc-f:Copper",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Copper",
+      "skos:notation": "Copper"
+    },
+    {
+      "@id": "dfc-f:Carbohydrates",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Carbohydrates",
+      "skos:notation": "Carbohydrates"
+    },
+    {
+      "@id": "dfc-f:Sodium",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sodium",
+      "skos:notation": "Sodium"
+    },
+    {
+      "@id": "dfc-f:Fluoride",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fluoride",
+      "skos:notation": "Fluoride"
+    },
+    {
+      "@id": "dfc-f:Starch",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Starch",
+      "skos:notation": "Starch"
+    },
+    {
+      "@id": "dfc-f:Amidon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Amidon",
+      "skos:notation": "Amidon"
+    },
+    {
+      "@id": "dfc-f:Calcium",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Calcium",
+      "skos:notation": "Calcium"
+    },
+    {
+      "@id": "dfc-f:Slnium",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sélénium",
+      "skos:notation": "Slnium"
+    },
+    {
+      "@id": "dfc-f:Selenium",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Selenium",
+      "skos:notation": "Selenium"
+    },
+    {
+      "@id": "dfc-f:GraissePolyInsature",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Graisse poly-insaturée",
+      "skos:notation": "Graisse_poly_insature"
+    },
+    {
+      "@id": "dfc-f:PolyUnsaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Poly-unsaturated fat",
+      "skos:notation": "Poly_unsaturated_fat"
+    },
+    {
+      "@id": "dfc-f:VitamineB6",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamine B6",
+      "skos:notation": "Vitamine_B6"
+    },
+    {
+      "@id": "dfc-f:VitaminB6",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamin B6",
+      "skos:notation": "Vitamin_B6"
+    },
+    {
+      "@id": "dfc-f:Protine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Protéine",
+      "skos:notation": "Protine"
+    },
+    {
+      "@id": "dfc-f:Protein",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Protein",
+      "skos:notation": "Protein"
+    },
+    {
+      "@id": "dfc-f:Chloride",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Chloride",
+      "skos:notation": "Chloride"
+    },
+    {
+      "@id": "dfc-f:Salt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Salt",
+      "skos:notation": "Salt"
+    },
+    {
+      "@id": "dfc-f:Sel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sel",
+      "skos:notation": "Sel"
+    },
+    {
+      "@id": "dfc-f:Graisse",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Graisse",
+      "skos:notation": "Graisse"
+    },
+    {
+      "@id": "dfc-f:Fat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fat",
+      "skos:notation": "Fat"
+    },
+    {
+      "@id": "dfc-f:Magnesium",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Magnesium",
+      "skos:notation": "Magnesium"
+    },
+    {
+      "@id": "dfc-f:Magnsium",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Magnésium",
+      "skos:notation": "Magnsium"
+    },
+    {
+      "@id": "dfc-f:VitaminE",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamin E",
+      "skos:notation": "Vitamin_E"
+    },
+    {
+      "@id": "dfc-f:VitamineE",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamine E",
+      "skos:notation": "Vitamine_E"
+    },
+    {
+      "@id": "dfc-f:Iodine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Iodine",
+      "skos:notation": "Iodine"
+    },
+    {
+      "@id": "dfc-f:VitamineD",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamine D",
+      "skos:notation": "Vitamine_D"
+    },
+    {
+      "@id": "dfc-f:VitaminD",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamin D",
+      "skos:notation": "Vitamin_D"
+    },
+    {
+      "@id": "dfc-f:GraisseMonosature",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Graisse monosaturée",
+      "skos:notation": "Graisse_monosature"
+    },
+    {
+      "@id": "dfc-f:MonosaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Monosaturated fat",
+      "skos:notation": "Monosaturated_fat"
+    },
+    {
+      "@id": "dfc-f:Zinc",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Zinc",
+      "skos:notation": "Zinc"
+    },
+    {
+      "@id": "dfc-f:Potassium",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Potassium",
+      "skos:notation": "Potassium"
+    },
+    {
+      "@id": "dfc-f:Phosphore",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Phosphore",
+      "skos:notation": "Phosphore"
+    },
+    {
+      "@id": "dfc-f:Phosphorus",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Phosphorus",
+      "skos:notation": "Phosphorus"
+    },
+    {
+      "@id": "dfc-f:Sugars",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sugars",
+      "skos:notation": "Sugars"
+    },
+    {
+      "@id": "dfc-f:Sucres",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sucres",
+      "skos:notation": "Sucres"
+    },
+    {
+      "@id": "dfc-f:Manganse",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Manganèse",
+      "skos:notation": "Manganse"
+    },
+    {
+      "@id": "dfc-f:Manganese",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Manganese",
+      "skos:notation": "Manganese"
+    },
+    {
+      "@id": "dfc-f:VitamineC",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamine C",
+      "skos:notation": "Vitamine_C"
+    },
+    {
+      "@id": "dfc-f:VitaminC",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamin C",
+      "skos:notation": "Vitamin_C"
+    },
+    {
+      "@id": "dfc-f:VitamineB12",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamine B12",
+      "skos:notation": "Vitamine_B12"
+    },
+    {
+      "@id": "dfc-f:VitaminB12",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamin B12",
+      "skos:notation": "Vitamin_B12"
+    },
+    {
+      "@id": "dfc-f:VitaminK",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamin K",
+      "skos:notation": "Vitamin_K"
+    },
+    {
+      "@id": "dfc-f:VitamineK",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamine K",
+      "skos:notation": "Vitamine_K"
+    },
+    {
+      "@id": "dfc-f:Cholesterol",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cholesterol",
+      "skos:notation": "Cholesterol"
+    },
+    {
+      "@id": "dfc-f:Cholestrol",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cholestérol",
+      "skos:notation": "Cholestrol"
+    },
+    {
+      "@id": "dfc-f:FolicAcid",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Folic acid",
+      "skos:notation": "Folic_acid"
+    },
+    {
+      "@id": "dfc-f:AcideFolique",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Acide folique",
+      "skos:notation": "Acide_folique"
+    },
+    {
+      "@id": "dfc-f:Transfat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Transfat",
+      "skos:notation": "Transfat"
+    },
+    {
+      "@id": "dfc-f:GraisseTrans",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Graisse trans",
+      "skos:notation": "Graisse_trans"
+    },
+    {
+      "@id": "dfc-f:Chrome",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Chrome",
+      "skos:notation": "Chrome"
+    },
+    {
+      "@id": "dfc-f:Chromium",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Chromium",
+      "skos:notation": "Chromium"
+    },
+    {
+      "@id": "dfc-f:Fibre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fibre",
+      "skos:notation": "Fibre"
+    },
+    {
+      "@id": "dfc-f:Iron",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Iron",
+      "skos:notation": "Iron"
+    },
+    {
+      "@id": "dfc-f:Fer",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fer",
+      "skos:notation": "Fer"
+    },
+    {
+      "@id": "dfc-f:VitamineA",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamine A",
+      "skos:notation": "Vitamine_A"
+    },
+    {
+      "@id": "dfc-f:VitaminA",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vitamin A",
+      "skos:notation": "Vitamin_A"
+    },
+    {
+      "@id": "dfc-f:Crustacs",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Crustacés",
+      "skos:notation": "Crustacs"
+    },
+    {
+      "@id": "dfc-f:Crustaceans",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Crustaceans",
+      "skos:notation": "Crustaceans"
+    },
+    {
+      "@id": "dfc-f:AllergenDimension",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Allergen dimension",
+      "skos:notation": "Allergen_dimension"
+    },
+    {
+      "@id": "dfc-f:DimensionAllergne",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Dimension allergène",
+      "skos:notation": "Dimension_allergne"
+    },
+    {
+      "@id": "dfc-f:Soy",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Soy",
+      "skos:notation": "Soy"
+    },
+    {
+      "@id": "dfc-f:Soja",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Soja",
+      "skos:notation": "Soja"
+    },
+    {
+      "@id": "dfc-f:LabellingDimension",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Labelling dimension",
+      "skos:notation": "Labelling_dimension"
+    },
+    {
+      "@id": "dfc-f:DimensionScoreDeLabellisation",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Dimension score de labellisation",
+      "skos:notation": "Dimension_score_de_labellisation"
+    },
+    {
+      "@id": "dfc-f:NutriScore",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Nutri-score",
+      "skos:notation": "Nutri_score"
+    },
+    {
+      "@id": "dfc-f:EcoScore",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Eco-score",
+      "skos:notation": "Eco_score"
+    },
+    {
+      "@id": "dfc-f:PlanetScore",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Planet-score",
+      "skos:notation": "Planet_score"
+    },
+    {
+      "@id": "dfc-f:Celeriac",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Celeriac",
+      "skos:notation": "Celeriac"
+    },
+    {
+      "@id": "dfc-f:Lupine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Lupine",
+      "skos:notation": "Lupine"
+    },
+    {
+      "@id": "dfc-f:Lupin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Lupin",
+      "skos:notation": "Lupin"
+    },
+    {
+      "@id": "dfc-f:GrainesDeSsame",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Graines de sésame",
+      "skos:notation": "Graines_de_ssame"
+    },
+    {
+      "@id": "dfc-f:SesameSeeds",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sesame seeds",
+      "skos:notation": "Sesame_seeds"
+    },
+    {
+      "@id": "dfc-f:Mustard",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Mustard",
+      "skos:notation": "Mustard"
+    },
+    {
+      "@id": "dfc-f:Moutarde",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Moutarde",
+      "skos:notation": "Moutarde"
+    },
+    {
+      "@id": "dfc-f:Oeufs",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Oeufs",
+      "skos:notation": "Oeufs"
+    },
+    {
+      "@id": "dfc-f:Eggs",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Eggs",
+      "skos:notation": "Eggs"
+    },
+    {
+      "@id": "dfc-f:Molluscs",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Molluscs",
+      "skos:notation": "Molluscs"
+    },
+    {
+      "@id": "dfc-f:Mollusques",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Mollusques",
+      "skos:notation": "Mollusques"
+    },
+    {
+      "@id": "dfc-f:CerealsContainingGluten",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cereals containing gluten",
+      "skos:notation": "Cereals_containing_gluten"
+    },
+    {
+      "@id": "dfc-f:CralesContenantDuGluten",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Céréales contenant du gluten",
+      "skos:notation": "Crales_contenant_du_gluten"
+    },
+    {
+      "@id": "dfc-f:FruitsCoque",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fruits à coque",
+      "skos:notation": "Fruits__coque"
+    },
+    {
+      "@id": "dfc-f:Nuts",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Nuts",
+      "skos:notation": "Nuts"
+    },
+    {
+      "@id": "dfc-f:MilkAndLactoseBasedProducts",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Milk and lactose-based products",
+      "skos:notation": "Milk_and_lactose_based_products"
+    },
+    {
+      "@id": "dfc-f:LaitEtProduitsBaseDeLactose",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Lait et produits à base de lactose",
+      "skos:notation": "Lait_et_produits__base_de_lactose"
+    },
+    {
+      "@id": "dfc-f:Arachides",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Arachides",
+      "skos:notation": "Arachides"
+    },
+    {
+      "@id": "dfc-f:Peanuts",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Peanuts",
+      "skos:notation": "Peanuts"
+    },
+    {
+      "@id": "dfc-f:fishs",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fishs",
+      "skos:notation": "fishs"
+    },
+    {
+      "@id": "dfc-f:Poissons",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Poissons",
+      "skos:notation": "Poissons"
+    },
+    {
+      "@id": "dfc-f:dollarCanadien",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dollar canadien",
+      "skos:notation": "dollar_canadien"
+    },
+    {
+      "@id": "dfc-f:canadianDollar",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "canadian dollar",
+      "skos:notation": "canadian_dollar"
+    },
+    {
+      "@id": "dfc-f:dollarAustralien",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dollar australien",
+      "skos:notation": "dollar_australien"
+    },
+    {
+      "@id": "dfc-f:australianDollar",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "australian dollar",
+      "skos:notation": "australian_dollar"
+    },
+    {
+      "@id": "dfc-f:poundSterling",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pound sterling",
+      "skos:notation": "pound_sterling"
+    },
+    {
+      "@id": "dfc-f:livreSterling",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "livre sterling",
+      "skos:notation": "livre_sterling"
+    },
+    {
+      "@id": "dfc-f:USDollar",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "US Dollar",
+      "skos:notation": "US_Dollar"
+    },
+    {
+      "@id": "dfc-f:DollarUS",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Dollar US",
+      "skos:notation": "Dollar_US"
+    }
+  ]
+}

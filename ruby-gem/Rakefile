@@ -1,13 +1,2 @@
-# frozen_string_literal: true
-
-require "rake"
-require "generators/linkml_codegen"
-
-namespace :generate do
-  desc "Generate connector classes from LinkML schema"
-  task :connector do
-    linkml_path = File.expand_path("../src/dfc_business_linkml.yaml", __dir__)
-    output_dir = File.expand_path("lib/dfc_linkml_connector/connector", __dir__)
-    DFCLinkMLConnector::Generators::LinkMLCodegen.generate(linkml_path, output_dir)
-  end
-end
+require "bundler/gem_tasks"
+task default: :spec

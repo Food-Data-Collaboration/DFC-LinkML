@@ -1,8 +1,7 @@
 id: https://w3id.org/dfc/linkml
 name: dfc_business
 title: DFC Business Ontology (LinkML)
-description: LinkML schema converted from DFC Business Ontology v2.0.0. Part of the
-  DFC schema suite.
+description: LinkML schema converted from DFC Business Ontology v2.0.0. Part of the DFC schema suite.
 version: 2.0.0
 prefixes:
   dfc-b: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
@@ -333,6 +332,7 @@ slots:
   coordinate_value:
     description: Data property
     range: string
+    domain: Point
   definedBy:
     description: 'Object property: #definedBy'
     domain: CustomerCategory
@@ -363,149 +363,209 @@ slots:
     domain: Feature
   hasAddress:
     description: 'Object property: #hasAddress'
+    domain: Agent
+    range: Address
   hasAllergenCharacteristic:
     description: 'Object property: #hasAllergenCharacteristic'
     domain: DefinedProduct
+    range: AllergenCharacteristic
   hasAllergenDimension:
     description: 'Object property: #hasAllergenDimension'
     domain: AllergenCharacteristic
+    range: string
   hasBrand:
     description: 'Object property: #hasBrand'
     domain: DefinedProduct
+    range: Brand
   hasCertification:
     description: 'Object property: #hasCertification'
     domain: DefinedProduct
+    range: Certfication
   hasCharacteristic:
     description: 'Object property: #hasCharacteristic'
     domain: DefinedProduct
+    range: DFC_BusinessOntology_Characteristic
   hasClaim:
     description: 'Object property: #hasClaim'
     domain: DefinedProduct
+    range: string
   hasContainerInformation:
     description: 'Object property: #hasContainerInformation'
     domain: DefinedProduct
+    range: string
   hasCountry:
     description: 'Object property: #hasCountry'
     domain: Address
+    range: string
   hasDimension:
     description: 'Object property: #hasDimension'
     domain: DFC_BusinessOntology_Characteristic
+    range: string
   hasFacet:
     description: 'Object property: #hasFacet'
+    range: string
   hasFulfilmentStatus:
     description: 'Object property: #hasFulfilmentStatus'
     domain: Order
+    range: string
   hasGeoJsonFeature:
     description: 'Object property: #hasGeoJsonFeature'
+    domain: Feature
+    range: Feature
   hasGeographicalOrigin:
     description: 'Object property: #hasGeographicalOrigin'
     domain: DefinedProduct
+    range: string
   hasIngredient:
     description: 'Object property: #hasIngredient'
     domain: DefinedProduct
+    range: DefinedProduct
   hasInput:
     description: 'Object property: #hasInput'
+    range: DefinedProduct
   hasLabellingCharacteristic:
     description: 'Object property: #hasLabellingCharacteristic'
     domain: DefinedProduct
+    range: LabellingCharacteristic
   hasLabellingDimension:
     description: 'Object property: #hasLabellingDimension'
     domain: LabellingCharacteristic
+    range: string
   hasMainContact:
     description: 'Object property: #hasMainContact'
+    domain: Enterprise
+    range: Person
   hasMember:
     description: 'Object property: #hasMember'
     domain: CustomerCategory
+    range: Agent
   hasNatureOrigin:
     description: 'Object property: #hasNatureOrigin'
     domain: DefinedProduct
+    range: string
   hasNutrientCharacteristic:
     description: 'Object property: #hasNutrientCharacteristic'
     domain: DefinedProduct
+    range: NutrientCharacteristic
   hasNutrientDimension:
     description: 'Object property: #hasNutrientDimension'
     domain: NutrientCharacteristic
+    range: string
   hasObject:
     description: 'Object property: #hasObject'
     domain: Coordination
+    range: string
   hasOffer:
     description: 'Object property: #hasOffer'
     domain: CustomerCategory
+    range: Offer
   hasOption:
     description: 'Object property: #hasOption'
     domain: SaleSession
+    range: ShippingOption
   hasOrderStatus:
     description: 'Object property: #hasOrderStatus'
     domain: Order
+    range: string
   hasOutput:
     description: 'Object property: #hasOutput'
+    range: DefinedProduct
   hasPart:
     description: 'Object property: #hasPart'
     domain: Order
+    range: OrderLine
   hasPartOrigin:
     description: 'Object property: #hasPartOrigin'
     domain: DefinedProduct
+    range: string
   hasPaymentMethod:
     description: 'Object property: #hasPaymentMethod'
     domain: Order
+    range: PaymentMethod
   hasPaymentStatus:
     description: 'Object property: #hasPaymentStatus'
     domain: Order
+    range: string
   hasPhoneNumber:
     description: 'Object property: #hasPhoneNumber'
+    domain: Agent
+    range: PhoneNumber
   hasPhysicalCharacteristic:
     description: 'Object property: #hasPhysicalCharacteristic'
     domain: DefinedProduct
+    range: PhysicalCharacteristic
   hasPhysicalDimension:
     description: 'Object property: #hasPhysicalDimension'
     domain: PhysicalCharacteristic
+    range: string
   hasPrice:
     description: 'Object property: #hasPrice'
+    domain: Offer
+    range: Price
   hasProductOption:
     description: 'Object property: #hasProductOption'
     domain: VariantCaracteristic
+    range: ProductOption
   hasProductOptionValue:
     description: 'Object property: #hasProductOptionValue'
     domain: VariantCaracteristic
+    range: ProductOptionValue
   hasQuantity:
     description: 'Object property: #hasQuantity'
+    domain: DefinedProduct
+    range: QuantitativeValue
   hasReference:
     description: 'Object property: #hasReference'
     domain: LocalizedProduct
+    range: DefinedProduct
   hasReferenceProductOption:
     description: 'Object property: #hasReferenceProductOption'
     domain: DefinedProduct
+    range: ProductOption
   hasReferenceProductOptionValue:
     description: 'Object property: #hasReferenceProductOptionValue'
     domain: ProductOption
+    range: string
   hasSocialMedia:
     description: 'Object property: #hasSocialMedia'
     domain: Agent
+    range: SocialMedia
   hasStatus:
     description: 'Object property: #hasStatus'
+    domain: Order
+    range: string
   hasStep:
     description: 'Object property: #hasStep'
     domain: Route
+    range: Step
   hasTemperature:
     description: 'Object property: #hasTemperature'
     domain: SuppliedProduct
+    range: Temperature
   hasTemplateSaleSession:
     description: 'Object property: #hasTemplateSaleSession'
     domain: Organization
+    range: TemplateSaleSession
   hasTransformationType:
     description: 'Object property: #hasTransformationType'
     domain: AsPlannedTransformation
+    range: string
   hasType:
     description: 'Object property: #hasType'
     domain: DefinedProduct
+    range: string
   hasUnit:
     description: 'Object property: #hasUnit'
+    domain: QuantitativeValue
+    range: string
   hasVariant:
     description: 'Object property: #hasVariant'
     domain: DefinedProduct
+    range: DefinedProduct
   hasVariantCaracteristic:
     description: 'Object property: #hasVariantCaracteristic'
     domain: Variant
+    range: VariantCaracteristic
   holds:
     description: 'Object property: #holds'
     domain: SaleSession
@@ -766,216 +826,287 @@ slots:
   Image:
     description: Data property
     range: string
+    domain: RepresentedThing
   URL:
     description: Data property
     range: string
+    domain: RepresentedThing
   VATnumber:
     description: Data property
     range: string
+    domain: Enterprise
   VATrate:
     description: Data property
     range: string
+    domain: Price
   VATstatus:
     description: Data property
     range: string
+    domain: Price
   accessibilityInfo:
     description: Data property
     range: string
+    domain: PhysicalPlace
   arrivalDate:
     description: Data property
     range: string
+    domain: SaleSession
   availabilityDate:
     description: Data property
     range: string
+    domain: Offer
   availabilityTime:
     description: Data property
     range: string
+    domain: Vevent
   batchNumber:
     description: Data property
     range: string
+    domain: ProductBatch
   bestBeforeDate:
     description: Data property
     range: string
+    domain: SuppliedProduct
   brand:
     description: Data property
     range: string
+    domain: Brand
   byday:
     description: Data property
     range: string
+    domain: Vevent
   bymonth:
     description: Data property
     range: string
+    domain: Vevent
   certiferReference:
     description: Data property
     range: string
+    domain: Certfication
   certificationScore:
     description: Data property
     range: string
+    domain: Certfication
   city:
     description: Data property
     range: string
+    domain: Address
   claim:
     description: Data property
     range: string
+    domain: DefinedProduct
   closes:
     description: Data property
     range: string
+    domain: Vevent
   cost:
     description: Data property
     range: string
+    domain: Price
   country:
     description: Data property
     range: string
+    domain: Address
   countryCode:
     description: Data property
     range: string
+    domain: Address
   date:
     description: Data property
     range: string
+    domain: Vevent
   deliveryCondition:
     description: Data property
     range: string
+    domain: SuppliedProduct
   deliveryConstraint:
     description: Data property
     range: string
+    domain: DeliveryOption
   description:
     description: Data property
     range: string
+    domain: RepresentedThing
   discount:
     description: Data property
     range: string
+    domain: Offer
   dtend:
     description: Data property
     range: string
+    domain: Vevent
   dtstart:
     description: Data property
     range: string
+    domain: Vevent
   duration:
     description: Data property
     range: string
+    domain: Vevent
   email:
     description: Data property
     range: string
+    domain: Agent
   endDate:
     description: Data property
     range: string
+    domain: SaleSession
   enterpriseID:
     description: Data property
     range: string
+    domain: Enterprise
   expiryDate:
     description: Data property
     range: string
+    domain: SuppliedProduct
   extraAvailabilityTime:
     description: Data property
     range: string
+    domain: Vevent
   extraDeliveryCondition:
     description: Data property
     range: string
+    domain: SuppliedProduct
   familyName:
     description: Data property
     range: string
+    domain: Person
   fee:
     description: Data property
     range: string
+    domain: ShippingOption
   firstName:
     description: Data property
     range: string
+    domain: Person
   freq:
     description: Data property
     range: string
+    domain: Vevent
   frozen:
     description: Data property
     range: string
+    domain: SuppliedProduct
   hasPercentageOfAlcoholByVolume:
     description: Data property
     range: string
+    domain: DefinedProduct
   interval:
     description: Data property
     range: string
+    domain: Vevent
   invoiceNumber:
     description: Data property
     range: string
+    domain: Order
   latitude:
     description: Data property
     range: string
+    domain: Point
   lifetime:
     description: Data property
     range: string
+    domain: DefinedProduct
   logo:
     description: Data property
     range: string
+    domain: Agent
   longitude:
     description: Data property
     range: string
+    domain: Point
   marginPercent:
     description: Data property
     range: string
+    domain: Offer
   maxValue:
     description: Data property
     range: float
+    domain: QuantitativeValue
   minValue:
     description: Data property
     range: float
+    domain: QuantitativeValue
   name:
     description: Data property
     range: string
+    domain: RepresentedThing
   operatorId:
     description: Data property
     range: string
+    domain: Organization
   orderNumber:
     description: Data property
     range: string
+    domain: Order
   paymentMethodProvider:
     description: Data property
     range: string
+    domain: PaymentMethod
   paymentMethodType:
     description: Data property
     range: string
+    domain: PaymentMethod
   phoneNumber:
     description: Data property
     range: string
+    domain: Agent
   physicalCharacteristics:
     description: Data property
     range: string
+    domain: DefinedProduct
   postcode:
     description: Data property
     range: string
+    domain: Address
   productionDate:
     description: Data property
     range: string
+    domain: SuppliedProduct
   quantity:
     description: Data property
     range: string
+    domain: CatalogItem
   refrigerated:
     description: Data property
     range: string
+    domain: SuppliedProduct
   region:
     description: Data property
     range: string
+    domain: Address
   sku:
     description: Data property
     range: string
+    domain: DefinedProduct
   specificCondition:
     description: Data property
     range: string
+    domain: ProductOptionValue
   startDate:
     description: Data property
     range: string
+    domain: SaleSession
   stockLimitation:
     description: Data property
     range: string
+    domain: CatalogItem
   street:
     description: Data property
     range: string
+    domain: Address
   totalTheoriticalStock:
     description: Data property
     range: string
+    domain: SuppliedProduct
   value:
     description: Data property
     range: string
+    domain: QuantitativeValue
   websitePage:
     description: Data property
     range: string
+    domain: Agent
 see_also:
 - https://docs.dfc-standard.org/
 enums:
@@ -995,7 +1126,7 @@ enums:
         description: Ethical label
       Label_thique:
         meaning: dfc-f:EthicalLabel
-        description: Label éthique
+        description: "Label \xE9thique"
       South_East_England:
         meaning: dfc-f:EnglandSE
         description: South East England
@@ -1040,7 +1171,7 @@ enums:
         description: High fibre
       Allgation_nutritionnelle:
         meaning: dfc-f:NutritionalClaim
-        description: Allégation nutritionnelle
+        description: "All\xE9gation nutritionnelle"
       Nutritional_claim:
         meaning: dfc-f:NutritionalClaim
         description: Nutritional claim
@@ -1070,7 +1201,7 @@ enums:
         description: Bee
       Indication_gographique_de_provenance:
         meaning: dfc-f:IGPEU
-        description: Indication géographique de provenance
+        description: "Indication g\xE9ographique de provenance"
       Local_label:
         meaning: dfc-f:LocalLabel
         description: Local label
@@ -1106,13 +1237,13 @@ enums:
         description: Marine Stewardship Council
       Pche_durable_MSC:
         meaning: dfc-f:MSC
-        description: Pêche durable MSC
+        description: "P\xEAche durable MSC"
       Bleu_Blanc_Coeur:
         meaning: dfc-f:BleuBlancCoeurFR
         description: Bleu-Blanc-Coeur
       Fort_durable_FSC:
         meaning: dfc-f:FSC
-        description: Forêt durable FSC
+        description: "For\xEAt durable FSC"
       Forest_Stewardship_Council:
         meaning: dfc-f:FSC
         description: Forest Stewardship Council
@@ -1166,13 +1297,13 @@ enums:
         description: Source of protein
       Source_de_protine:
         meaning: dfc-f:SourceOfProtein
-        description: Source de protéine
+        description: "Source de prot\xE9ine"
       High_omega_3_fatty_acids:
         meaning: dfc-f:HighOmega3FattyAcids
         description: High omega-3 fatty acids
       Riche_en_acide_gras_Omga_3:
         meaning: dfc-f:RicheEnAcideGrasOmega3
-        description: Riche en acide gras Oméga-3
+        description: "Riche en acide gras Om\xE9ga-3"
       Source_de_fibres:
         meaning: dfc-f:SourceOfFibre
         description: Source de fibres
@@ -1184,7 +1315,7 @@ enums:
         description: High protein
       Riche_en_protines:
         meaning: dfc-f:HighProtein
-        description: Riche en protéines
+        description: "Riche en prot\xE9ines"
       Low_sodiumsalt:
         meaning: dfc-f:LowSodiumSalt
         description: Low sodium/salt
@@ -1196,22 +1327,22 @@ enums:
         description: Saturated fat-free
       Sans_graisses_satures:
         meaning: dfc-f:SaturatedFatFree
-        description: Sans graisses saturées
+        description: "Sans graisses satur\xE9es"
       High_vitamins_andor_minerals:
         meaning: dfc-f:HighVitaminsMinerals
         description: High vitamins and/or minerals
       Riche_en_vitamines_etou_de_minraux:
         meaning: dfc-f:HighVitaminsMinerals
-        description: Riche en vitamines et/ou de minéraux
+        description: "Riche en vitamines et/ou de min\xE9raux"
       AllgLight:
         meaning: dfc-f:Light
-        description: Allégé/Light
+        description: "All\xE9g\xE9/Light"
       LightLite:
         meaning: dfc-f:Light
         description: Light/Lite
       Trs_pauvre_en_sodiumsel:
         meaning: dfc-f:VeryLowSodiumSalt
-        description: Très pauvre en sodium/sel
+        description: "Tr\xE8s pauvre en sodium/sel"
       Very_low_sodiumsalt:
         meaning: dfc-f:VeryLowSodiumSalt
         description: Very low sodium/salt
@@ -1220,16 +1351,16 @@ enums:
         description: Low saturated fat
       Faible_teneur_en_graisses_satures:
         meaning: dfc-f:LowSaturatedFat
-        description: Faible teneur en graisses saturées
+        description: "Faible teneur en graisses satur\xE9es"
       Reduced_nutrient:
         meaning: dfc-f:ReducedNutrient
         description: Reduced nutrient
       Rduit_en_nutriment:
         meaning: dfc-f:ReducedNutrient
-        description: Réduit en nutriment
+        description: "R\xE9duit en nutriment"
       Faible_teneur_en_matire_grasse:
         meaning: dfc-f:LowFat
-        description: Faible teneur en matière grasse
+        description: "Faible teneur en mati\xE8re grasse"
       Low_fat:
         meaning: dfc-f:LowFat
         description: Low fat
@@ -1247,13 +1378,13 @@ enums:
         description: Low sugars
       Sans_sodiumsel_ajout:
         meaning: dfc-f:NoAddedSodiumSalt
-        description: Sans sodium/sel ajouté
+        description: "Sans sodium/sel ajout\xE9"
       No_added_sodiumsalt:
         meaning: dfc-f:NoAddedSodiumSalt
         description: No added sodium/salt
       Riche_en_graisses_polyinsatures:
         meaning: dfc-f:HighPolyunsaturatedFat
-        description: Riche en graisses polyinsaturées
+        description: "Riche en graisses polyinsatur\xE9es"
       High_polyunsaturated_fat:
         meaning: dfc-f:HighPolyunsaturatedFat
         description: High polyunsaturated fat
@@ -1262,10 +1393,10 @@ enums:
         description: Source of vitamins and/or minerals
       Source_de_vitamines_etou_de_minraux:
         meaning: dfc-f:SourceOfVitaminsMinerals
-        description: Source de vitamines et/ou de minéraux
+        description: "Source de vitamines et/ou de min\xE9raux"
       Riche_en_graisses_insatures:
         meaning: dfc-f:HighUnsaturatedFat
-        description: Riche en graisses insaturées
+        description: "Riche en graisses insatur\xE9es"
       High_unsaturated_fat:
         meaning: dfc-f:HighUnsaturatedFat
         description: High unsaturated fat
@@ -1289,22 +1420,22 @@ enums:
         description: With no added sugars
       Sans_sucres_ajouts:
         meaning: dfc-f:NoAddedSugars
-        description: Sans sucres ajoutés
+        description: "Sans sucres ajout\xE9s"
       Riche_en_graisses_monoinsatures:
         meaning: dfc-f:HighMonounsaturatedFat
-        description: Riche en graisses monoinsaturées
+        description: "Riche en graisses monoinsatur\xE9es"
       High_monounsaturated_fat:
         meaning: dfc-f:HighMonounsaturatedFat
         description: High monounsaturated fat
       Sans_apport_nergtique:
         meaning: dfc-f:EnergyFree
-        description: Sans apport énergétique
+        description: "Sans apport \xE9nerg\xE9tique"
       Energy_free:
         meaning: dfc-f:EnergyFree
         description: Energy free
       Sans_matires_grasses:
         meaning: dfc-f:FatFree
-        description: Sans matières grasses
+        description: "Sans mati\xE8res grasses"
       Fat_free:
         meaning: dfc-f:FatFree
         description: Fat-free
@@ -1313,22 +1444,22 @@ enums:
         description: Source of omega-3 fatty acids
       Source_dacide_gras_Omga_3:
         meaning: dfc-f:SourceDacideGrasOmega3
-        description: Source d'acide gras Oméga-3
+        description: "Source d'acide gras Om\xE9ga-3"
       Faible_valeur_nergtique:
         meaning: dfc-f:LowEnergy
-        description: Faible valeur énergétique
+        description: "Faible valeur \xE9nerg\xE9tique"
       Low_energy:
         meaning: dfc-f:LowEnergy
         description: Low energy
       Valeur_nergtique_rduite:
         meaning: dfc-f:EnergyReduced
-        description: Valeur énergétique réduite
+        description: "Valeur \xE9nerg\xE9tique r\xE9duite"
       Energy_reduced:
         meaning: dfc-f:EnergyReduced
         description: Energy reduced
       Allgations_nutritionnelles_et_de_sant:
         meaning: dfc-f:NutritionAndHealthClaim
-        description: Allégations nutritionnelles et de santé
+        description: "All\xE9gations nutritionnelles et de sant\xE9"
       Nutrition_and_health_claims:
         meaning: dfc-f:NutritionAndHealthClaim
         description: Nutrition and health claims
@@ -1340,7 +1471,7 @@ enums:
         description: France
       Buf:
         meaning: dfc-f:Beef
-        description: Bœuf
+        description: "B\u0153uf"
       Bull:
         meaning: dfc-f:Bull
         description: Bull
@@ -1388,13 +1519,13 @@ enums:
         description: Mineral
       Minral:
         meaning: dfc-f:Mineral
-        description: Minéral
+        description: "Min\xE9ral"
       Bacteria:
         meaning: dfc-f:Bacteria
         description: Bacteria
       Bactrie:
         meaning: dfc-f:Bacteria
-        description: Bactérie
+        description: "Bact\xE9rie"
       Centre_Val_de_Loire:
         meaning: dfc-f:CentreValDeLoire
         description: Centre-Val de Loire
@@ -1403,10 +1534,10 @@ enums:
         description: North America
       Amrique_du_Nord:
         meaning: dfc-f:NorthAmerica
-        description: Amérique du Nord
+        description: "Am\xE9rique du Nord"
       Origine_gographique:
         meaning: dfc-f:GeographicOrigin
-        description: Origine géographique
+        description: "Origine g\xE9ographique"
       Territorial_origin:
         meaning: dfc-f:TerritorialOrigin
         description: Territorial origin
@@ -1463,7 +1594,7 @@ enums:
         description: North West England
       Bourgogne_Franche_Comt:
         meaning: dfc-f:BourgogneFranche Comte
-        description: Bourgogne-Franche-Comté
+        description: "Bourgogne-Franche-Comt\xE9"
       Ewe:
         meaning: dfc-f:Ewe
         description: Ewe
@@ -1511,7 +1642,7 @@ enums:
         description: Goat
       Chvre:
         meaning: dfc-f:Chvre
-        description: Chèvre
+        description: "Ch\xE8vre"
       Partie_dorigine:
         meaning: dfc-f:PartOfOrigin
         description: Partie d'origine
@@ -1541,13 +1672,13 @@ enums:
         description: Other claim
       Autre_allgation:
         meaning: dfc-f:OtherClaim
-        description: Autre allégation
+        description: "Autre all\xE9gation"
       Vegetarian:
         meaning: dfc-f:Vegetarian
         description: Vegetarian
       Vgtarien:
         meaning: dfc-f:Vegetarian
-        description: Végétarien
+        description: "V\xE9g\xE9tarien"
       Sans_gluten:
         meaning: dfc-f:GlutenFree
         description: Sans gluten
@@ -1574,7 +1705,7 @@ enums:
         description: EU Organic Farming
       Nature_et_progrs:
         meaning: dfc-f:NatureetProgres
-        description: Nature et progrès
+        description: "Nature et progr\xE8s"
       Agriculture_Biologique:
         meaning: dfc-f:OrganicFarming
         description: Agriculture Biologique
@@ -1625,7 +1756,7 @@ enums:
         description: Espagne
       Rpublique_dIrlande:
         meaning: dfc-f:RepublicOfIreland
-        description: République d'Irlande
+        description: "R\xE9publique d'Irlande"
       Republic_of_Ireland:
         meaning: dfc-f:RepublicOfIreland
         description: Republic of Ireland
@@ -1643,7 +1774,7 @@ enums:
         description: United Kingdom
       Appellation_dorigine_contrle:
         meaning: dfc-f:AOCFR
-        description: Appellation d’origine contrôlée
+        description: "Appellation d\u2019origine contr\xF4l\xE9e"
       East_of_England:
         meaning: dfc-f:EastOfEngland
         description: East of England
@@ -1718,7 +1849,7 @@ enums:
         description: Health claim
       Allgation_sant:
         meaning: dfc-f:AllgationSant
-        description: Allégation santé
+        description: "All\xE9gation sant\xE9"
       London:
         meaning: dfc-f:London
         description: London
@@ -1745,7 +1876,7 @@ enums:
         description: Graine
       Ocanie:
         meaning: dfc-f:Ocanie
-        description: Océanie
+        description: "Oc\xE9anie"
       Oceania:
         meaning: dfc-f:Oceania
         description: Oceania
@@ -1757,7 +1888,7 @@ enums:
         description: Africa
       Amrique_du_Sud:
         meaning: dfc-f:AmriqueDuSud
-        description: Amérique du Sud
+        description: "Am\xE9rique du Sud"
       South_America:
         meaning: dfc-f:SouthAmerica
         description: South America
@@ -1790,7 +1921,7 @@ enums:
         description: Nouvelle-Aquitaine
       Reconnu_Saveur_de_lanne:
         meaning: dfc-f:TasteOfTheYear
-        description: Reconnu Saveur de l’année
+        description: "Reconnu Saveur de l\u2019ann\xE9e"
       Taste_of_the_year:
         meaning: dfc-f:TasteOfTheYear
         description: Taste of the year
@@ -1802,7 +1933,7 @@ enums:
         description: New Zealand
       Nouvelle_Zlande:
         meaning: dfc-f:NewZealand
-        description: Nouvelle Zélande
+        description: "Nouvelle Z\xE9lande"
       Fleur:
         meaning: dfc-f:Fleur
         description: Fleur
@@ -1814,13 +1945,13 @@ enums:
         description: Product of the year
       Elu_produit_de_lanne:
         meaning: dfc-f:ProductOfTheYear
-        description: Elu produit de l'année
+        description: "Elu produit de l'ann\xE9e"
       Container_Information:
         meaning: dfc-f:ContainerInformation
         description: Container Information
       Partie_de_chvre:
         meaning: dfc-f:GoatBody
-        description: Partie de chèvre
+        description: "Partie de ch\xE8vre"
       Goats_body:
         meaning: dfc-f:GoatBody
         description: Goat's body
@@ -1865,7 +1996,7 @@ enums:
         description: Hen's egg
       uf_de_poule:
         meaning: dfc-f:HenEgg
-        description: Œuf de poule
+        description: "\u0152uf de poule"
       Derbyshire:
         meaning: dfc-f:Derbyshire
         description: Derbyshire
@@ -1880,10 +2011,10 @@ enums:
         description: Leicestershire
       Provence_Alpes_Cte_dAzur:
         meaning: dfc-f:ProvenceAlpesCteAzur
-        description: Provence-Alpes-Côte d’Azur
+        description: "Provence-Alpes-C\xF4te d\u2019Azur"
       Plante_entire:
         meaning: dfc-f:WholePlant
-        description: Plante entière
+        description: "Plante enti\xE8re"
       Whole_plant:
         meaning: dfc-f:WholePlant
         description: Whole plant
@@ -1916,10 +2047,10 @@ enums:
         description: Quail's egg
       uf_de_caille:
         meaning: dfc-f:ufDeCaille
-        description: Œuf de caille
+        description: "\u0152uf de caille"
       Statut_gographique_protg:
         meaning: dfc-f:ProtectedGeographicalStatus
-        description: Statut géographique protégé
+        description: "Statut g\xE9ographique prot\xE9g\xE9"
       Protected_Geographical_Status:
         meaning: dfc-f:ProtectedGeographicalStatus
         description: Protected Geographical Status
@@ -1952,10 +2083,10 @@ enums:
         description: Ile-de-France
       le_de_France:
         meaning: dfc-f:IleDeFrance
-        description: Île-de-France
+        description: "\xCEle-de-France"
       Auvergne_Rhne_Alpes:
         meaning: dfc-f:AuvergneRhneAlpes
-        description: Auvergne-Rhône-Alpes
+        description: "Auvergne-Rh\xF4ne-Alpes"
       Package:
         meaning: dfc-f:Package
         description: Package
@@ -1988,7 +2119,7 @@ enums:
         description: Cow milk
       Appellation_dorigine_protge:
         meaning: dfc-f:AOPEU
-        description: Appellation d’origine protégée
+        description: "Appellation d\u2019origine prot\xE9g\xE9e"
       Australie:
         meaning: dfc-f:Australie
         description: Australie
@@ -2059,7 +2190,7 @@ enums:
         description: meat product
       produit_carn:
         meaning: dfc-f:produitCarn
-        description: produit carné
+        description: "produit carn\xE9"
       topinambour:
         meaning: dfc-f:topinambour
         description: topinambour
@@ -2068,7 +2199,7 @@ enums:
         description: jerusalem artichoke
       lgume:
         meaning: dfc-f:lgume
-        description: légume
+        description: "l\xE9gume"
       vegetable:
         meaning: dfc-f:vegetable
         description: vegetable
@@ -2080,7 +2211,7 @@ enums:
         description: soupe
       lgume_transform:
         meaning: dfc-f:lgumeTransform
-        description: légume transformé
+        description: "l\xE9gume transform\xE9"
       processed_vegetable:
         meaning: dfc-f:processedVegetable
         description: processed vegetable
@@ -2095,7 +2226,7 @@ enums:
         description: flavored yogurt
       yaourt_aromatis:
         meaning: dfc-f:yaourtAromatis
-        description: yaourt aromatisé
+        description: "yaourt aromatis\xE9"
       cow_dairy_product:
         meaning: dfc-f:cowDairyProduct
         description: cow dairy product
@@ -2167,10 +2298,10 @@ enums:
         description: shallot
       chalote:
         meaning: dfc-f:chalote
-        description: échalote
+        description: "\xE9chalote"
       lgume_de_quatrime_gamme:
         meaning: dfc-f:lgumeDeQuatrimeGamme
-        description: légume de quatrième gamme
+        description: "l\xE9gume de quatri\xE8me gamme"
       fourth_range_vegetable:
         meaning: dfc-f:fourthRangeVegetable
         description: fourth range vegetable
@@ -2179,7 +2310,7 @@ enums:
         description: non local vegetable
       lgume_non_local:
         meaning: dfc-f:lgumeNonLocal
-        description: légume non local
+        description: "l\xE9gume non local"
       radis:
         meaning: dfc-f:radis
         description: radis
@@ -2197,7 +2328,7 @@ enums:
         description: rutabaga
       cleri_branche:
         meaning: dfc-f:cleriBranche
-        description: céleri branche
+        description: "c\xE9leri branche"
       celery_branch:
         meaning: dfc-f:celeryBranch
         description: celery branch
@@ -2266,7 +2397,7 @@ enums:
         description: yam
       lgume_de_cinquime_gamme:
         meaning: dfc-f:lgumeDeCinquimeGamme
-        description: légume de cinquième gamme
+        description: "l\xE9gume de cinqui\xE8me gamme"
       fifth_range_vegetable:
         meaning: dfc-f:fifthRangeVegetable
         description: fifth range vegetable
@@ -2275,13 +2406,13 @@ enums:
         description: celeriac
       cleri_rave:
         meaning: dfc-f:cleriRave
-        description: céleri-rave
+        description: "c\xE9leri-rave"
       dried_vegetable:
         meaning: dfc-f:driedVegetable
         description: dried vegetable
       lgume_sec:
         meaning: dfc-f:lgumeSec
-        description: légume sec
+        description: "l\xE9gume sec"
       oignon:
         meaning: dfc-f:oignon
         description: oignon
@@ -2320,10 +2451,10 @@ enums:
         description: crepe and galette
       crpe_et_galette:
         meaning: dfc-f:crpeEtGalette
-        description: crêpe et galette
+        description: "cr\xEApe et galette"
       picerie_sale:
         meaning: dfc-f:picerieSale
-        description: épicerie salée
+        description: "\xE9picerie sal\xE9e"
       savory_groceries:
         meaning: dfc-f:savoryGroceries
         description: savory groceries
@@ -2437,7 +2568,7 @@ enums:
         description: cerise
       clmentine:
         meaning: dfc-f:clmentine
-        description: clémentine
+        description: "cl\xE9mentine"
       clementine:
         meaning: dfc-f:clementine
         description: clementine
@@ -2479,7 +2610,7 @@ enums:
         description: fruit non local
       fruit__coque:
         meaning: dfc-f:fruitCoque
-        description: fruit à coque
+        description: "fruit \xE0 coque"
       nut:
         meaning: dfc-f:nut
         description: nut
@@ -2491,7 +2622,7 @@ enums:
         description: peach
       pche:
         meaning: dfc-f:pche
-        description: pêche
+        description: "p\xEAche"
       pear:
         meaning: dfc-f:pear
         description: pear
@@ -2515,7 +2646,7 @@ enums:
         description: coing
       nfle:
         meaning: dfc-f:nfle
-        description: nèfle
+        description: "n\xE8fle"
       medlar:
         meaning: dfc-f:medlar
         description: medlar
@@ -2533,7 +2664,7 @@ enums:
         description: groseille
       mre:
         meaning: dfc-f:mre
-        description: mûre
+        description: "m\xFBre"
       blackberry:
         meaning: dfc-f:blackberry
         description: blackberry
@@ -2548,7 +2679,7 @@ enums:
         description: gooseberry
       groseille__maquereau:
         meaning: dfc-f:groseilleMaquereau
-        description: groseille à maquereau
+        description: "groseille \xE0 maquereau"
       fraise:
         meaning: dfc-f:fraise
         description: fraise
@@ -2563,7 +2694,7 @@ enums:
         description: cassis
       picerie_locale:
         meaning: dfc-f:picerieLocale
-        description: épicerie locale
+        description: "\xE9picerie locale"
       local_grocery_store:
         meaning: dfc-f:localGroceryStore
         description: local grocery store
@@ -2575,7 +2706,7 @@ enums:
         description: dried goods
       plat_cuisin:
         meaning: dfc-f:platCuisin
-        description: plat cuisiné
+        description: "plat cuisin\xE9"
       ready_meal:
         meaning: dfc-f:readyMeal
         description: ready meal
@@ -2584,13 +2715,13 @@ enums:
         description: sweet groceries
       picerie_sucre:
         meaning: dfc-f:picerieSucre
-        description: épicerie sucrée
+        description: "\xE9picerie sucr\xE9e"
       processed_fruit:
         meaning: dfc-f:processedFruit
         description: processed fruit
       fruit_transform:
         meaning: dfc-f:fruitTransform
-        description: fruit transformé
+        description: "fruit transform\xE9"
       cauliflower:
         meaning: dfc-f:cauliflower
         description: cauliflower
@@ -2605,7 +2736,7 @@ enums:
         description: limonade
       boisson_non_alcoolise:
         meaning: dfc-f:boissonNonAlcoolise
-        description: boisson non alcoolisée
+        description: "boisson non alcoolis\xE9e"
       soft_drink:
         meaning: dfc-f:softDrink
         description: soft drink
@@ -2650,7 +2781,7 @@ enums:
         description: frozen
       surgel:
         meaning: dfc-f:surgel
-        description: surgelé
+        description: "surgel\xE9"
       hierloom_tomato:
         meaning: dfc-f:hierloomTomato
         description: hierloom tomato
@@ -2680,13 +2811,13 @@ enums:
         description: shellfish
       crustacs:
         meaning: dfc-f:crustacs
-        description: crustacés
+        description: "crustac\xE9s"
       fishery_product:
         meaning: dfc-f:fisheryProduct
         description: fishery product
       produit_de_la_pche:
         meaning: dfc-f:produitDeLaPche
-        description: produit de la pêche
+        description: "produit de la p\xEAche"
       viennoiserie:
         meaning: dfc-f:viennoiserie
         description: viennoiserie
@@ -2725,7 +2856,7 @@ enums:
         description: grain
       crale:
         meaning: dfc-f:crale
-        description: céréale
+        description: "c\xE9r\xE9ale"
       sheep_natural_yogurt:
         meaning: dfc-f:sheepNaturalYogurt
         description: sheep natural yogurt
@@ -2740,7 +2871,7 @@ enums:
         description: sheep dairy product
       crme_frache:
         meaning: dfc-f:crmeFrache
-        description: crème fraîche
+        description: "cr\xE8me fra\xEEche"
       fresh_cream:
         meaning: dfc-f:freshCream
         description: fresh cream
@@ -2755,7 +2886,7 @@ enums:
         description: pie pastry
       pte__tarte:
         meaning: dfc-f:pteTarte
-        description: pâte à tarte
+        description: "p\xE2te \xE0 tarte"
       morel:
         meaning: dfc-f:morel
         description: morel
@@ -2764,13 +2895,13 @@ enums:
         description: morille
       fromage_frais_de_chvre:
         meaning: dfc-f:fromageFraisDeChvre
-        description: fromage frais de chèvre
+        description: "fromage frais de ch\xE8vre"
       goat_fresh_cheese:
         meaning: dfc-f:goatFreshCheese
         description: goat fresh cheese
       produit_laitier_de_chvre:
         meaning: dfc-f:produitLaitierDeChvre
-        description: produit laitier de chèvre
+        description: "produit laitier de ch\xE8vre"
       goat_dairy_product:
         meaning: dfc-f:goatDairyProduct
         description: goat dairy product
@@ -2791,7 +2922,7 @@ enums:
         description: goat mature cheese
       fromage_de_chvre_affin:
         meaning: dfc-f:fromageDeChvreAffin
-        description: fromage de chèvre affiné
+        description: "fromage de ch\xE8vre affin\xE9"
       graine:
         meaning: dfc-f:graine
         description: graine
@@ -2830,7 +2961,7 @@ enums:
         description: egg
       uf:
         meaning: dfc-f:uf
-        description: œuf
+        description: "\u0153uf"
       agneau:
         meaning: dfc-f:agneau
         description: agneau
@@ -2851,7 +2982,7 @@ enums:
         description: rabbit
       fromage_affin:
         meaning: dfc-f:fromageAffin
-        description: fromage affiné
+        description: "fromage affin\xE9"
       mature_cheese:
         meaning: dfc-f:matureCheese
         description: mature cheese
@@ -2866,16 +2997,16 @@ enums:
         description: canned vegetable
       lgume_en_conserve:
         meaning: dfc-f:lgumeEnConserve
-        description: légume en conserve
+        description: "l\xE9gume en conserve"
       fromage_affin_de_brebis:
         meaning: dfc-f:fromageAffinDeBrebis
-        description: fromage affiné de brebis
+        description: "fromage affin\xE9 de brebis"
       sheep_mature_cheese:
         meaning: dfc-f:sheepMatureCheese
         description: sheep mature cheese
       yaourt_sucr_de_chvre:
         meaning: dfc-f:yaourtSucrDeChvre
-        description: yaourt sucré de chèvre
+        description: "yaourt sucr\xE9 de ch\xE8vre"
       goat_sweet_yogurt:
         meaning: dfc-f:goatSweetYogurt
         description: goat sweet yogurt
@@ -2884,22 +3015,22 @@ enums:
         description: pastry
       ptisserie:
         meaning: dfc-f:ptisserie
-        description: pâtisserie
+        description: "p\xE2tisserie"
       chou_pomm:
         meaning: dfc-f:chouPomm
-        description: chou pommé
+        description: "chou pomm\xE9"
       savoy_cabbage:
         meaning: dfc-f:savoyCabbage
         description: savoy cabbage
       pinards:
         meaning: dfc-f:pinards
-        description: épinards
+        description: "\xE9pinards"
       spinach:
         meaning: dfc-f:spinach
         description: spinach
       mlange_de_salades:
         meaning: dfc-f:mlangeDeSalades
-        description: mélange de salades
+        description: "m\xE9lange de salades"
       salad_mix:
         meaning: dfc-f:saladMix
         description: salad mix
@@ -2914,13 +3045,13 @@ enums:
         description: corn salad/lambs lettuce
       mche:
         meaning: dfc-f:mche
-        description: mâche
+        description: "m\xE2che"
       chicory:
         meaning: dfc-f:chicory
         description: chicory
       chicore:
         meaning: dfc-f:chicore
-        description: chicorée
+        description: "chicor\xE9e"
       dandelion:
         meaning: dfc-f:dandelion
         description: dandelion
@@ -2953,7 +3084,7 @@ enums:
         description: other dairy product
       dessert_lact_de_chvre:
         meaning: dfc-f:dessertLactDeChvre
-        description: dessert lacté de chèvre
+        description: "dessert lact\xE9 de ch\xE8vre"
       goat_dairy_dessert:
         meaning: dfc-f:goatDairyDessert
         description: goat dairy dessert
@@ -2962,16 +3093,16 @@ enums:
         description: goat flavored yogurt
       yaourt_de_chvre_aromatis:
         meaning: dfc-f:yaourtDeChvreAromatis
-        description: yaourt de chèvre aromatisé
+        description: "yaourt de ch\xE8vre aromatis\xE9"
       goat_natural_yogurt:
         meaning: dfc-f:goatNaturalYogurt
         description: goat natural yogurt
       yaourt_nature_de_chvre:
         meaning: dfc-f:yaourtNatureDeChvre
-        description: yaourt nature de chèvre
+        description: "yaourt nature de ch\xE8vre"
       yaourt_de_chvre_aux_fruits:
         meaning: dfc-f:yaourtDeChvreAuxFruits
-        description: yaourt de chèvre aux fruits
+        description: "yaourt de ch\xE8vre aux fruits"
       goat_yogurt_with_fruits:
         meaning: dfc-f:goatYogurtWithFruits
         description: goat yogurt with fruits
@@ -2980,16 +3111,16 @@ enums:
         description: goat milk
       lait_de_chvre:
         meaning: dfc-f:laitDeChvre
-        description: lait de chèvre
+        description: "lait de ch\xE8vre"
       yaourt_de_chvre_sur_lit_de_fruits:
         meaning: dfc-f:yaourtDeChvreSurLitDeFruits
-        description: yaourt de chèvre sur lit de fruits
+        description: "yaourt de ch\xE8vre sur lit de fruits"
       goat_yogurt_on_a_bed_of_fruit:
         meaning: dfc-f:goatYogurtOnABedOfFruit
         description: goat yogurt on a bed of fruit
       viande_surgele:
         meaning: dfc-f:viandeSurgele
-        description: viande surgelée
+        description: "viande surgel\xE9e"
       frozen_meat:
         meaning: dfc-f:frozenMeat
         description: frozen meat
@@ -2998,13 +3129,13 @@ enums:
         description: frozen meal
       plat_surgel:
         meaning: dfc-f:platSurgel
-        description: plat surgelé
+        description: "plat surgel\xE9"
       bottled_vegetable:
         meaning: dfc-f:bottledVegetable
         description: bottled vegetable
       lgume_en_bocal:
         meaning: dfc-f:lgumeEnBocal
-        description: légume en bocal
+        description: "l\xE9gume en bocal"
       biscuit:
         meaning: dfc-f:biscuit
         description: biscuit
@@ -3019,7 +3150,7 @@ enums:
         description: frozen vegetable
       lgume_surgel:
         meaning: dfc-f:lgumeSurgel
-        description: légume surgelé
+        description: "l\xE9gume surgel\xE9"
       fish:
         meaning: dfc-f:fish
         description: fish
@@ -3031,7 +3162,7 @@ enums:
         description: grilling meat
       viande__griller:
         meaning: dfc-f:viandeGriller
-        description: viande à griller
+        description: "viande \xE0 griller"
       confiserie:
         meaning: dfc-f:confiserie
         description: confiserie
@@ -3058,7 +3189,7 @@ enums:
         description: hierloom squash
       varit_ancienne_de_courge:
         meaning: dfc-f:varitAncienneDeCourge
-        description: variété ancienne de courge
+        description: "vari\xE9t\xE9 ancienne de courge"
       uchiki_kuri_squash:
         meaning: dfc-f:uchikiKuriSquash
         description: uchiki kuri squash
@@ -3070,7 +3201,7 @@ enums:
         description: pattypan squash
       ptisson:
         meaning: dfc-f:ptisson
-        description: pâtisson
+        description: "p\xE2tisson"
       bread:
         meaning: dfc-f:bread
         description: bread
@@ -3097,10 +3228,10 @@ enums:
         description: aperitif
       apritif:
         meaning: dfc-f:apritif
-        description: apéritif
+        description: "ap\xE9ritif"
       boisson_alcoolise:
         meaning: dfc-f:boissonAlcoolise
-        description: boisson alcoolisée
+        description: "boisson alcoolis\xE9e"
       alcoholic_beverage:
         meaning: dfc-f:alcoholicBeverage
         description: alcoholic beverage
@@ -3112,7 +3243,7 @@ enums:
         description: cosmetic
       cosmtique:
         meaning: dfc-f:cosmtique
-        description: cosmétique
+        description: "cosm\xE9tique"
       cooked_meat:
         meaning: dfc-f:cookedMeat
         description: cooked meat
@@ -3127,7 +3258,7 @@ enums:
         description: delicatessen
       viande_frache:
         meaning: dfc-f:viandeFrache
-        description: viande fraîche
+        description: "viande fra\xEEche"
       fresh_meat:
         meaning: dfc-f:freshMeat
         description: fresh meat
@@ -3214,7 +3345,7 @@ enums:
         description: chou brocoli
       chou_fris:
         meaning: dfc-f:chouFris
-        description: chou frisé
+        description: "chou fris\xE9"
       curly_kale:
         meaning: dfc-f:curlyKale
         description: curly kale
@@ -3247,7 +3378,7 @@ enums:
         description: frozen fruit
       fruit_surgel:
         meaning: dfc-f:fruitSurgel
-        description: fruit surgelé
+        description: "fruit surgel\xE9"
       coquillage:
         meaning: dfc-f:coquillage
         description: coquillage
@@ -3256,7 +3387,7 @@ enums:
         description: seashell
       cpes:
         meaning: dfc-f:cpes
-        description: cèpes
+        description: "c\xE8pes"
       porcini:
         meaning: dfc-f:porcini
         description: porcini
@@ -3322,7 +3453,7 @@ enums:
         description: sheep sweet yogurt
       yaourt_sucr_de_brebis:
         meaning: dfc-f:yaourtSucrDeBrebis
-        description: yaourt sucré de brebis
+        description: "yaourt sucr\xE9 de brebis"
       semolina:
         meaning: dfc-f:semolina
         description: semolina
@@ -3340,7 +3471,7 @@ enums:
         description: canned goods
       ptes:
         meaning: dfc-f:ptes
-        description: pâtes
+        description: "p\xE2tes"
       pasta:
         meaning: dfc-f:pasta
         description: pasta
@@ -3364,13 +3495,13 @@ enums:
         description: sheep dairy dessert
       dessert_lact_de_brebis:
         meaning: dfc-f:dessertLactDeBrebis
-        description: dessert lacté de brebis
+        description: "dessert lact\xE9 de brebis"
       sheep_flavored_yogurt:
         meaning: dfc-f:sheepFlavoredYogurt
         description: sheep flavored yogurt
       yaourt_de_brebis_aromatis:
         meaning: dfc-f:yaourtDeBrebisAromatis
-        description: yaourt de brebis aromatisé
+        description: "yaourt de brebis aromatis\xE9"
       sheep_fresh_cheese:
         meaning: dfc-f:sheepFreshCheese
         description: sheep fresh cheese
@@ -3424,7 +3555,7 @@ enums:
         description: dairy dessert
       dessert_lact:
         meaning: dfc-f:dessertLact
-        description: dessert lacté
+        description: "dessert lact\xE9"
       fresh_cheese:
         meaning: dfc-f:freshCheese
         description: fresh cheese
@@ -3445,7 +3576,7 @@ enums:
         description: natural yogurt
       yaourt_sucr:
         meaning: dfc-f:yaourtSucr
-        description: yaourt sucré
+        description: "yaourt sucr\xE9"
       sweet_yogurt:
         meaning: dfc-f:sweetYogurt
         description: sweet yogurt
@@ -3481,7 +3612,7 @@ enums:
         description: dried herb
       viande__mijoter:
         meaning: dfc-f:viandeMijoter
-        description: viande à mijoter
+        description: "viande \xE0 mijoter"
       simmering_meat:
         meaning: dfc-f:simmeringMeat
         description: simmering meat
@@ -3496,7 +3627,7 @@ enums:
         description: beer
       bire:
         meaning: dfc-f:bire
-        description: bière
+        description: "bi\xE8re"
       smoothie:
         meaning: dfc-f:smoothie
         description: smoothie
@@ -3522,7 +3653,7 @@ enums:
         description: Quantity unit
       Unit_de_quantit:
         meaning: dfc-f:UnitDeQuantit
-        description: Unité de quantité
+        description: "Unit\xE9 de quantit\xE9"
       Largeur:
         meaning: dfc-f:Largeur
         description: Largeur
@@ -3573,7 +3704,7 @@ enums:
         description: Currency unit
       Unit_de_devise_montaire:
         meaning: dfc-f:UnitDeDeviseMontaire
-        description: Unité de devise monétaire
+        description: "Unit\xE9 de devise mon\xE9taire"
       tasse:
         meaning: dfc-f:tasse
         description: tasse
@@ -3615,7 +3746,7 @@ enums:
         description: box
       bote:
         meaning: dfc-f:bote
-        description: boîte
+        description: "bo\xEEte"
       pack_de_4:
         meaning: dfc-f:packDe4
         description: pack de 4
@@ -3657,7 +3788,7 @@ enums:
         description: beer crate
       casier__bire:
         meaning: dfc-f:casierBire
-        description: casier à bière
+        description: "casier \xE0 bi\xE8re"
       carton:
         meaning: dfc-f:carton
         description: carton
@@ -3699,7 +3830,7 @@ enums:
         description: tub
       bote_de_conserve:
         meaning: dfc-f:boteDeConserve
-        description: boîte de conserve
+        description: "bo\xEEte de conserve"
       tin:
         meaning: dfc-f:tin
         description: tin
@@ -3729,7 +3860,7 @@ enums:
         description: centimetre
       centimtre:
         meaning: dfc-f:centimtre
-        description: centimètre
+        description: "centim\xE8tre"
       punnet:
         meaning: dfc-f:punnet
         description: punnet
@@ -3747,7 +3878,7 @@ enums:
         description: keg
       ft:
         meaning: dfc-f:ft
-        description: fût
+        description: "f\xFBt"
       pound:
         meaning: dfc-f:pound
         description: pound
@@ -3756,7 +3887,7 @@ enums:
         description: decimetre
       decimtre:
         meaning: dfc-f:decimtre
-        description: decimètre
+        description: "decim\xE8tre"
       cask:
         meaning: dfc-f:cask
         description: cask
@@ -3816,7 +3947,7 @@ enums:
         description: nodule en vrac
       mtre:
         meaning: dfc-f:mtre
-        description: mètre
+        description: "m\xE8tre"
       metre:
         meaning: dfc-f:metre
         description: metre
@@ -3831,7 +3962,7 @@ enums:
         description: piece
       pice:
         meaning: dfc-f:pice
-        description: pièce
+        description: "pi\xE8ce"
       poudre_en_vrac:
         meaning: dfc-f:poudreEnVrac
         description: poudre en vrac
@@ -3867,7 +3998,7 @@ enums:
         description: kilometre
       kilomtre:
         meaning: dfc-f:kilomtre
-        description: kilomètre
+        description: "kilom\xE8tre"
       botte:
         meaning: dfc-f:botte
         description: botte
@@ -3876,13 +4007,13 @@ enums:
         description: bunch
       Units:
         meaning: dfc-f:Units
-        description: Unités
+        description: "Unit\xE9s"
       Unit:
         meaning: dfc-f:Unit
         description: Unit
       Graisse_sature:
         meaning: dfc-f:GraisseSature
-        description: Graisse saturée
+        description: "Graisse satur\xE9e"
       Saturated_fat:
         meaning: dfc-f:SaturatedFat
         description: Saturated fat
@@ -3915,13 +4046,13 @@ enums:
         description: Calcium
       Slnium:
         meaning: dfc-f:Slnium
-        description: Sélénium
+        description: "S\xE9l\xE9nium"
       Selenium:
         meaning: dfc-f:Selenium
         description: Selenium
       Graisse_poly_insature:
         meaning: dfc-f:GraissePolyInsature
-        description: Graisse poly-insaturée
+        description: "Graisse poly-insatur\xE9e"
       Poly_unsaturated_fat:
         meaning: dfc-f:PolyUnsaturatedFat
         description: Poly-unsaturated fat
@@ -3933,7 +4064,7 @@ enums:
         description: Vitamin B6
       Protine:
         meaning: dfc-f:Protine
-        description: Protéine
+        description: "Prot\xE9ine"
       Protein:
         meaning: dfc-f:Protein
         description: Protein
@@ -3957,7 +4088,7 @@ enums:
         description: Magnesium
       Magnsium:
         meaning: dfc-f:Magnsium
-        description: Magnésium
+        description: "Magn\xE9sium"
       Vitamin_E:
         meaning: dfc-f:VitaminE
         description: Vitamin E
@@ -3975,7 +4106,7 @@ enums:
         description: Vitamin D
       Graisse_monosature:
         meaning: dfc-f:GraisseMonosature
-        description: Graisse monosaturée
+        description: "Graisse monosatur\xE9e"
       Monosaturated_fat:
         meaning: dfc-f:MonosaturatedFat
         description: Monosaturated fat
@@ -3999,7 +4130,7 @@ enums:
         description: Sucres
       Manganse:
         meaning: dfc-f:Manganse
-        description: Manganèse
+        description: "Mangan\xE8se"
       Manganese:
         meaning: dfc-f:Manganese
         description: Manganese
@@ -4026,7 +4157,7 @@ enums:
         description: Cholesterol
       Cholestrol:
         meaning: dfc-f:Cholestrol
-        description: Cholestérol
+        description: "Cholest\xE9rol"
       Folic_acid:
         meaning: dfc-f:FolicAcid
         description: Folic acid
@@ -4062,7 +4193,7 @@ enums:
         description: Vitamin A
       Crustacs:
         meaning: dfc-f:Crustacs
-        description: Crustacés
+        description: "Crustac\xE9s"
       Crustaceans:
         meaning: dfc-f:Crustaceans
         description: Crustaceans
@@ -4071,7 +4202,7 @@ enums:
         description: Allergen dimension
       Dimension_allergne:
         meaning: dfc-f:DimensionAllergne
-        description: Dimension allergène
+        description: "Dimension allerg\xE8ne"
       Soy:
         meaning: dfc-f:Soy
         description: Soy
@@ -4104,7 +4235,7 @@ enums:
         description: Lupin
       Graines_de_ssame:
         meaning: dfc-f:GrainesDeSsame
-        description: Graines de sésame
+        description: "Graines de s\xE9same"
       Sesame_seeds:
         meaning: dfc-f:SesameSeeds
         description: Sesame seeds
@@ -4131,10 +4262,10 @@ enums:
         description: Cereals containing gluten
       Crales_contenant_du_gluten:
         meaning: dfc-f:CralesContenantDuGluten
-        description: Céréales contenant du gluten
+        description: "C\xE9r\xE9ales contenant du gluten"
       Fruits__coque:
         meaning: dfc-f:FruitsCoque
-        description: Fruits à coque
+        description: "Fruits \xE0 coque"
       Nuts:
         meaning: dfc-f:Nuts
         description: Nuts
@@ -4143,7 +4274,7 @@ enums:
         description: Milk and lactose-based products
       Lait_et_produits__base_de_lactose:
         meaning: dfc-f:LaitEtProduitsBaseDeLactose
-        description: Lait et produits à base de lactose
+        description: "Lait et produits \xE0 base de lactose"
       Arachides:
         meaning: dfc-f:Arachides
         description: Arachides
@@ -4187,7 +4318,7 @@ enums:
         description: Authorization scopes
       Primtres_dautorisation:
         meaning: dfc-f:PrimtresDautorisation
-        description: Périmètres d'autorisation
+        description: "P\xE9rim\xE8tres d'autorisation"
       Lire_les_commandes_de_lentreprise:
         meaning: dfc-f:LireLesCommandesDeLentreprise
         description: Lire les commandes de l'entreprise
@@ -4196,7 +4327,7 @@ enums:
         description: Read enterprise orders
       Lire_les_donnes_de_lentreprise:
         meaning: dfc-f:LireLesDonnesDeLentreprise
-        description: Lire les données de l'entreprise
+        description: "Lire les donn\xE9es de l'entreprise"
       Read_enterprise_data:
         meaning: dfc-f:ReadEnterpriseData
         description: Read enterprise data
@@ -4205,10 +4336,10 @@ enums:
         description: Write enterprise products
       crire_les_produits_de_lentreprise:
         meaning: dfc-f:crireLesProduitsDeLentreprise
-        description: Écrire les produits de l'entreprise
+        description: "\xC9crire les produits de l'entreprise"
       crire_les_commandes_de_lentreprise:
         meaning: dfc-f:crireLesCommandesDeLentreprise
-        description: Écrire les commandes de l'entreprise
+        description: "\xC9crire les commandes de l'entreprise"
       Write_enterprise_orders:
         meaning: dfc-f:WriteEnterpriseOrders
         description: Write enterprise orders
@@ -4217,7 +4348,7 @@ enums:
         description: Write enterprise data
       crire_les_donnes_de_lentreprise:
         meaning: dfc-f:crireLesDonnesDeLentreprise
-        description: Écrire les données de l'entreprise
+        description: "\xC9crire les donn\xE9es de l'entreprise"
       Read_enterprise_products:
         meaning: dfc-f:ReadEnterpriseProducts
         description: Read enterprise products

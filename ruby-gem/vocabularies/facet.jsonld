@@ -1,0 +1,3176 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dfc-v": "http://w3id.org/dfc/taxonomies/vocabulary.rdf#"
+  },
+  "@graph": [
+    {
+      "@id": "dfc-v:Facet",
+      "@type": [
+        "skos:ConceptScheme"
+      ],
+      "skos:prefLabel": "Facet",
+      "skos:hasTopConcept": [
+        "dfc-f:FairTradeMaxHaavelar",
+        "dfc-f:DFCProductGlossaryFacet",
+        "dfc-f:DFCProductGlossaryFacet",
+        "dfc-f:EthicalLabel",
+        "dfc-f:EthicalLabel",
+        "dfc-f:EnglandSE",
+        "dfc-f:Hampshire",
+        "dfc-f:Kent",
+        "dfc-f:IsleOfWight",
+        "dfc-f:Berkshire",
+        "dfc-f:Oxfordshire",
+        "dfc-f:WestSussex",
+        "dfc-f:Buckinghamshire",
+        "dfc-f:Surrey",
+        "dfc-f:EastSussex",
+        "dfc-f:Angleterre",
+        "dfc-f:England",
+        "dfc-f:HighFibre",
+        "dfc-f:HighFibre",
+        "dfc-f:NutritionalClaim",
+        "dfc-f:NutritionalClaim",
+        "dfc-f:Funghi",
+        "dfc-f:Champignon",
+        "dfc-f:NatureOrigin",
+        "dfc-f:NatureOrigin",
+        "dfc-f:Miel",
+        "dfc-f:Honey",
+        "dfc-f:Abeille",
+        "dfc-f:Bee",
+        "dfc-f:IGPEU",
+        "dfc-f:LocalLabel",
+        "dfc-f:LocalLabel",
+        "dfc-f:Wax",
+        "dfc-f:BeeWax",
+        "dfc-f:Pollen",
+        "dfc-f:BeeVenom",
+        "dfc-f:Venom",
+        "dfc-f:Propolis",
+        "dfc-f:AnimalPartOrigin",
+        "dfc-f:AnimalPartOrigin",
+        "dfc-f:MSC",
+        "dfc-f:MSC",
+        "dfc-f:BleuBlancCoeurFR",
+        "dfc-f:FSC",
+        "dfc-f:FSC",
+        "dfc-f:LabelRougeFR",
+        "dfc-f:RainforestAlliance",
+        "dfc-f:MilkFed",
+        "dfc-f:MilkFed",
+        "dfc-f:HEV",
+        "dfc-f:HEV",
+        "dfc-f:Certification",
+        "dfc-f:Portugal",
+        "dfc-f:Europe",
+        "dfc-f:HenBody",
+        "dfc-f:HenBody",
+        "dfc-f:Hen",
+        "dfc-f:Poule",
+        "dfc-f:IncreasedNutrient",
+        "dfc-f:IncreasedNutrient",
+        "dfc-f:SourceOfProtein",
+        "dfc-f:SourceOfProtein",
+        "dfc-f:HighOmega3FattyAcids",
+        "dfc-f:RicheEnAcideGrasOmega3",
+        "dfc-f:SourceOfFibre",
+        "dfc-f:SourceOfFibre",
+        "dfc-f:HighProtein",
+        "dfc-f:HighProtein",
+        "dfc-f:LowSodiumSalt",
+        "dfc-f:LowSodiumSalt",
+        "dfc-f:SaturatedFatFree",
+        "dfc-f:SaturatedFatFree",
+        "dfc-f:HighVitaminsMinerals",
+        "dfc-f:HighVitaminsMinerals",
+        "dfc-f:Light",
+        "dfc-f:Light",
+        "dfc-f:VeryLowSodiumSalt",
+        "dfc-f:VeryLowSodiumSalt",
+        "dfc-f:LowSaturatedFat",
+        "dfc-f:LowSaturatedFat",
+        "dfc-f:ReducedNutrient",
+        "dfc-f:ReducedNutrient",
+        "dfc-f:LowFat",
+        "dfc-f:LowFat",
+        "dfc-f:ContainsNutrientOrSubstance",
+        "dfc-f:ContainsNutrientOrSubstance",
+        "dfc-f:LowSugars",
+        "dfc-f:LowSugars",
+        "dfc-f:NoAddedSodiumSalt",
+        "dfc-f:NoAddedSodiumSalt",
+        "dfc-f:HighPolyunsaturatedFat",
+        "dfc-f:HighPolyunsaturatedFat",
+        "dfc-f:SourceOfVitaminsMinerals",
+        "dfc-f:SourceOfVitaminsMinerals",
+        "dfc-f:HighUnsaturatedFat",
+        "dfc-f:HighUnsaturatedFat",
+        "dfc-f:Natural",
+        "dfc-f:SodiumOrSaltFree",
+        "dfc-f:SodiumOrSaltFree",
+        "dfc-f:LowEnergy",
+        "dfc-f:SugarsFree",
+        "dfc-f:NoAddedSugars",
+        "dfc-f:NoAddedSugars",
+        "dfc-f:HighMonounsaturatedFat",
+        "dfc-f:HighMonounsaturatedFat",
+        "dfc-f:EnergyFree",
+        "dfc-f:EnergyFree",
+        "dfc-f:FatFree",
+        "dfc-f:FatFree",
+        "dfc-f:SourceOfOmega3FattyAcids",
+        "dfc-f:SourceDacideGrasOmega3",
+        "dfc-f:LowEnergy",
+        "dfc-f:LowEnergy",
+        "dfc-f:EnergyReduced",
+        "dfc-f:EnergyReduced",
+        "dfc-f:NutritionAndHealthClaim",
+        "dfc-f:NutritionAndHealthClaim",
+        "dfc-f:GrandEst",
+        "dfc-f:France",
+        "dfc-f:Beef",
+        "dfc-f:Bull",
+        "dfc-f:BullsBody",
+        "dfc-f:Beef",
+        "dfc-f:Algae",
+        "dfc-f:Algae",
+        "dfc-f:UnknownNatureOrigin",
+        "dfc-f:UnknownNatureOrigin",
+        "dfc-f:MultiNatureOrigin",
+        "dfc-f:MultiNatureOrigin",
+        "dfc-f:Animal",
+        "dfc-f:Water",
+        "dfc-f:Water",
+        "dfc-f:Plant",
+        "dfc-f:Plante",
+        "dfc-f:Mineral",
+        "dfc-f:Mineral",
+        "dfc-f:Bacteria",
+        "dfc-f:Bacteria",
+        "dfc-f:CentreValDeLoire",
+        "dfc-f:NorthAmerica",
+        "dfc-f:NorthAmerica",
+        "dfc-f:GeographicOrigin",
+        "dfc-f:TerritorialOrigin",
+        "dfc-f:BiodynamicLabel",
+        "dfc-f:BiodynamicLabel",
+        "dfc-f:Demeter",
+        "dfc-f:MultiTerritorialOrigin",
+        "dfc-f:MultiTerritorialOrigin",
+        "dfc-f:EnglandSW",
+        "dfc-f:Cornwall",
+        "dfc-f:Gloucestershire",
+        "dfc-f:Dorset",
+        "dfc-f:Somerset",
+        "dfc-f:Wiltshire",
+        "dfc-f:Devon",
+        "dfc-f:Bristol",
+        "dfc-f:Renfrewshire",
+        "dfc-f:SouthWesternScotland",
+        "dfc-f:Lancashire",
+        "dfc-f:NorthWestEngland",
+        "dfc-f:BourgogneFranche Comte",
+        "dfc-f:Ewe",
+        "dfc-f:Brebis",
+        "dfc-f:Cochon",
+        "dfc-f:Pig",
+        "dfc-f:Mouton",
+        "dfc-f:Sheep",
+        "dfc-f:Quail",
+        "dfc-f:Caille",
+        "dfc-f:Vache",
+        "dfc-f:Cow",
+        "dfc-f:Chicken",
+        "dfc-f:Poulet",
+        "dfc-f:Rooster",
+        "dfc-f:Coq",
+        "dfc-f:Goat",
+        "dfc-f:Chvre",
+        "dfc-f:PartOfOrigin",
+        "dfc-f:PartOfOrigin",
+        "dfc-f:PigBody",
+        "dfc-f:PigBody",
+        "dfc-f:PlantPartOrigin",
+        "dfc-f:PlantPartOrigin",
+        "dfc-f:UnknownPartOrigin",
+        "dfc-f:UnknownPartOrigin",
+        "dfc-f:OtherClaim",
+        "dfc-f:OtherClaim",
+        "dfc-f:Vegetarian",
+        "dfc-f:Vegetarian",
+        "dfc-f:GlutenFree",
+        "dfc-f:GlutenFree",
+        "dfc-f:Vegan",
+        "dfc-f:PaysansDeNatureFR",
+        "dfc-f:OrganicLabel",
+        "dfc-f:OrganicLabel",
+        "dfc-f:EUOrganicFarming",
+        "dfc-f:EUOrganicFarming",
+        "dfc-f:NatureetProgres",
+        "dfc-f:OrganicFarming",
+        "dfc-f:BioCoherence",
+        "dfc-f:Merseyside",
+        "dfc-f:Cheshire",
+        "dfc-f:Cumbria",
+        "dfc-f:GreaterManchester",
+        "dfc-f:Italie",
+        "dfc-f:Italy",
+        "dfc-f:Belgium",
+        "dfc-f:Belgique",
+        "dfc-f:Netherlands",
+        "dfc-f:PaysBas",
+        "dfc-f:Allemagne",
+        "dfc-f:Germany",
+        "dfc-f:Spain",
+        "dfc-f:Espagne",
+        "dfc-f:RepublicOfIreland",
+        "dfc-f:RepublicOfIreland",
+        "dfc-f:Switzerland",
+        "dfc-f:Suisse",
+        "dfc-f:UnitedKingdom",
+        "dfc-f:UnitedKingdom",
+        "dfc-f:AOCFR",
+        "dfc-f:EastOfEngland",
+        "dfc-f:Cambridgeshire",
+        "dfc-f:Hertfordshire",
+        "dfc-f:Norfolk",
+        "dfc-f:Essex",
+        "dfc-f:Suffolk",
+        "dfc-f:Bedfordshire",
+        "dfc-f:Northamptonshire",
+        "dfc-f:EastMidlands",
+        "dfc-f:DumfriesAndGalloway",
+        "dfc-f:WestMidlands",
+        "dfc-f:WestMidlandsConurbation",
+        "dfc-f:Warwickshire",
+        "dfc-f:Staffordshire",
+        "dfc-f:Shropshire",
+        "dfc-f:Herefordshire",
+        "dfc-f:Worcestershire",
+        "dfc-f:YorkshireAndTheHumber",
+        "dfc-f:Lincolnshire",
+        "dfc-f:SouthYorkshire",
+        "dfc-f:NorthYorkshire",
+        "dfc-f:WestYorkshire",
+        "dfc-f:EastRidingOfYorkshire",
+        "dfc-f:HealthClaim",
+        "dfc-f:AllgationSant",
+        "dfc-f:London",
+        "dfc-f:NorthEastEngland",
+        "dfc-f:LabelMarketing",
+        "dfc-f:MarketingLabel",
+        "dfc-f:LabelInconnu",
+        "dfc-f:UnknownLabel",
+        "dfc-f:Seed",
+        "dfc-f:Graine",
+        "dfc-f:Ocanie",
+        "dfc-f:Oceania",
+        "dfc-f:Afrique",
+        "dfc-f:Africa",
+        "dfc-f:AmriqueDuSud",
+        "dfc-f:SouthAmerica",
+        "dfc-f:Asie",
+        "dfc-f:Asia",
+        "dfc-f:OrigineTerritorialeInconnue",
+        "dfc-f:UnknownTerritorialOrigin",
+        "dfc-f:Wales",
+        "dfc-f:PaysDeGalles",
+        "dfc-f:SheepsBody",
+        "dfc-f:PartieDeMouton",
+        "dfc-f:NouvelleAquitaine",
+        "dfc-f:TasteOfTheYear",
+        "dfc-f:TasteOfTheYear",
+        "dfc-f:HautsDeFrance",
+        "dfc-f:NewZealand",
+        "dfc-f:NewZealand",
+        "dfc-f:Fleur",
+        "dfc-f:Flower",
+        "dfc-f:ProductOfTheYear",
+        "dfc-f:ProductOfTheYear",
+        "dfc-f:ContainerInformation",
+        "dfc-f:GoatBody",
+        "dfc-f:GoatBody",
+        "dfc-f:SheepMilk",
+        "dfc-f:GoatMilk",
+        "dfc-f:PaysDeLaLoire",
+        "dfc-f:Bulb",
+        "dfc-f:Bulb",
+        "dfc-f:ChickenBody",
+        "dfc-f:ChickenBody",
+        "dfc-f:NorthernIreland",
+        "dfc-f:NorthernIreland",
+        "dfc-f:EweBody",
+        "dfc-f:EweBody",
+        "dfc-f:SheepMilk",
+        "dfc-f:HenEgg",
+        "dfc-f:HenEgg",
+        "dfc-f:Derbyshire",
+        "dfc-f:TyneAndWear",
+        "dfc-f:Dunbartonshire",
+        "dfc-f:Leicestershire",
+        "dfc-f:ProvenceAlpesCteAzur",
+        "dfc-f:WholePlant",
+        "dfc-f:WholePlant",
+        "dfc-f:RoosterBody",
+        "dfc-f:RoosterBody",
+        "dfc-f:ScottishBorders",
+        "dfc-f:EasternScotland",
+        "dfc-f:Nottinghamshire",
+        "dfc-f:Ayrshire",
+        "dfc-f:CountyDurham",
+        "dfc-f:Northumberland",
+        "dfc-f:QuailsEgg",
+        "dfc-f:ufDeCaille",
+        "dfc-f:ProtectedGeographicalStatus",
+        "dfc-f:ProtectedGeographicalStatus",
+        "dfc-f:Normandy",
+        "dfc-f:Normandie",
+        "dfc-f:Bretagne",
+        "dfc-f:Brittany",
+        "dfc-f:Occitania",
+        "dfc-f:Occitanie",
+        "dfc-f:Corse",
+        "dfc-f:Corsica",
+        "dfc-f:IleDeFrance",
+        "dfc-f:IleDeFrance",
+        "dfc-f:AuvergneRhneAlpes",
+        "dfc-f:Package",
+        "dfc-f:Scotland",
+        "dfc-f:Ecosse",
+        "dfc-f:HighlandsAndIslands",
+        "dfc-f:NorthEastScotland",
+        "dfc-f:Aberdeenshire",
+        "dfc-f:CowBody",
+        "dfc-f:CowBody",
+        "dfc-f:CowMilk",
+        "dfc-f:CowMilk",
+        "dfc-f:AOPEU",
+        "dfc-f:Australie",
+        "dfc-f:Australia",
+        "dfc-f:Lanarkshire",
+        "dfc-f:Leaf",
+        "dfc-f:Leaf",
+        "dfc-f:Lothian",
+        "dfc-f:Fruit",
+        "dfc-f:Rutland",
+        "dfc-f:Stem",
+        "dfc-f:Stem",
+        "dfc-f:Root",
+        "dfc-f:Root",
+        "dfc-f:Edinburgh",
+        "dfc-f:Tubercule",
+        "dfc-f:Tuber"
+      ]
+    },
+    {
+      "@id": "dfc-f:FairTradeMaxHaavelar",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fairtrade Max Haavelar",
+      "skos:notation": "Fairtrade_Max_Haavelar"
+    },
+    {
+      "@id": "dfc-f:DFCProductGlossaryFacet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Glossaire des facettes de produit",
+      "skos:notation": "Glossaire_des_facettes_de_produit"
+    },
+    {
+      "@id": "dfc-f:DFCProductGlossaryFacet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Product glossary facets",
+      "skos:notation": "Product_glossary_facets"
+    },
+    {
+      "@id": "dfc-f:EthicalLabel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Ethical label",
+      "skos:notation": "Ethical_label"
+    },
+    {
+      "@id": "dfc-f:EthicalLabel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Label éthique",
+      "skos:notation": "Label_thique"
+    },
+    {
+      "@id": "dfc-f:EnglandSE",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "South East England",
+      "skos:notation": "South_East_England"
+    },
+    {
+      "@id": "dfc-f:Hampshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Hampshire",
+      "skos:notation": "Hampshire"
+    },
+    {
+      "@id": "dfc-f:Kent",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Kent",
+      "skos:notation": "Kent"
+    },
+    {
+      "@id": "dfc-f:IsleOfWight",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Isle of Wight",
+      "skos:notation": "Isle_of_Wight"
+    },
+    {
+      "@id": "dfc-f:Berkshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Berkshire",
+      "skos:notation": "Berkshire"
+    },
+    {
+      "@id": "dfc-f:Oxfordshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Oxfordshire",
+      "skos:notation": "Oxfordshire"
+    },
+    {
+      "@id": "dfc-f:WestSussex",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "West Sussex",
+      "skos:notation": "West_Sussex"
+    },
+    {
+      "@id": "dfc-f:Buckinghamshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Buckinghamshire",
+      "skos:notation": "Buckinghamshire"
+    },
+    {
+      "@id": "dfc-f:Surrey",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Surrey",
+      "skos:notation": "Surrey"
+    },
+    {
+      "@id": "dfc-f:EastSussex",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "East Sussex",
+      "skos:notation": "East_Sussex"
+    },
+    {
+      "@id": "dfc-f:Angleterre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Angleterre",
+      "skos:notation": "Angleterre"
+    },
+    {
+      "@id": "dfc-f:England",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "England",
+      "skos:notation": "England"
+    },
+    {
+      "@id": "dfc-f:HighFibre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Riche en fibres",
+      "skos:notation": "Riche_en_fibres"
+    },
+    {
+      "@id": "dfc-f:HighFibre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "High fibre",
+      "skos:notation": "High_fibre"
+    },
+    {
+      "@id": "dfc-f:NutritionalClaim",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Allégation nutritionnelle",
+      "skos:notation": "Allgation_nutritionnelle"
+    },
+    {
+      "@id": "dfc-f:NutritionalClaim",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Nutritional claim",
+      "skos:notation": "Nutritional_claim"
+    },
+    {
+      "@id": "dfc-f:Funghi",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Funghi",
+      "skos:notation": "Funghi"
+    },
+    {
+      "@id": "dfc-f:Champignon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Champignon",
+      "skos:notation": "Champignon"
+    },
+    {
+      "@id": "dfc-f:NatureOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Source naturelle d'origine",
+      "skos:notation": "Source_naturelle_dorigine"
+    },
+    {
+      "@id": "dfc-f:NatureOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Natural origin",
+      "skos:notation": "Natural_origin"
+    },
+    {
+      "@id": "dfc-f:Miel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Miel",
+      "skos:notation": "Miel"
+    },
+    {
+      "@id": "dfc-f:Honey",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Honey",
+      "skos:notation": "Honey"
+    },
+    {
+      "@id": "dfc-f:Abeille",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Abeille",
+      "skos:notation": "Abeille"
+    },
+    {
+      "@id": "dfc-f:Bee",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bee",
+      "skos:notation": "Bee"
+    },
+    {
+      "@id": "dfc-f:IGPEU",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Indication géographique de provenance",
+      "skos:notation": "Indication_gographique_de_provenance"
+    },
+    {
+      "@id": "dfc-f:LocalLabel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Local label",
+      "skos:notation": "Local_label"
+    },
+    {
+      "@id": "dfc-f:LocalLabel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Label local",
+      "skos:notation": "Label_local"
+    },
+    {
+      "@id": "dfc-f:Wax",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Wax",
+      "skos:notation": "Wax"
+    },
+    {
+      "@id": "dfc-f:BeeWax",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cire d'abeille",
+      "skos:notation": "Cire_dabeille"
+    },
+    {
+      "@id": "dfc-f:Pollen",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pollen",
+      "skos:notation": "Pollen"
+    },
+    {
+      "@id": "dfc-f:BeeVenom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Venim d'abeille",
+      "skos:notation": "Venim_dabeille"
+    },
+    {
+      "@id": "dfc-f:Venom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Venom",
+      "skos:notation": "Venom"
+    },
+    {
+      "@id": "dfc-f:Propolis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Propolis",
+      "skos:notation": "Propolis"
+    },
+    {
+      "@id": "dfc-f:AnimalPartOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Part or product of animal",
+      "skos:notation": "Part_or_product_of_animal"
+    },
+    {
+      "@id": "dfc-f:AnimalPartOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie ou produit d'un animal",
+      "skos:notation": "Partie_ou_produit_dun_animal"
+    },
+    {
+      "@id": "dfc-f:MSC",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Marine Stewardship Council",
+      "skos:notation": "Marine_Stewardship_Council"
+    },
+    {
+      "@id": "dfc-f:MSC",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pêche durable MSC",
+      "skos:notation": "Pche_durable_MSC"
+    },
+    {
+      "@id": "dfc-f:BleuBlancCoeurFR",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bleu-Blanc-Coeur",
+      "skos:notation": "Bleu_Blanc_Coeur"
+    },
+    {
+      "@id": "dfc-f:FSC",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Forêt durable FSC",
+      "skos:notation": "Fort_durable_FSC"
+    },
+    {
+      "@id": "dfc-f:FSC",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Forest Stewardship Council",
+      "skos:notation": "Forest_Stewardship_Council"
+    },
+    {
+      "@id": "dfc-f:LabelRougeFR",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Label Rouge",
+      "skos:notation": "Label_Rouge"
+    },
+    {
+      "@id": "dfc-f:RainforestAlliance",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Rainforest Alliance",
+      "skos:notation": "Rainforest_Alliance"
+    },
+    {
+      "@id": "dfc-f:MilkFed",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Milk-fed",
+      "skos:notation": "Milk_fed"
+    },
+    {
+      "@id": "dfc-f:MilkFed",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Nourri au lait",
+      "skos:notation": "Nourri_au_lait"
+    },
+    {
+      "@id": "dfc-f:HEV",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "High Environnemental Value",
+      "skos:notation": "High_Environnemental_Value"
+    },
+    {
+      "@id": "dfc-f:HEV",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Haute Valeur Environnementale",
+      "skos:notation": "Haute_Valeur_Environnementale"
+    },
+    {
+      "@id": "dfc-f:Certification",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Certification",
+      "skos:notation": "Certification"
+    },
+    {
+      "@id": "dfc-f:Portugal",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Portugal",
+      "skos:notation": "Portugal"
+    },
+    {
+      "@id": "dfc-f:Europe",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Europe",
+      "skos:notation": "Europe"
+    },
+    {
+      "@id": "dfc-f:HenBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Hen's body",
+      "skos:notation": "Hens_body"
+    },
+    {
+      "@id": "dfc-f:HenBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie de poule",
+      "skos:notation": "Partie_de_poule"
+    },
+    {
+      "@id": "dfc-f:Hen",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Hen",
+      "skos:notation": "Hen"
+    },
+    {
+      "@id": "dfc-f:Poule",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Poule",
+      "skos:notation": "Poule"
+    },
+    {
+      "@id": "dfc-f:IncreasedNutrient",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Enrichi en nutriment",
+      "skos:notation": "Enrichi_en_nutriment"
+    },
+    {
+      "@id": "dfc-f:IncreasedNutrient",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Increased nutrient",
+      "skos:notation": "Increased_nutrient"
+    },
+    {
+      "@id": "dfc-f:SourceOfProtein",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Source of protein",
+      "skos:notation": "Source_of_protein"
+    },
+    {
+      "@id": "dfc-f:SourceOfProtein",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Source de protéine",
+      "skos:notation": "Source_de_protine"
+    },
+    {
+      "@id": "dfc-f:HighOmega3FattyAcids",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "High omega-3 fatty acids",
+      "skos:notation": "High_omega_3_fatty_acids"
+    },
+    {
+      "@id": "dfc-f:RicheEnAcideGrasOmega3",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Riche en acide gras Oméga-3",
+      "skos:notation": "Riche_en_acide_gras_Omga_3"
+    },
+    {
+      "@id": "dfc-f:SourceOfFibre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Source de fibres",
+      "skos:notation": "Source_de_fibres"
+    },
+    {
+      "@id": "dfc-f:SourceOfFibre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Source of fibre",
+      "skos:notation": "Source_of_fibre"
+    },
+    {
+      "@id": "dfc-f:HighProtein",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "High protein",
+      "skos:notation": "High_protein"
+    },
+    {
+      "@id": "dfc-f:HighProtein",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Riche en protéines",
+      "skos:notation": "Riche_en_protines"
+    },
+    {
+      "@id": "dfc-f:LowSodiumSalt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Low sodium/salt",
+      "skos:notation": "Low_sodiumsalt"
+    },
+    {
+      "@id": "dfc-f:LowSodiumSalt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pauvre en sodium/sel",
+      "skos:notation": "Pauvre_en_sodiumsel"
+    },
+    {
+      "@id": "dfc-f:SaturatedFatFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Saturated fat-free",
+      "skos:notation": "Saturated_fat_free"
+    },
+    {
+      "@id": "dfc-f:SaturatedFatFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sans graisses saturées",
+      "skos:notation": "Sans_graisses_satures"
+    },
+    {
+      "@id": "dfc-f:HighVitaminsMinerals",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "High vitamins and/or minerals",
+      "skos:notation": "High_vitamins_andor_minerals"
+    },
+    {
+      "@id": "dfc-f:HighVitaminsMinerals",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Riche en vitamines et/ou de minéraux",
+      "skos:notation": "Riche_en_vitamines_etou_de_minraux"
+    },
+    {
+      "@id": "dfc-f:Light",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Allégé/Light",
+      "skos:notation": "AllgLight"
+    },
+    {
+      "@id": "dfc-f:Light",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Light/Lite",
+      "skos:notation": "LightLite"
+    },
+    {
+      "@id": "dfc-f:VeryLowSodiumSalt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Très pauvre en sodium/sel",
+      "skos:notation": "Trs_pauvre_en_sodiumsel"
+    },
+    {
+      "@id": "dfc-f:VeryLowSodiumSalt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Very low sodium/salt",
+      "skos:notation": "Very_low_sodiumsalt"
+    },
+    {
+      "@id": "dfc-f:LowSaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Low saturated fat",
+      "skos:notation": "Low_saturated_fat"
+    },
+    {
+      "@id": "dfc-f:LowSaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Faible teneur en graisses saturées",
+      "skos:notation": "Faible_teneur_en_graisses_satures"
+    },
+    {
+      "@id": "dfc-f:ReducedNutrient",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Reduced nutrient",
+      "skos:notation": "Reduced_nutrient"
+    },
+    {
+      "@id": "dfc-f:ReducedNutrient",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Réduit en nutriment",
+      "skos:notation": "Rduit_en_nutriment"
+    },
+    {
+      "@id": "dfc-f:LowFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Faible teneur en matière grasse",
+      "skos:notation": "Faible_teneur_en_matire_grasse"
+    },
+    {
+      "@id": "dfc-f:LowFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Low fat",
+      "skos:notation": "Low_fat"
+    },
+    {
+      "@id": "dfc-f:ContainsNutrientOrSubstance",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Contains nutrient or other substance",
+      "skos:notation": "Contains_nutrient_or_other_substance"
+    },
+    {
+      "@id": "dfc-f:ContainsNutrientOrSubstance",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Contient nutriment ou autre substance",
+      "skos:notation": "Contient_nutriment_ou_autre_substance"
+    },
+    {
+      "@id": "dfc-f:LowSugars",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Faible teneur en sucres",
+      "skos:notation": "Faible_teneur_en_sucres"
+    },
+    {
+      "@id": "dfc-f:LowSugars",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Low sugars",
+      "skos:notation": "Low_sugars"
+    },
+    {
+      "@id": "dfc-f:NoAddedSodiumSalt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sans sodium/sel ajouté",
+      "skos:notation": "Sans_sodiumsel_ajout"
+    },
+    {
+      "@id": "dfc-f:NoAddedSodiumSalt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "No added sodium/salt",
+      "skos:notation": "No_added_sodiumsalt"
+    },
+    {
+      "@id": "dfc-f:HighPolyunsaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Riche en graisses polyinsaturées",
+      "skos:notation": "Riche_en_graisses_polyinsatures"
+    },
+    {
+      "@id": "dfc-f:HighPolyunsaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "High polyunsaturated fat",
+      "skos:notation": "High_polyunsaturated_fat"
+    },
+    {
+      "@id": "dfc-f:SourceOfVitaminsMinerals",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Source of vitamins and/or minerals",
+      "skos:notation": "Source_of_vitamins_andor_minerals"
+    },
+    {
+      "@id": "dfc-f:SourceOfVitaminsMinerals",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Source de vitamines et/ou de minéraux",
+      "skos:notation": "Source_de_vitamines_etou_de_minraux"
+    },
+    {
+      "@id": "dfc-f:HighUnsaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Riche en graisses insaturées",
+      "skos:notation": "Riche_en_graisses_insatures"
+    },
+    {
+      "@id": "dfc-f:HighUnsaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "High unsaturated fat",
+      "skos:notation": "High_unsaturated_fat"
+    },
+    {
+      "@id": "dfc-f:Natural",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Naturally/Natural",
+      "skos:notation": "NaturallyNatural"
+    },
+    {
+      "@id": "dfc-f:SodiumOrSaltFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sodium-free or salt-free",
+      "skos:notation": "Sodium_free_or_salt_free"
+    },
+    {
+      "@id": "dfc-f:SodiumOrSaltFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sans sodium ou sans sel",
+      "skos:notation": "Sans_sodium_ou_sans_sel"
+    },
+    {
+      "@id": "dfc-f:LowEnergy",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Low/Light",
+      "skos:notation": "LowLight"
+    },
+    {
+      "@id": "dfc-f:SugarsFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sugars-free",
+      "skos:notation": "Sugars_free"
+    },
+    {
+      "@id": "dfc-f:NoAddedSugars",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "With no added sugars",
+      "skos:notation": "With_no_added_sugars"
+    },
+    {
+      "@id": "dfc-f:NoAddedSugars",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sans sucres ajoutés",
+      "skos:notation": "Sans_sucres_ajouts"
+    },
+    {
+      "@id": "dfc-f:HighMonounsaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Riche en graisses monoinsaturées",
+      "skos:notation": "Riche_en_graisses_monoinsatures"
+    },
+    {
+      "@id": "dfc-f:HighMonounsaturatedFat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "High monounsaturated fat",
+      "skos:notation": "High_monounsaturated_fat"
+    },
+    {
+      "@id": "dfc-f:EnergyFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sans apport énergétique",
+      "skos:notation": "Sans_apport_nergtique"
+    },
+    {
+      "@id": "dfc-f:EnergyFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Energy free",
+      "skos:notation": "Energy_free"
+    },
+    {
+      "@id": "dfc-f:FatFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sans matières grasses",
+      "skos:notation": "Sans_matires_grasses"
+    },
+    {
+      "@id": "dfc-f:FatFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fat-free",
+      "skos:notation": "Fat_free"
+    },
+    {
+      "@id": "dfc-f:SourceOfOmega3FattyAcids",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Source of omega-3 fatty acids",
+      "skos:notation": "Source_of_omega_3_fatty_acids"
+    },
+    {
+      "@id": "dfc-f:SourceDacideGrasOmega3",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Source d'acide gras Oméga-3",
+      "skos:notation": "Source_dacide_gras_Omga_3"
+    },
+    {
+      "@id": "dfc-f:LowEnergy",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Faible valeur énergétique",
+      "skos:notation": "Faible_valeur_nergtique"
+    },
+    {
+      "@id": "dfc-f:LowEnergy",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Low energy",
+      "skos:notation": "Low_energy"
+    },
+    {
+      "@id": "dfc-f:EnergyReduced",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Valeur énergétique réduite",
+      "skos:notation": "Valeur_nergtique_rduite"
+    },
+    {
+      "@id": "dfc-f:EnergyReduced",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Energy reduced",
+      "skos:notation": "Energy_reduced"
+    },
+    {
+      "@id": "dfc-f:NutritionAndHealthClaim",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Allégations nutritionnelles et de santé",
+      "skos:notation": "Allgations_nutritionnelles_et_de_sant"
+    },
+    {
+      "@id": "dfc-f:NutritionAndHealthClaim",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Nutrition and health claims",
+      "skos:notation": "Nutrition_and_health_claims"
+    },
+    {
+      "@id": "dfc-f:GrandEst",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Grand Est",
+      "skos:notation": "Grand_Est"
+    },
+    {
+      "@id": "dfc-f:France",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "France",
+      "skos:notation": "France"
+    },
+    {
+      "@id": "dfc-f:Beef",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bœuf",
+      "skos:notation": "Buf"
+    },
+    {
+      "@id": "dfc-f:Bull",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bull",
+      "skos:notation": "Bull"
+    },
+    {
+      "@id": "dfc-f:BullsBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bull's body",
+      "skos:notation": "Bulls_body"
+    },
+    {
+      "@id": "dfc-f:Beef",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie du boeuf",
+      "skos:notation": "Partie_du_boeuf"
+    },
+    {
+      "@id": "dfc-f:Algae",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Algue",
+      "skos:notation": "Algue"
+    },
+    {
+      "@id": "dfc-f:Algae",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Algae",
+      "skos:notation": "Algae"
+    },
+    {
+      "@id": "dfc-f:UnknownNatureOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Unknown nature origin",
+      "skos:notation": "Unknown_nature_origin"
+    },
+    {
+      "@id": "dfc-f:UnknownNatureOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Source d'origine inconnue",
+      "skos:notation": "Source_dorigine_inconnue"
+    },
+    {
+      "@id": "dfc-f:MultiNatureOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Origine multiple",
+      "skos:notation": "Origine_multiple"
+    },
+    {
+      "@id": "dfc-f:MultiNatureOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Multiorigin",
+      "skos:notation": "Multiorigin"
+    },
+    {
+      "@id": "dfc-f:Animal",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Animal",
+      "skos:notation": "Animal"
+    },
+    {
+      "@id": "dfc-f:Water",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Eau",
+      "skos:notation": "Eau"
+    },
+    {
+      "@id": "dfc-f:Water",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Water",
+      "skos:notation": "Water"
+    },
+    {
+      "@id": "dfc-f:Plant",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Plant",
+      "skos:notation": "Plant"
+    },
+    {
+      "@id": "dfc-f:Plante",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Plante",
+      "skos:notation": "Plante"
+    },
+    {
+      "@id": "dfc-f:Mineral",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Mineral",
+      "skos:notation": "Mineral"
+    },
+    {
+      "@id": "dfc-f:Mineral",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Minéral",
+      "skos:notation": "Minral"
+    },
+    {
+      "@id": "dfc-f:Bacteria",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bacteria",
+      "skos:notation": "Bacteria"
+    },
+    {
+      "@id": "dfc-f:Bacteria",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bactérie",
+      "skos:notation": "Bactrie"
+    },
+    {
+      "@id": "dfc-f:CentreValDeLoire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Centre-Val de Loire",
+      "skos:notation": "Centre_Val_de_Loire"
+    },
+    {
+      "@id": "dfc-f:NorthAmerica",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "North America",
+      "skos:notation": "North_America"
+    },
+    {
+      "@id": "dfc-f:NorthAmerica",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Amérique du Nord",
+      "skos:notation": "Amrique_du_Nord"
+    },
+    {
+      "@id": "dfc-f:GeographicOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Origine géographique",
+      "skos:notation": "Origine_gographique"
+    },
+    {
+      "@id": "dfc-f:TerritorialOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Territorial origin",
+      "skos:notation": "Territorial_origin"
+    },
+    {
+      "@id": "dfc-f:BiodynamicLabel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Label biodynamie",
+      "skos:notation": "Label_biodynamie"
+    },
+    {
+      "@id": "dfc-f:BiodynamicLabel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Biodynamic label",
+      "skos:notation": "Biodynamic_label"
+    },
+    {
+      "@id": "dfc-f:Demeter",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Demeter",
+      "skos:notation": "Demeter"
+    },
+    {
+      "@id": "dfc-f:MultiTerritorialOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Origine territorial multiple",
+      "skos:notation": "Origine_territorial_multiple"
+    },
+    {
+      "@id": "dfc-f:MultiTerritorialOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Multi-territorial origin",
+      "skos:notation": "Multi_territorial_origin"
+    },
+    {
+      "@id": "dfc-f:EnglandSW",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "South West England",
+      "skos:notation": "South_West_England"
+    },
+    {
+      "@id": "dfc-f:Cornwall",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cornwall",
+      "skos:notation": "Cornwall"
+    },
+    {
+      "@id": "dfc-f:Gloucestershire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Gloucestershire",
+      "skos:notation": "Gloucestershire"
+    },
+    {
+      "@id": "dfc-f:Dorset",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Dorset",
+      "skos:notation": "Dorset"
+    },
+    {
+      "@id": "dfc-f:Somerset",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Somerset",
+      "skos:notation": "Somerset"
+    },
+    {
+      "@id": "dfc-f:Wiltshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Wiltshire",
+      "skos:notation": "Wiltshire"
+    },
+    {
+      "@id": "dfc-f:Devon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Devon",
+      "skos:notation": "Devon"
+    },
+    {
+      "@id": "dfc-f:Bristol",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bristol",
+      "skos:notation": "Bristol"
+    },
+    {
+      "@id": "dfc-f:Renfrewshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Renfrewshire",
+      "skos:notation": "Renfrewshire"
+    },
+    {
+      "@id": "dfc-f:SouthWesternScotland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "South Western Scotland",
+      "skos:notation": "South_Western_Scotland"
+    },
+    {
+      "@id": "dfc-f:Lancashire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Lancashire",
+      "skos:notation": "Lancashire"
+    },
+    {
+      "@id": "dfc-f:NorthWestEngland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "North West England",
+      "skos:notation": "North_West_England"
+    },
+    {
+      "@id": "dfc-f:BourgogneFranche Comte",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bourgogne-Franche-Comté",
+      "skos:notation": "Bourgogne_Franche_Comt"
+    },
+    {
+      "@id": "dfc-f:Ewe",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Ewe",
+      "skos:notation": "Ewe"
+    },
+    {
+      "@id": "dfc-f:Brebis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Brebis",
+      "skos:notation": "Brebis"
+    },
+    {
+      "@id": "dfc-f:Cochon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cochon",
+      "skos:notation": "Cochon"
+    },
+    {
+      "@id": "dfc-f:Pig",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pig",
+      "skos:notation": "Pig"
+    },
+    {
+      "@id": "dfc-f:Mouton",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Mouton",
+      "skos:notation": "Mouton"
+    },
+    {
+      "@id": "dfc-f:Sheep",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sheep",
+      "skos:notation": "Sheep"
+    },
+    {
+      "@id": "dfc-f:Quail",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Quail",
+      "skos:notation": "Quail"
+    },
+    {
+      "@id": "dfc-f:Caille",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Caille",
+      "skos:notation": "Caille"
+    },
+    {
+      "@id": "dfc-f:Vache",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vache",
+      "skos:notation": "Vache"
+    },
+    {
+      "@id": "dfc-f:Cow",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cow",
+      "skos:notation": "Cow"
+    },
+    {
+      "@id": "dfc-f:Chicken",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Chicken",
+      "skos:notation": "Chicken"
+    },
+    {
+      "@id": "dfc-f:Poulet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Poulet",
+      "skos:notation": "Poulet"
+    },
+    {
+      "@id": "dfc-f:Rooster",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Rooster",
+      "skos:notation": "Rooster"
+    },
+    {
+      "@id": "dfc-f:Coq",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Coq",
+      "skos:notation": "Coq"
+    },
+    {
+      "@id": "dfc-f:Goat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Goat",
+      "skos:notation": "Goat"
+    },
+    {
+      "@id": "dfc-f:Chvre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Chèvre",
+      "skos:notation": "Chvre"
+    },
+    {
+      "@id": "dfc-f:PartOfOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie d'origine",
+      "skos:notation": "Partie_dorigine"
+    },
+    {
+      "@id": "dfc-f:PartOfOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Part of origin",
+      "skos:notation": "Part_of_origin"
+    },
+    {
+      "@id": "dfc-f:PigBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pig's body",
+      "skos:notation": "Pigs_body"
+    },
+    {
+      "@id": "dfc-f:PigBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie du cochon",
+      "skos:notation": "Partie_du_cochon"
+    },
+    {
+      "@id": "dfc-f:PlantPartOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie ou produit d'une plante",
+      "skos:notation": "Partie_ou_produit_dune_plante"
+    },
+    {
+      "@id": "dfc-f:PlantPartOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Part or product of plant",
+      "skos:notation": "Part_or_product_of_plant"
+    },
+    {
+      "@id": "dfc-f:UnknownPartOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Unknown part origin",
+      "skos:notation": "Unknown_part_origin"
+    },
+    {
+      "@id": "dfc-f:UnknownPartOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie d'origine inconnue",
+      "skos:notation": "Partie_dorigine_inconnue"
+    },
+    {
+      "@id": "dfc-f:OtherClaim",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Other claim",
+      "skos:notation": "Other_claim"
+    },
+    {
+      "@id": "dfc-f:OtherClaim",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Autre allégation",
+      "skos:notation": "Autre_allgation"
+    },
+    {
+      "@id": "dfc-f:Vegetarian",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vegetarian",
+      "skos:notation": "Vegetarian"
+    },
+    {
+      "@id": "dfc-f:Vegetarian",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Végétarien",
+      "skos:notation": "Vgtarien"
+    },
+    {
+      "@id": "dfc-f:GlutenFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sans gluten",
+      "skos:notation": "Sans_gluten"
+    },
+    {
+      "@id": "dfc-f:GlutenFree",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Gluten free",
+      "skos:notation": "Gluten_free"
+    },
+    {
+      "@id": "dfc-f:Vegan",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Vegan",
+      "skos:notation": "Vegan"
+    },
+    {
+      "@id": "dfc-f:PaysansDeNatureFR",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Paysans de Nature",
+      "skos:notation": "Paysans_de_Nature"
+    },
+    {
+      "@id": "dfc-f:OrganicLabel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Organic label",
+      "skos:notation": "Organic_label"
+    },
+    {
+      "@id": "dfc-f:OrganicLabel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Label biologique",
+      "skos:notation": "Label_biologique"
+    },
+    {
+      "@id": "dfc-f:EUOrganicFarming",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Agriculture Biologique EU",
+      "skos:notation": "Agriculture_Biologique_EU"
+    },
+    {
+      "@id": "dfc-f:EUOrganicFarming",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "EU Organic Farming",
+      "skos:notation": "EU_Organic_Farming"
+    },
+    {
+      "@id": "dfc-f:NatureetProgres",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Nature et progrès",
+      "skos:notation": "Nature_et_progrs"
+    },
+    {
+      "@id": "dfc-f:OrganicFarming",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Agriculture Biologique",
+      "skos:notation": "Agriculture_Biologique"
+    },
+    {
+      "@id": "dfc-f:BioCoherence",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bio Coherence",
+      "skos:notation": "Bio_Coherence"
+    },
+    {
+      "@id": "dfc-f:Merseyside",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Merseyside",
+      "skos:notation": "Merseyside"
+    },
+    {
+      "@id": "dfc-f:Cheshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cheshire",
+      "skos:notation": "Cheshire"
+    },
+    {
+      "@id": "dfc-f:Cumbria",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cumbria",
+      "skos:notation": "Cumbria"
+    },
+    {
+      "@id": "dfc-f:GreaterManchester",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Greater Manchester",
+      "skos:notation": "Greater_Manchester"
+    },
+    {
+      "@id": "dfc-f:Italie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Italie",
+      "skos:notation": "Italie"
+    },
+    {
+      "@id": "dfc-f:Italy",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Italy",
+      "skos:notation": "Italy"
+    },
+    {
+      "@id": "dfc-f:Belgium",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Belgium",
+      "skos:notation": "Belgium"
+    },
+    {
+      "@id": "dfc-f:Belgique",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Belgique",
+      "skos:notation": "Belgique"
+    },
+    {
+      "@id": "dfc-f:Netherlands",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Netherlands",
+      "skos:notation": "Netherlands"
+    },
+    {
+      "@id": "dfc-f:PaysBas",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pays bas",
+      "skos:notation": "Pays_bas"
+    },
+    {
+      "@id": "dfc-f:Allemagne",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Allemagne",
+      "skos:notation": "Allemagne"
+    },
+    {
+      "@id": "dfc-f:Germany",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Germany",
+      "skos:notation": "Germany"
+    },
+    {
+      "@id": "dfc-f:Spain",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Spain",
+      "skos:notation": "Spain"
+    },
+    {
+      "@id": "dfc-f:Espagne",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Espagne",
+      "skos:notation": "Espagne"
+    },
+    {
+      "@id": "dfc-f:RepublicOfIreland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "République d'Irlande",
+      "skos:notation": "Rpublique_dIrlande"
+    },
+    {
+      "@id": "dfc-f:RepublicOfIreland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Republic of Ireland",
+      "skos:notation": "Republic_of_Ireland"
+    },
+    {
+      "@id": "dfc-f:Switzerland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Switzerland",
+      "skos:notation": "Switzerland"
+    },
+    {
+      "@id": "dfc-f:Suisse",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Suisse",
+      "skos:notation": "Suisse"
+    },
+    {
+      "@id": "dfc-f:UnitedKingdom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Royaume Uni",
+      "skos:notation": "Royaume_Uni"
+    },
+    {
+      "@id": "dfc-f:UnitedKingdom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "United Kingdom",
+      "skos:notation": "United_Kingdom"
+    },
+    {
+      "@id": "dfc-f:AOCFR",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Appellation d’origine contrôlée",
+      "skos:notation": "Appellation_dorigine_contrle"
+    },
+    {
+      "@id": "dfc-f:EastOfEngland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "East of England",
+      "skos:notation": "East_of_England"
+    },
+    {
+      "@id": "dfc-f:Cambridgeshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cambridgeshire",
+      "skos:notation": "Cambridgeshire"
+    },
+    {
+      "@id": "dfc-f:Hertfordshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Hertfordshire",
+      "skos:notation": "Hertfordshire"
+    },
+    {
+      "@id": "dfc-f:Norfolk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Norfolk",
+      "skos:notation": "Norfolk"
+    },
+    {
+      "@id": "dfc-f:Essex",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Essex",
+      "skos:notation": "Essex"
+    },
+    {
+      "@id": "dfc-f:Suffolk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Suffolk",
+      "skos:notation": "Suffolk"
+    },
+    {
+      "@id": "dfc-f:Bedfordshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bedfordshire",
+      "skos:notation": "Bedfordshire"
+    },
+    {
+      "@id": "dfc-f:Northamptonshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Northamptonshire",
+      "skos:notation": "Northamptonshire"
+    },
+    {
+      "@id": "dfc-f:EastMidlands",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "East Midlands",
+      "skos:notation": "East_Midlands"
+    },
+    {
+      "@id": "dfc-f:DumfriesAndGalloway",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Dumfries and Galloway",
+      "skos:notation": "Dumfries_and_Galloway"
+    },
+    {
+      "@id": "dfc-f:WestMidlands",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "West Midlands",
+      "skos:notation": "West_Midlands"
+    },
+    {
+      "@id": "dfc-f:WestMidlandsConurbation",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "West Midlands Conurbation",
+      "skos:notation": "West_Midlands_Conurbation"
+    },
+    {
+      "@id": "dfc-f:Warwickshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Warwickshire",
+      "skos:notation": "Warwickshire"
+    },
+    {
+      "@id": "dfc-f:Staffordshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Staffordshire",
+      "skos:notation": "Staffordshire"
+    },
+    {
+      "@id": "dfc-f:Shropshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Shropshire",
+      "skos:notation": "Shropshire"
+    },
+    {
+      "@id": "dfc-f:Herefordshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Herefordshire",
+      "skos:notation": "Herefordshire"
+    },
+    {
+      "@id": "dfc-f:Worcestershire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Worcestershire",
+      "skos:notation": "Worcestershire"
+    },
+    {
+      "@id": "dfc-f:YorkshireAndTheHumber",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Yorkshire and The Humber",
+      "skos:notation": "Yorkshire_and_The_Humber"
+    },
+    {
+      "@id": "dfc-f:Lincolnshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Lincolnshire",
+      "skos:notation": "Lincolnshire"
+    },
+    {
+      "@id": "dfc-f:SouthYorkshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "South Yorkshire",
+      "skos:notation": "South_Yorkshire"
+    },
+    {
+      "@id": "dfc-f:NorthYorkshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "North Yorkshire",
+      "skos:notation": "North_Yorkshire"
+    },
+    {
+      "@id": "dfc-f:WestYorkshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "West Yorkshire",
+      "skos:notation": "West_Yorkshire"
+    },
+    {
+      "@id": "dfc-f:EastRidingOfYorkshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "East Riding of Yorkshire",
+      "skos:notation": "East_Riding_of_Yorkshire"
+    },
+    {
+      "@id": "dfc-f:HealthClaim",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Health claim",
+      "skos:notation": "Health_claim"
+    },
+    {
+      "@id": "dfc-f:AllgationSant",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Allégation santé",
+      "skos:notation": "Allgation_sant"
+    },
+    {
+      "@id": "dfc-f:London",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "London",
+      "skos:notation": "London"
+    },
+    {
+      "@id": "dfc-f:NorthEastEngland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "North East England",
+      "skos:notation": "North_East_England"
+    },
+    {
+      "@id": "dfc-f:LabelMarketing",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Label marketing",
+      "skos:notation": "Label_marketing"
+    },
+    {
+      "@id": "dfc-f:MarketingLabel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Marketing label",
+      "skos:notation": "Marketing_label"
+    },
+    {
+      "@id": "dfc-f:LabelInconnu",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Label inconnu",
+      "skos:notation": "Label_inconnu"
+    },
+    {
+      "@id": "dfc-f:UnknownLabel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Unknown label",
+      "skos:notation": "Unknown_label"
+    },
+    {
+      "@id": "dfc-f:Seed",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Seed",
+      "skos:notation": "Seed"
+    },
+    {
+      "@id": "dfc-f:Graine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Graine",
+      "skos:notation": "Graine"
+    },
+    {
+      "@id": "dfc-f:Ocanie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Océanie",
+      "skos:notation": "Ocanie"
+    },
+    {
+      "@id": "dfc-f:Oceania",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Oceania",
+      "skos:notation": "Oceania"
+    },
+    {
+      "@id": "dfc-f:Afrique",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Afrique",
+      "skos:notation": "Afrique"
+    },
+    {
+      "@id": "dfc-f:Africa",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Africa",
+      "skos:notation": "Africa"
+    },
+    {
+      "@id": "dfc-f:AmriqueDuSud",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Amérique du Sud",
+      "skos:notation": "Amrique_du_Sud"
+    },
+    {
+      "@id": "dfc-f:SouthAmerica",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "South America",
+      "skos:notation": "South_America"
+    },
+    {
+      "@id": "dfc-f:Asie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Asie",
+      "skos:notation": "Asie"
+    },
+    {
+      "@id": "dfc-f:Asia",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Asia",
+      "skos:notation": "Asia"
+    },
+    {
+      "@id": "dfc-f:OrigineTerritorialeInconnue",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Origine territoriale inconnue",
+      "skos:notation": "Origine_territoriale_inconnue"
+    },
+    {
+      "@id": "dfc-f:UnknownTerritorialOrigin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Unknown territorial origin",
+      "skos:notation": "Unknown_territorial_origin"
+    },
+    {
+      "@id": "dfc-f:Wales",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Wales",
+      "skos:notation": "Wales"
+    },
+    {
+      "@id": "dfc-f:PaysDeGalles",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pays de Galles",
+      "skos:notation": "Pays_de_Galles"
+    },
+    {
+      "@id": "dfc-f:SheepsBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sheep's body",
+      "skos:notation": "Sheeps_body"
+    },
+    {
+      "@id": "dfc-f:PartieDeMouton",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie de mouton",
+      "skos:notation": "Partie_de_mouton"
+    },
+    {
+      "@id": "dfc-f:NouvelleAquitaine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Nouvelle-Aquitaine",
+      "skos:notation": "Nouvelle_Aquitaine"
+    },
+    {
+      "@id": "dfc-f:TasteOfTheYear",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Reconnu Saveur de l’année",
+      "skos:notation": "Reconnu_Saveur_de_lanne"
+    },
+    {
+      "@id": "dfc-f:TasteOfTheYear",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Taste of the year",
+      "skos:notation": "Taste_of_the_year"
+    },
+    {
+      "@id": "dfc-f:HautsDeFrance",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Hauts-de-France",
+      "skos:notation": "Hauts_de_France"
+    },
+    {
+      "@id": "dfc-f:NewZealand",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "New Zealand",
+      "skos:notation": "New_Zealand"
+    },
+    {
+      "@id": "dfc-f:NewZealand",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Nouvelle Zélande",
+      "skos:notation": "Nouvelle_Zlande"
+    },
+    {
+      "@id": "dfc-f:Fleur",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fleur",
+      "skos:notation": "Fleur"
+    },
+    {
+      "@id": "dfc-f:Flower",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Flower",
+      "skos:notation": "Flower"
+    },
+    {
+      "@id": "dfc-f:ProductOfTheYear",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Product of the year",
+      "skos:notation": "Product_of_the_year"
+    },
+    {
+      "@id": "dfc-f:ProductOfTheYear",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Elu produit de l'année",
+      "skos:notation": "Elu_produit_de_lanne"
+    },
+    {
+      "@id": "dfc-f:ContainerInformation",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Container Information",
+      "skos:notation": "Container_Information"
+    },
+    {
+      "@id": "dfc-f:GoatBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie de chèvre",
+      "skos:notation": "Partie_de_chvre"
+    },
+    {
+      "@id": "dfc-f:GoatBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Goat's body",
+      "skos:notation": "Goats_body"
+    },
+    {
+      "@id": "dfc-f:SheepMilk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Lait de brebis",
+      "skos:notation": "Lait_de_brebis"
+    },
+    {
+      "@id": "dfc-f:GoatMilk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Goat milk",
+      "skos:notation": "Goat_milk"
+    },
+    {
+      "@id": "dfc-f:PaysDeLaLoire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pays de la Loire",
+      "skos:notation": "Pays_de_la_Loire"
+    },
+    {
+      "@id": "dfc-f:Bulb",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bulbe",
+      "skos:notation": "Bulbe"
+    },
+    {
+      "@id": "dfc-f:Bulb",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bulb",
+      "skos:notation": "Bulb"
+    },
+    {
+      "@id": "dfc-f:ChickenBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Chicken's body",
+      "skos:notation": "Chickens_body"
+    },
+    {
+      "@id": "dfc-f:ChickenBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie du poulet",
+      "skos:notation": "Partie_du_poulet"
+    },
+    {
+      "@id": "dfc-f:NorthernIreland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Irlande du Nord",
+      "skos:notation": "Irlande_du_Nord"
+    },
+    {
+      "@id": "dfc-f:NorthernIreland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Northern Ireland",
+      "skos:notation": "Northern_Ireland"
+    },
+    {
+      "@id": "dfc-f:EweBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie de brebis",
+      "skos:notation": "Partie_de_brebis"
+    },
+    {
+      "@id": "dfc-f:EweBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Ewe's body",
+      "skos:notation": "Ewes_body"
+    },
+    {
+      "@id": "dfc-f:SheepMilk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Sheep milk",
+      "skos:notation": "Sheep_milk"
+    },
+    {
+      "@id": "dfc-f:HenEgg",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Hen's egg",
+      "skos:notation": "Hens_egg"
+    },
+    {
+      "@id": "dfc-f:HenEgg",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Œuf de poule",
+      "skos:notation": "uf_de_poule"
+    },
+    {
+      "@id": "dfc-f:Derbyshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Derbyshire",
+      "skos:notation": "Derbyshire"
+    },
+    {
+      "@id": "dfc-f:TyneAndWear",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Tyne & Wear",
+      "skos:notation": "Tyne__Wear"
+    },
+    {
+      "@id": "dfc-f:Dunbartonshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Dunbartonshire",
+      "skos:notation": "Dunbartonshire"
+    },
+    {
+      "@id": "dfc-f:Leicestershire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Leicestershire",
+      "skos:notation": "Leicestershire"
+    },
+    {
+      "@id": "dfc-f:ProvenceAlpesCteAzur",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Provence-Alpes-Côte d’Azur",
+      "skos:notation": "Provence_Alpes_Cte_dAzur"
+    },
+    {
+      "@id": "dfc-f:WholePlant",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Plante entière",
+      "skos:notation": "Plante_entire"
+    },
+    {
+      "@id": "dfc-f:WholePlant",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Whole plant",
+      "skos:notation": "Whole_plant"
+    },
+    {
+      "@id": "dfc-f:RoosterBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Rooster's body",
+      "skos:notation": "Roosters_body"
+    },
+    {
+      "@id": "dfc-f:RoosterBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie de coq",
+      "skos:notation": "Partie_de_coq"
+    },
+    {
+      "@id": "dfc-f:ScottishBorders",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Scottish Borders",
+      "skos:notation": "Scottish_Borders"
+    },
+    {
+      "@id": "dfc-f:EasternScotland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Eastern Scotland",
+      "skos:notation": "Eastern_Scotland"
+    },
+    {
+      "@id": "dfc-f:Nottinghamshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Nottinghamshire",
+      "skos:notation": "Nottinghamshire"
+    },
+    {
+      "@id": "dfc-f:Ayrshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Ayrshire",
+      "skos:notation": "Ayrshire"
+    },
+    {
+      "@id": "dfc-f:CountyDurham",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "County Durham",
+      "skos:notation": "County_Durham"
+    },
+    {
+      "@id": "dfc-f:Northumberland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Northumberland",
+      "skos:notation": "Northumberland"
+    },
+    {
+      "@id": "dfc-f:QuailsEgg",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Quail's egg",
+      "skos:notation": "Quails_egg"
+    },
+    {
+      "@id": "dfc-f:ufDeCaille",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Œuf de caille",
+      "skos:notation": "uf_de_caille"
+    },
+    {
+      "@id": "dfc-f:ProtectedGeographicalStatus",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Statut géographique protégé",
+      "skos:notation": "Statut_gographique_protg"
+    },
+    {
+      "@id": "dfc-f:ProtectedGeographicalStatus",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Protected Geographical Status",
+      "skos:notation": "Protected_Geographical_Status"
+    },
+    {
+      "@id": "dfc-f:Normandy",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Normandy",
+      "skos:notation": "Normandy"
+    },
+    {
+      "@id": "dfc-f:Normandie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Normandie",
+      "skos:notation": "Normandie"
+    },
+    {
+      "@id": "dfc-f:Bretagne",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Bretagne",
+      "skos:notation": "Bretagne"
+    },
+    {
+      "@id": "dfc-f:Brittany",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Brittany",
+      "skos:notation": "Brittany"
+    },
+    {
+      "@id": "dfc-f:Occitania",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Occitania",
+      "skos:notation": "Occitania"
+    },
+    {
+      "@id": "dfc-f:Occitanie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Occitanie",
+      "skos:notation": "Occitanie"
+    },
+    {
+      "@id": "dfc-f:Corse",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Corse",
+      "skos:notation": "Corse"
+    },
+    {
+      "@id": "dfc-f:Corsica",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Corsica",
+      "skos:notation": "Corsica"
+    },
+    {
+      "@id": "dfc-f:IleDeFrance",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Ile-de-France",
+      "skos:notation": "Ile_de_France"
+    },
+    {
+      "@id": "dfc-f:IleDeFrance",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Île-de-France",
+      "skos:notation": "le_de_France"
+    },
+    {
+      "@id": "dfc-f:AuvergneRhneAlpes",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Auvergne-Rhône-Alpes",
+      "skos:notation": "Auvergne_Rhne_Alpes"
+    },
+    {
+      "@id": "dfc-f:Package",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Package",
+      "skos:notation": "Package"
+    },
+    {
+      "@id": "dfc-f:Scotland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Scotland",
+      "skos:notation": "Scotland"
+    },
+    {
+      "@id": "dfc-f:Ecosse",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Ecosse",
+      "skos:notation": "Ecosse"
+    },
+    {
+      "@id": "dfc-f:HighlandsAndIslands",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Highlands and Islands",
+      "skos:notation": "Highlands_and_Islands"
+    },
+    {
+      "@id": "dfc-f:NorthEastScotland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "North East Scotland",
+      "skos:notation": "North_East_Scotland"
+    },
+    {
+      "@id": "dfc-f:Aberdeenshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Aberdeenshire",
+      "skos:notation": "Aberdeenshire"
+    },
+    {
+      "@id": "dfc-f:CowBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Partie de vache",
+      "skos:notation": "Partie_de_vache"
+    },
+    {
+      "@id": "dfc-f:CowBody",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cow's body",
+      "skos:notation": "Cows_body"
+    },
+    {
+      "@id": "dfc-f:CowMilk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Lait de vache",
+      "skos:notation": "Lait_de_vache"
+    },
+    {
+      "@id": "dfc-f:CowMilk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cow milk",
+      "skos:notation": "Cow_milk"
+    },
+    {
+      "@id": "dfc-f:AOPEU",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Appellation d’origine protégée",
+      "skos:notation": "Appellation_dorigine_protge"
+    },
+    {
+      "@id": "dfc-f:Australie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Australie",
+      "skos:notation": "Australie"
+    },
+    {
+      "@id": "dfc-f:Australia",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Australia",
+      "skos:notation": "Australia"
+    },
+    {
+      "@id": "dfc-f:Lanarkshire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Lanarkshire",
+      "skos:notation": "Lanarkshire"
+    },
+    {
+      "@id": "dfc-f:Leaf",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Leaf",
+      "skos:notation": "Leaf"
+    },
+    {
+      "@id": "dfc-f:Leaf",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Feuille",
+      "skos:notation": "Feuille"
+    },
+    {
+      "@id": "dfc-f:Lothian",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Lothian",
+      "skos:notation": "Lothian"
+    },
+    {
+      "@id": "dfc-f:Fruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fruit",
+      "skos:notation": "Fruit"
+    },
+    {
+      "@id": "dfc-f:Rutland",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Rutland",
+      "skos:notation": "Rutland"
+    },
+    {
+      "@id": "dfc-f:Stem",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Stem",
+      "skos:notation": "Stem"
+    },
+    {
+      "@id": "dfc-f:Stem",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Tige",
+      "skos:notation": "Tige"
+    },
+    {
+      "@id": "dfc-f:Root",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Root",
+      "skos:notation": "Root"
+    },
+    {
+      "@id": "dfc-f:Root",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Racine",
+      "skos:notation": "Racine"
+    },
+    {
+      "@id": "dfc-f:Edinburgh",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Edinburgh",
+      "skos:notation": "Edinburgh"
+    },
+    {
+      "@id": "dfc-f:Tubercule",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Tubercule",
+      "skos:notation": "Tubercule"
+    },
+    {
+      "@id": "dfc-f:Tuber",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Tuber",
+      "skos:notation": "Tuber"
+    }
+  ]
+}

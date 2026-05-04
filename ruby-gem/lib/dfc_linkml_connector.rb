@@ -1,70 +1,99 @@
 # frozen_string_literal: true
 
-require "securerandom"
-require "ostruct"
+require 'json'
+require 'singleton'
 
-module DFCLinkMLConnector
+require_relative 'semantic_object'
+require_relative 'connector/vocabulary_loader'
+require_relative 'connector/json_ld_serializer'
+require_relative 'connector/dfc_linkml_connector'
+
+require_relative 'connector/address'
+require_relative 'connector/agent'
+require_relative 'connector/allergen_characteristic'
+require_relative 'connector/as_planned_consumption_flow'
+require_relative 'connector/as_planned_local_consumption_flow'
+require_relative 'connector/as_planned_local_production_flow'
+require_relative 'connector/as_planned_local_transformation'
+require_relative 'connector/as_planned_production_flow'
+require_relative 'connector/as_planned_transformation'
+require_relative 'connector/as_realized_consumption_flow'
+require_relative 'connector/as_realized_production_flow'
+require_relative 'connector/as_realized_transformation'
+require_relative 'connector/brand'
+require_relative 'connector/catalog'
+require_relative 'connector/catalog_item'
+require_relative 'connector/certfication'
+require_relative 'connector/consumption_flow'
+require_relative 'connector/coordination'
+require_relative 'connector/customer_category'
+require_relative 'connector/characteristic'
+require_relative 'connector/relation'
+require_relative 'connector/subject'
+require_relative 'connector/defined_product'
+require_relative 'connector/delivery_option'
+require_relative 'connector/delivery_step'
+require_relative 'connector/enterprise'
+require_relative 'connector/feature'
+require_relative 'connector/functional_product'
+require_relative 'connector/geometry'
+require_relative 'connector/how_subject'
+require_relative 'connector/individual'
+require_relative 'connector/ingredient'
+require_relative 'connector/labelling_characteristic'
+require_relative 'connector/length'
+require_relative 'connector/localized_product'
+require_relative 'connector/nutrient_characteristic'
+require_relative 'connector/offer'
+require_relative 'connector/order'
+require_relative 'connector/order_line'
+require_relative 'connector/organization'
+require_relative 'connector/payment_method'
+require_relative 'connector/person'
+require_relative 'connector/phone_number'
+require_relative 'connector/physical_characteristic'
+require_relative 'connector/physical_place'
+require_relative 'connector/physical_product'
+require_relative 'connector/pick_up_step'
+require_relative 'connector/pickup_option'
+require_relative 'connector/place'
+require_relative 'connector/point'
+require_relative 'connector/polygon'
+require_relative 'connector/price'
+require_relative 'connector/product_batch'
+require_relative 'connector/product_option'
+require_relative 'connector/product_option_value'
+require_relative 'connector/production_flow'
+require_relative 'connector/properties'
+require_relative 'connector/quantitative_value'
+require_relative 'connector/real_stock'
+require_relative 'connector/represented_thing'
+require_relative 'connector/route'
+require_relative 'connector/sale_session'
+require_relative 'connector/shipment'
+require_relative 'connector/shipping_option'
+require_relative 'connector/social_media'
+require_relative 'connector/step'
+require_relative 'connector/stock'
+require_relative 'connector/supplied_product'
+require_relative 'connector/technical_product'
+require_relative 'connector/temperature'
+require_relative 'connector/template_sale_session'
+require_relative 'connector/theoritical_stock'
+require_relative 'connector/transaction'
+require_relative 'connector/transformation'
+require_relative 'connector/value_r_e_c_u_r'
+require_relative 'connector/variant'
+require_relative 'connector/variant_caracteristic'
+require_relative 'connector/vehicle'
+require_relative 'connector/vevent'
+require_relative 'connector/virtual_place'
+require_relative 'connector/volume'
+require_relative 'connector/weight'
+require_relative 'connector/what_subject'
+require_relative 'connector/where_subject'
+require_relative 'connector/who_subject'
+
+module DfcLinkmlConnector
+  VERSION = '2.0.0'
 end
-
-require_relative "dfc_linkml_connector/version"
-require_relative "dfc_linkml_connector/vocabulary/loader"
-require_relative "dfc_linkml_connector/connector/connector"
-
-module DFCLinkMLConnector
-  module Connector
-    class RepresentedThing
-      attr_reader :semantic_id
-      attr_accessor :semantic_type
-
-      def initialize(semantic_id = nil, **attributes)
-        @semantic_id = semantic_id || "urn:uuid:#{SecureRandom.uuid}"
-        @attributes = attributes
-        @semantic_type = self.class.to_s.split("::").last
-      end
-
-      def ==(other)
-        other.is_a?(RepresentedThing) && other.semantic_id == @semantic_id
-      end
-
-      def hash
-        @semantic_id.hash
-      end
-
-      def to_semantic
-        result = { "@id" => @semantic_id, "@type" => @semantic_type }
-        @attributes.each do |key, value|
-          next if value.nil?
-          prefix_key = "dfc-b#{key.to_s.split('_').map(&:capitalize).join}"
-          result[prefix_key] = serialize_value(value)
-        end
-        result
-      end
-
-      private
-
-      def serialize_value(val)
-        case val
-        when RepresentedThing
-          val.to_semantic
-        when Array
-          val.map { |v| serialize_value(v) }
-        else
-          val
-        end
-      end
-    end
-  end
-end
-
-require_relative "dfc_linkml_connector/connector/address"
-require_relative "dfc_linkml_connector/connector/agent"
-require_relative "dfc_linkml_connector/connector/catalog_item"
-require_relative "dfc_linkml_connector/connector/customer_category"
-require_relative "dfc_linkml_connector/connector/defined_product"
-require_relative "dfc_linkml_connector/connector/enterprise"
-require_relative "dfc_linkml_connector/connector/offer"
-require_relative "dfc_linkml_connector/connector/organization"
-require_relative "dfc_linkml_connector/connector/person"
-require_relative "dfc_linkml_connector/connector/price"
-require_relative "dfc_linkml_connector/connector/quantitative_value"
-require_relative "dfc_linkml_connector/connector/supplied_product"

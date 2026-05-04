@@ -1,0 +1,296 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dfc-v": "http://w3id.org/dfc/taxonomies/vocabulary.rdf#"
+  },
+  "@graph": [
+    {
+      "@id": "dfc-v:VocabularyTerm",
+      "@type": [
+        "skos:ConceptScheme"
+      ],
+      "skos:prefLabel": "VocabularyTerm",
+      "skos:hasTopConcept": [
+        "dfc-f:Held",
+        "dfc-f:OrderStatus",
+        "dfc-f:FulfilmentState",
+        "dfc-f:FulfilmentStatus",
+        "dfc-f:OrderState",
+        "dfc-f:DFCVocabulary",
+        "dfc-f:move",
+        "dfc-f:TransformationType",
+        "dfc-f:Unfulfilled",
+        "dfc-f:Cancelled",
+        "dfc-f:Fulfilled",
+        "dfc-f:States",
+        "dfc-f:Status",
+        "dfc-f:modify",
+        "dfc-f:separate",
+        "dfc-f:pickup",
+        "dfc-f:use",
+        "dfc-f:consume",
+        "dfc-f:lower",
+        "dfc-f:produce",
+        "dfc-f:combine",
+        "dfc-f:raise",
+        "dfc-f:dropoff",
+        "dfc-f:accept",
+        "dfc-f:PaymentStatus",
+        "dfc-f:PaymentState",
+        "dfc-f:Paid",
+        "dfc-f:Unpaid",
+        "dfc-f:Draft",
+        "dfc-f:Complete",
+        "dfc-f:FulfilmentState"
+      ]
+    },
+    {
+      "@id": "dfc-f:Held",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Held",
+      "skos:notation": "Held"
+    },
+    {
+      "@id": "dfc-f:OrderStatus",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Order status",
+      "skos:notation": "Order_status"
+    },
+    {
+      "@id": "dfc-f:FulfilmentState",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fulfilment state",
+      "skos:notation": "Fulfilment_state"
+    },
+    {
+      "@id": "dfc-f:FulfilmentStatus",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fulfilment status",
+      "skos:notation": "Fulfilment_status"
+    },
+    {
+      "@id": "dfc-f:OrderState",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Order state",
+      "skos:notation": "Order_state"
+    },
+    {
+      "@id": "dfc-f:DFCVocabulary",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "DFC_Vocabulary",
+      "skos:notation": "DFC_Vocabulary"
+    },
+    {
+      "@id": "dfc-f:move",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "move",
+      "skos:notation": "move"
+    },
+    {
+      "@id": "dfc-f:TransformationType",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Transformation type",
+      "skos:notation": "Transformation_type"
+    },
+    {
+      "@id": "dfc-f:Unfulfilled",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Unfulfilled",
+      "skos:notation": "Unfulfilled"
+    },
+    {
+      "@id": "dfc-f:Cancelled",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Cancelled",
+      "skos:notation": "Cancelled"
+    },
+    {
+      "@id": "dfc-f:Fulfilled",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fulfilled",
+      "skos:notation": "Fulfilled"
+    },
+    {
+      "@id": "dfc-f:States",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "States",
+      "skos:notation": "States"
+    },
+    {
+      "@id": "dfc-f:Status",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Status",
+      "skos:notation": "Status"
+    },
+    {
+      "@id": "dfc-f:modify",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "modify",
+      "skos:notation": "modify"
+    },
+    {
+      "@id": "dfc-f:separate",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "separate",
+      "skos:notation": "separate"
+    },
+    {
+      "@id": "dfc-f:pickup",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pickup",
+      "skos:notation": "pickup"
+    },
+    {
+      "@id": "dfc-f:use",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "use",
+      "skos:notation": "use"
+    },
+    {
+      "@id": "dfc-f:consume",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "consume",
+      "skos:notation": "consume"
+    },
+    {
+      "@id": "dfc-f:lower",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lower",
+      "skos:notation": "lower"
+    },
+    {
+      "@id": "dfc-f:produce",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "produce",
+      "skos:notation": "produce"
+    },
+    {
+      "@id": "dfc-f:combine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "combine",
+      "skos:notation": "combine"
+    },
+    {
+      "@id": "dfc-f:raise",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "raise",
+      "skos:notation": "raise"
+    },
+    {
+      "@id": "dfc-f:dropoff",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dropoff",
+      "skos:notation": "dropoff"
+    },
+    {
+      "@id": "dfc-f:accept",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "accept",
+      "skos:notation": "accept"
+    },
+    {
+      "@id": "dfc-f:PaymentStatus",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Payment status",
+      "skos:notation": "Payment_status"
+    },
+    {
+      "@id": "dfc-f:PaymentState",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Payment state",
+      "skos:notation": "Payment_state"
+    },
+    {
+      "@id": "dfc-f:Paid",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Paid",
+      "skos:notation": "Paid"
+    },
+    {
+      "@id": "dfc-f:Unpaid",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Unpaid",
+      "skos:notation": "Unpaid"
+    },
+    {
+      "@id": "dfc-f:Draft",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Draft",
+      "skos:notation": "Draft"
+    },
+    {
+      "@id": "dfc-f:Complete",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Complete",
+      "skos:notation": "Complete"
+    },
+    {
+      "@id": "dfc-f:FulfilmentState",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "FulfilmentState",
+      "skos:notation": "FulfilmentState"
+    }
+  ]
+}

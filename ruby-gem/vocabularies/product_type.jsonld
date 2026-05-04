@@ -1,0 +1,4427 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dfc-v": "http://w3id.org/dfc/taxonomies/vocabulary.rdf#"
+  },
+  "@graph": [
+    {
+      "@id": "dfc-v:ProductType",
+      "@type": [
+        "skos:ConceptScheme"
+      ],
+      "skos:prefLabel": "ProductType",
+      "skos:hasTopConcept": [
+        "dfc-f:poulet",
+        "dfc-f:chicken",
+        "dfc-f:volaille",
+        "dfc-f:poultry",
+        "dfc-f:escargots",
+        "dfc-f:snails",
+        "dfc-f:meatProduct",
+        "dfc-f:produitCarn",
+        "dfc-f:topinambour",
+        "dfc-f:jerusalemArtichoke",
+        "dfc-f:lgume",
+        "dfc-f:vegetable",
+        "dfc-f:soup",
+        "dfc-f:soupe",
+        "dfc-f:lgumeTransform",
+        "dfc-f:processedVegetable",
+        "dfc-f:Venison",
+        "dfc-f:ViandeDeCerf",
+        "dfc-f:flavoredYogurt",
+        "dfc-f:yaourtAromatis",
+        "dfc-f:cowDairyProduct",
+        "dfc-f:produitLaitierDeVache",
+        "dfc-f:pommeDeTerre",
+        "dfc-f:potato",
+        "dfc-f:bean",
+        "dfc-f:haricot",
+        "dfc-f:garlic",
+        "dfc-f:ail",
+        "dfc-f:parsnip",
+        "dfc-f:panais",
+        "dfc-f:navet",
+        "dfc-f:turnip",
+        "dfc-f:tomate",
+        "dfc-f:tomato",
+        "dfc-f:pepper",
+        "dfc-f:poivron",
+        "dfc-f:asparagus",
+        "dfc-f:asperges",
+        "dfc-f:squash",
+        "dfc-f:courge",
+        "dfc-f:cabbage",
+        "dfc-f:chou",
+        "dfc-f:shallot",
+        "dfc-f:chalote",
+        "dfc-f:lgumeDeQuatrimeGamme",
+        "dfc-f:fourthRangeVegetable",
+        "dfc-f:nonLocalVegetable",
+        "dfc-f:lgumeNonLocal",
+        "dfc-f:radis",
+        "dfc-f:radish",
+        "dfc-f:rhubarb",
+        "dfc-f:rhubarbe",
+        "dfc-f:rutabaga",
+        "dfc-f:cleriBranche",
+        "dfc-f:celeryBranch",
+        "dfc-f:artichaut",
+        "dfc-f:artichoke",
+        "dfc-f:blettes",
+        "dfc-f:chard",
+        "dfc-f:cucumber",
+        "dfc-f:concombre",
+        "dfc-f:carotte",
+        "dfc-f:carrot",
+        "dfc-f:leek",
+        "dfc-f:poireau",
+        "dfc-f:betteraveRouge",
+        "dfc-f:beetroot",
+        "dfc-f:salade",
+        "dfc-f:salad",
+        "dfc-f:salsify",
+        "dfc-f:salsifis",
+        "dfc-f:courgette",
+        "dfc-f:fennel",
+        "dfc-f:fenouil",
+        "dfc-f:PatateDouce",
+        "dfc-f:yam",
+        "dfc-f:lgumeDeCinquimeGamme",
+        "dfc-f:fifthRangeVegetable",
+        "dfc-f:celeriac",
+        "dfc-f:cleriRave",
+        "dfc-f:driedVegetable",
+        "dfc-f:lgumeSec",
+        "dfc-f:oignon",
+        "dfc-f:onion",
+        "dfc-f:aillet",
+        "dfc-f:greenGarlic",
+        "dfc-f:aubergine",
+        "dfc-f:eggplant",
+        "dfc-f:herb",
+        "dfc-f:aromate",
+        "dfc-f:melon",
+        "dfc-f:mushroom",
+        "dfc-f:champignon",
+        "dfc-f:crepeAndGalette",
+        "dfc-f:crpeEtGalette",
+        "dfc-f:picerieSale",
+        "dfc-f:savoryGroceries",
+        "dfc-f:piment",
+        "dfc-f:chilliPepper",
+        "dfc-f:chive",
+        "dfc-f:ciboulette",
+        "dfc-f:basil",
+        "dfc-f:basilic",
+        "dfc-f:cerfeuil",
+        "dfc-f:chervil",
+        "dfc-f:sage",
+        "dfc-f:sauge",
+        "dfc-f:parsley",
+        "dfc-f:persil",
+        "dfc-f:aneth",
+        "dfc-f:dill",
+        "dfc-f:coriander",
+        "dfc-f:coriandre",
+        "dfc-f:romarin",
+        "dfc-f:rosemary",
+        "dfc-f:menthe",
+        "dfc-f:mint",
+        "dfc-f:thym",
+        "dfc-f:thyme",
+        "dfc-f:bayLaurel",
+        "dfc-f:laurier",
+        "dfc-f:tarragon",
+        "dfc-f:estragon",
+        "dfc-f:fruit",
+        "dfc-f:fruits",
+        "dfc-f:apples",
+        "dfc-f:pomme",
+        "dfc-f:abricot",
+        "dfc-f:apricot",
+        "dfc-f:berry",
+        "dfc-f:petitFruit",
+        "dfc-f:cherry",
+        "dfc-f:cerise",
+        "dfc-f:clmentine",
+        "dfc-f:clementine",
+        "dfc-f:figue",
+        "dfc-f:fig",
+        "dfc-f:grape",
+        "dfc-f:raisin",
+        "dfc-f:kiwi",
+        "dfc-f:citron",
+        "dfc-f:lemon",
+        "dfc-f:mandarine",
+        "dfc-f:mandarin",
+        "dfc-f:nectarine",
+        "dfc-f:nonLocalFruit",
+        "dfc-f:fruitNonLocal",
+        "dfc-f:fruitCoque",
+        "dfc-f:nut",
+        "dfc-f:orange",
+        "dfc-f:peach",
+        "dfc-f:pche",
+        "dfc-f:pear",
+        "dfc-f:poire",
+        "dfc-f:plum",
+        "dfc-f:prune",
+        "dfc-f:pruneau",
+        "dfc-f:quince",
+        "dfc-f:coing",
+        "dfc-f:nfle",
+        "dfc-f:medlar",
+        "dfc-f:blueberry",
+        "dfc-f:myrtille",
+        "dfc-f:currant",
+        "dfc-f:groseille",
+        "dfc-f:mre",
+        "dfc-f:blackberry",
+        "dfc-f:framboise",
+        "dfc-f:raspberry",
+        "dfc-f:gooseberry",
+        "dfc-f:groseilleMaquereau",
+        "dfc-f:fraise",
+        "dfc-f:strawberry",
+        "dfc-f:blackcurrant",
+        "dfc-f:cassis",
+        "dfc-f:picerieLocale",
+        "dfc-f:localGroceryStore",
+        "dfc-f:produitsSec",
+        "dfc-f:driedGoods",
+        "dfc-f:platCuisin",
+        "dfc-f:readyMeal",
+        "dfc-f:sweetGroceries",
+        "dfc-f:picerieSucre",
+        "dfc-f:processedFruit",
+        "dfc-f:fruitTransform",
+        "dfc-f:cauliflower",
+        "dfc-f:chouFleur",
+        "dfc-f:lemonade",
+        "dfc-f:limonade",
+        "dfc-f:boissonNonAlcoolise",
+        "dfc-f:softDrink",
+        "dfc-f:salt",
+        "dfc-f:sel",
+        "dfc-f:brusselsSprouts",
+        "dfc-f:chouxDeBruxelles",
+        "dfc-f:drink",
+        "dfc-f:boisson",
+        "dfc-f:produitLaitier",
+        "dfc-f:dairyProduct",
+        "dfc-f:bakery",
+        "dfc-f:boulangerie",
+        "dfc-f:inedible",
+        "dfc-f:nonAlimentaire",
+        "dfc-f:frozen",
+        "dfc-f:surgel",
+        "dfc-f:hierloomTomato",
+        "dfc-f:tomateAncienne",
+        "dfc-f:tomateCerise",
+        "dfc-f:cherryTomato",
+        "dfc-f:roundTomato",
+        "dfc-f:tomateRonde",
+        "dfc-f:tomateEnGrappe",
+        "dfc-f:clusterTomato",
+        "dfc-f:shellfish",
+        "dfc-f:crustacs",
+        "dfc-f:fisheryProduct",
+        "dfc-f:produitDeLaPche",
+        "dfc-f:viennoiserie",
+        "dfc-f:flake",
+        "dfc-f:flocon",
+        "dfc-f:amande",
+        "dfc-f:almond",
+        "dfc-f:chestnut",
+        "dfc-f:marron",
+        "dfc-f:noisette",
+        "dfc-f:hazelnut",
+        "dfc-f:noix",
+        "dfc-f:walnut",
+        "dfc-f:grain",
+        "dfc-f:crale",
+        "dfc-f:sheepNaturalYogurt",
+        "dfc-f:yaourtDeBrebisNature",
+        "dfc-f:produitLaitierDeBrebis",
+        "dfc-f:sheepDairyProduct",
+        "dfc-f:crmeFrache",
+        "dfc-f:freshCream",
+        "dfc-f:rocket",
+        "dfc-f:roquette",
+        "dfc-f:piePastry",
+        "dfc-f:pteTarte",
+        "dfc-f:morel",
+        "dfc-f:morille",
+        "dfc-f:fromageFraisDeChvre",
+        "dfc-f:goatFreshCheese",
+        "dfc-f:produitLaitierDeChvre",
+        "dfc-f:goatDairyProduct",
+        "dfc-f:smoothCabbage",
+        "dfc-f:chouLisse",
+        "dfc-f:veau",
+        "dfc-f:veal",
+        "dfc-f:goatMatureCheese",
+        "dfc-f:fromageDeChvreAffin",
+        "dfc-f:graine",
+        "dfc-f:seed",
+        "dfc-f:quinoa",
+        "dfc-f:beans",
+        "dfc-f:haricots",
+        "dfc-f:lentilles",
+        "dfc-f:lentils",
+        "dfc-f:peas",
+        "dfc-f:pois",
+        "dfc-f:viandeBovine",
+        "dfc-f:beef",
+        "dfc-f:egg",
+        "dfc-f:uf",
+        "dfc-f:agneau",
+        "dfc-f:lamb",
+        "dfc-f:porc",
+        "dfc-f:pork",
+        "dfc-f:lapin",
+        "dfc-f:rabbit",
+        "dfc-f:fromageAffin",
+        "dfc-f:matureCheese",
+        "dfc-f:bluefootMushroom",
+        "dfc-f:PiedBleu",
+        "dfc-f:cannedVegetable",
+        "dfc-f:lgumeEnConserve",
+        "dfc-f:fromageAffinDeBrebis",
+        "dfc-f:sheepMatureCheese",
+        "dfc-f:yaourtSucrDeChvre",
+        "dfc-f:goatSweetYogurt",
+        "dfc-f:pastry",
+        "dfc-f:ptisserie",
+        "dfc-f:chouPomm",
+        "dfc-f:savoyCabbage",
+        "dfc-f:pinards",
+        "dfc-f:spinach",
+        "dfc-f:mlangeDeSalades",
+        "dfc-f:saladMix",
+        "dfc-f:laitue",
+        "dfc-f:lettuce",
+        "dfc-f:cornSaladlambsLettuce",
+        "dfc-f:mche",
+        "dfc-f:chicory",
+        "dfc-f:chicore",
+        "dfc-f:dandelion",
+        "dfc-f:pissenlit",
+        "dfc-f:Purslane",
+        "dfc-f:Pourpier",
+        "dfc-f:mesclun",
+        "dfc-f:cress",
+        "dfc-f:cresson",
+        "dfc-f:endive",
+        "dfc-f:autreProduitLaitier",
+        "dfc-f:otherDairyProduct",
+        "dfc-f:dessertLactDeChvre",
+        "dfc-f:goatDairyDessert",
+        "dfc-f:goatFlavoredYogurt",
+        "dfc-f:yaourtDeChvreAromatis",
+        "dfc-f:goatNaturalYogurt",
+        "dfc-f:yaourtNatureDeChvre",
+        "dfc-f:yaourtDeChvreAuxFruits",
+        "dfc-f:goatYogurtWithFruits",
+        "dfc-f:goatMilk",
+        "dfc-f:laitDeChvre",
+        "dfc-f:yaourtDeChvreSurLitDeFruits",
+        "dfc-f:goatYogurtOnABedOfFruit",
+        "dfc-f:viandeSurgele",
+        "dfc-f:frozenMeat",
+        "dfc-f:frozenMeal",
+        "dfc-f:platSurgel",
+        "dfc-f:bottledVegetable",
+        "dfc-f:lgumeEnBocal",
+        "dfc-f:biscuit",
+        "dfc-f:lactaire",
+        "dfc-f:milkyMushroom",
+        "dfc-f:frozenVegetable",
+        "dfc-f:lgumeSurgel",
+        "dfc-f:fish",
+        "dfc-f:poisson",
+        "dfc-f:grillingMeat",
+        "dfc-f:viandeGriller",
+        "dfc-f:confiserie",
+        "dfc-f:confectionery",
+        "dfc-f:coulemelle",
+        "dfc-f:parasolMushroom",
+        "dfc-f:butternut",
+        "dfc-f:potiron",
+        "dfc-f:pumpkin",
+        "dfc-f:hierloomSquash",
+        "dfc-f:varitAncienneDeCourge",
+        "dfc-f:uchikiKuriSquash",
+        "dfc-f:potimarron",
+        "dfc-f:pattypanSquash",
+        "dfc-f:ptisson",
+        "dfc-f:bread",
+        "dfc-f:pain",
+        "dfc-f:autreFromage",
+        "dfc-f:otherCheese",
+        "dfc-f:autreLait",
+        "dfc-f:otherMilk",
+        "dfc-f:ferment",
+        "dfc-f:aperitif",
+        "dfc-f:apritif",
+        "dfc-f:boissonAlcoolise",
+        "dfc-f:alcoholicBeverage",
+        "dfc-f:snack",
+        "dfc-f:cosmetic",
+        "dfc-f:cosmtique",
+        "dfc-f:cookedMeat",
+        "dfc-f:viandeCuite",
+        "dfc-f:charcuterie",
+        "dfc-f:delicatessen",
+        "dfc-f:viandeFrache",
+        "dfc-f:freshMeat",
+        "dfc-f:salaison",
+        "dfc-f:salting",
+        "dfc-f:pintade",
+        "dfc-f:guineaFowl",
+        "dfc-f:dinde",
+        "dfc-f:turkey",
+        "dfc-f:oie",
+        "dfc-f:goose",
+        "dfc-f:canard",
+        "dfc-f:duck",
+        "dfc-f:festivePoultry",
+        "dfc-f:volailleFestive",
+        "dfc-f:pigeon",
+        "dfc-f:caille",
+        "dfc-f:quail",
+        "dfc-f:digestive",
+        "dfc-f:digestif",
+        "dfc-f:chouRave",
+        "dfc-f:kohlrabi",
+        "dfc-f:butter",
+        "dfc-f:beurre",
+        "dfc-f:chouRouge",
+        "dfc-f:redCabbage",
+        "dfc-f:chouRomanesco",
+        "dfc-f:romanescoCauliflower",
+        "dfc-f:broccoliCabbage",
+        "dfc-f:chouBrocoli",
+        "dfc-f:chouFris",
+        "dfc-f:curlyKale",
+        "dfc-f:chouKale",
+        "dfc-f:kale",
+        "dfc-f:chouChinois",
+        "dfc-f:chineseCabbage",
+        "dfc-f:honey",
+        "dfc-f:miel",
+        "dfc-f:jam",
+        "dfc-f:confiture",
+        "dfc-f:frozenFruit",
+        "dfc-f:fruitSurgel",
+        "dfc-f:coquillage",
+        "dfc-f:seashell",
+        "dfc-f:cpes",
+        "dfc-f:porcini",
+        "dfc-f:fruitJuice",
+        "dfc-f:jusDeFruits",
+        "dfc-f:buttonMushroom",
+        "dfc-f:champignonDeParis",
+        "dfc-f:girolle",
+        "dfc-f:girolleMushroom",
+        "dfc-f:truffe",
+        "dfc-f:truffle",
+        "dfc-f:PiedDeMouton",
+        "dfc-f:sheepfootMushroom",
+        "dfc-f:mousseron",
+        "dfc-f:chanterelle",
+        "dfc-f:chanterelleMushroom",
+        "dfc-f:oysterMushroom",
+        "dfc-f:pleurote",
+        "dfc-f:deathsTrumpet",
+        "dfc-f:trompetteDeLaMort",
+        "dfc-f:creamCheese",
+        "dfc-f:fromageBlanc",
+        "dfc-f:sheepSweetYogurt",
+        "dfc-f:yaourtSucrDeBrebis",
+        "dfc-f:semolina",
+        "dfc-f:semoule",
+        "dfc-f:huile",
+        "dfc-f:oil",
+        "dfc-f:cannedGoods",
+        "dfc-f:ptes",
+        "dfc-f:pasta",
+        "dfc-f:rice",
+        "dfc-f:riz",
+        "dfc-f:yaourtSurLitDeFruits",
+        "dfc-f:yogurtOnABedOfFruit",
+        "dfc-f:pulse",
+        "dfc-f:sheepDairyDessert",
+        "dfc-f:dessertLactDeBrebis",
+        "dfc-f:sheepFlavoredYogurt",
+        "dfc-f:yaourtDeBrebisAromatis",
+        "dfc-f:sheepFreshCheese",
+        "dfc-f:FromageFraisDeBrebis",
+        "dfc-f:laitDeBrebis",
+        "dfc-f:sheepMilk",
+        "dfc-f:sheepYogurtOnABedOfFruit",
+        "dfc-f:yaourtDeBrebisSurLitDeFruits",
+        "dfc-f:sheepYogurtWithFruits",
+        "dfc-f:yaourtDeBrebisAuxFruits",
+        "dfc-f:fruitEnCompote",
+        "dfc-f:fruitInCompote",
+        "dfc-f:fruitEnBocal",
+        "dfc-f:bottledFruit",
+        "dfc-f:cannedFruit",
+        "dfc-f:fruitEnConserve",
+        "dfc-f:fruitSec",
+        "dfc-f:driedFruit",
+        "dfc-f:dairyDessert",
+        "dfc-f:dessertLact",
+        "dfc-f:freshCheese",
+        "dfc-f:fromageFrais",
+        "dfc-f:lait",
+        "dfc-f:milk",
+        "dfc-f:yaourtNature",
+        "dfc-f:naturalYogurt",
+        "dfc-f:yaourtSucr",
+        "dfc-f:sweetYogurt",
+        "dfc-f:yaourtAuxFruits",
+        "dfc-f:yogurtWithFruits",
+        "dfc-f:flour",
+        "dfc-f:farine",
+        "dfc-f:flower",
+        "dfc-f:fleur",
+        "dfc-f:plant",
+        "dfc-f:plante",
+        "dfc-f:aromateSec",
+        "dfc-f:driedHerb",
+        "dfc-f:viandeMijoter",
+        "dfc-f:simmeringMeat",
+        "dfc-f:wine",
+        "dfc-f:vin",
+        "dfc-f:beer",
+        "dfc-f:bire",
+        "dfc-f:smoothie",
+        "dfc-f:cider",
+        "dfc-f:cidre"
+      ]
+    },
+    {
+      "@id": "dfc-f:poulet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "poulet",
+      "skos:notation": "poulet"
+    },
+    {
+      "@id": "dfc-f:chicken",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chicken",
+      "skos:notation": "chicken"
+    },
+    {
+      "@id": "dfc-f:volaille",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "volaille",
+      "skos:notation": "volaille"
+    },
+    {
+      "@id": "dfc-f:poultry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "poultry",
+      "skos:notation": "poultry"
+    },
+    {
+      "@id": "dfc-f:escargots",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "escargots",
+      "skos:notation": "escargots"
+    },
+    {
+      "@id": "dfc-f:snails",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "snails",
+      "skos:notation": "snails"
+    },
+    {
+      "@id": "dfc-f:meatProduct",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "meat product",
+      "skos:notation": "meat_product"
+    },
+    {
+      "@id": "dfc-f:produitCarn",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "produit carné",
+      "skos:notation": "produit_carn"
+    },
+    {
+      "@id": "dfc-f:topinambour",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "topinambour",
+      "skos:notation": "topinambour"
+    },
+    {
+      "@id": "dfc-f:jerusalemArtichoke",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "jerusalem artichoke",
+      "skos:notation": "jerusalem_artichoke"
+    },
+    {
+      "@id": "dfc-f:lgume",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "légume",
+      "skos:notation": "lgume"
+    },
+    {
+      "@id": "dfc-f:vegetable",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "vegetable",
+      "skos:notation": "vegetable"
+    },
+    {
+      "@id": "dfc-f:soup",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "soup",
+      "skos:notation": "soup"
+    },
+    {
+      "@id": "dfc-f:soupe",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "soupe",
+      "skos:notation": "soupe"
+    },
+    {
+      "@id": "dfc-f:lgumeTransform",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "légume transformé",
+      "skos:notation": "lgume_transform"
+    },
+    {
+      "@id": "dfc-f:processedVegetable",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "processed vegetable",
+      "skos:notation": "processed_vegetable"
+    },
+    {
+      "@id": "dfc-f:Venison",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Venison",
+      "skos:notation": "Venison"
+    },
+    {
+      "@id": "dfc-f:ViandeDeCerf",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Viande de cerf",
+      "skos:notation": "Viande_de_cerf"
+    },
+    {
+      "@id": "dfc-f:flavoredYogurt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "flavored yogurt",
+      "skos:notation": "flavored_yogurt"
+    },
+    {
+      "@id": "dfc-f:yaourtAromatis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt aromatisé",
+      "skos:notation": "yaourt_aromatis"
+    },
+    {
+      "@id": "dfc-f:cowDairyProduct",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cow dairy product",
+      "skos:notation": "cow_dairy_product"
+    },
+    {
+      "@id": "dfc-f:produitLaitierDeVache",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "produit laitier de vache",
+      "skos:notation": "produit_laitier_de_vache"
+    },
+    {
+      "@id": "dfc-f:pommeDeTerre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pomme de terre",
+      "skos:notation": "pomme_de_terre"
+    },
+    {
+      "@id": "dfc-f:potato",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "potato",
+      "skos:notation": "potato"
+    },
+    {
+      "@id": "dfc-f:bean",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bean",
+      "skos:notation": "bean"
+    },
+    {
+      "@id": "dfc-f:haricot",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "haricot",
+      "skos:notation": "haricot"
+    },
+    {
+      "@id": "dfc-f:garlic",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "garlic",
+      "skos:notation": "garlic"
+    },
+    {
+      "@id": "dfc-f:ail",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "ail",
+      "skos:notation": "ail"
+    },
+    {
+      "@id": "dfc-f:parsnip",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "parsnip",
+      "skos:notation": "parsnip"
+    },
+    {
+      "@id": "dfc-f:panais",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "panais",
+      "skos:notation": "panais"
+    },
+    {
+      "@id": "dfc-f:navet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "navet",
+      "skos:notation": "navet"
+    },
+    {
+      "@id": "dfc-f:turnip",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "turnip",
+      "skos:notation": "turnip"
+    },
+    {
+      "@id": "dfc-f:tomate",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tomate",
+      "skos:notation": "tomate"
+    },
+    {
+      "@id": "dfc-f:tomato",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tomato",
+      "skos:notation": "tomato"
+    },
+    {
+      "@id": "dfc-f:pepper",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pepper",
+      "skos:notation": "pepper"
+    },
+    {
+      "@id": "dfc-f:poivron",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "poivron",
+      "skos:notation": "poivron"
+    },
+    {
+      "@id": "dfc-f:asparagus",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "asparagus",
+      "skos:notation": "asparagus"
+    },
+    {
+      "@id": "dfc-f:asperges",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "asperges",
+      "skos:notation": "asperges"
+    },
+    {
+      "@id": "dfc-f:squash",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "squash",
+      "skos:notation": "squash"
+    },
+    {
+      "@id": "dfc-f:courge",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "courge",
+      "skos:notation": "courge"
+    },
+    {
+      "@id": "dfc-f:cabbage",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cabbage",
+      "skos:notation": "cabbage"
+    },
+    {
+      "@id": "dfc-f:chou",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou",
+      "skos:notation": "chou"
+    },
+    {
+      "@id": "dfc-f:shallot",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "shallot",
+      "skos:notation": "shallot"
+    },
+    {
+      "@id": "dfc-f:chalote",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "échalote",
+      "skos:notation": "chalote"
+    },
+    {
+      "@id": "dfc-f:lgumeDeQuatrimeGamme",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "légume de quatrième gamme",
+      "skos:notation": "lgume_de_quatrime_gamme"
+    },
+    {
+      "@id": "dfc-f:fourthRangeVegetable",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fourth range vegetable",
+      "skos:notation": "fourth_range_vegetable"
+    },
+    {
+      "@id": "dfc-f:nonLocalVegetable",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "non local vegetable",
+      "skos:notation": "non_local_vegetable"
+    },
+    {
+      "@id": "dfc-f:lgumeNonLocal",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "légume non local",
+      "skos:notation": "lgume_non_local"
+    },
+    {
+      "@id": "dfc-f:radis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "radis",
+      "skos:notation": "radis"
+    },
+    {
+      "@id": "dfc-f:radish",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "radish",
+      "skos:notation": "radish"
+    },
+    {
+      "@id": "dfc-f:rhubarb",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "rhubarb",
+      "skos:notation": "rhubarb"
+    },
+    {
+      "@id": "dfc-f:rhubarbe",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "rhubarbe",
+      "skos:notation": "rhubarbe"
+    },
+    {
+      "@id": "dfc-f:rutabaga",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "rutabaga",
+      "skos:notation": "rutabaga"
+    },
+    {
+      "@id": "dfc-f:cleriBranche",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "céleri branche",
+      "skos:notation": "cleri_branche"
+    },
+    {
+      "@id": "dfc-f:celeryBranch",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "celery branch",
+      "skos:notation": "celery_branch"
+    },
+    {
+      "@id": "dfc-f:artichaut",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "artichaut",
+      "skos:notation": "artichaut"
+    },
+    {
+      "@id": "dfc-f:artichoke",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "artichoke",
+      "skos:notation": "artichoke"
+    },
+    {
+      "@id": "dfc-f:blettes",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "blettes",
+      "skos:notation": "blettes"
+    },
+    {
+      "@id": "dfc-f:chard",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chard",
+      "skos:notation": "chard"
+    },
+    {
+      "@id": "dfc-f:cucumber",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cucumber",
+      "skos:notation": "cucumber"
+    },
+    {
+      "@id": "dfc-f:concombre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "concombre",
+      "skos:notation": "concombre"
+    },
+    {
+      "@id": "dfc-f:carotte",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "carotte",
+      "skos:notation": "carotte"
+    },
+    {
+      "@id": "dfc-f:carrot",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "carrot",
+      "skos:notation": "carrot"
+    },
+    {
+      "@id": "dfc-f:leek",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "leek",
+      "skos:notation": "leek"
+    },
+    {
+      "@id": "dfc-f:poireau",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "poireau",
+      "skos:notation": "poireau"
+    },
+    {
+      "@id": "dfc-f:betteraveRouge",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "betterave rouge",
+      "skos:notation": "betterave_rouge"
+    },
+    {
+      "@id": "dfc-f:beetroot",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "beetroot",
+      "skos:notation": "beetroot"
+    },
+    {
+      "@id": "dfc-f:salade",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "salade",
+      "skos:notation": "salade"
+    },
+    {
+      "@id": "dfc-f:salad",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "salad",
+      "skos:notation": "salad"
+    },
+    {
+      "@id": "dfc-f:salsify",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "salsify",
+      "skos:notation": "salsify"
+    },
+    {
+      "@id": "dfc-f:salsifis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "salsifis",
+      "skos:notation": "salsifis"
+    },
+    {
+      "@id": "dfc-f:courgette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "courgette",
+      "skos:notation": "courgette"
+    },
+    {
+      "@id": "dfc-f:fennel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fennel",
+      "skos:notation": "fennel"
+    },
+    {
+      "@id": "dfc-f:fenouil",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fenouil",
+      "skos:notation": "fenouil"
+    },
+    {
+      "@id": "dfc-f:PatateDouce",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Patate douce",
+      "skos:notation": "Patate_douce"
+    },
+    {
+      "@id": "dfc-f:yam",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yam",
+      "skos:notation": "yam"
+    },
+    {
+      "@id": "dfc-f:lgumeDeCinquimeGamme",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "légume de cinquième gamme",
+      "skos:notation": "lgume_de_cinquime_gamme"
+    },
+    {
+      "@id": "dfc-f:fifthRangeVegetable",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fifth range vegetable",
+      "skos:notation": "fifth_range_vegetable"
+    },
+    {
+      "@id": "dfc-f:celeriac",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "celeriac",
+      "skos:notation": "celeriac"
+    },
+    {
+      "@id": "dfc-f:cleriRave",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "céleri-rave",
+      "skos:notation": "cleri_rave"
+    },
+    {
+      "@id": "dfc-f:driedVegetable",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dried vegetable",
+      "skos:notation": "dried_vegetable"
+    },
+    {
+      "@id": "dfc-f:lgumeSec",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "légume sec",
+      "skos:notation": "lgume_sec"
+    },
+    {
+      "@id": "dfc-f:oignon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "oignon",
+      "skos:notation": "oignon"
+    },
+    {
+      "@id": "dfc-f:onion",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "onion",
+      "skos:notation": "onion"
+    },
+    {
+      "@id": "dfc-f:aillet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "aillet",
+      "skos:notation": "aillet"
+    },
+    {
+      "@id": "dfc-f:greenGarlic",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "green garlic",
+      "skos:notation": "green_garlic"
+    },
+    {
+      "@id": "dfc-f:aubergine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "aubergine",
+      "skos:notation": "aubergine"
+    },
+    {
+      "@id": "dfc-f:eggplant",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "eggplant",
+      "skos:notation": "eggplant"
+    },
+    {
+      "@id": "dfc-f:herb",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "herb",
+      "skos:notation": "herb"
+    },
+    {
+      "@id": "dfc-f:aromate",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "aromate",
+      "skos:notation": "aromate"
+    },
+    {
+      "@id": "dfc-f:melon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "melon",
+      "skos:notation": "melon"
+    },
+    {
+      "@id": "dfc-f:mushroom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mushroom",
+      "skos:notation": "mushroom"
+    },
+    {
+      "@id": "dfc-f:champignon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "champignon",
+      "skos:notation": "champignon"
+    },
+    {
+      "@id": "dfc-f:crepeAndGalette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "crepe and galette",
+      "skos:notation": "crepe_and_galette"
+    },
+    {
+      "@id": "dfc-f:crpeEtGalette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "crêpe et galette",
+      "skos:notation": "crpe_et_galette"
+    },
+    {
+      "@id": "dfc-f:picerieSale",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "épicerie salée",
+      "skos:notation": "picerie_sale"
+    },
+    {
+      "@id": "dfc-f:savoryGroceries",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "savory groceries",
+      "skos:notation": "savory_groceries"
+    },
+    {
+      "@id": "dfc-f:piment",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "piment",
+      "skos:notation": "piment"
+    },
+    {
+      "@id": "dfc-f:chilliPepper",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chilli pepper",
+      "skos:notation": "chilli_pepper"
+    },
+    {
+      "@id": "dfc-f:chive",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chive",
+      "skos:notation": "chive"
+    },
+    {
+      "@id": "dfc-f:ciboulette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "ciboulette",
+      "skos:notation": "ciboulette"
+    },
+    {
+      "@id": "dfc-f:basil",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "basil",
+      "skos:notation": "basil"
+    },
+    {
+      "@id": "dfc-f:basilic",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "basilic",
+      "skos:notation": "basilic"
+    },
+    {
+      "@id": "dfc-f:cerfeuil",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cerfeuil",
+      "skos:notation": "cerfeuil"
+    },
+    {
+      "@id": "dfc-f:chervil",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chervil",
+      "skos:notation": "chervil"
+    },
+    {
+      "@id": "dfc-f:sage",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sage",
+      "skos:notation": "sage"
+    },
+    {
+      "@id": "dfc-f:sauge",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sauge",
+      "skos:notation": "sauge"
+    },
+    {
+      "@id": "dfc-f:parsley",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "parsley",
+      "skos:notation": "parsley"
+    },
+    {
+      "@id": "dfc-f:persil",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "persil",
+      "skos:notation": "persil"
+    },
+    {
+      "@id": "dfc-f:aneth",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "aneth",
+      "skos:notation": "aneth"
+    },
+    {
+      "@id": "dfc-f:dill",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dill",
+      "skos:notation": "dill"
+    },
+    {
+      "@id": "dfc-f:coriander",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "coriander",
+      "skos:notation": "coriander"
+    },
+    {
+      "@id": "dfc-f:coriandre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "coriandre",
+      "skos:notation": "coriandre"
+    },
+    {
+      "@id": "dfc-f:romarin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "romarin",
+      "skos:notation": "romarin"
+    },
+    {
+      "@id": "dfc-f:rosemary",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "rosemary",
+      "skos:notation": "rosemary"
+    },
+    {
+      "@id": "dfc-f:menthe",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "menthe",
+      "skos:notation": "menthe"
+    },
+    {
+      "@id": "dfc-f:mint",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mint",
+      "skos:notation": "mint"
+    },
+    {
+      "@id": "dfc-f:thym",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "thym",
+      "skos:notation": "thym"
+    },
+    {
+      "@id": "dfc-f:thyme",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "thyme",
+      "skos:notation": "thyme"
+    },
+    {
+      "@id": "dfc-f:bayLaurel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bay laurel",
+      "skos:notation": "bay_laurel"
+    },
+    {
+      "@id": "dfc-f:laurier",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "laurier",
+      "skos:notation": "laurier"
+    },
+    {
+      "@id": "dfc-f:tarragon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tarragon",
+      "skos:notation": "tarragon"
+    },
+    {
+      "@id": "dfc-f:estragon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "estragon",
+      "skos:notation": "estragon"
+    },
+    {
+      "@id": "dfc-f:fruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit",
+      "skos:notation": "fruit"
+    },
+    {
+      "@id": "dfc-f:fruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruits",
+      "skos:notation": "fruits"
+    },
+    {
+      "@id": "dfc-f:apples",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "apples",
+      "skos:notation": "apples"
+    },
+    {
+      "@id": "dfc-f:pomme",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pomme",
+      "skos:notation": "pomme"
+    },
+    {
+      "@id": "dfc-f:abricot",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "abricot",
+      "skos:notation": "abricot"
+    },
+    {
+      "@id": "dfc-f:apricot",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "apricot",
+      "skos:notation": "apricot"
+    },
+    {
+      "@id": "dfc-f:berry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "berry",
+      "skos:notation": "berry"
+    },
+    {
+      "@id": "dfc-f:petitFruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "petit fruit",
+      "skos:notation": "petit_fruit"
+    },
+    {
+      "@id": "dfc-f:cherry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cherry",
+      "skos:notation": "cherry"
+    },
+    {
+      "@id": "dfc-f:cerise",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cerise",
+      "skos:notation": "cerise"
+    },
+    {
+      "@id": "dfc-f:clmentine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "clémentine",
+      "skos:notation": "clmentine"
+    },
+    {
+      "@id": "dfc-f:clementine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "clementine",
+      "skos:notation": "clementine"
+    },
+    {
+      "@id": "dfc-f:figue",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "figue",
+      "skos:notation": "figue"
+    },
+    {
+      "@id": "dfc-f:fig",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fig",
+      "skos:notation": "fig"
+    },
+    {
+      "@id": "dfc-f:grape",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "grape",
+      "skos:notation": "grape"
+    },
+    {
+      "@id": "dfc-f:raisin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "raisin",
+      "skos:notation": "raisin"
+    },
+    {
+      "@id": "dfc-f:kiwi",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "kiwi",
+      "skos:notation": "kiwi"
+    },
+    {
+      "@id": "dfc-f:citron",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "citron",
+      "skos:notation": "citron"
+    },
+    {
+      "@id": "dfc-f:lemon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lemon",
+      "skos:notation": "lemon"
+    },
+    {
+      "@id": "dfc-f:mandarine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mandarine",
+      "skos:notation": "mandarine"
+    },
+    {
+      "@id": "dfc-f:mandarin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mandarin",
+      "skos:notation": "mandarin"
+    },
+    {
+      "@id": "dfc-f:nectarine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "nectarine",
+      "skos:notation": "nectarine"
+    },
+    {
+      "@id": "dfc-f:nonLocalFruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "non local fruit",
+      "skos:notation": "non_local_fruit"
+    },
+    {
+      "@id": "dfc-f:fruitNonLocal",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit non local",
+      "skos:notation": "fruit_non_local"
+    },
+    {
+      "@id": "dfc-f:fruitCoque",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit à coque",
+      "skos:notation": "fruit__coque"
+    },
+    {
+      "@id": "dfc-f:nut",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "nut",
+      "skos:notation": "nut"
+    },
+    {
+      "@id": "dfc-f:orange",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "orange",
+      "skos:notation": "orange"
+    },
+    {
+      "@id": "dfc-f:peach",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "peach",
+      "skos:notation": "peach"
+    },
+    {
+      "@id": "dfc-f:pche",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pêche",
+      "skos:notation": "pche"
+    },
+    {
+      "@id": "dfc-f:pear",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pear",
+      "skos:notation": "pear"
+    },
+    {
+      "@id": "dfc-f:poire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "poire",
+      "skos:notation": "poire"
+    },
+    {
+      "@id": "dfc-f:plum",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "plum",
+      "skos:notation": "plum"
+    },
+    {
+      "@id": "dfc-f:prune",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "prune",
+      "skos:notation": "prune"
+    },
+    {
+      "@id": "dfc-f:pruneau",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pruneau",
+      "skos:notation": "pruneau"
+    },
+    {
+      "@id": "dfc-f:quince",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "quince",
+      "skos:notation": "quince"
+    },
+    {
+      "@id": "dfc-f:coing",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "coing",
+      "skos:notation": "coing"
+    },
+    {
+      "@id": "dfc-f:nfle",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "nèfle",
+      "skos:notation": "nfle"
+    },
+    {
+      "@id": "dfc-f:medlar",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "medlar",
+      "skos:notation": "medlar"
+    },
+    {
+      "@id": "dfc-f:blueberry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "blueberry",
+      "skos:notation": "blueberry"
+    },
+    {
+      "@id": "dfc-f:myrtille",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "myrtille",
+      "skos:notation": "myrtille"
+    },
+    {
+      "@id": "dfc-f:currant",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "currant",
+      "skos:notation": "currant"
+    },
+    {
+      "@id": "dfc-f:groseille",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "groseille",
+      "skos:notation": "groseille"
+    },
+    {
+      "@id": "dfc-f:mre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mûre",
+      "skos:notation": "mre"
+    },
+    {
+      "@id": "dfc-f:blackberry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "blackberry",
+      "skos:notation": "blackberry"
+    },
+    {
+      "@id": "dfc-f:framboise",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "framboise",
+      "skos:notation": "framboise"
+    },
+    {
+      "@id": "dfc-f:raspberry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "raspberry",
+      "skos:notation": "raspberry"
+    },
+    {
+      "@id": "dfc-f:gooseberry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "gooseberry",
+      "skos:notation": "gooseberry"
+    },
+    {
+      "@id": "dfc-f:groseilleMaquereau",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "groseille à maquereau",
+      "skos:notation": "groseille__maquereau"
+    },
+    {
+      "@id": "dfc-f:fraise",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fraise",
+      "skos:notation": "fraise"
+    },
+    {
+      "@id": "dfc-f:strawberry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "strawberry",
+      "skos:notation": "strawberry"
+    },
+    {
+      "@id": "dfc-f:blackcurrant",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "blackcurrant",
+      "skos:notation": "blackcurrant"
+    },
+    {
+      "@id": "dfc-f:cassis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cassis",
+      "skos:notation": "cassis"
+    },
+    {
+      "@id": "dfc-f:picerieLocale",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "épicerie locale",
+      "skos:notation": "picerie_locale"
+    },
+    {
+      "@id": "dfc-f:localGroceryStore",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "local grocery store",
+      "skos:notation": "local_grocery_store"
+    },
+    {
+      "@id": "dfc-f:produitsSec",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "produits sec",
+      "skos:notation": "produits_sec"
+    },
+    {
+      "@id": "dfc-f:driedGoods",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dried goods",
+      "skos:notation": "dried_goods"
+    },
+    {
+      "@id": "dfc-f:platCuisin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "plat cuisiné",
+      "skos:notation": "plat_cuisin"
+    },
+    {
+      "@id": "dfc-f:readyMeal",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "ready meal",
+      "skos:notation": "ready_meal"
+    },
+    {
+      "@id": "dfc-f:sweetGroceries",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sweet groceries",
+      "skos:notation": "sweet_groceries"
+    },
+    {
+      "@id": "dfc-f:picerieSucre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "épicerie sucrée",
+      "skos:notation": "picerie_sucre"
+    },
+    {
+      "@id": "dfc-f:processedFruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "processed fruit",
+      "skos:notation": "processed_fruit"
+    },
+    {
+      "@id": "dfc-f:fruitTransform",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit transformé",
+      "skos:notation": "fruit_transform"
+    },
+    {
+      "@id": "dfc-f:cauliflower",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cauliflower",
+      "skos:notation": "cauliflower"
+    },
+    {
+      "@id": "dfc-f:chouFleur",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou-fleur",
+      "skos:notation": "chou_fleur"
+    },
+    {
+      "@id": "dfc-f:lemonade",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lemonade",
+      "skos:notation": "lemonade"
+    },
+    {
+      "@id": "dfc-f:limonade",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "limonade",
+      "skos:notation": "limonade"
+    },
+    {
+      "@id": "dfc-f:boissonNonAlcoolise",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "boisson non alcoolisée",
+      "skos:notation": "boisson_non_alcoolise"
+    },
+    {
+      "@id": "dfc-f:softDrink",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "soft drink",
+      "skos:notation": "soft_drink"
+    },
+    {
+      "@id": "dfc-f:salt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "salt",
+      "skos:notation": "salt"
+    },
+    {
+      "@id": "dfc-f:sel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sel",
+      "skos:notation": "sel"
+    },
+    {
+      "@id": "dfc-f:brusselsSprouts",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "brussels sprouts",
+      "skos:notation": "brussels_sprouts"
+    },
+    {
+      "@id": "dfc-f:chouxDeBruxelles",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "choux de bruxelles",
+      "skos:notation": "choux_de_bruxelles"
+    },
+    {
+      "@id": "dfc-f:drink",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "drink",
+      "skos:notation": "drink"
+    },
+    {
+      "@id": "dfc-f:boisson",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "boisson",
+      "skos:notation": "boisson"
+    },
+    {
+      "@id": "dfc-f:produitLaitier",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "produit laitier",
+      "skos:notation": "produit_laitier"
+    },
+    {
+      "@id": "dfc-f:dairyProduct",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dairy product",
+      "skos:notation": "dairy_product"
+    },
+    {
+      "@id": "dfc-f:bakery",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bakery",
+      "skos:notation": "bakery"
+    },
+    {
+      "@id": "dfc-f:boulangerie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "boulangerie",
+      "skos:notation": "boulangerie"
+    },
+    {
+      "@id": "dfc-f:inedible",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "inedible",
+      "skos:notation": "inedible"
+    },
+    {
+      "@id": "dfc-f:nonAlimentaire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "non alimentaire",
+      "skos:notation": "non_alimentaire"
+    },
+    {
+      "@id": "dfc-f:frozen",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "frozen",
+      "skos:notation": "frozen"
+    },
+    {
+      "@id": "dfc-f:surgel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "surgelé",
+      "skos:notation": "surgel"
+    },
+    {
+      "@id": "dfc-f:hierloomTomato",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "hierloom tomato",
+      "skos:notation": "hierloom_tomato"
+    },
+    {
+      "@id": "dfc-f:tomateAncienne",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tomate ancienne",
+      "skos:notation": "tomate_ancienne"
+    },
+    {
+      "@id": "dfc-f:tomateCerise",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tomate cerise",
+      "skos:notation": "tomate_cerise"
+    },
+    {
+      "@id": "dfc-f:cherryTomato",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cherry tomato",
+      "skos:notation": "cherry_tomato"
+    },
+    {
+      "@id": "dfc-f:roundTomato",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "round tomato",
+      "skos:notation": "round_tomato"
+    },
+    {
+      "@id": "dfc-f:tomateRonde",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tomate ronde",
+      "skos:notation": "tomate_ronde"
+    },
+    {
+      "@id": "dfc-f:tomateEnGrappe",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "tomate en grappe",
+      "skos:notation": "tomate_en_grappe"
+    },
+    {
+      "@id": "dfc-f:clusterTomato",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cluster tomato",
+      "skos:notation": "cluster_tomato"
+    },
+    {
+      "@id": "dfc-f:shellfish",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "shellfish",
+      "skos:notation": "shellfish"
+    },
+    {
+      "@id": "dfc-f:crustacs",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "crustacés",
+      "skos:notation": "crustacs"
+    },
+    {
+      "@id": "dfc-f:fisheryProduct",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fishery product",
+      "skos:notation": "fishery_product"
+    },
+    {
+      "@id": "dfc-f:produitDeLaPche",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "produit de la pêche",
+      "skos:notation": "produit_de_la_pche"
+    },
+    {
+      "@id": "dfc-f:viennoiserie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "viennoiserie",
+      "skos:notation": "viennoiserie"
+    },
+    {
+      "@id": "dfc-f:flake",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "flake",
+      "skos:notation": "flake"
+    },
+    {
+      "@id": "dfc-f:flocon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "flocon",
+      "skos:notation": "flocon"
+    },
+    {
+      "@id": "dfc-f:amande",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "amande",
+      "skos:notation": "amande"
+    },
+    {
+      "@id": "dfc-f:almond",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "almond",
+      "skos:notation": "almond"
+    },
+    {
+      "@id": "dfc-f:chestnut",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chestnut",
+      "skos:notation": "chestnut"
+    },
+    {
+      "@id": "dfc-f:marron",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "marron",
+      "skos:notation": "marron"
+    },
+    {
+      "@id": "dfc-f:noisette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "noisette",
+      "skos:notation": "noisette"
+    },
+    {
+      "@id": "dfc-f:hazelnut",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "hazelnut",
+      "skos:notation": "hazelnut"
+    },
+    {
+      "@id": "dfc-f:noix",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "noix",
+      "skos:notation": "noix"
+    },
+    {
+      "@id": "dfc-f:walnut",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "walnut",
+      "skos:notation": "walnut"
+    },
+    {
+      "@id": "dfc-f:grain",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "grain",
+      "skos:notation": "grain"
+    },
+    {
+      "@id": "dfc-f:crale",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "céréale",
+      "skos:notation": "crale"
+    },
+    {
+      "@id": "dfc-f:sheepNaturalYogurt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheep natural yogurt",
+      "skos:notation": "sheep_natural_yogurt"
+    },
+    {
+      "@id": "dfc-f:yaourtDeBrebisNature",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt de brebis nature",
+      "skos:notation": "yaourt_de_brebis_nature"
+    },
+    {
+      "@id": "dfc-f:produitLaitierDeBrebis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "produit laitier de brebis",
+      "skos:notation": "produit_laitier_de_brebis"
+    },
+    {
+      "@id": "dfc-f:sheepDairyProduct",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheep dairy product",
+      "skos:notation": "sheep_dairy_product"
+    },
+    {
+      "@id": "dfc-f:crmeFrache",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "crème fraîche",
+      "skos:notation": "crme_frache"
+    },
+    {
+      "@id": "dfc-f:freshCream",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fresh cream",
+      "skos:notation": "fresh_cream"
+    },
+    {
+      "@id": "dfc-f:rocket",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "rocket",
+      "skos:notation": "rocket"
+    },
+    {
+      "@id": "dfc-f:roquette",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "roquette",
+      "skos:notation": "roquette"
+    },
+    {
+      "@id": "dfc-f:piePastry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pie pastry",
+      "skos:notation": "pie_pastry"
+    },
+    {
+      "@id": "dfc-f:pteTarte",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pâte à tarte",
+      "skos:notation": "pte__tarte"
+    },
+    {
+      "@id": "dfc-f:morel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "morel",
+      "skos:notation": "morel"
+    },
+    {
+      "@id": "dfc-f:morille",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "morille",
+      "skos:notation": "morille"
+    },
+    {
+      "@id": "dfc-f:fromageFraisDeChvre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fromage frais de chèvre",
+      "skos:notation": "fromage_frais_de_chvre"
+    },
+    {
+      "@id": "dfc-f:goatFreshCheese",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goat fresh cheese",
+      "skos:notation": "goat_fresh_cheese"
+    },
+    {
+      "@id": "dfc-f:produitLaitierDeChvre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "produit laitier de chèvre",
+      "skos:notation": "produit_laitier_de_chvre"
+    },
+    {
+      "@id": "dfc-f:goatDairyProduct",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goat dairy product",
+      "skos:notation": "goat_dairy_product"
+    },
+    {
+      "@id": "dfc-f:smoothCabbage",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "smooth cabbage",
+      "skos:notation": "smooth_cabbage"
+    },
+    {
+      "@id": "dfc-f:chouLisse",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou lisse",
+      "skos:notation": "chou_lisse"
+    },
+    {
+      "@id": "dfc-f:veau",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "veau",
+      "skos:notation": "veau"
+    },
+    {
+      "@id": "dfc-f:veal",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "veal",
+      "skos:notation": "veal"
+    },
+    {
+      "@id": "dfc-f:goatMatureCheese",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goat mature cheese",
+      "skos:notation": "goat_mature_cheese"
+    },
+    {
+      "@id": "dfc-f:fromageDeChvreAffin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fromage de chèvre affiné",
+      "skos:notation": "fromage_de_chvre_affin"
+    },
+    {
+      "@id": "dfc-f:graine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "graine",
+      "skos:notation": "graine"
+    },
+    {
+      "@id": "dfc-f:seed",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "seed",
+      "skos:notation": "seed"
+    },
+    {
+      "@id": "dfc-f:quinoa",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "quinoa",
+      "skos:notation": "quinoa"
+    },
+    {
+      "@id": "dfc-f:beans",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "beans",
+      "skos:notation": "beans"
+    },
+    {
+      "@id": "dfc-f:haricots",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "haricots",
+      "skos:notation": "haricots"
+    },
+    {
+      "@id": "dfc-f:lentilles",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lentilles",
+      "skos:notation": "lentilles"
+    },
+    {
+      "@id": "dfc-f:lentils",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lentils",
+      "skos:notation": "lentils"
+    },
+    {
+      "@id": "dfc-f:peas",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "peas",
+      "skos:notation": "peas"
+    },
+    {
+      "@id": "dfc-f:pois",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pois",
+      "skos:notation": "pois"
+    },
+    {
+      "@id": "dfc-f:viandeBovine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "viande bovine",
+      "skos:notation": "viande_bovine"
+    },
+    {
+      "@id": "dfc-f:beef",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "beef",
+      "skos:notation": "beef"
+    },
+    {
+      "@id": "dfc-f:egg",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "egg",
+      "skos:notation": "egg"
+    },
+    {
+      "@id": "dfc-f:uf",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "œuf",
+      "skos:notation": "uf"
+    },
+    {
+      "@id": "dfc-f:agneau",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "agneau",
+      "skos:notation": "agneau"
+    },
+    {
+      "@id": "dfc-f:lamb",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lamb",
+      "skos:notation": "lamb"
+    },
+    {
+      "@id": "dfc-f:porc",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "porc",
+      "skos:notation": "porc"
+    },
+    {
+      "@id": "dfc-f:pork",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pork",
+      "skos:notation": "pork"
+    },
+    {
+      "@id": "dfc-f:lapin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lapin",
+      "skos:notation": "lapin"
+    },
+    {
+      "@id": "dfc-f:rabbit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "rabbit",
+      "skos:notation": "rabbit"
+    },
+    {
+      "@id": "dfc-f:fromageAffin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fromage affiné",
+      "skos:notation": "fromage_affin"
+    },
+    {
+      "@id": "dfc-f:matureCheese",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mature cheese",
+      "skos:notation": "mature_cheese"
+    },
+    {
+      "@id": "dfc-f:bluefootMushroom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bluefoot mushroom",
+      "skos:notation": "bluefoot_mushroom"
+    },
+    {
+      "@id": "dfc-f:PiedBleu",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pied-bleu",
+      "skos:notation": "Pied_bleu"
+    },
+    {
+      "@id": "dfc-f:cannedVegetable",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "canned vegetable",
+      "skos:notation": "canned_vegetable"
+    },
+    {
+      "@id": "dfc-f:lgumeEnConserve",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "légume en conserve",
+      "skos:notation": "lgume_en_conserve"
+    },
+    {
+      "@id": "dfc-f:fromageAffinDeBrebis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fromage affiné de brebis",
+      "skos:notation": "fromage_affin_de_brebis"
+    },
+    {
+      "@id": "dfc-f:sheepMatureCheese",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheep mature cheese",
+      "skos:notation": "sheep_mature_cheese"
+    },
+    {
+      "@id": "dfc-f:yaourtSucrDeChvre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt sucré de chèvre",
+      "skos:notation": "yaourt_sucr_de_chvre"
+    },
+    {
+      "@id": "dfc-f:goatSweetYogurt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goat sweet yogurt",
+      "skos:notation": "goat_sweet_yogurt"
+    },
+    {
+      "@id": "dfc-f:pastry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pastry",
+      "skos:notation": "pastry"
+    },
+    {
+      "@id": "dfc-f:ptisserie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pâtisserie",
+      "skos:notation": "ptisserie"
+    },
+    {
+      "@id": "dfc-f:chouPomm",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou pommé",
+      "skos:notation": "chou_pomm"
+    },
+    {
+      "@id": "dfc-f:savoyCabbage",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "savoy cabbage",
+      "skos:notation": "savoy_cabbage"
+    },
+    {
+      "@id": "dfc-f:pinards",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "épinards",
+      "skos:notation": "pinards"
+    },
+    {
+      "@id": "dfc-f:spinach",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "spinach",
+      "skos:notation": "spinach"
+    },
+    {
+      "@id": "dfc-f:mlangeDeSalades",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mélange de salades",
+      "skos:notation": "mlange_de_salades"
+    },
+    {
+      "@id": "dfc-f:saladMix",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "salad mix",
+      "skos:notation": "salad_mix"
+    },
+    {
+      "@id": "dfc-f:laitue",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "laitue",
+      "skos:notation": "laitue"
+    },
+    {
+      "@id": "dfc-f:lettuce",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lettuce",
+      "skos:notation": "lettuce"
+    },
+    {
+      "@id": "dfc-f:cornSaladlambsLettuce",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "corn salad/lambs lettuce",
+      "skos:notation": "corn_saladlambs_lettuce"
+    },
+    {
+      "@id": "dfc-f:mche",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mâche",
+      "skos:notation": "mche"
+    },
+    {
+      "@id": "dfc-f:chicory",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chicory",
+      "skos:notation": "chicory"
+    },
+    {
+      "@id": "dfc-f:chicore",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chicorée",
+      "skos:notation": "chicore"
+    },
+    {
+      "@id": "dfc-f:dandelion",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dandelion",
+      "skos:notation": "dandelion"
+    },
+    {
+      "@id": "dfc-f:pissenlit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pissenlit",
+      "skos:notation": "pissenlit"
+    },
+    {
+      "@id": "dfc-f:Purslane",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Purslane",
+      "skos:notation": "Purslane"
+    },
+    {
+      "@id": "dfc-f:Pourpier",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pourpier",
+      "skos:notation": "Pourpier"
+    },
+    {
+      "@id": "dfc-f:mesclun",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mesclun",
+      "skos:notation": "mesclun"
+    },
+    {
+      "@id": "dfc-f:cress",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cress",
+      "skos:notation": "cress"
+    },
+    {
+      "@id": "dfc-f:cresson",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cresson",
+      "skos:notation": "cresson"
+    },
+    {
+      "@id": "dfc-f:endive",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "endive",
+      "skos:notation": "endive"
+    },
+    {
+      "@id": "dfc-f:autreProduitLaitier",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "autre produit laitier",
+      "skos:notation": "autre_produit_laitier"
+    },
+    {
+      "@id": "dfc-f:otherDairyProduct",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "other dairy product",
+      "skos:notation": "other_dairy_product"
+    },
+    {
+      "@id": "dfc-f:dessertLactDeChvre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dessert lacté de chèvre",
+      "skos:notation": "dessert_lact_de_chvre"
+    },
+    {
+      "@id": "dfc-f:goatDairyDessert",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goat dairy dessert",
+      "skos:notation": "goat_dairy_dessert"
+    },
+    {
+      "@id": "dfc-f:goatFlavoredYogurt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goat flavored yogurt",
+      "skos:notation": "goat_flavored_yogurt"
+    },
+    {
+      "@id": "dfc-f:yaourtDeChvreAromatis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt de chèvre aromatisé",
+      "skos:notation": "yaourt_de_chvre_aromatis"
+    },
+    {
+      "@id": "dfc-f:goatNaturalYogurt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goat natural yogurt",
+      "skos:notation": "goat_natural_yogurt"
+    },
+    {
+      "@id": "dfc-f:yaourtNatureDeChvre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt nature de chèvre",
+      "skos:notation": "yaourt_nature_de_chvre"
+    },
+    {
+      "@id": "dfc-f:yaourtDeChvreAuxFruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt de chèvre aux fruits",
+      "skos:notation": "yaourt_de_chvre_aux_fruits"
+    },
+    {
+      "@id": "dfc-f:goatYogurtWithFruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goat yogurt with fruits",
+      "skos:notation": "goat_yogurt_with_fruits"
+    },
+    {
+      "@id": "dfc-f:goatMilk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goat milk",
+      "skos:notation": "goat_milk"
+    },
+    {
+      "@id": "dfc-f:laitDeChvre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lait de chèvre",
+      "skos:notation": "lait_de_chvre"
+    },
+    {
+      "@id": "dfc-f:yaourtDeChvreSurLitDeFruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt de chèvre sur lit de fruits",
+      "skos:notation": "yaourt_de_chvre_sur_lit_de_fruits"
+    },
+    {
+      "@id": "dfc-f:goatYogurtOnABedOfFruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goat yogurt on a bed of fruit",
+      "skos:notation": "goat_yogurt_on_a_bed_of_fruit"
+    },
+    {
+      "@id": "dfc-f:viandeSurgele",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "viande surgelée",
+      "skos:notation": "viande_surgele"
+    },
+    {
+      "@id": "dfc-f:frozenMeat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "frozen meat",
+      "skos:notation": "frozen_meat"
+    },
+    {
+      "@id": "dfc-f:frozenMeal",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "frozen meal",
+      "skos:notation": "frozen_meal"
+    },
+    {
+      "@id": "dfc-f:platSurgel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "plat surgelé",
+      "skos:notation": "plat_surgel"
+    },
+    {
+      "@id": "dfc-f:bottledVegetable",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bottled vegetable",
+      "skos:notation": "bottled_vegetable"
+    },
+    {
+      "@id": "dfc-f:lgumeEnBocal",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "légume en bocal",
+      "skos:notation": "lgume_en_bocal"
+    },
+    {
+      "@id": "dfc-f:biscuit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "biscuit",
+      "skos:notation": "biscuit"
+    },
+    {
+      "@id": "dfc-f:lactaire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lactaire",
+      "skos:notation": "lactaire"
+    },
+    {
+      "@id": "dfc-f:milkyMushroom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "milky mushroom",
+      "skos:notation": "milky_mushroom"
+    },
+    {
+      "@id": "dfc-f:frozenVegetable",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "frozen vegetable",
+      "skos:notation": "frozen_vegetable"
+    },
+    {
+      "@id": "dfc-f:lgumeSurgel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "légume surgelé",
+      "skos:notation": "lgume_surgel"
+    },
+    {
+      "@id": "dfc-f:fish",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fish",
+      "skos:notation": "fish"
+    },
+    {
+      "@id": "dfc-f:poisson",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "poisson",
+      "skos:notation": "poisson"
+    },
+    {
+      "@id": "dfc-f:grillingMeat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "grilling meat",
+      "skos:notation": "grilling_meat"
+    },
+    {
+      "@id": "dfc-f:viandeGriller",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "viande à griller",
+      "skos:notation": "viande__griller"
+    },
+    {
+      "@id": "dfc-f:confiserie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "confiserie",
+      "skos:notation": "confiserie"
+    },
+    {
+      "@id": "dfc-f:confectionery",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "confectionery",
+      "skos:notation": "confectionery"
+    },
+    {
+      "@id": "dfc-f:coulemelle",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "coulemelle",
+      "skos:notation": "coulemelle"
+    },
+    {
+      "@id": "dfc-f:parasolMushroom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "parasol mushroom",
+      "skos:notation": "parasol_mushroom"
+    },
+    {
+      "@id": "dfc-f:butternut",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "butternut",
+      "skos:notation": "butternut"
+    },
+    {
+      "@id": "dfc-f:potiron",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "potiron",
+      "skos:notation": "potiron"
+    },
+    {
+      "@id": "dfc-f:pumpkin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pumpkin",
+      "skos:notation": "pumpkin"
+    },
+    {
+      "@id": "dfc-f:hierloomSquash",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "hierloom squash",
+      "skos:notation": "hierloom_squash"
+    },
+    {
+      "@id": "dfc-f:varitAncienneDeCourge",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "variété ancienne de courge",
+      "skos:notation": "varit_ancienne_de_courge"
+    },
+    {
+      "@id": "dfc-f:uchikiKuriSquash",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "uchiki kuri squash",
+      "skos:notation": "uchiki_kuri_squash"
+    },
+    {
+      "@id": "dfc-f:potimarron",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "potimarron",
+      "skos:notation": "potimarron"
+    },
+    {
+      "@id": "dfc-f:pattypanSquash",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pattypan squash",
+      "skos:notation": "pattypan_squash"
+    },
+    {
+      "@id": "dfc-f:ptisson",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pâtisson",
+      "skos:notation": "ptisson"
+    },
+    {
+      "@id": "dfc-f:bread",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bread",
+      "skos:notation": "bread"
+    },
+    {
+      "@id": "dfc-f:pain",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pain",
+      "skos:notation": "pain"
+    },
+    {
+      "@id": "dfc-f:autreFromage",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "autre fromage",
+      "skos:notation": "autre_fromage"
+    },
+    {
+      "@id": "dfc-f:otherCheese",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "other cheese",
+      "skos:notation": "other_cheese"
+    },
+    {
+      "@id": "dfc-f:autreLait",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "autre lait",
+      "skos:notation": "autre_lait"
+    },
+    {
+      "@id": "dfc-f:otherMilk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "other milk",
+      "skos:notation": "other_milk"
+    },
+    {
+      "@id": "dfc-f:ferment",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "ferment",
+      "skos:notation": "ferment"
+    },
+    {
+      "@id": "dfc-f:aperitif",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "aperitif",
+      "skos:notation": "aperitif"
+    },
+    {
+      "@id": "dfc-f:apritif",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "apéritif",
+      "skos:notation": "apritif"
+    },
+    {
+      "@id": "dfc-f:boissonAlcoolise",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "boisson alcoolisée",
+      "skos:notation": "boisson_alcoolise"
+    },
+    {
+      "@id": "dfc-f:alcoholicBeverage",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "alcoholic beverage",
+      "skos:notation": "alcoholic_beverage"
+    },
+    {
+      "@id": "dfc-f:snack",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "snack",
+      "skos:notation": "snack"
+    },
+    {
+      "@id": "dfc-f:cosmetic",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cosmetic",
+      "skos:notation": "cosmetic"
+    },
+    {
+      "@id": "dfc-f:cosmtique",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cosmétique",
+      "skos:notation": "cosmtique"
+    },
+    {
+      "@id": "dfc-f:cookedMeat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cooked meat",
+      "skos:notation": "cooked_meat"
+    },
+    {
+      "@id": "dfc-f:viandeCuite",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "viande cuite",
+      "skos:notation": "viande_cuite"
+    },
+    {
+      "@id": "dfc-f:charcuterie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "charcuterie",
+      "skos:notation": "charcuterie"
+    },
+    {
+      "@id": "dfc-f:delicatessen",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "delicatessen",
+      "skos:notation": "delicatessen"
+    },
+    {
+      "@id": "dfc-f:viandeFrache",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "viande fraîche",
+      "skos:notation": "viande_frache"
+    },
+    {
+      "@id": "dfc-f:freshMeat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fresh meat",
+      "skos:notation": "fresh_meat"
+    },
+    {
+      "@id": "dfc-f:salaison",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "salaison",
+      "skos:notation": "salaison"
+    },
+    {
+      "@id": "dfc-f:salting",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "salting",
+      "skos:notation": "salting"
+    },
+    {
+      "@id": "dfc-f:pintade",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pintade",
+      "skos:notation": "pintade"
+    },
+    {
+      "@id": "dfc-f:guineaFowl",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "guinea fowl",
+      "skos:notation": "guinea_fowl"
+    },
+    {
+      "@id": "dfc-f:dinde",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dinde",
+      "skos:notation": "dinde"
+    },
+    {
+      "@id": "dfc-f:turkey",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "turkey",
+      "skos:notation": "turkey"
+    },
+    {
+      "@id": "dfc-f:oie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "oie",
+      "skos:notation": "oie"
+    },
+    {
+      "@id": "dfc-f:goose",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "goose",
+      "skos:notation": "goose"
+    },
+    {
+      "@id": "dfc-f:canard",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "canard",
+      "skos:notation": "canard"
+    },
+    {
+      "@id": "dfc-f:duck",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "duck",
+      "skos:notation": "duck"
+    },
+    {
+      "@id": "dfc-f:festivePoultry",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "festive poultry",
+      "skos:notation": "festive_poultry"
+    },
+    {
+      "@id": "dfc-f:volailleFestive",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "volaille festive",
+      "skos:notation": "volaille_festive"
+    },
+    {
+      "@id": "dfc-f:pigeon",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pigeon",
+      "skos:notation": "pigeon"
+    },
+    {
+      "@id": "dfc-f:caille",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "caille",
+      "skos:notation": "caille"
+    },
+    {
+      "@id": "dfc-f:quail",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "quail",
+      "skos:notation": "quail"
+    },
+    {
+      "@id": "dfc-f:digestive",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "digestive",
+      "skos:notation": "digestive"
+    },
+    {
+      "@id": "dfc-f:digestif",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "digestif",
+      "skos:notation": "digestif"
+    },
+    {
+      "@id": "dfc-f:chouRave",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou-rave",
+      "skos:notation": "chou_rave"
+    },
+    {
+      "@id": "dfc-f:kohlrabi",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "kohlrabi",
+      "skos:notation": "kohlrabi"
+    },
+    {
+      "@id": "dfc-f:butter",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "butter",
+      "skos:notation": "butter"
+    },
+    {
+      "@id": "dfc-f:beurre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "beurre",
+      "skos:notation": "beurre"
+    },
+    {
+      "@id": "dfc-f:chouRouge",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou rouge",
+      "skos:notation": "chou_rouge"
+    },
+    {
+      "@id": "dfc-f:redCabbage",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "red cabbage",
+      "skos:notation": "red_cabbage"
+    },
+    {
+      "@id": "dfc-f:chouRomanesco",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou romanesco",
+      "skos:notation": "chou_romanesco"
+    },
+    {
+      "@id": "dfc-f:romanescoCauliflower",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "romanesco cauliflower",
+      "skos:notation": "romanesco_cauliflower"
+    },
+    {
+      "@id": "dfc-f:broccoliCabbage",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "broccoli cabbage",
+      "skos:notation": "broccoli_cabbage"
+    },
+    {
+      "@id": "dfc-f:chouBrocoli",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou brocoli",
+      "skos:notation": "chou_brocoli"
+    },
+    {
+      "@id": "dfc-f:chouFris",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou frisé",
+      "skos:notation": "chou_fris"
+    },
+    {
+      "@id": "dfc-f:curlyKale",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "curly kale",
+      "skos:notation": "curly_kale"
+    },
+    {
+      "@id": "dfc-f:chouKale",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou kale",
+      "skos:notation": "chou_kale"
+    },
+    {
+      "@id": "dfc-f:kale",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "kale",
+      "skos:notation": "kale"
+    },
+    {
+      "@id": "dfc-f:chouChinois",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chou chinois",
+      "skos:notation": "chou_chinois"
+    },
+    {
+      "@id": "dfc-f:chineseCabbage",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chinese cabbage",
+      "skos:notation": "chinese_cabbage"
+    },
+    {
+      "@id": "dfc-f:honey",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "honey",
+      "skos:notation": "honey"
+    },
+    {
+      "@id": "dfc-f:miel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "miel",
+      "skos:notation": "miel"
+    },
+    {
+      "@id": "dfc-f:jam",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "jam",
+      "skos:notation": "jam"
+    },
+    {
+      "@id": "dfc-f:confiture",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "confiture",
+      "skos:notation": "confiture"
+    },
+    {
+      "@id": "dfc-f:frozenFruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "frozen fruit",
+      "skos:notation": "frozen_fruit"
+    },
+    {
+      "@id": "dfc-f:fruitSurgel",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit surgelé",
+      "skos:notation": "fruit_surgel"
+    },
+    {
+      "@id": "dfc-f:coquillage",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "coquillage",
+      "skos:notation": "coquillage"
+    },
+    {
+      "@id": "dfc-f:seashell",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "seashell",
+      "skos:notation": "seashell"
+    },
+    {
+      "@id": "dfc-f:cpes",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cèpes",
+      "skos:notation": "cpes"
+    },
+    {
+      "@id": "dfc-f:porcini",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "porcini",
+      "skos:notation": "porcini"
+    },
+    {
+      "@id": "dfc-f:fruitJuice",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit juice",
+      "skos:notation": "fruit_juice"
+    },
+    {
+      "@id": "dfc-f:jusDeFruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "jus de fruits",
+      "skos:notation": "jus_de_fruits"
+    },
+    {
+      "@id": "dfc-f:buttonMushroom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "button mushroom",
+      "skos:notation": "button_mushroom"
+    },
+    {
+      "@id": "dfc-f:champignonDeParis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "champignon de Paris",
+      "skos:notation": "champignon_de_Paris"
+    },
+    {
+      "@id": "dfc-f:girolle",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "girolle",
+      "skos:notation": "girolle"
+    },
+    {
+      "@id": "dfc-f:girolleMushroom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "girolle mushroom",
+      "skos:notation": "girolle_mushroom"
+    },
+    {
+      "@id": "dfc-f:truffe",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "truffe",
+      "skos:notation": "truffe"
+    },
+    {
+      "@id": "dfc-f:truffle",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "truffle",
+      "skos:notation": "truffle"
+    },
+    {
+      "@id": "dfc-f:PiedDeMouton",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Pied-de-mouton",
+      "skos:notation": "Pied_de_mouton"
+    },
+    {
+      "@id": "dfc-f:sheepfootMushroom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheepfoot mushroom",
+      "skos:notation": "sheepfoot_mushroom"
+    },
+    {
+      "@id": "dfc-f:mousseron",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "mousseron",
+      "skos:notation": "mousseron"
+    },
+    {
+      "@id": "dfc-f:chanterelle",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chanterelle",
+      "skos:notation": "chanterelle"
+    },
+    {
+      "@id": "dfc-f:chanterelleMushroom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "chanterelle mushroom",
+      "skos:notation": "chanterelle_mushroom"
+    },
+    {
+      "@id": "dfc-f:oysterMushroom",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "oyster mushroom",
+      "skos:notation": "oyster_mushroom"
+    },
+    {
+      "@id": "dfc-f:pleurote",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pleurote",
+      "skos:notation": "pleurote"
+    },
+    {
+      "@id": "dfc-f:deathsTrumpet",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "deaths trumpet",
+      "skos:notation": "deaths_trumpet"
+    },
+    {
+      "@id": "dfc-f:trompetteDeLaMort",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "trompette de la mort",
+      "skos:notation": "trompette_de_la_mort"
+    },
+    {
+      "@id": "dfc-f:creamCheese",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cream cheese",
+      "skos:notation": "cream_cheese"
+    },
+    {
+      "@id": "dfc-f:fromageBlanc",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fromage blanc",
+      "skos:notation": "fromage_blanc"
+    },
+    {
+      "@id": "dfc-f:sheepSweetYogurt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheep sweet yogurt",
+      "skos:notation": "sheep_sweet_yogurt"
+    },
+    {
+      "@id": "dfc-f:yaourtSucrDeBrebis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt sucré de brebis",
+      "skos:notation": "yaourt_sucr_de_brebis"
+    },
+    {
+      "@id": "dfc-f:semolina",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "semolina",
+      "skos:notation": "semolina"
+    },
+    {
+      "@id": "dfc-f:semoule",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "semoule",
+      "skos:notation": "semoule"
+    },
+    {
+      "@id": "dfc-f:huile",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "huile",
+      "skos:notation": "huile"
+    },
+    {
+      "@id": "dfc-f:oil",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "oil",
+      "skos:notation": "oil"
+    },
+    {
+      "@id": "dfc-f:cannedGoods",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "canned goods",
+      "skos:notation": "canned_goods"
+    },
+    {
+      "@id": "dfc-f:ptes",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pâtes",
+      "skos:notation": "ptes"
+    },
+    {
+      "@id": "dfc-f:pasta",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pasta",
+      "skos:notation": "pasta"
+    },
+    {
+      "@id": "dfc-f:rice",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "rice",
+      "skos:notation": "rice"
+    },
+    {
+      "@id": "dfc-f:riz",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "riz",
+      "skos:notation": "riz"
+    },
+    {
+      "@id": "dfc-f:yaourtSurLitDeFruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt sur lit de fruits",
+      "skos:notation": "yaourt_sur_lit_de_fruits"
+    },
+    {
+      "@id": "dfc-f:yogurtOnABedOfFruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yogurt on a bed of fruit",
+      "skos:notation": "yogurt_on_a_bed_of_fruit"
+    },
+    {
+      "@id": "dfc-f:pulse",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "pulse",
+      "skos:notation": "pulse"
+    },
+    {
+      "@id": "dfc-f:sheepDairyDessert",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheep dairy dessert",
+      "skos:notation": "sheep_dairy_dessert"
+    },
+    {
+      "@id": "dfc-f:dessertLactDeBrebis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dessert lacté de brebis",
+      "skos:notation": "dessert_lact_de_brebis"
+    },
+    {
+      "@id": "dfc-f:sheepFlavoredYogurt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheep flavored yogurt",
+      "skos:notation": "sheep_flavored_yogurt"
+    },
+    {
+      "@id": "dfc-f:yaourtDeBrebisAromatis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt de brebis aromatisé",
+      "skos:notation": "yaourt_de_brebis_aromatis"
+    },
+    {
+      "@id": "dfc-f:sheepFreshCheese",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheep fresh cheese",
+      "skos:notation": "sheep_fresh_cheese"
+    },
+    {
+      "@id": "dfc-f:FromageFraisDeBrebis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "Fromage frais de brebis",
+      "skos:notation": "Fromage_frais_de_brebis"
+    },
+    {
+      "@id": "dfc-f:laitDeBrebis",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lait de brebis",
+      "skos:notation": "lait_de_brebis"
+    },
+    {
+      "@id": "dfc-f:sheepMilk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheep milk",
+      "skos:notation": "sheep_milk"
+    },
+    {
+      "@id": "dfc-f:sheepYogurtOnABedOfFruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheep yogurt on a bed of fruit",
+      "skos:notation": "sheep_yogurt_on_a_bed_of_fruit"
+    },
+    {
+      "@id": "dfc-f:yaourtDeBrebisSurLitDeFruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt de brebis sur lit de fruits",
+      "skos:notation": "yaourt_de_brebis_sur_lit_de_fruits"
+    },
+    {
+      "@id": "dfc-f:sheepYogurtWithFruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sheep yogurt with fruits",
+      "skos:notation": "sheep_yogurt_with_fruits"
+    },
+    {
+      "@id": "dfc-f:yaourtDeBrebisAuxFruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt de brebis aux fruits",
+      "skos:notation": "yaourt_de_brebis_aux_fruits"
+    },
+    {
+      "@id": "dfc-f:fruitEnCompote",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit en compote",
+      "skos:notation": "fruit_en_compote"
+    },
+    {
+      "@id": "dfc-f:fruitInCompote",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit in compote",
+      "skos:notation": "fruit_in_compote"
+    },
+    {
+      "@id": "dfc-f:fruitEnBocal",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit en bocal",
+      "skos:notation": "fruit_en_bocal"
+    },
+    {
+      "@id": "dfc-f:bottledFruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bottled fruit",
+      "skos:notation": "bottled_fruit"
+    },
+    {
+      "@id": "dfc-f:cannedFruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "canned fruit",
+      "skos:notation": "canned_fruit"
+    },
+    {
+      "@id": "dfc-f:fruitEnConserve",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit en conserve",
+      "skos:notation": "fruit_en_conserve"
+    },
+    {
+      "@id": "dfc-f:fruitSec",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fruit sec",
+      "skos:notation": "fruit_sec"
+    },
+    {
+      "@id": "dfc-f:driedFruit",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dried fruit",
+      "skos:notation": "dried_fruit"
+    },
+    {
+      "@id": "dfc-f:dairyDessert",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dairy dessert",
+      "skos:notation": "dairy_dessert"
+    },
+    {
+      "@id": "dfc-f:dessertLact",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dessert lacté",
+      "skos:notation": "dessert_lact"
+    },
+    {
+      "@id": "dfc-f:freshCheese",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fresh cheese",
+      "skos:notation": "fresh_cheese"
+    },
+    {
+      "@id": "dfc-f:fromageFrais",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fromage frais",
+      "skos:notation": "fromage_frais"
+    },
+    {
+      "@id": "dfc-f:lait",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "lait",
+      "skos:notation": "lait"
+    },
+    {
+      "@id": "dfc-f:milk",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "milk",
+      "skos:notation": "milk"
+    },
+    {
+      "@id": "dfc-f:yaourtNature",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt nature",
+      "skos:notation": "yaourt_nature"
+    },
+    {
+      "@id": "dfc-f:naturalYogurt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "natural yogurt",
+      "skos:notation": "natural_yogurt"
+    },
+    {
+      "@id": "dfc-f:yaourtSucr",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt sucré",
+      "skos:notation": "yaourt_sucr"
+    },
+    {
+      "@id": "dfc-f:sweetYogurt",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "sweet yogurt",
+      "skos:notation": "sweet_yogurt"
+    },
+    {
+      "@id": "dfc-f:yaourtAuxFruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yaourt aux fruits",
+      "skos:notation": "yaourt_aux_fruits"
+    },
+    {
+      "@id": "dfc-f:yogurtWithFruits",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "yogurt with fruits",
+      "skos:notation": "yogurt_with_fruits"
+    },
+    {
+      "@id": "dfc-f:flour",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "flour",
+      "skos:notation": "flour"
+    },
+    {
+      "@id": "dfc-f:farine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "farine",
+      "skos:notation": "farine"
+    },
+    {
+      "@id": "dfc-f:flower",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "flower",
+      "skos:notation": "flower"
+    },
+    {
+      "@id": "dfc-f:fleur",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "fleur",
+      "skos:notation": "fleur"
+    },
+    {
+      "@id": "dfc-f:plant",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "plant",
+      "skos:notation": "plant"
+    },
+    {
+      "@id": "dfc-f:plante",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "plante",
+      "skos:notation": "plante"
+    },
+    {
+      "@id": "dfc-f:aromateSec",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "aromate sec",
+      "skos:notation": "aromate_sec"
+    },
+    {
+      "@id": "dfc-f:driedHerb",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "dried herb",
+      "skos:notation": "dried_herb"
+    },
+    {
+      "@id": "dfc-f:viandeMijoter",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "viande à mijoter",
+      "skos:notation": "viande__mijoter"
+    },
+    {
+      "@id": "dfc-f:simmeringMeat",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "simmering meat",
+      "skos:notation": "simmering_meat"
+    },
+    {
+      "@id": "dfc-f:wine",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "wine",
+      "skos:notation": "wine"
+    },
+    {
+      "@id": "dfc-f:vin",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "vin",
+      "skos:notation": "vin"
+    },
+    {
+      "@id": "dfc-f:beer",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "beer",
+      "skos:notation": "beer"
+    },
+    {
+      "@id": "dfc-f:bire",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "bière",
+      "skos:notation": "bire"
+    },
+    {
+      "@id": "dfc-f:smoothie",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "smoothie",
+      "skos:notation": "smoothie"
+    },
+    {
+      "@id": "dfc-f:cider",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cider",
+      "skos:notation": "cider"
+    },
+    {
+      "@id": "dfc-f:cidre",
+      "@type": [
+        "skos:Concept"
+      ],
+      "skos:prefLabel": "cidre",
+      "skos:notation": "cidre"
+    }
+  ]
+}
