@@ -2,15 +2,18 @@
 """
 Ruby gem generator from LinkML schema.
 
-Generates a complete Ruby gem with semantic objects that faithfully
-represent the LinkML schema, mimicking the datafoodconsortium/connector-ruby
-but with complete class coverage. Generates:
-- All classes with proper inheritance and semantic types
-- All data properties as attr_accessor with initialize parameters
-- All object properties as typed accessors
-- External vocabulary files (SKOS-style) from enums
-- Connector singleton for vocabulary loading and JSON-LD export
-- JSON-LD serialization on every model
+Generates a complete Ruby gem with namespaced semantic objects.
+Architecture:
+- DfcLinkmlConnector::Core::SemanticObject - base class with type registry
+- DfcLinkmlConnector::Core::Connector - instantiable connector (no singleton)
+- DfcLinkmlConnector::Core::JsonLdSerializer
+- DfcLinkmlConnector::Core::VocabularyLoader
+- DfcLinkmlConnector::Models::* - all 85 model classes
+
+Features:
+- Versioned context URLs fetched at runtime via w3id redirects
+- Type registry for JSON-LD import
+- Import feature (shresolve @id references within document)
 
 Usage:
     python3 generate_ruby_gem.py [--output DIR]
@@ -35,6 +38,8 @@ def parse_schema(schema_path: str) -> dict:
         'id': schema.get('id', ''),
         'name': schema.get('name', ''),
         'version': schema.get('version', '0.1.0'),
+        'ontology_version': schema.get('ontology_version', schema.get('version', '0.1.0')),
+        'taxonomy_version': schema.get('taxonomy_version', schema.get('version', '0.1.0')),
         'description': schema.get('description', ''),
     }
 
@@ -46,15 +51,7 @@ def to_snake_case(name: str) -> str:
 
 
 def to_ruby_class_name(name: str) -> str:
-    """Convert a LinkML class name to a valid Ruby class name.
-
-    Handles:
-    - DFC_BusinessOntology_Relation -> DFCBusinessOntologyRelation
-    - Where_Subject -> WhereSubject
-    - What_Subject -> WhatSubject
-    - DefinedProduct -> DefinedProduct  (already CamelCase)
-    - RepresentedThing -> RepresentedThing
-    """
+    """Convert a LinkML class name to a valid Ruby class name."""
     name = re.sub(r'^DFC_BusinessOntology_', '', name)
     name = re.sub(r'^DFC_', '', name)
     parts = name.split('_')
@@ -68,13 +65,13 @@ def to_ruby_class_name(name: str) -> str:
 
 
 def to_file_name(name: str) -> str:
-    """Convert a LinkML class name to a Ruby file name (snake_case)."""
+    """Convert a Ruby class name to a file name (snake_case)."""
     name = re.sub(r'(?<!^)(?=[A-Z])', '_', name)
     return name.lower()
 
 
 def ruby_property_name(slot_name: str) -> str:
-    """Convert a slot name to a Ruby accessor name."""
+    """Convert a slot name to a Ruby accessor name (snake_case)."""
     name = slot_name
     if name.startswith('has'):
         name = name[3:]
@@ -82,21 +79,15 @@ def ruby_property_name(slot_name: str) -> str:
     name = name.lower()
     if name.startswith('_'):
         name = name[1:]
-    if name == 'u_r_l':
-        return 'url'
-    if name == 'v_a_tnumber':
-        return 'vat_number'
-    if name == 'v_a_trate':
-        return 'vat_rate'
-    if name == 'v_a_tstatus':
-        return 'vat_status'
-    if name == 'enterprise_i_d':
-        return 'enterprise_id'
-    if name == 'operator_i_d':
-        return 'operator_id'
-    if name == 'country_code':
-        return 'country_code'
-    return name
+    special = {
+        'u_r_l': 'url',
+        'v_a_tnumber': 'vat_number',
+        'v_a_trate': 'vat_rate',
+        'v_a_tstatus': 'vat_status',
+        'enterprise_i_d': 'enterprise_id',
+        'operator_i_d': 'operator_id',
+    }
+    return special.get(name, name)
 
 
 def ruby_param_name(slot_name: str) -> str:
@@ -108,18 +99,15 @@ def ruby_param_name(slot_name: str) -> str:
     name = name.lower()
     if name.startswith('_'):
         name = name[1:]
-    if name == 'u_r_l':
-        name = 'url'
-    if name == 'v_a_tnumber':
-        name = 'vat_number'
-    if name == 'v_a_trate':
-        name = 'vat_rate'
-    if name == 'v_a_tstatus':
-        name = 'vat_status'
-    if name == 'enterprise_i_d':
-        name = 'enterprise_id'
-    if name == 'operator_i_d':
-        name = 'operator_id'
+    special = {
+        'u_r_l': 'url',
+        'v_a_tnumber': 'vat_number',
+        'v_a_trate': 'vat_rate',
+        'v_a_tstatus': 'vat_status',
+        'enterprise_i_d': 'enterprise_id',
+        'operator_i_d': 'operator_id',
+    }
+    name = special.get(name, name)
     parts = name.split('_')
     return parts[0] + ''.join(p.capitalize() for p in parts[1:])
 
@@ -224,103 +212,483 @@ def is_collection_property(slot_name: str, slot_data: dict) -> bool:
     return False
 
 
-def generate_semantic_model(class_name: str, class_data: dict, schema_data: dict) -> str:
-    """Generate a semantic object model file."""
-    ruby_name = to_ruby_class_name(class_name)
-    parent = get_parent_ruby_class(class_data)
-    description = class_data.get('description', '').replace("'", "'\\''")
-    semantic_type = rdf_prefix_for_class(class_name)
+# ---------------------------------------------------------------------------
+# File generators
+# ---------------------------------------------------------------------------
 
-    data_props = get_data_properties(class_name, schema_data)
-    obj_props = get_object_properties(class_name, schema_data)
 
-    code = f'''# frozen_string_literal: true
+def generate_semantic_object_base() -> str:
+    """Generate the SemanticObject base class with type registry."""
+    return '''# frozen_string_literal: true
 
-# {description}
-require_relative '../semantic_object'
-'''
+require 'json'
+require 'net/http'
+require 'uri'
 
-    if parent != 'SemanticObject':
-        parent_file = to_file_name(parent)
-        code += f"require_relative '{parent_file}'\n"
+module DfcLinkmlConnector
+  module Core
+    # Base class for all DFC semantic objects.
+    # Maintains a type registry for JSON-LD import.
+    class SemanticObject
+      @type_registry = {}
 
-    code += f'''
+      class << self
+        attr_reader :type_registry
 
-class {ruby_name} < {parent}
-  SEMANTIC_TYPE = "{semantic_type}".freeze
+        def inherited(subclass)
+          super
+          if subclass.const_defined?(:SEMANTIC_TYPE)
+            @type_registry[subclass::SEMANTIC_TYPE] = subclass
+          end
+        end
 
-'''
+        def register_type(semantic_type)
+          @type_registry[semantic_type] = self
+        end
+      end
 
-    all_props = []
-    own_props_for_init = []
-    seen_ruby_props = set()
+      attr_accessor :semanticId
+      attr_accessor :semanticType
 
-    for slot_name, slot_data, owner in data_props:
-        prop_name = ruby_property_name(slot_name)
-        if prop_name in seen_ruby_props:
-            continue
-        seen_ruby_props.add(prop_name)
-        rtype = ruby_type_for_slot(slot_data, schema_data)
-        is_collection = False
-        if owner == class_name:
-            code += f'  # @return [{rtype}]\n'
-            code += f'  attr_accessor :{prop_name}\n\n'
-            own_props_for_init.append((slot_name, prop_name, slot_data, is_collection))
-        all_props.append((slot_name, prop_name, slot_data, owner, is_collection))
+      def initialize(semanticId)
+        @semanticId = semanticId
+        @semanticType = nil
+        @semanticProperties = {}
+      end
 
-    for slot_name, slot_data, owner in obj_props:
-        prop_name = ruby_property_name(slot_name)
-        if prop_name in seen_ruby_props:
-            continue
-        seen_ruby_props.add(prop_name)
-        rtype = ruby_type_for_slot(slot_data, schema_data)
-        is_collection = is_collection_property(slot_name, slot_data)
-        if owner == class_name:
-            if is_collection:
-                code += f'  # @return [Array<{rtype}>]\n'
-            else:
-                code += f'  # @return [{rtype}]\n'
-            code += f'  attr_accessor :{prop_name}\n\n'
-            own_props_for_init.append((slot_name, prop_name, slot_data, is_collection))
-        all_props.append((slot_name, prop_name, slot_data, owner, is_collection))
+      def registerSemanticProperty(predicate, &getter)
+        prop = SemanticProperty.new(predicate, &getter)
+        @semanticProperties[predicate] = prop
+        prop
+      end
 
-    if own_props_for_init:
-        all_params = []
-        assignments = []
-        registrations = []
+      def semantic_property_value(predicate)
+        prop = @semanticProperties[predicate]
+        prop&.getter&.call
+      end
 
-        for slot_name, prop_name, slot_data, is_collection in own_props_for_init:
-            param_name = ruby_param_name(slot_name)
-            if is_collection:
-                all_params.append(f'{param_name}: []')
-                assignments.append(f'    @{prop_name} = {param_name}')
-            else:
-                all_params.append(f'{param_name}: nil')
-                assignments.append(f'    @{prop_name} = {param_name}')
-            registrations.append(f'    registerSemanticProperty("{semantic_type}:{slot_name}", &method("{prop_name}")).valueSetter = method("{prop_name}=")')
+      def to_jsonld(context = nil)
+        result = {
+          "@context" => context || default_context,
+          "@id" => @semanticId,
+          "@type" => @semanticType,
+        }
 
-        params_str = ', '.join(all_params)
-        assignments_str = '\n'.join(assignments)
-        registrations_str = '\n'.join(registrations)
+        @semanticProperties.each do |predicate, prop|
+          value = prop.getter.call
+          next if value.nil?
 
-        code += f'''  # @param semanticId [String]
-  # @param {params_str}
-  def initialize(semanticId, {params_str})
-    super(semanticId)
-{assignments_str}
-    self.semanticType = "{semantic_type}"
-{registrations_str}
+          if value.is_a?(Array)
+            next if value.empty?
+            if value.first.is_a?(SemanticObject)
+              result[predicate] = value.map { |v| v.semanticId }
+            else
+              result[predicate] = value
+            end
+          elsif value.is_a?(SemanticObject)
+            result[predicate] = value.semanticId
+          elsif value.is_a?(Numeric)
+            result[predicate] = value
+          else
+            result[predicate] = value.to_s
+          end
+        end
+
+        result
+      end
+
+      def to_json(context = nil)
+        JSON.generate(to_jsonld(context))
+      end
+
+      private
+
+      def default_context
+        Connector.default_context_url
+      end
+
+      class SemanticProperty
+        attr_accessor :predicate
+        attr_accessor :getter
+        attr_accessor :valueSetter
+
+        def initialize(predicate, &getter)
+          @predicate = predicate
+          @getter = getter
+        end
+      end
+    end
   end
+end
+'''
+
+
+def generate_vocabulary_loader(schema_data: dict) -> str:
+    """Generate the VocabularyLoader class with versioned taxonomy URLs."""
+    taxonomy_version = schema_data.get('taxonomy_version', '2.0.0')
+    enum_names = list(schema_data.get('enums', {}).keys())
+
+    enum_methods = ''
+    for enum_name in enum_names:
+        snake = to_snake_case(enum_name)
+        enum_methods += f'''      def {snake}(key = nil)
+        vocab = vocabulary("{enum_name}")
+        key ? vocab[key] : vocab
+      end
 
 '''
 
-    code += 'end\n'
+    code = '''# frozen_string_literal: true
+
+require 'json'
+require 'net/http'
+require 'uri'
+
+module DfcLinkmlConnector
+  module Core
+    # Loads DFC SKOS vocabularies from JSON-LD files.
+    # Supports fetching from versioned w3id URLs or loading local data.
+    class VocabularyLoader
+      TAXONOMY_BASE_URL = "__TAXONOMY_BASE_URL__".freeze
+
+      def initialize(taxonomy_version: "__TAXONOMY_VERSION__")
+        @taxonomy_version = taxonomy_version
+        @vocabularies = {}
+      end
+
+      def load(name, json_data)
+        concepts = {}
+        json_data.fetch("@graph", []).each do |entry|
+          next unless entry["@type"]&.include?("skos:Concept")
+          notation = entry["skos:notation"] || entry["skos:prefLabel"]
+          concepts[notation] = entry
+        end
+        @vocabularies[name] = concepts
+        self
+      end
+
+      def load_from_url(name)
+        url = "#{TAXONOMY_BASE_URL}/#{name.downcase}.json"
+        uri = URI(url)
+        response = Net::HTTP.get_response(uri)
+        raise "Failed to fetch taxonomy from #{url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+        json_data = JSON.parse(response.body)
+        load(name, json_data)
+      end
+
+      def vocabulary(name)
+        @vocabularies[name] || {}
+      end
+
+ENUM_METHODS
+    end
+  end
+end
+'''
+
+    taxonomy_base_url = f'https://w3id.org/dfc/taxonomies/v{taxonomy_version}'
+    code = code.replace('__TAXONOMY_BASE_URL__', taxonomy_base_url)
+    code = code.replace('__TAXONOMY_VERSION__', taxonomy_version)
+    code = code.replace('ENUM_METHODS', enum_methods.rstrip())
     return code
 
 
-def generate_vocabulary_file(enum_name: str, enum_data: dict) -> str:
+def generate_connector_class(schema_data: dict) -> str:
+    """Generate the Connector class (no singleton) with versioned context and import."""
+    ontology_version = schema_data.get('ontology_version', '2.0.0')
+    taxonomy_version = schema_data.get('taxonomy_version', '2.0.0')
+    enum_names = list(schema_data.get('enums', {}).keys())
+
+    context_url = f'https://w3id.org/dfc/ontology/v{ontology_version}/context/context_{ontology_version}.json'
+
+    enum_methods = ''
+    for enum_name in enum_names:
+        snake = to_snake_case(enum_name)
+        enum_methods += f'''      def {snake}
+        @other_vocabularies["{enum_name}"] || @vocab_loader.vocabulary("{enum_name}")
+      end
+
+'''
+
+    code = '''# frozen_string_literal: true
+
+require 'json'
+require 'net/http'
+require 'uri'
+require_relative 'vocabulary_loader'
+require_relative 'json_ld_serializer'
+require_relative 'semantic_object'
+
+module DfcLinkmlConnector
+  module Core
+    # Main connector for DFC data interchange.
+    # Instantiate with specific ontology/taxonomy versions.
+    #
+    #   connector = Connector.new(ontology_version: "2.0.0", taxonomy_version: "2.0.0")
+    #   connector.import(json_ld_string)
+    #   connector.export(some_object)
+    class Connector
+      ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology".freeze
+      TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies".freeze
+
+      class << self
+        def default_context_url
+          @default_context_url ||= "__CONTEXT_URL__"
+        end
+
+        def default_context_url=(url)
+          @default_context_url = url
+        end
+      end
+
+      attr_reader :ontology_version, :taxonomy_version, :vocab_loader
+
+      def initialize(ontology_version: "__ONTOLOGY_VERSION__", taxonomy_version: "__TAXONOMY_VERSION__")
+        @ontology_version = ontology_version
+        @taxonomy_version = taxonomy_version
+        @vocab_loader = VocabularyLoader.new(taxonomy_version: taxonomy_version)
+        @context = nil
+        @facets = {}
+        @measures = {}
+        @product_types = {}
+        @other_vocabularies = {}
+      end
+
+      def context_url
+        "#{ONTOLOGY_BASE_URL}/v#{@ontology_version}/context/context_#{@ontology_version}.json"
+      end
+
+      def context
+        @context ||= _fetch_context
+      end
+
+      def load_facets(json_data)
+        @vocab_loader.load("Facet", json_data)
+        @facets = _build_nested_hash(@vocab_loader.vocabulary("Facet"))
+        self
+      end
+
+      def load_measures(json_data)
+        @vocab_loader.load("Measure", json_data)
+        @measures = _build_nested_hash(@vocab_loader.vocabulary("Measure"))
+        self
+      end
+
+      def load_product_types(json_data)
+        @vocab_loader.load("ProductType", json_data)
+        @product_types = _build_nested_hash(@vocab_loader.vocabulary("ProductType"))
+        self
+      end
+
+      def load_vocabulary(name, json_data)
+        @vocab_loader.load(name, json_data)
+        @other_vocabularies[name] = _build_nested_hash(@vocab_loader.vocabulary(name))
+        self
+      end
+
+      def load_facets_from_url
+        load_facets(_fetch_taxonomy_json("facets"))
+      end
+
+      def load_measures_from_url
+        load_measures(_fetch_taxonomy_json("measures"))
+      end
+
+      def load_product_types_from_url
+        load_product_types(_fetch_taxonomy_json("productTypes"))
+      end
+
+      def export(*objects)
+        JsonLdSerializer.new(context).serialize(*objects)
+      end
+
+      # Import JSON-LD data and return SemanticObject instances.
+      # Resolves @id references within the same document (shallow).
+      def import(json_ld_data)
+        data = json_ld_data.is_a?(String) ? JSON.parse(json_ld_data) : json_ld_data
+
+        entries = data.is_a?(Array) ? data : (data["@graph"] || [data])
+
+        objects_by_id = {}
+        instances = []
+
+        entries.each do |entry|
+          semantic_id = entry["@id"]
+          semantic_type = entry["@type"]
+          next unless semantic_id && semantic_type
+
+          klass = SemanticObject.type_registry[semantic_type]
+          next unless klass
+
+          obj = klass.new(semantic_id)
+          objects_by_id[semantic_id] = obj
+          instances << obj
+        end
+
+        entries.each do |entry|
+          semantic_id = entry["@id"]
+          obj = objects_by_id[semantic_id]
+          next unless obj
+
+          entry.each do |key, value|
+            next if key.start_with?("@")
+            prop_name = _predicate_to_prop_name(key)
+            next unless obj.respond_to?(:"#{prop_name}=")
+
+            if value.is_a?(Array)
+              resolved = value.map do |v|
+                v.is_a?(String) && v.start_with?("http", "/") ? (objects_by_id[v] || v) : v
+              end
+              obj.send(:"#{prop_name}=", resolved)
+            elsif value.is_a?(String) && (value.start_with?("http") || value.start_with?("/"))
+              obj.send(:"#{prop_name}=", objects_by_id[value] || value)
+            else
+              obj.send(:"#{prop_name}=", value)
+            end
+          end
+        end
+
+        instances.length == 1 ? instances.first : instances
+      end
+
+ENUM_METHODS
+      private
+
+      def _fetch_context
+        uri = URI(context_url)
+        response = Net::HTTP.get_response(uri)
+        raise "Failed to fetch context from #{context_url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+        JSON.parse(response.body)
+      rescue => e
+        raise "Failed to load JSON-LD context: #{e.message}"
+      end
+
+      def _fetch_taxonomy_json(name)
+        url = "#{TAXONOMY_BASE_URL}/v#{@taxonomy_version}/#{name}.json"
+        uri = URI(url)
+        response = Net::HTTP.get_response(uri)
+        raise "Failed to fetch taxonomy from #{url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+        JSON.parse(response.body)
+      end
+
+      def _build_nested_hash(concepts)
+        result = {}
+        concepts.each do |key, concept|
+          parts = key.split(/[_\\s]+/)
+          current = result
+          parts.each_with_index do |part, i|
+            normalized = part.downcase.gsub(/[^a-z0-9]/, "_")
+            if i == parts.length - 1
+              current[normalized] = concept
+            else
+              current[normalized] ||= {}
+              current = current[normalized]
+            end
+          end
+        end
+        result
+      end
+
+      def _predicate_to_prop_name(predicate)
+        name = predicate.gsub(/^dfc-b:/, "")
+        if name.start_with?("has")
+          name = name[3..-1]
+        end
+        name = name.gsub(/([A-Z])/, "_\\\\1").downcase
+        name.sub!(/^_/, "")
+        name
+      end
+    end
+  end
+end
+'''
+
+    code = code.replace('__CONTEXT_URL__', context_url)
+    code = code.replace('__ONTOLOGY_VERSION__', ontology_version)
+    code = code.replace('__TAXONOMY_VERSION__', taxonomy_version)
+    code = code.replace('ENUM_METHODS', enum_methods.rstrip())
+    return code
+
+
+def generate_json_ld_serializer() -> str:
+    """Generate the JSON-LD serializer class."""
+    return '''# frozen_string_literal: true
+
+require 'json'
+
+module DfcLinkmlConnector
+  module Core
+    # Serializes DFC semantic objects to JSON-LD.
+    class JsonLdSerializer
+      def initialize(context = nil)
+        @context = context
+      end
+
+      def serialize(*objects)
+        result = {
+          "@context" => @context || Connector.default_context_url,
+        }
+
+        if objects.length == 1
+          obj = objects.first
+          return _serialize_object(obj)
+        end
+
+        graph = []
+        objects.each do |obj|
+          graph << _serialize_object(obj)
+        end
+        result["@graph"] = graph
+        result
+      end
+
+      def to_json(*objects)
+        JSON.pretty_generate(serialize(*objects))
+      end
+
+      private
+
+      def _serialize_object(obj)
+        result = {
+          "@id" => obj.semanticId,
+          "@type" => obj.semanticType,
+        }
+
+        obj.instance_variables.each do |ivar|
+          next if ivar == :@semanticId || ivar == :@semanticType || ivar == :@semanticProperties
+          value = obj.instance_variable_get(ivar)
+          next if value.nil?
+
+          name = ivar.to_s.sub(/^@/, '')
+
+          if value.is_a?(Array)
+            next if value.empty?
+            if value.first.is_a?(SemanticObject)
+              result["dfc-b:#{name}"] = value.map { |v| v.semanticId }
+            else
+              result["dfc-b:#{name}"] = value
+            end
+          elsif value.is_a?(SemanticObject)
+            result["dfc-b:#{name}"] = value.semanticId
+          elsif value.is_a?(Numeric)
+            result["dfc-b:#{name}"] = value
+          else
+            result["dfc-b:#{name}"] = value.to_s
+          end
+        end
+
+        result
+      end
+    end
+  end
+end
+'''
+
+
+def generate_vocabulary_file(enum_name: str, enum_data: dict, schema_data: dict) -> str:
     """Generate a SKOS-style JSON-LD vocabulary file from an enum."""
     pv_data = enum_data.get('permissible_values', {})
+    taxonomy_version = schema_data.get('taxonomy_version', '2.0.0')
 
     concepts = []
     for pv_name, pv_info in pv_data.items():
@@ -338,7 +706,7 @@ def generate_vocabulary_file(enum_name: str, enum_data: dict) -> str:
     vocab = {
         "@context": {
             "skos": "http://www.w3.org/2004/02/skos/core#",
-            "dfc-v": "http://w3id.org/dfc/taxonomies/vocabulary.rdf#",
+            "dfc-v": f"http://w3id.org/dfc/taxonomies/v{taxonomy_version}/vocabulary.rdf#",
         },
         "@graph": [
             {
@@ -353,287 +721,106 @@ def generate_vocabulary_file(enum_name: str, enum_data: dict) -> str:
     return json.dumps(vocab, indent=2, ensure_ascii=False)
 
 
-def generate_vocabulary_loader(schema_data: dict) -> str:
-    """Generate the VocabularyLoader class."""
-    enum_names = list(schema_data.get('enums', {}).keys())
+def generate_semantic_model(class_name: str, class_data: dict, schema_data: dict) -> str:
+    """Generate a semantic object model file wrapped in module namespace."""
+    ruby_name = to_ruby_class_name(class_name)
+    parent_raw = get_parent_ruby_class(class_data)
+    description = class_data.get('description', '').replace("'", "'\\''")
+    semantic_type = rdf_prefix_for_class(class_name)
 
-    code = '''# frozen_string_literal: true
+    data_props = get_data_properties(class_name, schema_data)
+    obj_props = get_object_properties(class_name, schema_data)
 
-# Loads DFC SKOS vocabularies from JSON-LD files.
-class VocabularyLoader
-  def initialize
-    @vocabularies = {}
-  end
+    parent = f"Core::{parent_raw}" if parent_raw != "SemanticObject" else "Core::SemanticObject"
 
-  def load(name, json_data)
-    concepts = {}
-    json_data.fetch("@graph", []).each do |entry|
-      next unless entry["@type"]&.include?("skos:Concept")
-      notation = entry["skos:notation"] || entry["skos:prefLabel"]
-      concepts[notation] = entry
-    end
-    @vocabularies[name] = concepts
-    self
-  end
+    code = f'''# frozen_string_literal: true
 
-  def vocabulary(name)
-    @vocabularies[name] || {}
-  end
+# {description}
+require_relative 'semantic_object'
+'''
 
-  def facet(key)
-    vocabulary("Facet")[key]
-  end
+    if parent_raw != 'SemanticObject':
+        parent_file = to_file_name(parent_raw)
+        code += f"require_relative '{parent_file}'\n"
 
-  def measure(key)
-    vocabulary("Measure")[key]
-  end
+    code += f'''
 
-  def product_type(key)
-    vocabulary("ProductType")[key]
-  end
+module DfcLinkmlConnector
+  module Models
+    class {ruby_name} < {parent}
+      SEMANTIC_TYPE = "{semantic_type}".freeze
 
 '''
 
-    for enum_name in enum_names:
-        snake = to_snake_case(enum_name)
-        code += f'''  def {snake}
-    vocabulary("{enum_name}")
-  end
+    all_props = []
+    own_props_for_init = []
+    seen_ruby_props = set()
+
+    for slot_name, slot_data, owner in data_props:
+        prop_name = ruby_property_name(slot_name)
+        if prop_name in seen_ruby_props:
+            continue
+        seen_ruby_props.add(prop_name)
+        rtype = ruby_type_for_slot(slot_data, schema_data)
+        is_collection = False
+        if owner == class_name:
+            code += f'      # @return [{rtype}]\n'
+            code += f'      attr_accessor :{prop_name}\n\n'
+            own_props_for_init.append((slot_name, prop_name, slot_data, is_collection))
+        all_props.append((slot_name, prop_name, slot_data, owner, is_collection))
+
+    for slot_name, slot_data, owner in obj_props:
+        prop_name = ruby_property_name(slot_name)
+        if prop_name in seen_ruby_props:
+            continue
+        seen_ruby_props.add(prop_name)
+        rtype = ruby_type_for_slot(slot_data, schema_data)
+        is_collection = is_collection_property(slot_name, slot_data)
+        if owner == class_name:
+            if is_collection:
+                code += f'      # @return [Array<{rtype}>]\n'
+            else:
+                code += f'      # @return [{rtype}]\n'
+            code += f'      attr_accessor :{prop_name}\n\n'
+            own_props_for_init.append((slot_name, prop_name, slot_data, is_collection))
+        all_props.append((slot_name, prop_name, slot_data, owner, is_collection))
+
+    if own_props_for_init:
+        all_params = []
+        assignments = []
+        registrations = []
+
+        for slot_name, prop_name, slot_data, is_collection in own_props_for_init:
+            param_name = ruby_param_name(slot_name)
+            if is_collection:
+                all_params.append(f'{param_name}: []')
+                assignments.append(f'        @{prop_name} = {param_name}')
+            else:
+                all_params.append(f'{param_name}: nil')
+                assignments.append(f'        @{prop_name} = {param_name}')
+            registrations.append(f'        registerSemanticProperty("{semantic_type}:{slot_name}", &method("{prop_name}")).valueSetter = method("{prop_name}=")')
+
+        params_str = ', '.join(all_params)
+        assignments_str = '\n'.join(assignments)
+        registrations_str = '\n'.join(registrations)
+
+        code += f'''      # @param semanticId [String]
+      # @param {params_str}
+      def initialize(semanticId, {params_str})
+        super(semanticId)
+{assignments_str}
+        self.semanticType = "{semantic_type}"
+{registrations_str}
+      end
 
 '''
 
-    code += 'end\n'
+    code += '''    end
+  end
+end
+'''
+
     return code
-
-
-def generate_semantic_object_base() -> str:
-    """Generate the SemanticObject base class."""
-    return '''# frozen_string_literal: true
-
-# Base class for all DFC semantic objects.
-# Mimics the VirtualAssembly::Semantizer::SemanticObject interface
-# from the reference connector-ruby implementation.
-class SemanticObject
-  attr_accessor :semanticId
-  attr_accessor :semanticType
-
-  def initialize(semanticId)
-    @semanticId = semanticId
-    @semanticType = nil
-    @semanticProperties = {}
-  end
-
-  def registerSemanticProperty(predicate, &getter)
-    prop = SemanticProperty.new(predicate, &getter)
-    @semanticProperties[predicate] = prop
-    prop
-  end
-
-  def semantic_property_value(predicate)
-    prop = @semanticProperties[predicate]
-    prop&.getter&.call
-  end
-
-  def to_jsonld
-    result = {
-      "@context" => "http://static.datafoodconsortium.org/ontologies/context.json",
-      "@id" => @semanticId,
-      "@type" => @semanticType,
-    }
-
-    @semanticProperties.each do |predicate, prop|
-      value = prop.getter.call
-      next if value.nil?
-
-      if value.is_a?(Array)
-        next if value.empty?
-        if value.first.is_a?(SemanticObject)
-          result[predicate] = value.map { |v| v.semanticId }
-        else
-          result[predicate] = value
-        end
-      elsif value.is_a?(SemanticObject)
-        result[predicate] = value.semanticId
-      elsif value.is_a?(Numeric)
-        result[predicate] = value
-      else
-        result[predicate] = value.to_s
-      end
-    end
-
-    result
-  end
-
-  def to_json
-    JSON.generate(to_jsonld)
-  end
-
-  class SemanticProperty
-    attr_accessor :predicate
-    attr_accessor :getter
-    attr_accessor :valueSetter
-
-    def initialize(predicate, &getter)
-      @predicate = predicate
-      @getter = getter
-    end
-  end
-end
-'''
-
-
-def generate_connector_class(schema_data: dict) -> str:
-    """Generate the Connector singleton class."""
-    enum_names = list(schema_data.get('enums', {}).keys())
-
-    code = '''# frozen_string_literal: true
-
-require 'json'
-require 'singleton'
-require_relative 'vocabulary_loader'
-require_relative 'json_ld_serializer'
-
-# Main connector singleton. Provides vocabulary loading and JSON-LD export.
-class DfcLinkmlConnector
-  include Singleton
-
-  attr_reader :facets, :measures, :product_types
-
-  def initialize
-    @vocab_loader = VocabularyLoader.new
-    @facets = {}
-    @measures = {}
-    @product_types = {}
-    @other_vocabularies = {}
-  end
-
-  def load_facets(json_data)
-    @vocab_loader.load("Facet", json_data)
-    @facets = _build_nested_hash(@vocab_loader.vocabulary("Facet"))
-    self
-  end
-
-  def load_measures(json_data)
-    @vocab_loader.load("Measure", json_data)
-    @measures = _build_nested_hash(@vocab_loader.vocabulary("Measure"))
-    self
-  end
-
-  def load_product_types(json_data)
-    @vocab_loader.load("ProductType", json_data)
-    @product_types = _build_nested_hash(@vocab_loader.vocabulary("ProductType"))
-    self
-  end
-
-  def load_vocabulary(name, json_data)
-    @vocab_loader.load(name, json_data)
-    @other_vocabularies[name] = _build_nested_hash(@vocab_loader.vocabulary(name))
-    self
-  end
-
-  def export(*objects)
-    JsonLdSerializer.new.serialize(*objects)
-  end
-
-'''
-
-    for enum_name in enum_names:
-        snake = to_snake_case(enum_name)
-        code += f'''  def {snake}
-    @other_vocabularies["{enum_name}"] || @vocab_loader.vocabulary("{enum_name}")
-  end
-
-'''
-
-    code += '''  private
-
-  def _build_nested_hash(concepts)
-    result = {}
-    concepts.each do |key, concept|
-      parts = key.split(/[_\\s]+/)
-      current = result
-      parts.each_with_index do |part, i|
-        normalized = part.downcase.gsub(/[^a-z0-9]/, "_")
-        if i == parts.length - 1
-          current[normalized] = concept
-        else
-          current[normalized] ||= {}
-          current = current[normalized]
-        end
-      end
-    end
-    result
-  end
-end
-'''
-    return code
-
-
-def generate_json_ld_serializer() -> str:
-    """Generate the JSON-LD serializer class."""
-    return '''# frozen_string_literal: true
-
-require 'json'
-
-# Serializes DFC semantic objects to JSON-LD.
-class JsonLdSerializer
-  def serialize(*objects)
-    result = {
-      "@context" => "http://static.datafoodconsortium.org/ontologies/context.json",
-    }
-
-    if objects.length == 1
-      obj = objects.first
-      return _serialize_object(obj)
-    end
-
-    graph = []
-    objects.each do |obj|
-      graph << _serialize_object(obj)
-    end
-    result["@graph"] = graph
-    result
-  end
-
-  def to_json(*objects)
-    JSON.pretty_generate(serialize(*objects))
-  end
-
-  private
-
-  def _serialize_object(obj)
-    result = {
-      "@id" => obj.semanticId,
-      "@type" => obj.semanticType,
-    }
-
-    obj.instance_variables.each do |ivar|
-      next if ivar == :@semanticId || ivar == :@semanticType || ivar == :@semanticProperties
-      value = obj.instance_variable_get(ivar)
-      next if value.nil?
-
-      name = ivar.to_s.sub(/^@/, '')
-
-      if value.is_a?(Array)
-        next if value.empty?
-        if value.first.is_a?(SemanticObject)
-          result["dfc-b:#{name}"] = value.map { |v| v.semanticId }
-        else
-          result["dfc-b:#{name}"] = value
-        end
-      elsif value.is_a?(SemanticObject)
-        result["dfc-b:#{name}"] = value.semanticId
-      elsif value.is_a?(Numeric)
-        result["dfc-b:#{name}"] = value
-      else
-        result["dfc-b:#{name}"] = value.to_s
-      end
-    end
-
-    result
-  end
-end
-'''
 
 
 def generate_main_entry_point(schema_data: dict) -> str:
@@ -642,25 +829,26 @@ def generate_main_entry_point(schema_data: dict) -> str:
     requires = []
     for class_name in class_names:
         file_name = to_file_name(to_ruby_class_name(class_name))
-        requires.append(f"require_relative 'connector/{file_name}'")
+        requires.append(f"require_relative 'models/{file_name}'")
 
     requires_str = '\n'.join(requires)
     version = schema_data.get('version', '0.1.0')
+    ontology_version = schema_data.get('ontology_version', version)
+    taxonomy_version = schema_data.get('taxonomy_version', version)
 
     return f'''# frozen_string_literal: true
 
-require 'json'
-require 'singleton'
-
-require_relative 'semantic_object'
-require_relative 'connector/vocabulary_loader'
-require_relative 'connector/json_ld_serializer'
-require_relative 'connector/dfc_linkml_connector'
+require_relative 'core/semantic_object'
+require_relative 'core/vocabulary_loader'
+require_relative 'core/json_ld_serializer'
+require_relative 'core/connector'
 
 {requires_str}
 
 module DfcLinkmlConnector
   VERSION = \'{version}\'
+  ONTOLOGY_VERSION = \'{ontology_version}\'
+  TAXONOMY_VERSION = \'{taxonomy_version}\'
 end
 '''
 
@@ -732,14 +920,22 @@ bundle install
 ```ruby
 require 'dfc_linkml_connector'
 
-connector = DfcLinkmlConnector::DfcLinkmlConnector.instance
+# Create a connector with specific versions
+connector = DfcLinkmlConnector::Core::Connector.new(
+  ontology_version: "2.0.0",
+  taxonomy_version: "2.0.0"
+)
 
-# Load vocabularies
-connector.load_facets(JSON.parse(File.read("vocabularies/facets.jsonld")))
-connector.load_measures(JSON.parse(File.read("vocabularies/measures.jsonld")))
+# Load vocabularies from URLs (via w3id redirects)
+connector.load_facets_from_url
+connector.load_measures_from_url
+connector.load_product_types_from_url
+
+# Or load from local files
+connector.load_facets(JSON.parse(File.read("vocabularies/facet.jsonld")))
 
 # Create objects
-tomato = SuppliedProduct.new(
+tomato = DfcLinkmlConnector::Models::SuppliedProduct.new(
   "https://myplatform.com/tomato",
   name: "Tomato",
   description: "Awesome tomato",
@@ -748,7 +944,19 @@ tomato = SuppliedProduct.new(
 
 # Export to JSON-LD
 puts connector.export(tomato)
+
+# Import from JSON-LD
+data = File.read("export.json")
+objects = connector.import(data)
 ```
+
+## Architecture
+
+- **DfcLinkmlConnector::Core::Connector** - Main connector (instantiable, no singleton)
+- **DfcLinkmlConnector::Core::SemanticObject** - Base class with type registry
+- **DfcLinkmlConnector::Core::JsonLdSerializer** - JSON-LD serialization
+- **DfcLinkmlConnector::Core::VocabularyLoader** - SKOS vocabulary loading
+- **DfcLinkmlConnector::Models::*** - All 85 DFC model classes
 
 ## Vocabularies
 
@@ -791,7 +999,8 @@ def main():
 
     output_dir.mkdir()
     (output_dir / 'lib').mkdir()
-    (output_dir / 'lib' / 'connector').mkdir()
+    (output_dir / 'lib' / 'core').mkdir()
+    (output_dir / 'lib' / 'models').mkdir()
     (output_dir / 'vocabularies').mkdir()
 
     print(f"Generating gem: {gem_name}", file=sys.stderr)
@@ -820,17 +1029,17 @@ def main():
 
     print("\nGenerating library files...", file=sys.stderr)
 
-    (output_dir / 'lib' / 'semantic_object.rb').write_text(generate_semantic_object_base())
-    print("  - lib/semantic_object.rb", file=sys.stderr)
+    (output_dir / 'lib' / 'core' / 'semantic_object.rb').write_text(generate_semantic_object_base())
+    print("  - lib/core/semantic_object.rb", file=sys.stderr)
 
-    (output_dir / 'lib' / 'connector' / 'json_ld_serializer.rb').write_text(generate_json_ld_serializer())
-    print("  - lib/connector/json_ld_serializer.rb", file=sys.stderr)
+    (output_dir / 'lib' / 'core' / 'json_ld_serializer.rb').write_text(generate_json_ld_serializer())
+    print("  - lib/core/json_ld_serializer.rb", file=sys.stderr)
 
-    (output_dir / 'lib' / 'connector' / 'vocabulary_loader.rb').write_text(generate_vocabulary_loader(schema_data))
-    print("  - lib/connector/vocabulary_loader.rb", file=sys.stderr)
+    (output_dir / 'lib' / 'core' / 'vocabulary_loader.rb').write_text(generate_vocabulary_loader(schema_data))
+    print("  - lib/core/vocabulary_loader.rb", file=sys.stderr)
 
-    (output_dir / 'lib' / 'connector' / 'dfc_linkml_connector.rb').write_text(generate_connector_class(schema_data))
-    print("  - lib/connector/dfc_linkml_connector.rb", file=sys.stderr)
+    (output_dir / 'lib' / 'core' / 'connector.rb').write_text(generate_connector_class(schema_data))
+    print("  - lib/core/connector.rb", file=sys.stderr)
 
     (output_dir / 'lib' / 'dfc_linkml_connector.rb').write_text(generate_main_entry_point(schema_data))
     print("  - lib/dfc_linkml_connector.rb", file=sys.stderr)
@@ -838,7 +1047,7 @@ def main():
     print("\nGenerating vocabulary files...", file=sys.stderr)
     vocab_count = 0
     for enum_name, enum_data in schema_data.get('enums', {}).items():
-        content = generate_vocabulary_file(enum_name, enum_data)
+        content = generate_vocabulary_file(enum_name, enum_data, schema_data)
         file_name = to_snake_case(enum_name) + '.jsonld'
         (output_dir / 'vocabularies' / file_name).write_text(content)
         vocab_count += 1
@@ -850,7 +1059,7 @@ def main():
         model_code = generate_semantic_model(class_name, class_data, schema_data)
         ruby_name = to_ruby_class_name(class_name)
         file_name = to_file_name(ruby_name)
-        (output_dir / 'lib' / 'connector' / f'{file_name}.rb').write_text(model_code)
+        (output_dir / 'lib' / 'models' / f'{file_name}.rb').write_text(model_code)
         model_count += 1
     print(f"  - {model_count} model files", file=sys.stderr)
 
