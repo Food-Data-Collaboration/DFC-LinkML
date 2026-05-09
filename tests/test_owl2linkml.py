@@ -11,6 +11,24 @@ from scripts.owl2linkml import (
 )
 
 
+def make_config(ontology_version="2.0.0", taxonomy_version="2.0.0", extra=None):
+    """Create a minimal config dict for tests."""
+    config = {
+        "name": "dfc_business",
+        "ontology_version": ontology_version,
+        "taxonomy_version": taxonomy_version,
+        "prefixes": {
+            "dfc-b": "https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#",
+            "dfc-t": "https://w3id.org/dfc/ontology/src/DFC_TechnicalOntology.owl#",
+            "linkml": "https://w3id.org/linkml/",
+        },
+        "class_description_template": "OWL class: {class_name}",
+    }
+    if extra:
+        config.update(extra)
+    return config
+
+
 class TestSnakeCaseConversion:
     """Test snake_case conversion for slot names."""
 
@@ -107,13 +125,13 @@ class TestOWLImport:
         obj_props = get_object_properties(g)
         subclass_relations = get_subclass_relations(g)
 
+        config = make_config()
         schema = build_linkml_schema(
             classes,
             data_props,
             obj_props,
             subclass_relations,
-            "2.0.0",
-            "2.0.0",
+            config,
         )
 
         assert schema["version"] == "2.0.0"
@@ -148,8 +166,7 @@ class TestOWLImport:
             data_props,
             obj_props,
             subclass_relations,
-            "2.0.0",
-            "2.0.0",
+            make_config(),
         )
 
         assert "id" in schema
@@ -187,8 +204,7 @@ class TestOWLImport:
             data_props,
             obj_props,
             subclass_relations,
-            "2.0.0",
-            "2.0.0",
+            make_config(),
         )
 
         assert "Address" in schema["classes"]
@@ -221,8 +237,7 @@ class TestOWLImport:
             data_props,
             obj_props,
             subclass_relations,
-            "2.0.0",
-            "2.0.0",
+            make_config(),
         )
 
         assert "Enterprise" in schema["classes"]
@@ -254,8 +269,7 @@ class TestOWLImport:
             data_props,
             obj_props,
             subclass_relations,
-            "2.0.0",
-            "2.0.0",
+            make_config(),
         )
 
         city_slot = schema["slots"].get("city")
@@ -287,13 +301,37 @@ class TestTaxonomyEnums:
         obj_props = get_object_properties(g)
         subclass_relations = get_subclass_relations(g)
 
+        config = make_config(taxonomy_version="2.0.0", extra={
+            "taxonomy_enums": {
+                "facets": {
+                    "enum_name": "Facet",
+                    "description": "Classification facets for categorizing DFC entities",
+                },
+                "measures": {
+                    "enum_name": "Measure",
+                    "description": "Measurement units and quantities",
+                },
+                "productTypes": {
+                    "enum_name": "ProductType",
+                    "description": "Product Type classification for categorizing products",
+                },
+                "scopes": {
+                    "enum_name": "Scope",
+                    "description": "Authorization Scope definitions for access control",
+                },
+                "vocabulary": {
+                    "enum_name": "VocabularyTerm",
+                    "description": "Controlled vocabulary terms",
+                },
+            },
+            "taxonomy_base": "https://w3id.org/dfc/taxonomies/v2.0.0",
+        })
         schema = build_linkml_schema(
             classes,
             data_props,
             obj_props,
             subclass_relations,
-            "2.0.0",
-            "2.0.0",
+            config,
         )
 
         expected_enums = ["Facet", "Measure", "ProductType", "Scope", "VocabularyTerm"]
@@ -324,13 +362,37 @@ class TestTaxonomyEnums:
         obj_props = get_object_properties(g)
         subclass_relations = get_subclass_relations(g)
 
+        config = make_config(taxonomy_version="2.0.0", extra={
+            "taxonomy_enums": {
+                "facets": {
+                    "enum_name": "Facet",
+                    "description": "Classification facets for categorizing DFC entities",
+                },
+                "measures": {
+                    "enum_name": "Measure",
+                    "description": "Measurement units and quantities",
+                },
+                "productTypes": {
+                    "enum_name": "ProductType",
+                    "description": "Product Type classification for categorizing products",
+                },
+                "scopes": {
+                    "enum_name": "Scope",
+                    "description": "Authorization Scope definitions for access control",
+                },
+                "vocabulary": {
+                    "enum_name": "VocabularyTerm",
+                    "description": "Controlled vocabulary terms",
+                },
+            },
+            "taxonomy_base": "https://w3id.org/dfc/taxonomies/v2.0.0",
+        })
         schema = build_linkml_schema(
             classes,
             data_props,
             obj_props,
             subclass_relations,
-            "2.0.0",
-            "2.0.0",
+            config,
         )
 
         assert "Scope" in schema["enums"]
@@ -366,13 +428,23 @@ class TestSchemaValidation:
         obj_props = get_object_properties(g)
         subclass_relations = get_subclass_relations(g)
 
+        config = make_config(taxonomy_version="2.0.0", extra={
+            "prefixes": {
+                "dfc-b": "https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#",
+                "dfc-t": "https://w3id.org/dfc/ontology/src/DFC_TechnicalOntology.owl#",
+                "dfc-f": "https://w3id.org/dfc/taxonomies/v2.0.0/facets.rdf#",
+                "dfc-m": "https://w3id.org/dfc/taxonomies/v2.0.0/measures.rdf#",
+                "dfc-pt": "https://w3id.org/dfc/taxonomies/v2.0.0/productTypes.rdf#",
+                "dfc-v": "https://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#",
+                "linkml": "https://w3id.org/linkml/",
+            },
+        })
         schema = build_linkml_schema(
             classes,
             data_props,
             obj_props,
             subclass_relations,
-            "2.0.0",
-            "2.0.0",
+            config,
         )
 
         assert "v2.0.0" in schema["prefixes"]["dfc-f"]
