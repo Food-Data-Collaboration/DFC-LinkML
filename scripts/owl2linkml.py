@@ -25,16 +25,18 @@ Examples:
 """
 
 import argparse
+import json
 import logging
 import re
 import sys
+import urllib.request
 from pathlib import Path
 from typing import Optional
 
 import click
 import yaml
 from rdflib import Graph, Namespace, URIRef
-from rdflib.namespace import OWL, RDF, RDFS
+from rdflib.namespace import OWL, RDF, RDFS, SKOS
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -357,13 +359,14 @@ def build_linkml_schema(
     taxonomy_version: str,
 ) -> dict:
     """Build LinkML schema dictionary."""
+    taxonomy_base = f"https://w3id.org/dfc/taxonomies/v{taxonomy_version}"
     prefixes = {
         "dfc-b": "https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#",
         "dfc-t": "https://w3id.org/dfc/ontology/src/DFC_TechnicalOntology.owl#",
-        "dfc-f": f"http://w3id.org/dfc/taxonomies/v{taxonomy_version}/facets.rdf#",
-        "dfc-m": f"http://w3id.org/dfc/taxonomies/v{taxonomy_version}/measures.rdf#",
-        "dfc-pt": f"http://w3id.org/dfc/taxonomies/v{taxonomy_version}/productTypes.rdf#",
-        "dfc-v": f"http://w3id.org/dfc/taxonomies/v{taxonomy_version}/vocabulary.rdf#",
+        "dfc-f": f"{taxonomy_base}/facets.rdf#",
+        "dfc-m": f"{taxonomy_base}/measures.rdf#",
+        "dfc-pt": f"{taxonomy_base}/productTypes.rdf#",
+        "dfc-v": f"{taxonomy_base}/vocabulary.rdf#",
         "linkml": "https://w3id.org/linkml/",
     }
 
@@ -382,6 +385,8 @@ def build_linkml_schema(
         "slots": {},
         "enums": {},
     }
+
+    schema["enums"] = build_taxonomy_enums(taxonomy_version, taxonomy_base)
 
     slot_definitions = {}
 
@@ -447,6 +452,71 @@ def _to_snake_case(name: str) -> str:
 def fix_class_references(schema: dict) -> None:
     """Fix class references to use proper CamelCase names."""
     pass
+
+
+TAXONOMY_ENUMS = {
+    "facets": {
+        "enum_name": "Facet",
+        "description": "Classification facets for categorizing DFC entities. Values loaded from SKOS taxonomy.",
+        "reachable_from": {
+            "source_ontology": "{base}/facets.json",
+            "source_class": "Concept",
+            "path_navigation": "skos:hasTopConcept/*",
+        },
+    },
+    "measures": {
+        "enum_name": "Measure",
+        "description": "Measurement units and quantities for product measurements. Values loaded from SKOS taxonomy.",
+        "reachable_from": {
+            "source_ontology": "{base}/measures.json",
+            "source_class": "Concept",
+            "path_navigation": "skos:hasTopConcept/*",
+        },
+    },
+    "productTypes": {
+        "enum_name": "ProductType",
+        "description": "Product Type classification for categorizing products. Values loaded from SKOS taxonomy.",
+        "reachable_from": {
+            "source_ontology": "{base}/productTypes.json",
+            "source_class": "Concept",
+            "path_navigation": "skos:hasTopConcept/*",
+        },
+    },
+    "scopes": {
+        "enum_name": "Scope",
+        "description": "Authorization Scope definitions for access control. Values loaded from SKOS taxonomy.",
+        "reachable_from": {
+            "source_ontology": "{base}/scopes.json",
+            "source_class": "Concept",
+            "path_navigation": "skos:hasTopConcept/*",
+        },
+    },
+    "vocabulary": {
+        "enum_name": "VocabularyTerm",
+        "description": "Controlled vocabulary terms for DFC semantic interoperability. Values loaded from SKOS taxonomy.",
+        "reachable_from": {
+            "source_ontology": "{base}/vocabulary.json",
+            "source_class": "Concept",
+            "path_navigation": "skos:hasTopConcept/*",
+        },
+    },
+}
+
+
+def build_taxonomy_enums(taxonomy_version: str, taxonomy_base: str) -> dict:
+    """Build enum definitions with reachable_from pointing to SKOS taxonomy files."""
+    enums = {}
+    for key, config in TAXONOMY_ENUMS.items():
+        source_url = config["reachable_from"]["source_ontology"].format(base=taxonomy_base)
+        enums[config["enum_name"]] = {
+            "description": config["description"],
+            "reachable_from": {
+                "source_ontology": source_url,
+                "source_class": "Concept",
+                "path_navigation": "skos:hasTopConcept/*",
+            },
+        }
+    return enums
 
 
 def save_schema(schema: dict, output_path: Path) -> None:

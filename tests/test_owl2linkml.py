@@ -264,6 +264,85 @@ class TestOWLImport:
         assert "Address" in city_slot["domain"]
 
 
+class TestTaxonomyEnums:
+    """Tests for taxonomy enum generation with reachable_from."""
+
+    def test_enums_have_reachable_from(self):
+        """Test that enums have reachable_from pointing to SKOS taxonomy."""
+        from scripts.owl2linkml import (
+            load_ontology,
+            get_classes,
+            get_data_properties,
+            get_object_properties,
+            get_subclass_relations,
+            build_linkml_schema,
+        )
+
+        ont_url = "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_BusinessOntology.rdf"
+        tech_url = "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_TechnicalOntology.rdf"
+
+        g = load_ontology(ont_url, tech_url, None)
+        classes = get_classes(g)
+        data_props = get_data_properties(g)
+        obj_props = get_object_properties(g)
+        subclass_relations = get_subclass_relations(g)
+
+        schema = build_linkml_schema(
+            classes,
+            data_props,
+            obj_props,
+            subclass_relations,
+            "2.0.0",
+            "2.0.0",
+        )
+
+        expected_enums = ["Facet", "Measure", "ProductType", "Scope", "VocabularyTerm"]
+        for enum_name in expected_enums:
+            assert enum_name in schema["enums"], f"Missing enum: {enum_name}"
+            enum_def = schema["enums"][enum_name]
+            assert "reachable_from" in enum_def, f"Missing reachable_from in {enum_name}"
+            assert "source_ontology" in enum_def["reachable_from"]
+            assert "v2.0.0" in enum_def["reachable_from"]["source_ontology"]
+
+    def test_enum_descriptions_are_descriptive(self):
+        """Test that enum descriptions are descriptive and clear."""
+        from scripts.owl2linkml import (
+            load_ontology,
+            get_classes,
+            get_data_properties,
+            get_object_properties,
+            get_subclass_relations,
+            build_linkml_schema,
+        )
+
+        ont_url = "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_BusinessOntology.rdf"
+        tech_url = "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_TechnicalOntology.rdf"
+
+        g = load_ontology(ont_url, tech_url, None)
+        classes = get_classes(g)
+        data_props = get_data_properties(g)
+        obj_props = get_object_properties(g)
+        subclass_relations = get_subclass_relations(g)
+
+        schema = build_linkml_schema(
+            classes,
+            data_props,
+            obj_props,
+            subclass_relations,
+            "2.0.0",
+            "2.0.0",
+        )
+
+        assert "Scope" in schema["enums"]
+        assert "Authorization" in schema["enums"]["Scope"]["description"]
+        
+        assert "ProductType" in schema["enums"]
+        assert "Product Type" in schema["enums"]["ProductType"]["description"]
+        
+        assert "Facet" in schema["enums"]
+        assert "Classification" in schema["enums"]["Facet"]["description"]
+
+
 class TestSchemaValidation:
     """Tests for schema validation."""
 
