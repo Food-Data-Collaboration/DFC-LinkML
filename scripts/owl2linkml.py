@@ -401,8 +401,8 @@ def build_linkml_schema(
     
     taxonomy_enums_config = config.get("taxonomy_enums", {})
     if taxonomy_enums_config:
-        taxonomy_base = config.get("taxonomy_base", f"https://w3id.org/dfc/taxonomies/v{taxonomy_version}")
-        schema["enums"] = build_taxonomy_enums(taxonomy_enums_config, taxonomy_base)
+        taxonomy_base = config.get("taxonomy_base", "https://w3id.org/dfc/taxonomies")
+        schema["enums"] = build_taxonomy_enums(taxonomy_enums_config, taxonomy_version, taxonomy_base)
 
     slot_definitions = {}
 
@@ -471,17 +471,19 @@ def fix_class_references(schema: dict) -> None:
     pass
 
 
-def build_taxonomy_enums(taxonomy_enums_config: dict, taxonomy_base: str) -> dict:
+def build_taxonomy_enums(taxonomy_enums_config: dict, taxonomy_version: str, taxonomy_base: str) -> dict:
     """Build enum definitions with reachable_from pointing to SKOS taxonomy files.
     
     Args:
         taxonomy_enums_config: Dict of enum configs from config file
-        taxonomy_base: Base URL for taxonomy files
+        taxonomy_version: Version string for taxonomy
+        taxonomy_base: Base URL for taxonomy files (should be without /v{version})
         
     Returns:
         Dict of enum definitions
     """
     enums = {}
+    versioned_base = f"{taxonomy_base}/v{taxonomy_version}"
     for key, config in taxonomy_enums_config.items():
         enum_name = config.get("enum_name", key)
         description = config.get("description", f"Values from {key} taxonomy")
@@ -489,7 +491,7 @@ def build_taxonomy_enums(taxonomy_enums_config: dict, taxonomy_base: str) -> dic
         source_class = config.get("source_class", "Concept")
         path_navigation = config.get("path_navigation", "skos:hasTopConcept/*")
         
-        source_url = f"{taxonomy_base}/{source_path}"
+        source_url = f"{versioned_base}/{source_path}"
         enums[enum_name] = {
             "description": description,
             "reachable_from": {
@@ -591,8 +593,10 @@ def main(
 
     if ontology_url is None:
         default_base = config.get("ontology_base", "https://w3id.org/dfc/ontology")
-        filename = config.get("technical_filename", "src/DFC_TechnicalOntology.rdf")
-        technical_url = get_default_url(ontology_version, default_base, filename)
+        ontology_filename = config.get("ontology_filename", "src/DFC_BusinessOntology.rdf")
+        technical_filename = config.get("technical_filename", "src/DFC_TechnicalOntology.rdf")
+        ontology_url = get_default_url(ontology_version, default_base, ontology_filename)
+        technical_url = get_default_url(ontology_version, default_base, technical_filename)
 
     logger.info(f"Ontology URL: {ontology_url}")
     logger.info(f"Ontology version: {ontology_version}")
