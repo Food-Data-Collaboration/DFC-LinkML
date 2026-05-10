@@ -48,7 +48,7 @@ class TestSnakeCaseConversion:
         """Test special case handling."""
         assert _to_snake_case("u_r_l") == "url"
         assert _to_snake_case("vATNumber") == "v_a_t_number"
-        assert _to_snake_case("enterpriseID") == "enterprise_id"
+        assert _to_snake_case("organizationID") == "organization_id"
 
     def test_multiple_capitals(self):
         """Test handling of multiple capitals."""

@@ -460,7 +460,7 @@ def _to_snake_case(name: str) -> str:
         "v_a_tnumber": "vat_number",
         "v_a_trate": "vat_rate",
         "v_a_tstatus": "vat_status",
-        "enterprise_i_d": "enterprise_id",
+        "organization_i_d": "organization_id",
         "operator_i_d": "operator_id",
     }
     return special_cases.get(name, name)
