@@ -128,6 +128,7 @@ def get_all_slots_for_class(class_name: str, schema_data: dict):
     classes = schema_data['classes']
     slots = schema_data['slots']
     hierarchy = get_class_hierarchy(class_name, classes)
+    existing_class_names = set(classes.keys())
 
     seen = set()
     for cls in hierarchy:
@@ -136,6 +137,24 @@ def get_all_slots_for_class(class_name: str, schema_data: dict):
             if domain == cls and slot_name not in seen:
                 seen.add(slot_name)
                 yield slot_name, slot_data, cls
+
+        # For root classes, also include orphaned-domain slots
+        # whose domain references only non-existent classes.
+        is_root = not classes.get(cls, {}).get('is_a')
+        if is_root:
+            for slot_name, slot_data in slots.items():
+                if slot_name in seen:
+                    continue
+                domain = slot_data.get('domain', '')
+                if isinstance(domain, str):
+                    orphaned = bool(domain) and domain not in existing_class_names
+                elif isinstance(domain, list):
+                    orphaned = len(domain) > 0 and all(d not in existing_class_names for d in domain)
+                else:
+                    orphaned = False
+                if orphaned:
+                    seen.add(slot_name)
+                    yield slot_name, slot_data, cls
 
 
 def get_data_properties(class_name: str, schema_data: dict) -> list:

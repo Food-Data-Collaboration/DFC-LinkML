@@ -1,0 +1,149 @@
+// Class from DFC Business Ontology: #DefinedProduct
+import { SemanticObject } from "../core/SemanticObject.js";
+import { WhatSubject, type WhatSubjectParams } from "./WhatSubject.js";
+import type { ProductOption } from "./ProductOption.js";
+import type { QuantitativeValue } from "./QuantitativeValue.js";
+
+export interface DefinedProductParams extends WhatSubjectParams {
+  image?: string;
+  url?: string;
+  brand?: string;
+  claim?: string;
+  hasPercentageOfAlcoholByVolume?: number;
+  lifetime?: number;
+  physicalCharacteristics?: string[];
+  quantity?: number;
+  specificCondition?: string;
+  composes?: string[];
+  consumedBy?: string;
+  hasAllergenCharacteristic?: string;
+  hasBrand?: string;
+  hasCertification?: string;
+  hasCharacteristic?: string;
+  hasClaim?: string;
+  hasContainerInformation?: string;
+  hasGeographicalOrigin?: string;
+  hasIngredient?: string;
+  hasLabellingCharacteristic?: string;
+  hasNatureOrigin?: string;
+  hasNutrientCharacteristic?: string;
+  hasPartOrigin?: string;
+  hasPhysicalCharacteristic?: string;
+  hasType?: string;
+  hasUnit?: string;
+  hasVariant?: string;
+  processOf?: string;
+  referencedBy?: string;
+  hasQuantity?: QuantitativeValue;
+  hasReferenceProductOption?: ProductOption;
+}
+export class DefinedProduct extends WhatSubject {
+  static get SEMANTIC_TYPE(): string {
+    return "dfc-b:DefinedProduct";
+  }
+
+  image?: string;
+  url?: string;
+  brand?: string;
+  claim?: string;
+  hasPercentageOfAlcoholByVolume?: number;
+  lifetime?: number;
+  physicalCharacteristics?: string[];
+  quantity?: number;
+  specificCondition?: string;
+  composes?: string[];
+  consumedBy?: string;
+  hasAllergenCharacteristic?: string;
+  hasBrand?: string;
+  hasCertification?: string;
+  hasCharacteristic?: string;
+  hasClaim?: string;
+  hasContainerInformation?: string;
+  hasGeographicalOrigin?: string;
+  hasIngredient?: string;
+  hasLabellingCharacteristic?: string;
+  hasNatureOrigin?: string;
+  hasNutrientCharacteristic?: string;
+  hasPartOrigin?: string;
+  hasPhysicalCharacteristic?: string;
+  hasType?: string;
+  hasUnit?: string;
+  hasVariant?: string;
+  processOf?: string;
+  referencedBy?: string;
+  hasQuantity?: QuantitativeValue;
+  hasReferenceProductOption?: ProductOption;
+
+  constructor(
+    semanticId: string,
+    params?: DefinedProductParams,
+  ) {
+    super(semanticId, params);
+    this.image = params?.image;
+    this.url = params?.url;
+    this.brand = params?.brand;
+    this.claim = params?.claim;
+    this.hasPercentageOfAlcoholByVolume = params?.hasPercentageOfAlcoholByVolume;
+    this.lifetime = params?.lifetime;
+    this.physicalCharacteristics = params?.physicalCharacteristics;
+    this.quantity = params?.quantity;
+    this.specificCondition = params?.specificCondition;
+    this.composes = params?.composes;
+    this.consumedBy = params?.consumedBy;
+    this.hasAllergenCharacteristic = params?.hasAllergenCharacteristic;
+    this.hasBrand = params?.hasBrand;
+    this.hasCertification = params?.hasCertification;
+    this.hasCharacteristic = params?.hasCharacteristic;
+    this.hasClaim = params?.hasClaim;
+    this.hasContainerInformation = params?.hasContainerInformation;
+    this.hasGeographicalOrigin = params?.hasGeographicalOrigin;
+    this.hasIngredient = params?.hasIngredient;
+    this.hasLabellingCharacteristic = params?.hasLabellingCharacteristic;
+    this.hasNatureOrigin = params?.hasNatureOrigin;
+    this.hasNutrientCharacteristic = params?.hasNutrientCharacteristic;
+    this.hasPartOrigin = params?.hasPartOrigin;
+    this.hasPhysicalCharacteristic = params?.hasPhysicalCharacteristic;
+    this.hasType = params?.hasType;
+    this.hasUnit = params?.hasUnit;
+    this.hasVariant = params?.hasVariant;
+    this.processOf = params?.processOf;
+    this.referencedBy = params?.referencedBy;
+    this.hasQuantity = params?.hasQuantity;
+    this.hasReferenceProductOption = params?.hasReferenceProductOption;
+    this.semanticType = DefinedProduct.SEMANTIC_TYPE;
+    this.registerSemanticProperty("dfc-b:DefinedProduct:image", () => this.image);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:url", () => this.url);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:brand", () => this.brand);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:claim", () => this.claim);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_percentage_of_alcohol_by_volume", () => this.hasPercentageOfAlcoholByVolume);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:lifetime", () => this.lifetime);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:physical_characteristics", () => this.physicalCharacteristics);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:quantity", () => this.quantity);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:specific_condition", () => this.specificCondition);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:composes", () => this.composes);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:consumed_by", () => this.consumedBy);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_allergen_characteristic", () => this.hasAllergenCharacteristic);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_brand", () => this.hasBrand);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_certification", () => this.hasCertification);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_characteristic", () => this.hasCharacteristic);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_claim", () => this.hasClaim);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_container_information", () => this.hasContainerInformation);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_geographical_origin", () => this.hasGeographicalOrigin);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_ingredient", () => this.hasIngredient);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_labelling_characteristic", () => this.hasLabellingCharacteristic);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_nature_origin", () => this.hasNatureOrigin);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_nutrient_characteristic", () => this.hasNutrientCharacteristic);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_part_origin", () => this.hasPartOrigin);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_physical_characteristic", () => this.hasPhysicalCharacteristic);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_type", () => this.hasType);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_unit", () => this.hasUnit);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_variant", () => this.hasVariant);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:process_of", () => this.processOf);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:referenced_by", () => this.referencedBy);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_quantity", () => this.hasQuantity);
+    this.registerSemanticProperty("dfc-b:DefinedProduct:has_reference_product_option", () => this.hasReferenceProductOption);
+  }
+  static {
+    SemanticObject.typeRegistry.set(DefinedProduct.SEMANTIC_TYPE, DefinedProduct);
+  }
+}
