@@ -156,17 +156,46 @@ describe("Import/Export", () => {
     expect(exported["@type"]).toBe("dfc-b:SuppliedProduct");
   });
 
-  it("import/export round-trips single object", async () => {
+  it("import/export round-trips single object and preserves scalar properties", async () => {
     const c = new Connector();
     const original = c.createSuppliedProduct("http://myplatform.com/tomato", {
       description: "Round trip test",
       frozen: true,
+      totalTheoriticalStock: 100,
     });
     const exported = await c.export(original);
     const imported = c.import(exported);
     const obj = Array.isArray(imported) ? imported[0] : imported;
     expect(obj.semanticId).toBe("http://myplatform.com/tomato");
     expect(obj.semanticType).toBe("dfc-b:SuppliedProduct");
+    expect((obj as SuppliedProduct).description).toBe("Round trip test");
+    expect((obj as SuppliedProduct).frozen).toBe(true);
+    expect((obj as SuppliedProduct).totalTheoriticalStock).toBe(100);
+  });
+
+  it("import/export round-trip resolves @id references to objects", async () => {
+    const c = new Connector();
+    const org1 = c.createOrganization("http://example.com/org1", {
+      name: "Farm Org",
+      isCertifiedBy: "http://example.com/org2",
+    });
+    const org2 = c.createOrganization("http://example.com/org2", {
+      name: "Certifier Org",
+    });
+    const exported = await c.export(org1, org2);
+    const imported = c.import(exported);
+    expect(Array.isArray(imported)).toBe(true);
+    if (Array.isArray(imported)) {
+      const result = imported as Organization[];
+      const resultOrg1 = result.find(o => o.semanticId === "http://example.com/org1");
+      const resultOrg2 = result.find(o => o.semanticId === "http://example.com/org2");
+      expect(resultOrg1).toBeDefined();
+      expect(resultOrg2).toBeDefined();
+      expect((resultOrg1 as Organization).name).toBe("Farm Org");
+      expect((resultOrg2 as Organization).name).toBe("Certifier Org");
+      expect(typeof (resultOrg1 as Organization).isCertifiedBy).toBe("object");
+      expect((resultOrg1 as Organization).isCertifiedBy).toBe(resultOrg2);
+    }
   });
 });
 
@@ -391,6 +420,32 @@ describe("Import/Export extended", () => {
       expect(result[0].semanticType).toBe("dfc-b:Organization");
       expect(result[1].semanticType).toBe("dfc-b:Person");
       expect(result[2].semanticType).toBe("dfc-b:PhysicalProduct");
+    }
+  });
+
+  it("import/export round-trips multiple objects in @graph with properties intact", async () => {
+    const c = new Connector();
+    const org = c.createOrganization("http://example.com/org1", {
+      name: "Test Org",
+      vatNumber: "FR123456789",
+      vatStatus: true,
+    });
+    const person = c.createPerson("http://example.com/person1", {
+      name: "John Doe",
+      email: "john@example.com",
+    });
+    const exported = await c.export(org, person);
+    const imported = c.import(exported);
+    expect(Array.isArray(imported)).toBe(true);
+    if (Array.isArray(imported)) {
+      expect(imported).toHaveLength(2);
+      const resultOrg = imported.find(o => o.semanticId === "http://example.com/org1") as Organization;
+      const resultPerson = imported.find(o => o.semanticId === "http://example.com/person1") as Person;
+      expect(resultOrg.name).toBe("Test Org");
+      expect(resultOrg.vatNumber).toBe("FR123456789");
+      expect(resultOrg.vatStatus).toBe(true);
+      expect(resultPerson.name).toBe("John Doe");
+      expect(resultPerson.email).toBe("john@example.com");
     }
   });
 
