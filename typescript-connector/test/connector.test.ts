@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from "vitest";
+import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
 import * as fs from "fs";
 import { Connector, SuppliedProduct, Address, SemanticObject, WhatSubject, WhereSubject, WhoSubject, HowSubject, Organization, Person, Price, Offer, CatalogItem, PhysicalProduct, DefinedProduct } from "../src/index.js";
 
@@ -115,6 +115,17 @@ describe("Address", () => {
 });
 
 describe("Import/Export", () => {
+  beforeAll(() => {
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({}),
+    });
+  });
+
+  afterAll(() => {
+    vi.restoreAllMocks();
+  });
+
   it("imports JSON-LD and creates objects", () => {
     const c = new Connector();
     const jsonLd = {

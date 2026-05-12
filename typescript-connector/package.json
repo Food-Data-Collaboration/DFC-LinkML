@@ -8,10 +8,23 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Food-Data-Collaboration/DFC-LinkML.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Food-Data-Collaboration/DFC-LinkML/issues"
+  },
+  "homepage": "https://github.com/Food-Data-Collaboration/DFC-LinkML#readme",
+  "keywords": ["dfc", "food", "data", "ontology", "linkml", "json-ld"],
   "scripts": {
     "build": "tsc",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepublishOnly": "npm test && npm run build"
   },
   "devDependencies": {
     "typescript": "^5.4.0",
