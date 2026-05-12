@@ -1,7 +1,7 @@
 {
   "@context": {
     "skos": "http://www.w3.org/2004/02/skos/core#",
-    "dfc-v": "http://w3id.org/dfc/taxonomies/vocabulary.rdf#"
+    "dfc-v": "http://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#"
   },
   "@graph": [
     {
