@@ -519,9 +519,11 @@ export class Connector {
     }
     predicateToPropName(predicate) {
         let name = predicate.replace(/^dfc-b:/, "");
-        if (name.startsWith("has")) {
-            name = name.slice(3);
+        const colonIndex = name.indexOf(":");
+        if (colonIndex !== -1) {
+            name = name.slice(colonIndex + 1);
         }
+        name = name.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
         name = name.charAt(0).toLowerCase() + name.slice(1);
         return name;
     }

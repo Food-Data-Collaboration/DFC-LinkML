@@ -33,6 +33,9 @@ describe("Connector", () => {
     const facet = c.facet;
     expect(facet).toBeDefined();
     expect(typeof facet).toBe("object");
+    expect(Object.keys(facet).length).toBeGreaterThan(0);
+    const measure = c.measure;
+    expect(Object.keys(measure).length).toBeGreaterThan(0);
   });
 });
 

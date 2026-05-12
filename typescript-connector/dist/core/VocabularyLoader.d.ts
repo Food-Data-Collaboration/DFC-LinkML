@@ -4,6 +4,7 @@ export declare class VocabularyLoader {
     constructor(taxonomyVersion?: string);
     get taxonomyBaseUrl(): string;
     load(name: string, jsonData: Record<string, unknown>): this;
+    private extractConceptKey;
     loadFromUrl(name: string): Promise<this>;
     vocabulary(name: string): Record<string, unknown>;
     facet(key?: string): unknown;
