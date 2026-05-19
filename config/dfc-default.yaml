@@ -1,0 +1,57 @@
+# DFC LinkML Schema Configuration
+# Used by owl2linkml.py to generate LinkML schema from OWL ontology
+
+ontology:
+  name: dfc_business
+  title: "DFC Business Ontology"
+  description: "DFC schema suite"
+
+# Base URL for versioned ontology files (version is appended as /v{version}/)
+ontology_base: "https://w3id.org/dfc/ontology"
+ontology_filename: "src/DFC_BusinessOntology.rdf"
+technical_filename: "src/DFC_TechnicalOntology.rdf"
+
+prefixes:
+  dfc-b: "https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#"
+  dfc-t: "https://w3id.org/dfc/ontology/src/DFC_TechnicalOntology.owl#"
+  linkml: "https://w3id.org/linkml/"
+
+# Taxonomy base URL for enum reachable_from
+taxonomy_base: "https://w3id.org/dfc/taxonomies"
+
+skip_classes:
+  - Thing
+  - Entity
+  - DFC_BusinessOntology_Subject
+  - DFC_BusinessOntology_Relation
+  - DFC_BusinessOntology_Characteristic
+  - DFC_Interface
+  - DFC_Interface_Property
+  - DFC_BusinessOntology_ObjectProperty
+
+skip_properties:
+  - topObjectProperty
+  - topDataProperty
+  - topAnnotationProperty
+  - deprecated
+  - versionInfo
+
+# Template for class descriptions
+class_description_template: "Class from DFC Business Ontology: #{class_name}"
+
+taxonomy_enums:
+  facets:
+    enum_name: Facet
+    description: "Classification facets for categorizing DFC entities. Values loaded from SKOS taxonomy."
+  measures:
+    enum_name: Measure
+    description: "Measurement units and quantities for product measurements. Values loaded from SKOS taxonomy."
+  productTypes:
+    enum_name: ProductType
+    description: "Product Type classification for categorizing products. Values loaded from SKOS taxonomy."
+  scopes:
+    enum_name: Scope
+    description: "Authorization Scope definitions for access control. Values loaded from SKOS taxonomy."
+  vocabulary:
+    enum_name: VocabularyTerm
+    description: "Controlled vocabulary terms for DFC semantic interoperability. Values loaded from SKOS taxonomy."

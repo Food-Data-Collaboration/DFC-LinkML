@@ -1,0 +1,2232 @@
+id: https://example.org/ontology
+name: ontology
+title: Generated from OWL
+description: Generated LinkML schema
+version: 2.0.0
+prefixes:
+  dfc-b: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+  dfc-t: https://w3id.org/dfc/ontology/src/DFC_TechnicalOntology.owl#
+  linkml: https://w3id.org/linkml/
+imports:
+- linkml:types
+default_prefix: dfc-b
+classes:
+  Address:
+    description: 'Class from DFC Business Ontology: #Address'
+    is_a: Where_Subject
+    slots:
+    - city
+    - country
+    - latitude
+    - longitude
+    - postcode
+    - region
+    - street
+    - address_of
+    - has_country
+  Agent:
+    description: 'Class from DFC Business Ontology: #Agent'
+    is_a: Who_Subject
+    slots:
+    - email
+    - logo
+    - website_page
+    - affiliated_to
+    - has_address
+    - has_phone_number
+    - has_social_media
+    - is_member_of
+    - orders
+    - owns
+    - requests
+    - sells
+  AllergenCharacteristic:
+    description: 'Class from DFC Business Ontology: #AllergenCharacteristic'
+    slots:
+    - allergen_characteristic_of
+    - has_allergen_dimension
+  AsPlannedConsumptionFlow:
+    description: 'Class from DFC Business Ontology: #AsPlannedConsumptionFlow'
+    is_a: ConsumptionFlow
+  AsPlannedLocalConsumptionFlow:
+    description: 'Class from DFC Business Ontology: #AsPlannedLocalConsumptionFlow'
+    is_a: ConsumptionFlow
+  AsPlannedLocalProductionFlow:
+    description: 'Class from DFC Business Ontology: #AsPlannedLocalProductionFlow'
+    is_a: ProductionFlow
+  AsPlannedLocalTransformation:
+    description: 'Class from DFC Business Ontology: #AsPlannedLocalTransformation'
+    is_a: Transformation
+    slots:
+    - cost
+    - end_date
+    - start_date
+    - has_input
+    - has_output
+    - transformed_by
+  AsPlannedProductionFlow:
+    description: 'Class from DFC Business Ontology: #AsPlannedProductionFlow'
+    is_a: ProductionFlow
+  AsPlannedTransformation:
+    description: 'Class from DFC Business Ontology: #AsPlannedTransformation'
+    is_a: Transformation
+    slots:
+    - has_input
+    - has_output
+    - has_transformation_type
+  AsRealizedConsumptionFlow:
+    description: 'Class from DFC Business Ontology: #AsRealizedConsumptionFlow'
+    is_a: ConsumptionFlow
+  AsRealizedProductionFlow:
+    description: 'Class from DFC Business Ontology: #AsRealizedProductionFlow'
+    is_a: ProductionFlow
+  AsRealizedTransformation:
+    description: 'Class from DFC Business Ontology: #AsRealizedTransformation'
+    is_a: Transformation
+    slots:
+    - cost
+    - end_date
+    - start_date
+    - has_input
+    - has_output
+  Brand:
+    description: 'Class from DFC Business Ontology: #Brand'
+    is_a: What_Subject
+    slots:
+    - brand_of
+    - owned_by
+  Catalog:
+    description: 'Class from DFC Business Ontology: #Catalog'
+    is_a: Where_Subject
+    slots:
+    - end_date
+    - start_date
+    - lists
+    - maintained_by
+  CatalogItem:
+    description: 'Class from DFC Business Ontology: #CatalogItem'
+    slots:
+    - extra_availability_time
+    - extra_delivery_condition
+    - sku
+    - stock_limitation
+    - listed_in
+    - managed_by
+    - offered_through
+    - references
+  Certfication:
+    description: 'Class from DFC Business Ontology: #Certfication'
+    is_a: What_Subject
+    slots:
+    - certifer_reference
+    - certification_score
+    - operator_id
+    - certifies
+  Collection:
+    description: 'Class from DFC Business Ontology: #Collection'
+  Concept:
+    description: 'Class from DFC Business Ontology: #Concept'
+    slots:
+    - certificate_of
+    - claim_of
+    - container_information_of
+    - geographical_origin_of
+    - nature_origin_of
+    - part_origin_of
+    - type_of
+  ConceptScheme:
+    description: 'Class from DFC Business Ontology: #ConceptScheme'
+  ConsumptionFlow:
+    description: 'Class from DFC Business Ontology: #ConsumptionFlow'
+    slots:
+    - quantity
+    - consumes
+    - has_quantity
+    - input_of
+  Coordination:
+    description: 'Class from DFC Business Ontology: #Coordination'
+    slots:
+    - margin_percent
+    - coordinated_by
+    - has_object
+  CustomerCategory:
+    description: 'Class from DFC Business Ontology: #CustomerCategory'
+    is_a: Who_Subject
+    slots:
+    - defined_by
+    - has_member
+    - has_offer
+  DFC_DitributedRepresentation:
+    description: 'Class from DFC Business Ontology: #DFC_DitributedRepresentation'
+  DefinedProduct:
+    description: 'Class from DFC Business Ontology: #DefinedProduct'
+    is_a: What_Subject
+    slots:
+    - image
+    - url
+    - brand
+    - claim
+    - has_percentage_of_alcohol_by_volume
+    - lifetime
+    - physical_characteristics
+    - quantity
+    - specific_condition
+    - composes
+    - consumed_by
+    - has_allergen_characteristic
+    - has_brand
+    - has_certification
+    - has_characteristic
+    - has_claim
+    - has_container_information
+    - has_geographical_origin
+    - has_ingredient
+    - has_labelling_characteristic
+    - has_nature_origin
+    - has_nutrient_characteristic
+    - has_part_origin
+    - has_physical_characteristic
+    - has_quantity
+    - has_reference_product_option
+    - has_type
+    - has_unit
+    - has_variant
+    - process_of
+    - referenced_by
+  DeliveryOption:
+    description: 'Class from DFC Business Ontology: #DeliveryOption'
+    is_a: ShippingOption
+    slots:
+    - accessibility_info
+    - delivery_constraint
+    - delivered_at
+    - refers_to
+    - uses
+  DeliveryStep:
+    description: 'Class from DFC Business Ontology: #DeliveryStep'
+    is_a: Step
+  Feature:
+    description: 'Class from DFC Business Ontology: #Feature'
+    slots:
+    - geometry
+    - properties
+  FunctionalProduct:
+    description: 'Class from DFC Business Ontology: #FunctionalProduct'
+    is_a: DefinedProduct
+    slots:
+    - requested_by
+    - satisfied_by
+  Geometry:
+    description: 'Class from DFC Business Ontology: #Geometry'
+    slots:
+    - coordinates
+  How_Subject:
+    description: 'Class from DFC Business Ontology: #How_Subject'
+  Individual:
+    description: 'Class from DFC Business Ontology: #Individual'
+  Ingredient:
+    description: 'Class from DFC Business Ontology: #Ingredient'
+    is_a: What_Subject
+    slots:
+    - composed_of
+    - has_quantity
+    - is_ingredient_of
+  LabellingCharacteristic:
+    description: 'Class from DFC Business Ontology: #LabellingCharacteristic'
+    slots:
+    - has_labelling_dimension
+    - labelling_characteristic_of
+  Length:
+    description: 'Class from DFC Business Ontology: #Length'
+    is_a: QuantitativeValue
+  LocalizedProduct:
+    description: 'Class from DFC Business Ontology: #LocalizedProduct'
+    is_a: What_Subject
+    slots:
+    - image
+    - cost
+    - quantity
+    - constitued_by
+    - consumed_by
+    - has_quantity
+    - has_reference
+    - produced_by
+    - represented_by
+  NutrientCharacteristic:
+    description: 'Class from DFC Business Ontology: #NutrientCharacteristic'
+    slots:
+    - has_nutrient_dimension
+    - nutrient_characteristic_of
+  Offer:
+    description: 'Class from DFC Business Ontology: #Offer'
+    slots:
+    - discount
+    - stock_limitation
+    - concerned_by
+    - has_price
+    - listed_in
+    - offers
+    - offers_to
+  OpeningHoursSpecification:
+    description: 'Class from DFC Business Ontology: #OpeningHoursSpecification'
+    slots:
+    - day_of_week
+    - opens
+    - closes
+  Order:
+    description: 'Class from DFC Business Ontology: #Order'
+    slots:
+    - discount
+    - order_number
+    - belongs_to
+    - has_fulfilment_status
+    - has_order_status
+    - has_part
+    - has_payment_method
+    - has_payment_status
+    - ordered_by
+    - selects
+    - sold_by
+    - uses
+  OrderLine:
+    description: 'Class from DFC Business Ontology: #OrderLine'
+    slots:
+    - discount
+    - quantity
+    - concerns
+    - has_price
+    - has_quantity
+    - is_fulfilled_by
+    - part_of
+  Organization:
+    description: 'Class from DFC Business Ontology: #Organization'
+    is_a: Agent
+    slots:
+    - vat_number
+    - vat_status
+    - organization_id
+    - affiliates
+    - defines
+    - has_main_contact
+    - has_template_sale_session
+    - is_certified_by
+    - maintains
+    - manages
+    - proposes
+    - supplies
+    - transforms
+  PaymentMethod:
+    description: 'Class from DFC Business Ontology: #PaymentMethod'
+    is_a: How_Subject
+    slots:
+    - payment_method_provider
+    - payment_method_type
+    - has_price
+    - paid_with
+  Person:
+    description: 'Class from DFC Business Ontology: #Person'
+    is_a: Agent
+    slots:
+    - family_name
+    - first_name
+    - main_contact_of
+  PhoneNumber:
+    description: 'Class from DFC Business Ontology: #PhoneNumber'
+    is_a: What_Subject
+    slots:
+    - country_code
+    - phone_number
+    - phone_number_of
+  PhysicalCharacteristic:
+    description: 'Class from DFC Business Ontology: #PhysicalCharacteristic'
+    slots:
+    - has_physical_dimension
+    - physical_characteristic_of
+  PhysicalPlace:
+    description: 'Class from DFC Business Ontology: #PhysicalPlace'
+    is_a: Place
+    slots:
+    - has_address
+    - has_geo_json_feature
+    - has_main_contact
+    - has_phone_number
+    - is_open_during
+    - localizes
+    - stores
+  PhysicalProduct:
+    description: 'Class from DFC Business Ontology: #PhysicalProduct'
+    is_a: What_Subject
+    slots:
+    - image
+    - quantity
+    - concerned_by
+    - constitued_by
+    - consumed_by
+    - fulfills
+    - has_quantity
+    - owned_by
+    - produced_by
+    - represents
+    - traced_by
+  PickUpStep:
+    description: 'Class from DFC Business Ontology: #PickUpStep'
+    is_a: Step
+  PickupOption:
+    description: 'Class from DFC Business Ontology: #PickupOption'
+    is_a: ShippingOption
+    slots:
+    - picked_up_at
+    - uses
+  Place:
+    description: 'Class from DFC Business Ontology: #Place'
+    is_a: Where_Subject
+    slots:
+    - hosts
+  Platform:
+    description: 'Class from DFC Business Ontology: #Platform'
+    is_a: DFC_DitributedRepresentation
+  Point:
+    description: 'Class from DFC Business Ontology: #Point'
+    is_a: Geometry
+  Polygon:
+    description: 'Class from DFC Business Ontology: #Polygon'
+    is_a: Geometry
+  Price:
+    description: 'Class from DFC Business Ontology: #Price'
+    slots:
+    - vat_rate
+    - is_price_of
+  ProductBatch:
+    description: 'Class from DFC Business Ontology: #ProductBatch'
+    is_a: What_Subject
+    slots:
+    - batch_number
+    - best_before_date
+    - expiry_date
+    - production_date
+    - identifies
+    - traces
+  ProductOption:
+    description: 'Class from DFC Business Ontology: #ProductOption'
+    is_a: What_Subject
+    slots:
+    - has_reference_product_option_value
+  ProductOptionValue:
+    description: 'Class from DFC Business Ontology: #ProductOptionValue'
+    is_a: What_Subject
+  ProductionFlow:
+    description: 'Class from DFC Business Ontology: #ProductionFlow'
+    slots:
+    - quantity
+    - has_quantity
+    - output_of
+    - produces
+  Properties:
+    description: 'Class from DFC Business Ontology: #Properties'
+  QuantitativeValue:
+    description: 'Class from DFC Business Ontology: #QuantitativeValue'
+    is_a: RepresentedThing
+    slots:
+    - value
+    - has_unit
+  RealStock:
+    description: 'Class from DFC Business Ontology: #RealStock'
+    is_a: Stock
+    slots:
+    - constitutes
+    - identified_by
+    - stored_in
+  RepresentationPivot:
+    description: 'Class from DFC Business Ontology: #RepresentationPivot'
+    is_a: DFC_DitributedRepresentation
+  RepresentedThing:
+    description: 'Class from DFC Business Ontology: #RepresentedThing'
+    is_a: DFC_DitributedRepresentation
+  Route:
+    description: 'Class from DFC Business Ontology: #Route'
+    is_a: Where_Subject
+    slots:
+    - has_geo_json_feature
+    - has_step
+    - use_vehicle
+  SaleSession:
+    description: 'Class from DFC Business Ontology: #SaleSession'
+    slots:
+    - end_date
+    - quantity
+    - start_date
+    - has_option
+    - has_quantity
+    - holds
+    - hosted_at
+    - lists
+    - object_of
+  Shipment:
+    description: 'Class from DFC Business Ontology: #Shipment'
+    slots:
+    - end_date
+    - start_date
+    - ends_at
+    - is_shipped_in
+    - starts_at
+    - transports
+  ShippingOption:
+    description: 'Class from DFC Business Ontology: #ShippingOption'
+    is_a: How_Subject
+    slots:
+    - end_date
+    - fee
+    - quantity
+    - start_date
+    - has_quantity
+    - option_of
+    - selected_by
+  SocialMedia:
+    description: 'Class from DFC Business Ontology: #SocialMedia'
+    is_a: What_Subject
+    slots:
+    - website_page
+    - social_media_of
+  Step:
+    description: 'Class from DFC Business Ontology: #Step'
+    is_a: Where_Subject
+    slots:
+    - arrival_date
+    - duration
+    - delivery
+    - is_step_of
+    - pick_up
+  Stock:
+    description: 'Class from DFC Business Ontology: #Stock'
+    slots:
+    - availability_date
+    - quantity
+    - has_quantity
+    - transported_by
+  SuppliedProduct:
+    description: 'Class from DFC Business Ontology: #SuppliedProduct'
+    is_a: DefinedProduct
+    slots:
+    - availability_time
+    - delivery_condition
+    - frozen
+    - refrigerated
+    - total_theoritical_stock
+    - has_temperature
+    - industrializes
+    - produced_by
+    - reference_of
+    - supplied_by
+  TechnicalProduct:
+    description: 'Class from DFC Business Ontology: #TechnicalProduct'
+    is_a: DefinedProduct
+    slots:
+    - industrialized_by
+    - proposed_by
+    - satisfies
+  Temperature:
+    description: 'Class from DFC Business Ontology: #Temperature'
+    is_a: QuantitativeValue
+    slots:
+    - is_temperature_of
+  TemplateSaleSession:
+    description: 'Class from DFC Business Ontology: #TemplateSaleSession'
+    slots:
+    - hosted_at
+    - is_template_sale_session_of
+  TheoriticalStock:
+    description: 'Class from DFC Business Ontology: #TheoriticalStock'
+    is_a: Stock
+    slots:
+    - constitutes
+    - localized_by
+  Transaction:
+    description: 'Class from DFC Business Ontology: #Transaction'
+    is_a: How_Subject
+    slots:
+    - invoice_number
+    - quantity
+    - concerns
+    - from
+    - has_price
+    - has_quantity
+    - to
+  Transformation:
+    description: 'Class from DFC Business Ontology: #Transformation'
+    is_a: How_Subject
+  Value_RECUR:
+    description: 'Class from DFC Business Ontology: #Value_RECUR'
+    slots:
+    - byday
+    - bymonth
+    - freq
+    - interval
+  Variant:
+    description: 'Class from DFC Business Ontology: #Variant'
+    is_a: DefinedProduct
+    slots:
+    - has_variant_caracteristic
+    - is_variant_of
+  VariantCaracteristic:
+    description: 'Class from DFC Business Ontology: #VariantCaracteristic'
+    is_a: What_Subject
+    slots:
+    - has_product_option
+    - has_product_option_value
+  Vehicle:
+    description: 'Class from DFC Business Ontology: #Vehicle'
+    is_a: What_Subject
+    slots:
+    - frozen
+    - refrigerated
+    - based_at
+    - has_quantity
+    - is_available_during
+    - ships
+    - used_in_route
+  Vevent:
+    description: 'Class from DFC Business Ontology: #Vevent'
+    slots:
+    - dtend
+    - dtstart
+    - rrule
+  VirtualPlace:
+    description: 'Class from DFC Business Ontology: #VirtualPlace'
+    is_a: Place
+    slots:
+    - url
+    - website_page
+  Volume:
+    description: 'Class from DFC Business Ontology: #Volume'
+    is_a: QuantitativeValue
+  Weight:
+    description: 'Class from DFC Business Ontology: #Weight'
+    is_a: QuantitativeValue
+  What_Subject:
+    description: 'Class from DFC Business Ontology: #What_Subject'
+  Where_Subject:
+    description: 'Class from DFC Business Ontology: #Where_Subject'
+  Who_Subject:
+    description: 'Class from DFC Business Ontology: #Who_Subject'
+slots:
+  byday:
+    description: 'Data property from OWL: byday'
+    range:
+    - string
+    domain:
+    - Value_RECUR
+  bymonth:
+    description: 'Data property from OWL: bymonth'
+    range:
+    - string
+    domain:
+    - Value_RECUR
+  dtend:
+    description: 'Data property from OWL: dtend'
+    range:
+    - datetime
+    domain:
+    - Vevent
+  dtstart:
+    description: 'Data property from OWL: dtstart'
+    range:
+    - datetime
+    domain:
+    - Vevent
+  freq:
+    description: 'Data property from OWL: freq'
+    range:
+    - string
+    domain:
+    - Value_RECUR
+  interval:
+    description: 'Data property from OWL: interval'
+    range:
+    - integer
+    domain:
+    - Value_RECUR
+  coordinates:
+    description: 'Data property from OWL: coordinates'
+    range:
+    - string
+    domain:
+    - Geometry
+  day_of_week:
+    description: 'Data property from OWL: dayOfWeek'
+    range:
+    - string
+    domain:
+    - OpeningHoursSpecification
+  opens:
+    description: 'Data property from OWL: opens'
+    range:
+    - string
+    domain:
+    - OpeningHoursSpecification
+  image:
+    description: A URL for an image of the Product
+    range:
+    - uri
+    domain:
+    - PhysicalProduct
+    - LocalizedProduct
+    - DefinedProduct
+  url:
+    description: The Universal Resource Locator address of the virtual place
+    range:
+    - uri
+    domain:
+    - VirtualPlace
+    - DefinedProduct
+  vat_number:
+    description: Any Tax Registration Number that is applicable to the Organization, in the jurisdiction the Enterprise is operating in.
+    range:
+    - string
+    domain:
+    - Organization
+  vat_rate:
+    description: The Sales Tax (VAT) rate associated with the Price, given as a percentage value from 0-100
+    range:
+    - float
+    domain:
+    - Price
+  vat_status:
+    description: Indicates whether the Organization charges VAT or not
+    range:
+    - boolean
+    domain:
+    - Organization
+  accessibility_info:
+    description: 'Data property from OWL: accessibilityInfo'
+    range:
+    - string
+    domain:
+    - DeliveryOption
+  arrival_date:
+    description: 'Data property from OWL: arrivalDate'
+    range:
+    - datetime
+    domain:
+    - Step
+  availability_date:
+    description: '"The date from which the product is available from the information provider, including seasonal or temporary product and services." (source : GS1 model)'
+    range:
+    - date
+    domain:
+    - Stock
+  availability_time:
+    description: Lead time for supplying the product.
+    range:
+    - string
+    domain:
+    - SuppliedProduct
+  batch_number:
+    description: 'Data property from OWL: batchNumber'
+    range:
+    - string
+    domain:
+    - ProductBatch
+  best_before_date:
+    description: '" à consommer de préférence avant le… " : après cette date, le produit peut perdre une partie ou la totalité de ses qualités sans présenter un danger pour la santé : par exemple le café
+      peut perdre son arôme.'
+    range:
+    - date
+    domain:
+    - ProductBatch
+  brand:
+    description: Deprecated onto v5.0
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  certifer_reference:
+    description: 'Data property from OWL: certiferReference'
+    range:
+    - string
+    domain:
+    - Certfication
+  certification_score:
+    description: 'Data property from OWL: certificationScore'
+    range:
+    - string
+    domain:
+    - Certfication
+  city:
+    description: The postal city (may be a town) that the address is located within
+    range:
+    - string
+    domain:
+    - Address
+  claim:
+    description: " **Deprecated** \nAny claims of a Product. \n**Deprecated**"
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  closes:
+    description: 'Data property from OWL: closes'
+    range:
+    - string
+    domain:
+    - OpeningHoursSpecification
+  cost:
+    description: 'Data property from OWL: cost'
+    range:
+    - float
+    domain:
+    - LocalizedProduct
+    - AsRealizedTransformation
+    - AsPlannedLocalTransformation
+  country:
+    description: The ISO country that the address is located within
+    range:
+    - string
+    domain:
+    - Address
+  country_code:
+    description: The international dialling code for the country where the phone number is registered
+    range:
+    - string
+    domain:
+    - PhoneNumber
+  date:
+    description: 'Data property from OWL: date'
+    range:
+    - datetime
+    domain:
+    - DFC_BusinessOntology_Subject
+    - DFC_BusinessOntology_Relation
+  delivery_condition:
+    description: Any conditions of carriage/transport required by the product (e.g. Fragile, do not stack)
+    range:
+    - string
+    domain:
+    - SuppliedProduct
+  delivery_constraint:
+    description: Any constraints (time or physical) that are applied to the delivery (e.g. "9am-5pm Mon - Fri only", "only deliver after 6pm", or "Delivery to be left in porch")
+    range:
+    - string
+    domain:
+    - DeliveryOption
+  description:
+    description: 'Data property from OWL: description'
+    range:
+    - string
+    domain:
+    - DFC_BusinessOntology_Subject
+  discount:
+    description: Any discount applied to the Price
+    range:
+    - float
+    domain:
+    - Order
+    - OrderLine
+    - Offer
+  duration:
+    description: 'Data property from OWL: duration'
+    range:
+    - string
+    domain:
+    - Step
+  email:
+    description: email address of the Agent
+    range:
+    - string
+    domain:
+    - Agent
+  end_date:
+    description: The date/time that the Sales Session ends
+    range:
+    - datetime
+    domain:
+    - Catalog
+    - SaleSession
+    - AsPlannedLocalTransformation
+    - ShippingOption
+    - AsRealizedTransformation
+    - Shipment
+  organization_id:
+    description: 'Data property from OWL: organizationID'
+    range:
+    - string
+    domain:
+    - Organization
+  expiry_date:
+    description: 'Data property from OWL: expiryDate'
+    range:
+    - date
+    domain:
+    - ProductBatch
+  extra_availability_time:
+    description: Additional lead time for catalog item. To be appended to AvailabilityTime
+    range:
+    - string
+    domain:
+    - CatalogItem
+  extra_delivery_condition:
+    description: Additional devilery conditions for this item (append to any Devliery Condition set at Product level)
+    range:
+    - string
+    domain:
+    - CatalogItem
+  family_name:
+    description: Family name or surname of Person
+    range:
+    - string
+    domain:
+    - Person
+  fee:
+    description: The value of any fee associated with the Shipping Option
+    range:
+    - float
+    domain:
+    - ShippingOption
+  first_name:
+    description: First name of Person
+    range:
+    - string
+    domain:
+    - Person
+  frozen:
+    description: Defines if the parent class supports or requires refrigeration to a safe temperature to maintain frozen products.
+    range:
+    - boolean
+    domain:
+    - Vehicle
+    - SuppliedProduct
+  has_percentage_of_alcohol_by_volume:
+    description: Percentage of Alcohol (by volume) in the Product, expressed as a number in the range 0.00 - 100.00
+    range:
+    - float
+    domain:
+    - DefinedProduct
+  invoice_number:
+    description: 'Data property from OWL: invoiceNumber'
+    range:
+    - string
+    domain:
+    - Transaction
+  latitude:
+    description: numeric latitude of the Address location
+    range:
+    - float
+    domain:
+    - Address
+  lifetime:
+    description: Lifetime of the product (in days), expressed as a number
+    range:
+    - float
+    domain:
+    - DefinedProduct
+  logo:
+    description: URI to logo of Agent
+    range:
+    - uri
+    domain:
+    - Agent
+  longitude:
+    description: numeric longitude of the Address location
+    range:
+    - float
+    domain:
+    - Address
+  margin_percent:
+    description: The percentage margin the coordinating Organization is charging as comission for managing the Sales Session (from 0-100%)
+    range:
+    - float
+    domain:
+    - Coordination
+  max_value:
+    description: 'Data property from OWL: maxValue'
+    range:
+    - string
+    domain: []
+  min_value:
+    description: 'Data property from OWL: minValue'
+    range:
+    - string
+    domain: []
+  name:
+    description: Name of the Organization
+    range:
+    - string
+    domain:
+    - DFC_BusinessOntology_Subject
+  operator_id:
+    description: 'Data property from OWL: operatorId'
+    range:
+    - string
+    domain:
+    - Certfication
+  order_number:
+    description: The Order Number on the parent platform
+    range:
+    - string
+    domain:
+    - Order
+  payment_method_provider:
+    description: 'Data property from OWL: paymentMethodProvider'
+    range:
+    - string
+    domain:
+    - PaymentMethod
+  payment_method_type:
+    description: 'Data property from OWL: paymentMethodType'
+    range:
+    - string
+    domain:
+    - PaymentMethod
+  phone_number:
+    description: The full phone number (not including any country code)
+    range:
+    - string
+    domain:
+    - PhoneNumber
+  physical_characteristics:
+    description: " **Deprecated** \nAny Physical Characteristics of a Product. \n**Deprecated**"
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  postcode:
+    description: The code defined by the relevant authority that facilitates mail delivery to that address
+    range:
+    - string
+    domain:
+    - Address
+  production_date:
+    description: 'Data property from OWL: productionDate'
+    range:
+    - date
+    domain:
+    - ProductBatch
+  quantity:
+    description: DEPRECATE
+    range:
+    - float
+    domain:
+    - SaleSession
+    - ConsumptionFlow
+    - LocalizedProduct
+    - OrderLine
+    - ShippingOption
+    - DefinedProduct
+    - PhysicalProduct
+    - Stock
+    - ProductionFlow
+    - Transaction
+  refrigerated:
+    description: Defines if the parent class supports or requires refrigeration to a safe temperature to maintain refrigerated products (typically 0-5°C).
+    range:
+    - boolean
+    domain:
+    - Vehicle
+    - SuppliedProduct
+  region:
+    description: The Region (adminstrative district below Country) the Address is located within
+    range:
+    - string
+    domain:
+    - Address
+  sku:
+    description: Only a general "SKU" id is proposed for now. Agents using GTIN could use GTIN as SKU but other IDs than GTIN can be used.
+    range:
+    - string
+    domain:
+    - CatalogItem
+  specific_condition:
+    description: Any specific conditions requried for storage or carriage of the Product
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  start_date:
+    description: The date/time that the Sales Session starts
+    range:
+    - datetime
+    domain:
+    - Catalog
+    - SaleSession
+    - AsPlannedLocalTransformation
+    - ShippingOption
+    - AsRealizedTransformation
+    - Shipment
+  stock_limitation:
+    description: Any limit on the stock of this particular listing. This ay differ from stock limits on the Product (for example if the Product is listed in multiple catalogues)
+    range:
+    - float
+    domain:
+    - Offer
+    - CatalogItem
+  street:
+    description: Street part of the address. May also be referred to as "first line of address" in some locales. Generally includes a street name and building name or number (in any order)
+    range:
+    - string
+    domain:
+    - Address
+  total_theoritical_stock:
+    description: 'Data property from OWL: totalTheoriticalStock'
+    range:
+    - float
+    domain:
+    - SuppliedProduct
+  value:
+    description: 'Data property from OWL: value'
+    range:
+    - float
+    domain:
+    - QuantitativeValue
+    - DFC_BusinessOntology_Characteristic
+  website_page:
+    description: DEPRECATE
+    range:
+    - uri
+    domain:
+    - VirtualPlace
+    - Agent
+    - SocialMedia
+  rrule:
+    description: 'Object property from OWL: rrule'
+    range:
+    - Value_RECUR
+    domain:
+    - Vevent
+  broader:
+    description: 'Object property from OWL: broader'
+    range:
+    - string
+    domain: []
+  in_scheme:
+    description: 'Object property from OWL: inScheme'
+    range:
+    - string
+    domain: []
+  narrower:
+    description: 'Object property from OWL: narrower'
+    range:
+    - string
+    domain: []
+  geometry:
+    description: 'Object property from OWL: geometry'
+    range:
+    - Geometry
+    domain:
+    - Feature
+  properties:
+    description: 'Object property from OWL: properties'
+    range:
+    - Properties
+    domain:
+    - Feature
+  d_f_c__business_ontology__object_property:
+    description: 'Object property from OWL: DFC_BusinessOntology_ObjectProperty'
+    range:
+    - string
+    domain: []
+  d_f_c__interface__property:
+    description: 'Object property from OWL: DFC_Interface_Property'
+    range:
+    - string
+    domain: []
+  address_of:
+    description: The Agent (Person or Organization) or PhysicalPlace that the Address relates to
+    range:
+    - string
+    domain:
+    - Address
+  affiliated_to:
+    description: URI of a Person associated with the Organization
+    range:
+    - string
+    domain:
+    - Agent
+  affiliates:
+    description: Organizations that the Person is affliated to
+    range:
+    - string
+    domain:
+    - Organization
+  allergen_characteristic_of:
+    description: 'Object property from OWL: allergenCharacteristicOf'
+    range:
+    - string
+    domain:
+    - AllergenCharacteristic
+  based_at:
+    description: 'Object property from OWL: basedAt'
+    range:
+    - PhysicalPlace
+    domain:
+    - Vehicle
+  belongs_to:
+    description: A Customer (as an Agent) can belong to a particular CustomerCategory as defined by the owning Organization
+    range:
+    - string
+    domain:
+    - Order
+  brand_of:
+    description: 'Object property from OWL: brandOf'
+    range:
+    - string
+    domain:
+    - Brand
+  certificate_of:
+    description: 'Object property from OWL: certificateOf'
+    range:
+    - string
+    domain:
+    - Concept
+  certifies:
+    description: 'Object property from OWL: certifies'
+    range:
+    - string
+    domain:
+    - Certfication
+  characteristic_of:
+    description: 'Object property from OWL: characteristicOf'
+    range:
+    - string
+    domain:
+    - DFC_BusinessOntology_Characteristic
+  claim_of:
+    description: 'Object property from OWL: claimOf'
+    range:
+    - string
+    domain:
+    - Concept
+  composed_of:
+    description: Cette propriété représente la composition d'un produit défini par un ensemble d'ingrédients.
+    range:
+    - string
+    domain:
+    - Ingredient
+  composes:
+    description: DEPRECATE
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  concerned_by:
+    description: Any/All Order Lines that relate to this Product
+    range:
+    - string
+    domain:
+    - PhysicalProduct
+    - Offer
+  concerns:
+    description: The Product that has been ordered (1 and only 1)
+    range:
+    - string
+    domain:
+    - OrderLine
+    - Transaction
+  constitued_by:
+    description: 'Object property from OWL: constituedBy'
+    range:
+    - string
+    domain:
+    - PhysicalProduct
+    - LocalizedProduct
+  constitutes:
+    description: 'Object property from OWL: constitutes'
+    range:
+    - string
+    domain:
+    - RealStock
+    - TheoriticalStock
+  consumed_by:
+    description: The ConsmuptionFlow by which the Product is transformed into other Products
+    range:
+    - string
+    domain:
+    - PhysicalProduct
+    - LocalizedProduct
+    - DefinedProduct
+  consumes:
+    description: 'The product consumed by the Transformation '
+    range:
+    - string
+    domain:
+    - ConsumptionFlow
+  container_information_of:
+    description: 'Object property from OWL: containerInformationOf'
+    range:
+    - string
+    domain:
+    - Concept
+  coordinated_by:
+    description: Confirms the Organization Coordinates certain SaleSessions, and defines margin %age that the Enterprise takes for managing the SaleSession
+    range:
+    - string
+    domain:
+    - Coordination
+  defined_by:
+    description: Determines which Organization has defined the CustomerCategory
+    range:
+    - string
+    domain:
+    - CustomerCategory
+  defines:
+    description: Defines any/all categories of Customer utilised by the Organization for segmentation (primarily for pricing, potentially also for marketing)
+    range:
+    - string
+    domain:
+    - Organization
+  delivered_at:
+    description: 'Object property from OWL: deliveredAt'
+    range:
+    - string
+    domain:
+    - DeliveryOption
+  delivery:
+    description: 'Object property from OWL: delivery'
+    range:
+    - Shipment
+    domain:
+    - Step
+  ends_at:
+    description: The destination of the Shipment.
+    range:
+    - PhysicalPlace
+    domain:
+    - Shipment
+  facet_of:
+    description: 'Object property from OWL: facetOf'
+    range:
+    - string
+    domain: []
+  from:
+    description: 'Object property from OWL: from'
+    range:
+    - string
+    domain:
+    - Transaction
+  fulfills:
+    description: 'Object property from OWL: fulfills'
+    range:
+    - string
+    domain:
+    - PhysicalProduct
+  geographical_origin_of:
+    description: 'Object property from OWL: geographicalOriginOf'
+    range:
+    - string
+    domain:
+    - Concept
+  has_address:
+    description: Address of Agent
+    range:
+    - string
+    domain:
+    - Agent
+    - PhysicalPlace
+  has_allergen_characteristic:
+    description: Details of allergens contains in the product
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_allergen_dimension:
+    description: 'Object property from OWL: hasAllergenDimension'
+    range:
+    - string
+    domain:
+    - AllergenCharacteristic
+  has_brand:
+    description: The brand a Product is sold under (Organizations can market under different Brands, some Brands can be collaborative across Enterprises)
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_certification:
+    description: SKOS:Concept that details any certification the product holds (e.g. Organic, Biodynamic etc), enumerated in the Facets vocabulary
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_characteristic:
+    description: "SuperProperty of:\nAllergenCharacteristic\nLabellingCharacteristic \nNutrientCharacteristic \nPhysicalCharacteristic "
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_claim:
+    description: Any unverified/uncertified claim made by the Product (e.g. "Low Fat", Locally Grow")
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_container_information:
+    description: SKOS:Concept that details the container the product is supplied in (e.g.box, tin, paper bag etc), enumerated in the Measures vocabulary (#containerUnit)
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_country:
+    description: 'Object property from OWL: hasCountry'
+    range:
+    - string
+    domain:
+    - Address
+  has_dimension:
+    description: 'Object property from OWL: hasDimension'
+    range:
+    - string
+    domain:
+    - DFC_BusinessOntology_Characteristic
+  has_facet:
+    description: 'Object property from OWL: hasFacet'
+    range:
+    - string
+    domain: []
+  has_fulfilment_status:
+    description: The Fulfilment State in which the Order is. See expectations around Order flow controls for further details
+    range:
+    - string
+    domain:
+    - Order
+  has_geo_json_feature:
+    description: 'Object property from OWL: hasGeoJsonFeature'
+    range:
+    - Feature
+    domain:
+    - Route
+    - PhysicalPlace
+  has_geographical_origin:
+    description: 'Object property from OWL: hasGeographicalOrigin'
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_ingredient:
+    description: "Links DefinedProducts (via composes relationship) to allow recipe construction \n\nN.B. This is similar (simplified) functionality to the AsPlannedTransformation loop. These two options\
+      \ are not compatible."
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_input:
+    description: The PlannedConsumptionFlow that is the input of the PlannedTransformation
+    range:
+    - string
+    domain:
+    - AsRealizedTransformation
+    - AsPlannedTransformation
+    - AsPlannedLocalTransformation
+  has_labelling_characteristic:
+    description: Labelling information about the product (from dfc-m:LabellingDimension)
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_labelling_dimension:
+    description: 'Object property from OWL: hasLabellingDimension'
+    range:
+    - string
+    domain:
+    - LabellingCharacteristic
+  has_main_contact:
+    description: The Person, if any, who is a principal contact for this physical location
+    range:
+    - string
+    domain:
+    - Organization
+    - PhysicalPlace
+  has_member:
+    description: 'Object property from OWL: hasMember'
+    range:
+    - string
+    domain:
+    - CustomerCategory
+  has_nature_origin:
+    description: The natural origin of the product, e.g. Plant, Animal
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_nutrient_characteristic:
+    description: Nutrient information about the product (from dfc-m:NutrientDimension)
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_nutrient_dimension:
+    description: 'Object property from OWL: hasNutrientDimension'
+    range:
+    - string
+    domain:
+    - NutrientCharacteristic
+  has_object:
+    description: The Sales Session that is subject to the coordination
+    range:
+    - string
+    domain:
+    - Coordination
+  has_offer:
+    description: 'Object property from OWL: hasOffer'
+    range:
+    - string
+    domain:
+    - CustomerCategory
+  has_option:
+    description: Any (and all) ShippingOptions that are available for the session
+    range:
+    - string
+    domain:
+    - SaleSession
+  has_order_status:
+    description: The state in which the Order is. See expectations around Order flow controls for further details
+    range:
+    - string
+    domain:
+    - Order
+  has_output:
+    description: The PlannedProductionFlow that is the output of the PlannedTransformation
+    range:
+    - string
+    domain:
+    - AsRealizedTransformation
+    - AsPlannedTransformation
+    - AsPlannedLocalTransformation
+  has_part:
+    description: All OrderLines that make up the Order
+    range:
+    - string
+    domain:
+    - Order
+  has_part_origin:
+    description: The part of the plant or animal that the product originated from (e.g. egg, animal body, seed, root )
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_payment_method:
+    description: The PaymentMethod associated with the Order (e.g. Cash, Stripe etc)
+    range:
+    - string
+    domain:
+    - Order
+  has_payment_status:
+    description: The Payment State in which the Order is. See expectations around Order flow controls for further details
+    range:
+    - string
+    domain:
+    - Order
+  has_phone_number:
+    description: Phone Number relating to the Agent
+    range:
+    - string
+    domain:
+    - Agent
+    - PhysicalPlace
+  has_physical_characteristic:
+    description: Physical information about the product (from dfc-m:PhysicalDimension)
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_physical_dimension:
+    description: 'Object property from OWL: hasPhysicalDimension'
+    range:
+    - string
+    domain:
+    - PhysicalCharacteristic
+  has_price:
+    description: The offered Price for the Product listed in the CatalogItem for this cateogry of Customer
+    range:
+    - string
+    domain:
+    - PaymentMethod
+    - OrderLine
+    - Offer
+    - Transaction
+  has_product_option:
+    description: 'Object property from OWL: hasProductOption'
+    range:
+    - ProductOption
+    domain:
+    - VariantCaracteristic
+  has_product_option_value:
+    description: 'Object property from OWL: hasProductOptionValue'
+    range:
+    - ProductOptionValue
+    domain:
+    - VariantCaracteristic
+  has_quantity:
+    description: The actual numeric value of the Price, in the currency unit specified with hasUnit
+    range:
+    - QuantitativeValue
+    domain:
+    - SaleSession
+    - ConsumptionFlow
+    - LocalizedProduct
+    - OrderLine
+    - ShippingOption
+    - DefinedProduct
+    - Stock
+    - PhysicalProduct
+    - Vehicle
+    - Ingredient
+    - ProductionFlow
+    - Transaction
+  has_reference:
+    description: 'Object property from OWL: hasReference'
+    range:
+    - string
+    domain:
+    - LocalizedProduct
+  has_reference_product_option:
+    description: 'Object property from OWL: hasReferenceProductOption'
+    range:
+    - ProductOption
+    domain:
+    - DefinedProduct
+  has_reference_product_option_value:
+    description: 'Object property from OWL: hasReferenceProductOptionValue'
+    range:
+    - ProductOptionValue
+    domain:
+    - ProductOption
+  has_social_media:
+    description: Social Media handle of the Agent
+    range:
+    - string
+    domain:
+    - Agent
+  has_status:
+    description: 'Object property from OWL: hasStatus'
+    range:
+    - string
+    domain: []
+  has_step:
+    description: 'Object property from OWL: hasStep'
+    range:
+    - string
+    domain:
+    - Route
+  has_temperature:
+    description: The maximum storage temperature required by the product (e.g. +5º C )
+    range:
+    - string
+    domain:
+    - SuppliedProduct
+  has_template_sale_session:
+    description: 'Object property from OWL: hasTemplateSaleSession'
+    range:
+    - string
+    domain:
+    - Organization
+  has_transformation_type:
+    description: The Type of transformation, from the SKOS vocabulary file
+    range:
+    - string
+    domain:
+    - AsPlannedTransformation
+  has_type:
+    description: The Product Type grouping for the Product, for more detail see Taxonomies/ProductType
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_unit:
+    description: A Currency Unit. listed within the skos:concept of CurrencyUnit in the measures.rdf
+    range:
+    - string
+    domain:
+    - QuantitativeValue
+    - DFC_BusinessOntology_Characteristic
+    - DefinedProduct
+  has_variant:
+    description: 'Object property from OWL: hasVariant'
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  has_variant_caracteristic:
+    description: 'Object property from OWL: hasVariantCaracteristic'
+    range:
+    - VariantCaracteristic
+    domain:
+    - Variant
+  holds:
+    description: All Orders that were made during the Sales Session
+    range:
+    - string
+    domain:
+    - SaleSession
+  hosted_at:
+    description: The location the session is hosted at. This could be a physical (e.g. a shop or market) or virtual place (e.g. online store).
+    range:
+    - string
+    domain:
+    - TemplateSaleSession
+    - SaleSession
+  hosts:
+    description: All Sales Sessions that have been, are being or will be hosted at this location
+    range:
+    - string
+    domain:
+    - Place
+  identified_by:
+    description: 'Object property from OWL: identifiedBy'
+    range:
+    - string
+    domain:
+    - RealStock
+  identifies:
+    description: 'Object property from OWL: identifies'
+    range:
+    - string
+    domain:
+    - ProductBatch
+  industrialized_by:
+    description: 'Object property from OWL: industrializedBy'
+    range:
+    - string
+    domain:
+    - TechnicalProduct
+  industrializes:
+    description: The Technical Product that is created to industrialize this Supplied Product
+    range:
+    - string
+    domain:
+    - SuppliedProduct
+  input_of:
+    description: The transformation the consumed product is inputed into
+    range:
+    - string
+    domain:
+    - ConsumptionFlow
+  is_available_during:
+    description: Operating window of the Vehicle.
+    range:
+    - OpeningHoursSpecification
+    domain:
+    - Vehicle
+  is_certified_by:
+    description: 'Object property from OWL: isCertifiedBy'
+    range:
+    - string
+    domain:
+    - Organization
+  is_fulfilled_by:
+    description: 'Object property from OWL: isFulfilledBy'
+    range:
+    - string
+    domain:
+    - OrderLine
+  is_ingredient_of:
+    description: 'Object property from OWL: isIngredientOf'
+    range:
+    - string
+    domain:
+    - Ingredient
+  is_member_of:
+    description: 'Object property from OWL: isMemberOf'
+    range:
+    - string
+    domain:
+    - Agent
+  is_open_during:
+    description: Schedule during which the Physical Place is accessible, may indicate it is open to the public or just for business.
+    range:
+    - OpeningHoursSpecification
+    domain:
+    - PhysicalPlace
+  is_price_of:
+    description: The Object that the Price relates to, can be an Offer, a PaymentMethod or a Transaction
+    range:
+    - string
+    domain:
+    - Price
+  is_shipped_in:
+    description: 'Object property from OWL: isShippedIn'
+    range:
+    - string
+    domain:
+    - Shipment
+  is_step_of:
+    description: 'Object property from OWL: isStepOf'
+    range:
+    - string
+    domain:
+    - Step
+  is_temperature_of:
+    description: 'Object property from OWL: isTemperatureOf'
+    range:
+    - string
+    domain:
+    - Temperature
+  is_template_sale_session_of:
+    description: 'Object property from OWL: isTemplateSaleSessionOf'
+    range:
+    - string
+    domain:
+    - TemplateSaleSession
+  is_variant_of:
+    description: 'Object property from OWL: isVariantOf'
+    range:
+    - string
+    domain:
+    - Variant
+  labelling_characteristic_of:
+    description: 'Object property from OWL: labellingCharacteristicOf'
+    range:
+    - string
+    domain:
+    - LabellingCharacteristic
+  listed_in:
+    description: All Sales Sessions that this Offer is listed in
+    range:
+    - string
+    domain:
+    - Offer
+    - CatalogItem
+  lists:
+    description: All Items (which refer to a SuppliedProduct) that are part of the Catalog
+    range:
+    - string
+    domain:
+    - Catalog
+    - SaleSession
+  localized_by:
+    description: 'Object property from OWL: localizedBy'
+    range:
+    - string
+    domain:
+    - TheoriticalStock
+  localizes:
+    description: Any theoretical stock that is associated with this location
+    range:
+    - string
+    domain:
+    - PhysicalPlace
+  main_contact_of:
+    description: An Organization that the Person is the Main Contact for
+    range:
+    - string
+    domain:
+    - Person
+  maintained_by:
+    description: The Organization that maintains the Catalog (may differ from the owner of the Products)
+    range:
+    - string
+    domain:
+    - Catalog
+  maintains:
+    description: A set of reference of defined products
+    range:
+    - string
+    domain:
+    - Organization
+  managed_by:
+    description: The Organization that manages the CatalogItem (may differ from the owner of the Product)
+    range:
+    - string
+    domain:
+    - CatalogItem
+  manages:
+    description: A reference of a defined product in a catalog managed by an organization
+    range:
+    - string
+    domain:
+    - Organization
+  nature_origin_of:
+    description: 'Object property from OWL: natureOriginOf'
+    range:
+    - string
+    domain:
+    - Concept
+  nutrient_characteristic_of:
+    description: 'Object property from OWL: nutrientCharacteristicOf'
+    range:
+    - string
+    domain:
+    - NutrientCharacteristic
+  object_of:
+    description: The Coordination (that defines which Organization coordinates the Sales Sesison)
+    range:
+    - string
+    domain:
+    - SaleSession
+  offered_through:
+    description: All Offers that this Catalog Item is offered to categories of customer through
+    range:
+    - string
+    domain:
+    - CatalogItem
+  offers:
+    description: 'The (1 & only 1) CatalogItem that this Offer relates to '
+    range:
+    - string
+    domain:
+    - Offer
+  offers_to:
+    description: The (1 & only 1) CustomerCategory that is eligible for this Offer
+    range:
+    - string
+    domain:
+    - Offer
+  option_of:
+    description: All Sales Sessions the ShippingOption is available for selection during.
+    range:
+    - string
+    domain:
+    - ShippingOption
+  ordered_by:
+    description: 'Object property from OWL: orderedBy'
+    range:
+    - string
+    domain:
+    - Order
+  orders:
+    description: Any Orders placed by the Agent
+    range:
+    - string
+    domain:
+    - Agent
+  output_of:
+    description: The transformation the produced product is outputed from
+    range:
+    - string
+    domain:
+    - ProductionFlow
+  owned_by:
+    description: 'Object property from OWL: ownedBy'
+    range:
+    - string
+    domain:
+    - PhysicalProduct
+    - Brand
+  owns:
+    description: All Brands owned by the Agent
+    range:
+    - string
+    domain:
+    - Agent
+  paid_with:
+    description: 'Object property from OWL: paidWith'
+    range:
+    - string
+    domain:
+    - PaymentMethod
+  part_of:
+    description: The Order this OrderLine is associated with (1 and only 1)
+    range:
+    - string
+    domain:
+    - OrderLine
+  part_origin_of:
+    description: 'Object property from OWL: partOriginOf'
+    range:
+    - string
+    domain:
+    - Concept
+  phone_number_of:
+    description: The Organization or Person (Agent) or Physical Place that the phone numbers is associated with.
+    range:
+    - string
+    domain:
+    - PhoneNumber
+  physical_characteristic_of:
+    description: 'Object property from OWL: physicalCharacteristicOf'
+    range:
+    - string
+    domain:
+    - PhysicalCharacteristic
+  pick_up:
+    description: 'Object property from OWL: pickUp'
+    range:
+    - Shipment
+    domain:
+    - Step
+  picked_up_at:
+    description: 'Object property from OWL: pickedUpAt'
+    range:
+    - string
+    domain:
+    - PickupOption
+  process_of:
+    description: DEPRECATE
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  produced_by:
+    description: Link to another SuppleidProduct that is produced by this Product
+    range:
+    - string
+    domain:
+    - PhysicalProduct
+    - LocalizedProduct
+    - SuppliedProduct
+  produces:
+    description: Link to another SuppleidProduct that is produced from this Product
+    range:
+    - string
+    domain:
+    - ProductionFlow
+  proposed_by:
+    description: 'Object property from OWL: proposedBy'
+    range:
+    - string
+    domain:
+    - TechnicalProduct
+  proposes:
+    description: All TechnicalProducts proposed by the Organization
+    range:
+    - string
+    domain:
+    - Organization
+  reference_of:
+    description: The Localized Product that is created in reference to this Supplied Product
+    range:
+    - string
+    domain:
+    - SuppliedProduct
+  referenced_by:
+    description: Any/all CatalogItems that reference the Product for sale
+    range:
+    - string
+    domain:
+    - DefinedProduct
+  references:
+    description: The Product that the CatalogItem is listing for sale
+    range:
+    - string
+    domain:
+    - CatalogItem
+  refers_to:
+    description: The Address the delivery will be/was made to
+    range:
+    - string
+    domain:
+    - DeliveryOption
+  represented_by:
+    description: 'Object property from OWL: representedBy'
+    range:
+    - string
+    domain:
+    - LocalizedProduct
+  represents:
+    description: 'Object property from OWL: represents'
+    range:
+    - string
+    domain:
+    - PhysicalProduct
+  requested_by:
+    description: 'Object property from OWL: requestedBy'
+    range:
+    - string
+    domain:
+    - FunctionalProduct
+  requests:
+    description: Any & all Functional Products that are requested by the Agent
+    range:
+    - string
+    domain:
+    - Agent
+  satisfied_by:
+    description: 'Object property from OWL: satisfiedBy'
+    range:
+    - string
+    domain:
+    - FunctionalProduct
+  satisfies:
+    description: 'Object property from OWL: satisfies'
+    range:
+    - string
+    domain:
+    - TechnicalProduct
+  selected_by:
+    description: 'Object property from OWL: selectedBy'
+    range:
+    - string
+    domain:
+    - ShippingOption
+  selects:
+    description: The method of shipping selected for the ORder (e.g. Overnight courier, same-day delivery, economy delivery )
+    range:
+    - string
+    domain:
+    - Order
+  sells:
+    description: 'Object property from OWL: sells'
+    range:
+    - string
+    domain:
+    - Agent
+  ships:
+    description: 'Object property from OWL: ships'
+    range:
+    - string
+    domain:
+    - Vehicle
+  social_media_of:
+    description: 'Object property from OWL: socialMediaOf'
+    range:
+    - string
+    domain:
+    - SocialMedia
+  sold_by:
+    description: The entity responsible for the sale (could be the Organization or a Salesperson within that Enterprise, or a third party)
+    range:
+    - string
+    domain:
+    - Order
+  starts_at:
+    description: The origin point of the Shipment.
+    range:
+    - PhysicalPlace
+    domain:
+    - Shipment
+  stored_in:
+    description: 'Object property from OWL: storedIn'
+    range:
+    - string
+    domain:
+    - RealStock
+  stores:
+    description: Any real stock that is associated with this location
+    range:
+    - string
+    domain:
+    - PhysicalPlace
+  supplied_by:
+    description: The Organization that supplies the Product
+    range:
+    - string
+    domain:
+    - SuppliedProduct
+  supplies:
+    description: All Products supplied by the Organization
+    range:
+    - string
+    domain:
+    - Organization
+  supplies_to:
+    description: 'Object property from OWL: suppliesTo'
+    range:
+    - string
+    domain: []
+  to:
+    description: 'Object property from OWL: to'
+    range:
+    - string
+    domain:
+    - Transaction
+  traced_by:
+    description: 'Object property from OWL: tracedBy'
+    range:
+    - string
+    domain:
+    - PhysicalProduct
+  traces:
+    description: 'Object property from OWL: traces'
+    range:
+    - string
+    domain:
+    - ProductBatch
+  transformed_by:
+    description: 'Object property from OWL: transformedBy'
+    range:
+    - string
+    domain:
+    - AsPlannedLocalTransformation
+  transforms:
+    description: Any PlannedLocalTransformations owned by the Organization
+    range:
+    - string
+    domain:
+    - Organization
+  transported_by:
+    description: The Shipment that transports Stock.
+    range:
+    - string
+    domain:
+    - Stock
+  transports:
+    description: The Stock that is transported by a Shipment.
+    range:
+    - string
+    domain:
+    - Shipment
+  type_of:
+    description: 'Object property from OWL: typeOf'
+    range:
+    - string
+    domain:
+    - Concept
+  use_vehicle:
+    description: 'Object property from OWL: useVehicle'
+    range:
+    - string
+    domain:
+    - Route
+  used_in_route:
+    description: 'Object property from OWL: usedInRoute'
+    range:
+    - string
+    domain:
+    - Vehicle
+  uses:
+    description: "*** DEPRECATED *** \n\nUse `refersTo` instead.\n\nThe Address the delivery will be/was made to\n"
+    range:
+    - string
+    domain:
+    - PickupOption
+    - Order
+    - DeliveryOption
+  d_f_c__technical_ontology__object_property:
+    description: 'Object property from OWL: DFC_TechnicalOntology_ObjectProperty'
+    range:
+    - string
+    domain: []
+  has_pivot:
+    description: possède un point pivot
+    range:
+    - string
+    domain: []
+  hosted_by:
+    description: 'Object property from OWL: hostedBy'
+    range:
+    - string
+    domain: []
+  represent:
+    description: 'Object property from OWL: represent'
+    range:
+    - string
+    domain: []
+enums:
+  Facet:
+    description: Classification facets for categorizing DFC entities. Values loaded from SKOS taxonomy.
+    reachable_from:
+      source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/facets.json
+      source_class: Concept
+      path_navigation: skos:hasTopConcept/*
+  Measure:
+    description: Measurement units and quantities for product measurements. Values loaded from SKOS taxonomy.
+    reachable_from:
+      source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/measures.json
+      source_class: Concept
+      path_navigation: skos:hasTopConcept/*
+  ProductType:
+    description: Product Type classification for categorizing products. Values loaded from SKOS taxonomy.
+    reachable_from:
+      source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/productTypes.json
+      source_class: Concept
+      path_navigation: skos:hasTopConcept/*
+  Scope:
+    description: Authorization Scope definitions for access control. Values loaded from SKOS taxonomy.
+    reachable_from:
+      source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/scopes.json
+      source_class: Concept
+      path_navigation: skos:hasTopConcept/*
+  VocabularyTerm:
+    description: Controlled vocabulary terms for DFC semantic interoperability. Values loaded from SKOS taxonomy.
+    reachable_from:
+      source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.json
+      source_class: Concept
+      path_navigation: skos:hasTopConcept/*
+ontology_version: 2.0.0
+taxonomy_version: 2.0.0

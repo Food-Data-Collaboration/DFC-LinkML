@@ -27,14 +27,22 @@ bundle install
 ```ruby
 require 'dfc_linkml_connector'
 
-connector = DfcLinkmlConnector::DfcLinkmlConnector.instance
+# Create a connector with specific versions
+connector = DfcLinkmlConnector::Core::Connector.new(
+  ontology_version: "2.0.0",
+  taxonomy_version: "2.0.0"
+)
 
-# Load vocabularies
-connector.load_facets(JSON.parse(File.read("vocabularies/facets.jsonld")))
-connector.load_measures(JSON.parse(File.read("vocabularies/measures.jsonld")))
+# Load vocabularies from URLs (via w3id redirects)
+connector.load_facets_from_url
+connector.load_measures_from_url
+connector.load_product_types_from_url
+
+# Or load from local files
+connector.load_facets(JSON.parse(File.read("vocabularies/facet.jsonld")))
 
 # Create objects
-tomato = SuppliedProduct.new(
+tomato = DfcLinkmlConnector::Models::SuppliedProduct.new(
   "https://myplatform.com/tomato",
   name: "Tomato",
   description: "Awesome tomato",
@@ -43,7 +51,19 @@ tomato = SuppliedProduct.new(
 
 # Export to JSON-LD
 puts connector.export(tomato)
+
+# Import from JSON-LD
+data = File.read("export.json")
+objects = connector.import(data)
 ```
+
+## Architecture
+
+- **DfcLinkmlConnector::Core::Connector** - Main connector (instantiable, no singleton)
+- **DfcLinkmlConnector::Core::SemanticObject** - Base class with type registry
+- **DfcLinkmlConnector::Core::JsonLdSerializer** - JSON-LD serialization
+- **DfcLinkmlConnector::Core::VocabularyLoader** - SKOS vocabulary loading
+- **DfcLinkmlConnector::Models::*** - All 85 DFC model classes
 
 ## Vocabularies
 
