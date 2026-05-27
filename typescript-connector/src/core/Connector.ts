@@ -305,12 +305,20 @@ export class Connector {
         if (!(propName in obj)) continue;
 
         if (Array.isArray(value)) {
-          (obj as unknown as Record<string, unknown>)[propName] = value.map((v: unknown) =>
-            typeof v === "string" && (v.startsWith("http") || v.startsWith("/"))
-              ? (objectsById.get(v) || v)
-              : v
-          );
-        } else if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/"))) {
+          (obj as unknown as Record<string, unknown>)[propName] = value.map((v: unknown) => {
+            if (typeof v === "object" && v !== null && "@id" in (v as Record<string, unknown>)) {
+              const refId = (v as Record<string, unknown>)["@id"] as string;
+              return objectsById.get(refId) || refId;
+            }
+            if (typeof v === "string" && (v.startsWith("http") || v.startsWith("/") || v.startsWith("_:"))) {
+              return objectsById.get(v) || v;
+            }
+            return v;
+          });
+        } else if (typeof value === "object" && value !== null && "@id" in (value as Record<string, unknown>)) {
+          const refId = (value as Record<string, unknown>)["@id"] as string;
+          (obj as unknown as Record<string, unknown>)[propName] = objectsById.get(refId) || refId;
+        } else if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {
           (obj as unknown as Record<string, unknown>)[propName] = objectsById.get(value) || value;
         } else {
           (obj as unknown as Record<string, unknown>)[propName] = value;
