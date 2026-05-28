@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #DFC_BusinessOntology_Characteristic
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'represented_thing'
 
 
 module DfcLinkmlConnector
   module Models
-    class Characteristic < Core::RepresentedThing
+    class Characteristic < RepresentedThing
       SEMANTIC_TYPE = "dfc-b:DFC_BusinessOntology_Characteristic".freeze
 
       # @return [String]

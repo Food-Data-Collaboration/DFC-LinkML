@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #Certfication
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'what_subject'
 
 
 module DfcLinkmlConnector
   module Models
-    class Certfication < Core::WhatSubject
+    class Certfication < WhatSubject
       SEMANTIC_TYPE = "dfc-b:Certfication".freeze
 
       # @return [String]

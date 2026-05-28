@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #CatalogItem
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'relation'
 
 
 module DfcLinkmlConnector
   module Models
-    class CatalogItem < Core::Relation
+    class CatalogItem < Relation
       SEMANTIC_TYPE = "dfc-b:CatalogItem".freeze
 
       # @return [String]

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #VirtualPlace
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'place'
 
 
 module DfcLinkmlConnector
   module Models
-    class VirtualPlace < Core::Place
+    class VirtualPlace < Place
       SEMANTIC_TYPE = "dfc-b:VirtualPlace".freeze
 
     end

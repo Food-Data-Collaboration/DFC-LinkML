@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #LocalizedProduct
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'what_subject'
 
 
 module DfcLinkmlConnector
   module Models
-    class LocalizedProduct < Core::WhatSubject
+    class LocalizedProduct < WhatSubject
       SEMANTIC_TYPE = "dfc-b:LocalizedProduct".freeze
 
       # @return [DefinedProduct]

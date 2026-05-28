@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #QuantitativeValue
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'represented_thing'
 
 
 module DfcLinkmlConnector
   module Models
-    class QuantitativeValue < Core::RepresentedThing
+    class QuantitativeValue < RepresentedThing
       SEMANTIC_TYPE = "dfc-b:QuantitativeValue".freeze
 
       # @return [String]

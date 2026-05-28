@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #DeliveryOption
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'shipping_option'
 
 
 module DfcLinkmlConnector
   module Models
-    class DeliveryOption < Core::ShippingOption
+    class DeliveryOption < ShippingOption
       SEMANTIC_TYPE = "dfc-b:DeliveryOption".freeze
 
       # @return [String]
