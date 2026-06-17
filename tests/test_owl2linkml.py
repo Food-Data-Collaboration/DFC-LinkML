@@ -453,6 +453,181 @@ class TestSchemaValidation:
         assert "v2.0.0" in schema["prefixes"]["dfc-v"]
 
 
+class TestEdgeCases:
+    """Edge case tests for OWL extraction and schema building (no network)."""
+
+    def test_empty_graph_returns_no_classes(self):
+        """An empty graph yields no classes."""
+        from rdflib import Graph
+        from scripts.owl2linkml import get_classes
+        assert get_classes(Graph()) == set()
+
+    def test_empty_graph_returns_no_properties(self):
+        """An empty graph yields no properties."""
+        from rdflib import Graph
+        from scripts.owl2linkml import get_data_properties, get_object_properties
+        assert get_data_properties(Graph()) == {}
+        assert get_object_properties(Graph()) == {}
+
+    def test_empty_graph_returns_no_subclass_relations(self):
+        """An empty graph yields no subclass relations."""
+        from rdflib import Graph
+        from scripts.owl2linkml import get_subclass_relations
+        assert get_subclass_relations(Graph()) == {}
+
+    def test_underscore_classes_are_skipped(self):
+        """Classes with underscore prefix are excluded."""
+        from rdflib import Graph, OWL, URIRef, RDF
+        from scripts.owl2linkml import get_classes
+
+        g = Graph()
+        base = "http://example.com/"
+        g.add((URIRef(base + "_Private"), RDF.type, OWL.Class))
+        g.add((URIRef(base + "Public"), RDF.type, OWL.Class))
+
+        classes = get_classes(g)
+        assert "_Private" not in classes
+        assert "Public" in classes
+
+    def test_classes_in_skip_set_excluded(self):
+        """Classes listed in skip_classes are excluded."""
+        from rdflib import Graph, OWL, URIRef, RDF
+        from scripts.owl2linkml import get_classes
+
+        g = Graph()
+        base = "http://example.com/"
+        g.add((URIRef(base + "Thing"), RDF.type, OWL.Class))
+        g.add((URIRef(base + "Address"), RDF.type, OWL.Class))
+
+        classes = get_classes(g)
+        assert "Thing" not in classes
+        assert "Address" in classes
+
+    def test_property_with_no_domain(self):
+        """A property without domain is still extracted with empty domain list."""
+        from rdflib import Graph, OWL, URIRef, RDF, RDFS
+        from rdflib.namespace import XSD
+        from scripts.owl2linkml import get_data_properties
+
+        g = Graph()
+        base = "http://example.com/"
+        prop = URIRef(base + "myProperty")
+        g.add((prop, RDF.type, OWL.DatatypeProperty))
+        g.add((prop, RDFS.range, XSD.string))
+
+        props = get_data_properties(g)
+        assert "myProperty" in props
+        assert props["myProperty"]["domain"] == []
+
+    def test_data_property_with_no_range_defaults_to_string(self):
+        """A data property without explicit range gets ['string'] as default."""
+        from rdflib import Graph, OWL, URIRef, RDF
+        from scripts.owl2linkml import get_data_properties
+
+        g = Graph()
+        base = "http://example.com/"
+        prop = URIRef(base + "noRange")
+        g.add((prop, RDF.type, OWL.DatatypeProperty))
+
+        props = get_data_properties(g)
+        assert "noRange" in props
+        assert props["noRange"]["range"] == ["string"]
+
+    def test_subclass_with_skipped_parent_is_omitted(self):
+        """If the parent class is in skip_classes, the relation is excluded."""
+        from rdflib import Graph, URIRef, RDFS
+        from scripts.owl2linkml import get_subclass_relations
+
+        g = Graph()
+        base = "http://example.com/"
+        g.add((URIRef(base + "Address"), RDFS.subClassOf, URIRef(base + "Thing")))
+
+        relations = get_subclass_relations(g)
+        assert "Address" not in relations  # Thing is in default skip list
+
+    def test_subclass_relation_with_allowed_parent(self):
+        """Subclass relation is returned when neither class is skipped."""
+        from rdflib import Graph, URIRef, RDFS
+        from scripts.owl2linkml import get_subclass_relations
+
+        g = Graph()
+        base = "http://example.com/"
+        g.add((URIRef(base + "Address"), RDFS.subClassOf, URIRef(base + "Place")))
+
+        relations = get_subclass_relations(g)
+        assert relations["Address"] == "Place"
+
+    def test_unicode_descriptions_preserved(self):
+        """Unicode characters in RDFS comments are preserved."""
+        from rdflib import Graph, OWL, URIRef, RDF, RDFS, Literal
+        from scripts.owl2linkml import get_data_properties
+
+        g = Graph()
+        base = "http://example.com/"
+        prop = URIRef(base + "description")
+        g.add((prop, RDF.type, OWL.DatatypeProperty))
+        g.add((prop, RDFS.comment, Literal("Café résumé — über cool ✓")))
+
+        props = get_data_properties(g)
+        assert "Café" in props["description"]["description"]
+        assert "✓" in props["description"]["description"]
+
+    def test_build_linkml_schema_empty_inputs(self):
+        """build_linkml_schema with empty inputs produces a valid minimal schema."""
+        from scripts.owl2linkml import build_linkml_schema
+
+        schema = build_linkml_schema(set(), {}, {}, {}, {"prefixes": {"ex": "http://example.com/"}})
+
+        assert "id" in schema
+        assert "name" in schema
+        assert "version" in schema
+        assert schema["classes"] == {}
+        assert schema["slots"] == {}
+        assert "enums" in schema
+
+    def test_build_linkml_schema_with_classes_only(self):
+        """Classes without properties generate class entries with no slots."""
+        from scripts.owl2linkml import build_linkml_schema
+
+        schema = build_linkml_schema(
+            {"Foo", "Bar"}, {}, {}, {},
+            {"name": "test", "prefixes": {"ex": "http://example.com/"}},
+        )
+
+        assert "Foo" in schema["classes"]
+        assert "Bar" in schema["classes"]
+        assert "slots" not in schema["classes"]["Foo"]
+
+    def test_object_property_range_is_class_name(self):
+        """Object property ranges are class names, not datatypes."""
+        from rdflib import Graph, OWL, URIRef, RDF, RDFS
+        from scripts.owl2linkml import get_object_properties
+
+        g = Graph()
+        base = "http://example.com/"
+        prop = URIRef(base + "hasAddress")
+        g.add((prop, RDF.type, OWL.ObjectProperty))
+        g.add((prop, RDFS.range, URIRef(base + "Address")))
+
+        props = get_object_properties(g)
+        assert "hasAddress" in props
+        assert props["hasAddress"]["range"] == ["Address"]
+
+    def test_object_property_no_range_defaults_to_string(self):
+        """Object property without explicit range falls back to 'string'."""
+        from rdflib import Graph, OWL, URIRef, RDF
+        from scripts.owl2linkml import get_object_properties
+
+        g = Graph()
+        base = "http://example.com/"
+        prop = URIRef(base + "relatedTo")
+        g.add((prop, RDF.type, OWL.ObjectProperty))
+
+        props = get_object_properties(g)
+        assert "relatedTo" in props
+        assert props["relatedTo"]["range"] == ["string"]
+
+
 @pytest.mark.integration
 class TestCompleteness:
     """Tests that OWL→LinkML conversion preserves all ontology entities."""
@@ -525,3 +700,83 @@ class TestCompleteness:
             if parent and parent not in schema["classes"]:
                 bad.append(f"{name}: is_a {parent} is not a defined class")
         assert not bad, f"Dangling parent references:\n" + "\n".join(bad)
+
+
+@pytest.mark.integration
+class TestSchemaStructure:
+    """Structural validation of the generated LinkML schema."""
+
+    ONT_URL = "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_BusinessOntology.rdf"
+    TECH_URL = "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_TechnicalOntology.rdf"
+    PRIMITIVE_TYPES = {"string", "integer", "float", "boolean", "date", "datetime", "uri"}
+
+    def _build_schema(self):
+        from scripts.owl2linkml import (
+            load_ontology,
+            get_classes,
+            get_data_properties,
+            get_object_properties,
+            get_subclass_relations,
+            build_linkml_schema,
+            DEFAULT_SKIP_CLASSES,
+            DEFAULT_SKIP_PROPERTIES,
+        )
+
+        g = load_ontology(self.ONT_URL, self.TECH_URL, None)
+        classes = get_classes(g, DEFAULT_SKIP_CLASSES)
+        data_props = get_data_properties(g, DEFAULT_SKIP_PROPERTIES)
+        obj_props = get_object_properties(g, DEFAULT_SKIP_PROPERTIES, DEFAULT_SKIP_CLASSES)
+        subclass_relations = get_subclass_relations(g, DEFAULT_SKIP_CLASSES)
+        schema = build_linkml_schema(
+            classes, data_props, obj_props, subclass_relations, make_config(),
+        )
+        return schema
+
+    def test_yaml_roundtrip(self, tmp_path):
+        """Schema can be serialized to YAML and parsed back without error."""
+        import yaml
+        schema = self._build_schema()
+        f = tmp_path / "schema.yaml"
+        with open(f, "w") as fp:
+            yaml.dump(schema, fp, default_flow_style=False, sort_keys=False, allow_unicode=True)
+        with open(f) as fp:
+            reloaded = yaml.safe_load(fp)
+        assert reloaded["id"] == schema["id"]
+        assert reloaded["name"] == schema["name"]
+        assert reloaded["version"] == schema["version"]
+        assert set(reloaded["classes"]) == set(schema["classes"])
+        assert set(reloaded["slots"]) == set(schema["slots"])
+
+    def test_all_class_slot_references_are_valid(self):
+        """Every slot referenced in a class's slots list exists in the global slots dict."""
+        schema = self._build_schema()
+        bad = []
+        for class_name, class_def in schema["classes"].items():
+            for slot in class_def.get("slots", []):
+                if slot not in schema["slots"]:
+                    bad.append(f"{class_name} references undefined slot '{slot}'")
+        assert not bad, "\n".join(bad)
+
+    def test_slot_ranges_reference_valid_types(self):
+        """Every slot range is a primitive type or a defined class."""
+        schema = self._build_schema()
+        known_classes = set(schema["classes"])
+        bad = []
+        for slot_name, slot_def in schema["slots"].items():
+            rng = slot_def.get("range", "string")
+            range_values = rng if isinstance(rng, list) else [rng]
+            for rv in range_values:
+                if rv not in self.PRIMITIVE_TYPES and rv not in known_classes:
+                    bad.append(f"Slot '{slot_name}' has unknown range '{rv}'")
+        assert not bad, "\n".join(bad)
+
+    def test_slot_domains_reference_known_classes(self):
+        """Every slot domain references a defined class."""
+        schema = self._build_schema()
+        known_classes = set(schema["classes"])
+        bad = []
+        for slot_name, slot_def in schema["slots"].items():
+            for domain_class in slot_def.get("domain", []):
+                if domain_class not in known_classes:
+                    bad.append(f"Slot '{slot_name}' has domain '{domain_class}' which is not a known class")
+        assert not bad, "\n".join(bad)
