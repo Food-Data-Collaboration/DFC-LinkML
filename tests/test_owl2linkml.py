@@ -780,3 +780,385 @@ class TestSchemaStructure:
                 if domain_class not in known_classes:
                     bad.append(f"Slot '{slot_name}' has domain '{domain_class}' which is not a known class")
         assert not bad, "\n".join(bad)
+
+
+class TestCommittedSchema:
+    """Non-network validation of the committed schema file."""
+
+    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml.yaml"
+
+    @pytest.fixture(scope="class")
+    def schema(self):
+        return yaml.safe_load(self.SCHEMA_PATH.read_text())
+
+    def test_loads_as_valid_yaml(self, schema):
+        assert schema is not None
+        assert isinstance(schema, dict)
+
+    def test_has_required_top_level_keys(self, schema):
+        for key in ("id", "name", "version", "prefixes", "classes", "slots"):
+            assert key in schema, f"Missing required key: {key}"
+
+    def test_has_expected_version(self, schema):
+        assert schema.get("version") == "2.0.0"
+
+    def test_has_expected_class_count(self, schema):
+        assert len(schema["classes"]) > 80, f"Expected 80+ classes, got {len(schema['classes'])}"
+
+    def test_has_expected_slot_count(self, schema):
+        assert len(schema["slots"]) > 200, f"Expected 200+ slots, got {len(schema['slots'])}"
+
+    def test_has_expected_enum_count(self, schema):
+        assert len(schema["enums"]) == 5, f"Expected 5 enums, got {len(schema['enums'])}"
+
+    def test_all_prefixes_are_valid_uris(self, schema):
+        for prefix, uri in schema.get("prefixes", {}).items():
+            assert uri.startswith("http"), f"Prefix {prefix} has non-HTTP URI: {uri}"
+
+    def test_no_dangling_parents(self, schema):
+        bad = []
+        for name, defn in schema["classes"].items():
+            parent = defn.get("is_a")
+            if parent and parent not in schema["classes"]:
+                bad.append(f"{name}: is_a {parent} is not a defined class")
+        assert not bad, f"Dangling parent references:\n" + "\n".join(bad)
+
+    def test_all_class_slot_references_resolve(self, schema):
+        bad = []
+        for class_name, class_def in schema["classes"].items():
+            for slot in class_def.get("slots", []):
+                if slot not in schema["slots"]:
+                    bad.append(f"{class_name} references undefined slot '{slot}'")
+        assert not bad, "\n".join(bad)
+
+    def test_no_duplicate_class_names(self, schema):
+        assert len(schema["classes"]) == len(set(schema["classes"]))
+
+    def test_all_slot_ranges_are_primitive_or_class(self, schema):
+        known = set(schema["classes"]) | {"string", "integer", "float", "boolean", "date", "datetime", "uri"}
+        bad = []
+        for slot_name, slot_def in schema["slots"].items():
+            rng = slot_def.get("range", "string")
+            for rv in (rng if isinstance(rng, list) else [rng]):
+                if rv not in known:
+                    bad.append(f"Slot '{slot_name}' has unknown range '{rv}'")
+        assert not bad, "\n".join(bad)
+
+
+class TestHelpers:
+    """Tests for helper functions in the code generators."""
+
+    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml.yaml"
+
+    @pytest.fixture(scope="class")
+    def schema_data(self):
+        from scripts.generate_ruby_gem import parse_schema
+        return parse_schema(str(self.SCHEMA_PATH))
+
+    # -- Ruby generator helpers --
+
+    def test_ruby_to_snake_case(self):
+        from scripts.generate_ruby_gem import to_snake_case
+        assert to_snake_case("CamelCase") == "camel_case"
+        assert to_snake_case("hasAddress") == "has_address"
+        assert to_snake_case("Simple") == "simple"
+
+    def test_ruby_to_ruby_class_name(self):
+        from scripts.generate_ruby_gem import to_ruby_class_name
+        # DFC_BusinessOntology_ prefix is stripped
+        assert to_ruby_class_name("Address") == "Address"
+        assert to_ruby_class_name("DFC_BusinessOntology_Relation") == "Relation"
+        assert to_ruby_class_name("DFC_Interface_Property") == "InterfaceProperty"
+
+    def test_ruby_to_file_name(self):
+        from scripts.generate_ruby_gem import to_file_name
+        assert to_file_name("Address") == "address"
+        assert to_file_name("SuppliedProduct") == "supplied_product"
+
+    def test_ruby_rdf_prefix_for_class(self):
+        from scripts.generate_ruby_gem import rdf_prefix_for_class
+        # Includes the full CURIE reference
+        result = rdf_prefix_for_class("Address")
+        assert "dfc-b" in result
+        assert "Address" in result
+
+    def test_ruby_param_name(self):
+        from scripts.generate_ruby_gem import ruby_param_name
+        assert ruby_param_name("hasAddress") == "address"
+        assert ruby_param_name("city") == "city"
+
+    def test_ruby_property_name(self):
+        from scripts.generate_ruby_gem import ruby_property_name
+        assert ruby_property_name("hasAddress") == "address"
+        assert ruby_property_name("city") == "city"
+
+    def test_ruby_type_for_slot_primitive(self, schema_data):
+        from scripts.generate_ruby_gem import ruby_type_for_slot
+        # Find a string slot
+        for slot_name, slot_data in schema_data.get("slots", {}).items():
+            type_name = ruby_type_for_slot(slot_data, schema_data)
+            assert isinstance(type_name, str)
+            break
+
+    def test_ruby_get_parent_ruby_class(self):
+        from scripts.generate_ruby_gem import get_parent_ruby_class
+        assert get_parent_ruby_class({"is_a": "Agent"}) == "Agent"
+        assert get_parent_ruby_class({}) == "SemanticObject"
+
+    def test_ruby_get_data_properties(self, schema_data):
+        from scripts.generate_ruby_gem import get_data_properties
+        props = get_data_properties("Address", schema_data)
+        assert isinstance(props, list)
+
+    def test_ruby_get_object_properties(self, schema_data):
+        from scripts.generate_ruby_gem import get_object_properties
+        props = get_object_properties("Address", schema_data)
+        assert isinstance(props, list)
+
+    def test_ruby_get_all_slots_for_class(self, schema_data):
+        from scripts.generate_ruby_gem import get_all_slots_for_class
+        import collections
+        slots = get_all_slots_for_class("Enterprise", schema_data)
+        assert isinstance(slots, collections.abc.Iterable)
+        assert len(list(slots)) > 0
+
+    def test_ruby_get_class_hierarchy(self, schema_data):
+        from scripts.generate_ruby_gem import get_class_hierarchy
+        hierarchy = get_class_hierarchy("Enterprise", schema_data["classes"])
+        assert "Enterprise" in hierarchy
+        assert "Agent" in hierarchy
+
+    def test_ruby_is_collection_property(self, schema_data):
+        from scripts.generate_ruby_gem import is_collection_property
+        # Find a collection slot
+        found_collection = False
+        for slot_name, slot_data in schema_data.get("slots", {}).items():
+            if is_collection_property(slot_name, slot_data):
+                found_collection = True
+                break
+        assert found_collection, "No collection property found in schema"
+
+    # -- TypeScript generator helpers --
+
+    def test_ts_to_snake_case(self):
+        from scripts.generate_typescript_connector import to_snake_case
+        assert to_snake_case("CamelCase") == "camel_case"
+
+    def test_ts_to_ts_class_name(self):
+        from scripts.generate_typescript_connector import to_ts_class_name
+        assert to_ts_class_name("Address") == "Address"
+        assert to_ts_class_name("DFC_BusinessOntology_Relation") == "Relation"
+        assert to_ts_class_name("DFC_Interface_Property") == "InterfaceProperty"
+
+    def test_ts_property_name(self):
+        from scripts.generate_typescript_connector import ts_property_name
+        assert ts_property_name("hasAddress") == "address"
+
+    def test_ts_type_for_slot(self, schema_data):
+        from scripts.generate_typescript_connector import ts_type_for_slot
+        for slot_name, slot_data in schema_data.get("slots", {}).items():
+            type_name = ts_type_for_slot(slot_data, schema_data)
+            assert isinstance(type_name, str)
+            break
+
+    def test_ts_get_parent_ts_class(self):
+        from scripts.generate_typescript_connector import get_parent_ts_class
+        assert get_parent_ts_class({"is_a": "Agent"}) == "Agent"
+        assert get_parent_ts_class({}) == "SemanticObject"
+
+    def test_ts_slot_matches_class(self, schema_data):
+        from scripts.generate_typescript_connector import slot_matches_class
+        addr_slot = next(
+            (s for s, d in schema_data.get("slots", {}).items() if "Address" in d.get("domain", [])),
+            None,
+        )
+        if addr_slot:
+            assert slot_matches_class(schema_data["slots"][addr_slot], "Address")
+            assert not slot_matches_class(schema_data["slots"][addr_slot], "Nonexistent")
+
+    def test_ts_get_all_slots_for_class(self, schema_data):
+        from scripts.generate_typescript_connector import get_all_slots_for_class
+        import collections
+        slots = get_all_slots_for_class("Enterprise", schema_data)
+        assert isinstance(slots, collections.abc.Iterable)
+        assert len(list(slots)) > 0
+
+    def test_ts_get_class_hierarchy(self, schema_data):
+        from scripts.generate_typescript_connector import get_class_hierarchy
+        hierarchy = get_class_hierarchy("Enterprise", schema_data["classes"])
+        assert "Enterprise" in hierarchy
+        assert "Agent" in hierarchy
+
+    def test_ts_is_collection_property(self, schema_data):
+        from scripts.generate_typescript_connector import is_collection_property
+        found_collection = False
+        for slot_name, slot_data in schema_data.get("slots", {}).items():
+            if is_collection_property(slot_name, slot_data):
+                found_collection = True
+                break
+        assert found_collection, "No collection property found in schema"
+
+    def test_ts_get_range_value(self, schema_data):
+        from scripts.generate_typescript_connector import get_range_value
+        for slot_name, slot_data in schema_data.get("slots", {}).items():
+            rv = get_range_value(slot_data)
+            assert isinstance(rv, str)
+            break
+
+
+@pytest.mark.integration
+class TestRubyGenerator:
+    """Integration smoke test for the Ruby gem generator functions."""
+
+    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml.yaml"
+
+    @pytest.fixture(scope="class")
+    def schema_data(self):
+        from scripts.generate_ruby_gem import parse_schema
+        return parse_schema(str(self.SCHEMA_PATH))
+
+    def test_generate_gemfile(self):
+        from scripts.generate_ruby_gem import generate_gemfile
+        content = generate_gemfile("test-gem")
+        assert "source" in content
+        assert "gemspec" in content
+        assert content.strip()
+
+    def test_generate_gemspec(self, schema_data):
+        from scripts.generate_ruby_gem import generate_gemspec
+        content = generate_gemspec(schema_data, "test-gem")
+        assert "test-gem" in content
+        assert "Gem::Specification" in content
+        assert content.strip()
+
+    def test_generate_readme(self, schema_data):
+        from scripts.generate_ruby_gem import generate_readme
+        content = generate_readme(schema_data, "test-gem")
+        assert "# " in content
+        assert content.strip()
+
+    def test_generate_semantic_object_base(self):
+        from scripts.generate_ruby_gem import generate_semantic_object_base
+        content = generate_semantic_object_base()
+        assert "class SemanticObject" in content
+        assert "def initialize" in content
+        assert content.strip()
+
+    def test_generate_json_ld_serializer(self):
+        from scripts.generate_ruby_gem import generate_json_ld_serializer
+        content = generate_json_ld_serializer()
+        assert "class JsonLdSerializer" in content
+        assert content.strip()
+
+    def test_generate_vocabulary_loader(self, schema_data):
+        from scripts.generate_ruby_gem import generate_vocabulary_loader
+        content = generate_vocabulary_loader(schema_data)
+        assert "class VocabularyLoader" in content
+        assert content.strip()
+
+    def test_generate_connector_class(self, schema_data):
+        from scripts.generate_ruby_gem import generate_connector_class
+        content = generate_connector_class(schema_data)
+        assert "class Connector" in content
+        assert "def initialize" in content
+        assert content.strip()
+
+    def test_generate_main_entry_point(self, schema_data):
+        from scripts.generate_ruby_gem import generate_main_entry_point
+        content = generate_main_entry_point(schema_data)
+        assert "require" in content
+        assert content.strip()
+
+    def test_generate_semantic_model(self, schema_data):
+        from scripts.generate_ruby_gem import generate_semantic_model
+        class_name, class_data = next(iter(schema_data["classes"].items()))
+        content = generate_semantic_model(class_name, class_data, schema_data)
+        assert "class " in content
+        assert content.strip()
+
+    def test_generate_vocabulary_file(self, schema_data):
+        from scripts.generate_ruby_gem import generate_vocabulary_file
+        enum_name, enum_data = next(iter(schema_data["enums"].items()))
+        content = generate_vocabulary_file(enum_name, enum_data, schema_data)
+        assert "@context" in content
+        assert content.strip()
+
+    def test_generate_all_vocabulary_files(self, schema_data):
+        from scripts.generate_ruby_gem import generate_vocabulary_file
+        for enum_name, enum_data in schema_data["enums"].items():
+            content = generate_vocabulary_file(enum_name, enum_data, schema_data)
+            assert content.strip(), f"Empty vocabulary file for {enum_name}"
+
+    def test_generate_all_model_files(self, schema_data):
+        from scripts.generate_ruby_gem import generate_semantic_model
+        for class_name, class_data in schema_data["classes"].items():
+            content = generate_semantic_model(class_name, class_data, schema_data)
+            assert content.strip(), f"Empty model file for {class_name}"
+
+
+@pytest.mark.integration
+class TestTypeScriptGenerator:
+    """Integration smoke test for the TypeScript connector generator functions."""
+
+    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml.yaml"
+
+    @pytest.fixture(scope="class")
+    def schema_data(self):
+        from scripts.generate_typescript_connector import parse_schema
+        return parse_schema(str(self.SCHEMA_PATH))
+
+    def test_generate_semantic_object_base(self):
+        from scripts.generate_typescript_connector import generate_semantic_object_base
+        content = generate_semantic_object_base()
+        assert "class SemanticObject" in content or "SemanticObject" in content
+        assert content.strip()
+
+    def test_generate_json_ld_serializer(self):
+        from scripts.generate_typescript_connector import generate_json_ld_serializer
+        content = generate_json_ld_serializer()
+        assert "JsonLdSerializer" in content
+        assert content.strip()
+
+    def test_generate_vocabulary_loader(self, schema_data):
+        from scripts.generate_typescript_connector import generate_vocabulary_loader
+        content = generate_vocabulary_loader(schema_data)
+        assert "VocabularyLoader" in content
+        assert content.strip()
+
+    def test_generate_connector_class(self, schema_data):
+        from scripts.generate_typescript_connector import generate_connector_class
+        content = generate_connector_class(schema_data)
+        assert "class Connector" in content
+        assert content.strip()
+
+    def test_generate_main_entry_point(self, schema_data):
+        from scripts.generate_typescript_connector import generate_main_entry_point
+        content = generate_main_entry_point(schema_data)
+        assert "export" in content
+        assert content.strip()
+
+    def test_generate_model(self, schema_data):
+        from scripts.generate_typescript_connector import generate_model
+        class_name, class_data = next(iter(schema_data["classes"].items()))
+        content = generate_model(class_name, class_data, schema_data)
+        assert "class " in content or "interface " in content
+        assert content.strip()
+
+    def test_generate_models_index(self, schema_data):
+        from scripts.generate_typescript_connector import generate_models_index
+        content = generate_models_index(schema_data)
+        assert "export" in content
+        assert content.strip()
+
+    def test_generate_package_json(self, schema_data):
+        from scripts.generate_typescript_connector import generate_package_json
+        content = generate_package_json(schema_data)
+        assert "name" in content
+        assert "version" in content
+        assert content.strip()
+
+    def test_generate_all_model_files(self, schema_data):
+        from scripts.generate_typescript_connector import generate_model
+        for class_name, class_data in schema_data["classes"].items():
+            content = generate_model(class_name, class_data, schema_data)
+            assert content.strip(), f"Empty model file for {class_name}"
