@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #PaymentMethod
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'how_subject'
 
 
 module DfcLinkmlConnector
   module Models
-    class PaymentMethod < Core::HowSubject
+    class PaymentMethod < HowSubject
       SEMANTIC_TYPE = "dfc-b:PaymentMethod".freeze
 
       # @return [String]

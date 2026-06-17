@@ -1,0 +1,19 @@
+{
+  "@graph": [
+    {
+      "@id": "http://example.com/org1",
+      "@type": "dfc-b:Organization",
+      "dfc-b:Who_Subject:name": "Farm Org",
+      "dfc-b:Who_Subject:description": "A test organic farm"
+    },
+    {
+      "@id": "http://example.com/tomato",
+      "@type": "dfc-b:SuppliedProduct",
+      "dfc-b:What_Subject:name": "Tomato",
+      "dfc-b:What_Subject:description": "Fresh organic tomatoes",
+      "dfc-b:SuppliedProduct:frozen": false,
+      "dfc-b:SuppliedProduct:total_theoritical_stock": 100,
+      "dfc-b:SuppliedProduct:supplied_by": "http://example.com/org1"
+    }
+  ]
+}

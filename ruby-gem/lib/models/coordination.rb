@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #Coordination
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'relation'
 
 
 module DfcLinkmlConnector
   module Models
-    class Coordination < Core::Relation
+    class Coordination < Relation
       SEMANTIC_TYPE = "dfc-b:Coordination".freeze
 
       # @return [String]

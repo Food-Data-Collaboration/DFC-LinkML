@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #Enterprise
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'agent'
 
 
 module DfcLinkmlConnector
   module Models
-    class Enterprise < Core::Agent
+    class Enterprise < Agent
       SEMANTIC_TYPE = "dfc-b:Enterprise".freeze
 
       # @return [String]

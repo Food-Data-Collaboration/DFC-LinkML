@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #Route
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'where_subject'
 
 
 module DfcLinkmlConnector
   module Models
-    class Route < Core::WhereSubject
+    class Route < WhereSubject
       SEMANTIC_TYPE = "dfc-b:Route".freeze
 
       # @return [Step]

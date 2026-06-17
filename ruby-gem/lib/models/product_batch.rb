@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #ProductBatch
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'what_subject'
 
 
 module DfcLinkmlConnector
   module Models
-    class ProductBatch < Core::WhatSubject
+    class ProductBatch < WhatSubject
       SEMANTIC_TYPE = "dfc-b:ProductBatch".freeze
 
       # @return [String]

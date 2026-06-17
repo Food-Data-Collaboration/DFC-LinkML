@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #ProductOptionValue
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'what_subject'
 
 
 module DfcLinkmlConnector
   module Models
-    class ProductOptionValue < Core::WhatSubject
+    class ProductOptionValue < WhatSubject
       SEMANTIC_TYPE = "dfc-b:ProductOptionValue".freeze
 
       # @return [String]

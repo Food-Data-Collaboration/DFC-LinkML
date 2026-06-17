@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #PhysicalPlace
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'place'
 
 
 module DfcLinkmlConnector
   module Models
-    class PhysicalPlace < Core::Place
+    class PhysicalPlace < Place
       SEMANTIC_TYPE = "dfc-b:PhysicalPlace".freeze
 
       # @return [String]

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #Feature
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 
 
 module DfcLinkmlConnector

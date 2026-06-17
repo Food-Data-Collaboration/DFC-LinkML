@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #Point
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'geometry'
 
 
 module DfcLinkmlConnector
   module Models
-    class Point < Core::Geometry
+    class Point < Geometry
       SEMANTIC_TYPE = "dfc-b:Point".freeze
 
       # @return [String]

@@ -452,6 +452,93 @@ describe("Import/Export extended", () => {
     }
   });
 
+  it("imports JSON-LD with @id-wrapped references", () => {
+    const c = new Connector();
+    const jsonLd = {
+      "@graph": [
+        {
+          "@id": "http://example.com/org1",
+          "@type": "dfc-b:Organization",
+          name: "Farm Org",
+          isCertifiedBy: { "@id": "http://example.com/org2" },
+        },
+        {
+          "@id": "http://example.com/org2",
+          "@type": "dfc-b:Organization",
+          name: "Certifier Org",
+        },
+      ],
+    };
+    const result = c.import(jsonLd);
+    expect(Array.isArray(result)).toBe(true);
+    if (Array.isArray(result)) {
+      const org1 = result.find(o => o.semanticId === "http://example.com/org1") as Organization;
+      const org2 = result.find(o => o.semanticId === "http://example.com/org2") as Organization;
+      expect(org1).toBeDefined();
+      expect(org2).toBeDefined();
+      expect(typeof org1.isCertifiedBy).toBe("object");
+      expect(org1.isCertifiedBy).toBe(org2);
+    }
+  });
+
+  it("imports JSON-LD with blank node IDs", () => {
+    const c = new Connector();
+    const jsonLd = {
+      "@graph": [
+        {
+          "@id": "_:order1",
+          "@type": "dfc-b:Order",
+          orderNumber: "ORD-001",
+          hasPart: { "@id": "_:line1" },
+        },
+        {
+          "@id": "_:line1",
+          "@type": "dfc-b:OrderLine",
+          quantity: 5,
+        },
+      ],
+    };
+    const result = c.import(jsonLd) as Order[];
+    expect(result).toHaveLength(2);
+    const order = result.find(o => o.semanticId === "_:order1") as Order;
+    const line = result.find(o => o.semanticId === "_:line1");
+    expect(order).toBeDefined();
+    expect(line).toBeDefined();
+    expect(order.orderNumber).toBe("ORD-001");
+    expect(typeof order.hasPart).toBe("object");
+    expect(order.hasPart).toBe(line);
+  });
+
+  it("exports SemanticObject references as @id-wrapped objects", async () => {
+    const c = new Connector();
+    const org2 = c.createOrganization("http://example.com/org2", { name: "Certifier" });
+    const org1 = c.createOrganization("http://example.com/org1", { name: "Farm Org" });
+    (org1 as unknown as Record<string, unknown>).isCertifiedBy = org2;
+    const exported = await c.export(org1, org2);
+    const graph = exported["@graph"] as Record<string, unknown>[];
+    const entry = graph.find(e => e["@id"] === "http://example.com/org1") as Record<string, unknown>;
+    expect(entry["dfc-b:Organization:is_certified_by"]).toEqual({ "@id": "http://example.com/org2" });
+  });
+
+  it("round-trips @id-wrapped references correctly", async () => {
+    const c = new Connector();
+    const org1 = c.createOrganization("http://example.com/org1", {
+      name: "Farm Org",
+      isCertifiedBy: "http://example.com/org2",
+    });
+    const org2 = c.createOrganization("http://example.com/org2", {
+      name: "Certifier Org",
+    });
+    const exported = await c.export(org1, org2);
+    const imported = c.import(exported) as Organization[];
+    const resultOrg1 = imported.find(o => o.semanticId === "http://example.com/org1") as Organization;
+    const resultOrg2 = imported.find(o => o.semanticId === "http://example.com/org2") as Organization;
+    expect(resultOrg1.name).toBe("Farm Org");
+    expect(resultOrg2.name).toBe("Certifier Org");
+    expect(typeof resultOrg1.isCertifiedBy).toBe("object");
+    expect(resultOrg1.isCertifiedBy).toBe(resultOrg2);
+  });
+
   it("imports @graph with @id references between objects", () => {
     const c = new Connector();
     const jsonLd = {

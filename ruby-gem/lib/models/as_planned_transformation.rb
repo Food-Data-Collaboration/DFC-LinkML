@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #AsPlannedTransformation
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'transformation'
 
 
 module DfcLinkmlConnector
   module Models
-    class AsPlannedTransformation < Core::Transformation
+    class AsPlannedTransformation < Transformation
       SEMANTIC_TYPE = "dfc-b:AsPlannedTransformation".freeze
 
       # @return [String]

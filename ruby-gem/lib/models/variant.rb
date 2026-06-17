@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Class from DFC Business Ontology: #Variant
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 require_relative 'defined_product'
 
 
 module DfcLinkmlConnector
   module Models
-    class Variant < Core::DefinedProduct
+    class Variant < DefinedProduct
       SEMANTIC_TYPE = "dfc-b:Variant".freeze
 
       # @return [VariantCaracteristic]
