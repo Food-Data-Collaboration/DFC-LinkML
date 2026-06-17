@@ -451,3 +451,77 @@ class TestSchemaValidation:
         assert "v2.0.0" in schema["prefixes"]["dfc-m"]
         assert "v2.0.0" in schema["prefixes"]["dfc-pt"]
         assert "v2.0.0" in schema["prefixes"]["dfc-v"]
+
+
+@pytest.mark.integration
+class TestCompleteness:
+    """Tests that OWL→LinkML conversion preserves all ontology entities."""
+
+    ONT_URL = "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_BusinessOntology.rdf"
+    TECH_URL = "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_TechnicalOntology.rdf"
+
+    def _build_schema(self):
+        """Load OWL, extract entities, and build LinkML schema."""
+        from scripts.owl2linkml import (
+            load_ontology,
+            get_classes,
+            get_data_properties,
+            get_object_properties,
+            get_subclass_relations,
+            build_linkml_schema,
+            DEFAULT_SKIP_CLASSES,
+            DEFAULT_SKIP_PROPERTIES,
+        )
+
+        g = load_ontology(self.ONT_URL, self.TECH_URL, None)
+
+        classes = get_classes(g, DEFAULT_SKIP_CLASSES)
+        data_props = get_data_properties(g, DEFAULT_SKIP_PROPERTIES)
+        obj_props = get_object_properties(g, DEFAULT_SKIP_PROPERTIES, DEFAULT_SKIP_CLASSES)
+        subclass_relations = get_subclass_relations(g, DEFAULT_SKIP_CLASSES)
+
+        config = make_config()
+        schema = build_linkml_schema(classes, data_props, obj_props, subclass_relations, config)
+
+        return classes, set(data_props), set(obj_props), subclass_relations, schema
+
+    def test_all_classes_preserved(self):
+        """Every non-skipped OWL class appears as a LinkML class."""
+        classes, _, _, _, schema = self._build_schema()
+        missing = [c for c in sorted(classes) if c not in schema["classes"]]
+        assert not missing, f"{len(missing)} classes missing from schema:\n{missing}"
+
+    def test_all_data_properties_preserved(self):
+        """Every non-skipped OWL data property appears as a LinkML slot."""
+        _, data_prop_names, _, _, schema = self._build_schema()
+        slot_names = {_to_snake_case(p) for p in data_prop_names}
+        missing = [s for s in sorted(slot_names) if s not in schema["slots"]]
+        assert not missing, f"{len(missing)} data property slots missing:\n{missing}"
+
+    def test_all_object_properties_preserved(self):
+        """Every non-skipped OWL object property appears as a LinkML slot."""
+        _, _, obj_prop_names, _, schema = self._build_schema()
+        slot_names = {_to_snake_case(p) for p in obj_prop_names}
+        missing = [s for s in sorted(slot_names) if s not in schema["slots"]]
+        assert not missing, f"{len(missing)} object property slots missing:\n{missing}"
+
+    def test_all_subclass_relations_preserved(self):
+        """Every subclass relation is reflected as is_a."""
+        _, _, _, subclass_relations, schema = self._build_schema()
+        bad = []
+        for sub, super_ in subclass_relations.items():
+            if sub not in schema["classes"]:
+                bad.append(f"{sub}: missing from classes")
+            elif schema["classes"][sub].get("is_a") != super_:
+                bad.append(f"{sub}: is_a={schema['classes'][sub].get('is_a')}, expected {super_}")
+        assert not bad, f"{len(bad)} subclass relation mismatches:\n" + "\n".join(bad)
+
+    def test_no_dangling_parent_references(self):
+        """Every is_a reference points to a defined class."""
+        _, _, _, _, schema = self._build_schema()
+        bad = []
+        for name, defn in schema["classes"].items():
+            parent = defn.get("is_a")
+            if parent and parent not in schema["classes"]:
+                bad.append(f"{name}: is_a {parent} is not a defined class")
+        assert not bad, f"Dangling parent references:\n" + "\n".join(bad)
