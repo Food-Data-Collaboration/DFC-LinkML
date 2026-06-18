@@ -790,9 +790,7 @@ def main():
     schema_paths = [
         args.schema,
         'src/dfc_business_linkml_v2_0.yaml',
-        'src/dfc_business_linkml.yaml',
         '../src/dfc_business_linkml_v2_0.yaml',
-        '../src/dfc_business_linkml.yaml',
     ]
 
     schema_path = None

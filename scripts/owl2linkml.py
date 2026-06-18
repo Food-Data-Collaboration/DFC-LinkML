@@ -213,7 +213,7 @@ def get_data_properties(g: Graph, skip_properties: set[str] = None) -> dict[str,
 
         props[name] = {
             "domain": domains,
-            "range": ranges if len(ranges) == 1 else "string",
+            "range": ranges[0] if len(ranges) == 1 else "string",
             "description": description or f"Data property from OWL: {name}",
         }
     return props
@@ -237,7 +237,7 @@ def get_object_properties(g: Graph, skip_properties: set[str] = None, skip_class
 
         props[name] = {
             "domain": domains,
-            "range": ranges if len(ranges) == 1 else "string",
+            "range": ranges[0] if len(ranges) == 1 else "string",
             "description": description or f"Object property from OWL: {name}",
         }
     return props
@@ -357,12 +357,33 @@ def _get_property(g: Graph, node, prop) -> Optional[object]:
     return None
 
 
+def get_inverse_relationships(g: Graph, skip_properties: set[str] = None) -> dict[str, str]:
+    """Extract owl:inverseOf relationships between object properties.
+    
+    Returns a dict mapping each property name to its inverse property name.
+    owl:inverseOf is symmetric, so each pair appears once.
+    """
+    if skip_properties is None:
+        skip_properties = DEFAULT_SKIP_PROPERTIES
+    inverses = {}
+    for prop, inverse in g.subject_objects(OWL.inverseOf):
+        prop_name = _local_name(prop)
+        inverse_name = _local_name(inverse)
+        if not prop_name or not inverse_name:
+            continue
+        if prop_name in skip_properties or inverse_name in skip_properties:
+            continue
+        inverses[prop_name] = inverse_name
+    return inverses
+
+
 def build_linkml_schema(
     classes: set[str],
     data_props: dict,
     obj_props: dict,
     subclass_relations: dict[str, str],
     config: dict,
+    inverse_relations: dict[str, str] = None,
 ) -> dict:
     """Build LinkML schema dictionary from config.
     
@@ -372,6 +393,7 @@ def build_linkml_schema(
         obj_props: Dict of object property info
         subclass_relations: Dict mapping class to parent class
         config: Configuration dict with ontology settings
+        inverse_relations: Dict mapping property name to its inverse property name
     """
     ontology_version = config.get("ontology_version", "1.0.0")
     taxonomy_version = config.get("taxonomy_version", ontology_version)
@@ -425,6 +447,14 @@ def build_linkml_schema(
             "domain": prop_info.get("domain", []),
         }
         slot_definitions[slot_name] = slot_def
+
+    if inverse_relations:
+        for prop_name, inverse_name in inverse_relations.items():
+            slot_name = _to_snake_case(prop_name)
+            inverse_slot_name = _to_snake_case(inverse_name)
+            if slot_name in slot_definitions and inverse_slot_name in slot_definitions:
+                slot_definitions[slot_name]["inverse"] = inverse_slot_name
+                slot_definitions[inverse_slot_name]["inverse"] = slot_name
 
     for class_name in sorted(classes):
         description_template = config.get("class_description_template", "OWL class: {class_name}")
@@ -624,6 +654,10 @@ def main(
     subclass_relations = get_subclass_relations(g, skip_classes)
     logger.info(f"Found {len(subclass_relations)} subclass relations")
 
+    logger.info("Extracting inverse relationships...")
+    inverse_relations = get_inverse_relationships(g, skip_properties)
+    logger.info(f"Found {len(inverse_relations)} inverse relationships")
+
     config["ontology_version"] = ontology_version
     config["taxonomy_version"] = taxonomy_version
     if "id" not in config:
@@ -635,6 +669,7 @@ def main(
         obj_props,
         subclass_relations,
         config,
+        inverse_relations,
     )
 
     if output is None:

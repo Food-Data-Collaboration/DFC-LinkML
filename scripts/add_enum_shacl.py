@@ -96,11 +96,11 @@ def main():
     shacl_output = sys.argv[2] if len(sys.argv) >= 3 else None
     
     # Find the schema - look in parent src/ folder
-    schema_path = Path(shacl_input).parent / 'dfc_business_linkml.yaml'
+    schema_path = Path(shacl_input).parent / 'dfc_business_linkml_v2_0.yaml'
     if not schema_path.exists():
-        schema_path = Path(shacl_input).parent.parent / 'src' / 'dfc_business_linkml.yaml'
+        schema_path = Path(shacl_input).parent.parent / 'src' / 'dfc_business_linkml_v2_0.yaml'
     if not schema_path.exists():
-        schema_path = Path('src') / 'dfc_business_linkml.yaml'
+        schema_path = Path('src') / 'dfc_business_linkml_v2_0.yaml'
     if not schema_path.exists():
         print("ERROR: Could not find LinkML schema file", file=sys.stderr)
         sys.exit(1)

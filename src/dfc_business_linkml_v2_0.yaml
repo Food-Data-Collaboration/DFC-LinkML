@@ -205,6 +205,9 @@ classes:
   DeliveryStep:
     description: 'Class from DFC Business Ontology: #DeliveryStep'
     is_a: Step
+  Enterprise:
+    description: 'Class from DFC Business Ontology: #Enterprise'
+    is_a: Agent
   Feature:
     description: 'Class from DFC Business Ontology: #Feature'
     slots:
@@ -304,7 +307,7 @@ classes:
     slots:
     - vat_number
     - vat_status
-    - organization_id
+    - enterprise_i_d
     - affiliates
     - defines
     - has_main_contact
@@ -611,1591 +614,1472 @@ classes:
 slots:
   byday:
     description: 'Data property from OWL: byday'
-    range:
-    - string
+    range: string
     domain:
     - Value_RECUR
   bymonth:
     description: 'Data property from OWL: bymonth'
-    range:
-    - string
+    range: string
     domain:
     - Value_RECUR
   dtend:
     description: 'Data property from OWL: dtend'
-    range:
-    - datetime
+    range: datetime
     domain:
     - Vevent
   dtstart:
     description: 'Data property from OWL: dtstart'
-    range:
-    - datetime
+    range: datetime
     domain:
     - Vevent
   freq:
     description: 'Data property from OWL: freq'
-    range:
-    - string
+    range: string
     domain:
     - Value_RECUR
   interval:
     description: 'Data property from OWL: interval'
-    range:
-    - integer
+    range: integer
     domain:
     - Value_RECUR
   coordinates:
     description: 'Data property from OWL: coordinates'
-    range:
-    - string
+    range: string
     domain:
     - Geometry
+    inverse: coordinated_by
   day_of_week:
     description: 'Data property from OWL: dayOfWeek'
-    range:
-    - string
+    range: string
     domain:
     - OpeningHoursSpecification
   opens:
     description: 'Data property from OWL: opens'
-    range:
-    - string
+    range: string
     domain:
     - OpeningHoursSpecification
   image:
     description: A URL for an image of the Product
-    range:
-    - uri
+    range: uri
     domain:
-    - PhysicalProduct
     - LocalizedProduct
+    - PhysicalProduct
     - DefinedProduct
   url:
     description: The Universal Resource Locator address of the virtual place
-    range:
-    - uri
+    range: uri
     domain:
     - VirtualPlace
     - DefinedProduct
   vat_number:
-    description: Any Tax Registration Number that is applicable to the Organization, in the jurisdiction the Enterprise is operating in.
-    range:
-    - string
+    description: Any Tax Registration Number that is applicable to the Enterprise, in the jurisdiction the Enterprise is operating in.
+    range: string
     domain:
     - Organization
   vat_rate:
     description: The Sales Tax (VAT) rate associated with the Price, given as a percentage value from 0-100
-    range:
-    - float
+    range: float
     domain:
     - Price
   vat_status:
-    description: Indicates whether the Organization charges VAT or not
-    range:
-    - boolean
+    description: Indicates whether the Enterprise charges VAT or not
+    range: boolean
     domain:
     - Organization
   accessibility_info:
     description: 'Data property from OWL: accessibilityInfo'
-    range:
-    - string
+    range: string
     domain:
     - DeliveryOption
   arrival_date:
     description: 'Data property from OWL: arrivalDate'
-    range:
-    - datetime
+    range: datetime
     domain:
     - Step
   availability_date:
     description: '"The date from which the product is available from the information provider, including seasonal or temporary product and services." (source : GS1 model)'
-    range:
-    - date
+    range: date
     domain:
     - Stock
   availability_time:
     description: Lead time for supplying the product.
-    range:
-    - string
+    range: string
     domain:
     - SuppliedProduct
   batch_number:
     description: 'Data property from OWL: batchNumber'
-    range:
-    - string
+    range: string
     domain:
     - ProductBatch
   best_before_date:
     description: '" à consommer de préférence avant le… " : après cette date, le produit peut perdre une partie ou la totalité de ses qualités sans présenter un danger pour la santé : par exemple le café
       peut perdre son arôme.'
-    range:
-    - date
+    range: date
     domain:
     - ProductBatch
   brand:
     description: Deprecated onto v5.0
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
   certifer_reference:
     description: 'Data property from OWL: certiferReference'
-    range:
-    - string
+    range: string
     domain:
     - Certfication
   certification_score:
     description: 'Data property from OWL: certificationScore'
-    range:
-    - string
+    range: string
     domain:
     - Certfication
   city:
     description: The postal city (may be a town) that the address is located within
-    range:
-    - string
+    range: string
     domain:
     - Address
   claim:
     description: " **Deprecated** \nAny claims of a Product. \n**Deprecated**"
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
   closes:
     description: 'Data property from OWL: closes'
-    range:
-    - string
+    range: string
     domain:
     - OpeningHoursSpecification
   cost:
     description: 'Data property from OWL: cost'
-    range:
-    - float
+    range: float
     domain:
-    - LocalizedProduct
     - AsRealizedTransformation
     - AsPlannedLocalTransformation
+    - LocalizedProduct
   country:
     description: The ISO country that the address is located within
-    range:
-    - string
+    range: string
     domain:
     - Address
   country_code:
     description: The international dialling code for the country where the phone number is registered
-    range:
-    - string
+    range: string
     domain:
     - PhoneNumber
   date:
     description: 'Data property from OWL: date'
-    range:
-    - datetime
+    range: datetime
     domain:
-    - DFC_BusinessOntology_Subject
     - DFC_BusinessOntology_Relation
+    - DFC_BusinessOntology_Subject
   delivery_condition:
     description: Any conditions of carriage/transport required by the product (e.g. Fragile, do not stack)
-    range:
-    - string
+    range: string
     domain:
     - SuppliedProduct
   delivery_constraint:
     description: Any constraints (time or physical) that are applied to the delivery (e.g. "9am-5pm Mon - Fri only", "only deliver after 6pm", or "Delivery to be left in porch")
-    range:
-    - string
+    range: string
     domain:
     - DeliveryOption
   description:
     description: 'Data property from OWL: description'
-    range:
-    - string
+    range: string
     domain:
     - DFC_BusinessOntology_Subject
   discount:
     description: Any discount applied to the Price
-    range:
-    - float
+    range: float
     domain:
-    - Order
-    - OrderLine
     - Offer
+    - OrderLine
+    - Order
   duration:
     description: 'Data property from OWL: duration'
-    range:
-    - string
+    range: string
     domain:
     - Step
   email:
     description: email address of the Agent
-    range:
-    - string
+    range: string
     domain:
     - Agent
   end_date:
     description: The date/time that the Sales Session ends
-    range:
-    - datetime
+    range: datetime
     domain:
-    - Catalog
-    - SaleSession
-    - AsPlannedLocalTransformation
-    - ShippingOption
     - AsRealizedTransformation
     - Shipment
-  organization_id:
-    description: 'Data property from OWL: organizationID'
-    range:
-    - string
+    - ShippingOption
+    - SaleSession
+    - Catalog
+    - AsPlannedLocalTransformation
+  enterprise_i_d:
+    description: 'Data property from OWL: enterpriseID'
+    range: string
     domain:
     - Organization
   expiry_date:
     description: 'Data property from OWL: expiryDate'
-    range:
-    - date
+    range: date
     domain:
     - ProductBatch
   extra_availability_time:
     description: Additional lead time for catalog item. To be appended to AvailabilityTime
-    range:
-    - string
+    range: string
     domain:
     - CatalogItem
   extra_delivery_condition:
     description: Additional devilery conditions for this item (append to any Devliery Condition set at Product level)
-    range:
-    - string
+    range: string
     domain:
     - CatalogItem
   family_name:
     description: Family name or surname of Person
-    range:
-    - string
+    range: string
     domain:
     - Person
   fee:
     description: The value of any fee associated with the Shipping Option
-    range:
-    - float
+    range: float
     domain:
     - ShippingOption
   first_name:
     description: First name of Person
-    range:
-    - string
+    range: string
     domain:
     - Person
   frozen:
     description: Defines if the parent class supports or requires refrigeration to a safe temperature to maintain frozen products.
-    range:
-    - boolean
+    range: boolean
     domain:
-    - Vehicle
     - SuppliedProduct
+    - Vehicle
   has_percentage_of_alcohol_by_volume:
     description: Percentage of Alcohol (by volume) in the Product, expressed as a number in the range 0.00 - 100.00
-    range:
-    - float
+    range: float
     domain:
     - DefinedProduct
   invoice_number:
     description: 'Data property from OWL: invoiceNumber'
-    range:
-    - string
+    range: string
     domain:
     - Transaction
   latitude:
     description: numeric latitude of the Address location
-    range:
-    - float
+    range: float
     domain:
     - Address
   lifetime:
     description: Lifetime of the product (in days), expressed as a number
-    range:
-    - float
+    range: float
     domain:
     - DefinedProduct
   logo:
     description: URI to logo of Agent
-    range:
-    - uri
+    range: uri
     domain:
     - Agent
   longitude:
     description: numeric longitude of the Address location
-    range:
-    - float
+    range: float
     domain:
     - Address
   margin_percent:
-    description: The percentage margin the coordinating Organization is charging as comission for managing the Sales Session (from 0-100%)
-    range:
-    - float
+    description: The percentage margin the coordinating Enterprise is charging as comission for managing the Sales Session (from 0-100%)
+    range: float
     domain:
     - Coordination
   max_value:
     description: 'Data property from OWL: maxValue'
-    range:
-    - string
+    range: string
     domain: []
   min_value:
     description: 'Data property from OWL: minValue'
-    range:
-    - string
+    range: string
     domain: []
   name:
-    description: Name of the Organization
-    range:
-    - string
+    description: Name of the Enterprise
+    range: string
     domain:
     - DFC_BusinessOntology_Subject
   operator_id:
     description: 'Data property from OWL: operatorId'
-    range:
-    - string
+    range: string
     domain:
     - Certfication
   order_number:
     description: The Order Number on the parent platform
-    range:
-    - string
+    range: string
     domain:
     - Order
   payment_method_provider:
     description: 'Data property from OWL: paymentMethodProvider'
-    range:
-    - string
+    range: string
     domain:
     - PaymentMethod
   payment_method_type:
     description: 'Data property from OWL: paymentMethodType'
-    range:
-    - string
+    range: string
     domain:
     - PaymentMethod
   phone_number:
     description: The full phone number (not including any country code)
-    range:
-    - string
+    range: string
     domain:
     - PhoneNumber
   physical_characteristics:
     description: " **Deprecated** \nAny Physical Characteristics of a Product. \n**Deprecated**"
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
   postcode:
     description: The code defined by the relevant authority that facilitates mail delivery to that address
-    range:
-    - string
+    range: string
     domain:
     - Address
   production_date:
     description: 'Data property from OWL: productionDate'
-    range:
-    - date
+    range: date
     domain:
     - ProductBatch
   quantity:
     description: DEPRECATE
-    range:
-    - float
+    range: float
     domain:
-    - SaleSession
-    - ConsumptionFlow
-    - LocalizedProduct
+    - ProductionFlow
+    - DefinedProduct
     - OrderLine
     - ShippingOption
-    - DefinedProduct
-    - PhysicalProduct
-    - Stock
-    - ProductionFlow
     - Transaction
+    - LocalizedProduct
+    - PhysicalProduct
+    - SaleSession
+    - Stock
+    - ConsumptionFlow
   refrigerated:
     description: Defines if the parent class supports or requires refrigeration to a safe temperature to maintain refrigerated products (typically 0-5°C).
-    range:
-    - boolean
+    range: boolean
     domain:
-    - Vehicle
     - SuppliedProduct
+    - Vehicle
   region:
     description: The Region (adminstrative district below Country) the Address is located within
-    range:
-    - string
+    range: string
     domain:
     - Address
   sku:
     description: Only a general "SKU" id is proposed for now. Agents using GTIN could use GTIN as SKU but other IDs than GTIN can be used.
-    range:
-    - string
+    range: string
     domain:
     - CatalogItem
   specific_condition:
     description: Any specific conditions requried for storage or carriage of the Product
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
   start_date:
     description: The date/time that the Sales Session starts
-    range:
-    - datetime
+    range: datetime
     domain:
-    - Catalog
-    - SaleSession
-    - AsPlannedLocalTransformation
-    - ShippingOption
     - AsRealizedTransformation
     - Shipment
+    - ShippingOption
+    - SaleSession
+    - Catalog
+    - AsPlannedLocalTransformation
   stock_limitation:
     description: Any limit on the stock of this particular listing. This ay differ from stock limits on the Product (for example if the Product is listed in multiple catalogues)
-    range:
-    - float
+    range: float
     domain:
     - Offer
     - CatalogItem
   street:
     description: Street part of the address. May also be referred to as "first line of address" in some locales. Generally includes a street name and building name or number (in any order)
-    range:
-    - string
+    range: string
     domain:
     - Address
   total_theoritical_stock:
     description: 'Data property from OWL: totalTheoriticalStock'
-    range:
-    - float
+    range: float
     domain:
     - SuppliedProduct
   value:
     description: 'Data property from OWL: value'
-    range:
-    - float
+    range: float
     domain:
-    - QuantitativeValue
     - DFC_BusinessOntology_Characteristic
+    - QuantitativeValue
   website_page:
     description: DEPRECATE
-    range:
-    - uri
+    range: uri
     domain:
     - VirtualPlace
-    - Agent
     - SocialMedia
+    - Agent
   rrule:
     description: 'Object property from OWL: rrule'
-    range:
-    - Value_RECUR
+    range: Value_RECUR
     domain:
     - Vevent
   broader:
     description: 'Object property from OWL: broader'
-    range:
-    - string
+    range: string
     domain: []
   in_scheme:
     description: 'Object property from OWL: inScheme'
-    range:
-    - string
+    range: string
     domain: []
   narrower:
     description: 'Object property from OWL: narrower'
-    range:
-    - string
+    range: string
     domain: []
   geometry:
     description: 'Object property from OWL: geometry'
-    range:
-    - Geometry
+    range: Geometry
     domain:
     - Feature
   properties:
     description: 'Object property from OWL: properties'
-    range:
-    - Properties
+    range: Properties
     domain:
     - Feature
   d_f_c__business_ontology__object_property:
     description: 'Object property from OWL: DFC_BusinessOntology_ObjectProperty'
-    range:
-    - string
+    range: string
     domain: []
   d_f_c__interface__property:
     description: 'Object property from OWL: DFC_Interface_Property'
-    range:
-    - string
+    range: string
     domain: []
   address_of:
-    description: The Agent (Person or Organization) or PhysicalPlace that the Address relates to
-    range:
-    - string
+    description: The Agent (Person or Enterprise) or PhysicalPlace that the Address relates to
+    range: string
     domain:
     - Address
+    inverse: has_address
   affiliated_to:
-    description: URI of a Person associated with the Organization
-    range:
-    - string
+    description: URI of a Person associated with the Enterprise
+    range: string
     domain:
     - Agent
+    inverse: affiliates
   affiliates:
-    description: Organizations that the Person is affliated to
-    range:
-    - string
+    description: Enterprises that the Person is affliated to
+    range: string
     domain:
     - Organization
+    inverse: affiliated_to
   allergen_characteristic_of:
     description: 'Object property from OWL: allergenCharacteristicOf'
-    range:
-    - string
+    range: string
     domain:
     - AllergenCharacteristic
+    inverse: has_allergen_characteristic
   based_at:
     description: 'Object property from OWL: basedAt'
-    range:
-    - PhysicalPlace
+    range: PhysicalPlace
     domain:
     - Vehicle
   belongs_to:
-    description: A Customer (as an Agent) can belong to a particular CustomerCategory as defined by the owning Organization
-    range:
-    - string
+    description: A Customer (as an Agent) can belong to a particular CustomerCategory as defined by the owning Enterprise
+    range: string
     domain:
     - Order
+    inverse: holds
   brand_of:
     description: 'Object property from OWL: brandOf'
-    range:
-    - string
+    range: string
     domain:
     - Brand
+    inverse: has_brand
   certificate_of:
     description: 'Object property from OWL: certificateOf'
-    range:
-    - string
+    range: string
     domain:
     - Concept
+    inverse: has_certification
   certifies:
     description: 'Object property from OWL: certifies'
-    range:
-    - string
+    range: string
     domain:
     - Certfication
+    inverse: is_certified_by
   characteristic_of:
     description: 'Object property from OWL: characteristicOf'
-    range:
-    - string
+    range: string
     domain:
     - DFC_BusinessOntology_Characteristic
+    inverse: has_characteristic
   claim_of:
     description: 'Object property from OWL: claimOf'
-    range:
-    - string
+    range: string
     domain:
     - Concept
+    inverse: has_claim
   composed_of:
     description: Cette propriété représente la composition d'un produit défini par un ensemble d'ingrédients.
-    range:
-    - string
+    range: string
     domain:
     - Ingredient
+    inverse: composes
   composes:
     description: DEPRECATE
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: composed_of
   concerned_by:
     description: Any/All Order Lines that relate to this Product
-    range:
-    - string
+    range: string
     domain:
-    - PhysicalProduct
     - Offer
+    - PhysicalProduct
+    inverse: concerns
   concerns:
     description: The Product that has been ordered (1 and only 1)
-    range:
-    - string
+    range: string
     domain:
     - OrderLine
     - Transaction
+    inverse: concerned_by
   constitued_by:
     description: 'Object property from OWL: constituedBy'
-    range:
-    - string
+    range: string
     domain:
     - PhysicalProduct
     - LocalizedProduct
+    inverse: constitutes
   constitutes:
     description: 'Object property from OWL: constitutes'
-    range:
-    - string
+    range: string
     domain:
     - RealStock
     - TheoriticalStock
+    inverse: constitued_by
   consumed_by:
     description: The ConsmuptionFlow by which the Product is transformed into other Products
-    range:
-    - string
+    range: string
     domain:
-    - PhysicalProduct
     - LocalizedProduct
+    - PhysicalProduct
     - DefinedProduct
+    inverse: consumes
   consumes:
     description: 'The product consumed by the Transformation '
-    range:
-    - string
+    range: string
     domain:
     - ConsumptionFlow
+    inverse: consumed_by
   container_information_of:
     description: 'Object property from OWL: containerInformationOf'
-    range:
-    - string
+    range: string
     domain:
     - Concept
+    inverse: has_container_information
   coordinated_by:
-    description: Confirms the Organization Coordinates certain SaleSessions, and defines margin %age that the Enterprise takes for managing the SaleSession
-    range:
-    - string
+    description: Confirms the Enterprise Coordinates certain SaleSessions, and defines margin %age that the Enterprise takes for managing the SaleSession
+    range: string
     domain:
     - Coordination
+    inverse: coordinates
   defined_by:
-    description: Determines which Organization has defined the CustomerCategory
-    range:
-    - string
+    description: Determines which Enterprise has defined the CustomerCategory
+    range: string
     domain:
     - CustomerCategory
+    inverse: defines
   defines:
-    description: Defines any/all categories of Customer utilised by the Organization for segmentation (primarily for pricing, potentially also for marketing)
-    range:
-    - string
+    description: Defines any/all categories of Customer utilised by the Enterprise for segmentation (primarily for pricing, potentially also for marketing)
+    range: string
     domain:
     - Organization
+    inverse: defined_by
   delivered_at:
     description: 'Object property from OWL: deliveredAt'
-    range:
-    - string
+    range: string
     domain:
     - DeliveryOption
   delivery:
     description: 'Object property from OWL: delivery'
-    range:
-    - Shipment
+    range: Shipment
     domain:
     - Step
   ends_at:
     description: The destination of the Shipment.
-    range:
-    - PhysicalPlace
+    range: PhysicalPlace
     domain:
     - Shipment
   facet_of:
     description: 'Object property from OWL: facetOf'
-    range:
-    - string
+    range: string
     domain: []
+    inverse: has_facet
   from:
     description: 'Object property from OWL: from'
-    range:
-    - string
+    range: string
     domain:
     - Transaction
   fulfills:
     description: 'Object property from OWL: fulfills'
-    range:
-    - string
+    range: string
     domain:
     - PhysicalProduct
+    inverse: is_fulfilled_by
   geographical_origin_of:
     description: 'Object property from OWL: geographicalOriginOf'
-    range:
-    - string
+    range: string
     domain:
     - Concept
+    inverse: has_geographical_origin
   has_address:
     description: Address of Agent
-    range:
-    - string
+    range: string
     domain:
-    - Agent
     - PhysicalPlace
+    - Agent
+    inverse: address_of
   has_allergen_characteristic:
     description: Details of allergens contains in the product
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: allergen_characteristic_of
   has_allergen_dimension:
     description: 'Object property from OWL: hasAllergenDimension'
-    range:
-    - string
+    range: string
     domain:
     - AllergenCharacteristic
   has_brand:
-    description: The brand a Product is sold under (Organizations can market under different Brands, some Brands can be collaborative across Enterprises)
-    range:
-    - string
+    description: The brand a Product is sold under (Enterprises can market under different Brands, some Brands can be collaborative across Enterprises)
+    range: string
     domain:
     - DefinedProduct
+    inverse: brand_of
   has_certification:
     description: SKOS:Concept that details any certification the product holds (e.g. Organic, Biodynamic etc), enumerated in the Facets vocabulary
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: certificate_of
   has_characteristic:
     description: "SuperProperty of:\nAllergenCharacteristic\nLabellingCharacteristic \nNutrientCharacteristic \nPhysicalCharacteristic "
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: characteristic_of
   has_claim:
     description: Any unverified/uncertified claim made by the Product (e.g. "Low Fat", Locally Grow")
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: claim_of
   has_container_information:
     description: SKOS:Concept that details the container the product is supplied in (e.g.box, tin, paper bag etc), enumerated in the Measures vocabulary (#containerUnit)
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: container_information_of
   has_country:
     description: 'Object property from OWL: hasCountry'
-    range:
-    - string
+    range: string
     domain:
     - Address
   has_dimension:
     description: 'Object property from OWL: hasDimension'
-    range:
-    - string
+    range: string
     domain:
     - DFC_BusinessOntology_Characteristic
   has_facet:
     description: 'Object property from OWL: hasFacet'
-    range:
-    - string
+    range: string
     domain: []
+    inverse: facet_of
   has_fulfilment_status:
     description: The Fulfilment State in which the Order is. See expectations around Order flow controls for further details
-    range:
-    - string
+    range: string
     domain:
     - Order
   has_geo_json_feature:
     description: 'Object property from OWL: hasGeoJsonFeature'
-    range:
-    - Feature
+    range: Feature
     domain:
-    - Route
     - PhysicalPlace
+    - Route
   has_geographical_origin:
     description: 'Object property from OWL: hasGeographicalOrigin'
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: geographical_origin_of
   has_ingredient:
     description: "Links DefinedProducts (via composes relationship) to allow recipe construction \n\nN.B. This is similar (simplified) functionality to the AsPlannedTransformation loop. These two options\
       \ are not compatible."
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: is_ingredient_of
   has_input:
     description: The PlannedConsumptionFlow that is the input of the PlannedTransformation
-    range:
-    - string
+    range: string
     domain:
-    - AsRealizedTransformation
     - AsPlannedTransformation
+    - AsRealizedTransformation
     - AsPlannedLocalTransformation
+    inverse: input_of
   has_labelling_characteristic:
     description: Labelling information about the product (from dfc-m:LabellingDimension)
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: labelling_characteristic_of
   has_labelling_dimension:
     description: 'Object property from OWL: hasLabellingDimension'
-    range:
-    - string
+    range: string
     domain:
     - LabellingCharacteristic
   has_main_contact:
     description: The Person, if any, who is a principal contact for this physical location
-    range:
-    - string
+    range: string
     domain:
-    - Organization
     - PhysicalPlace
+    - Organization
+    inverse: main_contact_of
   has_member:
     description: 'Object property from OWL: hasMember'
-    range:
-    - string
+    range: string
     domain:
     - CustomerCategory
+    inverse: is_member_of
   has_nature_origin:
     description: The natural origin of the product, e.g. Plant, Animal
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: nature_origin_of
   has_nutrient_characteristic:
     description: Nutrient information about the product (from dfc-m:NutrientDimension)
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: nutrient_characteristic_of
   has_nutrient_dimension:
     description: 'Object property from OWL: hasNutrientDimension'
-    range:
-    - string
+    range: string
     domain:
     - NutrientCharacteristic
   has_object:
     description: The Sales Session that is subject to the coordination
-    range:
-    - string
+    range: string
     domain:
     - Coordination
+    inverse: object_of
   has_offer:
     description: 'Object property from OWL: hasOffer'
-    range:
-    - string
+    range: string
     domain:
     - CustomerCategory
+    inverse: offers_to
   has_option:
     description: Any (and all) ShippingOptions that are available for the session
-    range:
-    - string
+    range: string
     domain:
     - SaleSession
+    inverse: option_of
   has_order_status:
     description: The state in which the Order is. See expectations around Order flow controls for further details
-    range:
-    - string
+    range: string
     domain:
     - Order
   has_output:
     description: The PlannedProductionFlow that is the output of the PlannedTransformation
-    range:
-    - string
+    range: string
     domain:
-    - AsRealizedTransformation
     - AsPlannedTransformation
+    - AsRealizedTransformation
     - AsPlannedLocalTransformation
+    inverse: output_of
   has_part:
     description: All OrderLines that make up the Order
-    range:
-    - string
+    range: string
     domain:
     - Order
+    inverse: part_of
   has_part_origin:
     description: The part of the plant or animal that the product originated from (e.g. egg, animal body, seed, root )
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: part_origin_of
   has_payment_method:
     description: The PaymentMethod associated with the Order (e.g. Cash, Stripe etc)
-    range:
-    - string
+    range: string
     domain:
     - Order
+    inverse: paid_with
   has_payment_status:
     description: The Payment State in which the Order is. See expectations around Order flow controls for further details
-    range:
-    - string
+    range: string
     domain:
     - Order
   has_phone_number:
     description: Phone Number relating to the Agent
-    range:
-    - string
+    range: string
     domain:
-    - Agent
     - PhysicalPlace
+    - Agent
+    inverse: phone_number_of
   has_physical_characteristic:
     description: Physical information about the product (from dfc-m:PhysicalDimension)
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: physical_characteristic_of
   has_physical_dimension:
     description: 'Object property from OWL: hasPhysicalDimension'
-    range:
-    - string
+    range: string
     domain:
     - PhysicalCharacteristic
   has_price:
     description: The offered Price for the Product listed in the CatalogItem for this cateogry of Customer
-    range:
-    - string
+    range: string
     domain:
-    - PaymentMethod
-    - OrderLine
     - Offer
+    - OrderLine
     - Transaction
+    - PaymentMethod
+    inverse: is_price_of
   has_product_option:
     description: 'Object property from OWL: hasProductOption'
-    range:
-    - ProductOption
+    range: ProductOption
     domain:
     - VariantCaracteristic
   has_product_option_value:
     description: 'Object property from OWL: hasProductOptionValue'
-    range:
-    - ProductOptionValue
+    range: ProductOptionValue
     domain:
     - VariantCaracteristic
   has_quantity:
     description: The actual numeric value of the Price, in the currency unit specified with hasUnit
-    range:
-    - QuantitativeValue
+    range: QuantitativeValue
     domain:
-    - SaleSession
-    - ConsumptionFlow
-    - LocalizedProduct
+    - ProductionFlow
+    - DefinedProduct
+    - Ingredient
     - OrderLine
     - ShippingOption
-    - DefinedProduct
-    - Stock
-    - PhysicalProduct
-    - Vehicle
-    - Ingredient
-    - ProductionFlow
     - Transaction
+    - LocalizedProduct
+    - Vehicle
+    - PhysicalProduct
+    - SaleSession
+    - Stock
+    - ConsumptionFlow
   has_reference:
     description: 'Object property from OWL: hasReference'
-    range:
-    - string
+    range: string
     domain:
     - LocalizedProduct
+    inverse: reference_of
   has_reference_product_option:
     description: 'Object property from OWL: hasReferenceProductOption'
-    range:
-    - ProductOption
+    range: ProductOption
     domain:
     - DefinedProduct
   has_reference_product_option_value:
     description: 'Object property from OWL: hasReferenceProductOptionValue'
-    range:
-    - ProductOptionValue
+    range: ProductOptionValue
     domain:
     - ProductOption
   has_social_media:
     description: Social Media handle of the Agent
-    range:
-    - string
+    range: string
     domain:
     - Agent
+    inverse: social_media_of
   has_status:
     description: 'Object property from OWL: hasStatus'
-    range:
-    - string
+    range: string
     domain: []
   has_step:
     description: 'Object property from OWL: hasStep'
-    range:
-    - string
+    range: string
     domain:
     - Route
+    inverse: is_step_of
   has_temperature:
     description: The maximum storage temperature required by the product (e.g. +5º C )
-    range:
-    - string
+    range: string
     domain:
     - SuppliedProduct
+    inverse: is_temperature_of
   has_template_sale_session:
     description: 'Object property from OWL: hasTemplateSaleSession'
-    range:
-    - string
+    range: string
     domain:
     - Organization
+    inverse: is_template_sale_session_of
   has_transformation_type:
     description: The Type of transformation, from the SKOS vocabulary file
-    range:
-    - string
+    range: string
     domain:
     - AsPlannedTransformation
   has_type:
     description: The Product Type grouping for the Product, for more detail see Taxonomies/ProductType
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: type_of
   has_unit:
     description: A Currency Unit. listed within the skos:concept of CurrencyUnit in the measures.rdf
-    range:
-    - string
+    range: string
     domain:
-    - QuantitativeValue
     - DFC_BusinessOntology_Characteristic
+    - QuantitativeValue
     - DefinedProduct
   has_variant:
     description: 'Object property from OWL: hasVariant'
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: is_variant_of
   has_variant_caracteristic:
     description: 'Object property from OWL: hasVariantCaracteristic'
-    range:
-    - VariantCaracteristic
+    range: VariantCaracteristic
     domain:
     - Variant
   holds:
     description: All Orders that were made during the Sales Session
-    range:
-    - string
+    range: string
     domain:
     - SaleSession
+    inverse: belongs_to
   hosted_at:
     description: The location the session is hosted at. This could be a physical (e.g. a shop or market) or virtual place (e.g. online store).
-    range:
-    - string
+    range: string
     domain:
     - TemplateSaleSession
     - SaleSession
+    inverse: hosts
   hosts:
     description: All Sales Sessions that have been, are being or will be hosted at this location
-    range:
-    - string
+    range: string
     domain:
     - Place
+    inverse: hosted_at
   identified_by:
     description: 'Object property from OWL: identifiedBy'
-    range:
-    - string
+    range: string
     domain:
     - RealStock
+    inverse: identifies
   identifies:
     description: 'Object property from OWL: identifies'
-    range:
-    - string
+    range: string
     domain:
     - ProductBatch
+    inverse: identified_by
   industrialized_by:
     description: 'Object property from OWL: industrializedBy'
-    range:
-    - string
+    range: string
     domain:
     - TechnicalProduct
+    inverse: industrializes
   industrializes:
     description: The Technical Product that is created to industrialize this Supplied Product
-    range:
-    - string
+    range: string
     domain:
     - SuppliedProduct
+    inverse: industrialized_by
   input_of:
     description: The transformation the consumed product is inputed into
-    range:
-    - string
+    range: string
     domain:
     - ConsumptionFlow
+    inverse: has_input
   is_available_during:
     description: Operating window of the Vehicle.
-    range:
-    - OpeningHoursSpecification
+    range: OpeningHoursSpecification
     domain:
     - Vehicle
   is_certified_by:
     description: 'Object property from OWL: isCertifiedBy'
-    range:
-    - string
+    range: string
     domain:
     - Organization
+    inverse: certifies
   is_fulfilled_by:
     description: 'Object property from OWL: isFulfilledBy'
-    range:
-    - string
+    range: string
     domain:
     - OrderLine
+    inverse: fulfills
   is_ingredient_of:
     description: 'Object property from OWL: isIngredientOf'
-    range:
-    - string
+    range: string
     domain:
     - Ingredient
+    inverse: has_ingredient
   is_member_of:
     description: 'Object property from OWL: isMemberOf'
-    range:
-    - string
+    range: string
     domain:
     - Agent
+    inverse: has_member
   is_open_during:
     description: Schedule during which the Physical Place is accessible, may indicate it is open to the public or just for business.
-    range:
-    - OpeningHoursSpecification
+    range: OpeningHoursSpecification
     domain:
     - PhysicalPlace
   is_price_of:
     description: The Object that the Price relates to, can be an Offer, a PaymentMethod or a Transaction
-    range:
-    - string
+    range: string
     domain:
     - Price
+    inverse: has_price
   is_shipped_in:
     description: 'Object property from OWL: isShippedIn'
-    range:
-    - string
+    range: string
     domain:
     - Shipment
+    inverse: ships
   is_step_of:
     description: 'Object property from OWL: isStepOf'
-    range:
-    - string
+    range: string
     domain:
     - Step
+    inverse: has_step
   is_temperature_of:
     description: 'Object property from OWL: isTemperatureOf'
-    range:
-    - string
+    range: string
     domain:
     - Temperature
+    inverse: has_temperature
   is_template_sale_session_of:
     description: 'Object property from OWL: isTemplateSaleSessionOf'
-    range:
-    - string
+    range: string
     domain:
     - TemplateSaleSession
+    inverse: has_template_sale_session
   is_variant_of:
     description: 'Object property from OWL: isVariantOf'
-    range:
-    - string
+    range: string
     domain:
     - Variant
+    inverse: has_variant
   labelling_characteristic_of:
     description: 'Object property from OWL: labellingCharacteristicOf'
-    range:
-    - string
+    range: string
     domain:
     - LabellingCharacteristic
+    inverse: has_labelling_characteristic
   listed_in:
     description: All Sales Sessions that this Offer is listed in
-    range:
-    - string
+    range: string
     domain:
     - Offer
     - CatalogItem
+    inverse: lists
   lists:
     description: All Items (which refer to a SuppliedProduct) that are part of the Catalog
-    range:
-    - string
+    range: string
     domain:
     - Catalog
     - SaleSession
+    inverse: listed_in
   localized_by:
     description: 'Object property from OWL: localizedBy'
-    range:
-    - string
+    range: string
     domain:
     - TheoriticalStock
+    inverse: localizes
   localizes:
     description: Any theoretical stock that is associated with this location
-    range:
-    - string
+    range: string
     domain:
     - PhysicalPlace
+    inverse: localized_by
   main_contact_of:
-    description: An Organization that the Person is the Main Contact for
-    range:
-    - string
+    description: An Enterprise that the Person is the Main Contact for
+    range: string
     domain:
     - Person
+    inverse: has_main_contact
   maintained_by:
-    description: The Organization that maintains the Catalog (may differ from the owner of the Products)
-    range:
-    - string
+    description: The Enterprise that maintains the Catalog (may differ from the owner of the Products)
+    range: string
     domain:
     - Catalog
+    inverse: maintains
   maintains:
     description: A set of reference of defined products
-    range:
-    - string
+    range: string
     domain:
     - Organization
+    inverse: maintained_by
   managed_by:
-    description: The Organization that manages the CatalogItem (may differ from the owner of the Product)
-    range:
-    - string
+    description: The Enterprise that manages the CatalogItem (may differ from the owner of the Product)
+    range: string
     domain:
     - CatalogItem
+    inverse: manages
   manages:
-    description: A reference of a defined product in a catalog managed by an organization
-    range:
-    - string
+    description: A reference of a defined product in a catalog managed by an enterprise
+    range: string
     domain:
     - Organization
+    inverse: managed_by
   nature_origin_of:
     description: 'Object property from OWL: natureOriginOf'
-    range:
-    - string
+    range: string
     domain:
     - Concept
+    inverse: has_nature_origin
   nutrient_characteristic_of:
     description: 'Object property from OWL: nutrientCharacteristicOf'
-    range:
-    - string
+    range: string
     domain:
     - NutrientCharacteristic
+    inverse: has_nutrient_characteristic
   object_of:
-    description: The Coordination (that defines which Organization coordinates the Sales Sesison)
-    range:
-    - string
+    description: The Coordination (that defines which Enterprise coordinates the Sales Sesison)
+    range: string
     domain:
     - SaleSession
+    inverse: has_object
   offered_through:
     description: All Offers that this Catalog Item is offered to categories of customer through
-    range:
-    - string
+    range: string
     domain:
     - CatalogItem
+    inverse: offers
   offers:
     description: 'The (1 & only 1) CatalogItem that this Offer relates to '
-    range:
-    - string
+    range: string
     domain:
     - Offer
+    inverse: offered_through
   offers_to:
     description: The (1 & only 1) CustomerCategory that is eligible for this Offer
-    range:
-    - string
+    range: string
     domain:
     - Offer
+    inverse: has_offer
   option_of:
     description: All Sales Sessions the ShippingOption is available for selection during.
-    range:
-    - string
+    range: string
     domain:
     - ShippingOption
+    inverse: has_option
   ordered_by:
     description: 'Object property from OWL: orderedBy'
-    range:
-    - string
+    range: string
     domain:
     - Order
+    inverse: orders
   orders:
     description: Any Orders placed by the Agent
-    range:
-    - string
+    range: string
     domain:
     - Agent
+    inverse: ordered_by
   output_of:
     description: The transformation the produced product is outputed from
-    range:
-    - string
+    range: string
     domain:
     - ProductionFlow
+    inverse: has_output
   owned_by:
     description: 'Object property from OWL: ownedBy'
-    range:
-    - string
+    range: string
     domain:
     - PhysicalProduct
     - Brand
+    inverse: owns
   owns:
     description: All Brands owned by the Agent
-    range:
-    - string
+    range: string
     domain:
     - Agent
+    inverse: owned_by
   paid_with:
     description: 'Object property from OWL: paidWith'
-    range:
-    - string
+    range: string
     domain:
     - PaymentMethod
+    inverse: has_payment_method
   part_of:
     description: The Order this OrderLine is associated with (1 and only 1)
-    range:
-    - string
+    range: string
     domain:
     - OrderLine
+    inverse: has_part
   part_origin_of:
     description: 'Object property from OWL: partOriginOf'
-    range:
-    - string
+    range: string
     domain:
     - Concept
+    inverse: has_part_origin
   phone_number_of:
-    description: The Organization or Person (Agent) or Physical Place that the phone numbers is associated with.
-    range:
-    - string
+    description: The Enterprise or Person (Agent) or Physical Place that the phone numbers is associated with.
+    range: string
     domain:
     - PhoneNumber
+    inverse: has_phone_number
   physical_characteristic_of:
     description: 'Object property from OWL: physicalCharacteristicOf'
-    range:
-    - string
+    range: string
     domain:
     - PhysicalCharacteristic
+    inverse: has_physical_characteristic
   pick_up:
     description: 'Object property from OWL: pickUp'
-    range:
-    - Shipment
+    range: Shipment
     domain:
     - Step
   picked_up_at:
     description: 'Object property from OWL: pickedUpAt'
-    range:
-    - string
+    range: string
     domain:
     - PickupOption
   process_of:
     description: DEPRECATE
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
   produced_by:
     description: Link to another SuppleidProduct that is produced by this Product
-    range:
-    - string
+    range: string
     domain:
+    - SuppliedProduct
     - PhysicalProduct
     - LocalizedProduct
-    - SuppliedProduct
+    inverse: produces
   produces:
     description: Link to another SuppleidProduct that is produced from this Product
-    range:
-    - string
+    range: string
     domain:
     - ProductionFlow
+    inverse: produced_by
   proposed_by:
     description: 'Object property from OWL: proposedBy'
-    range:
-    - string
+    range: string
     domain:
     - TechnicalProduct
+    inverse: proposes
   proposes:
-    description: All TechnicalProducts proposed by the Organization
-    range:
-    - string
+    description: All TechnicalProducts proposed by the Enterprise
+    range: string
     domain:
     - Organization
+    inverse: proposed_by
   reference_of:
     description: The Localized Product that is created in reference to this Supplied Product
-    range:
-    - string
+    range: string
     domain:
     - SuppliedProduct
+    inverse: has_reference
   referenced_by:
     description: Any/all CatalogItems that reference the Product for sale
-    range:
-    - string
+    range: string
     domain:
     - DefinedProduct
+    inverse: references
   references:
     description: The Product that the CatalogItem is listing for sale
-    range:
-    - string
+    range: string
     domain:
     - CatalogItem
+    inverse: referenced_by
   refers_to:
     description: The Address the delivery will be/was made to
-    range:
-    - string
+    range: string
     domain:
     - DeliveryOption
   represented_by:
     description: 'Object property from OWL: representedBy'
-    range:
-    - string
+    range: string
     domain:
     - LocalizedProduct
+    inverse: represents
   represents:
     description: 'Object property from OWL: represents'
-    range:
-    - string
+    range: string
     domain:
     - PhysicalProduct
+    inverse: represented_by
   requested_by:
     description: 'Object property from OWL: requestedBy'
-    range:
-    - string
+    range: string
     domain:
     - FunctionalProduct
+    inverse: requests
   requests:
     description: Any & all Functional Products that are requested by the Agent
-    range:
-    - string
+    range: string
     domain:
     - Agent
+    inverse: requested_by
   satisfied_by:
     description: 'Object property from OWL: satisfiedBy'
-    range:
-    - string
+    range: string
     domain:
     - FunctionalProduct
+    inverse: satisfies
   satisfies:
     description: 'Object property from OWL: satisfies'
-    range:
-    - string
+    range: string
     domain:
     - TechnicalProduct
+    inverse: satisfied_by
   selected_by:
     description: 'Object property from OWL: selectedBy'
-    range:
-    - string
+    range: string
     domain:
     - ShippingOption
+    inverse: selects
   selects:
     description: The method of shipping selected for the ORder (e.g. Overnight courier, same-day delivery, economy delivery )
-    range:
-    - string
+    range: string
     domain:
     - Order
+    inverse: selected_by
   sells:
     description: 'Object property from OWL: sells'
-    range:
-    - string
+    range: string
     domain:
     - Agent
+    inverse: sold_by
   ships:
     description: 'Object property from OWL: ships'
-    range:
-    - string
+    range: string
     domain:
     - Vehicle
+    inverse: is_shipped_in
   social_media_of:
     description: 'Object property from OWL: socialMediaOf'
-    range:
-    - string
+    range: string
     domain:
     - SocialMedia
+    inverse: has_social_media
   sold_by:
-    description: The entity responsible for the sale (could be the Organization or a Salesperson within that Enterprise, or a third party)
-    range:
-    - string
+    description: The entity responsible for the sale (could be the Enterprise or a Salesperson within that Enterprise, or a third party)
+    range: string
     domain:
     - Order
+    inverse: sells
   starts_at:
     description: The origin point of the Shipment.
-    range:
-    - PhysicalPlace
+    range: PhysicalPlace
     domain:
     - Shipment
   stored_in:
     description: 'Object property from OWL: storedIn'
-    range:
-    - string
+    range: string
     domain:
     - RealStock
+    inverse: stores
   stores:
     description: Any real stock that is associated with this location
-    range:
-    - string
+    range: string
     domain:
     - PhysicalPlace
+    inverse: stored_in
   supplied_by:
-    description: The Organization that supplies the Product
-    range:
-    - string
+    description: The Enterprise that supplies the Product
+    range: string
     domain:
     - SuppliedProduct
+    inverse: supplies
   supplies:
-    description: All Products supplied by the Organization
-    range:
-    - string
+    description: All Products supplied by the Enterprise
+    range: string
     domain:
     - Organization
+    inverse: supplied_by
   supplies_to:
     description: 'Object property from OWL: suppliesTo'
-    range:
-    - string
+    range: string
     domain: []
   to:
     description: 'Object property from OWL: to'
-    range:
-    - string
+    range: string
     domain:
     - Transaction
   traced_by:
     description: 'Object property from OWL: tracedBy'
-    range:
-    - string
+    range: string
     domain:
     - PhysicalProduct
+    inverse: traces
   traces:
     description: 'Object property from OWL: traces'
-    range:
-    - string
+    range: string
     domain:
     - ProductBatch
+    inverse: traced_by
   transformed_by:
     description: 'Object property from OWL: transformedBy'
-    range:
-    - string
+    range: string
     domain:
     - AsPlannedLocalTransformation
+    inverse: transforms
   transforms:
-    description: Any PlannedLocalTransformations owned by the Organization
-    range:
-    - string
+    description: Any PlannedLocalTransformations owned by the Enterprise
+    range: string
     domain:
     - Organization
+    inverse: transformed_by
   transported_by:
     description: The Shipment that transports Stock.
-    range:
-    - string
+    range: string
     domain:
     - Stock
+    inverse: transports
   transports:
     description: The Stock that is transported by a Shipment.
-    range:
-    - string
+    range: string
     domain:
     - Shipment
+    inverse: transported_by
   type_of:
     description: 'Object property from OWL: typeOf'
-    range:
-    - string
+    range: string
     domain:
     - Concept
+    inverse: has_type
   use_vehicle:
     description: 'Object property from OWL: useVehicle'
-    range:
-    - string
+    range: string
     domain:
     - Route
+    inverse: used_in_route
   used_in_route:
     description: 'Object property from OWL: usedInRoute'
-    range:
-    - string
+    range: string
     domain:
     - Vehicle
+    inverse: use_vehicle
   uses:
     description: "*** DEPRECATED *** \n\nUse `refersTo` instead.\n\nThe Address the delivery will be/was made to\n"
-    range:
-    - string
+    range: string
     domain:
-    - PickupOption
     - Order
+    - PickupOption
     - DeliveryOption
   d_f_c__technical_ontology__object_property:
     description: 'Object property from OWL: DFC_TechnicalOntology_ObjectProperty'
-    range:
-    - string
+    range: string
     domain: []
   has_pivot:
     description: possède un point pivot
-    range:
-    - string
+    range: string
     domain: []
   hosted_by:
     description: 'Object property from OWL: hostedBy'
-    range:
-    - string
+    range: string
     domain: []
   represent:
     description: 'Object property from OWL: represent'
-    range:
-    - string
+    range: string
     domain: []
 enums:
   Facet:

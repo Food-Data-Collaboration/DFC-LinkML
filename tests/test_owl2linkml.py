@@ -531,7 +531,7 @@ class TestEdgeCases:
 
         props = get_data_properties(g)
         assert "noRange" in props
-        assert props["noRange"]["range"] == ["string"]
+        assert props["noRange"]["range"] == "string"
 
     def test_subclass_with_skipped_parent_is_omitted(self):
         """If the parent class is in skip_classes, the relation is excluded."""
@@ -611,7 +611,7 @@ class TestEdgeCases:
 
         props = get_object_properties(g)
         assert "hasAddress" in props
-        assert props["hasAddress"]["range"] == ["Address"]
+        assert props["hasAddress"]["range"] == "Address"
 
     def test_object_property_no_range_defaults_to_string(self):
         """Object property without explicit range falls back to 'string'."""
@@ -625,7 +625,7 @@ class TestEdgeCases:
 
         props = get_object_properties(g)
         assert "relatedTo" in props
-        assert props["relatedTo"]["range"] == ["string"]
+        assert props["relatedTo"]["range"] == "string"
 
 
 @pytest.mark.integration
@@ -643,6 +643,7 @@ class TestCompleteness:
             get_data_properties,
             get_object_properties,
             get_subclass_relations,
+            get_inverse_relationships,
             build_linkml_schema,
             DEFAULT_SKIP_CLASSES,
             DEFAULT_SKIP_PROPERTIES,
@@ -654,35 +655,36 @@ class TestCompleteness:
         data_props = get_data_properties(g, DEFAULT_SKIP_PROPERTIES)
         obj_props = get_object_properties(g, DEFAULT_SKIP_PROPERTIES, DEFAULT_SKIP_CLASSES)
         subclass_relations = get_subclass_relations(g, DEFAULT_SKIP_CLASSES)
+        inverse_relations = get_inverse_relationships(g, DEFAULT_SKIP_PROPERTIES)
 
         config = make_config()
-        schema = build_linkml_schema(classes, data_props, obj_props, subclass_relations, config)
+        schema = build_linkml_schema(classes, data_props, obj_props, subclass_relations, config, inverse_relations)
 
-        return classes, set(data_props), set(obj_props), subclass_relations, schema
+        return classes, set(data_props), set(obj_props), subclass_relations, inverse_relations, schema
 
     def test_all_classes_preserved(self):
         """Every non-skipped OWL class appears as a LinkML class."""
-        classes, _, _, _, schema = self._build_schema()
+        classes, _, _, _, _, schema = self._build_schema()
         missing = [c for c in sorted(classes) if c not in schema["classes"]]
         assert not missing, f"{len(missing)} classes missing from schema:\n{missing}"
 
     def test_all_data_properties_preserved(self):
         """Every non-skipped OWL data property appears as a LinkML slot."""
-        _, data_prop_names, _, _, schema = self._build_schema()
+        _, data_prop_names, _, _, _, schema = self._build_schema()
         slot_names = {_to_snake_case(p) for p in data_prop_names}
         missing = [s for s in sorted(slot_names) if s not in schema["slots"]]
         assert not missing, f"{len(missing)} data property slots missing:\n{missing}"
 
     def test_all_object_properties_preserved(self):
         """Every non-skipped OWL object property appears as a LinkML slot."""
-        _, _, obj_prop_names, _, schema = self._build_schema()
+        _, _, obj_prop_names, _, _, schema = self._build_schema()
         slot_names = {_to_snake_case(p) for p in obj_prop_names}
         missing = [s for s in sorted(slot_names) if s not in schema["slots"]]
         assert not missing, f"{len(missing)} object property slots missing:\n{missing}"
 
     def test_all_subclass_relations_preserved(self):
         """Every subclass relation is reflected as is_a."""
-        _, _, _, subclass_relations, schema = self._build_schema()
+        _, _, _, subclass_relations, _, schema = self._build_schema()
         bad = []
         for sub, super_ in subclass_relations.items():
             if sub not in schema["classes"]:
@@ -693,13 +695,34 @@ class TestCompleteness:
 
     def test_no_dangling_parent_references(self):
         """Every is_a reference points to a defined class."""
-        _, _, _, _, schema = self._build_schema()
+        _, _, _, _, _, schema = self._build_schema()
         bad = []
         for name, defn in schema["classes"].items():
             parent = defn.get("is_a")
             if parent and parent not in schema["classes"]:
                 bad.append(f"{name}: is_a {parent} is not a defined class")
         assert not bad, f"Dangling parent references:\n" + "\n".join(bad)
+
+    def test_all_inverse_relations_preserved(self):
+        """Every owl:inverseOf relationship appears as bidirectional inverse slot annotations."""
+        _, _, _, _, inverse_relations, schema = self._build_schema()
+        missing = []
+        for prop_name, inverse_name in inverse_relations.items():
+            slot_name = _to_snake_case(prop_name)
+            inverse_slot_name = _to_snake_case(inverse_name)
+            if slot_name not in schema["slots"]:
+                missing.append(f"{slot_name}: slot missing")
+                continue
+            if inverse_slot_name not in schema["slots"]:
+                missing.append(f"{inverse_slot_name}: inverse slot missing")
+                continue
+            actual_inverse = schema["slots"][slot_name].get("inverse")
+            if actual_inverse != inverse_slot_name:
+                missing.append(f"{slot_name}: inverse={actual_inverse}, expected {inverse_slot_name}")
+            actual_reverse = schema["slots"][inverse_slot_name].get("inverse")
+            if actual_reverse != slot_name:
+                missing.append(f"{inverse_slot_name}: inverse={actual_reverse}, expected {slot_name}")
+        assert not missing, f"Inverse relation issues:\n" + "\n".join(missing)
 
 
 @pytest.mark.integration
@@ -785,7 +808,7 @@ class TestSchemaStructure:
 class TestCommittedSchema:
     """Non-network validation of the committed schema file."""
 
-    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml.yaml"
+    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml_v2_0.yaml"
 
     @pytest.fixture(scope="class")
     def schema(self):
@@ -848,7 +871,7 @@ class TestCommittedSchema:
 class TestHelpers:
     """Tests for helper functions in the code generators."""
 
-    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml.yaml"
+    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml_v2_0.yaml"
 
     @pytest.fixture(scope="class")
     def schema_data(self):
@@ -1010,7 +1033,7 @@ class TestHelpers:
 class TestRubyGenerator:
     """Integration smoke test for the Ruby gem generator functions."""
 
-    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml.yaml"
+    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml_v2_0.yaml"
 
     @pytest.fixture(scope="class")
     def schema_data(self):
@@ -1100,7 +1123,7 @@ class TestRubyGenerator:
 class TestTypeScriptGenerator:
     """Integration smoke test for the TypeScript connector generator functions."""
 
-    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml.yaml"
+    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml_v2_0.yaml"
 
     @pytest.fixture(scope="class")
     def schema_data(self):

@@ -991,9 +991,9 @@ AGPL-3.0
 
 def main():
     schema_paths = [
-        'src/dfc_business_linkml.yaml',
-        '../src/dfc_business_linkml.yaml',
-        '../../src/dfc_business_linkml.yaml',
+        'src/dfc_business_linkml_v2_0.yaml',
+        '../src/dfc_business_linkml_v2_0.yaml',
+        '../../src/dfc_business_linkml_v2_0.yaml',
     ]
 
     schema_path = None
