@@ -1120,6 +1120,91 @@ class TestRubyGenerator:
 
 
 @pytest.mark.integration
+class TestPHPGenerator:
+    """Integration smoke test for the PHP connector generator functions."""
+
+    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml_v2_0.yaml"
+
+    @pytest.fixture(scope="class")
+    def schema_data(self):
+        from scripts.generate_php_connector import parse_schema
+        return parse_schema(str(self.SCHEMA_PATH))
+
+    def test_generate_semantic_object(self):
+        from scripts.generate_php_connector import generate_semantic_object
+        content = generate_semantic_object()
+        assert "class SemanticObject" in content
+        assert content.strip()
+
+    def test_generate_connector(self, schema_data):
+        from scripts.generate_php_connector import generate_connector
+        content = generate_connector(schema_data)
+        assert "class Connector" in content
+        assert "public function export" in content
+        assert "public function import" in content
+        assert content.strip()
+
+    def test_generate_composer_json(self, schema_data):
+        from scripts.generate_php_connector import generate_composer_json
+        content = generate_composer_json(schema_data)
+        assert "name" in content
+        assert "datafoodconsortium/connector" in content
+        assert "php" in content
+        assert content.strip()
+
+    def test_generate_trait_interfaces(self, schema_data):
+        from scripts.generate_php_connector import (
+            collect_slot_interfaces,
+            generate_trait_interface,
+        )
+        slot_interfaces = collect_slot_interfaces(schema_data)
+        assert slot_interfaces, "Should have at least one trait interface"
+
+        for iface_name, slot_names in sorted(slot_interfaces.items())[:5]:
+            slot_names_list = [s[0] for s in slot_names]
+            content = generate_trait_interface(iface_name, slot_names_list, schema_data)
+            assert f"interface {iface_name}" in content
+            assert content.strip()
+
+    def test_generate_entity_interfaces(self, schema_data):
+        from scripts.generate_php_connector import generate_entity_interface
+        class_name, class_data = next(iter(schema_data["classes"].items()))
+        content = generate_entity_interface(class_name, class_data, schema_data)
+        assert f"I{class_name}" in content or "interface I" in content
+        assert content.strip()
+
+    def test_generate_model(self, schema_data):
+        from scripts.generate_php_connector import generate_model
+        class_name, class_data = next(iter(schema_data["classes"].items()))
+        content = generate_model(class_name, class_data, schema_data)
+        assert "class " in content
+        assert "SEMANTIC_TYPE" in content
+        assert content.strip()
+
+    def test_all_trait_interfaces_generate(self, schema_data):
+        from scripts.generate_php_connector import (
+            collect_slot_interfaces,
+            generate_trait_interface,
+        )
+        slot_interfaces = collect_slot_interfaces(schema_data)
+        for iface_name in sorted(slot_interfaces.keys()):
+            slot_names_list = [s[0] for s in slot_interfaces[iface_name]]
+            content = generate_trait_interface(iface_name, slot_names_list, schema_data)
+            assert content.strip(), f"Empty trait interface for {iface_name}"
+
+    def test_all_entity_interfaces_generate(self, schema_data):
+        from scripts.generate_php_connector import generate_entity_interface
+        for class_name, class_data in schema_data["classes"].items():
+            content = generate_entity_interface(class_name, class_data, schema_data)
+            assert content.strip(), f"Empty entity interface for {class_name}"
+
+    def test_all_model_files_generate(self, schema_data):
+        from scripts.generate_php_connector import generate_model
+        for class_name, class_data in schema_data["classes"].items():
+            content = generate_model(class_name, class_data, schema_data)
+            assert content.strip(), f"Empty model file for {class_name}"
+
+
 class TestTypeScriptGenerator:
     """Integration smoke test for the TypeScript connector generator functions."""
 
