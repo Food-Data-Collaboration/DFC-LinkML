@@ -294,3 +294,409 @@ def build_entity_interface_map(schema_data: dict) -> dict:
             ifaces.add(iface)
         result[class_name] = sorted(ifaces)
     return result
+
+
+# ---------------------------------------------------------------------------
+# Core file generators
+# ---------------------------------------------------------------------------
+
+LICENSE_BLOCK = '''<?php
+
+/*
+ * MIT License
+ *
+ * Copyright (c) 2024 Data Food Consortium
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+*/
+
+'''
+
+
+def generate_composer_json(schema_data: dict) -> str:
+    version = schema_data.get('version', '2.0.0')
+    data = {
+        "name": "datafoodconsortium/connector",
+        "type": "library",
+        "description": "DFC LinkML Semantic Object Connector for PHP",
+        "keywords": [
+            "data food consortium", "short supply chain", "farming",
+            "semantic web", "rdf", "object model"
+        ],
+        "license": "MIT",
+        "require": {
+            "php": ">=8.1",
+            "ml/json-ld": "^2.1"
+        },
+        "autoload": {
+            "psr-4": {
+                "DataFoodConsortium\\\\Connector\\\\": "src"
+            }
+        }
+    }
+    return json.dumps(data, indent=4) + "\n"
+
+
+def generate_semantic_object() -> str:
+    return LICENSE_BLOCK + '''namespace DataFoodConsortium\\Connector;
+
+class SemanticObject
+{
+    private static array $typeRegistry = [];
+
+    public static function getTypeRegistry(): array
+    {
+        return self::$typeRegistry;
+    }
+
+    public static function registerType(string $semanticType, string $className): void
+    {
+        self::$typeRegistry[$semanticType] = $className;
+    }
+
+    private string $semanticId;
+    private string $semanticType = '';
+    private array $semanticProperties = [];
+
+    public function __construct(string $semanticId)
+    {
+        $this->semanticId = $semanticId;
+    }
+
+    public function getSemanticId(): string
+    {
+        return $this->semanticId;
+    }
+
+    public function getSemanticType(): string
+    {
+        return $this->semanticType;
+    }
+
+    public function setSemanticType(string $type): void
+    {
+        $this->semanticType = $type;
+    }
+
+    public function registerSemanticProperty(string $predicate, callable $getter): void
+    {
+        $this->semanticProperties[$predicate] = $getter;
+    }
+
+    public function getSemanticPropertyValue(string $predicate): mixed
+    {
+        if (isset($this->semanticProperties[$predicate])) {
+            return ($this->semanticProperties[$predicate])();
+        }
+        return null;
+    }
+
+    public function getSemanticProperties(): array
+    {
+        $result = [];
+        foreach ($this->semanticProperties as $predicate => $getter) {
+            $value = $getter();
+            if ($value !== null) {
+                $result[$predicate] = $value;
+            }
+        }
+        return $result;
+    }
+
+    public function toJsonLd(?array $context = null): array
+    {
+        $result = [
+            "@id" => $this->semanticId,
+            "@type" => $this->semanticType,
+        ];
+
+        if ($context !== null) {
+            $result["@context"] = $context;
+        }
+
+        foreach ($this->semanticProperties as $predicate => $getter) {
+            $value = $getter();
+            if ($value === null) continue;
+
+            if (is_array($value)) {
+                if (empty($value)) continue;
+                $result[$predicate] = array_map(function ($v) {
+                    return $v instanceof self ? $v->getSemanticId() : $v;
+                }, $value);
+            } elseif ($value instanceof self) {
+                $result[$predicate] = $value->getSemanticId();
+            } else {
+                $result[$predicate] = $value;
+            }
+        }
+
+        return $result;
+    }
+
+    public function toJson(?array $context = null): string
+    {
+        return json_encode($this->toJsonLd($context), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    }
+}
+'''
+
+
+def generate_connector(schema_data: dict) -> str:
+    ontology_version = schema_data.get('ontology_version', '2.0.0')
+    taxonomy_version = schema_data.get('taxonomy_version', '2.0.0')
+    context_url = f'https://w3id.org/dfc/ontology/v{ontology_version}/context/context_{ontology_version}.json'
+
+    class_names = sorted(schema_data.get('classes', {}).keys())
+
+    use_imports = []
+    for cn in class_names:
+        pcn = to_php_class_name(cn)
+        if pcn != 'SemanticObject':
+            use_imports.append(f"use DataFoodConsortium\\Connector\\{pcn};")
+    use_imports_str = '\n'.join(use_imports)
+
+    factory_methods = ''
+    for cn in class_names:
+        pcn = to_php_class_name(cn)
+        if pcn == 'SemanticObject':
+            continue
+        factory_methods += f'''
+    public function create{pcn}(string $semanticId, array $params = []): {pcn}
+    {{
+        return new {pcn}($semanticId, $params);
+    }}
+'''
+
+    return LICENSE_BLOCK + f'''namespace DataFoodConsortium\\Connector;
+
+use ML\\JsonLD\\JsonLD;
+use ML\\JsonLD\\DocumentFactoryInterface;
+
+{use_imports_str}
+
+class Connector
+{{
+    public const ONTOLOGY_BASE_URL = 'https://w3id.org/dfc/ontology';
+    public const TAXONOMY_BASE_URL = 'https://w3id.org/dfc/taxonomies';
+    public const DEFAULT_CONTEXT_URL = '{context_url}';
+
+    private string $ontologyVersion;
+    private string $taxonomyVersion;
+    private ?array $contextCache = null;
+    private array $facets = [];
+    private array $measures = [];
+    private array $productTypes = [];
+    private array $otherVocabularies = [];
+
+    public function __construct(string $ontologyVersion = '{ontology_version}', string $taxonomyVersion = '{taxonomy_version}')
+    {{
+        $this->ontologyVersion = $ontologyVersion;
+        $this->taxonomyVersion = $taxonomyVersion;
+    }}
+
+    public function getContextUrl(): string
+    {{
+        return self::ONTOLOGY_BASE_URL . '/v' . $this->ontologyVersion . '/context/context_' . $this->ontologyVersion . '.json';
+    }}
+
+    public function loadFacets(array $jsonData): static
+    {{
+        $concepts = $this->extractConcepts($jsonData);
+        $this->facets = $this->buildNestedHash($concepts);
+        return $this;
+    }}
+
+    public function loadMeasures(array $jsonData): static
+    {{
+        $concepts = $this->extractConcepts($jsonData);
+        $this->measures = $this->buildNestedHash($concepts);
+        return $this;
+    }}
+
+    public function loadProductTypes(array $jsonData): static
+    {{
+        $concepts = $this->extractConcepts($jsonData);
+        $this->productTypes = $this->buildNestedHash($concepts);
+        return $this;
+    }}
+
+    public function loadVocabulary(string $name, array $jsonData): static
+    {{
+        $concepts = $this->extractConcepts($jsonData);
+        $this->otherVocabularies[$name] = $this->buildNestedHash($concepts);
+        return $this;
+    }}
+
+    public function export(array $objects): array
+    {{
+        $context = $this->getContext();
+
+        if (count($objects) === 1) {{
+            return $objects[0]->toJsonLd($context);
+        }}
+
+        $result = [
+            "@context" => $context,
+            "@graph" => [],
+        ];
+
+        foreach ($objects as $obj) {{
+            if ($obj instanceof SemanticObject) {{
+                $result["@graph"][] = $obj->toJsonLd($context);
+            }}
+        }}
+
+        return $result;
+    }}
+
+    public function import(array $data): array
+    {{
+        $entries = isset($data["@graph"]) ? $data["@graph"] : [$data];
+        $objectsById = [];
+        $instances = [];
+
+        foreach ($entries as $entry) {{
+            $semanticId = $entry["@id"] ?? null;
+            $semanticType = $entry["@type"] ?? null;
+            if (!$semanticId || !$semanticType) continue;
+
+            $className = SemanticObject::getTypeRegistry()[$semanticType] ?? null;
+            if (!$className) continue;
+
+            if (is_string($className) && class_exists($className)) {{
+                $obj = new $className($semanticId);
+                $objectsById[$semanticId] = $obj;
+                $instances[] = $obj;
+            }}
+        }}
+
+        foreach ($entries as $entry) {{
+            $semanticId = $entry["@id"] ?? null;
+            if (!$semanticId) continue;
+            $obj = $objectsById[$semanticId] ?? null;
+            if (!$obj) continue;
+
+            foreach ($entry as $key => $value) {{
+                if (str_starts_with($key, '@')) continue;
+                $propName = $this->predicateToPropName($key);
+                $setter = 'set' . ucfirst($propName);
+                $adder = 'add' . ucfirst($propName);
+
+                if (is_array($value)) {{
+                    if (method_exists($obj, $adder)) {{
+                        foreach ($value as $v) {{
+                            $resolved = is_string($v) && (str_starts_with($v, 'http') || str_starts_with($v, '/'))
+                                ? ($objectsById[$v] ?? $v)
+                                : $v;
+                            $obj->$adder($resolved);
+                        }}
+                    }} elseif (method_exists($obj, $setter)) {{
+                        $resolved = array_map(function ($v) use ($objectsById) {{
+                            return is_string($v) && (str_starts_with($v, 'http') || str_starts_with($v, '/'))
+                                ? ($objectsById[$v] ?? $v)
+                                : $v;
+                        }}, $value);
+                        $obj->$setter($resolved);
+                    }}
+                }} elseif (is_string($value) && (str_starts_with($value, 'http') || str_starts_with($value, '/'))) {{
+                    if (method_exists($obj, $setter)) {{
+                        $obj->$setter($objectsById[$value] ?? $value);
+                    }}
+                }} else {{
+                    if (method_exists($obj, $setter)) {{
+                        $obj->$setter($value);
+                    }}
+                }}
+            }}
+        }}
+
+        return $instances;
+    }}
+
+    public function getFacets(): array {{ return $this->facets; }}
+    public function getMeasures(): array {{ return $this->measures; }}
+    public function getProductTypes(): array {{ return $this->productTypes; }}
+
+    public function getContext(): array
+    {{
+        if ($this->contextCache === null) {{
+            $this->contextCache = $this->fetchContext();
+        }}
+        return $this->contextCache;
+    }}
+
+    private function extractConcepts(array $jsonData): array
+    {{
+        $concepts = [];
+        $graph = $jsonData["@graph"] ?? [];
+        foreach ($graph as $entry) {{
+            $types = $entry["@type"] ?? [];
+            if (is_string($types)) $types = [$types];
+            if (in_array("skos:Concept", $types)) {{
+                $notation = $entry["skos:notation"] ?? $entry["skos:prefLabel"] ?? null;
+                if ($notation) {{
+                    $concepts[$notation] = $entry;
+                }}
+            }}
+        }}
+        return $concepts;
+    }}
+
+    private function fetchContext(): array
+    {{
+        $url = $this->getContextUrl();
+        $json = @file_get_contents($url);
+        if ($json === false) {{
+            return [];
+        }}
+        return json_decode($json, true) ?? [];
+    }}
+
+    private function buildNestedHash(array $concepts): array
+    {{
+        $result = [];
+        foreach ($concepts as $key => $concept) {{
+            $parts = preg_split('/[_\\s]+/', $key);
+            $current = &$result;
+            foreach ($parts as $i => $part) {{
+                $normalized = strtolower(preg_replace('/[^a-z0-9]/', '_', $part));
+                if ($i === count($parts) - 1) {{
+                    $current[$normalized] = $concept;
+                }} else {{
+                    if (!isset($current[$normalized])) {{
+                        $current[$normalized] = [];
+                    }}
+                    $current = &$current[$normalized];
+                }}
+            }}
+        }}
+        return $result;
+    }}
+
+    private function predicateToPropName(string $predicate): string
+    {{
+        $name = preg_replace('/^dfc-b:/', '', $predicate);
+        if (str_starts_with($name, 'has') && strlen($name) > 3 && ctype_upper($name[3])) {{
+            $name = substr($name, 3);
+        }}
+        return lcfirst($name);
+    }}
+}}
+'''
+
