@@ -1270,3 +1270,266 @@ class TestTypeScriptGenerator:
         for class_name, class_data in schema_data["classes"].items():
             content = generate_model(class_name, class_data, schema_data)
             assert content.strip(), f"Empty model file for {class_name}"
+
+
+class TestCrossLanguageConsistency:
+    """Verify PHP and Ruby generators produce consistent output from the same schema.
+
+    Ruby is the reference (most up-to-date, most likely correct).
+    PHP should match its class hierarchy, property assignments, and collection semantics.
+
+    Note: Slot assignment implementations differ between generators:
+      - PHP/TypeScript check explicit `slots:` lists AND domain-based matching
+      - Ruby checks domain-based matching only
+    As a result, PHP finds a superset of the slots Ruby finds.
+    The strict equality tests below cover name/hierarchy/type mapping (identical).
+    The slot/property tests document the known coverage delta.
+    """
+
+    SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml_v2_0.yaml"
+
+    @pytest.fixture(scope="class")
+    def schema_data(self):
+        from scripts.generate_php_connector import parse_schema
+        return parse_schema(str(self.SCHEMA_PATH))
+
+    @pytest.fixture(scope="class")
+    def comparison_report(self, schema_data):
+        """Compute a comprehensive cross-language comparison report."""
+        from scripts.generate_php_connector import get_all_slots_for_class as php_slots
+        from scripts.generate_php_connector import get_data_properties as php_data
+        from scripts.generate_php_connector import get_object_properties as php_obj
+        from scripts.generate_ruby_gem import get_all_slots_for_class as ruby_slots
+        from scripts.generate_ruby_gem import get_data_properties as ruby_data
+        from scripts.generate_ruby_gem import get_object_properties as ruby_obj
+
+        classes_only = schema_data['classes']
+        total_classes = len(classes_only)
+
+        extra_slots = 0
+        missing_slots = 0
+        matching_classes = 0
+        differing_classes = []
+
+        for cn in classes_only:
+            php_all = set(s[0] for s in php_slots(cn, schema_data))
+            ruby_all = set(s[0] for s in ruby_slots(cn, schema_data))
+
+            if php_all == ruby_all:
+                matching_classes += 1
+            else:
+                extra = php_all - ruby_all
+                missing = ruby_all - php_all
+                extra_slots += len(extra)
+                missing_slots += len(missing)
+                if missing:
+                    differing_classes.append((cn, sorted(missing), sorted(extra)))
+                elif extra:
+                    differing_classes.append((cn, [], sorted(extra)))
+
+        return {
+            'total_classes': total_classes,
+            'matching_classes': matching_classes,
+            'differing_classes': differing_classes,
+            'extra_slots': extra_slots,
+            'missing_slots': missing_slots,
+            'php_is_superset': missing_slots == 0,
+        }
+
+    # ------------------------------------------------------------------
+    # Class name parity — strict equality
+    # ------------------------------------------------------------------
+
+    def test_class_name_transforms_match(self, schema_data):
+        """PHP and Ruby class name transforms produce the same short name."""
+        from scripts.generate_php_connector import to_php_class_name
+        from scripts.generate_ruby_gem import to_ruby_class_name
+        for cn in schema_data['classes']:
+            php_name = to_php_class_name(cn)
+            ruby_name = to_ruby_class_name(cn)
+            assert php_name == ruby_name, f"Name mismatch for {cn}: PHP={php_name} Ruby={ruby_name}"
+
+    def test_all_names_unique(self, schema_data):
+        """No duplicate class names after transform."""
+        from scripts.generate_php_connector import to_php_class_name
+        names = [to_php_class_name(cn) for cn in schema_data['classes']]
+        assert len(names) == len(set(names)), f"Duplicate class names found"
+
+    def test_semantic_types_match(self, schema_data):
+        """Every class has the same semantic type in both generators."""
+        from scripts.generate_php_connector import to_php_class_name
+        from scripts.generate_ruby_gem import to_ruby_class_name, rdf_prefix_for_class
+        for cn in schema_data['classes']:
+            php_type = f"dfc-b:{to_php_class_name(cn)}"
+            ruby_type = rdf_prefix_for_class(to_ruby_class_name(cn))
+            assert php_type == ruby_type, f"Semantic type mismatch for {cn}: PHP={php_type} Ruby={ruby_type}"
+
+    # ------------------------------------------------------------------
+    # Class hierarchy parity — strict equality
+    # ------------------------------------------------------------------
+
+    def test_parent_hierarchy_matches(self, schema_data):
+        """Each class has the same parent class name in both generators."""
+        from scripts.generate_php_connector import get_parent_php_class
+        from scripts.generate_ruby_gem import get_parent_ruby_class
+        for cn, cd in schema_data['classes'].items():
+            php_parent = get_parent_php_class(cd)
+            ruby_parent = get_parent_ruby_class(cd)
+            assert php_parent == ruby_parent, \
+                f"Parent mismatch for {cn}: PHP={php_parent} Ruby={ruby_parent}"
+
+    def test_root_classes_extend_semantic_object(self, schema_data):
+        """All root classes extend SemanticObject in both generators."""
+        from scripts.generate_php_connector import get_parent_php_class
+        from scripts.generate_ruby_gem import get_parent_ruby_class
+        for cn, cd in schema_data['classes'].items():
+            if not cd.get('is_a'):
+                assert get_parent_php_class(cd) == 'SemanticObject', \
+                    f"PHP: {cn} should extend SemanticObject"
+                assert get_parent_ruby_class(cd) == 'SemanticObject', \
+                    f"Ruby: {cn} should extend SemanticObject"
+
+    def test_class_hierarchy_length_matches(self, schema_data):
+        """Each class has the same hierarchy chain depth in both generators."""
+        from scripts.generate_php_connector import get_class_hierarchy as php_hierarchy
+        from scripts.generate_ruby_gem import get_class_hierarchy as ruby_hierarchy
+        classes = schema_data['classes']
+        for cn in classes:
+            php_chain = php_hierarchy(cn, classes)
+            ruby_chain = ruby_hierarchy(cn, classes)
+            assert len(php_chain) == len(ruby_chain), \
+                f"Hierarchy depth mismatch for {cn}: PHP={len(php_chain)} Ruby={len(ruby_chain)}"
+
+    # ------------------------------------------------------------------
+    # Property typing parity — strict equality
+    # ------------------------------------------------------------------
+
+    def test_collection_semantics_match(self, schema_data):
+        """Slots classified as collection or not identically in both generators."""
+        from scripts.generate_php_connector import is_collection_property as php_collection
+        from scripts.generate_ruby_gem import is_collection_property as ruby_collection
+        slots = schema_data['slots']
+        for slot_name, slot_data in slots.items():
+            php_is_collection = php_collection(slot_name, slot_data)
+            ruby_is_collection = ruby_collection(slot_name, slot_data)
+            assert php_is_collection == ruby_is_collection, \
+                f"Collection mismatch for {slot_name}: PHP={php_is_collection} Ruby={ruby_is_collection}"
+
+    def test_property_ranges_equivalent(self, schema_data):
+        """Primitive property range types map to equivalent types in both languages."""
+        from scripts.generate_php_connector import php_type_for_slot, get_range_value
+        from scripts.generate_ruby_gem import ruby_type_for_slot
+        slots = schema_data['slots']
+        classes = schema_data['classes']
+        type_map = {
+            'float': ('float', 'Float'),
+            'string': ('string', 'String'),
+            'integer': ('int', 'Integer'),
+            'boolean': ('bool', 'Boolean'),
+            'datetime': ('string', 'String'),
+            'date': ('string', 'String'),
+            'uri': ('string', 'String'),
+        }
+        for slot_name, slot_data in slots.items():
+            php_type = php_type_for_slot(slot_data, schema_data)
+            ruby_type = ruby_type_for_slot(slot_data, schema_data)
+            rv = get_range_value(slot_data)
+            if rv not in classes and rv in type_map:
+                expected_php, expected_ruby = type_map[rv]
+                assert php_type == expected_php, \
+                    f"PHP type mismatch for {slot_name}: range={rv} expected={expected_php} got={php_type}"
+                assert ruby_type == expected_ruby, \
+                    f"Ruby type mismatch for {slot_name}: range={rv} expected={expected_ruby} got={ruby_type}"
+
+    def test_object_properties_reference_valid_classes(self, schema_data):
+        """Object properties always reference classes that exist in the schema."""
+        from scripts.generate_php_connector import get_object_properties as php_obj
+        from scripts.generate_php_connector import get_range_value
+        classes = set(schema_data['classes'].keys())
+        for cn in schema_data['classes']:
+            for slot_name, slot_data, owner in php_obj(cn, schema_data):
+                rv = get_range_value(slot_data)
+                assert rv in classes, \
+                    f"{cn}.{slot_name} references missing class: {rv}"
+
+    def test_data_plus_object_properties_equals_all_internal(self, schema_data):
+        """Data + object properties cover all slots (internal consistency in PHP)."""
+        from scripts.generate_php_connector import (
+            get_data_properties as php_data,
+            get_object_properties as php_obj,
+            get_all_slots_for_class as php_slots,
+        )
+        from scripts.generate_ruby_gem import (
+            get_data_properties as ruby_data,
+            get_object_properties as ruby_obj,
+            get_all_slots_for_class as ruby_slots,
+        )
+        for cn in schema_data['classes']:
+            for prefix, slots_fn, data_fn, obj_fn in [
+                ('PHP', php_slots, php_data, php_obj),
+                ('Ruby', ruby_slots, ruby_data, ruby_obj),
+            ]:
+                all_slots = sorted(s[0] for s in slots_fn(cn, schema_data))
+                combined = sorted(
+                    [s[0] for s in data_fn(cn, schema_data)]
+                    + [s[0] for s in obj_fn(cn, schema_data)]
+                )
+                assert all_slots == combined, \
+                    f"{prefix}: {cn} data+object != all slots"
+
+    # ------------------------------------------------------------------
+    # Coverage comparison — PHP should be a superset of Ruby
+    # ------------------------------------------------------------------
+
+    def test_php_slot_coverage_superset_of_ruby(self, comparison_report):
+        """PHP finds at least as many slots as Ruby for every class."""
+        if not comparison_report['php_is_superset']:
+            missing = [
+                (cn, mis)
+                for cn, mis, _ in comparison_report['differing_classes']
+                if mis
+            ]
+            pytest.fail(
+                f"Ruby has slots PHP lacks ({len(missing)} classes). "
+                f"This indicates the PHP generator is missing properties.\n"
+                + '\n'.join(f"  {cn}: {mis}" for cn, mis in missing[:20])
+            )
+
+    def test_slot_coverage_delta_str(self, comparison_report):
+        """Report the slot assignment delta between generators (informative)."""
+        rpt = comparison_report
+        if rpt['differing_classes']:
+            total = rpt['total_classes']
+            matching = rpt['matching_classes']
+            extra = rpt['extra_slots']
+            pct = round(matching / total * 100, 1)
+
+            print(f"\n{'='*60}")
+            print(f"Cross-language slot comparison: PHP vs Ruby")
+            print(f"{'='*60}")
+            print(f"  Classes matching:  {matching}/{total} ({pct}%)")
+            print(f"  Extra slots (PHP): {extra}")
+            print(f"  PHP is superset:   {rpt['php_is_superset']}")
+            print(f"\n  Note: PHP checks explicit `slots:` lists + domain matching.")
+            print(f"  Ruby checks domain matching only.")
+            print(f"  Result: PHP finds more slots than Ruby.")
+            print(f"  This is expected — not a bug.")
+
+            if rpt['differing_classes']:
+                print(f"\n  Sample deltas (first 10 classes):")
+                for cn, missing, extra in rpt['differing_classes'][:10]:
+                    if extra:
+                        print(f"  {cn}: +{', '.join(extra[:10])}")
+                        if len(extra) > 10:
+                            print(f"       ... and {len(extra) - 10} more")
+        else:
+            print(f"\nAll {rpt['total_classes']} classes have identical slot assignment!")
+
+    def test_no_missing_ruby_slots_in_php(self, comparison_report):
+        """Ruby should not have any slot that PHP lacks (completeness check).
+
+        If this fails, the PHP generator is missing properties Ruby has.
+        """
+        for cn, missing, extra in comparison_report['differing_classes']:
+            assert not missing, \
+                f"PHP is missing Ruby slot(s) for {cn}: {missing}"
