@@ -1076,6 +1076,10 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
 
     public function {remover_name}({ptype} ${prop_name}): void
     {{
+        \$key = array_search(\${prop_name}, \$this->{prop_name}, true);
+        if (\$key !== false) {{
+            unset(\$this->{prop_name}[\$key]);
+        }}
     }}
 ''')
         else:
