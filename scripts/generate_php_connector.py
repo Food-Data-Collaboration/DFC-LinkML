@@ -1019,15 +1019,12 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     props_str = '\n'.join(props_code)
 
     # Constructor
-    params = []
     body = []
     for slot_name, slot_data, owner in all_own_props:
         prop_name = to_php_property_name(slot_name)
-        params.append(f'mixed ${prop_name} = null')
-        body.append(f'        $this->{prop_name} = ${prop_name};')
+        body.append(f"        $this->{prop_name} = $params['{prop_name}'] ?? null;")
 
-    params_str = ', '.join(params)
-    body_str = '\n    '.join(body) if body else ''
+    body_str = '\n        '.join(body) if body else ''
 
     # Parent constructor call
     if parent_raw == 'SemanticObject':
