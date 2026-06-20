@@ -1272,6 +1272,7 @@ class TestTypeScriptGenerator:
             assert content.strip(), f"Empty model file for {class_name}"
 
 
+@pytest.mark.integration
 class TestCrossLanguageConsistency:
     """Verify PHP and Ruby generators produce consistent output from the same schema.
 
@@ -1503,27 +1504,19 @@ class TestCrossLanguageConsistency:
             matching = rpt['matching_classes']
             extra = rpt['extra_slots']
             pct = round(matching / total * 100, 1)
-
-            print(f"\n{'='*60}")
-            print(f"Cross-language slot comparison: PHP vs Ruby")
-            print(f"{'='*60}")
-            print(f"  Classes matching:  {matching}/{total} ({pct}%)")
-            print(f"  Extra slots (PHP): {extra}")
-            print(f"  PHP is superset:   {rpt['php_is_superset']}")
-            print(f"\n  Note: PHP checks explicit `slots:` lists + domain matching.")
-            print(f"  Ruby checks domain matching only.")
-            print(f"  Result: PHP finds more slots than Ruby.")
-            print(f"  This is expected — not a bug.")
-
-            if rpt['differing_classes']:
-                print(f"\n  Sample deltas (first 10 classes):")
-                for cn, missing, extra in rpt['differing_classes'][:10]:
-                    if extra:
-                        print(f"  {cn}: +{', '.join(extra[:10])}")
-                        if len(extra) > 10:
-                            print(f"       ... and {len(extra) - 10} more")
+            msg = (
+                f"Cross-language slot comparison: PHP vs Ruby\n"
+                f"  Classes matching:  {matching}/{total} ({pct}%)\n"
+                f"  Extra slots (PHP): {extra}\n"
+                f"  PHP is superset:   {rpt['php_is_superset']}\n"
+                f"  Note: PHP checks explicit `slots:` lists + domain matching.\n"
+                f"  Ruby checks domain matching only.\n"
+                f"  Result: PHP finds more slots than Ruby.\n"
+                f"  This is expected — not a bug."
+            )
+            pytest.skip(msg)
         else:
-            print(f"\nAll {rpt['total_classes']} classes have identical slot assignment!")
+            pytest.skip(f"All {rpt['total_classes']} classes have identical slot assignment!")
 
     def test_no_missing_ruby_slots_in_php(self, comparison_report):
         """Ruby should not have any slot that PHP lacks (completeness check).
