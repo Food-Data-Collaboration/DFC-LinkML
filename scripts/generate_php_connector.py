@@ -371,7 +371,7 @@ class SemanticObject
     }
 
     private string $semanticId;
-    private string $semanticType = '';
+    protected string $semanticType = '';
     private array $semanticProperties = [];
 
     public function __construct(string $semanticId)
