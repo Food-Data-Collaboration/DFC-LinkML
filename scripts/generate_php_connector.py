@@ -951,7 +951,7 @@ def generate_entity_interface(class_name: str, class_data: dict, schema_data: di
 
     extends_str = ''
     if ifaces:
-        extends_str = ' extends ' + ', '.join('I' + i for i in ifaces)
+        extends_str = ' extends ' + ', '.join(ifaces)
 
     return f'''{LICENSE_BLOCK.rstrip()}
 namespace DataFoodConsortium\\Connector;
@@ -1033,8 +1033,8 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
         super_call = '        parent::__construct($semanticId, $params ?? []);'
 
     impl_str = ''
-    if ifaces:
-        impl_str = ' implements ' + ', '.join(['I' + i for i in ifaces])
+    if pcn != 'SemanticObject':
+        impl_str = ' implements I' + pcn
 
     constructor = f'''    public function __construct(
         string $semanticId,
