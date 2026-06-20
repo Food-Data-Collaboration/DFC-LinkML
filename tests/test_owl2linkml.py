@@ -1274,17 +1274,14 @@ class TestTypeScriptGenerator:
 
 @pytest.mark.integration
 class TestCrossLanguageConsistency:
-    """Verify PHP and Ruby generators produce consistent output from the same schema.
+    """Verify cross-language structural parity across PHP, Ruby, and TypeScript generators.
 
-    Ruby is the reference (most up-to-date, most likely correct).
-    PHP should match its class hierarchy, property assignments, and collection semantics.
-
-    Note: Slot assignment implementations differ between generators:
+    Each generator uses the same source schema but may differ in slot assignment logic:
       - PHP/TypeScript check explicit `slots:` lists AND domain-based matching
-      - Ruby checks domain-based matching only
+      - Ruby checks domain-based matching only (known bug: list-valued domain never matches)
     As a result, PHP finds a superset of the slots Ruby finds.
-    The strict equality tests below cover name/hierarchy/type mapping (identical).
-    The slot/property tests document the known coverage delta.
+    The strict equality tests below cover name/hierarchy/type mapping (should be identical).
+    The slot/property tests document the known coverage delta (PHP superset).
     """
 
     SCHEMA_PATH = Path(__file__).parent.parent / "src" / "dfc_business_linkml_v2_0.yaml"

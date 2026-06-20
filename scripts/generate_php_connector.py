@@ -733,7 +733,8 @@ class Connector
         }}
         return lcfirst($name);
     }}
-{factory_methods}}}
+    {factory_methods}
+}}
 '''
 
     return code
@@ -1010,6 +1011,72 @@ interface I{pcn}{extends_str}
 # Model generator
 # ---------------------------------------------------------------------------
 
+
+def _model_method_body(method_name: str, prop_name: str, ptype: str, group_type: str) -> str:
+    """Generate a model method body for a given method name and property.
+
+    Handles both standard (get/set/add/remove) and domain-specific
+    (supply/unmaintain/propose/etc.) method prefixes.
+    """
+    if method_name.startswith('get'):
+        if group_type in ('data', 'reference_single'):
+            return f'''    public function {method_name}(): ?{ptype}
+    {{
+        return $this->{prop_name};
+    }}
+'''
+        else:
+            return f'''    public function {method_name}(): array
+    {{
+        return $this->{prop_name} ?? [];
+    }}
+'''
+    elif method_name.startswith('set'):
+        param = lcfirst(method_name[3:])
+        return f'''    public function {method_name}(?{ptype} ${param}): static
+    {{
+        $this->{prop_name} = ${param};
+        return $this;
+    }}
+'''
+    elif method_name.startswith('add'):
+        param = lcfirst(method_name[3:])
+        return f'''    public function {method_name}({ptype} ${param}): static
+    {{
+        $this->{prop_name}[] = ${param};
+        return $this;
+    }}
+'''
+    elif method_name.startswith('remove'):
+        param = lcfirst(method_name[3:])
+        return f'''    public function {method_name}({ptype} ${param}): void
+    {{
+        $key = array_search(${param}, $this->{prop_name}, true);
+        if ($key !== false) {{
+            unset($this->{prop_name}[$key]);
+        }}
+    }}
+'''
+    elif method_name.startswith('un'):
+        param = lcfirst(method_name[2:])
+        return f'''    public function {method_name}({ptype} ${param}): void
+    {{
+        $key = array_search(${param}, $this->{prop_name}, true);
+        if ($key !== false) {{
+            unset($this->{prop_name}[$key]);
+        }}
+    }}
+'''
+    else:
+        param = lcfirst(method_name)
+        return f'''    public function {method_name}({ptype} ${param}): static
+    {{
+        $this->{prop_name}[] = ${param};
+        return $this;
+    }}
+'''
+
+
 def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     pcn = to_php_class_name(class_name)
     parent_raw = get_parent_php_class(class_data)
@@ -1030,9 +1097,6 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     use_imports.add('use DataFoodConsortium\\Connector\\SemanticObject;')
     if parent_raw != 'SemanticObject':
         use_imports.add(f'use DataFoodConsortium\\Connector\\{parent_raw};')
-        ifaces_str = ', '.join(['I' + parent_raw if ifaces else ''] + [f'I{i}' if i != ifaces else i for i in ifaces])
-    else:
-        ifaces_str = ', '.join([f'I{i}' for i in ifaces])
 
     # Interfaces for referenced classes
     for slot_name, slot_data, owner in all_own_props:
@@ -1066,7 +1130,10 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     body = []
     for slot_name, slot_data, owner in all_own_props:
         prop_name = to_php_property_name(slot_name)
-        body.append(f"        $this->{prop_name} = $params['{prop_name}'] ?? null;")
+        if is_collection_property(slot_name, slot_data):
+            body.append(f"        $this->{prop_name} = $params['{prop_name}'] ?? [];")
+        else:
+            body.append(f"        $this->{prop_name} = $params['{prop_name}'] ?? null;")
 
     body_str = '\n        '.join(body) if body else ''
 
@@ -1101,12 +1168,17 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
         if rv in schema_data['classes']:
             ptype = to_php_class_name(rv)
 
-        getter_name = 'get' + prop_name[0].upper() + prop_name[1:]
-        setter_name = 'set' + prop_name[0].upper() + prop_name[1:]
-        adder_name = 'add' + prop_name[0].upper() + prop_name[1:]
-        remover_name = 'remove' + prop_name[0].upper() + prop_name[1:]
-
-        if is_collection:
+        # Check if this slot maps to a hardcoded interface with custom method names
+        iface_name = interface_name_for_slot(slot_name)
+        iface_entry = SLOT_INTERFACE_METHODS.get(iface_name)
+        if iface_entry is not None:
+            group_type, method_names, _ = iface_entry
+            for mn in method_names:
+                methods.append(_model_method_body(mn, prop_name, ptype, group_type))
+        elif is_collection:
+            getter_name = 'get' + prop_name[0].upper() + prop_name[1:]
+            adder_name = 'add' + prop_name[0].upper() + prop_name[1:]
+            remover_name = 'remove' + prop_name[0].upper() + prop_name[1:]
             methods.append(f'''    public function {getter_name}(): array
     {{
         return $this->{prop_name} ?? [];
@@ -1127,6 +1199,8 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     }}
 ''')
         else:
+            getter_name = 'get' + prop_name[0].upper() + prop_name[1:]
+            setter_name = 'set' + prop_name[0].upper() + prop_name[1:]
             methods.append(f'''    public function {getter_name}(): ?{ptype}
     {{
         return $this->{prop_name};
