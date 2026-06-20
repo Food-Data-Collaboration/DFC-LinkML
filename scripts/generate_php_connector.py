@@ -57,10 +57,22 @@ def to_snake_case(name: str) -> str:
     return name.lower()
 
 
+# Bare slot names that collide with has_X versions after has_ stripping.
+# These get disambiguated property names and distinct interfaces.
+BARE_SLOT_OVERRIDES = {
+    'quantity': 'quantityValue',
+    'brand': 'brandName',
+    'claim': 'claimText',
+    'country': 'countryName',
+}
+
+
 def to_php_property_name(slot_name: str) -> str:
     """Convert slot name to PHP property name (camelCase with has- prefix stripped)."""
     name = slot_name
-    if name.startswith('has') and len(name) > 3 and name[3].isupper():
+    if name.startswith('has_'):
+        name = name[4:]
+    elif name.startswith('has') and len(name) > 3 and name[3].isupper():
         name = name[3:]
     if not name:
         return slot_name
@@ -76,7 +88,12 @@ def to_php_property_name(slot_name: str) -> str:
         'enterpriseID': 'enterpriseId',
         'operatorID': 'operatorId',
     }
-    return special.get(result, result)
+    result = special.get(result, result)
+    # Disambiguate bare collision slots (e.g., bare 'quantity' vs has_quantity)
+    is_has_prefixed = slot_name.startswith('has_') or (slot_name.startswith('has') and len(slot_name) > 3 and slot_name[3].isupper())
+    if not is_has_prefixed and slot_name in BARE_SLOT_OVERRIDES:
+        result = BARE_SLOT_OVERRIDES[slot_name]
+    return result
 
 
 def to_file_name(name: str) -> str:
@@ -211,7 +228,9 @@ def is_collection_property(slot_name: str, slot_data: dict) -> bool:
 def interface_name_for_slot(slot_name: str) -> str:
     """Derive a trait interface name from a slot name."""
     name = slot_name
-    if name.startswith('has') and len(name) > 3 and name[3].isupper():
+    if name.startswith('has_'):
+        name = name[4:]
+    elif name.startswith('has') and len(name) > 3 and name[3].isupper():
         name = name[3:]
     if name.startswith('_'):
         name = name[1:]
@@ -254,6 +273,18 @@ def interface_name_for_slot(slot_name: str) -> str:
         'Latitude': 'Geolocalizable',
         'Longitude': 'Geolocalizable',
     }
+
+    # Disambiguate bare collision slots (e.g., bare 'brand' vs has_brand)
+    # Must check BEFORE special dict lookup to override intended mappings
+    is_has_prefixed = slot_name.startswith('has_') or (slot_name.startswith('has') and len(slot_name) > 3 and slot_name[3].isupper())
+    if not is_has_prefixed and slot_name in BARE_SLOT_OVERRIDES:
+        override = BARE_SLOT_OVERRIDES[slot_name]
+        opascal = override[0].upper() + override[1:]
+        if opascal in special:
+            return special[opascal]
+        if opascal.endswith('s') and not opascal.endswith('ss') and not opascal.endswith('us'):
+            return opascal[:-1] + 'able'
+        return opascal + 'able'
 
     if pascal in special:
         return special[pascal]
