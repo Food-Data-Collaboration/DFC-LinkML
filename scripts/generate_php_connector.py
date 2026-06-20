@@ -476,6 +476,13 @@ def generate_connector(schema_data: dict) -> str:
 }}
 '''
 
+    register_types = ''
+    for cn in class_names:
+        pcn = to_php_class_name(cn)
+        if pcn == 'SemanticObject':
+            continue
+        register_types += f"        SemanticObject::registerType('dfc-b:{cn}', {pcn}::class);\n"
+
     code = LICENSE_BLOCK + f'''namespace DataFoodConsortium\\Connector;
 
 use ML\\JsonLD\\JsonLD;
@@ -499,7 +506,12 @@ class Connector
     {{
         $this->ontologyVersion = $ontologyVersion;
         $this->taxonomyVersion = $taxonomyVersion;
+        $this->registerTypes();
     }}
+
+    public function registerTypes(): void
+    {{
+{register_types}    }}
 
     public function getContextUrl(): string
     {{
@@ -682,7 +694,9 @@ class Connector
 
     private function predicateToPropName(string $predicate): string
     {{
-        $name = preg_replace('/^dfc-b:/', '', $predicate);
+        $parts = explode(':', $predicate);
+        $name = end($parts);
+        $name = preg_replace_callback('/_([a-z])/', fn($m) => strtoupper($m[1]), $name);
         if (str_starts_with($name, 'has') && strlen($name) > 3 && ctype_upper($name[3])) {{
             $name = substr($name, 3);
         }}
