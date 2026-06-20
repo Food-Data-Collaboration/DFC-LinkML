@@ -730,12 +730,11 @@ SLOT_INTERFACE_METHODS = {
         }
     ),
     'Emailable': (
-        'data_collection',
-        ['getEmails', 'addEmail', 'removeEmail'],
+        'data',
+        ['getEmail', 'setEmail'],
         {
-            'getEmails': 'public function getEmails(): array;',
-            'addEmail': 'public function addEmail(string $email): static;',
-            'removeEmail': 'public function removeEmail(string $email): void;',
+            'getEmail': 'public function getEmail(): ?string;',
+            'setEmail': 'public function setEmail(?string $email): static;',
         }
     ),
     'Suppliable': (
