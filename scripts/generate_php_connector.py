@@ -1012,7 +1012,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
             ptype = to_php_class_name(rv)
 
         if is_collection:
-            props_code.append(f'    private ?array ${prop_name} = null;')
+            props_code.append(f'    private array ${prop_name} = [];')
         else:
             props_code.append(f'    private ?{ptype} ${prop_name} = null;')
 
