@@ -1128,14 +1128,18 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
 
     # Constructor
     body = []
+    registrations = []
     for slot_name, slot_data, owner in all_own_props:
         prop_name = to_php_property_name(slot_name)
         if is_collection_property(slot_name, slot_data):
             body.append(f"        $this->{prop_name} = $params['{prop_name}'] ?? [];")
         else:
             body.append(f"        $this->{prop_name} = $params['{prop_name}'] ?? null;")
+        predicate = f"dfc-b:{class_name}:{slot_name}"
+        registrations.append(f"        $this->registerSemanticProperty('{predicate}', fn() => $this->{prop_name});")
 
-    body_str = '\n        '.join(body) if body else ''
+    body_str = '\n'.join(body) if body else ''
+    registrations_str = '\n'.join(registrations)
 
     # Parent constructor call
     if parent_raw == 'SemanticObject':
@@ -1154,6 +1158,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
         {super_call}
         $this->semanticType = self::SEMANTIC_TYPE;
 {body_str}
+{registrations_str}
     }}
 '''
 
