@@ -1,6 +1,7 @@
 import { SemanticObject } from "./SemanticObject.js";
 import { VocabularyLoader } from "./VocabularyLoader.js";
 import { JsonLdSerializer } from "./JsonLdSerializer.js";
+import * as jsonld from "jsonld";
 import { Address } from "../models/Address.js";
 import { Agent } from "../models/Agent.js";
 import { AllergenCharacteristic } from "../models/AllergenCharacteristic.js";
@@ -27,6 +28,7 @@ import { DitributedRepresentation } from "../models/DitributedRepresentation.js"
 import { DefinedProduct } from "../models/DefinedProduct.js";
 import { DeliveryOption } from "../models/DeliveryOption.js";
 import { DeliveryStep } from "../models/DeliveryStep.js";
+import { Enterprise } from "../models/Enterprise.js";
 import { Feature } from "../models/Feature.js";
 import { FunctionalProduct } from "../models/FunctionalProduct.js";
 import { Geometry } from "../models/Geometry.js";
@@ -162,9 +164,14 @@ export class Connector {
             context = await this.getContext();
         }
         catch {
-            // Context fetch failed — export without @context
+            // Context fetch failed — export without compaction
+            return JSON.stringify(new JsonLdSerializer(undefined).serialize(...objects), null, 2);
         }
-        return new JsonLdSerializer(context).serialize(...objects);
+        const expanded = new JsonLdSerializer(context).serialize(...objects);
+        const compacted = await jsonld.compact(expanded, context);
+        const output = compacted;
+        output["@context"] = this.contextUrl;
+        return JSON.stringify(output, null, 2);
     }
     import(jsonLdData) {
         const data = typeof jsonLdData === "string" ? JSON.parse(jsonLdData) : jsonLdData;
@@ -181,7 +188,14 @@ export class Connector {
             const Klass = SemanticObject.typeRegistry.get(semanticType);
             if (!Klass)
                 continue;
-            const obj = new Klass(semanticId);
+            const entryParams = {};
+            for (const [key, value] of Object.entries(entry)) {
+                if (key.startsWith("@"))
+                    continue;
+                const propName = this.predicateToPropName(key);
+                entryParams[propName] = value;
+            }
+            const obj = new Klass(semanticId, entryParams);
             objectsById.set(semanticId, obj);
             instances.push(obj);
         }
@@ -199,19 +213,26 @@ export class Connector {
                 if (!(propName in obj))
                     continue;
                 if (Array.isArray(value)) {
-                    obj[propName] = value.map((v) => typeof v === "string" && (v.startsWith("http") || v.startsWith("/"))
-                        ? (objectsById.get(v) || v)
-                        : v);
+                    obj[propName] = value.map((v) => this.resolveReference(v, objectsById));
                 }
-                else if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/"))) {
+                else if (typeof value === "object" && value !== null && "@id" in value) {
+                    obj[propName] = this.resolveReference(value, objectsById);
+                }
+                else if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {
                     obj[propName] = objectsById.get(value) || value;
-                }
-                else {
-                    obj[propName] = value;
                 }
             }
         }
-        return instances.length === 1 ? instances[0] : instances;
+        return instances;
+    }
+    resolveReference(value, objectsById) {
+        if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {
+            return objectsById.get(value) || value;
+        }
+        if (typeof value === "object" && value !== null && "@id" in value) {
+            return objectsById.get(value["@id"]) || value;
+        }
+        return value;
     }
     get facet() {
         return this.otherVocabularies.get("Facet") || this.vocabLoader.vocabulary("Facet");
@@ -305,6 +326,9 @@ export class Connector {
     }
     createDeliveryStep(semanticId, params) {
         return new DeliveryStep(semanticId, params);
+    }
+    createEnterprise(semanticId, params) {
+        return new Enterprise(semanticId, params);
     }
     createFeature(semanticId, params) {
         return new Feature(semanticId, params);

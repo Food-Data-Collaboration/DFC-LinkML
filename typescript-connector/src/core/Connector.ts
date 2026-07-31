@@ -1,6 +1,7 @@
 import { SemanticObject } from "./SemanticObject.js";
 import { VocabularyLoader } from "./VocabularyLoader.js";
 import { JsonLdSerializer } from "./JsonLdSerializer.js";
+import * as jsonld from "jsonld";
 import { Address } from "../models/Address.js";
 import { Agent } from "../models/Agent.js";
 import { AllergenCharacteristic } from "../models/AllergenCharacteristic.js";
@@ -27,6 +28,7 @@ import { DitributedRepresentation } from "../models/DitributedRepresentation.js"
 import { DefinedProduct } from "../models/DefinedProduct.js";
 import { DeliveryOption } from "../models/DeliveryOption.js";
 import { DeliveryStep } from "../models/DeliveryStep.js";
+import { Enterprise } from "../models/Enterprise.js";
 import { Feature } from "../models/Feature.js";
 import { FunctionalProduct } from "../models/FunctionalProduct.js";
 import { Geometry } from "../models/Geometry.js";
@@ -115,6 +117,7 @@ import type { DitributedRepresentationParams } from "../models/DitributedReprese
 import type { DefinedProductParams } from "../models/DefinedProduct.js";
 import type { DeliveryOptionParams } from "../models/DeliveryOption.js";
 import type { DeliveryStepParams } from "../models/DeliveryStep.js";
+import type { EnterpriseParams } from "../models/Enterprise.js";
 import type { FeatureParams } from "../models/Feature.js";
 import type { FunctionalProductParams } from "../models/FunctionalProduct.js";
 import type { GeometryParams } from "../models/Geometry.js";
@@ -260,17 +263,22 @@ export class Connector {
     return this;
   }
 
-  async export(...objects: SemanticObject[]): Promise<Record<string, unknown>> {
+  async export(...objects: SemanticObject[]): Promise<string> {
     let context: Record<string, unknown> | undefined;
     try {
       context = await this.getContext();
     } catch {
-      // Context fetch failed — export without @context
+      // Context fetch failed — export without compaction
+      return JSON.stringify(new JsonLdSerializer(undefined).serialize(...objects), null, 2);
     }
-    return new JsonLdSerializer(context).serialize(...objects);
+    const expanded: Record<string, unknown> = new JsonLdSerializer(context).serialize(...objects) as Record<string, unknown>;
+    const compacted = await (jsonld.compact(expanded, context as any) as unknown as Promise<Record<string, unknown>>);
+    const output = compacted as Record<string, unknown>;
+    output["@context"] = this.contextUrl;
+    return JSON.stringify(output, null, 2);
   }
 
-  import(jsonLdData: string | Record<string, unknown>): SemanticObject | SemanticObject[] {
+  import(jsonLdData: string | Record<string, unknown>): SemanticObject[] {
     const data = typeof jsonLdData === "string" ? JSON.parse(jsonLdData) : jsonLdData;
 
     const entries: Array<Record<string, unknown>> = Array.isArray(data)
@@ -285,10 +293,18 @@ export class Connector {
       const semanticType = entry["@type"] as string | undefined;
       if (!semanticId || !semanticType) continue;
 
-      const Klass = SemanticObject.typeRegistry.get(semanticType);
+      const Klass = SemanticObject.typeRegistry.get(semanticType) as
+        new (semanticId: string, params?: Record<string, unknown>) => SemanticObject;
       if (!Klass) continue;
 
-      const obj = new Klass(semanticId) as SemanticObject;
+      const entryParams: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(entry)) {
+        if (key.startsWith("@")) continue;
+        const propName = this.predicateToPropName(key);
+        entryParams[propName] = value;
+      }
+
+      const obj = new Klass(semanticId, entryParams) as SemanticObject;
       objectsById.set(semanticId, obj);
       instances.push(obj);
     }
@@ -305,28 +321,28 @@ export class Connector {
         if (!(propName in obj)) continue;
 
         if (Array.isArray(value)) {
-          (obj as unknown as Record<string, unknown>)[propName] = value.map((v: unknown) => {
-            if (typeof v === "object" && v !== null && "@id" in (v as Record<string, unknown>)) {
-              const refId = (v as Record<string, unknown>)["@id"] as string;
-              return objectsById.get(refId) || refId;
-            }
-            if (typeof v === "string" && (v.startsWith("http") || v.startsWith("/") || v.startsWith("_:"))) {
-              return objectsById.get(v) || v;
-            }
-            return v;
-          });
-        } else if (typeof value === "object" && value !== null && "@id" in (value as Record<string, unknown>)) {
-          const refId = (value as Record<string, unknown>)["@id"] as string;
-          (obj as unknown as Record<string, unknown>)[propName] = objectsById.get(refId) || refId;
+          (obj as unknown as Record<string, unknown>)[propName] = value.map((v: unknown) =>
+            this.resolveReference(v, objectsById)
+          );
+        } else if (typeof value === "object" && value !== null && "@id" in value) {
+          (obj as unknown as Record<string, unknown>)[propName] = this.resolveReference(value, objectsById);
         } else if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {
           (obj as unknown as Record<string, unknown>)[propName] = objectsById.get(value) || value;
-        } else {
-          (obj as unknown as Record<string, unknown>)[propName] = value;
         }
       }
     }
 
-    return instances.length === 1 ? instances[0] : instances;
+    return instances;
+  }
+
+  private resolveReference(value: unknown, objectsById: Map<string, SemanticObject>): unknown {
+    if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {
+      return objectsById.get(value) || value;
+    }
+    if (typeof value === "object" && value !== null && "@id" in value) {
+      return objectsById.get((value as Record<string, unknown>)["@id"] as string) || value;
+    }
+    return value;
   }
 
 
@@ -453,6 +469,10 @@ export class Connector {
 
   createDeliveryStep(semanticId: string, params?: DeliveryStepParams): DeliveryStep {
     return new DeliveryStep(semanticId, params);
+  }
+
+  createEnterprise(semanticId: string, params?: EnterpriseParams): Enterprise {
+    return new Enterprise(semanticId, params);
   }
 
   createFeature(semanticId: string, params?: FeatureParams): Feature {

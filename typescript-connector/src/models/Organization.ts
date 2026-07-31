@@ -5,7 +5,7 @@ import { Agent, type AgentParams } from "./Agent.js";
 export interface OrganizationParams extends AgentParams {
   vatNumber?: string;
   vatStatus?: boolean;
-  organizationId?: string;
+  enterpriseId?: string;
   affiliates?: string[];
   defines?: string[];
   hasMainContact?: string;
@@ -24,7 +24,7 @@ export class Organization extends Agent {
 
   vatNumber?: string;
   vatStatus?: boolean;
-  organizationId?: string;
+  enterpriseId?: string;
   affiliates?: string[];
   defines?: string[];
   hasMainContact?: string;
@@ -43,7 +43,7 @@ export class Organization extends Agent {
     super(semanticId, params);
     this.vatNumber = params?.vatNumber;
     this.vatStatus = params?.vatStatus;
-    this.organizationId = params?.organizationId;
+    this.enterpriseId = params?.enterpriseId;
     this.affiliates = params?.affiliates;
     this.defines = params?.defines;
     this.hasMainContact = params?.hasMainContact;
@@ -57,7 +57,7 @@ export class Organization extends Agent {
     this.semanticType = Organization.SEMANTIC_TYPE;
     this.registerSemanticProperty("dfc-b:Organization:vat_number", () => this.vatNumber);
     this.registerSemanticProperty("dfc-b:Organization:vat_status", () => this.vatStatus);
-    this.registerSemanticProperty("dfc-b:Organization:organization_id", () => this.organizationId);
+    this.registerSemanticProperty("dfc-b:Organization:enterprise_i_d", () => this.enterpriseId);
     this.registerSemanticProperty("dfc-b:Organization:affiliates", () => this.affiliates);
     this.registerSemanticProperty("dfc-b:Organization:defines", () => this.defines);
     this.registerSemanticProperty("dfc-b:Organization:has_main_contact", () => this.hasMainContact);

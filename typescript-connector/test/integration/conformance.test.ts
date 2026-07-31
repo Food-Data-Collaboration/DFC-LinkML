@@ -41,7 +41,8 @@ describe("Integration: conformance", () => {
         vatNumber: "FR123456789",
       });
       const exported = await c.export(org);
-      const imported = c.import(exported) as Organization;
+      const parsed = JSON.parse(exported) as Record<string, unknown>;
+      const imported = c.import(parsed)[0] as Organization;
       expect(imported.semanticId).toBe("http://example.com/org1");
       expect(imported.semanticType).toBe("dfc-b:Organization");
       expect(imported.name).toBe("Farm Org");
@@ -58,7 +59,8 @@ describe("Integration: conformance", () => {
         totalTheoriticalStock: 100,
       });
       const exported = await c.export(p);
-      const imported = c.import(exported) as SuppliedProduct;
+      const parsed = JSON.parse(exported) as Record<string, unknown>;
+      const imported = c.import(parsed)[0] as SuppliedProduct;
       expect(imported.semanticId).toBe("http://example.com/tomato");
       expect(imported.name).toBe("Tomato");
       expect(imported.description).toBe("Fresh tomato");
@@ -76,7 +78,8 @@ describe("Integration: conformance", () => {
         hasPart: line,
       });
       const exported = await c.export(order, line);
-      const imported = c.import(exported) as (Order | OrderLine)[];
+      const parsed = JSON.parse(exported) as Record<string, unknown>;
+      const imported = c.import(parsed) as (Order | OrderLine)[];
       expect(imported).toHaveLength(2);
       const impOrder = imported.find(o => o.semanticId === "http://example.com/order1") as Order;
       const impLine = imported.find(o => o.semanticId === "http://example.com/line1") as OrderLine;
@@ -149,8 +152,9 @@ describe("Integration: conformance", () => {
       const c = new Connector();
       const org = c.createOrganization("http://example.com/org1", { name: "Test" });
       const exported = await c.export(org);
-      expect(exported["@id"]).toBe("http://example.com/org1");
-      expect(exported["@graph"]).toBeUndefined();
+      const parsed = JSON.parse(exported) as Record<string, unknown>;
+      expect(parsed["@id"]).toBe("http://example.com/org1");
+      expect(parsed["@graph"]).toBeUndefined();
     });
 
     it("multiple objects wrap in @graph", async () => {
@@ -158,9 +162,10 @@ describe("Integration: conformance", () => {
       const org1 = c.createOrganization("http://example.com/org1", { name: "Org 1" });
       const org2 = c.createOrganization("http://example.com/org2", { name: "Org 2" });
       const exported = await c.export(org1, org2);
-      expect(exported["@graph"]).toBeDefined();
-      expect(Array.isArray(exported["@graph"])).toBe(true);
-      expect((exported["@graph"] as unknown[]).length).toBe(2);
+      const parsed = JSON.parse(exported) as Record<string, unknown>;
+      expect(parsed["@graph"]).toBeDefined();
+      expect(Array.isArray(parsed["@graph"])).toBe(true);
+      expect((parsed["@graph"] as unknown[]).length).toBe(2);
     });
 
     it("exports SemanticObject references as @id-wrapped objects", async () => {
@@ -169,9 +174,11 @@ describe("Integration: conformance", () => {
       const org1 = c.createOrganization("http://example.com/org1", { name: "Farm" });
       (org1 as unknown as Record<string, unknown>).isCertifiedBy = org2;
       const exported = await c.export(org1, org2);
-      const graph = exported["@graph"] as Record<string, unknown>[];
+      const parsed = JSON.parse(exported) as Record<string, unknown>;
+      const graph = parsed["@graph"] as Record<string, unknown>[];
       const entry = graph.find(e => e["@id"] === "http://example.com/org1") as Record<string, unknown>;
-      expect(entry["dfc-b:Organization:is_certified_by"]).toEqual({ "@id": "http://example.com/org2" });
+      const predicateKey = Object.keys(entry).find(k => k.includes("is_certified_by"))!;
+      expect(entry[predicateKey]).toEqual({ "@id": "http://example.com/org2" });
     });
   });
 });

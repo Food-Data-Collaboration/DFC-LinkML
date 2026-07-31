@@ -28,6 +28,7 @@ export { DitributedRepresentation } from "./models/DitributedRepresentation.js";
 export { DefinedProduct } from "./models/DefinedProduct.js";
 export { DeliveryOption } from "./models/DeliveryOption.js";
 export { DeliveryStep } from "./models/DeliveryStep.js";
+export { Enterprise } from "./models/Enterprise.js";
 export { Feature } from "./models/Feature.js";
 export { FunctionalProduct } from "./models/FunctionalProduct.js";
 export { Geometry } from "./models/Geometry.js";

@@ -270,10 +270,10 @@ def generate_semantic_object_base() -> str:
       if (Array.isArray(value)) {
         if (value.length === 0) continue;
         result[predicate] = value.map((v: unknown) =>
-          v instanceof SemanticObject ? v.semanticId : v
+          v instanceof SemanticObject ? { "@id": v.semanticId } : v
         );
       } else if (value instanceof SemanticObject) {
-        result[predicate] = value.semanticId;
+        result[predicate] = { "@id": value.semanticId };
       } else {
         result[predicate] = value;
       }
@@ -348,12 +348,24 @@ def generate_vocabulary_loader(schema_data: dict) -> str:
 
   load(name: string, jsonData: Record<string, unknown>): this {{
     const concepts: Record<string, unknown> = {{}};
-    const graph = (jsonData["@graph"] as Array<Record<string, unknown>>) || [];
-    for (const entry of graph) {{
-      const types = entry["@type"];
-      if (Array.isArray(types) && types.includes("skos:Concept")) {{
-        const notation = (entry["skos:notation"] || entry["skos:prefLabel"]) as string;
-        concepts[notation] = entry;
+    const sources = Array.isArray(jsonData) ? jsonData : [jsonData];
+    for (const source of sources) {{
+      const graph = source["@graph"];
+      if (!Array.isArray(graph)) continue;
+      for (const entry of graph) {{
+        if (typeof entry !== "object" || entry === null) continue;
+        const entryObj = entry as Record<string, unknown>;
+        const types = entryObj["@type"];
+        if (!Array.isArray(types)) continue;
+        const isConcept = types.includes("skos:Concept") ||
+                          types.includes("http://www.w3.org/2004/02/skos/core#Concept");
+        if (!isConcept) continue;
+        const notation = (entryObj["skos:notation"] || entryObj["skos:prefLabel"] ||
+                          entryObj["http://www.w3.org/2004/02/skos/core#notation"] ||
+                          entryObj["http://www.w3.org/2004/02/skos/core#prefLabel"]) as string;
+        if (notation !== undefined) {{
+          concepts[notation] = entryObj;
+        }}
       }}
     }}
     this.vocabularies.set(name, concepts);
@@ -428,6 +440,7 @@ def generate_connector_class(schema_data: dict) -> str:
     return f'''import {{ SemanticObject }} from "./SemanticObject.js";
 import {{ VocabularyLoader }} from "./VocabularyLoader.js";
 import {{ JsonLdSerializer }} from "./JsonLdSerializer.js";
+import * as jsonld from "jsonld";
 {model_imports_str}
 {type_imports_str}
 
@@ -513,17 +526,22 @@ export class Connector {{
     return this;
   }}
 
-  async export(...objects: SemanticObject[]): Promise<Record<string, unknown>> {{
+  async export(...objects: SemanticObject[]): Promise<string> {{
     let context: Record<string, unknown> | undefined;
     try {{
       context = await this.getContext();
     }} catch {{
-      // Context fetch failed — export without @context
+      // Context fetch failed — export without compaction
+      return JSON.stringify(new JsonLdSerializer(undefined).serialize(...objects), null, 2);
     }}
-    return new JsonLdSerializer(context).serialize(...objects);
+    const expanded: Record<string, unknown> = new JsonLdSerializer(context).serialize(...objects) as Record<string, unknown>;
+    const compacted = await (jsonld.compact(expanded, context as any) as unknown as Promise<Record<string, unknown>>);
+    const output = compacted as Record<string, unknown>;
+    output["@context"] = this.contextUrl;
+    return JSON.stringify(output, null, 2);
   }}
 
-  import(jsonLdData: string | Record<string, unknown>): SemanticObject | SemanticObject[] {{
+  import(jsonLdData: string | Record<string, unknown>): SemanticObject[] {{
     const data = typeof jsonLdData === "string" ? JSON.parse(jsonLdData) : jsonLdData;
 
     const entries: Array<Record<string, unknown>> = Array.isArray(data)
@@ -538,10 +556,18 @@ export class Connector {{
       const semanticType = entry["@type"] as string | undefined;
       if (!semanticId || !semanticType) continue;
 
-      const Klass = SemanticObject.typeRegistry.get(semanticType);
+      const Klass = SemanticObject.typeRegistry.get(semanticType) as
+        new (semanticId: string, params?: Record<string, unknown>) => SemanticObject;
       if (!Klass) continue;
 
-      const obj = new Klass(semanticId) as SemanticObject;
+      const entryParams: Record<string, unknown> = {{}};
+      for (const [key, value] of Object.entries(entry)) {{
+        if (key.startsWith("@")) continue;
+        const propName = this.predicateToPropName(key);
+        entryParams[propName] = value;
+      }}
+
+      const obj = new Klass(semanticId, entryParams) as SemanticObject;
       objectsById.set(semanticId, obj);
       instances.push(obj);
     }}
@@ -559,19 +585,27 @@ export class Connector {{
 
         if (Array.isArray(value)) {{
           (obj as unknown as Record<string, unknown>)[propName] = value.map((v: unknown) =>
-            typeof v === "string" && (v.startsWith("http") || v.startsWith("/"))
-              ? (objectsById.get(v) || v)
-              : v
+            this.resolveReference(v, objectsById)
           );
-        }} else if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/"))) {{
+        }} else if (typeof value === "object" && value !== null && "@id" in value) {{
+          (obj as unknown as Record<string, unknown>)[propName] = this.resolveReference(value, objectsById);
+        }} else if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {{
           (obj as unknown as Record<string, unknown>)[propName] = objectsById.get(value) || value;
-        }} else {{
-          (obj as unknown as Record<string, unknown>)[propName] = value;
         }}
       }}
     }}
 
-    return instances.length === 1 ? instances[0] : instances;
+    return instances;
+  }}
+
+  private resolveReference(value: unknown, objectsById: Map<string, SemanticObject>): unknown {{
+    if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {{
+      return objectsById.get(value) || value;
+    }}
+    if (typeof value === "object" && value !== null && "@id" in value) {{
+      return objectsById.get((value as Record<string, unknown>)["@id"] as string) || value;
+    }}
+    return value;
   }}
 
 {enum_methods}
@@ -604,9 +638,11 @@ export class Connector {{
 
   private predicateToPropName(predicate: string): string {{
     let name = predicate.replace(/^dfc-b:/, "");
-    if (name.startsWith("has")) {{
-      name = name.slice(3);
+    const colonIndex = name.indexOf(":");
+    if (colonIndex !== -1) {{
+      name = name.slice(colonIndex + 1);
     }}
+    name = name.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
     name = name.charAt(0).toLowerCase() + name.slice(1);
     return name;
   }}
