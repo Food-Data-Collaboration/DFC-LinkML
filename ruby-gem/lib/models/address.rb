@@ -11,13 +11,16 @@ module DfcLinkmlConnector
       SEMANTIC_TYPE = "dfc-b:Address".freeze
 
       # @return [String]
-      attr_accessor :country
-
-      # @return [String]
       attr_accessor :city
 
       # @return [String]
-      attr_accessor :country_code
+      attr_accessor :country
+
+      # @return [Float]
+      attr_accessor :latitude
+
+      # @return [Float]
+      attr_accessor :longitude
 
       # @return [String]
       attr_accessor :postcode
@@ -28,25 +31,33 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :street
 
+      # @return [String]
+      attr_accessor :address_of
+
       # @param semanticId [String]
-      # @param country: nil, city: nil, countryCode: nil, postcode: nil, region: nil, street: nil
-      def initialize(semanticId, country: nil, city: nil, countryCode: nil, postcode: nil, region: nil, street: nil)
-        super(semanticId)
-        @country = country
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, city: nil, country: nil, latitude: nil, longitude: nil, postcode: nil, region: nil, street: nil, addressOf: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, city: nil, country: nil, latitude: nil, longitude: nil, postcode: nil, region: nil, street: nil, addressOf: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @city = city
-        @country_code = countryCode
+        @country = country
+        @latitude = latitude
+        @longitude = longitude
         @postcode = postcode
         @region = region
         @street = street
+        @address_of = addressOf
         self.semanticType = "dfc-b:Address"
-        registerSemanticProperty("dfc-b:Address:hasCountry", &method("country")).valueSetter = method("country=")
         registerSemanticProperty("dfc-b:Address:city", &method("city")).valueSetter = method("city=")
-        registerSemanticProperty("dfc-b:Address:countryCode", &method("country_code")).valueSetter = method("country_code=")
+        registerSemanticProperty("dfc-b:Address:country", &method("country")).valueSetter = method("country=")
+        registerSemanticProperty("dfc-b:Address:latitude", &method("latitude")).valueSetter = method("latitude=")
+        registerSemanticProperty("dfc-b:Address:longitude", &method("longitude")).valueSetter = method("longitude=")
         registerSemanticProperty("dfc-b:Address:postcode", &method("postcode")).valueSetter = method("postcode=")
         registerSemanticProperty("dfc-b:Address:region", &method("region")).valueSetter = method("region=")
         registerSemanticProperty("dfc-b:Address:street", &method("street")).valueSetter = method("street=")
+        registerSemanticProperty("dfc-b:Address:address_of", &method("address_of")).valueSetter = method("address_of=")
       end
 
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

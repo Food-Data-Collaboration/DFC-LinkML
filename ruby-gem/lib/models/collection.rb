@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-# Class from DFC Business Ontology: #Properties
+# Class from DFC Business Ontology: #Collection
 require_relative '../core/semantic_object'
 
 
 module DfcLinkmlConnector
   module Models
-    class Properties < Core::SemanticObject
-      SEMANTIC_TYPE = "dfc-b:Properties".freeze
+    class Collection < Core::SemanticObject
+      SEMANTIC_TYPE = "dfc-b:Collection".freeze
 
       # @return [String]
       attr_accessor :date
@@ -33,12 +33,12 @@ module DfcLinkmlConnector
         @name = name
         @characteristic_of = characteristicOf
         @dimension = dimension
-        self.semanticType = "dfc-b:Properties"
-        registerSemanticProperty("dfc-b:Properties:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:Properties:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:Properties:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:Properties:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:Properties:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        self.semanticType = "dfc-b:Collection"
+        registerSemanticProperty("dfc-b:Collection:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:Collection:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:Collection:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:Collection:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:Collection:has_dimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

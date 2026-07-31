@@ -11,22 +11,78 @@ module DfcLinkmlConnector
       SEMANTIC_TYPE = "dfc-b:Organization".freeze
 
       # @return [String]
-      attr_accessor :operator_id
+      attr_accessor :vat_number
 
-      # @return [TemplateSaleSession]
+      # @return [Boolean]
+      attr_accessor :vat_status
+
+      # @return [String]
+      attr_accessor :enterprise_id
+
+      # @return [String]
+      attr_accessor :affiliates
+
+      # @return [String]
+      attr_accessor :defines
+
+      # @return [String]
+      attr_accessor :main_contact
+
+      # @return [String]
       attr_accessor :template_sale_session
 
+      # @return [String]
+      attr_accessor :is_certified_by
+
+      # @return [String]
+      attr_accessor :maintains
+
+      # @return [String]
+      attr_accessor :manages
+
+      # @return [String]
+      attr_accessor :proposes
+
+      # @return [String]
+      attr_accessor :supplies
+
+      # @return [String]
+      attr_accessor :transforms
+
       # @param semanticId [String]
-      # @param operatorId: nil, templateSaleSession: nil
-      def initialize(semanticId, operatorId: nil, templateSaleSession: nil)
-        super(semanticId)
-        @operator_id = operatorId
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, email: nil, logo: nil, websitePage: nil, affiliatedTo: nil, address: nil, phoneNumber: nil, socialMedia: nil, isMemberOf: nil, orders: nil, owns: nil, requests: nil, sells: nil, vatNumber: nil, vatStatus: nil, enterpriseId: nil, affiliates: nil, defines: nil, mainContact: nil, templateSaleSession: nil, isCertifiedBy: nil, maintains: nil, manages: nil, proposes: nil, supplies: nil, transforms: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, email: nil, logo: nil, websitePage: nil, affiliatedTo: nil, address: nil, phoneNumber: nil, socialMedia: nil, isMemberOf: nil, orders: nil, owns: nil, requests: nil, sells: nil, vatNumber: nil, vatStatus: nil, enterpriseId: nil, affiliates: nil, defines: nil, mainContact: nil, templateSaleSession: nil, isCertifiedBy: nil, maintains: nil, manages: nil, proposes: nil, supplies: nil, transforms: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, email: email, logo: logo, websitePage: websitePage, affiliatedTo: affiliatedTo, address: address, phoneNumber: phoneNumber, socialMedia: socialMedia, isMemberOf: isMemberOf, orders: orders, owns: owns, requests: requests, sells: sells)
+        @vat_number = vatNumber
+        @vat_status = vatStatus
+        @enterprise_id = enterpriseId
+        @affiliates = affiliates
+        @defines = defines
+        @main_contact = mainContact
         @template_sale_session = templateSaleSession
+        @is_certified_by = isCertifiedBy
+        @maintains = maintains
+        @manages = manages
+        @proposes = proposes
+        @supplies = supplies
+        @transforms = transforms
         self.semanticType = "dfc-b:Organization"
-        registerSemanticProperty("dfc-b:Organization:operatorId", &method("operator_id")).valueSetter = method("operator_id=")
-        registerSemanticProperty("dfc-b:Organization:hasTemplateSaleSession", &method("template_sale_session")).valueSetter = method("template_sale_session=")
+        registerSemanticProperty("dfc-b:Organization:vat_number", &method("vat_number")).valueSetter = method("vat_number=")
+        registerSemanticProperty("dfc-b:Organization:vat_status", &method("vat_status")).valueSetter = method("vat_status=")
+        registerSemanticProperty("dfc-b:Organization:enterprise_i_d", &method("enterprise_id")).valueSetter = method("enterprise_id=")
+        registerSemanticProperty("dfc-b:Organization:affiliates", &method("affiliates")).valueSetter = method("affiliates=")
+        registerSemanticProperty("dfc-b:Organization:defines", &method("defines")).valueSetter = method("defines=")
+        registerSemanticProperty("dfc-b:Organization:has_main_contact", &method("main_contact")).valueSetter = method("main_contact=")
+        registerSemanticProperty("dfc-b:Organization:has_template_sale_session", &method("template_sale_session")).valueSetter = method("template_sale_session=")
+        registerSemanticProperty("dfc-b:Organization:is_certified_by", &method("is_certified_by")).valueSetter = method("is_certified_by=")
+        registerSemanticProperty("dfc-b:Organization:maintains", &method("maintains")).valueSetter = method("maintains=")
+        registerSemanticProperty("dfc-b:Organization:manages", &method("manages")).valueSetter = method("manages=")
+        registerSemanticProperty("dfc-b:Organization:proposes", &method("proposes")).valueSetter = method("proposes=")
+        registerSemanticProperty("dfc-b:Organization:supplies", &method("supplies")).valueSetter = method("supplies=")
+        registerSemanticProperty("dfc-b:Organization:transforms", &method("transforms")).valueSetter = method("transforms=")
       end
 
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

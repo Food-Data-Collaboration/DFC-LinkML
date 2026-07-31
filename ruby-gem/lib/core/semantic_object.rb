@@ -13,17 +13,6 @@ module DfcLinkmlConnector
 
       class << self
         attr_reader :type_registry
-
-        def inherited(subclass)
-          super
-          if subclass.const_defined?(:SEMANTIC_TYPE)
-            @type_registry[subclass::SEMANTIC_TYPE] = subclass
-          end
-        end
-
-        def register_type(semantic_type)
-          @type_registry[semantic_type] = self
-        end
       end
 
       attr_accessor :semanticId

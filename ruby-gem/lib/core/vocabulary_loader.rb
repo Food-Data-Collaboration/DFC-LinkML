@@ -9,7 +9,7 @@ module DfcLinkmlConnector
     # Loads DFC SKOS vocabularies from JSON-LD files.
     # Supports fetching from versioned w3id URLs or loading local data.
     class VocabularyLoader
-      TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies/".freeze
+      TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies/v2.0.0".freeze
 
       def initialize(taxonomy_version: "2.0.0")
         @taxonomy_version = taxonomy_version
@@ -28,7 +28,7 @@ module DfcLinkmlConnector
       end
 
       def load_from_url(name)
-        url = "#{TAXONOMY_BASE_URL}v#{@taxonomy_version}/#{name.downcase}.json"
+        url = "#{TAXONOMY_BASE_URL}/#{name.downcase}.json"
         uri = URI(url)
         response = Net::HTTP.get_response(uri)
         raise "Failed to fetch taxonomy from #{url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
@@ -45,13 +45,13 @@ module DfcLinkmlConnector
         key ? vocab[key] : vocab
       end
 
-      def product_type(key = nil)
-        vocab = vocabulary("ProductType")
+      def measure(key = nil)
+        vocab = vocabulary("Measure")
         key ? vocab[key] : vocab
       end
 
-      def measure(key = nil)
-        vocab = vocabulary("Measure")
+      def product_type(key = nil)
+        vocab = vocabulary("ProductType")
         key ? vocab[key] : vocab
       end
 

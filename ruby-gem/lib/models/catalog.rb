@@ -10,6 +10,34 @@ module DfcLinkmlConnector
     class Catalog < WhereSubject
       SEMANTIC_TYPE = "dfc-b:Catalog".freeze
 
+      # @return [String]
+      attr_accessor :end_date
+
+      # @return [String]
+      attr_accessor :start_date
+
+      # @return [String]
+      attr_accessor :lists
+
+      # @return [String]
+      attr_accessor :maintained_by
+
+      # @param semanticId [String]
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, startDate: nil, lists: nil, maintainedBy: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, startDate: nil, lists: nil, maintainedBy: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
+        @end_date = endDate
+        @start_date = startDate
+        @lists = lists
+        @maintained_by = maintainedBy
+        self.semanticType = "dfc-b:Catalog"
+        registerSemanticProperty("dfc-b:Catalog:end_date", &method("end_date")).valueSetter = method("end_date=")
+        registerSemanticProperty("dfc-b:Catalog:start_date", &method("start_date")).valueSetter = method("start_date=")
+        registerSemanticProperty("dfc-b:Catalog:lists", &method("lists")).valueSetter = method("lists=")
+        registerSemanticProperty("dfc-b:Catalog:maintained_by", &method("maintained_by")).valueSetter = method("maintained_by=")
+      end
+
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

@@ -2,14 +2,46 @@
 
 # Class from DFC Business Ontology: #Where_Subject
 require_relative '../core/semantic_object'
-require_relative 'subject'
 
 
 module DfcLinkmlConnector
   module Models
-    class WhereSubject < Subject
+    class WhereSubject < Core::SemanticObject
       SEMANTIC_TYPE = "dfc-b:Where_Subject".freeze
 
+      # @return [String]
+      attr_accessor :date
+
+      # @return [String]
+      attr_accessor :description
+
+      # @return [String]
+      attr_accessor :name
+
+      # @return [String]
+      attr_accessor :characteristic_of
+
+      # @return [String]
+      attr_accessor :dimension
+
+      # @param semanticId [String]
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil)
+        super(semanticId)
+        @date = date
+        @description = description
+        @name = name
+        @characteristic_of = characteristicOf
+        @dimension = dimension
+        self.semanticType = "dfc-b:Where_Subject"
+        registerSemanticProperty("dfc-b:Where_Subject:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:Where_Subject:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:Where_Subject:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:Where_Subject:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:Where_Subject:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+      end
+
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

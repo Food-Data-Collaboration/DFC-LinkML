@@ -10,33 +10,24 @@ module DfcLinkmlConnector
     class QuantitativeValue < RepresentedThing
       SEMANTIC_TYPE = "dfc-b:QuantitativeValue".freeze
 
+      # @return [Float]
+      attr_accessor :value
+
       # @return [String]
       attr_accessor :unit
 
-      # @return [Float]
-      attr_accessor :max_value
-
-      # @return [Float]
-      attr_accessor :min_value
-
-      # @return [String]
-      attr_accessor :value
-
       # @param semanticId [String]
-      # @param unit: nil, maxValue: nil, minValue: nil, value: nil
-      def initialize(semanticId, unit: nil, maxValue: nil, minValue: nil, value: nil)
-        super(semanticId)
-        @unit = unit
-        @max_value = maxValue
-        @min_value = minValue
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, value: nil, unit: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, value: nil, unit: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @value = value
+        @unit = unit
         self.semanticType = "dfc-b:QuantitativeValue"
-        registerSemanticProperty("dfc-b:QuantitativeValue:hasUnit", &method("unit")).valueSetter = method("unit=")
-        registerSemanticProperty("dfc-b:QuantitativeValue:maxValue", &method("max_value")).valueSetter = method("max_value=")
-        registerSemanticProperty("dfc-b:QuantitativeValue:minValue", &method("min_value")).valueSetter = method("min_value=")
         registerSemanticProperty("dfc-b:QuantitativeValue:value", &method("value")).valueSetter = method("value=")
+        registerSemanticProperty("dfc-b:QuantitativeValue:has_unit", &method("unit")).valueSetter = method("unit=")
       end
 
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

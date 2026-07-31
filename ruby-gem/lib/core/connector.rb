@@ -143,12 +143,12 @@ module DfcLinkmlConnector
         @other_vocabularies["Facet"] || @vocab_loader.vocabulary("Facet")
       end
 
-      def product_type
-        @other_vocabularies["ProductType"] || @vocab_loader.vocabulary("ProductType")
-      end
-
       def measure
         @other_vocabularies["Measure"] || @vocab_loader.vocabulary("Measure")
+      end
+
+      def product_type
+        @other_vocabularies["ProductType"] || @vocab_loader.vocabulary("ProductType")
       end
 
       def scope

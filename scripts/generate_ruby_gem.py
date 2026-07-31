@@ -134,7 +134,13 @@ def get_all_slots_for_class(class_name: str, schema_data: dict):
     for cls in hierarchy:
         for slot_name, slot_data in slots.items():
             domain = slot_data.get('domain', '')
-            if domain == cls and slot_name not in seen:
+            if isinstance(domain, list):
+                matches = cls in domain
+            elif isinstance(domain, str):
+                matches = domain == cls
+            else:
+                matches = False
+            if matches and slot_name not in seen:
                 seen.add(slot_name)
                 yield slot_name, slot_data, cls
 
@@ -253,17 +259,6 @@ module DfcLinkmlConnector
 
       class << self
         attr_reader :type_registry
-
-        def inherited(subclass)
-          super
-          if subclass.const_defined?(:SEMANTIC_TYPE)
-            @type_registry[subclass::SEMANTIC_TYPE] = subclass
-          end
-        end
-
-        def register_type(semantic_type)
-          @type_registry[semantic_type] = self
-        end
       end
 
       attr_accessor :semanticId
@@ -750,12 +745,12 @@ def generate_semantic_model(class_name: str, class_data: dict, schema_data: dict
     data_props = get_data_properties(class_name, schema_data)
     obj_props = get_object_properties(class_name, schema_data)
 
-    parent = f"Core::{parent_raw}" if parent_raw != "SemanticObject" else "Core::SemanticObject"
+    parent = f"Core::{parent_raw}" if parent_raw == "SemanticObject" else parent_raw
 
     code = f'''# frozen_string_literal: true
 
 # {description}
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 '''
 
     if parent_raw != 'SemanticObject':
@@ -804,29 +799,44 @@ module DfcLinkmlConnector
             own_props_for_init.append((slot_name, prop_name, slot_data, is_collection))
         all_props.append((slot_name, prop_name, slot_data, owner, is_collection))
 
-    if own_props_for_init:
-        all_params = []
-        assignments = []
-        registrations = []
+    inherited_props_for_init = [
+        (slot_name, prop_name, slot_data, is_collection)
+        for slot_name, prop_name, slot_data, owner, is_collection in all_props
+        if owner != class_name
+    ]
 
-        for slot_name, prop_name, slot_data, is_collection in own_props_for_init:
-            param_name = ruby_param_name(slot_name)
-            if is_collection:
-                all_params.append(f'{param_name}: []')
-                assignments.append(f'        @{prop_name} = {param_name}')
-            else:
-                all_params.append(f'{param_name}: nil')
-                assignments.append(f'        @{prop_name} = {param_name}')
-            registrations.append(f'        registerSemanticProperty("{semantic_type}:{slot_name}", &method("{prop_name}")).valueSetter = method("{prop_name}=")')
+    all_params = []
+    assignments = []
+    registrations = []
+    super_kwargs = []
 
-        params_str = ', '.join(all_params)
-        assignments_str = '\n'.join(assignments)
-        registrations_str = '\n'.join(registrations)
+    for slot_name, prop_name, slot_data, is_collection in inherited_props_for_init:
+        param_name = ruby_param_name(slot_name)
+        if is_collection:
+            all_params.append(f'{param_name}: []')
+        else:
+            all_params.append(f'{param_name}: nil')
+        super_kwargs.append(f'{param_name}: {param_name}')
 
-        code += f'''      # @param semanticId [String]
+    for slot_name, prop_name, slot_data, is_collection in own_props_for_init:
+        param_name = ruby_param_name(slot_name)
+        if is_collection:
+            all_params.append(f'{param_name}: []')
+            assignments.append(f'        @{prop_name} = {param_name}')
+        else:
+            all_params.append(f'{param_name}: nil')
+            assignments.append(f'        @{prop_name} = {param_name}')
+        registrations.append(f'        registerSemanticProperty("{semantic_type}:{slot_name}", &method("{prop_name}")).valueSetter = method("{prop_name}=")')
+
+    params_str = ', '.join(all_params)
+    assignments_str = '\n'.join(assignments)
+    registrations_str = '\n'.join(registrations)
+    super_str = f'super(semanticId, {", ".join(super_kwargs)})' if super_kwargs else 'super(semanticId)'
+
+    code += f'''      # @param semanticId [String]
       # @param {params_str}
       def initialize(semanticId, {params_str})
-        super(semanticId)
+        {super_str}
 {assignments_str}
         self.semanticType = "{semantic_type}"
 {registrations_str}
@@ -834,7 +844,8 @@ module DfcLinkmlConnector
 
 '''
 
-    code += '''    end
+    code += '''      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
+    end
   end
 end
 '''
@@ -1014,7 +1025,15 @@ def main():
 
     if output_dir.exists():
         import shutil
+        # Preserve static vocabulary files (SKOS taxonomy exports) across regeneration.
+        preserved_vocab = {}
+        vocab_dir = output_dir / 'vocabularies'
+        if vocab_dir.exists():
+            for f in vocab_dir.glob('*.jsonld'):
+                preserved_vocab[f.name] = f.read_text(encoding='utf-8')
         shutil.rmtree(output_dir)
+    else:
+        preserved_vocab = {}
 
     output_dir.mkdir()
     (output_dir / 'lib').mkdir()
@@ -1064,13 +1083,18 @@ def main():
     print("  - lib/dfc_linkml_connector.rb", file=sys.stderr)
 
     print("\nGenerating vocabulary files...", file=sys.stderr)
-    vocab_count = 0
-    for enum_name, enum_data in schema_data.get('enums', {}).items():
-        content = generate_vocabulary_file(enum_name, enum_data, schema_data)
-        file_name = to_snake_case(enum_name) + '.jsonld'
-        (output_dir / 'vocabularies' / file_name).write_text(content)
-        vocab_count += 1
-    print(f"  - {vocab_count} vocabulary files", file=sys.stderr)
+    if preserved_vocab:
+        for name, content in preserved_vocab.items():
+            (output_dir / 'vocabularies' / name).write_text(content, encoding='utf-8')
+        print(f"  - {len(preserved_vocab)} vocabulary files preserved (static SKOS exports)", file=sys.stderr)
+    else:
+        vocab_count = 0
+        for enum_name, enum_data in schema_data.get('enums', {}).items():
+            content = generate_vocabulary_file(enum_name, enum_data, schema_data)
+            file_name = to_snake_case(enum_name) + '.jsonld'
+            (output_dir / 'vocabularies' / file_name).write_text(content, encoding='utf-8')
+            vocab_count += 1
+        print(f"  - {vocab_count} vocabulary files", file=sys.stderr)
 
     print("\nGenerating model classes...", file=sys.stderr)
     model_count = 0

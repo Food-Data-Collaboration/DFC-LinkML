@@ -10,6 +10,24 @@ module DfcLinkmlConnector
     class VirtualPlace < Place
       SEMANTIC_TYPE = "dfc-b:VirtualPlace".freeze
 
+      # @return [String]
+      attr_accessor :url
+
+      # @return [String]
+      attr_accessor :website_page
+
+      # @param semanticId [String]
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: nil, url: nil, websitePage: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: nil, url: nil, websitePage: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, hosts: hosts)
+        @url = url
+        @website_page = websitePage
+        self.semanticType = "dfc-b:VirtualPlace"
+        registerSemanticProperty("dfc-b:VirtualPlace:url", &method("url")).valueSetter = method("url=")
+        registerSemanticProperty("dfc-b:VirtualPlace:website_page", &method("website_page")).valueSetter = method("website_page=")
+      end
+
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end
