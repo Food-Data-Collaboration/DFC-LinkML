@@ -24,7 +24,7 @@ cd ruby-gem && bundle install
 | Python converter | `python3 -m pytest tests/test_owl2linkml.py -v` | Hits w3id.org — slow and requires network |
 | TypeScript connector | `cd typescript-connector && npm test` | Vitest, 42 tests, fast (no network) |
 | TypeScript build | `cd typescript-connector && npm run build` | Compiles `src/` → `dist/` |
-| Ruby gem | `cd ruby-gem && bundle exec rake spec` | No spec/ directory exists yet |
+| Ruby gem | `cd ruby-gem && bundle exec rake spec` | RSpec (15 tests), fast, no network |
 
 Run from the repo root for Python; `cd` into sub-packages for TS/Ruby.
 

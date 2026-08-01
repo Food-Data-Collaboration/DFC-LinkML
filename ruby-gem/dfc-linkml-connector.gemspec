@@ -11,6 +11,12 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"]
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "json-ld", "~> 3.3"
+  spec.add_dependency "rdf", "~> 3.3"
+
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
+
   spec.required_ruby_version = ">= 2.7.0"
 
   spec.metadata = {

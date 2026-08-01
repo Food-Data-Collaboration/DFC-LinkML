@@ -542,7 +542,8 @@ __PREDICATE_MAP__
       end
 
       def export(*objects)
-        JsonLdSerializer.new(context).serialize(*objects)
+        serializer = JsonLdSerializer.new(_safe_context, context_url)
+        serializer.to_json(*objects)
       end
 
       # Import JSON-LD data and return SemanticObject instances.
@@ -597,13 +598,30 @@ __PREDICATE_MAP__
 ENUM_METHODS
       private
 
+      def _safe_context
+        context
+      rescue => e
+        warn "Warning: could not load JSON-LD context (#{e.message}); exporting without compaction."
+        nil
+      end
+
       def _fetch_context
         uri = URI(context_url)
-        response = Net::HTTP.get_response(uri)
+        response = _http_get_follow_redirects(uri)
         raise "Failed to fetch context from #{context_url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
         JSON.parse(response.body)
       rescue => e
         raise "Failed to load JSON-LD context: #{e.message}"
+      end
+
+      def _http_get_follow_redirects(uri, limit = 5)
+        raise "Too many redirects fetching #{uri}" if limit.zero?
+        response = Net::HTTP.get_response(uri)
+        if response.is_a?(Net::HTTPRedirection) && response["location"]
+          redirect_uri = URI.join(uri.to_s, response["location"])
+          return _http_get_follow_redirects(redirect_uri, limit - 1)
+        end
+        response
       end
 
       def _fetch_taxonomy_json(name)
@@ -667,38 +685,54 @@ def generate_json_ld_serializer() -> str:
     return '''# frozen_string_literal: true
 
 require 'json'
+require 'json/ld'
 
 module DfcLinkmlConnector
   module Core
     # Serializes DFC semantic objects to JSON-LD.
     class JsonLdSerializer
-      def initialize(context = nil)
+      def initialize(context = nil, context_url = nil)
         @context = context
+        @context_url = context_url
       end
 
+      # Returns the JSON-LD document as a Hash with CURIE predicates
+      # (uncompacted). Single objects are returned as-is; multiple objects
+      # are wrapped in an @graph.
       def serialize(*objects)
-        result = {
-          "@context" => @context || Connector.default_context_url,
-        }
-
         if objects.length == 1
-          obj = objects.first
-          return _serialize_object(obj)
+          return _serialize_object(objects.first)
         end
 
-        graph = []
-        objects.each do |obj|
-          graph << _serialize_object(obj)
-        end
-        result["@graph"] = graph
-        result
+        {
+          "@context" => _context_iri,
+          "@graph" => objects.map { |obj| _serialize_object(obj) },
+        }
       end
 
+      # Returns a compacted JSON-LD JSON string using the official context.
+      # Falls back to the plain serialization when no context is available.
       def to_json(*objects)
-        JSON.pretty_generate(serialize(*objects))
+        doc = serialize(*objects)
+        inner = _inner_context
+        unless inner.nil?
+          expanded = JSON::LD::API.expand(doc.merge("@context" => inner))
+          doc = JSON::LD::API.compact(expanded, inner)
+          doc["@context"] = _context_iri
+        end
+        JSON.pretty_generate(doc)
       end
 
       private
+
+      def _context_iri
+        @context_url || Connector.default_context_url
+      end
+
+      def _inner_context
+        return nil if @context.nil?
+        @context.is_a?(Hash) && @context.key?("@context") ? @context["@context"] : @context
+      end
 
       def _serialize_object(obj)
         result = {
@@ -934,6 +968,12 @@ def generate_gemspec(schema_data: dict, gem_name: str) -> str:
   spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"]
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "json-ld", "~> 3.3"
+  spec.add_dependency "rdf", "~> 3.3"
+
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
+
   spec.required_ruby_version = ">= 2.7.0"
 
   spec.metadata = {{
@@ -1066,9 +1106,17 @@ def main():
         if vocab_dir.exists():
             for f in vocab_dir.glob('*.jsonld'):
                 preserved_vocab[f.name] = f.read_text(encoding='utf-8')
+        # Preserve hand-written rspec tests across regeneration.
+        preserved_spec = {}
+        spec_dir = output_dir / 'spec'
+        if spec_dir.exists():
+            for f in spec_dir.rglob('*'):
+                if f.is_file():
+                    preserved_spec[str(f.relative_to(output_dir))] = f.read_text(encoding='utf-8')
         shutil.rmtree(output_dir)
     else:
         preserved_vocab = {}
+        preserved_spec = {}
 
     output_dir.mkdir()
     (output_dir / 'lib').mkdir()
@@ -1094,10 +1142,10 @@ def main():
     (output_dir / 'LICENSE').write_text('AGPL-3.0 License\n')
     print("  - LICENSE", file=sys.stderr)
 
-    (output_dir / '.gitignore').write_text('*.gem\n.bundle/\npkg/\n')
+    (output_dir / '.gitignore').write_text('*.gem\n.bundle/\npkg/\nspec/examples.txt\nGemfile.lock\n')
     print("  - .gitignore", file=sys.stderr)
 
-    (output_dir / 'Rakefile').write_text('require "bundler/gem_tasks"\ntask default: :spec\n')
+    (output_dir / 'Rakefile').write_text('require "bundler/gem_tasks"\nrequire "rspec/core/rake_task"\n\nRSpec::Core::RakeTask.new(:spec)\n\ntask default: :spec\n')
     print("  - Rakefile", file=sys.stderr)
 
     print("\nGenerating library files...", file=sys.stderr)
@@ -1140,6 +1188,13 @@ def main():
         (output_dir / 'lib' / 'models' / f'{file_name}.rb').write_text(model_code)
         model_count += 1
     print(f"  - {model_count} model files", file=sys.stderr)
+
+    if preserved_spec:
+        for rel_path, content in preserved_spec.items():
+            target = output_dir / rel_path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(content, encoding='utf-8')
+        print(f"  - {len(preserved_spec)} preserved spec files", file=sys.stderr)
 
     print(f"\nGem generated in: {output_dir}/", file=sys.stderr)
     print(f"To build: cd {output_dir} && gem build {gem_name}.gemspec", file=sys.stderr)

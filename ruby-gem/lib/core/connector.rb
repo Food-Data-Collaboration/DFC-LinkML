@@ -345,7 +345,8 @@ module DfcLinkmlConnector
       end
 
       def export(*objects)
-        JsonLdSerializer.new(context).serialize(*objects)
+        serializer = JsonLdSerializer.new(_safe_context, context_url)
+        serializer.to_json(*objects)
       end
 
       # Import JSON-LD data and return SemanticObject instances.
@@ -418,13 +419,30 @@ module DfcLinkmlConnector
       end
       private
 
+      def _safe_context
+        context
+      rescue => e
+        warn "Warning: could not load JSON-LD context (#{e.message}); exporting without compaction."
+        nil
+      end
+
       def _fetch_context
         uri = URI(context_url)
-        response = Net::HTTP.get_response(uri)
+        response = _http_get_follow_redirects(uri)
         raise "Failed to fetch context from #{context_url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
         JSON.parse(response.body)
       rescue => e
         raise "Failed to load JSON-LD context: #{e.message}"
+      end
+
+      def _http_get_follow_redirects(uri, limit = 5)
+        raise "Too many redirects fetching #{uri}" if limit.zero?
+        response = Net::HTTP.get_response(uri)
+        if response.is_a?(Net::HTTPRedirection) && response["location"]
+          redirect_uri = URI.join(uri.to_s, response["location"])
+          return _http_get_follow_redirects(redirect_uri, limit - 1)
+        end
+        response
       end
 
       def _fetch_taxonomy_json(name)
