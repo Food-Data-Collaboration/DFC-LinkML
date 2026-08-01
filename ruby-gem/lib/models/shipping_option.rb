@@ -39,12 +39,12 @@ module DfcLinkmlConnector
         @option_of = optionOf
         @selected_by = selectedBy
         self.semanticType = "dfc-b:ShippingOption"
-        registerSemanticProperty("dfc-b:ShippingOption:end_date", &method("end_date")).valueSetter = method("end_date=")
-        registerSemanticProperty("dfc-b:ShippingOption:fee", &method("fee")).valueSetter = method("fee=")
-        registerSemanticProperty("dfc-b:ShippingOption:quantity", &method("quantity")).valueSetter = method("quantity=")
-        registerSemanticProperty("dfc-b:ShippingOption:start_date", &method("start_date")).valueSetter = method("start_date=")
-        registerSemanticProperty("dfc-b:ShippingOption:option_of", &method("option_of")).valueSetter = method("option_of=")
-        registerSemanticProperty("dfc-b:ShippingOption:selected_by", &method("selected_by")).valueSetter = method("selected_by=")
+        registerSemanticProperty("dfc-b:endDate", &method("end_date")).valueSetter = method("end_date=")
+        registerSemanticProperty("dfc-b:fee", &method("fee")).valueSetter = method("fee=")
+        registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
+        registerSemanticProperty("dfc-b:startDate", &method("start_date")).valueSetter = method("start_date=")
+        registerSemanticProperty("dfc-b:optionOf", &method("option_of")).valueSetter = method("option_of=")
+        registerSemanticProperty("dfc-b:selectedBy", &method("selected_by")).valueSetter = method("selected_by=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

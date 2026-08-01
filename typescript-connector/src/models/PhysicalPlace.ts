@@ -39,13 +39,13 @@ export class PhysicalPlace extends Place {
     this.hasGeoJsonFeature = params?.hasGeoJsonFeature;
     this.isOpenDuring = params?.isOpenDuring;
     this.semanticType = PhysicalPlace.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:PhysicalPlace:has_address", () => this.hasAddress);
-    this.registerSemanticProperty("dfc-b:PhysicalPlace:has_main_contact", () => this.hasMainContact);
-    this.registerSemanticProperty("dfc-b:PhysicalPlace:has_phone_number", () => this.hasPhoneNumber);
-    this.registerSemanticProperty("dfc-b:PhysicalPlace:localizes", () => this.localizes);
-    this.registerSemanticProperty("dfc-b:PhysicalPlace:stores", () => this.stores);
-    this.registerSemanticProperty("dfc-b:PhysicalPlace:has_geo_json_feature", () => this.hasGeoJsonFeature);
-    this.registerSemanticProperty("dfc-b:PhysicalPlace:is_open_during", () => this.isOpenDuring);
+    this.registerSemanticProperty("dfc-b:hasAddress", () => this.hasAddress);
+    this.registerSemanticProperty("dfc-b:hasMainContact", () => this.hasMainContact);
+    this.registerSemanticProperty("dfc-b:hasPhoneNumber", () => this.hasPhoneNumber);
+    this.registerSemanticProperty("dfc-b:localizes", () => this.localizes);
+    this.registerSemanticProperty("dfc-b:stores", () => this.stores);
+    this.registerSemanticProperty("dfc-b:hasGeoJsonFeature", () => this.hasGeoJsonFeature);
+    this.registerSemanticProperty("dfc-b:isOpenDuring", () => this.isOpenDuring);
   }
   static {
     SemanticObject.typeRegistry.set(PhysicalPlace.SEMANTIC_TYPE, PhysicalPlace);

@@ -83,9 +83,9 @@ describe("SuppliedProduct", () => {
     const jsonLd = p.toJsonLd();
     expect(jsonLd["@id"]).toBe("http://myplatform.com/tomato");
     expect(jsonLd["@type"]).toBe("dfc-b:SuppliedProduct");
-    expect(jsonLd["dfc-b:What_Subject:description"]).toBe("Awesome tomato");
-    expect(jsonLd["dfc-b:SuppliedProduct:frozen"]).toBe(true);
-    expect(jsonLd["dfc-b:SuppliedProduct:total_theoritical_stock"]).toBe(100);
+    expect(jsonLd["dfc-b:description"]).toBe("Awesome tomato");
+    expect(jsonLd["dfc-b:frozen"]).toBe(true);
+    expect(jsonLd["dfc-b:totalTheoriticalStock"]).toBe(100);
   });
 });
 
@@ -112,8 +112,8 @@ describe("Address", () => {
     const jsonLd = a.toJsonLd();
     expect(jsonLd["@id"]).toBe("http://myplatform.com/address1");
     expect(jsonLd["@type"]).toBe("dfc-b:Address");
-    expect(jsonLd["dfc-b:Address:city"]).toBe("Tours");
-    expect(jsonLd["dfc-b:Address:country"]).toBe("France");
+    expect(jsonLd["dfc-b:city"]).toBe("Tours");
+    expect(jsonLd["dfc-b:country"]).toBe("France");
   });
 });
 
@@ -521,7 +521,7 @@ describe("Import/Export extended", () => {
     const parsed = JSON.parse(exported) as Record<string, unknown>;
     const graph = parsed["@graph"] as Record<string, unknown>[];
     const entry = graph.find(e => e["@id"] === "http://example.com/org1") as Record<string, unknown>;
-    expect(entry["dfc-b:Organization:is_certified_by"]).toEqual({ "@id": "http://example.com/org2" });
+    expect(entry["dfc-b:isCertifiedBy"]).toEqual({ "@id": "http://example.com/org2" });
   });
 
   it("round-trips @id-wrapped references correctly", async () => {

@@ -27,9 +27,9 @@ module DfcLinkmlConnector
         @identified_by = identifiedBy
         @stored_in = storedIn
         self.semanticType = "dfc-b:RealStock"
-        registerSemanticProperty("dfc-b:RealStock:constitutes", &method("constitutes")).valueSetter = method("constitutes=")
-        registerSemanticProperty("dfc-b:RealStock:identified_by", &method("identified_by")).valueSetter = method("identified_by=")
-        registerSemanticProperty("dfc-b:RealStock:stored_in", &method("stored_in")).valueSetter = method("stored_in=")
+        registerSemanticProperty("dfc-b:constitutes", &method("constitutes")).valueSetter = method("constitutes=")
+        registerSemanticProperty("dfc-b:identifiedBy", &method("identified_by")).valueSetter = method("identified_by=")
+        registerSemanticProperty("dfc-b:storedIn", &method("stored_in")).valueSetter = method("stored_in=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

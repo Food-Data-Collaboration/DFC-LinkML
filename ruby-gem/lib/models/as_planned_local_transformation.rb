@@ -39,12 +39,12 @@ module DfcLinkmlConnector
         @output = output
         @transformed_by = transformedBy
         self.semanticType = "dfc-b:AsPlannedLocalTransformation"
-        registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:cost", &method("cost")).valueSetter = method("cost=")
-        registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:end_date", &method("end_date")).valueSetter = method("end_date=")
-        registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:start_date", &method("start_date")).valueSetter = method("start_date=")
-        registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:has_input", &method("input")).valueSetter = method("input=")
-        registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:has_output", &method("output")).valueSetter = method("output=")
-        registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:transformed_by", &method("transformed_by")).valueSetter = method("transformed_by=")
+        registerSemanticProperty("dfc-b:cost", &method("cost")).valueSetter = method("cost=")
+        registerSemanticProperty("dfc-b:endDate", &method("end_date")).valueSetter = method("end_date=")
+        registerSemanticProperty("dfc-b:startDate", &method("start_date")).valueSetter = method("start_date=")
+        registerSemanticProperty("dfc-b:hasInput", &method("input")).valueSetter = method("input=")
+        registerSemanticProperty("dfc-b:hasOutput", &method("output")).valueSetter = method("output=")
+        registerSemanticProperty("dfc-b:transformedBy", &method("transformed_by")).valueSetter = method("transformed_by=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

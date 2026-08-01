@@ -42,13 +42,13 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:Price"
-        registerSemanticProperty("dfc-b:Price:vat_rate", &method("vat_rate")).valueSetter = method("vat_rate=")
-        registerSemanticProperty("dfc-b:Price:is_price_of", &method("is_price_of")).valueSetter = method("is_price_of=")
-        registerSemanticProperty("dfc-b:Price:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:Price:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:Price:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:Price:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:Price:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:VATrate", &method("vat_rate")).valueSetter = method("vat_rate=")
+        registerSemanticProperty("dfc-b:isPriceOf", &method("is_price_of")).valueSetter = method("is_price_of=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

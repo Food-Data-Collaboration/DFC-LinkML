@@ -26,9 +26,9 @@ export class Route extends WhereSubject {
     this.useVehicle = params?.useVehicle;
     this.hasGeoJsonFeature = params?.hasGeoJsonFeature;
     this.semanticType = Route.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Route:has_step", () => this.hasStep);
-    this.registerSemanticProperty("dfc-b:Route:use_vehicle", () => this.useVehicle);
-    this.registerSemanticProperty("dfc-b:Route:has_geo_json_feature", () => this.hasGeoJsonFeature);
+    this.registerSemanticProperty("dfc-b:hasStep", () => this.hasStep);
+    this.registerSemanticProperty("dfc-b:useVehicle", () => this.useVehicle);
+    this.registerSemanticProperty("dfc-b:hasGeoJsonFeature", () => this.hasGeoJsonFeature);
   }
   static {
     SemanticObject.typeRegistry.set(Route.SEMANTIC_TYPE, Route);

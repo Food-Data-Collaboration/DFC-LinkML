@@ -43,13 +43,13 @@ module DfcLinkmlConnector
         @quantity = quantity
         @is_available_during = isAvailableDuring
         self.semanticType = "dfc-b:Vehicle"
-        registerSemanticProperty("dfc-b:Vehicle:frozen", &method("frozen")).valueSetter = method("frozen=")
-        registerSemanticProperty("dfc-b:Vehicle:refrigerated", &method("refrigerated")).valueSetter = method("refrigerated=")
-        registerSemanticProperty("dfc-b:Vehicle:ships", &method("ships")).valueSetter = method("ships=")
-        registerSemanticProperty("dfc-b:Vehicle:used_in_route", &method("used_in_route")).valueSetter = method("used_in_route=")
-        registerSemanticProperty("dfc-b:Vehicle:based_at", &method("based_at")).valueSetter = method("based_at=")
-        registerSemanticProperty("dfc-b:Vehicle:has_quantity", &method("quantity")).valueSetter = method("quantity=")
-        registerSemanticProperty("dfc-b:Vehicle:is_available_during", &method("is_available_during")).valueSetter = method("is_available_during=")
+        registerSemanticProperty("dfc-b:frozen", &method("frozen")).valueSetter = method("frozen=")
+        registerSemanticProperty("dfc-b:refrigerated", &method("refrigerated")).valueSetter = method("refrigerated=")
+        registerSemanticProperty("dfc-b:ships", &method("ships")).valueSetter = method("ships=")
+        registerSemanticProperty("dfc-b:usedInRoute", &method("used_in_route")).valueSetter = method("used_in_route=")
+        registerSemanticProperty("dfc-b:basedAt", &method("based_at")).valueSetter = method("based_at=")
+        registerSemanticProperty("dfc-b:hasQuantity", &method("quantity")).valueSetter = method("quantity=")
+        registerSemanticProperty("dfc-b:isAvailableDuring", &method("is_available_during")).valueSetter = method("is_available_during=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -23,8 +23,8 @@ module DfcLinkmlConnector
         @product_option = productOption
         @product_option_value = productOptionValue
         self.semanticType = "dfc-b:VariantCaracteristic"
-        registerSemanticProperty("dfc-b:VariantCaracteristic:has_product_option", &method("product_option")).valueSetter = method("product_option=")
-        registerSemanticProperty("dfc-b:VariantCaracteristic:has_product_option_value", &method("product_option_value")).valueSetter = method("product_option_value=")
+        registerSemanticProperty("dfc-b:hasProductOption", &method("product_option")).valueSetter = method("product_option=")
+        registerSemanticProperty("dfc-b:hasProductOptionValue", &method("product_option_value")).valueSetter = method("product_option_value=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -23,8 +23,8 @@ module DfcLinkmlConnector
         @picked_up_at = pickedUpAt
         @uses = uses
         self.semanticType = "dfc-b:PickupOption"
-        registerSemanticProperty("dfc-b:PickupOption:picked_up_at", &method("picked_up_at")).valueSetter = method("picked_up_at=")
-        registerSemanticProperty("dfc-b:PickupOption:uses", &method("uses")).valueSetter = method("uses=")
+        registerSemanticProperty("dfc-b:pickedUpAt", &method("picked_up_at")).valueSetter = method("picked_up_at=")
+        registerSemanticProperty("dfc-b:uses", &method("uses")).valueSetter = method("uses=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

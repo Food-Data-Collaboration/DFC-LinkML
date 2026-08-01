@@ -17,11 +17,11 @@ export class Collection extends SemanticObject {
         this.characteristicOf = params?.characteristicOf;
         this.hasDimension = params?.hasDimension;
         this.semanticType = Collection.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:Collection:date", () => this.date);
-        this.registerSemanticProperty("dfc-b:Collection:description", () => this.description);
-        this.registerSemanticProperty("dfc-b:Collection:name", () => this.name);
-        this.registerSemanticProperty("dfc-b:Collection:characteristic_of", () => this.characteristicOf);
-        this.registerSemanticProperty("dfc-b:Collection:has_dimension", () => this.hasDimension);
+        this.registerSemanticProperty("dfc-b:date", () => this.date);
+        this.registerSemanticProperty("dfc-b:description", () => this.description);
+        this.registerSemanticProperty("dfc-b:name", () => this.name);
+        this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+        this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
     }
     static {
         SemanticObject.typeRegistry.set(Collection.SEMANTIC_TYPE, Collection);

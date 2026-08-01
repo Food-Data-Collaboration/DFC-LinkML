@@ -62,18 +62,18 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:Concept"
-        registerSemanticProperty("dfc-b:Concept:certificate_of", &method("certificate_of")).valueSetter = method("certificate_of=")
-        registerSemanticProperty("dfc-b:Concept:claim_of", &method("claim_of")).valueSetter = method("claim_of=")
-        registerSemanticProperty("dfc-b:Concept:container_information_of", &method("container_information_of")).valueSetter = method("container_information_of=")
-        registerSemanticProperty("dfc-b:Concept:geographical_origin_of", &method("geographical_origin_of")).valueSetter = method("geographical_origin_of=")
-        registerSemanticProperty("dfc-b:Concept:nature_origin_of", &method("nature_origin_of")).valueSetter = method("nature_origin_of=")
-        registerSemanticProperty("dfc-b:Concept:part_origin_of", &method("part_origin_of")).valueSetter = method("part_origin_of=")
-        registerSemanticProperty("dfc-b:Concept:type_of", &method("type_of")).valueSetter = method("type_of=")
-        registerSemanticProperty("dfc-b:Concept:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:Concept:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:Concept:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:Concept:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:Concept:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:certificateOf", &method("certificate_of")).valueSetter = method("certificate_of=")
+        registerSemanticProperty("dfc-b:claimOf", &method("claim_of")).valueSetter = method("claim_of=")
+        registerSemanticProperty("dfc-b:containerInformationOf", &method("container_information_of")).valueSetter = method("container_information_of=")
+        registerSemanticProperty("dfc-b:geographicalOriginOf", &method("geographical_origin_of")).valueSetter = method("geographical_origin_of=")
+        registerSemanticProperty("dfc-b:natureOriginOf", &method("nature_origin_of")).valueSetter = method("nature_origin_of=")
+        registerSemanticProperty("dfc-b:partOriginOf", &method("part_origin_of")).valueSetter = method("part_origin_of=")
+        registerSemanticProperty("dfc-b:typeOf", &method("type_of")).valueSetter = method("type_of=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

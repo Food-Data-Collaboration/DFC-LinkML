@@ -80,6 +80,26 @@ def ts_property_name(slot_name: str) -> str:
     return special.get(result, result)
 
 
+def predicate_for_slot(slot_name: str, slot_data: dict) -> str:
+    """Compute the official JSON-LD predicate CURIE/URI for a slot.
+
+    DFC business/technical ontology properties use the dfc-b/dfc-t prefixes;
+    skos uses the skos prefix; other namespaces fall back to the full URI.
+    """
+    aliases = slot_data.get('aliases') or [slot_name]
+    alias = aliases[0]
+    namespace = slot_data.get('namespace', '')
+    if 'DFC_BusinessOntology' in namespace:
+        return f'dfc-b:{alias}'
+    if 'DFC_TechnicalOntology' in namespace:
+        return f'dfc-t:{alias}'
+    if 'skos/core' in namespace:
+        return f'skos:{alias}'
+    if namespace:
+        return f'{namespace}{alias}'
+    return f'dfc-b:{alias}'
+
+
 def get_class_hierarchy(class_name: str, classes: dict) -> list:
     chain = []
     current = class_name
@@ -437,6 +457,12 @@ def generate_connector_class(schema_data: dict) -> str:
   }}
 '''
 
+    # Build reverse map: predicate -> propName for every slot
+    predicate_map = {}
+    for slot_name, slot_data in schema_data.get('slots', {}).items():
+        predicate_map[predicate_for_slot(slot_name, slot_data)] = ts_property_name(slot_name)
+    predicate_map_str = '\n'.join(f'    "{pred}": "{prop}",' for pred, prop in sorted(predicate_map.items()))
+
     return f'''import {{ SemanticObject }} from "./SemanticObject.js";
 import {{ VocabularyLoader }} from "./VocabularyLoader.js";
 import {{ JsonLdSerializer }} from "./JsonLdSerializer.js";
@@ -447,6 +473,10 @@ import * as jsonld from "jsonld";
 export class Connector {{
   static readonly ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology";
   static readonly TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies";
+
+  static readonly PREDICATE_MAP: Record<string, string> = {{
+{predicate_map_str}
+  }};
 
   private static defaultContextUrl: string = "https://w3id.org/dfc/ontology/v{ontology_version}/context/context_{ontology_version}.json";
 
@@ -637,10 +667,18 @@ export class Connector {{
   }}
 
   private predicateToPropName(predicate: string): string {{
-    let name = predicate.replace(/^dfc-b:/, "");
-    const colonIndex = name.indexOf(":");
-    if (colonIndex !== -1) {{
-      name = name.slice(colonIndex + 1);
+    const mapped = Connector.PREDICATE_MAP[predicate];
+    if (mapped !== undefined) return mapped;
+    // Fallback: extract the local name from any CURIE or URI
+    let name = predicate;
+    const hashIndex = name.lastIndexOf("#");
+    if (hashIndex !== -1) {{
+      name = name.slice(hashIndex + 1);
+    }} else {{
+      const colonIndex = name.lastIndexOf(":");
+      if (colonIndex !== -1) {{
+        name = name.slice(colonIndex + 1);
+      }}
     }}
     name = name.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
     name = name.charAt(0).toLowerCase() + name.slice(1);
@@ -731,8 +769,8 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
         constructor_params.append(f'{prop_name}')
         constructor_body_self.append(f'    this.{prop_name} = params?.{prop_name};')
 
-        # Registration predicate uses original slot name
-        predicate = f'{semantic_type}:{slot_name}'
+        # Registration predicate uses the official OWL predicate CURIE
+        predicate = predicate_for_slot(slot_name, slot_data)
         registrations.append(f'    this.registerSemanticProperty("{predicate}", () => this.{prop_name});')
 
     if parent_raw == 'SemanticObject':

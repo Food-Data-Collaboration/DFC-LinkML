@@ -47,14 +47,14 @@ module DfcLinkmlConnector
         @produced_by = producedBy
         @represented_by = representedBy
         self.semanticType = "dfc-b:LocalizedProduct"
-        registerSemanticProperty("dfc-b:LocalizedProduct:image", &method("image")).valueSetter = method("image=")
-        registerSemanticProperty("dfc-b:LocalizedProduct:cost", &method("cost")).valueSetter = method("cost=")
-        registerSemanticProperty("dfc-b:LocalizedProduct:quantity", &method("quantity")).valueSetter = method("quantity=")
-        registerSemanticProperty("dfc-b:LocalizedProduct:constitued_by", &method("constitued_by")).valueSetter = method("constitued_by=")
-        registerSemanticProperty("dfc-b:LocalizedProduct:consumed_by", &method("consumed_by")).valueSetter = method("consumed_by=")
-        registerSemanticProperty("dfc-b:LocalizedProduct:has_reference", &method("reference")).valueSetter = method("reference=")
-        registerSemanticProperty("dfc-b:LocalizedProduct:produced_by", &method("produced_by")).valueSetter = method("produced_by=")
-        registerSemanticProperty("dfc-b:LocalizedProduct:represented_by", &method("represented_by")).valueSetter = method("represented_by=")
+        registerSemanticProperty("dfc-b:Image", &method("image")).valueSetter = method("image=")
+        registerSemanticProperty("dfc-b:cost", &method("cost")).valueSetter = method("cost=")
+        registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
+        registerSemanticProperty("dfc-b:constituedBy", &method("constitued_by")).valueSetter = method("constitued_by=")
+        registerSemanticProperty("dfc-b:consumedBy", &method("consumed_by")).valueSetter = method("consumed_by=")
+        registerSemanticProperty("dfc-b:hasReference", &method("reference")).valueSetter = method("reference=")
+        registerSemanticProperty("dfc-b:producedBy", &method("produced_by")).valueSetter = method("produced_by=")
+        registerSemanticProperty("dfc-b:representedBy", &method("represented_by")).valueSetter = method("represented_by=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -66,19 +66,19 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:SaleSession"
-        registerSemanticProperty("dfc-b:SaleSession:end_date", &method("end_date")).valueSetter = method("end_date=")
-        registerSemanticProperty("dfc-b:SaleSession:quantity", &method("quantity")).valueSetter = method("quantity=")
-        registerSemanticProperty("dfc-b:SaleSession:start_date", &method("start_date")).valueSetter = method("start_date=")
-        registerSemanticProperty("dfc-b:SaleSession:has_option", &method("option")).valueSetter = method("option=")
-        registerSemanticProperty("dfc-b:SaleSession:holds", &method("holds")).valueSetter = method("holds=")
-        registerSemanticProperty("dfc-b:SaleSession:hosted_at", &method("hosted_at")).valueSetter = method("hosted_at=")
-        registerSemanticProperty("dfc-b:SaleSession:lists", &method("lists")).valueSetter = method("lists=")
-        registerSemanticProperty("dfc-b:SaleSession:object_of", &method("object_of")).valueSetter = method("object_of=")
-        registerSemanticProperty("dfc-b:SaleSession:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:SaleSession:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:SaleSession:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:SaleSession:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:SaleSession:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:endDate", &method("end_date")).valueSetter = method("end_date=")
+        registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
+        registerSemanticProperty("dfc-b:startDate", &method("start_date")).valueSetter = method("start_date=")
+        registerSemanticProperty("dfc-b:hasOption", &method("option")).valueSetter = method("option=")
+        registerSemanticProperty("dfc-b:holds", &method("holds")).valueSetter = method("holds=")
+        registerSemanticProperty("dfc-b:hostedAt", &method("hosted_at")).valueSetter = method("hosted_at=")
+        registerSemanticProperty("dfc-b:lists", &method("lists")).valueSetter = method("lists=")
+        registerSemanticProperty("dfc-b:objectOf", &method("object_of")).valueSetter = method("object_of=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -27,9 +27,9 @@ module DfcLinkmlConnector
         @first_name = firstName
         @main_contact_of = mainContactOf
         self.semanticType = "dfc-b:Person"
-        registerSemanticProperty("dfc-b:Person:family_name", &method("family_name")).valueSetter = method("family_name=")
-        registerSemanticProperty("dfc-b:Person:first_name", &method("first_name")).valueSetter = method("first_name=")
-        registerSemanticProperty("dfc-b:Person:main_contact_of", &method("main_contact_of")).valueSetter = method("main_contact_of=")
+        registerSemanticProperty("dfc-b:familyName", &method("family_name")).valueSetter = method("family_name=")
+        registerSemanticProperty("dfc-b:firstName", &method("first_name")).valueSetter = method("first_name=")
+        registerSemanticProperty("dfc-b:mainContactOf", &method("main_contact_of")).valueSetter = method("main_contact_of=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

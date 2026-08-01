@@ -35,11 +35,11 @@ module DfcLinkmlConnector
         @refers_to = refersTo
         @uses = uses
         self.semanticType = "dfc-b:DeliveryOption"
-        registerSemanticProperty("dfc-b:DeliveryOption:accessibility_info", &method("accessibility_info")).valueSetter = method("accessibility_info=")
-        registerSemanticProperty("dfc-b:DeliveryOption:delivery_constraint", &method("delivery_constraint")).valueSetter = method("delivery_constraint=")
-        registerSemanticProperty("dfc-b:DeliveryOption:delivered_at", &method("delivered_at")).valueSetter = method("delivered_at=")
-        registerSemanticProperty("dfc-b:DeliveryOption:refers_to", &method("refers_to")).valueSetter = method("refers_to=")
-        registerSemanticProperty("dfc-b:DeliveryOption:uses", &method("uses")).valueSetter = method("uses=")
+        registerSemanticProperty("dfc-b:accessibilityInfo", &method("accessibility_info")).valueSetter = method("accessibility_info=")
+        registerSemanticProperty("dfc-b:deliveryConstraint", &method("delivery_constraint")).valueSetter = method("delivery_constraint=")
+        registerSemanticProperty("dfc-b:deliveredAt", &method("delivered_at")).valueSetter = method("delivered_at=")
+        registerSemanticProperty("dfc-b:refersTo", &method("refers_to")).valueSetter = method("refers_to=")
+        registerSemanticProperty("dfc-b:uses", &method("uses")).valueSetter = method("uses=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -66,19 +66,19 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:CatalogItem"
-        registerSemanticProperty("dfc-b:CatalogItem:extra_availability_time", &method("extra_availability_time")).valueSetter = method("extra_availability_time=")
-        registerSemanticProperty("dfc-b:CatalogItem:extra_delivery_condition", &method("extra_delivery_condition")).valueSetter = method("extra_delivery_condition=")
-        registerSemanticProperty("dfc-b:CatalogItem:sku", &method("sku")).valueSetter = method("sku=")
-        registerSemanticProperty("dfc-b:CatalogItem:stock_limitation", &method("stock_limitation")).valueSetter = method("stock_limitation=")
-        registerSemanticProperty("dfc-b:CatalogItem:listed_in", &method("listed_in")).valueSetter = method("listed_in=")
-        registerSemanticProperty("dfc-b:CatalogItem:managed_by", &method("managed_by")).valueSetter = method("managed_by=")
-        registerSemanticProperty("dfc-b:CatalogItem:offered_through", &method("offered_through")).valueSetter = method("offered_through=")
-        registerSemanticProperty("dfc-b:CatalogItem:references", &method("references")).valueSetter = method("references=")
-        registerSemanticProperty("dfc-b:CatalogItem:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:CatalogItem:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:CatalogItem:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:CatalogItem:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:CatalogItem:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:extraAvailabilityTime", &method("extra_availability_time")).valueSetter = method("extra_availability_time=")
+        registerSemanticProperty("dfc-b:extraDeliveryCondition", &method("extra_delivery_condition")).valueSetter = method("extra_delivery_condition=")
+        registerSemanticProperty("dfc-b:sku", &method("sku")).valueSetter = method("sku=")
+        registerSemanticProperty("dfc-b:stockLimitation", &method("stock_limitation")).valueSetter = method("stock_limitation=")
+        registerSemanticProperty("dfc-b:listedIn", &method("listed_in")).valueSetter = method("listed_in=")
+        registerSemanticProperty("dfc-b:managedBy", &method("managed_by")).valueSetter = method("managed_by=")
+        registerSemanticProperty("dfc-b:offeredThrough", &method("offered_through")).valueSetter = method("offered_through=")
+        registerSemanticProperty("dfc-b:references", &method("references")).valueSetter = method("references=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

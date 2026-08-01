@@ -23,8 +23,8 @@ module DfcLinkmlConnector
         @url = url
         @website_page = websitePage
         self.semanticType = "dfc-b:VirtualPlace"
-        registerSemanticProperty("dfc-b:VirtualPlace:url", &method("url")).valueSetter = method("url=")
-        registerSemanticProperty("dfc-b:VirtualPlace:website_page", &method("website_page")).valueSetter = method("website_page=")
+        registerSemanticProperty("dfc-b:URL", &method("url")).valueSetter = method("url=")
+        registerSemanticProperty("dfc-b:websitePage", &method("website_page")).valueSetter = method("website_page=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

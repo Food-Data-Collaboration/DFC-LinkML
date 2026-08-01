@@ -63,18 +63,18 @@ module DfcLinkmlConnector
         @requests = requests
         @sells = sells
         self.semanticType = "dfc-b:Agent"
-        registerSemanticProperty("dfc-b:Agent:email", &method("email")).valueSetter = method("email=")
-        registerSemanticProperty("dfc-b:Agent:logo", &method("logo")).valueSetter = method("logo=")
-        registerSemanticProperty("dfc-b:Agent:website_page", &method("website_page")).valueSetter = method("website_page=")
-        registerSemanticProperty("dfc-b:Agent:affiliated_to", &method("affiliated_to")).valueSetter = method("affiliated_to=")
-        registerSemanticProperty("dfc-b:Agent:has_address", &method("address")).valueSetter = method("address=")
-        registerSemanticProperty("dfc-b:Agent:has_phone_number", &method("phone_number")).valueSetter = method("phone_number=")
-        registerSemanticProperty("dfc-b:Agent:has_social_media", &method("social_media")).valueSetter = method("social_media=")
-        registerSemanticProperty("dfc-b:Agent:is_member_of", &method("is_member_of")).valueSetter = method("is_member_of=")
-        registerSemanticProperty("dfc-b:Agent:orders", &method("orders")).valueSetter = method("orders=")
-        registerSemanticProperty("dfc-b:Agent:owns", &method("owns")).valueSetter = method("owns=")
-        registerSemanticProperty("dfc-b:Agent:requests", &method("requests")).valueSetter = method("requests=")
-        registerSemanticProperty("dfc-b:Agent:sells", &method("sells")).valueSetter = method("sells=")
+        registerSemanticProperty("dfc-b:email", &method("email")).valueSetter = method("email=")
+        registerSemanticProperty("dfc-b:logo", &method("logo")).valueSetter = method("logo=")
+        registerSemanticProperty("dfc-b:websitePage", &method("website_page")).valueSetter = method("website_page=")
+        registerSemanticProperty("dfc-b:affiliatedTo", &method("affiliated_to")).valueSetter = method("affiliated_to=")
+        registerSemanticProperty("dfc-b:hasAddress", &method("address")).valueSetter = method("address=")
+        registerSemanticProperty("dfc-b:hasPhoneNumber", &method("phone_number")).valueSetter = method("phone_number=")
+        registerSemanticProperty("dfc-b:hasSocialMedia", &method("social_media")).valueSetter = method("social_media=")
+        registerSemanticProperty("dfc-b:isMemberOf", &method("is_member_of")).valueSetter = method("is_member_of=")
+        registerSemanticProperty("dfc-b:orders", &method("orders")).valueSetter = method("orders=")
+        registerSemanticProperty("dfc-b:owns", &method("owns")).valueSetter = method("owns=")
+        registerSemanticProperty("dfc-b:requests", &method("requests")).valueSetter = method("requests=")
+        registerSemanticProperty("dfc-b:sells", &method("sells")).valueSetter = method("sells=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

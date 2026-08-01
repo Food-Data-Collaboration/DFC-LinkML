@@ -27,9 +27,9 @@ module DfcLinkmlConnector
         @is_ingredient_of = isIngredientOf
         @quantity = quantity
         self.semanticType = "dfc-b:Ingredient"
-        registerSemanticProperty("dfc-b:Ingredient:composed_of", &method("composed_of")).valueSetter = method("composed_of=")
-        registerSemanticProperty("dfc-b:Ingredient:is_ingredient_of", &method("is_ingredient_of")).valueSetter = method("is_ingredient_of=")
-        registerSemanticProperty("dfc-b:Ingredient:has_quantity", &method("quantity")).valueSetter = method("quantity=")
+        registerSemanticProperty("dfc-b:composedOf", &method("composed_of")).valueSetter = method("composed_of=")
+        registerSemanticProperty("dfc-b:isIngredientOf", &method("is_ingredient_of")).valueSetter = method("is_ingredient_of=")
+        registerSemanticProperty("dfc-b:hasQuantity", &method("quantity")).valueSetter = method("quantity=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

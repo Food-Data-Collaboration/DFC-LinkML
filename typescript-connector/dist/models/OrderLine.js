@@ -31,18 +31,18 @@ export class OrderLine extends SemanticObject {
         this.hasDimension = params?.hasDimension;
         this.hasQuantity = params?.hasQuantity;
         this.semanticType = OrderLine.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:OrderLine:discount", () => this.discount);
-        this.registerSemanticProperty("dfc-b:OrderLine:quantity", () => this.quantity);
-        this.registerSemanticProperty("dfc-b:OrderLine:concerns", () => this.concerns);
-        this.registerSemanticProperty("dfc-b:OrderLine:has_price", () => this.hasPrice);
-        this.registerSemanticProperty("dfc-b:OrderLine:is_fulfilled_by", () => this.isFulfilledBy);
-        this.registerSemanticProperty("dfc-b:OrderLine:part_of", () => this.partOf);
-        this.registerSemanticProperty("dfc-b:OrderLine:date", () => this.date);
-        this.registerSemanticProperty("dfc-b:OrderLine:description", () => this.description);
-        this.registerSemanticProperty("dfc-b:OrderLine:name", () => this.name);
-        this.registerSemanticProperty("dfc-b:OrderLine:characteristic_of", () => this.characteristicOf);
-        this.registerSemanticProperty("dfc-b:OrderLine:has_dimension", () => this.hasDimension);
-        this.registerSemanticProperty("dfc-b:OrderLine:has_quantity", () => this.hasQuantity);
+        this.registerSemanticProperty("dfc-b:discount", () => this.discount);
+        this.registerSemanticProperty("dfc-b:quantity", () => this.quantity);
+        this.registerSemanticProperty("dfc-b:concerns", () => this.concerns);
+        this.registerSemanticProperty("dfc-b:hasPrice", () => this.hasPrice);
+        this.registerSemanticProperty("dfc-b:isFulfilledBy", () => this.isFulfilledBy);
+        this.registerSemanticProperty("dfc-b:partOf", () => this.partOf);
+        this.registerSemanticProperty("dfc-b:date", () => this.date);
+        this.registerSemanticProperty("dfc-b:description", () => this.description);
+        this.registerSemanticProperty("dfc-b:name", () => this.name);
+        this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+        this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
+        this.registerSemanticProperty("dfc-b:hasQuantity", () => this.hasQuantity);
     }
     static {
         SemanticObject.typeRegistry.set(OrderLine.SEMANTIC_TYPE, OrderLine);

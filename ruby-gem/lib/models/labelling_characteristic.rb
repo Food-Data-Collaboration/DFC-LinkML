@@ -42,13 +42,13 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:LabellingCharacteristic"
-        registerSemanticProperty("dfc-b:LabellingCharacteristic:has_labelling_dimension", &method("labelling_dimension")).valueSetter = method("labelling_dimension=")
-        registerSemanticProperty("dfc-b:LabellingCharacteristic:labelling_characteristic_of", &method("labelling_characteristic_of")).valueSetter = method("labelling_characteristic_of=")
-        registerSemanticProperty("dfc-b:LabellingCharacteristic:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:LabellingCharacteristic:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:LabellingCharacteristic:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:LabellingCharacteristic:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:LabellingCharacteristic:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:hasLabellingDimension", &method("labelling_dimension")).valueSetter = method("labelling_dimension=")
+        registerSemanticProperty("dfc-b:labellingCharacteristicOf", &method("labelling_characteristic_of")).valueSetter = method("labelling_characteristic_of=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

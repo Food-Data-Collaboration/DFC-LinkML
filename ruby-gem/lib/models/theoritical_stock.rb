@@ -23,8 +23,8 @@ module DfcLinkmlConnector
         @constitutes = constitutes
         @localized_by = localizedBy
         self.semanticType = "dfc-b:TheoriticalStock"
-        registerSemanticProperty("dfc-b:TheoriticalStock:constitutes", &method("constitutes")).valueSetter = method("constitutes=")
-        registerSemanticProperty("dfc-b:TheoriticalStock:localized_by", &method("localized_by")).valueSetter = method("localized_by=")
+        registerSemanticProperty("dfc-b:constitutes", &method("constitutes")).valueSetter = method("constitutes=")
+        registerSemanticProperty("dfc-b:localizedBy", &method("localized_by")).valueSetter = method("localized_by=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -35,11 +35,11 @@ module DfcLinkmlConnector
         @input = input
         @output = output
         self.semanticType = "dfc-b:AsRealizedTransformation"
-        registerSemanticProperty("dfc-b:AsRealizedTransformation:cost", &method("cost")).valueSetter = method("cost=")
-        registerSemanticProperty("dfc-b:AsRealizedTransformation:end_date", &method("end_date")).valueSetter = method("end_date=")
-        registerSemanticProperty("dfc-b:AsRealizedTransformation:start_date", &method("start_date")).valueSetter = method("start_date=")
-        registerSemanticProperty("dfc-b:AsRealizedTransformation:has_input", &method("input")).valueSetter = method("input=")
-        registerSemanticProperty("dfc-b:AsRealizedTransformation:has_output", &method("output")).valueSetter = method("output=")
+        registerSemanticProperty("dfc-b:cost", &method("cost")).valueSetter = method("cost=")
+        registerSemanticProperty("dfc-b:endDate", &method("end_date")).valueSetter = method("end_date=")
+        registerSemanticProperty("dfc-b:startDate", &method("start_date")).valueSetter = method("start_date=")
+        registerSemanticProperty("dfc-b:hasInput", &method("input")).valueSetter = method("input=")
+        registerSemanticProperty("dfc-b:hasOutput", &method("output")).valueSetter = method("output=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

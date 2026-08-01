@@ -58,17 +58,17 @@ module DfcLinkmlConnector
         @ends_at = endsAt
         @starts_at = startsAt
         self.semanticType = "dfc-b:Shipment"
-        registerSemanticProperty("dfc-b:Shipment:end_date", &method("end_date")).valueSetter = method("end_date=")
-        registerSemanticProperty("dfc-b:Shipment:start_date", &method("start_date")).valueSetter = method("start_date=")
-        registerSemanticProperty("dfc-b:Shipment:is_shipped_in", &method("is_shipped_in")).valueSetter = method("is_shipped_in=")
-        registerSemanticProperty("dfc-b:Shipment:transports", &method("transports")).valueSetter = method("transports=")
-        registerSemanticProperty("dfc-b:Shipment:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:Shipment:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:Shipment:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:Shipment:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:Shipment:has_dimension", &method("dimension")).valueSetter = method("dimension=")
-        registerSemanticProperty("dfc-b:Shipment:ends_at", &method("ends_at")).valueSetter = method("ends_at=")
-        registerSemanticProperty("dfc-b:Shipment:starts_at", &method("starts_at")).valueSetter = method("starts_at=")
+        registerSemanticProperty("dfc-b:endDate", &method("end_date")).valueSetter = method("end_date=")
+        registerSemanticProperty("dfc-b:startDate", &method("start_date")).valueSetter = method("start_date=")
+        registerSemanticProperty("dfc-b:isShippedIn", &method("is_shipped_in")).valueSetter = method("is_shipped_in=")
+        registerSemanticProperty("dfc-b:transports", &method("transports")).valueSetter = method("transports=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:endsAt", &method("ends_at")).valueSetter = method("ends_at=")
+        registerSemanticProperty("dfc-b:startsAt", &method("starts_at")).valueSetter = method("starts_at=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

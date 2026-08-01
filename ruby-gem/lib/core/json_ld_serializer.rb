@@ -40,26 +40,23 @@ module DfcLinkmlConnector
           "@type" => obj.semanticType,
         }
 
-        obj.instance_variables.each do |ivar|
-          next if ivar == :@semanticId || ivar == :@semanticType || ivar == :@semanticProperties
-          value = obj.instance_variable_get(ivar)
+        obj.instance_variable_get(:@semanticProperties).each do |predicate, prop|
+          value = prop.getter.call
           next if value.nil?
-
-          name = ivar.to_s.sub(/^@/, '')
 
           if value.is_a?(Array)
             next if value.empty?
             if value.first.is_a?(SemanticObject)
-              result["dfc-b:#{name}"] = value.map { |v| v.semanticId }
+              result[predicate] = value.map { |v| v.semanticId }
             else
-              result["dfc-b:#{name}"] = value
+              result[predicate] = value
             end
           elsif value.is_a?(SemanticObject)
-            result["dfc-b:#{name}"] = value.semanticId
+            result[predicate] = value.semanticId
           elsif value.is_a?(Numeric)
-            result["dfc-b:#{name}"] = value
+            result[predicate] = value
           else
-            result["dfc-b:#{name}"] = value.to_s
+            result[predicate] = value.to_s
           end
         end
 

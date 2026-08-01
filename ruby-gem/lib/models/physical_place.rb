@@ -43,13 +43,13 @@ module DfcLinkmlConnector
         @geo_json_feature = geoJsonFeature
         @is_open_during = isOpenDuring
         self.semanticType = "dfc-b:PhysicalPlace"
-        registerSemanticProperty("dfc-b:PhysicalPlace:has_address", &method("address")).valueSetter = method("address=")
-        registerSemanticProperty("dfc-b:PhysicalPlace:has_main_contact", &method("main_contact")).valueSetter = method("main_contact=")
-        registerSemanticProperty("dfc-b:PhysicalPlace:has_phone_number", &method("phone_number")).valueSetter = method("phone_number=")
-        registerSemanticProperty("dfc-b:PhysicalPlace:localizes", &method("localizes")).valueSetter = method("localizes=")
-        registerSemanticProperty("dfc-b:PhysicalPlace:stores", &method("stores")).valueSetter = method("stores=")
-        registerSemanticProperty("dfc-b:PhysicalPlace:has_geo_json_feature", &method("geo_json_feature")).valueSetter = method("geo_json_feature=")
-        registerSemanticProperty("dfc-b:PhysicalPlace:is_open_during", &method("is_open_during")).valueSetter = method("is_open_during=")
+        registerSemanticProperty("dfc-b:hasAddress", &method("address")).valueSetter = method("address=")
+        registerSemanticProperty("dfc-b:hasMainContact", &method("main_contact")).valueSetter = method("main_contact=")
+        registerSemanticProperty("dfc-b:hasPhoneNumber", &method("phone_number")).valueSetter = method("phone_number=")
+        registerSemanticProperty("dfc-b:localizes", &method("localizes")).valueSetter = method("localizes=")
+        registerSemanticProperty("dfc-b:stores", &method("stores")).valueSetter = method("stores=")
+        registerSemanticProperty("dfc-b:hasGeoJsonFeature", &method("geo_json_feature")).valueSetter = method("geo_json_feature=")
+        registerSemanticProperty("dfc-b:isOpenDuring", &method("is_open_during")).valueSetter = method("is_open_during=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

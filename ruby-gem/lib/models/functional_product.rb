@@ -23,8 +23,8 @@ module DfcLinkmlConnector
         @requested_by = requestedBy
         @satisfied_by = satisfiedBy
         self.semanticType = "dfc-b:FunctionalProduct"
-        registerSemanticProperty("dfc-b:FunctionalProduct:requested_by", &method("requested_by")).valueSetter = method("requested_by=")
-        registerSemanticProperty("dfc-b:FunctionalProduct:satisfied_by", &method("satisfied_by")).valueSetter = method("satisfied_by=")
+        registerSemanticProperty("dfc-b:requestedBy", &method("requested_by")).valueSetter = method("requested_by=")
+        registerSemanticProperty("dfc-b:satisfiedBy", &method("satisfied_by")).valueSetter = method("satisfied_by=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

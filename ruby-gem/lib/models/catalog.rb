@@ -31,10 +31,10 @@ module DfcLinkmlConnector
         @lists = lists
         @maintained_by = maintainedBy
         self.semanticType = "dfc-b:Catalog"
-        registerSemanticProperty("dfc-b:Catalog:end_date", &method("end_date")).valueSetter = method("end_date=")
-        registerSemanticProperty("dfc-b:Catalog:start_date", &method("start_date")).valueSetter = method("start_date=")
-        registerSemanticProperty("dfc-b:Catalog:lists", &method("lists")).valueSetter = method("lists=")
-        registerSemanticProperty("dfc-b:Catalog:maintained_by", &method("maintained_by")).valueSetter = method("maintained_by=")
+        registerSemanticProperty("dfc-b:endDate", &method("end_date")).valueSetter = method("end_date=")
+        registerSemanticProperty("dfc-b:startDate", &method("start_date")).valueSetter = method("start_date=")
+        registerSemanticProperty("dfc-b:lists", &method("lists")).valueSetter = method("lists=")
+        registerSemanticProperty("dfc-b:maintainedBy", &method("maintained_by")).valueSetter = method("maintained_by=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

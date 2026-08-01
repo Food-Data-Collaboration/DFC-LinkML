@@ -47,14 +47,14 @@ module DfcLinkmlConnector
         @street = street
         @address_of = addressOf
         self.semanticType = "dfc-b:Address"
-        registerSemanticProperty("dfc-b:Address:city", &method("city")).valueSetter = method("city=")
-        registerSemanticProperty("dfc-b:Address:country", &method("country")).valueSetter = method("country=")
-        registerSemanticProperty("dfc-b:Address:latitude", &method("latitude")).valueSetter = method("latitude=")
-        registerSemanticProperty("dfc-b:Address:longitude", &method("longitude")).valueSetter = method("longitude=")
-        registerSemanticProperty("dfc-b:Address:postcode", &method("postcode")).valueSetter = method("postcode=")
-        registerSemanticProperty("dfc-b:Address:region", &method("region")).valueSetter = method("region=")
-        registerSemanticProperty("dfc-b:Address:street", &method("street")).valueSetter = method("street=")
-        registerSemanticProperty("dfc-b:Address:address_of", &method("address_of")).valueSetter = method("address_of=")
+        registerSemanticProperty("dfc-b:city", &method("city")).valueSetter = method("city=")
+        registerSemanticProperty("dfc-b:country", &method("country")).valueSetter = method("country=")
+        registerSemanticProperty("dfc-b:latitude", &method("latitude")).valueSetter = method("latitude=")
+        registerSemanticProperty("dfc-b:longitude", &method("longitude")).valueSetter = method("longitude=")
+        registerSemanticProperty("dfc-b:postcode", &method("postcode")).valueSetter = method("postcode=")
+        registerSemanticProperty("dfc-b:region", &method("region")).valueSetter = method("region=")
+        registerSemanticProperty("dfc-b:street", &method("street")).valueSetter = method("street=")
+        registerSemanticProperty("dfc-b:addressOf", &method("address_of")).valueSetter = method("address_of=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

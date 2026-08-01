@@ -67,19 +67,19 @@ module DfcLinkmlConnector
         @supplies = supplies
         @transforms = transforms
         self.semanticType = "dfc-b:Organization"
-        registerSemanticProperty("dfc-b:Organization:vat_number", &method("vat_number")).valueSetter = method("vat_number=")
-        registerSemanticProperty("dfc-b:Organization:vat_status", &method("vat_status")).valueSetter = method("vat_status=")
-        registerSemanticProperty("dfc-b:Organization:enterprise_i_d", &method("enterprise_id")).valueSetter = method("enterprise_id=")
-        registerSemanticProperty("dfc-b:Organization:affiliates", &method("affiliates")).valueSetter = method("affiliates=")
-        registerSemanticProperty("dfc-b:Organization:defines", &method("defines")).valueSetter = method("defines=")
-        registerSemanticProperty("dfc-b:Organization:has_main_contact", &method("main_contact")).valueSetter = method("main_contact=")
-        registerSemanticProperty("dfc-b:Organization:has_template_sale_session", &method("template_sale_session")).valueSetter = method("template_sale_session=")
-        registerSemanticProperty("dfc-b:Organization:is_certified_by", &method("is_certified_by")).valueSetter = method("is_certified_by=")
-        registerSemanticProperty("dfc-b:Organization:maintains", &method("maintains")).valueSetter = method("maintains=")
-        registerSemanticProperty("dfc-b:Organization:manages", &method("manages")).valueSetter = method("manages=")
-        registerSemanticProperty("dfc-b:Organization:proposes", &method("proposes")).valueSetter = method("proposes=")
-        registerSemanticProperty("dfc-b:Organization:supplies", &method("supplies")).valueSetter = method("supplies=")
-        registerSemanticProperty("dfc-b:Organization:transforms", &method("transforms")).valueSetter = method("transforms=")
+        registerSemanticProperty("dfc-b:VATnumber", &method("vat_number")).valueSetter = method("vat_number=")
+        registerSemanticProperty("dfc-b:VATstatus", &method("vat_status")).valueSetter = method("vat_status=")
+        registerSemanticProperty("dfc-b:enterpriseID", &method("enterprise_id")).valueSetter = method("enterprise_id=")
+        registerSemanticProperty("dfc-b:affiliates", &method("affiliates")).valueSetter = method("affiliates=")
+        registerSemanticProperty("dfc-b:defines", &method("defines")).valueSetter = method("defines=")
+        registerSemanticProperty("dfc-b:hasMainContact", &method("main_contact")).valueSetter = method("main_contact=")
+        registerSemanticProperty("dfc-b:hasTemplateSaleSession", &method("template_sale_session")).valueSetter = method("template_sale_session=")
+        registerSemanticProperty("dfc-b:isCertifiedBy", &method("is_certified_by")).valueSetter = method("is_certified_by=")
+        registerSemanticProperty("dfc-b:maintains", &method("maintains")).valueSetter = method("maintains=")
+        registerSemanticProperty("dfc-b:manages", &method("manages")).valueSetter = method("manages=")
+        registerSemanticProperty("dfc-b:proposes", &method("proposes")).valueSetter = method("proposes=")
+        registerSemanticProperty("dfc-b:supplies", &method("supplies")).valueSetter = method("supplies=")
+        registerSemanticProperty("dfc-b:transforms", &method("transforms")).valueSetter = method("transforms=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -22,8 +22,8 @@ export class VirtualPlace extends Place {
     this.url = params?.url;
     this.websitePage = params?.websitePage;
     this.semanticType = VirtualPlace.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:VirtualPlace:url", () => this.url);
-    this.registerSemanticProperty("dfc-b:VirtualPlace:website_page", () => this.websitePage);
+    this.registerSemanticProperty("dfc-b:URL", () => this.url);
+    this.registerSemanticProperty("dfc-b:websitePage", () => this.websitePage);
   }
   static {
     SemanticObject.typeRegistry.set(VirtualPlace.SEMANTIC_TYPE, VirtualPlace);

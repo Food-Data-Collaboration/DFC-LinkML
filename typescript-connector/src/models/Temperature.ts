@@ -19,7 +19,7 @@ export class Temperature extends QuantitativeValue {
     super(semanticId, params);
     this.isTemperatureOf = params?.isTemperatureOf;
     this.semanticType = Temperature.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Temperature:is_temperature_of", () => this.isTemperatureOf);
+    this.registerSemanticProperty("dfc-b:isTemperatureOf", () => this.isTemperatureOf);
   }
   static {
     SemanticObject.typeRegistry.set(Temperature.SEMANTIC_TYPE, Temperature);

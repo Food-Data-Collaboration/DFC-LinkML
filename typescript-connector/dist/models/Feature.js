@@ -21,13 +21,13 @@ export class Feature extends SemanticObject {
         this.geometry = params?.geometry;
         this.properties = params?.properties;
         this.semanticType = Feature.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:Feature:date", () => this.date);
-        this.registerSemanticProperty("dfc-b:Feature:description", () => this.description);
-        this.registerSemanticProperty("dfc-b:Feature:name", () => this.name);
-        this.registerSemanticProperty("dfc-b:Feature:characteristic_of", () => this.characteristicOf);
-        this.registerSemanticProperty("dfc-b:Feature:has_dimension", () => this.hasDimension);
-        this.registerSemanticProperty("dfc-b:Feature:geometry", () => this.geometry);
-        this.registerSemanticProperty("dfc-b:Feature:properties", () => this.properties);
+        this.registerSemanticProperty("dfc-b:date", () => this.date);
+        this.registerSemanticProperty("dfc-b:description", () => this.description);
+        this.registerSemanticProperty("dfc-b:name", () => this.name);
+        this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+        this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
+        this.registerSemanticProperty("https://purl.org/geojson/vocab#geometry", () => this.geometry);
+        this.registerSemanticProperty("https://purl.org/geojson/vocab#properties", () => this.properties);
     }
     static {
         SemanticObject.typeRegistry.set(Feature.SEMANTIC_TYPE, Feature);

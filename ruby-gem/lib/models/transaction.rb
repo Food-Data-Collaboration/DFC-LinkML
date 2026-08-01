@@ -39,12 +39,12 @@ module DfcLinkmlConnector
         @price = price
         @to = to
         self.semanticType = "dfc-b:Transaction"
-        registerSemanticProperty("dfc-b:Transaction:invoice_number", &method("invoice_number")).valueSetter = method("invoice_number=")
-        registerSemanticProperty("dfc-b:Transaction:quantity", &method("quantity")).valueSetter = method("quantity=")
-        registerSemanticProperty("dfc-b:Transaction:concerns", &method("concerns")).valueSetter = method("concerns=")
-        registerSemanticProperty("dfc-b:Transaction:from", &method("from")).valueSetter = method("from=")
-        registerSemanticProperty("dfc-b:Transaction:has_price", &method("price")).valueSetter = method("price=")
-        registerSemanticProperty("dfc-b:Transaction:to", &method("to")).valueSetter = method("to=")
+        registerSemanticProperty("dfc-b:invoiceNumber", &method("invoice_number")).valueSetter = method("invoice_number=")
+        registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
+        registerSemanticProperty("dfc-b:concerns", &method("concerns")).valueSetter = method("concerns=")
+        registerSemanticProperty("dfc-b:from", &method("from")).valueSetter = method("from=")
+        registerSemanticProperty("dfc-b:hasPrice", &method("price")).valueSetter = method("price=")
+        registerSemanticProperty("dfc-b:to", &method("to")).valueSetter = method("to=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

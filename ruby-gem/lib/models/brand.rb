@@ -23,8 +23,8 @@ module DfcLinkmlConnector
         @brand_of = brandOf
         @owned_by = ownedBy
         self.semanticType = "dfc-b:Brand"
-        registerSemanticProperty("dfc-b:Brand:brand_of", &method("brand_of")).valueSetter = method("brand_of=")
-        registerSemanticProperty("dfc-b:Brand:owned_by", &method("owned_by")).valueSetter = method("owned_by=")
+        registerSemanticProperty("dfc-b:brandOf", &method("brand_of")).valueSetter = method("brand_of=")
+        registerSemanticProperty("dfc-b:ownedBy", &method("owned_by")).valueSetter = method("owned_by=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

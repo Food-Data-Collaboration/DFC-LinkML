@@ -18,11 +18,11 @@ export class DeliveryOption extends ShippingOption {
         this.refersTo = params?.refersTo;
         this.uses = params?.uses;
         this.semanticType = DeliveryOption.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:DeliveryOption:accessibility_info", () => this.accessibilityInfo);
-        this.registerSemanticProperty("dfc-b:DeliveryOption:delivery_constraint", () => this.deliveryConstraint);
-        this.registerSemanticProperty("dfc-b:DeliveryOption:delivered_at", () => this.deliveredAt);
-        this.registerSemanticProperty("dfc-b:DeliveryOption:refers_to", () => this.refersTo);
-        this.registerSemanticProperty("dfc-b:DeliveryOption:uses", () => this.uses);
+        this.registerSemanticProperty("dfc-b:accessibilityInfo", () => this.accessibilityInfo);
+        this.registerSemanticProperty("dfc-b:deliveryConstraint", () => this.deliveryConstraint);
+        this.registerSemanticProperty("dfc-b:deliveredAt", () => this.deliveredAt);
+        this.registerSemanticProperty("dfc-b:refersTo", () => this.refersTo);
+        this.registerSemanticProperty("dfc-b:uses", () => this.uses);
     }
     static {
         SemanticObject.typeRegistry.set(DeliveryOption.SEMANTIC_TYPE, DeliveryOption);

@@ -27,9 +27,9 @@ module DfcLinkmlConnector
         @use_vehicle = useVehicle
         @geo_json_feature = geoJsonFeature
         self.semanticType = "dfc-b:Route"
-        registerSemanticProperty("dfc-b:Route:has_step", &method("step")).valueSetter = method("step=")
-        registerSemanticProperty("dfc-b:Route:use_vehicle", &method("use_vehicle")).valueSetter = method("use_vehicle=")
-        registerSemanticProperty("dfc-b:Route:has_geo_json_feature", &method("geo_json_feature")).valueSetter = method("geo_json_feature=")
+        registerSemanticProperty("dfc-b:hasStep", &method("step")).valueSetter = method("step=")
+        registerSemanticProperty("dfc-b:useVehicle", &method("use_vehicle")).valueSetter = method("use_vehicle=")
+        registerSemanticProperty("dfc-b:hasGeoJsonFeature", &method("geo_json_feature")).valueSetter = method("geo_json_feature=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

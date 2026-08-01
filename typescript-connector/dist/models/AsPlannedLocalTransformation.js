@@ -20,12 +20,12 @@ export class AsPlannedLocalTransformation extends Transformation {
         this.hasOutput = params?.hasOutput;
         this.transformedBy = params?.transformedBy;
         this.semanticType = AsPlannedLocalTransformation.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:cost", () => this.cost);
-        this.registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:end_date", () => this.endDate);
-        this.registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:start_date", () => this.startDate);
-        this.registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:has_input", () => this.hasInput);
-        this.registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:has_output", () => this.hasOutput);
-        this.registerSemanticProperty("dfc-b:AsPlannedLocalTransformation:transformed_by", () => this.transformedBy);
+        this.registerSemanticProperty("dfc-b:cost", () => this.cost);
+        this.registerSemanticProperty("dfc-b:endDate", () => this.endDate);
+        this.registerSemanticProperty("dfc-b:startDate", () => this.startDate);
+        this.registerSemanticProperty("dfc-b:hasInput", () => this.hasInput);
+        this.registerSemanticProperty("dfc-b:hasOutput", () => this.hasOutput);
+        this.registerSemanticProperty("dfc-b:transformedBy", () => this.transformedBy);
     }
     static {
         SemanticObject.typeRegistry.set(AsPlannedLocalTransformation.SEMANTIC_TYPE, AsPlannedLocalTransformation);

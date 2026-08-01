@@ -215,6 +215,7 @@ def get_data_properties(g: Graph, skip_properties: set[str] = None) -> dict[str,
             "domain": domains,
             "range": ranges[0] if len(ranges) == 1 else "string",
             "description": description or f"Data property from OWL: {name}",
+            "namespace": _namespace_of(prop),
         }
     return props
 
@@ -239,6 +240,7 @@ def get_object_properties(g: Graph, skip_properties: set[str] = None, skip_class
             "domain": domains,
             "range": ranges[0] if len(ranges) == 1 else "string",
             "description": description or f"Object property from OWL: {name}",
+            "namespace": _namespace_of(prop),
         }
     return props
 
@@ -269,6 +271,16 @@ def _local_name(iri: URIRef) -> Optional[str]:
     return None
 
 
+def _namespace_of(iri: URIRef) -> str:
+    """Extract the namespace base of an IRI (includes trailing # or /)."""
+    iri_str = str(iri)
+    if "#" in iri_str:
+        return iri_str.split("#")[0] + "#"
+    if "/" in iri_str:
+        return iri_str.rsplit("/", 1)[0] + "/"
+    return iri_str
+
+
 def _get_domains(
     g: Graph, prop: URIRef, prop_type: URIRef
 ) -> list[str]:
@@ -277,7 +289,7 @@ def _get_domains(
     for domain_uri in g.objects(prop, RDFS.domain):
         classes = _extract_classes_from_domain(g, domain_uri)
         domains.extend(classes)
-    return list(set(domains))
+    return sorted(set(domains))
 
 
 def _extract_classes_from_domain(g: Graph, domain_node) -> list[str]:
@@ -401,6 +413,12 @@ def build_linkml_schema(
     prefixes = dict(config.get("prefixes", {}))
     if "linkml" not in prefixes:
         prefixes["linkml"] = "https://w3id.org/linkml/"
+
+    # Version the ontology prefixes so predicate URIs resolve to versioned https URLs.
+    for prefix in ("dfc-b", "dfc-t"):
+        base = prefixes.get(prefix)
+        if base and "/v" not in base:
+            prefixes[prefix] = _versioned_ontology_prefix(base, ontology_version)
     
     schema = {
         "id": config.get("id", f"https://example.org/{config.get('name', 'ontology')}"),
@@ -434,6 +452,8 @@ def build_linkml_schema(
             "description": prop_info["description"],
             "range": prop_info["range"],
             "domain": prop_info.get("domain", []),
+            "aliases": [prop_name],
+            "namespace": prop_info.get("namespace", ""),
         }
         slot_definitions[slot_name] = slot_def
 
@@ -445,6 +465,8 @@ def build_linkml_schema(
             "description": prop_info["description"],
             "range": prop_info["range"],
             "domain": prop_info.get("domain", []),
+            "aliases": [prop_name],
+            "namespace": prop_info.get("namespace", ""),
         }
         slot_definitions[slot_name] = slot_def
 
@@ -494,6 +516,20 @@ def _to_snake_case(name: str) -> str:
         "operator_i_d": "operator_id",
     }
     return special_cases.get(name, name)
+
+
+def _versioned_ontology_prefix(base: str, version: str) -> str:
+    """Insert the version segment into an unversioned ontology prefix URL.
+
+    ``https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#`` becomes
+    ``https://w3id.org/dfc/ontology/v{version}/src/DFC_BusinessOntology.owl#``.
+    Returns the original base unchanged if no ``/ontology/`` marker is found.
+    """
+    marker = "/ontology/"
+    if marker in base:
+        head, tail = base.split(marker, 1)
+        return f"{head}{marker}v{version}/{tail}"
+    return base
 
 
 def fix_class_references(schema: dict) -> None:

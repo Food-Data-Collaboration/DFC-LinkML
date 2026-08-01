@@ -27,9 +27,9 @@ module DfcLinkmlConnector
         @output = output
         @transformation_type = transformationType
         self.semanticType = "dfc-b:AsPlannedTransformation"
-        registerSemanticProperty("dfc-b:AsPlannedTransformation:has_input", &method("input")).valueSetter = method("input=")
-        registerSemanticProperty("dfc-b:AsPlannedTransformation:has_output", &method("output")).valueSetter = method("output=")
-        registerSemanticProperty("dfc-b:AsPlannedTransformation:has_transformation_type", &method("transformation_type")).valueSetter = method("transformation_type=")
+        registerSemanticProperty("dfc-b:hasInput", &method("input")).valueSetter = method("input=")
+        registerSemanticProperty("dfc-b:hasOutput", &method("output")).valueSetter = method("output=")
+        registerSemanticProperty("dfc-b:hasTransformationType", &method("transformation_type")).valueSetter = method("transformation_type=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

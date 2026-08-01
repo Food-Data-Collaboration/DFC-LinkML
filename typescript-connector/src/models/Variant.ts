@@ -23,8 +23,8 @@ export class Variant extends DefinedProduct {
     this.isVariantOf = params?.isVariantOf;
     this.hasVariantCaracteristic = params?.hasVariantCaracteristic;
     this.semanticType = Variant.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Variant:is_variant_of", () => this.isVariantOf);
-    this.registerSemanticProperty("dfc-b:Variant:has_variant_caracteristic", () => this.hasVariantCaracteristic);
+    this.registerSemanticProperty("dfc-b:isVariantOf", () => this.isVariantOf);
+    this.registerSemanticProperty("dfc-b:hasVariantCaracteristic", () => this.hasVariantCaracteristic);
   }
   static {
     SemanticObject.typeRegistry.set(Variant.SEMANTIC_TYPE, Variant);

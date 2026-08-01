@@ -46,14 +46,14 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:OpeningHoursSpecification"
-        registerSemanticProperty("dfc-b:OpeningHoursSpecification:day_of_week", &method("day_of_week")).valueSetter = method("day_of_week=")
-        registerSemanticProperty("dfc-b:OpeningHoursSpecification:opens", &method("opens")).valueSetter = method("opens=")
-        registerSemanticProperty("dfc-b:OpeningHoursSpecification:closes", &method("closes")).valueSetter = method("closes=")
-        registerSemanticProperty("dfc-b:OpeningHoursSpecification:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:OpeningHoursSpecification:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:OpeningHoursSpecification:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:OpeningHoursSpecification:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:OpeningHoursSpecification:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("https://schema.org/dayOfWeek", &method("day_of_week")).valueSetter = method("day_of_week=")
+        registerSemanticProperty("https://schema.org/opens", &method("opens")).valueSetter = method("opens=")
+        registerSemanticProperty("dfc-b:closes", &method("closes")).valueSetter = method("closes=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

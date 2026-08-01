@@ -181,6 +181,7 @@ import type { WhoSubjectParams } from "../models/WhoSubject.js";
 export declare class Connector {
     static readonly ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology";
     static readonly TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies";
+    static readonly PREDICATE_MAP: Record<string, string>;
     private static defaultContextUrl;
     static getDefaultContextUrl(): string;
     static setDefaultContextUrl(url: string): void;

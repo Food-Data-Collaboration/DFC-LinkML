@@ -25,9 +25,9 @@ export class TechnicalProduct extends DefinedProduct {
     this.proposedBy = params?.proposedBy;
     this.satisfies = params?.satisfies;
     this.semanticType = TechnicalProduct.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:TechnicalProduct:industrialized_by", () => this.industrializedBy);
-    this.registerSemanticProperty("dfc-b:TechnicalProduct:proposed_by", () => this.proposedBy);
-    this.registerSemanticProperty("dfc-b:TechnicalProduct:satisfies", () => this.satisfies);
+    this.registerSemanticProperty("dfc-b:industrializedBy", () => this.industrializedBy);
+    this.registerSemanticProperty("dfc-b:proposedBy", () => this.proposedBy);
+    this.registerSemanticProperty("dfc-b:satisfies", () => this.satisfies);
   }
   static {
     SemanticObject.typeRegistry.set(TechnicalProduct.SEMANTIC_TYPE, TechnicalProduct);

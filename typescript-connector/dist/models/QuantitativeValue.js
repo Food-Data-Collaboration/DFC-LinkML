@@ -12,8 +12,8 @@ export class QuantitativeValue extends RepresentedThing {
         this.value = params?.value;
         this.hasUnit = params?.hasUnit;
         this.semanticType = QuantitativeValue.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:QuantitativeValue:value", () => this.value);
-        this.registerSemanticProperty("dfc-b:QuantitativeValue:has_unit", () => this.hasUnit);
+        this.registerSemanticProperty("dfc-b:value", () => this.value);
+        this.registerSemanticProperty("dfc-b:hasUnit", () => this.hasUnit);
     }
     static {
         SemanticObject.typeRegistry.set(QuantitativeValue.SEMANTIC_TYPE, QuantitativeValue);

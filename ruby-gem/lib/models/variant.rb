@@ -23,8 +23,8 @@ module DfcLinkmlConnector
         @is_variant_of = isVariantOf
         @variant_caracteristic = variantCaracteristic
         self.semanticType = "dfc-b:Variant"
-        registerSemanticProperty("dfc-b:Variant:is_variant_of", &method("is_variant_of")).valueSetter = method("is_variant_of=")
-        registerSemanticProperty("dfc-b:Variant:has_variant_caracteristic", &method("variant_caracteristic")).valueSetter = method("variant_caracteristic=")
+        registerSemanticProperty("dfc-b:isVariantOf", &method("is_variant_of")).valueSetter = method("is_variant_of=")
+        registerSemanticProperty("dfc-b:hasVariantCaracteristic", &method("variant_caracteristic")).valueSetter = method("variant_caracteristic=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

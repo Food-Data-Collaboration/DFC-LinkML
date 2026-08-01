@@ -19,7 +19,7 @@ module DfcLinkmlConnector
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @hosts = hosts
         self.semanticType = "dfc-b:Place"
-        registerSemanticProperty("dfc-b:Place:hosts", &method("hosts")).valueSetter = method("hosts=")
+        registerSemanticProperty("dfc-b:hosts", &method("hosts")).valueSetter = method("hosts=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -33,12 +33,12 @@ export class Geometry extends SemanticObject {
     this.characteristicOf = params?.characteristicOf;
     this.hasDimension = params?.hasDimension;
     this.semanticType = Geometry.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Geometry:coordinates", () => this.coordinates);
-    this.registerSemanticProperty("dfc-b:Geometry:date", () => this.date);
-    this.registerSemanticProperty("dfc-b:Geometry:description", () => this.description);
-    this.registerSemanticProperty("dfc-b:Geometry:name", () => this.name);
-    this.registerSemanticProperty("dfc-b:Geometry:characteristic_of", () => this.characteristicOf);
-    this.registerSemanticProperty("dfc-b:Geometry:has_dimension", () => this.hasDimension);
+    this.registerSemanticProperty("https://purl.org/geojson/vocab#coordinates", () => this.coordinates);
+    this.registerSemanticProperty("dfc-b:date", () => this.date);
+    this.registerSemanticProperty("dfc-b:description", () => this.description);
+    this.registerSemanticProperty("dfc-b:name", () => this.name);
+    this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+    this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
   }
   static {
     SemanticObject.typeRegistry.set(Geometry.SEMANTIC_TYPE, Geometry);

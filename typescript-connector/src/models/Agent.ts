@@ -52,18 +52,18 @@ export class Agent extends WhoSubject {
     this.requests = params?.requests;
     this.sells = params?.sells;
     this.semanticType = Agent.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Agent:email", () => this.email);
-    this.registerSemanticProperty("dfc-b:Agent:logo", () => this.logo);
-    this.registerSemanticProperty("dfc-b:Agent:website_page", () => this.websitePage);
-    this.registerSemanticProperty("dfc-b:Agent:affiliated_to", () => this.affiliatedTo);
-    this.registerSemanticProperty("dfc-b:Agent:has_address", () => this.hasAddress);
-    this.registerSemanticProperty("dfc-b:Agent:has_phone_number", () => this.hasPhoneNumber);
-    this.registerSemanticProperty("dfc-b:Agent:has_social_media", () => this.hasSocialMedia);
-    this.registerSemanticProperty("dfc-b:Agent:is_member_of", () => this.isMemberOf);
-    this.registerSemanticProperty("dfc-b:Agent:orders", () => this.orders);
-    this.registerSemanticProperty("dfc-b:Agent:owns", () => this.owns);
-    this.registerSemanticProperty("dfc-b:Agent:requests", () => this.requests);
-    this.registerSemanticProperty("dfc-b:Agent:sells", () => this.sells);
+    this.registerSemanticProperty("dfc-b:email", () => this.email);
+    this.registerSemanticProperty("dfc-b:logo", () => this.logo);
+    this.registerSemanticProperty("dfc-b:websitePage", () => this.websitePage);
+    this.registerSemanticProperty("dfc-b:affiliatedTo", () => this.affiliatedTo);
+    this.registerSemanticProperty("dfc-b:hasAddress", () => this.hasAddress);
+    this.registerSemanticProperty("dfc-b:hasPhoneNumber", () => this.hasPhoneNumber);
+    this.registerSemanticProperty("dfc-b:hasSocialMedia", () => this.hasSocialMedia);
+    this.registerSemanticProperty("dfc-b:isMemberOf", () => this.isMemberOf);
+    this.registerSemanticProperty("dfc-b:orders", () => this.orders);
+    this.registerSemanticProperty("dfc-b:owns", () => this.owns);
+    this.registerSemanticProperty("dfc-b:requests", () => this.requests);
+    this.registerSemanticProperty("dfc-b:sells", () => this.sells);
   }
   static {
     SemanticObject.typeRegistry.set(Agent.SEMANTIC_TYPE, Agent);

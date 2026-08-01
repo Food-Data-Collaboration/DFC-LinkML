@@ -38,12 +38,12 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:Geometry"
-        registerSemanticProperty("dfc-b:Geometry:coordinates", &method("coordinates")).valueSetter = method("coordinates=")
-        registerSemanticProperty("dfc-b:Geometry:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:Geometry:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:Geometry:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:Geometry:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:Geometry:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("https://purl.org/geojson/vocab#coordinates", &method("coordinates")).valueSetter = method("coordinates=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

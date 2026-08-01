@@ -198,6 +198,26 @@ def rdf_prefix_for_class(class_name: str) -> str:
     return f'dfc-b:{class_name}'
 
 
+def predicate_for_slot(slot_name: str, slot_data: dict) -> str:
+    """Compute the official JSON-LD predicate CURIE/URI for a slot.
+
+    DFC business/technical ontology properties use the dfc-b/dfc-t prefixes;
+    skos uses the skos prefix; other namespaces fall back to the full URI.
+    """
+    aliases = slot_data.get('aliases') or [slot_name]
+    alias = aliases[0]
+    namespace = slot_data.get('namespace', '')
+    if 'DFC_BusinessOntology' in namespace:
+        return f'dfc-b:{alias}'
+    if 'DFC_TechnicalOntology' in namespace:
+        return f'dfc-t:{alias}'
+    if 'skos/core' in namespace:
+        return f'skos:{alias}'
+    if namespace:
+        return f'{namespace}{alias}'
+    return f'dfc-b:{alias}'
+
+
 def ruby_type_for_slot(slot_data: dict, schema_data: dict) -> str:
     """Determine the Ruby type annotation for a slot."""
     range_type = slot_data.get('range', 'string')
@@ -424,6 +444,11 @@ def generate_connector_class(schema_data: dict) -> str:
 
 '''
 
+    predicate_map_lines = []
+    for slot_name, slot_data in schema_data.get('slots', {}).items():
+        predicate_map_lines.append(f'      "{predicate_for_slot(slot_name, slot_data)}" => "{ruby_property_name(slot_name)}",')
+    predicate_map_str = '\n'.join(predicate_map_lines)
+
     code = '''# frozen_string_literal: true
 
 require 'json'
@@ -444,6 +469,10 @@ module DfcLinkmlConnector
     class Connector
       ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology".freeze
       TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies".freeze
+
+      PREDICATE_MAP = {
+__PREDICATE_MAP__
+      }.freeze
 
       class << self
         def default_context_url
@@ -604,7 +633,15 @@ ENUM_METHODS
       end
 
       def _predicate_to_prop_name(predicate)
-        name = predicate.gsub(/^dfc-b:/, "")
+        return PREDICATE_MAP[predicate] if PREDICATE_MAP.key?(predicate)
+
+        name = predicate.dup
+        if name.include?("#")
+          name = name[(name.rindex("#") + 1)..-1]
+        else
+          colon_index = name.rindex(":")
+          name = name[(colon_index + 1)..-1] if colon_index
+        end
         if name.start_with?("has")
           name = name[3..-1]
         end
@@ -621,6 +658,7 @@ end
     code = code.replace('__ONTOLOGY_VERSION__', ontology_version)
     code = code.replace('__TAXONOMY_VERSION__', taxonomy_version)
     code = code.replace('ENUM_METHODS', enum_methods.rstrip())
+    code = code.replace('__PREDICATE_MAP__', predicate_map_str.rstrip())
     return code
 
 
@@ -668,26 +706,23 @@ module DfcLinkmlConnector
           "@type" => obj.semanticType,
         }
 
-        obj.instance_variables.each do |ivar|
-          next if ivar == :@semanticId || ivar == :@semanticType || ivar == :@semanticProperties
-          value = obj.instance_variable_get(ivar)
+        obj.instance_variable_get(:@semanticProperties).each do |predicate, prop|
+          value = prop.getter.call
           next if value.nil?
-
-          name = ivar.to_s.sub(/^@/, '')
 
           if value.is_a?(Array)
             next if value.empty?
             if value.first.is_a?(SemanticObject)
-              result["dfc-b:#{name}"] = value.map { |v| v.semanticId }
+              result[predicate] = value.map { |v| v.semanticId }
             else
-              result["dfc-b:#{name}"] = value
+              result[predicate] = value
             end
           elsif value.is_a?(SemanticObject)
-            result["dfc-b:#{name}"] = value.semanticId
+            result[predicate] = value.semanticId
           elsif value.is_a?(Numeric)
-            result["dfc-b:#{name}"] = value
+            result[predicate] = value
           else
-            result["dfc-b:#{name}"] = value.to_s
+            result[predicate] = value.to_s
           end
         end
 
@@ -826,7 +861,7 @@ module DfcLinkmlConnector
         else:
             all_params.append(f'{param_name}: nil')
             assignments.append(f'        @{prop_name} = {param_name}')
-        registrations.append(f'        registerSemanticProperty("{semantic_type}:{slot_name}", &method("{prop_name}")).valueSetter = method("{prop_name}=")')
+        registrations.append(f'        registerSemanticProperty("{predicate_for_slot(slot_name, slot_data)}", &method("{prop_name}")).valueSetter = method("{prop_name}=")')
 
     params_str = ', '.join(all_params)
     assignments_str = '\n'.join(assignments)

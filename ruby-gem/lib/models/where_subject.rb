@@ -34,11 +34,11 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:Where_Subject"
-        registerSemanticProperty("dfc-b:Where_Subject:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:Where_Subject:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:Where_Subject:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:Where_Subject:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:Where_Subject:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

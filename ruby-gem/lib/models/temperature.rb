@@ -19,7 +19,7 @@ module DfcLinkmlConnector
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, value: value, unit: unit)
         @is_temperature_of = isTemperatureOf
         self.semanticType = "dfc-b:Temperature"
-        registerSemanticProperty("dfc-b:Temperature:is_temperature_of", &method("is_temperature_of")).valueSetter = method("is_temperature_of=")
+        registerSemanticProperty("dfc-b:isTemperatureOf", &method("is_temperature_of")).valueSetter = method("is_temperature_of=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

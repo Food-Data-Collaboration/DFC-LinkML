@@ -27,9 +27,9 @@ module DfcLinkmlConnector
         @member = member
         @offer = offer
         self.semanticType = "dfc-b:CustomerCategory"
-        registerSemanticProperty("dfc-b:CustomerCategory:defined_by", &method("defined_by")).valueSetter = method("defined_by=")
-        registerSemanticProperty("dfc-b:CustomerCategory:has_member", &method("member")).valueSetter = method("member=")
-        registerSemanticProperty("dfc-b:CustomerCategory:has_offer", &method("offer")).valueSetter = method("offer=")
+        registerSemanticProperty("dfc-b:definedBy", &method("defined_by")).valueSetter = method("defined_by=")
+        registerSemanticProperty("dfc-b:hasMember", &method("member")).valueSetter = method("member=")
+        registerSemanticProperty("dfc-b:hasOffer", &method("offer")).valueSetter = method("offer=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -28,10 +28,10 @@ export class Certfication extends WhatSubject {
     this.operatorId = params?.operatorId;
     this.certifies = params?.certifies;
     this.semanticType = Certfication.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Certfication:certifer_reference", () => this.certiferReference);
-    this.registerSemanticProperty("dfc-b:Certfication:certification_score", () => this.certificationScore);
-    this.registerSemanticProperty("dfc-b:Certfication:operator_id", () => this.operatorId);
-    this.registerSemanticProperty("dfc-b:Certfication:certifies", () => this.certifies);
+    this.registerSemanticProperty("dfc-b:certiferReference", () => this.certiferReference);
+    this.registerSemanticProperty("dfc-b:certificationScore", () => this.certificationScore);
+    this.registerSemanticProperty("dfc-b:operatorId", () => this.operatorId);
+    this.registerSemanticProperty("dfc-b:certifies", () => this.certifies);
   }
   static {
     SemanticObject.typeRegistry.set(Certfication.SEMANTIC_TYPE, Certfication);

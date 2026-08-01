@@ -27,9 +27,9 @@ module DfcLinkmlConnector
         @proposed_by = proposedBy
         @satisfies = satisfies
         self.semanticType = "dfc-b:TechnicalProduct"
-        registerSemanticProperty("dfc-b:TechnicalProduct:industrialized_by", &method("industrialized_by")).valueSetter = method("industrialized_by=")
-        registerSemanticProperty("dfc-b:TechnicalProduct:proposed_by", &method("proposed_by")).valueSetter = method("proposed_by=")
-        registerSemanticProperty("dfc-b:TechnicalProduct:satisfies", &method("satisfies")).valueSetter = method("satisfies=")
+        registerSemanticProperty("dfc-b:industrializedBy", &method("industrialized_by")).valueSetter = method("industrialized_by=")
+        registerSemanticProperty("dfc-b:proposedBy", &method("proposed_by")).valueSetter = method("proposed_by=")
+        registerSemanticProperty("dfc-b:satisfies", &method("satisfies")).valueSetter = method("satisfies=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

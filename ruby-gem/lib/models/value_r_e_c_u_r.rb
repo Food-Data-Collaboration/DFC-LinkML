@@ -50,15 +50,15 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:Value_RECUR"
-        registerSemanticProperty("dfc-b:Value_RECUR:byday", &method("byday")).valueSetter = method("byday=")
-        registerSemanticProperty("dfc-b:Value_RECUR:bymonth", &method("bymonth")).valueSetter = method("bymonth=")
-        registerSemanticProperty("dfc-b:Value_RECUR:freq", &method("freq")).valueSetter = method("freq=")
-        registerSemanticProperty("dfc-b:Value_RECUR:interval", &method("interval")).valueSetter = method("interval=")
-        registerSemanticProperty("dfc-b:Value_RECUR:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:Value_RECUR:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:Value_RECUR:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:Value_RECUR:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:Value_RECUR:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#byday", &method("byday")).valueSetter = method("byday=")
+        registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#bymonth", &method("bymonth")).valueSetter = method("bymonth=")
+        registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#freq", &method("freq")).valueSetter = method("freq=")
+        registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#interval", &method("interval")).valueSetter = method("interval=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

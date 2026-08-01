@@ -23,8 +23,8 @@ module DfcLinkmlConnector
         @website_page = websitePage
         @social_media_of = socialMediaOf
         self.semanticType = "dfc-b:SocialMedia"
-        registerSemanticProperty("dfc-b:SocialMedia:website_page", &method("website_page")).valueSetter = method("website_page=")
-        registerSemanticProperty("dfc-b:SocialMedia:social_media_of", &method("social_media_of")).valueSetter = method("social_media_of=")
+        registerSemanticProperty("dfc-b:websitePage", &method("website_page")).valueSetter = method("website_page=")
+        registerSemanticProperty("dfc-b:socialMediaOf", &method("social_media_of")).valueSetter = method("social_media_of=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

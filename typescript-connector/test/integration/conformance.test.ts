@@ -100,13 +100,13 @@ describe("Integration: conformance", () => {
           {
             "@id": "http://example.com/org1",
             "@type": "dfc-b:Organization",
-            "dfc-b:Who_Subject:name": "Farm Org",
-            "dfc-b:Organization:is_certified_by": { "@id": "http://example.com/org2" },
+            "dfc-b:name": "Farm Org",
+            "dfc-b:isCertifiedBy": { "@id": "http://example.com/org2" },
           },
           {
             "@id": "http://example.com/org2",
             "@type": "dfc-b:Organization",
-            "dfc-b:Who_Subject:name": "Certifier",
+            "dfc-b:name": "Certifier",
           },
         ],
       };
@@ -126,13 +126,13 @@ describe("Integration: conformance", () => {
           {
             "@id": "_:order1",
             "@type": "dfc-b:Order",
-            "dfc-b:Order:order_number": "ORD-001",
-            "dfc-b:Order:has_part": { "@id": "_:line1" },
+            "dfc-b:orderNumber": "ORD-001",
+            "dfc-b:hasPart": { "@id": "_:line1" },
           },
           {
             "@id": "_:line1",
             "@type": "dfc-b:OrderLine",
-            "dfc-b:OrderLine:quantity": 5,
+            "dfc-b:quantity": 5,
           },
         ],
       };
@@ -177,7 +177,7 @@ describe("Integration: conformance", () => {
       const parsed = JSON.parse(exported) as Record<string, unknown>;
       const graph = parsed["@graph"] as Record<string, unknown>[];
       const entry = graph.find(e => e["@id"] === "http://example.com/org1") as Record<string, unknown>;
-      const predicateKey = Object.keys(entry).find(k => k.includes("is_certified_by"))!;
+      const predicateKey = Object.keys(entry).find(k => k.includes("isCertifiedBy"))!;
       expect(entry[predicateKey]).toEqual({ "@id": "http://example.com/org2" });
     });
   });

@@ -64,7 +64,8 @@ scripts/generate_ruby_gem.py              →  ruby-gem/lib/models/
 ### Generator logic
 - **Constructor param forwarding**: child class constructors **must** forward `params` to parent: `super(semanticId, params)`, not just `super(semanticId)`. Without this, ancestor properties are never set.
 - **Orphaned-domain slots**: slots whose `domain` references classes not in the schema must be assigned to all root classes (classes with no `is_a`) so they propagate through inheritance.
-- **JSON-LD predicate keys**: each property registers with the **owner class's** namespace, not the leaf class.
+- **JSON-LD predicate keys**: each slot registers the **official OWL predicate** (`dfc-b:{alias}` from `slot.aliases`, e.g. `dfc-b:VATnumber`), NOT `dfc-b:{Class}:{snake_case}`. Edge namespaces use `dfc-t:`/`skos:` or full URIs via `predicate_for_slot()`.
+- **Import reverse map**: `predicateToPropName`/`_predicate_to_prop_name` consult a generated `PREDICATE_MAP` (predicate → propName) before the local-name fallback. Both TS and Ruby generate this map from slot aliases and must stay in sync.
 - **Import returns**: single object when `@graph` has one entry, not an array. `Array.isArray(result)` is false for single-object imports.
 
 ## Reference

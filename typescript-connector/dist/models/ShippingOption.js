@@ -22,13 +22,13 @@ export class ShippingOption extends HowSubject {
         this.selectedBy = params?.selectedBy;
         this.hasQuantity = params?.hasQuantity;
         this.semanticType = ShippingOption.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:ShippingOption:end_date", () => this.endDate);
-        this.registerSemanticProperty("dfc-b:ShippingOption:fee", () => this.fee);
-        this.registerSemanticProperty("dfc-b:ShippingOption:quantity", () => this.quantity);
-        this.registerSemanticProperty("dfc-b:ShippingOption:start_date", () => this.startDate);
-        this.registerSemanticProperty("dfc-b:ShippingOption:option_of", () => this.optionOf);
-        this.registerSemanticProperty("dfc-b:ShippingOption:selected_by", () => this.selectedBy);
-        this.registerSemanticProperty("dfc-b:ShippingOption:has_quantity", () => this.hasQuantity);
+        this.registerSemanticProperty("dfc-b:endDate", () => this.endDate);
+        this.registerSemanticProperty("dfc-b:fee", () => this.fee);
+        this.registerSemanticProperty("dfc-b:quantity", () => this.quantity);
+        this.registerSemanticProperty("dfc-b:startDate", () => this.startDate);
+        this.registerSemanticProperty("dfc-b:optionOf", () => this.optionOf);
+        this.registerSemanticProperty("dfc-b:selectedBy", () => this.selectedBy);
+        this.registerSemanticProperty("dfc-b:hasQuantity", () => this.hasQuantity);
     }
     static {
         SemanticObject.typeRegistry.set(ShippingOption.SEMANTIC_TYPE, ShippingOption);

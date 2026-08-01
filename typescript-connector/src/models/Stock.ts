@@ -43,15 +43,15 @@ export class Stock extends SemanticObject {
     this.hasDimension = params?.hasDimension;
     this.hasQuantity = params?.hasQuantity;
     this.semanticType = Stock.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Stock:availability_date", () => this.availabilityDate);
-    this.registerSemanticProperty("dfc-b:Stock:quantity", () => this.quantity);
-    this.registerSemanticProperty("dfc-b:Stock:transported_by", () => this.transportedBy);
-    this.registerSemanticProperty("dfc-b:Stock:date", () => this.date);
-    this.registerSemanticProperty("dfc-b:Stock:description", () => this.description);
-    this.registerSemanticProperty("dfc-b:Stock:name", () => this.name);
-    this.registerSemanticProperty("dfc-b:Stock:characteristic_of", () => this.characteristicOf);
-    this.registerSemanticProperty("dfc-b:Stock:has_dimension", () => this.hasDimension);
-    this.registerSemanticProperty("dfc-b:Stock:has_quantity", () => this.hasQuantity);
+    this.registerSemanticProperty("dfc-b:availabilityDate", () => this.availabilityDate);
+    this.registerSemanticProperty("dfc-b:quantity", () => this.quantity);
+    this.registerSemanticProperty("dfc-b:transportedBy", () => this.transportedBy);
+    this.registerSemanticProperty("dfc-b:date", () => this.date);
+    this.registerSemanticProperty("dfc-b:description", () => this.description);
+    this.registerSemanticProperty("dfc-b:name", () => this.name);
+    this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+    this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
+    this.registerSemanticProperty("dfc-b:hasQuantity", () => this.hasQuantity);
   }
   static {
     SemanticObject.typeRegistry.set(Stock.SEMANTIC_TYPE, Stock);

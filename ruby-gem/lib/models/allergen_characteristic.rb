@@ -42,13 +42,13 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:AllergenCharacteristic"
-        registerSemanticProperty("dfc-b:AllergenCharacteristic:allergen_characteristic_of", &method("allergen_characteristic_of")).valueSetter = method("allergen_characteristic_of=")
-        registerSemanticProperty("dfc-b:AllergenCharacteristic:has_allergen_dimension", &method("allergen_dimension")).valueSetter = method("allergen_dimension=")
-        registerSemanticProperty("dfc-b:AllergenCharacteristic:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:AllergenCharacteristic:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:AllergenCharacteristic:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:AllergenCharacteristic:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:AllergenCharacteristic:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:allergenCharacteristicOf", &method("allergen_characteristic_of")).valueSetter = method("allergen_characteristic_of=")
+        registerSemanticProperty("dfc-b:hasAllergenDimension", &method("allergen_dimension")).valueSetter = method("allergen_dimension=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

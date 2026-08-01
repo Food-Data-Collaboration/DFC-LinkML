@@ -42,13 +42,13 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:TemplateSaleSession"
-        registerSemanticProperty("dfc-b:TemplateSaleSession:hosted_at", &method("hosted_at")).valueSetter = method("hosted_at=")
-        registerSemanticProperty("dfc-b:TemplateSaleSession:is_template_sale_session_of", &method("is_template_sale_session_of")).valueSetter = method("is_template_sale_session_of=")
-        registerSemanticProperty("dfc-b:TemplateSaleSession:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:TemplateSaleSession:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:TemplateSaleSession:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:TemplateSaleSession:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:TemplateSaleSession:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:hostedAt", &method("hosted_at")).valueSetter = method("hosted_at=")
+        registerSemanticProperty("dfc-b:isTemplateSaleSessionOf", &method("is_template_sale_session_of")).valueSetter = method("is_template_sale_session_of=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

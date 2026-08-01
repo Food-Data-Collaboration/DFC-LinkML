@@ -23,8 +23,8 @@ module DfcLinkmlConnector
         @value = value
         @unit = unit
         self.semanticType = "dfc-b:QuantitativeValue"
-        registerSemanticProperty("dfc-b:QuantitativeValue:value", &method("value")).valueSetter = method("value=")
-        registerSemanticProperty("dfc-b:QuantitativeValue:has_unit", &method("unit")).valueSetter = method("unit=")
+        registerSemanticProperty("dfc-b:value", &method("value")).valueSetter = method("value=")
+        registerSemanticProperty("dfc-b:hasUnit", &method("unit")).valueSetter = method("unit=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

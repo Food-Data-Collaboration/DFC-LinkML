@@ -31,10 +31,10 @@ module DfcLinkmlConnector
         @price = price
         @paid_with = paidWith
         self.semanticType = "dfc-b:PaymentMethod"
-        registerSemanticProperty("dfc-b:PaymentMethod:payment_method_provider", &method("payment_method_provider")).valueSetter = method("payment_method_provider=")
-        registerSemanticProperty("dfc-b:PaymentMethod:payment_method_type", &method("payment_method_type")).valueSetter = method("payment_method_type=")
-        registerSemanticProperty("dfc-b:PaymentMethod:has_price", &method("price")).valueSetter = method("price=")
-        registerSemanticProperty("dfc-b:PaymentMethod:paid_with", &method("paid_with")).valueSetter = method("paid_with=")
+        registerSemanticProperty("dfc-b:paymentMethodProvider", &method("payment_method_provider")).valueSetter = method("payment_method_provider=")
+        registerSemanticProperty("dfc-b:paymentMethodType", &method("payment_method_type")).valueSetter = method("payment_method_type=")
+        registerSemanticProperty("dfc-b:hasPrice", &method("price")).valueSetter = method("price=")
+        registerSemanticProperty("dfc-b:paidWith", &method("paid_with")).valueSetter = method("paid_with=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

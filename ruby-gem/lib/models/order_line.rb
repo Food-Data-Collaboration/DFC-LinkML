@@ -58,17 +58,17 @@ module DfcLinkmlConnector
         @characteristic_of = characteristicOf
         @dimension = dimension
         self.semanticType = "dfc-b:OrderLine"
-        registerSemanticProperty("dfc-b:OrderLine:discount", &method("discount")).valueSetter = method("discount=")
-        registerSemanticProperty("dfc-b:OrderLine:quantity", &method("quantity")).valueSetter = method("quantity=")
-        registerSemanticProperty("dfc-b:OrderLine:concerns", &method("concerns")).valueSetter = method("concerns=")
-        registerSemanticProperty("dfc-b:OrderLine:has_price", &method("price")).valueSetter = method("price=")
-        registerSemanticProperty("dfc-b:OrderLine:is_fulfilled_by", &method("is_fulfilled_by")).valueSetter = method("is_fulfilled_by=")
-        registerSemanticProperty("dfc-b:OrderLine:part_of", &method("part_of")).valueSetter = method("part_of=")
-        registerSemanticProperty("dfc-b:OrderLine:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:OrderLine:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:OrderLine:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:OrderLine:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:OrderLine:has_dimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:discount", &method("discount")).valueSetter = method("discount=")
+        registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
+        registerSemanticProperty("dfc-b:concerns", &method("concerns")).valueSetter = method("concerns=")
+        registerSemanticProperty("dfc-b:hasPrice", &method("price")).valueSetter = method("price=")
+        registerSemanticProperty("dfc-b:isFulfilledBy", &method("is_fulfilled_by")).valueSetter = method("is_fulfilled_by=")
+        registerSemanticProperty("dfc-b:partOf", &method("part_of")).valueSetter = method("part_of=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

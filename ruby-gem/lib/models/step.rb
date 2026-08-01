@@ -35,11 +35,11 @@ module DfcLinkmlConnector
         @delivery = delivery
         @pick_up = pickUp
         self.semanticType = "dfc-b:Step"
-        registerSemanticProperty("dfc-b:Step:arrival_date", &method("arrival_date")).valueSetter = method("arrival_date=")
-        registerSemanticProperty("dfc-b:Step:duration", &method("duration")).valueSetter = method("duration=")
-        registerSemanticProperty("dfc-b:Step:is_step_of", &method("is_step_of")).valueSetter = method("is_step_of=")
-        registerSemanticProperty("dfc-b:Step:delivery", &method("delivery")).valueSetter = method("delivery=")
-        registerSemanticProperty("dfc-b:Step:pick_up", &method("pick_up")).valueSetter = method("pick_up=")
+        registerSemanticProperty("dfc-b:arrivalDate", &method("arrival_date")).valueSetter = method("arrival_date=")
+        registerSemanticProperty("dfc-b:duration", &method("duration")).valueSetter = method("duration=")
+        registerSemanticProperty("dfc-b:isStepOf", &method("is_step_of")).valueSetter = method("is_step_of=")
+        registerSemanticProperty("dfc-b:delivery", &method("delivery")).valueSetter = method("delivery=")
+        registerSemanticProperty("dfc-b:pickUp", &method("pick_up")).valueSetter = method("pick_up=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

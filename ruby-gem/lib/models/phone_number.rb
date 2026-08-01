@@ -27,9 +27,9 @@ module DfcLinkmlConnector
         @phone_number = phoneNumber
         @phone_number_of = phoneNumberOf
         self.semanticType = "dfc-b:PhoneNumber"
-        registerSemanticProperty("dfc-b:PhoneNumber:country_code", &method("country_code")).valueSetter = method("country_code=")
-        registerSemanticProperty("dfc-b:PhoneNumber:phone_number", &method("phone_number")).valueSetter = method("phone_number=")
-        registerSemanticProperty("dfc-b:PhoneNumber:phone_number_of", &method("phone_number_of")).valueSetter = method("phone_number_of=")
+        registerSemanticProperty("dfc-b:countryCode", &method("country_code")).valueSetter = method("country_code=")
+        registerSemanticProperty("dfc-b:phoneNumber", &method("phone_number")).valueSetter = method("phone_number=")
+        registerSemanticProperty("dfc-b:phoneNumberOf", &method("phone_number_of")).valueSetter = method("phone_number_of=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

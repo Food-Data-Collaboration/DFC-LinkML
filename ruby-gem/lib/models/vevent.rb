@@ -46,14 +46,14 @@ module DfcLinkmlConnector
         @dimension = dimension
         @rrule = rrule
         self.semanticType = "dfc-b:Vevent"
-        registerSemanticProperty("dfc-b:Vevent:dtend", &method("dtend")).valueSetter = method("dtend=")
-        registerSemanticProperty("dfc-b:Vevent:dtstart", &method("dtstart")).valueSetter = method("dtstart=")
-        registerSemanticProperty("dfc-b:Vevent:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:Vevent:description", &method("description")).valueSetter = method("description=")
-        registerSemanticProperty("dfc-b:Vevent:name", &method("name")).valueSetter = method("name=")
-        registerSemanticProperty("dfc-b:Vevent:characteristic_of", &method("characteristic_of")).valueSetter = method("characteristic_of=")
-        registerSemanticProperty("dfc-b:Vevent:has_dimension", &method("dimension")).valueSetter = method("dimension=")
-        registerSemanticProperty("dfc-b:Vevent:rrule", &method("rrule")).valueSetter = method("rrule=")
+        registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#dtend", &method("dtend")).valueSetter = method("dtend=")
+        registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#dtstart", &method("dtstart")).valueSetter = method("dtstart=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#rrule", &method("rrule")).valueSetter = method("rrule=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

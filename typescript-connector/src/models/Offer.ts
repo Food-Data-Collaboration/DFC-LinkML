@@ -51,18 +51,18 @@ export class Offer extends SemanticObject {
     this.characteristicOf = params?.characteristicOf;
     this.hasDimension = params?.hasDimension;
     this.semanticType = Offer.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Offer:discount", () => this.discount);
-    this.registerSemanticProperty("dfc-b:Offer:stock_limitation", () => this.stockLimitation);
-    this.registerSemanticProperty("dfc-b:Offer:concerned_by", () => this.concernedBy);
-    this.registerSemanticProperty("dfc-b:Offer:has_price", () => this.hasPrice);
-    this.registerSemanticProperty("dfc-b:Offer:listed_in", () => this.listedIn);
-    this.registerSemanticProperty("dfc-b:Offer:offers", () => this.offers);
-    this.registerSemanticProperty("dfc-b:Offer:offers_to", () => this.offersTo);
-    this.registerSemanticProperty("dfc-b:Offer:date", () => this.date);
-    this.registerSemanticProperty("dfc-b:Offer:description", () => this.description);
-    this.registerSemanticProperty("dfc-b:Offer:name", () => this.name);
-    this.registerSemanticProperty("dfc-b:Offer:characteristic_of", () => this.characteristicOf);
-    this.registerSemanticProperty("dfc-b:Offer:has_dimension", () => this.hasDimension);
+    this.registerSemanticProperty("dfc-b:discount", () => this.discount);
+    this.registerSemanticProperty("dfc-b:stockLimitation", () => this.stockLimitation);
+    this.registerSemanticProperty("dfc-b:concernedBy", () => this.concernedBy);
+    this.registerSemanticProperty("dfc-b:hasPrice", () => this.hasPrice);
+    this.registerSemanticProperty("dfc-b:listedIn", () => this.listedIn);
+    this.registerSemanticProperty("dfc-b:offers", () => this.offers);
+    this.registerSemanticProperty("dfc-b:offersTo", () => this.offersTo);
+    this.registerSemanticProperty("dfc-b:date", () => this.date);
+    this.registerSemanticProperty("dfc-b:description", () => this.description);
+    this.registerSemanticProperty("dfc-b:name", () => this.name);
+    this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+    this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
   }
   static {
     SemanticObject.typeRegistry.set(Offer.SEMANTIC_TYPE, Offer);

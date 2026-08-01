@@ -31,10 +31,10 @@ module DfcLinkmlConnector
         @operator_id = operatorId
         @certifies = certifies
         self.semanticType = "dfc-b:Certfication"
-        registerSemanticProperty("dfc-b:Certfication:certifer_reference", &method("certifer_reference")).valueSetter = method("certifer_reference=")
-        registerSemanticProperty("dfc-b:Certfication:certification_score", &method("certification_score")).valueSetter = method("certification_score=")
-        registerSemanticProperty("dfc-b:Certfication:operator_id", &method("operator_id")).valueSetter = method("operator_id=")
-        registerSemanticProperty("dfc-b:Certfication:certifies", &method("certifies")).valueSetter = method("certifies=")
+        registerSemanticProperty("dfc-b:certiferReference", &method("certifer_reference")).valueSetter = method("certifer_reference=")
+        registerSemanticProperty("dfc-b:certificationScore", &method("certification_score")).valueSetter = method("certification_score=")
+        registerSemanticProperty("dfc-b:operatorId", &method("operator_id")).valueSetter = method("operator_id=")
+        registerSemanticProperty("dfc-b:certifies", &method("certifies")).valueSetter = method("certifies=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

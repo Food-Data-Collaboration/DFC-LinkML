@@ -19,7 +19,7 @@ module DfcLinkmlConnector
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @reference_product_option_value = referenceProductOptionValue
         self.semanticType = "dfc-b:ProductOption"
-        registerSemanticProperty("dfc-b:ProductOption:has_reference_product_option_value", &method("reference_product_option_value")).valueSetter = method("reference_product_option_value=")
+        registerSemanticProperty("dfc-b:hasReferenceProductOptionValue", &method("reference_product_option_value")).valueSetter = method("reference_product_option_value=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
