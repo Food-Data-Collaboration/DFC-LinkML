@@ -41,6 +41,7 @@ scripts/generate_ruby_gem.py              →  ruby-gem/lib/models/
 
 - `src/` contains the authoritative LinkML YAML schemas. Version `v2.0.0` is current.
 - `typescript-connector/src/` and `ruby-gem/lib/` are fully generated; `package.json`, `tsconfig.json`, `*.gemspec` are static.
+- **Regeneration preserves bundled files** (safe to run any time): TS keeps `src/context/` + `src/taxonomies/`, Ruby keeps `contexts/` + `vocabularies/` + `spec/`. These are hand-maintained SKOS/JSON-LD exports, not schema-derived, but the generated core imports them at build/runtime. If you add new bundled files, ensure the generators' preservation lists (and the Ruby `gemspec` `spec.files`) include them.
 
 ## Conventions
 

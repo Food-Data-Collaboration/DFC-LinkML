@@ -273,6 +273,15 @@ def generate_semantic_object_base() -> str:
     this.semanticProperties.set(predicate, getter);
   }
 
+  getRegisteredPredicates(): string[] {
+    return [...this.semanticProperties.keys()];
+  }
+
+  getRegisteredValue(predicate: string): unknown {
+    const getter = this.semanticProperties.get(predicate);
+    return getter ? getter() : undefined;
+  }
+
   toJsonLd(context?: unknown): Record<string, unknown> {
     const result: Record<string, unknown> = {
       "@id": this.semanticId,
@@ -353,13 +362,41 @@ def generate_vocabulary_loader(schema_data: dict) -> str:
   }}
 '''
 
-    return f'''export class VocabularyLoader {{
+    return f'''import bundledFacet from "../taxonomies/facet.js";
+import bundledMeasure from "../taxonomies/measure.js";
+import bundledProductType from "../taxonomies/product_type.js";
+import bundledScope from "../taxonomies/scope.js";
+import bundledVocabularyTerm from "../taxonomies/vocabulary_term.js";
+
+export class VocabularyLoader {{
+  private static readonly BUNDLED: Record<string, Record<string, unknown>> = {{
+    Facet: bundledFacet as Record<string, unknown>,
+    Measure: bundledMeasure as Record<string, unknown>,
+    ProductType: bundledProductType as Record<string, unknown>,
+    Scope: bundledScope as Record<string, unknown>,
+    VocabularyTerm: bundledVocabularyTerm as Record<string, unknown>,
+  }};
+
   private taxonomyVersion: string;
+  private ontologyVersion: string;
   private vocabularies: Map<string, Record<string, unknown>>;
 
-  constructor(taxonomyVersion: string = "{taxonomy_version}") {{
+  constructor(taxonomyVersion: string = "{taxonomy_version}", ontologyVersion: string = "{taxonomy_version}") {{
     this.taxonomyVersion = taxonomyVersion;
+    this.ontologyVersion = ontologyVersion;
     this.vocabularies = new Map();
+    this.loadBundled();
+  }}
+
+  loadBundled(): this {{
+    for (const [name, data] of Object.entries(VocabularyLoader.BUNDLED)) {{
+      this.load(name, data);
+    }}
+    return this;
+  }}
+
+  bundledData(name: string): Record<string, unknown> {{
+    return VocabularyLoader.BUNDLED[name] || {{}};
   }}
 
   get taxonomyBaseUrl(): string {{
@@ -394,7 +431,9 @@ def generate_vocabulary_loader(schema_data: dict) -> str:
 
   async loadFromUrl(name: string): Promise<this> {{
     const url = `${{this.taxonomyBaseUrl}}/${{name.toLowerCase()}}.json`;
-    const response = await fetch(url);
+    const response = await fetch(url, {{
+      headers: {{ "dfc-version": this.ontologyVersion }},
+    }});
     if (!response.ok) {{
       throw new Error(`Failed to fetch taxonomy from ${{url}}: ${{response.status}}`);
     }}
@@ -466,7 +505,8 @@ def generate_connector_class(schema_data: dict) -> str:
     return f'''import {{ SemanticObject }} from "./SemanticObject.js";
 import {{ VocabularyLoader }} from "./VocabularyLoader.js";
 import {{ JsonLdSerializer }} from "./JsonLdSerializer.js";
-import * as jsonld from "jsonld";
+import jsonld from "jsonld";
+import bundledContextV200 from "../context/context_2.0.0.js";
 {model_imports_str}
 {type_imports_str}
 
@@ -500,18 +540,42 @@ export class Connector {{
   constructor(params: {{ ontologyVersion?: string; taxonomyVersion?: string }} = {{}}) {{
     this.ontologyVersion = params.ontologyVersion ?? "{ontology_version}";
     this.taxonomyVersion = params.taxonomyVersion ?? "{taxonomy_version}";
-    this.vocabLoader = new VocabularyLoader(this.taxonomyVersion);
+    this.vocabLoader = new VocabularyLoader(this.taxonomyVersion, this.ontologyVersion);
+    this.loadBundledTaxonomies();
+  }}
+
+  loadBundledTaxonomies(): this {{
+    this.loadFacets(this.vocabLoader.bundledData("Facet"));
+    this.loadMeasures(this.vocabLoader.bundledData("Measure"));
+    this.loadProductTypes(this.vocabLoader.bundledData("ProductType"));
+    this.loadVocabulary("Scope", this.vocabLoader.bundledData("Scope"));
+    this.loadVocabulary("VocabularyTerm", this.vocabLoader.bundledData("VocabularyTerm"));
+    return this;
   }}
 
   get contextUrl(): string {{
-    return `${{Connector.ONTOLOGY_BASE_URL}}/v$this.ontologyVersion/context/context_${{this.ontologyVersion}}.json`;
+    return `${{Connector.ONTOLOGY_BASE_URL}}/v${{this.ontologyVersion}}/context/context_${{this.ontologyVersion}}.json`;
   }}
 
   async getContext(): Promise<Record<string, unknown>> {{
     if (!this.contextCache) {{
-      this.contextCache = await this.fetchContext();
+      const bundled = this.loadBundledContext();
+      if (bundled) {{
+        this.contextCache = bundled;
+      }} else {{
+        this.contextCache = await this.fetchContext();
+      }}
     }}
     return this.contextCache;
+  }}
+
+  // Returns the JSON-LD context shipped with the connector for the current
+  // ontology version, or null so the caller falls back to the network.
+  loadBundledContext(): Record<string, unknown> | null {{
+    if (this.ontologyVersion === "2.0.0") {{
+      return bundledContextV200 as unknown as Record<string, unknown>;
+    }}
+    return null;
   }}
 
   loadFacets(jsonData: Record<string, unknown>): this {{
@@ -641,7 +705,9 @@ export class Connector {{
 {enum_methods}
 {factory_methods}
   private async fetchContext(): Promise<Record<string, unknown>> {{
-    const response = await fetch(this.contextUrl);
+    const response = await fetch(this.contextUrl, {{
+      headers: {{ "dfc-version": this.ontologyVersion }},
+    }});
     if (!response.ok) {{
       throw new Error(`Failed to fetch context from ${{this.contextUrl}}: ${{response.status}}`);
     }}
@@ -883,6 +949,20 @@ def main():
     output_dir = Path(args.output) if args.output else Path("typescript-connector")
     src_dir = output_dir / 'src'
 
+    # Preserve bundled context/taxonomy files (src/context/, src/taxonomies/)
+    # across regeneration. They are hand-maintained SKOS exports / JSON-LD
+    # contexts, not produced from the LinkML schema, but generated core files
+    # import them at build time.
+    preserved_bundled = {}
+    if src_dir.exists():
+        for sub in ('context', 'taxonomies'):
+            base = src_dir / sub
+            if base.exists():
+                for f in base.glob('*'):
+                    if f.is_file():
+                        rel = f.relative_to(src_dir)
+                        preserved_bundled[str(rel)] = f.read_text(encoding='utf-8')
+
     # Only clean src/ directory, preserve static files (package.json, tsconfig.json, etc.)
     if src_dir.exists():
         import shutil
@@ -927,6 +1007,14 @@ def main():
 
     (src_dir / 'index.ts').write_text(generate_main_entry_point(schema_data))
     print("  - src/index.ts", file=sys.stderr)
+
+    print("\nRestoring bundled files...", file=sys.stderr)
+    if preserved_bundled:
+        for rel, content in sorted(preserved_bundled.items()):
+            target = src_dir / rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(content, encoding='utf-8')
+        print(f"  - {len(preserved_bundled)} bundled files preserved (context + taxonomies)", file=sys.stderr)
 
     print(f"\nTypeScript connector generated in: {output_dir}/", file=sys.stderr)
     print(f"To build: cd {output_dir} && npm install && npm run build", file=sys.stderr)
