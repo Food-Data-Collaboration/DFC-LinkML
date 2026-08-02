@@ -512,7 +512,7 @@ describe("Import/Export extended", () => {
     expect(order.hasPart).toBe(line);
   });
 
-  it("exports SemanticObject references as @id-wrapped objects", async () => {
+  it("exports SemanticObject references as compacted IRI strings", async () => {
     const c = new Connector();
     const org2 = c.createOrganization("http://example.com/org2", { name: "Certifier" });
     const org1 = c.createOrganization("http://example.com/org1", { name: "Farm Org" });
@@ -521,7 +521,7 @@ describe("Import/Export extended", () => {
     const parsed = JSON.parse(exported) as Record<string, unknown>;
     const graph = parsed["@graph"] as Record<string, unknown>[];
     const entry = graph.find(e => e["@id"] === "http://example.com/org1") as Record<string, unknown>;
-    expect(entry["dfc-b:isCertifiedBy"]).toEqual({ "@id": "http://example.com/org2" });
+    expect(entry["dfc-b:isCertifiedBy"]).toBe("http://example.com/org2");
   });
 
   it("round-trips @id-wrapped references correctly", async () => {

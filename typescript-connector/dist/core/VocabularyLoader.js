@@ -1,9 +1,33 @@
+import bundledFacet from "../taxonomies/facet.js";
+import bundledMeasure from "../taxonomies/measure.js";
+import bundledProductType from "../taxonomies/product_type.js";
+import bundledScope from "../taxonomies/scope.js";
+import bundledVocabularyTerm from "../taxonomies/vocabulary_term.js";
 export class VocabularyLoader {
+    static BUNDLED = {
+        Facet: bundledFacet,
+        Measure: bundledMeasure,
+        ProductType: bundledProductType,
+        Scope: bundledScope,
+        VocabularyTerm: bundledVocabularyTerm,
+    };
     taxonomyVersion;
+    ontologyVersion;
     vocabularies;
-    constructor(taxonomyVersion = "2.0.0") {
+    constructor(taxonomyVersion = "2.0.0", ontologyVersion = "2.0.0") {
         this.taxonomyVersion = taxonomyVersion;
+        this.ontologyVersion = ontologyVersion;
         this.vocabularies = new Map();
+        this.loadBundled();
+    }
+    loadBundled() {
+        for (const [name, data] of Object.entries(VocabularyLoader.BUNDLED)) {
+            this.load(name, data);
+        }
+        return this;
+    }
+    bundledData(name) {
+        return VocabularyLoader.BUNDLED[name] || {};
     }
     get taxonomyBaseUrl() {
         return `https://w3id.org/dfc/taxonomies/v$this.taxonomyVersion`;
@@ -39,7 +63,9 @@ export class VocabularyLoader {
     }
     async loadFromUrl(name) {
         const url = `${this.taxonomyBaseUrl}/${name.toLowerCase()}.json`;
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: { "dfc-version": this.ontologyVersion },
+        });
         if (!response.ok) {
             throw new Error(`Failed to fetch taxonomy from ${url}: ${response.status}`);
         }

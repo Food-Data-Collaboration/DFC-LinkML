@@ -1,10 +1,38 @@
+import bundledFacet from "../taxonomies/facet.js";
+import bundledMeasure from "../taxonomies/measure.js";
+import bundledProductType from "../taxonomies/product_type.js";
+import bundledScope from "../taxonomies/scope.js";
+import bundledVocabularyTerm from "../taxonomies/vocabulary_term.js";
+
 export class VocabularyLoader {
+  private static readonly BUNDLED: Record<string, Record<string, unknown>> = {
+    Facet: bundledFacet as Record<string, unknown>,
+    Measure: bundledMeasure as Record<string, unknown>,
+    ProductType: bundledProductType as Record<string, unknown>,
+    Scope: bundledScope as Record<string, unknown>,
+    VocabularyTerm: bundledVocabularyTerm as Record<string, unknown>,
+  };
+
   private taxonomyVersion: string;
+  private ontologyVersion: string;
   private vocabularies: Map<string, Record<string, unknown>>;
 
-  constructor(taxonomyVersion: string = "2.0.0") {
+  constructor(taxonomyVersion: string = "2.0.0", ontologyVersion: string = "2.0.0") {
     this.taxonomyVersion = taxonomyVersion;
+    this.ontologyVersion = ontologyVersion;
     this.vocabularies = new Map();
+    this.loadBundled();
+  }
+
+  loadBundled(): this {
+    for (const [name, data] of Object.entries(VocabularyLoader.BUNDLED)) {
+      this.load(name, data);
+    }
+    return this;
+  }
+
+  bundledData(name: string): Record<string, unknown> {
+    return VocabularyLoader.BUNDLED[name] || {};
   }
 
   get taxonomyBaseUrl(): string {
@@ -39,7 +67,9 @@ export class VocabularyLoader {
 
   async loadFromUrl(name: string): Promise<this> {
     const url = `${this.taxonomyBaseUrl}/${name.toLowerCase()}.json`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: { "dfc-version": this.ontologyVersion },
+    });
     if (!response.ok) {
       throw new Error(`Failed to fetch taxonomy from ${url}: ${response.status}`);
     }
