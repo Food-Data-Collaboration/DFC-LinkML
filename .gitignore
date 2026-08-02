@@ -43,3 +43,4 @@ agents.md
 .agents/*
 .opencode
 *_pycache_*
+tests/node_modules/

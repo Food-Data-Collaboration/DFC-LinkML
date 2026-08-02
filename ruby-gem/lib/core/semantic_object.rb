@@ -30,6 +30,15 @@ module DfcLinkmlConnector
         prop
       end
 
+      def registered_predicates
+        @semanticProperties.keys
+      end
+
+      def registered_value(predicate)
+        prop = @semanticProperties[predicate]
+        prop&.getter&.call
+      end
+
       def semantic_property_value(predicate)
         prop = @semanticProperties[predicate]
         prop&.getter&.call

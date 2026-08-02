@@ -197,8 +197,10 @@ export declare class Connector {
         ontologyVersion?: string;
         taxonomyVersion?: string;
     });
+    loadBundledTaxonomies(): this;
     get contextUrl(): string;
     getContext(): Promise<Record<string, unknown>>;
+    loadBundledContext(): Record<string, unknown> | null;
     loadFacets(jsonData: Record<string, unknown>): this;
     loadMeasures(jsonData: Record<string, unknown>): this;
     loadProductTypes(jsonData: Record<string, unknown>): this;

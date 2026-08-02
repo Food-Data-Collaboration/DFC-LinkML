@@ -9,11 +9,28 @@ module DfcLinkmlConnector
     # Loads DFC SKOS vocabularies from JSON-LD files.
     # Supports fetching from versioned w3id URLs or loading local data.
     class VocabularyLoader
-      TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies/v2.0.0".freeze
+      TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies".freeze
+      BUNDLED_DIR = File.expand_path("../../vocabularies", __dir__).freeze
+      BUNDLED_FILES = {
+        "Facet" => "facet.jsonld",
+        "Measure" => "measure.jsonld",
+        "ProductType" => "product_type.jsonld",
+        "Scope" => "scope.jsonld",
+        "VocabularyTerm" => "vocabulary_term.jsonld",
+      }.freeze
 
-      def initialize(taxonomy_version: "2.0.0")
+      def initialize(taxonomy_version: "2.0.0", ontology_version: "2.0.0")
         @taxonomy_version = taxonomy_version
+        @ontology_version = ontology_version
         @vocabularies = {}
+      end
+
+      def load_bundled(name)
+        file = BUNDLED_FILES[name]
+        return self unless file
+        path = File.join(BUNDLED_DIR, file)
+        return self unless File.exist?(path)
+        load(name, JSON.parse(File.read(path)))
       end
 
       def load(name, json_data)
@@ -28,9 +45,11 @@ module DfcLinkmlConnector
       end
 
       def load_from_url(name)
-        url = "#{TAXONOMY_BASE_URL}/#{name.downcase}.json"
+        url = "#{TAXONOMY_BASE_URL}/v#{@taxonomy_version}/#{name.downcase}.json"
         uri = URI(url)
-        response = Net::HTTP.get_response(uri)
+        request = Net::HTTP::Get.new(uri)
+        request["dfc-version"] = @ontology_version
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
         raise "Failed to fetch taxonomy from #{url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
         json_data = JSON.parse(response.body)
         load(name, json_data)

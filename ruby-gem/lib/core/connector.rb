@@ -18,6 +18,7 @@ module DfcLinkmlConnector
     class Connector
       ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology".freeze
       TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies".freeze
+      BUNDLED_CONTEXT_DIR = File.expand_path("../../contexts", __dir__).freeze
 
       PREDICATE_MAP = {
       "http://www.w3.org/2002/12/cal/icaltzd#byday" => "byday",
@@ -292,12 +293,24 @@ module DfcLinkmlConnector
       def initialize(ontology_version: "2.0.0", taxonomy_version: "2.0.0")
         @ontology_version = ontology_version
         @taxonomy_version = taxonomy_version
-        @vocab_loader = VocabularyLoader.new(taxonomy_version: taxonomy_version)
+        @vocab_loader = VocabularyLoader.new(taxonomy_version: taxonomy_version, ontology_version: ontology_version)
         @context = nil
         @facets = {}
         @measures = {}
         @product_types = {}
         @other_vocabularies = {}
+        load_bundled_taxonomies
+      end
+
+      # Loads the taxonomies shipped with the gem (ruby-gem/vocabularies),
+      # falling back to network fetches only when the bundled files are absent.
+      def load_bundled_taxonomies
+        load_facets(_bundled_json("Facet")) if _bundled_json("Facet")
+        load_measures(_bundled_json("Measure")) if _bundled_json("Measure")
+        load_product_types(_bundled_json("ProductType")) if _bundled_json("ProductType")
+        load_vocabulary("Scope", _bundled_json("Scope")) if _bundled_json("Scope")
+        load_vocabulary("VocabularyTerm", _bundled_json("VocabularyTerm")) if _bundled_json("VocabularyTerm")
+        self
       end
 
       def context_url
@@ -305,7 +318,14 @@ module DfcLinkmlConnector
       end
 
       def context
-        @context ||= _fetch_context
+        @context ||= _bundled_context || _fetch_context
+      end
+
+      # Loads the JSON-LD context shipped with the gem (ruby-gem/contexts).
+      # Returns nil if no bundled context matches the requested version, so the
+      # caller falls back to fetching it from the network.
+      def bundled_context
+        _bundled_context
       end
 
       def load_facets(json_data)
@@ -419,6 +439,20 @@ module DfcLinkmlConnector
       end
       private
 
+      def _bundled_context
+        file = "context_#{@ontology_version}.json"
+        path = File.join(BUNDLED_CONTEXT_DIR, file)
+        return nil unless File.exist?(path)
+        JSON.parse(File.read(path))
+      end
+
+      def _bundled_json(name)
+        file = VocabularyLoader::BUNDLED_FILES[name]
+        return nil unless file
+        path = File.join(VocabularyLoader::BUNDLED_DIR, file)
+        File.exist?(path) ? JSON.parse(File.read(path)) : nil
+      end
+
       def _safe_context
         context
       rescue => e
@@ -437,7 +471,9 @@ module DfcLinkmlConnector
 
       def _http_get_follow_redirects(uri, limit = 5)
         raise "Too many redirects fetching #{uri}" if limit.zero?
-        response = Net::HTTP.get_response(uri)
+        request = Net::HTTP::Get.new(uri)
+        request["dfc-version"] = @ontology_version
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
         if response.is_a?(Net::HTTPRedirection) && response["location"]
           redirect_uri = URI.join(uri.to_s, response["location"])
           return _http_get_follow_redirects(redirect_uri, limit - 1)
@@ -448,7 +484,9 @@ module DfcLinkmlConnector
       def _fetch_taxonomy_json(name)
         url = "#{TAXONOMY_BASE_URL}/v#{@taxonomy_version}/#{name}.json"
         uri = URI(url)
-        response = Net::HTTP.get_response(uri)
+        request = Net::HTTP::Get.new(uri)
+        request["dfc-version"] = @ontology_version
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
         raise "Failed to fetch taxonomy from #{url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
         JSON.parse(response.body)
       end

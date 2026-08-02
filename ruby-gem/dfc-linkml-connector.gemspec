@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/Food-Data-Collaboration/DFC-LinkML"
   spec.license       = "AGPL-3.0"
 
-  spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"]
+  spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"] + Dir["contexts/**/*.json"]
   spec.require_paths = ["lib"]
 
   spec.add_dependency "json-ld", "~> 3.3"
