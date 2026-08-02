@@ -296,6 +296,15 @@ module DfcLinkmlConnector
         prop
       end
 
+      def registered_predicates
+        @semanticProperties.keys
+      end
+
+      def registered_value(predicate)
+        prop = @semanticProperties[predicate]
+        prop&.getter&.call
+      end
+
       def semantic_property_value(predicate)
         prop = @semanticProperties[predicate]
         prop&.getter&.call
@@ -383,11 +392,28 @@ module DfcLinkmlConnector
     # Loads DFC SKOS vocabularies from JSON-LD files.
     # Supports fetching from versioned w3id URLs or loading local data.
     class VocabularyLoader
-      TAXONOMY_BASE_URL = "__TAXONOMY_BASE_URL__".freeze
+      TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies".freeze
+      BUNDLED_DIR = File.expand_path("../../vocabularies", __dir__).freeze
+      BUNDLED_FILES = {
+        "Facet" => "facet.jsonld",
+        "Measure" => "measure.jsonld",
+        "ProductType" => "product_type.jsonld",
+        "Scope" => "scope.jsonld",
+        "VocabularyTerm" => "vocabulary_term.jsonld",
+      }.freeze
 
-      def initialize(taxonomy_version: "__TAXONOMY_VERSION__")
+      def initialize(taxonomy_version: "__TAXONOMY_VERSION__", ontology_version: "__TAXONOMY_VERSION__")
         @taxonomy_version = taxonomy_version
+        @ontology_version = ontology_version
         @vocabularies = {}
+      end
+
+      def load_bundled(name)
+        file = BUNDLED_FILES[name]
+        return self unless file
+        path = File.join(BUNDLED_DIR, file)
+        return self unless File.exist?(path)
+        load(name, JSON.parse(File.read(path)))
       end
 
       def load(name, json_data)
@@ -402,9 +428,11 @@ module DfcLinkmlConnector
       end
 
       def load_from_url(name)
-        url = "#{TAXONOMY_BASE_URL}/#{name.downcase}.json"
+        url = "#{TAXONOMY_BASE_URL}/v#{@taxonomy_version}/#{name.downcase}.json"
         uri = URI(url)
-        response = Net::HTTP.get_response(uri)
+        request = Net::HTTP::Get.new(uri)
+        request["dfc-version"] = @ontology_version
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
         raise "Failed to fetch taxonomy from #{url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
         json_data = JSON.parse(response.body)
         load(name, json_data)
@@ -420,8 +448,6 @@ ENUM_METHODS
 end
 '''
 
-    taxonomy_base_url = f'https://w3id.org/dfc/taxonomies/v{taxonomy_version}'
-    code = code.replace('__TAXONOMY_BASE_URL__', taxonomy_base_url)
     code = code.replace('__TAXONOMY_VERSION__', taxonomy_version)
     code = code.replace('ENUM_METHODS', enum_methods.rstrip())
     return code
@@ -469,6 +495,7 @@ module DfcLinkmlConnector
     class Connector
       ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology".freeze
       TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies".freeze
+      BUNDLED_CONTEXT_DIR = File.expand_path("../../contexts", __dir__).freeze
 
       PREDICATE_MAP = {
 __PREDICATE_MAP__
@@ -493,12 +520,24 @@ __PREDICATE_MAP__
       def initialize(ontology_version: "__ONTOLOGY_VERSION__", taxonomy_version: "__TAXONOMY_VERSION__")
         @ontology_version = ontology_version
         @taxonomy_version = taxonomy_version
-        @vocab_loader = VocabularyLoader.new(taxonomy_version: taxonomy_version)
+        @vocab_loader = VocabularyLoader.new(taxonomy_version: taxonomy_version, ontology_version: ontology_version)
         @context = nil
         @facets = {}
         @measures = {}
         @product_types = {}
         @other_vocabularies = {}
+        load_bundled_taxonomies
+      end
+
+      # Loads the taxonomies shipped with the gem (ruby-gem/vocabularies),
+      # falling back to network fetches only when the bundled files are absent.
+      def load_bundled_taxonomies
+        load_facets(_bundled_json("Facet")) if _bundled_json("Facet")
+        load_measures(_bundled_json("Measure")) if _bundled_json("Measure")
+        load_product_types(_bundled_json("ProductType")) if _bundled_json("ProductType")
+        load_vocabulary("Scope", _bundled_json("Scope")) if _bundled_json("Scope")
+        load_vocabulary("VocabularyTerm", _bundled_json("VocabularyTerm")) if _bundled_json("VocabularyTerm")
+        self
       end
 
       def context_url
@@ -506,7 +545,14 @@ __PREDICATE_MAP__
       end
 
       def context
-        @context ||= _fetch_context
+        @context ||= _bundled_context || _fetch_context
+      end
+
+      # Loads the JSON-LD context shipped with the gem (ruby-gem/contexts).
+      # Returns nil if no bundled context matches the requested version, so the
+      # caller falls back to fetching it from the network.
+      def bundled_context
+        _bundled_context
       end
 
       def load_facets(json_data)
@@ -608,6 +654,20 @@ __PREDICATE_MAP__
 ENUM_METHODS
       private
 
+      def _bundled_context
+        file = "context_#{@ontology_version}.json"
+        path = File.join(BUNDLED_CONTEXT_DIR, file)
+        return nil unless File.exist?(path)
+        JSON.parse(File.read(path))
+      end
+
+      def _bundled_json(name)
+        file = VocabularyLoader::BUNDLED_FILES[name]
+        return nil unless file
+        path = File.join(VocabularyLoader::BUNDLED_DIR, file)
+        File.exist?(path) ? JSON.parse(File.read(path)) : nil
+      end
+
       def _safe_context
         context
       rescue => e
@@ -626,7 +686,9 @@ ENUM_METHODS
 
       def _http_get_follow_redirects(uri, limit = 5)
         raise "Too many redirects fetching #{uri}" if limit.zero?
-        response = Net::HTTP.get_response(uri)
+        request = Net::HTTP::Get.new(uri)
+        request["dfc-version"] = @ontology_version
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
         if response.is_a?(Net::HTTPRedirection) && response["location"]
           redirect_uri = URI.join(uri.to_s, response["location"])
           return _http_get_follow_redirects(redirect_uri, limit - 1)
@@ -637,7 +699,9 @@ ENUM_METHODS
       def _fetch_taxonomy_json(name)
         url = "#{TAXONOMY_BASE_URL}/v#{@taxonomy_version}/#{name}.json"
         uri = URI(url)
-        response = Net::HTTP.get_response(uri)
+        request = Net::HTTP::Get.new(uri)
+        request["dfc-version"] = @ontology_version
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
         raise "Failed to fetch taxonomy from #{url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
         JSON.parse(response.body)
       end
@@ -975,7 +1039,7 @@ def generate_gemspec(schema_data: dict, gem_name: str) -> str:
   spec.homepage      = "https://github.com/Food-Data-Collaboration/DFC-LinkML"
   spec.license       = "AGPL-3.0"
 
-  spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"]
+  spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"] + Dir["contexts/**/*.json"]
   spec.require_paths = ["lib"]
 
   spec.add_dependency "json-ld", "~> 3.3"
@@ -1116,6 +1180,14 @@ def main():
         if vocab_dir.exists():
             for f in vocab_dir.glob('*.jsonld'):
                 preserved_vocab[f.name] = f.read_text(encoding='utf-8')
+        # Preserve bundled JSON-LD context files (ruby-gem/contexts) across
+        # regeneration. They are hand-maintained, not produced from the schema,
+        # but the generated connector loads them at runtime.
+        preserved_contexts = {}
+        context_dir = output_dir / 'contexts'
+        if context_dir.exists():
+            for f in context_dir.glob('*.json'):
+                preserved_contexts[f.name] = f.read_text(encoding='utf-8')
         # Preserve hand-written rspec tests across regeneration.
         preserved_spec = {}
         spec_dir = output_dir / 'spec'
@@ -1126,6 +1198,7 @@ def main():
         shutil.rmtree(output_dir)
     else:
         preserved_vocab = {}
+        preserved_contexts = {}
         preserved_spec = {}
 
     output_dir.mkdir()
@@ -1188,6 +1261,13 @@ def main():
             (output_dir / 'vocabularies' / file_name).write_text(content, encoding='utf-8')
             vocab_count += 1
         print(f"  - {vocab_count} vocabulary files", file=sys.stderr)
+
+    print("\nRestoring bundled context files...", file=sys.stderr)
+    if preserved_contexts:
+        (output_dir / 'contexts').mkdir(exist_ok=True)
+        for name, content in preserved_contexts.items():
+            (output_dir / 'contexts' / name).write_text(content, encoding='utf-8')
+        print(f"  - {len(preserved_contexts)} context files preserved (static JSON-LD contexts)", file=sys.stderr)
 
     print("\nGenerating model classes...", file=sys.stderr)
     model_count = 0
