@@ -17,10 +17,12 @@ PARAM_METHODS = {
   'dfc-b:Order' => {
     'orderNumber' => :number=,
     'hasPart' => :lines=,
+    'orderedBy' => :client=,
   },
   'dfc-b:OrderLine' => {
     'quantity' => :quantity=,
     'description' => :description=,
+    'concerns' => :offer=,
   },
   'dfc-b:SuppliedProduct' => {
     'name' => :name=,
@@ -31,6 +33,28 @@ PARAM_METHODS = {
     'description' => :description=,
     'vatNumber' => :vatNumber=,
   },
+  'dfc-b:Organization' => {
+    'name' => :name=,
+    'description' => :description=,
+    'vatNumber' => :vatNumber=,
+  },
+  'dfc-b:CatalogItem' => {
+    'sku' => :sku=,
+    'references' => :product=,
+    'offeredThrough' => :offers=,
+  },
+  'dfc-b:Offer' => {
+    'hasPrice' => :price=,
+  },
+}.freeze
+
+# Object-reference setters that must never receive a plain string/IRI.
+OBJECT_REF_SETTERS = [:product=, :offer=, :client=, :price=].freeze
+
+# Canonical scenario type => official connector class (official uses
+# Enterprise, not Organization).
+TYPE_CLASS = {
+  'dfc-b:Organization' => 'Enterprise',
 }.freeze
 
 def normalize_refs(value)
@@ -67,28 +91,45 @@ end
 def export_scenario(path)
   spec = JSON.parse(File.read(path))
   c = DataFoodConsortium::Connector::Connector.instance
+  objects = spec['objects']
   # Pre-create all instances (empty) so $ref params can link to objects.
-  instances = spec['objects'].map do |obj|
-    type = obj['type'].sub(%r{\Adfc-b:}, '')
-    klass = DataFoodConsortium::Connector.const_get(type)
-    klass.new(obj['semanticId'])
-  end
+  # Official Ruby Price is an embedded value object (no semanticId), so it is
+  # created on demand from its params rather than as a standalone instance.
   by_id = {}
-  instances.zip(spec['objects']).each do |inst, obj|
+  instances = objects.map do |obj|
+    next if obj['type'] == 'dfc-b:Price'
+    type = obj['type'].sub(%r{\Adfc-b:}, '')
+    type = TYPE_CLASS.fetch(obj['type'], type)
+    klass = DataFoodConsortium::Connector.const_get(type)
+    inst = klass.new(obj['semanticId'])
     by_id[obj['semanticId']] = inst
-  end
-  instances.zip(spec['objects']).each do |inst, obj|
+    inst
+  end.compact
+  instances.zip(objects).each do |inst, obj|
     (obj['params'] || {}).each do |canonical, value|
       method = PARAM_METHODS.dig(obj['type'], canonical)
       next unless method
-      resolved = value.is_a?(Hash) && value['$ref'] ? by_id[value['$ref']] : value
-      if method.to_s.end_with?('=')
-        resolved = value.is_a?(Hash) && value['$ref'] ? by_id[value['$ref']] : value
-        if method == :lines=
-          inst.lines = [resolved].flatten
-        else
-          inst.public_send(method, resolved)
-        end
+      if method == :price= && value.is_a?(Hash) && value['$ref']
+        price_obj = objects.find { |o| o['semanticId'] == value['$ref'] }
+        next unless price_obj && price_obj['type'] == 'dfc-b:Price'
+        params = price_obj['params'] || {}
+        resolved = DataFoodConsortium::Connector::Price.new(
+          vatRate: params['vatRate'],
+        )
+      elsif value.is_a?(Hash) && value['$ref']
+        resolved = by_id[value['$ref']]
+        next unless resolved
+      elsif OBJECT_REF_SETTERS.include?(method)
+        next # external IRI reference, cannot be resolved to an object
+      else
+        resolved = value
+      end
+      if method == :lines=
+        inst.lines = [resolved].flatten
+      elsif method == :offers=
+        inst.offers = [resolved].flatten
+      else
+        inst.public_send(method, resolved)
       end
     end
   end

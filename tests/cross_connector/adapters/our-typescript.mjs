@@ -29,10 +29,14 @@ function capabilities() {
 }
 
 const PARAM_MAP = {
-  "dfc-b:Order": { orderNumber: "orderNumber", hasPart: "hasPart" },
-  "dfc-b:OrderLine": { name: "name", quantity: "quantity" },
+  "dfc-b:Order": { orderNumber: "orderNumber", orderedBy: "orderedBy", hasPart: "hasPart" },
+  "dfc-b:OrderLine": { name: "name", quantity: "quantity", concerns: "concerns" },
   "dfc-b:SuppliedProduct": { name: "name", description: "description" },
   "dfc-b:Enterprise": { name: "name", description: "description", vatNumber: "vatNumber" },
+  "dfc-b:Organization": { name: "name", description: "description", vatNumber: "vatNumber" },
+  "dfc-b:CatalogItem": { sku: "sku", references: "references", offeredThrough: "offeredThrough" },
+  "dfc-b:Price": { vatRate: "vatRate" },
+  "dfc-b:Offer": { name: "name", hasPrice: "hasPrice" },
 };
 
 function resolveRefs(params) {

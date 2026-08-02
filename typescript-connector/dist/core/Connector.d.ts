@@ -182,6 +182,7 @@ export declare class Connector {
     static readonly ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology";
     static readonly TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies";
     static readonly PREDICATE_MAP: Record<string, string>;
+    static readonly TYPE_ALIASES: Record<string, string>;
     private static defaultContextUrl;
     static getDefaultContextUrl(): string;
     static setDefaultContextUrl(url: string): void;

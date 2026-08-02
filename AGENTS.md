@@ -67,6 +67,8 @@ scripts/generate_ruby_gem.py              →  ruby-gem/lib/models/
 - **JSON-LD predicate keys**: each slot registers the **official OWL predicate** (`dfc-b:{alias}` from `slot.aliases`, e.g. `dfc-b:VATnumber`), NOT `dfc-b:{Class}:{snake_case}`. Edge namespaces use `dfc-t:`/`skos:` or full URIs via `predicate_for_slot()`.
 - **Import reverse map**: `predicateToPropName`/`_predicate_to_prop_name` consult a generated `PREDICATE_MAP` (predicate → propName) before the local-name fallback. Both TS and Ruby generate this map from slot aliases and must stay in sync.
 - **Import returns**: single object when `@graph` has one entry, not an array. `Array.isArray(result)` is false for single-object imports.
+- **Legacy type alias**: DFC v2.0 renamed `Enterprise`→`Organization`, but official v1.16 connectors emit `@type: dfc-b:Enterprise`. Both connectors map it to `dfc-b:Organization` on import via `TYPE_ALIASES` (TS `Connector.ts`, Ruby `connector.rb`); both generators emit this table and must stay in sync. Keep `normalize.canonical_type()` in `tests/cross_connector/normalize.py` aligned so the matrix doesn't flag the normalization.
+- **Array `@type` on import**: official-ts emits `@type` as an array (`["dfc-b:Price","dfc-b:Price"]`); both connectors pick the first non-`@` entry. The generator import templates encode this — keep them in sync.
 
 ## Reference
 

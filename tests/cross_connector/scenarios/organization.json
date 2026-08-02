@@ -1,0 +1,11 @@
+{
+  "name": "organization",
+  "version": "2.0.0",
+  "objects": [
+    {
+      "type": "dfc-b:Organization",
+      "semanticId": "http://example.com/org1",
+      "params": { "name": "Farm Org", "description": "A test farm", "vatNumber": "FR12345678901" }
+    }
+  ]
+}

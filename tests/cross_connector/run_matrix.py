@@ -18,10 +18,15 @@ Classification (robust, no fragile introspection):
       - else                          -> "node-loss" (reported, not failure)
 
 Exit code 1 if any mismatch or import/export failure is found.
+
+--verify-drop-in: run only the drop-in pairs (ours as source, official as
+target, plus official -> ours and ours -> ours baselines) and fail on any
+unexpected mismatch. Expected drops are reported but allowed.
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from dataclasses import dataclass, field
@@ -29,10 +34,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from normalize import extract_objects, normalize_value  # noqa: E402
+from normalize import canonical_type, extract_objects, normalize_value  # noqa: E402
 from runner import available_connectors, export_jsonld, import_jsonld  # noqa: E402
 
 SCENARIOS_DIR = Path(__file__).parent / "scenarios"
+
+OURS = ("our-typescript", "our-ruby")
+OFFICIAL = ("official-typescript", "official-ruby")
 
 
 @dataclass
@@ -119,7 +127,7 @@ def compare(source: str, target: str, scenario_path: Path) -> RoundTripReport:
         type_b = info_b["semanticType"]
         preds_b = info_b["predicates"]
 
-        if type_b and type_a and type_b != type_a:
+        if type_b and type_a and canonical_type(type_b) != canonical_type(type_a):
             report.differences.append(Difference(
                 "mismatch", semantic_id, "@type",
                 expected=type_a, actual=type_b,
@@ -154,28 +162,56 @@ def scenarios() -> list[Path]:
     return sorted(SCENARIOS_DIR.glob("*.json"))
 
 
+def drop_in_pairs(names: list[str]) -> list[tuple[str, str]]:
+    """Pairs exercised by the drop-in verification.
+
+    Only our connectors drop in *for* the official ones, so we verify:
+      * ours -> ours     (baseline, our connectors interop with each other)
+      * ours -> official (docs we produce must be consumable by DFC tools)
+      * official -> ours (docs official tools produce must import into ours)
+    Official -> official is out of scope (not a replacement scenario).
+    """
+    ours = [n for n in names if n in OURS]
+    official = [n for n in names if n in OFFICIAL]
+    pairs = [(a, b) for a in ours for b in ours]
+    pairs += [(a, b) for a in ours for b in official]
+    pairs += [(a, b) for a in official for b in ours]
+    return pairs
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("connectors", nargs="*", default=None,
+                        help="restrict to these connector names")
+    parser.add_argument("--verify-drop-in", action="store_true",
+                        help="run only the drop-in pairs and fail on mismatches")
+    args = parser.parse_args()
+
     names = available_connectors()
-    only = sys.argv[1:] or None
+    only = args.connectors or None
     if only:
         names = [n for n in names if n in only]
 
+    if args.verify_drop_in:
+        pairs = drop_in_pairs(names)
+    else:
+        pairs = [(a, b) for a in names for b in names]
+
     clean = True
     for scenario in scenarios():
-        for source in names:
-            for target in names:
-                report = compare(source, target, scenario)
-                if not report.is_clean():
-                    clean = False
-                status = "OK" if report.is_clean() else "FAIL"
-                print(f"[{status}] {source:20} -> {target:20} {scenario.stem}")
-                for d in report.differences:
-                    extra = ""
-                    if d.expected is not None or d.actual is not None:
-                        extra = f"  expected={json.dumps(d.expected)} actual={json.dumps(d.actual)}"
-                    if d.detail:
-                        extra += f"  ({d.detail})"
-                    print(f"    {d.kind:12} {d.semantic_id} {d.predicate}{extra}")
+        for source, target in pairs:
+            report = compare(source, target, scenario)
+            if not report.is_clean():
+                clean = False
+            status = "OK" if report.is_clean() else "FAIL"
+            print(f"[{status}] {source:20} -> {target:20} {scenario.stem}")
+            for d in report.differences:
+                extra = ""
+                if d.expected is not None or d.actual is not None:
+                    extra = f"  expected={json.dumps(d.expected)} actual={json.dumps(d.actual)}"
+                if d.detail:
+                    extra += f"  ({d.detail})"
+                print(f"    {d.kind:12} {d.semantic_id} {d.predicate}{extra}")
 
     sys.exit(0 if clean else 1)
 
