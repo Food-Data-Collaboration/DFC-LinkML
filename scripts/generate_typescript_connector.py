@@ -400,7 +400,7 @@ export class VocabularyLoader {{
   }}
 
   get taxonomyBaseUrl(): string {{
-    return `https://w3id.org/dfc/taxonomies/v$this.taxonomyVersion`;
+    return `https://w3id.org/dfc/taxonomies/v${{this.taxonomyVersion}}`;
   }}
 
   load(name: string, jsonData: Record<string, unknown>): this {{
@@ -417,9 +417,7 @@ export class VocabularyLoader {{
         const isConcept = types.includes("skos:Concept") ||
                           types.includes("http://www.w3.org/2004/02/skos/core#Concept");
         if (!isConcept) continue;
-        const notation = (entryObj["skos:notation"] || entryObj["skos:prefLabel"] ||
-                          entryObj["http://www.w3.org/2004/02/skos/core#notation"] ||
-                          entryObj["http://www.w3.org/2004/02/skos/core#prefLabel"]) as string;
+        const notation = this.extractConceptKey(entryObj);
         if (notation !== undefined) {{
           concepts[notation] = entryObj;
         }}
@@ -429,8 +427,32 @@ export class VocabularyLoader {{
     return this;
   }}
 
+  private extractConceptKey(entry: Record<string, unknown>): string | undefined {{
+    const candidates = [
+      "skos:notation",
+      "http://www.w3.org/2004/02/skos/core#notation",
+      "skos:prefLabel",
+      "http://www.w3.org/2004/02/skos/core#prefLabel",
+    ];
+    for (const field of candidates) {{
+      const value = entry[field];
+      if (value === undefined || value === null) continue;
+      if (typeof value === "string") return value;
+      if (Array.isArray(value)) {{
+        for (const item of value) {{
+          if (typeof item === "string") return item;
+          if (typeof item === "object" && item !== null) {{
+            const wrapped = (item as Record<string, unknown>)["@value"];
+            if (typeof wrapped === "string") return wrapped;
+          }}
+        }}
+      }}
+    }}
+    return undefined;
+  }}
+
   async loadFromUrl(name: string): Promise<this> {{
-    const url = `${{this.taxonomyBaseUrl}}/${{name.toLowerCase()}}.json`;
+    const url = `${{this.taxonomyBaseUrl}}/${{name}}.json`;
     const response = await fetch(url, {{
       headers: {{ "dfc-version": this.ontologyVersion }},
     }});
@@ -438,8 +460,17 @@ export class VocabularyLoader {{
       throw new Error(`Failed to fetch taxonomy from ${{url}}: ${{response.status}}`);
     }}
     const jsonData = await response.json() as Record<string, unknown>;
-    return this.load(name, jsonData);
+    const key = VocabularyLoader.URL_TO_KEY[name.toLowerCase()] || name;
+    return this.load(key, jsonData);
   }}
+
+  private static readonly URL_TO_KEY: Record<string, string> = {{
+    facets: "Facet",
+    measures: "Measure",
+    producttypes: "ProductType",
+    scopes: "Scope",
+    vocabularyterms: "VocabularyTerm",
+  }};
 
   vocabulary(name: string): Record<string, unknown> {{
     return this.vocabularies.get(name) || {{}};
