@@ -22,8 +22,8 @@ export class TheoriticalStock extends Stock {
     this.constitutes = params?.constitutes;
     this.localizedBy = params?.localizedBy;
     this.semanticType = TheoriticalStock.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:TheoriticalStock:constitutes", () => this.constitutes);
-    this.registerSemanticProperty("dfc-b:TheoriticalStock:localized_by", () => this.localizedBy);
+    this.registerSemanticProperty("dfc-b:constitutes", () => this.constitutes);
+    this.registerSemanticProperty("dfc-b:localizedBy", () => this.localizedBy);
   }
   static {
     SemanticObject.typeRegistry.set(TheoriticalStock.SEMANTIC_TYPE, TheoriticalStock);

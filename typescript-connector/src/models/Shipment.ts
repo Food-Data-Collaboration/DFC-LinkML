@@ -49,17 +49,17 @@ export class Shipment extends SemanticObject {
     this.endsAt = params?.endsAt;
     this.startsAt = params?.startsAt;
     this.semanticType = Shipment.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Shipment:end_date", () => this.endDate);
-    this.registerSemanticProperty("dfc-b:Shipment:start_date", () => this.startDate);
-    this.registerSemanticProperty("dfc-b:Shipment:is_shipped_in", () => this.isShippedIn);
-    this.registerSemanticProperty("dfc-b:Shipment:transports", () => this.transports);
-    this.registerSemanticProperty("dfc-b:Shipment:date", () => this.date);
-    this.registerSemanticProperty("dfc-b:Shipment:description", () => this.description);
-    this.registerSemanticProperty("dfc-b:Shipment:name", () => this.name);
-    this.registerSemanticProperty("dfc-b:Shipment:characteristic_of", () => this.characteristicOf);
-    this.registerSemanticProperty("dfc-b:Shipment:has_dimension", () => this.hasDimension);
-    this.registerSemanticProperty("dfc-b:Shipment:ends_at", () => this.endsAt);
-    this.registerSemanticProperty("dfc-b:Shipment:starts_at", () => this.startsAt);
+    this.registerSemanticProperty("dfc-b:endDate", () => this.endDate);
+    this.registerSemanticProperty("dfc-b:startDate", () => this.startDate);
+    this.registerSemanticProperty("dfc-b:isShippedIn", () => this.isShippedIn);
+    this.registerSemanticProperty("dfc-b:transports", () => this.transports);
+    this.registerSemanticProperty("dfc-b:date", () => this.date);
+    this.registerSemanticProperty("dfc-b:description", () => this.description);
+    this.registerSemanticProperty("dfc-b:name", () => this.name);
+    this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+    this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
+    this.registerSemanticProperty("dfc-b:endsAt", () => this.endsAt);
+    this.registerSemanticProperty("dfc-b:startsAt", () => this.startsAt);
   }
   static {
     SemanticObject.typeRegistry.set(Shipment.SEMANTIC_TYPE, Shipment);

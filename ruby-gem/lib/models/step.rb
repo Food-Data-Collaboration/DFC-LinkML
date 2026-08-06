@@ -10,6 +10,39 @@ module DfcLinkmlConnector
     class Step < WhereSubject
       SEMANTIC_TYPE = "dfc-b:Step".freeze
 
+      # @return [String]
+      attr_accessor :arrival_date
+
+      # @return [String]
+      attr_accessor :duration
+
+      # @return [String]
+      attr_accessor :is_step_of
+
+      # @return [Shipment]
+      attr_accessor :delivery
+
+      # @return [Shipment]
+      attr_accessor :pick_up
+
+      # @param semanticId [String]
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, arrivalDate: nil, duration: nil, isStepOf: nil, delivery: nil, pickUp: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, arrivalDate: nil, duration: nil, isStepOf: nil, delivery: nil, pickUp: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
+        @arrival_date = arrivalDate
+        @duration = duration
+        @is_step_of = isStepOf
+        @delivery = delivery
+        @pick_up = pickUp
+        self.semanticType = "dfc-b:Step"
+        registerSemanticProperty("dfc-b:arrivalDate", &method("arrival_date")).valueSetter = method("arrival_date=")
+        registerSemanticProperty("dfc-b:duration", &method("duration")).valueSetter = method("duration=")
+        registerSemanticProperty("dfc-b:isStepOf", &method("is_step_of")).valueSetter = method("is_step_of=")
+        registerSemanticProperty("dfc-b:delivery", &method("delivery")).valueSetter = method("delivery=")
+        registerSemanticProperty("dfc-b:pickUp", &method("pick_up")).valueSetter = method("pick_up=")
+      end
+
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

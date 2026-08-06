@@ -26,41 +26,16 @@ export class VocabularyLoader {
                     types.includes("http://www.w3.org/2004/02/skos/core#Concept");
                 if (!isConcept)
                     continue;
-                const key = this.extractConceptKey(entryObj);
-                if (key === undefined)
-                    continue;
-                concepts[key] = entryObj;
+                const notation = (entryObj["skos:notation"] || entryObj["skos:prefLabel"] ||
+                    entryObj["http://www.w3.org/2004/02/skos/core#notation"] ||
+                    entryObj["http://www.w3.org/2004/02/skos/core#prefLabel"]);
+                if (notation !== undefined) {
+                    concepts[notation] = entryObj;
+                }
             }
         }
         this.vocabularies.set(name, concepts);
         return this;
-    }
-    extractConceptKey(entry) {
-        const candidates = [
-            "skos:notation",
-            "http://www.w3.org/2004/02/skos/core#notation",
-            "skos:prefLabel",
-            "http://www.w3.org/2004/02/skos/core#prefLabel",
-        ];
-        for (const field of candidates) {
-            const value = entry[field];
-            if (value === undefined || value === null)
-                continue;
-            if (typeof value === "string")
-                return value;
-            if (Array.isArray(value)) {
-                for (const item of value) {
-                    if (typeof item === "string")
-                        return item;
-                    if (typeof item === "object" && item !== null) {
-                        const v = item["@value"];
-                        if (typeof v === "string")
-                            return v;
-                    }
-                }
-            }
-        }
-        return undefined;
     }
     async loadFromUrl(name) {
         const url = `${this.taxonomyBaseUrl}/${name.toLowerCase()}.json`;

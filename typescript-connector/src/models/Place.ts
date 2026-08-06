@@ -19,7 +19,7 @@ export class Place extends WhereSubject {
     super(semanticId, params);
     this.hosts = params?.hosts;
     this.semanticType = Place.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Place:hosts", () => this.hosts);
+    this.registerSemanticProperty("dfc-b:hosts", () => this.hosts);
   }
   static {
     SemanticObject.typeRegistry.set(Place.SEMANTIC_TYPE, Place);

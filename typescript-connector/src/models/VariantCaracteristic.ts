@@ -24,8 +24,8 @@ export class VariantCaracteristic extends WhatSubject {
     this.hasProductOption = params?.hasProductOption;
     this.hasProductOptionValue = params?.hasProductOptionValue;
     this.semanticType = VariantCaracteristic.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:VariantCaracteristic:has_product_option", () => this.hasProductOption);
-    this.registerSemanticProperty("dfc-b:VariantCaracteristic:has_product_option_value", () => this.hasProductOptionValue);
+    this.registerSemanticProperty("dfc-b:hasProductOption", () => this.hasProductOption);
+    this.registerSemanticProperty("dfc-b:hasProductOptionValue", () => this.hasProductOptionValue);
   }
   static {
     SemanticObject.typeRegistry.set(VariantCaracteristic.SEMANTIC_TYPE, VariantCaracteristic);

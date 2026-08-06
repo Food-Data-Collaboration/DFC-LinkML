@@ -80,6 +80,26 @@ def ts_property_name(slot_name: str) -> str:
     return special.get(result, result)
 
 
+def predicate_for_slot(slot_name: str, slot_data: dict) -> str:
+    """Compute the official JSON-LD predicate CURIE/URI for a slot.
+
+    DFC business/technical ontology properties use the dfc-b/dfc-t prefixes;
+    skos uses the skos prefix; other namespaces fall back to the full URI.
+    """
+    aliases = slot_data.get('aliases') or [slot_name]
+    alias = aliases[0]
+    namespace = slot_data.get('namespace', '')
+    if 'DFC_BusinessOntology' in namespace:
+        return f'dfc-b:{alias}'
+    if 'DFC_TechnicalOntology' in namespace:
+        return f'dfc-t:{alias}'
+    if 'skos/core' in namespace:
+        return f'skos:{alias}'
+    if namespace:
+        return f'{namespace}{alias}'
+    return f'dfc-b:{alias}'
+
+
 def get_class_hierarchy(class_name: str, classes: dict) -> list:
     chain = []
     current = class_name
@@ -253,6 +273,15 @@ def generate_semantic_object_base() -> str:
     this.semanticProperties.set(predicate, getter);
   }
 
+  getRegisteredPredicates(): string[] {
+    return [...this.semanticProperties.keys()];
+  }
+
+  getRegisteredValue(predicate: string): unknown {
+    const getter = this.semanticProperties.get(predicate);
+    return getter ? getter() : undefined;
+  }
+
   toJsonLd(context?: unknown): Record<string, unknown> {
     const result: Record<string, unknown> = {
       "@id": this.semanticId,
@@ -270,10 +299,10 @@ def generate_semantic_object_base() -> str:
       if (Array.isArray(value)) {
         if (value.length === 0) continue;
         result[predicate] = value.map((v: unknown) =>
-          v instanceof SemanticObject ? v.semanticId : v
+          v instanceof SemanticObject ? { "@id": v.semanticId } : v
         );
       } else if (value instanceof SemanticObject) {
-        result[predicate] = value.semanticId;
+        result[predicate] = { "@id": value.semanticId };
       } else {
         result[predicate] = value;
       }
@@ -333,42 +362,115 @@ def generate_vocabulary_loader(schema_data: dict) -> str:
   }}
 '''
 
-    return f'''export class VocabularyLoader {{
+    return f'''import bundledFacet from "../taxonomies/facet.js";
+import bundledMeasure from "../taxonomies/measure.js";
+import bundledProductType from "../taxonomies/product_type.js";
+import bundledScope from "../taxonomies/scope.js";
+import bundledVocabularyTerm from "../taxonomies/vocabulary_term.js";
+
+export class VocabularyLoader {{
+  private static readonly BUNDLED: Record<string, Record<string, unknown>> = {{
+    Facet: bundledFacet as Record<string, unknown>,
+    Measure: bundledMeasure as Record<string, unknown>,
+    ProductType: bundledProductType as Record<string, unknown>,
+    Scope: bundledScope as Record<string, unknown>,
+    VocabularyTerm: bundledVocabularyTerm as Record<string, unknown>,
+  }};
+
   private taxonomyVersion: string;
+  private ontologyVersion: string;
   private vocabularies: Map<string, Record<string, unknown>>;
 
-  constructor(taxonomyVersion: string = "{taxonomy_version}") {{
+  constructor(taxonomyVersion: string = "{taxonomy_version}", ontologyVersion: string = "{taxonomy_version}") {{
     this.taxonomyVersion = taxonomyVersion;
+    this.ontologyVersion = ontologyVersion;
     this.vocabularies = new Map();
+    this.loadBundled();
+  }}
+
+  loadBundled(): this {{
+    for (const [name, data] of Object.entries(VocabularyLoader.BUNDLED)) {{
+      this.load(name, data);
+    }}
+    return this;
+  }}
+
+  bundledData(name: string): Record<string, unknown> {{
+    return VocabularyLoader.BUNDLED[name] || {{}};
   }}
 
   get taxonomyBaseUrl(): string {{
-    return `https://w3id.org/dfc/taxonomies/v$this.taxonomyVersion`;
+    return `https://w3id.org/dfc/taxonomies/v${{this.taxonomyVersion}}`;
   }}
 
   load(name: string, jsonData: Record<string, unknown>): this {{
     const concepts: Record<string, unknown> = {{}};
-    const graph = (jsonData["@graph"] as Array<Record<string, unknown>>) || [];
-    for (const entry of graph) {{
-      const types = entry["@type"];
-      if (Array.isArray(types) && types.includes("skos:Concept")) {{
-        const notation = (entry["skos:notation"] || entry["skos:prefLabel"]) as string;
-        concepts[notation] = entry;
+    const sources = Array.isArray(jsonData) ? jsonData : [jsonData];
+    for (const source of sources) {{
+      const graph = source["@graph"];
+      if (!Array.isArray(graph)) continue;
+      for (const entry of graph) {{
+        if (typeof entry !== "object" || entry === null) continue;
+        const entryObj = entry as Record<string, unknown>;
+        const types = entryObj["@type"];
+        if (!Array.isArray(types)) continue;
+        const isConcept = types.includes("skos:Concept") ||
+                          types.includes("http://www.w3.org/2004/02/skos/core#Concept");
+        if (!isConcept) continue;
+        const notation = this.extractConceptKey(entryObj);
+        if (notation !== undefined) {{
+          concepts[notation] = entryObj;
+        }}
       }}
     }}
     this.vocabularies.set(name, concepts);
     return this;
   }}
 
+  private extractConceptKey(entry: Record<string, unknown>): string | undefined {{
+    const candidates = [
+      "skos:notation",
+      "http://www.w3.org/2004/02/skos/core#notation",
+      "skos:prefLabel",
+      "http://www.w3.org/2004/02/skos/core#prefLabel",
+    ];
+    for (const field of candidates) {{
+      const value = entry[field];
+      if (value === undefined || value === null) continue;
+      if (typeof value === "string") return value;
+      if (Array.isArray(value)) {{
+        for (const item of value) {{
+          if (typeof item === "string") return item;
+          if (typeof item === "object" && item !== null) {{
+            const wrapped = (item as Record<string, unknown>)["@value"];
+            if (typeof wrapped === "string") return wrapped;
+          }}
+        }}
+      }}
+    }}
+    return undefined;
+  }}
+
   async loadFromUrl(name: string): Promise<this> {{
-    const url = `${{this.taxonomyBaseUrl}}/${{name.toLowerCase()}}.json`;
-    const response = await fetch(url);
+    const url = `${{this.taxonomyBaseUrl}}/${{name}}.json`;
+    const response = await fetch(url, {{
+      headers: {{ "dfc-version": this.ontologyVersion }},
+    }});
     if (!response.ok) {{
       throw new Error(`Failed to fetch taxonomy from ${{url}}: ${{response.status}}`);
     }}
     const jsonData = await response.json() as Record<string, unknown>;
-    return this.load(name, jsonData);
+    const key = VocabularyLoader.URL_TO_KEY[name.toLowerCase()] || name;
+    return this.load(key, jsonData);
   }}
+
+  private static readonly URL_TO_KEY: Record<string, string> = {{
+    facets: "Facet",
+    measures: "Measure",
+    producttypes: "ProductType",
+    scopes: "Scope",
+    vocabularyterms: "VocabularyTerm",
+  }};
 
   vocabulary(name: string): Record<string, unknown> {{
     return this.vocabularies.get(name) || {{}};
@@ -425,15 +527,27 @@ def generate_connector_class(schema_data: dict) -> str:
   }}
 '''
 
+    # Build reverse map: predicate -> propName for every slot
+    predicate_map = {}
+    for slot_name, slot_data in schema_data.get('slots', {}).items():
+        predicate_map[predicate_for_slot(slot_name, slot_data)] = ts_property_name(slot_name)
+    predicate_map_str = '\n'.join(f'    "{pred}": "{prop}",' for pred, prop in sorted(predicate_map.items()))
+
     return f'''import {{ SemanticObject }} from "./SemanticObject.js";
 import {{ VocabularyLoader }} from "./VocabularyLoader.js";
 import {{ JsonLdSerializer }} from "./JsonLdSerializer.js";
+import jsonld from "jsonld";
+import bundledContextV200 from "../context/context_2.0.0.js";
 {model_imports_str}
 {type_imports_str}
 
 export class Connector {{
   static readonly ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology";
   static readonly TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies";
+
+  static readonly PREDICATE_MAP: Record<string, string> = {{
+{predicate_map_str}
+  }};
 
   private static defaultContextUrl: string = "https://w3id.org/dfc/ontology/v{ontology_version}/context/context_{ontology_version}.json";
 
@@ -457,18 +571,42 @@ export class Connector {{
   constructor(params: {{ ontologyVersion?: string; taxonomyVersion?: string }} = {{}}) {{
     this.ontologyVersion = params.ontologyVersion ?? "{ontology_version}";
     this.taxonomyVersion = params.taxonomyVersion ?? "{taxonomy_version}";
-    this.vocabLoader = new VocabularyLoader(this.taxonomyVersion);
+    this.vocabLoader = new VocabularyLoader(this.taxonomyVersion, this.ontologyVersion);
+    this.loadBundledTaxonomies();
+  }}
+
+  loadBundledTaxonomies(): this {{
+    this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
+    this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
+    this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+    this.otherVocabularies.set("Scope", this.buildNestedHash(this.vocabLoader.vocabulary("Scope")));
+    this.otherVocabularies.set("VocabularyTerm", this.buildNestedHash(this.vocabLoader.vocabulary("VocabularyTerm")));
+    return this;
   }}
 
   get contextUrl(): string {{
-    return `${{Connector.ONTOLOGY_BASE_URL}}/v$this.ontologyVersion/context/context_${{this.ontologyVersion}}.json`;
+    return `${{Connector.ONTOLOGY_BASE_URL}}/v${{this.ontologyVersion}}/context/context_${{this.ontologyVersion}}.json`;
   }}
 
   async getContext(): Promise<Record<string, unknown>> {{
     if (!this.contextCache) {{
-      this.contextCache = await this.fetchContext();
+      const bundled = this.loadBundledContext();
+      if (bundled) {{
+        this.contextCache = bundled;
+      }} else {{
+        this.contextCache = await this.fetchContext();
+      }}
     }}
     return this.contextCache;
+  }}
+
+  // Returns the JSON-LD context shipped with the connector for the current
+  // ontology version, or null so the caller falls back to the network.
+  loadBundledContext(): Record<string, unknown> | null {{
+    if (this.ontologyVersion === "2.0.0") {{
+      return bundledContextV200 as unknown as Record<string, unknown>;
+    }}
+    return null;
   }}
 
   loadFacets(jsonData: Record<string, unknown>): this {{
@@ -513,17 +651,22 @@ export class Connector {{
     return this;
   }}
 
-  async export(...objects: SemanticObject[]): Promise<Record<string, unknown>> {{
+  async export(...objects: SemanticObject[]): Promise<string> {{
     let context: Record<string, unknown> | undefined;
     try {{
       context = await this.getContext();
     }} catch {{
-      // Context fetch failed — export without @context
+      // Context fetch failed — export without compaction
+      return JSON.stringify(new JsonLdSerializer(undefined).serialize(...objects), null, 2);
     }}
-    return new JsonLdSerializer(context).serialize(...objects);
+    const expanded: Record<string, unknown> = new JsonLdSerializer(context).serialize(...objects) as Record<string, unknown>;
+    const compacted = await (jsonld.compact(expanded, context as any) as unknown as Promise<Record<string, unknown>>);
+    const output = compacted as Record<string, unknown>;
+    output["@context"] = this.contextUrl;
+    return JSON.stringify(output, null, 2);
   }}
 
-  import(jsonLdData: string | Record<string, unknown>): SemanticObject | SemanticObject[] {{
+  import(jsonLdData: string | Record<string, unknown>): SemanticObject[] {{
     const data = typeof jsonLdData === "string" ? JSON.parse(jsonLdData) : jsonLdData;
 
     const entries: Array<Record<string, unknown>> = Array.isArray(data)
@@ -538,10 +681,18 @@ export class Connector {{
       const semanticType = entry["@type"] as string | undefined;
       if (!semanticId || !semanticType) continue;
 
-      const Klass = SemanticObject.typeRegistry.get(semanticType);
+      const Klass = SemanticObject.typeRegistry.get(semanticType) as
+        new (semanticId: string, params?: Record<string, unknown>) => SemanticObject;
       if (!Klass) continue;
 
-      const obj = new Klass(semanticId) as SemanticObject;
+      const entryParams: Record<string, unknown> = {{}};
+      for (const [key, value] of Object.entries(entry)) {{
+        if (key.startsWith("@")) continue;
+        const propName = this.predicateToPropName(key);
+        entryParams[propName] = value;
+      }}
+
+      const obj = new Klass(semanticId, entryParams) as SemanticObject;
       objectsById.set(semanticId, obj);
       instances.push(obj);
     }}
@@ -559,25 +710,35 @@ export class Connector {{
 
         if (Array.isArray(value)) {{
           (obj as unknown as Record<string, unknown>)[propName] = value.map((v: unknown) =>
-            typeof v === "string" && (v.startsWith("http") || v.startsWith("/"))
-              ? (objectsById.get(v) || v)
-              : v
+            this.resolveReference(v, objectsById)
           );
-        }} else if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/"))) {{
+        }} else if (typeof value === "object" && value !== null && "@id" in value) {{
+          (obj as unknown as Record<string, unknown>)[propName] = this.resolveReference(value, objectsById);
+        }} else if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {{
           (obj as unknown as Record<string, unknown>)[propName] = objectsById.get(value) || value;
-        }} else {{
-          (obj as unknown as Record<string, unknown>)[propName] = value;
         }}
       }}
     }}
 
-    return instances.length === 1 ? instances[0] : instances;
+    return instances;
+  }}
+
+  private resolveReference(value: unknown, objectsById: Map<string, SemanticObject>): unknown {{
+    if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {{
+      return objectsById.get(value) || value;
+    }}
+    if (typeof value === "object" && value !== null && "@id" in value) {{
+      return objectsById.get((value as Record<string, unknown>)["@id"] as string) || value;
+    }}
+    return value;
   }}
 
 {enum_methods}
 {factory_methods}
   private async fetchContext(): Promise<Record<string, unknown>> {{
-    const response = await fetch(this.contextUrl);
+    const response = await fetch(this.contextUrl, {{
+      headers: {{ "dfc-version": this.ontologyVersion }},
+    }});
     if (!response.ok) {{
       throw new Error(`Failed to fetch context from ${{this.contextUrl}}: ${{response.status}}`);
     }}
@@ -603,10 +764,20 @@ export class Connector {{
   }}
 
   private predicateToPropName(predicate: string): string {{
-    let name = predicate.replace(/^dfc-b:/, "");
-    if (name.startsWith("has")) {{
-      name = name.slice(3);
+    const mapped = Connector.PREDICATE_MAP[predicate];
+    if (mapped !== undefined) return mapped;
+    // Fallback: extract the local name from any CURIE or URI
+    let name = predicate;
+    const hashIndex = name.lastIndexOf("#");
+    if (hashIndex !== -1) {{
+      name = name.slice(hashIndex + 1);
+    }} else {{
+      const colonIndex = name.lastIndexOf(":");
+      if (colonIndex !== -1) {{
+        name = name.slice(colonIndex + 1);
+      }}
     }}
+    name = name.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
     name = name.charAt(0).toLowerCase() + name.slice(1);
     return name;
   }}
@@ -695,8 +866,8 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
         constructor_params.append(f'{prop_name}')
         constructor_body_self.append(f'    this.{prop_name} = params?.{prop_name};')
 
-        # Registration predicate uses original slot name
-        predicate = f'{semantic_type}:{slot_name}'
+        # Registration predicate uses the official OWL predicate CURIE
+        predicate = predicate_for_slot(slot_name, slot_data)
         registrations.append(f'    this.registerSemanticProperty("{predicate}", () => this.{prop_name});')
 
     if parent_raw == 'SemanticObject':
@@ -809,6 +980,20 @@ def main():
     output_dir = Path(args.output) if args.output else Path("typescript-connector")
     src_dir = output_dir / 'src'
 
+    # Preserve bundled context/taxonomy files (src/context/, src/taxonomies/)
+    # across regeneration. They are hand-maintained SKOS exports / JSON-LD
+    # contexts, not produced from the LinkML schema, but generated core files
+    # import them at build time.
+    preserved_bundled = {}
+    if src_dir.exists():
+        for sub in ('context', 'taxonomies'):
+            base = src_dir / sub
+            if base.exists():
+                for f in base.glob('*'):
+                    if f.is_file():
+                        rel = f.relative_to(src_dir)
+                        preserved_bundled[str(rel)] = f.read_text(encoding='utf-8')
+
     # Only clean src/ directory, preserve static files (package.json, tsconfig.json, etc.)
     if src_dir.exists():
         import shutil
@@ -853,6 +1038,14 @@ def main():
 
     (src_dir / 'index.ts').write_text(generate_main_entry_point(schema_data))
     print("  - src/index.ts", file=sys.stderr)
+
+    print("\nRestoring bundled files...", file=sys.stderr)
+    if preserved_bundled:
+        for rel, content in sorted(preserved_bundled.items()):
+            target = src_dir / rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(content, encoding='utf-8')
+        print(f"  - {len(preserved_bundled)} bundled files preserved (context + taxonomies)", file=sys.stderr)
 
     print(f"\nTypeScript connector generated in: {output_dir}/", file=sys.stderr)
     print(f"To build: cd {output_dir} && npm install && npm run build", file=sys.stderr)

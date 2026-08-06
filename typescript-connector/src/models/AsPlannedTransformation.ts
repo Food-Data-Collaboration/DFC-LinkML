@@ -25,9 +25,9 @@ export class AsPlannedTransformation extends Transformation {
     this.hasOutput = params?.hasOutput;
     this.hasTransformationType = params?.hasTransformationType;
     this.semanticType = AsPlannedTransformation.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:AsPlannedTransformation:has_input", () => this.hasInput);
-    this.registerSemanticProperty("dfc-b:AsPlannedTransformation:has_output", () => this.hasOutput);
-    this.registerSemanticProperty("dfc-b:AsPlannedTransformation:has_transformation_type", () => this.hasTransformationType);
+    this.registerSemanticProperty("dfc-b:hasInput", () => this.hasInput);
+    this.registerSemanticProperty("dfc-b:hasOutput", () => this.hasOutput);
+    this.registerSemanticProperty("dfc-b:hasTransformationType", () => this.hasTransformationType);
   }
   static {
     SemanticObject.typeRegistry.set(AsPlannedTransformation.SEMANTIC_TYPE, AsPlannedTransformation);

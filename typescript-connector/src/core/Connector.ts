@@ -1,6 +1,7 @@
 import { SemanticObject } from "./SemanticObject.js";
 import { VocabularyLoader } from "./VocabularyLoader.js";
 import { JsonLdSerializer } from "./JsonLdSerializer.js";
+import * as jsonld from "jsonld";
 import { Address } from "../models/Address.js";
 import { Agent } from "../models/Agent.js";
 import { AllergenCharacteristic } from "../models/AllergenCharacteristic.js";
@@ -27,6 +28,7 @@ import { DitributedRepresentation } from "../models/DitributedRepresentation.js"
 import { DefinedProduct } from "../models/DefinedProduct.js";
 import { DeliveryOption } from "../models/DeliveryOption.js";
 import { DeliveryStep } from "../models/DeliveryStep.js";
+import { Enterprise } from "../models/Enterprise.js";
 import { Feature } from "../models/Feature.js";
 import { FunctionalProduct } from "../models/FunctionalProduct.js";
 import { Geometry } from "../models/Geometry.js";
@@ -115,6 +117,7 @@ import type { DitributedRepresentationParams } from "../models/DitributedReprese
 import type { DefinedProductParams } from "../models/DefinedProduct.js";
 import type { DeliveryOptionParams } from "../models/DeliveryOption.js";
 import type { DeliveryStepParams } from "../models/DeliveryStep.js";
+import type { EnterpriseParams } from "../models/Enterprise.js";
 import type { FeatureParams } from "../models/Feature.js";
 import type { FunctionalProductParams } from "../models/FunctionalProduct.js";
 import type { GeometryParams } from "../models/Geometry.js";
@@ -181,6 +184,264 @@ import type { WhoSubjectParams } from "../models/WhoSubject.js";
 export class Connector {
   static readonly ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology";
   static readonly TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies";
+
+  static readonly PREDICATE_MAP: Record<string, string> = {
+    "dfc-b:DFC_BusinessOntology_ObjectProperty": "dFCBusinessOntologyObjectProperty",
+    "dfc-b:DFC_Interface_Property": "dFCInterfaceProperty",
+    "dfc-b:DFC_TechnicalOntology_ObjectProperty": "dFCTechnicalOntologyObjectProperty",
+    "dfc-b:Image": "image",
+    "dfc-b:URL": "url",
+    "dfc-b:VATnumber": "vatNumber",
+    "dfc-b:VATrate": "vatRate",
+    "dfc-b:VATstatus": "vatStatus",
+    "dfc-b:accessibilityInfo": "accessibilityInfo",
+    "dfc-b:addressOf": "addressOf",
+    "dfc-b:affiliatedTo": "affiliatedTo",
+    "dfc-b:affiliates": "affiliates",
+    "dfc-b:allergenCharacteristicOf": "allergenCharacteristicOf",
+    "dfc-b:arrivalDate": "arrivalDate",
+    "dfc-b:availabilityDate": "availabilityDate",
+    "dfc-b:availabilityTime": "availabilityTime",
+    "dfc-b:basedAt": "basedAt",
+    "dfc-b:batchNumber": "batchNumber",
+    "dfc-b:belongsTo": "belongsTo",
+    "dfc-b:bestBeforeDate": "bestBeforeDate",
+    "dfc-b:brand": "brand",
+    "dfc-b:brandOf": "brandOf",
+    "dfc-b:certiferReference": "certiferReference",
+    "dfc-b:certificateOf": "certificateOf",
+    "dfc-b:certificationScore": "certificationScore",
+    "dfc-b:certifies": "certifies",
+    "dfc-b:characteristicOf": "characteristicOf",
+    "dfc-b:city": "city",
+    "dfc-b:claim": "claim",
+    "dfc-b:claimOf": "claimOf",
+    "dfc-b:closes": "closes",
+    "dfc-b:composedOf": "composedOf",
+    "dfc-b:composes": "composes",
+    "dfc-b:concernedBy": "concernedBy",
+    "dfc-b:concerns": "concerns",
+    "dfc-b:constituedBy": "constituedBy",
+    "dfc-b:constitutes": "constitutes",
+    "dfc-b:consumedBy": "consumedBy",
+    "dfc-b:consumes": "consumes",
+    "dfc-b:containerInformationOf": "containerInformationOf",
+    "dfc-b:coordinatedBy": "coordinatedBy",
+    "dfc-b:cost": "cost",
+    "dfc-b:country": "country",
+    "dfc-b:countryCode": "countryCode",
+    "dfc-b:date": "date",
+    "dfc-b:definedBy": "definedBy",
+    "dfc-b:defines": "defines",
+    "dfc-b:deliveredAt": "deliveredAt",
+    "dfc-b:delivery": "delivery",
+    "dfc-b:deliveryCondition": "deliveryCondition",
+    "dfc-b:deliveryConstraint": "deliveryConstraint",
+    "dfc-b:description": "description",
+    "dfc-b:discount": "discount",
+    "dfc-b:duration": "duration",
+    "dfc-b:email": "email",
+    "dfc-b:endDate": "endDate",
+    "dfc-b:endsAt": "endsAt",
+    "dfc-b:enterpriseID": "enterpriseId",
+    "dfc-b:expiryDate": "expiryDate",
+    "dfc-b:extraAvailabilityTime": "extraAvailabilityTime",
+    "dfc-b:extraDeliveryCondition": "extraDeliveryCondition",
+    "dfc-b:facetOf": "facetOf",
+    "dfc-b:familyName": "familyName",
+    "dfc-b:fee": "fee",
+    "dfc-b:firstName": "firstName",
+    "dfc-b:from": "from",
+    "dfc-b:frozen": "frozen",
+    "dfc-b:fulfills": "fulfills",
+    "dfc-b:geographicalOriginOf": "geographicalOriginOf",
+    "dfc-b:hasAddress": "hasAddress",
+    "dfc-b:hasAllergenCharacteristic": "hasAllergenCharacteristic",
+    "dfc-b:hasAllergenDimension": "hasAllergenDimension",
+    "dfc-b:hasBrand": "hasBrand",
+    "dfc-b:hasCertification": "hasCertification",
+    "dfc-b:hasCharacteristic": "hasCharacteristic",
+    "dfc-b:hasClaim": "hasClaim",
+    "dfc-b:hasContainerInformation": "hasContainerInformation",
+    "dfc-b:hasCountry": "hasCountry",
+    "dfc-b:hasDimension": "hasDimension",
+    "dfc-b:hasFacet": "hasFacet",
+    "dfc-b:hasFulfilmentStatus": "hasFulfilmentStatus",
+    "dfc-b:hasGeoJsonFeature": "hasGeoJsonFeature",
+    "dfc-b:hasGeographicalOrigin": "hasGeographicalOrigin",
+    "dfc-b:hasIngredient": "hasIngredient",
+    "dfc-b:hasInput": "hasInput",
+    "dfc-b:hasLabellingCharacteristic": "hasLabellingCharacteristic",
+    "dfc-b:hasLabellingDimension": "hasLabellingDimension",
+    "dfc-b:hasMainContact": "hasMainContact",
+    "dfc-b:hasMember": "hasMember",
+    "dfc-b:hasNatureOrigin": "hasNatureOrigin",
+    "dfc-b:hasNutrientCharacteristic": "hasNutrientCharacteristic",
+    "dfc-b:hasNutrientDimension": "hasNutrientDimension",
+    "dfc-b:hasObject": "hasObject",
+    "dfc-b:hasOffer": "hasOffer",
+    "dfc-b:hasOption": "hasOption",
+    "dfc-b:hasOrderStatus": "hasOrderStatus",
+    "dfc-b:hasOutput": "hasOutput",
+    "dfc-b:hasPart": "hasPart",
+    "dfc-b:hasPartOrigin": "hasPartOrigin",
+    "dfc-b:hasPaymentMethod": "hasPaymentMethod",
+    "dfc-b:hasPaymentStatus": "hasPaymentStatus",
+    "dfc-b:hasPercentageOfAlcoholByVolume": "hasPercentageOfAlcoholByVolume",
+    "dfc-b:hasPhoneNumber": "hasPhoneNumber",
+    "dfc-b:hasPhysicalCharacteristic": "hasPhysicalCharacteristic",
+    "dfc-b:hasPhysicalDimension": "hasPhysicalDimension",
+    "dfc-b:hasPrice": "hasPrice",
+    "dfc-b:hasProductOption": "hasProductOption",
+    "dfc-b:hasProductOptionValue": "hasProductOptionValue",
+    "dfc-b:hasQuantity": "hasQuantity",
+    "dfc-b:hasReference": "hasReference",
+    "dfc-b:hasReferenceProductOption": "hasReferenceProductOption",
+    "dfc-b:hasReferenceProductOptionValue": "hasReferenceProductOptionValue",
+    "dfc-b:hasSocialMedia": "hasSocialMedia",
+    "dfc-b:hasStatus": "hasStatus",
+    "dfc-b:hasStep": "hasStep",
+    "dfc-b:hasTemperature": "hasTemperature",
+    "dfc-b:hasTemplateSaleSession": "hasTemplateSaleSession",
+    "dfc-b:hasTransformationType": "hasTransformationType",
+    "dfc-b:hasType": "hasType",
+    "dfc-b:hasUnit": "hasUnit",
+    "dfc-b:hasVariant": "hasVariant",
+    "dfc-b:hasVariantCaracteristic": "hasVariantCaracteristic",
+    "dfc-b:holds": "holds",
+    "dfc-b:hostedAt": "hostedAt",
+    "dfc-b:hosts": "hosts",
+    "dfc-b:identifiedBy": "identifiedBy",
+    "dfc-b:identifies": "identifies",
+    "dfc-b:industrializedBy": "industrializedBy",
+    "dfc-b:industrializes": "industrializes",
+    "dfc-b:inputOf": "inputOf",
+    "dfc-b:invoiceNumber": "invoiceNumber",
+    "dfc-b:isAvailableDuring": "isAvailableDuring",
+    "dfc-b:isCertifiedBy": "isCertifiedBy",
+    "dfc-b:isFulfilledBy": "isFulfilledBy",
+    "dfc-b:isIngredientOf": "isIngredientOf",
+    "dfc-b:isMemberOf": "isMemberOf",
+    "dfc-b:isOpenDuring": "isOpenDuring",
+    "dfc-b:isPriceOf": "isPriceOf",
+    "dfc-b:isShippedIn": "isShippedIn",
+    "dfc-b:isStepOf": "isStepOf",
+    "dfc-b:isTemperatureOf": "isTemperatureOf",
+    "dfc-b:isTemplateSaleSessionOf": "isTemplateSaleSessionOf",
+    "dfc-b:isVariantOf": "isVariantOf",
+    "dfc-b:labellingCharacteristicOf": "labellingCharacteristicOf",
+    "dfc-b:latitude": "latitude",
+    "dfc-b:lifetime": "lifetime",
+    "dfc-b:listedIn": "listedIn",
+    "dfc-b:lists": "lists",
+    "dfc-b:localizedBy": "localizedBy",
+    "dfc-b:localizes": "localizes",
+    "dfc-b:logo": "logo",
+    "dfc-b:longitude": "longitude",
+    "dfc-b:mainContactOf": "mainContactOf",
+    "dfc-b:maintainedBy": "maintainedBy",
+    "dfc-b:maintains": "maintains",
+    "dfc-b:managedBy": "managedBy",
+    "dfc-b:manages": "manages",
+    "dfc-b:marginPercent": "marginPercent",
+    "dfc-b:maxValue": "maxValue",
+    "dfc-b:minValue": "minValue",
+    "dfc-b:name": "name",
+    "dfc-b:natureOriginOf": "natureOriginOf",
+    "dfc-b:nutrientCharacteristicOf": "nutrientCharacteristicOf",
+    "dfc-b:objectOf": "objectOf",
+    "dfc-b:offeredThrough": "offeredThrough",
+    "dfc-b:offers": "offers",
+    "dfc-b:offersTo": "offersTo",
+    "dfc-b:operatorId": "operatorId",
+    "dfc-b:optionOf": "optionOf",
+    "dfc-b:orderNumber": "orderNumber",
+    "dfc-b:orderedBy": "orderedBy",
+    "dfc-b:orders": "orders",
+    "dfc-b:outputOf": "outputOf",
+    "dfc-b:ownedBy": "ownedBy",
+    "dfc-b:owns": "owns",
+    "dfc-b:paidWith": "paidWith",
+    "dfc-b:partOf": "partOf",
+    "dfc-b:partOriginOf": "partOriginOf",
+    "dfc-b:paymentMethodProvider": "paymentMethodProvider",
+    "dfc-b:paymentMethodType": "paymentMethodType",
+    "dfc-b:phoneNumber": "phoneNumber",
+    "dfc-b:phoneNumberOf": "phoneNumberOf",
+    "dfc-b:physicalCharacteristicOf": "physicalCharacteristicOf",
+    "dfc-b:physicalCharacteristics": "physicalCharacteristics",
+    "dfc-b:pickUp": "pickUp",
+    "dfc-b:pickedUpAt": "pickedUpAt",
+    "dfc-b:postcode": "postcode",
+    "dfc-b:processOf": "processOf",
+    "dfc-b:producedBy": "producedBy",
+    "dfc-b:produces": "produces",
+    "dfc-b:productionDate": "productionDate",
+    "dfc-b:proposedBy": "proposedBy",
+    "dfc-b:proposes": "proposes",
+    "dfc-b:quantity": "quantity",
+    "dfc-b:referenceOf": "referenceOf",
+    "dfc-b:referencedBy": "referencedBy",
+    "dfc-b:references": "references",
+    "dfc-b:refersTo": "refersTo",
+    "dfc-b:refrigerated": "refrigerated",
+    "dfc-b:region": "region",
+    "dfc-b:representedBy": "representedBy",
+    "dfc-b:represents": "represents",
+    "dfc-b:requestedBy": "requestedBy",
+    "dfc-b:requests": "requests",
+    "dfc-b:satisfiedBy": "satisfiedBy",
+    "dfc-b:satisfies": "satisfies",
+    "dfc-b:selectedBy": "selectedBy",
+    "dfc-b:selects": "selects",
+    "dfc-b:sells": "sells",
+    "dfc-b:ships": "ships",
+    "dfc-b:sku": "sku",
+    "dfc-b:socialMediaOf": "socialMediaOf",
+    "dfc-b:soldBy": "soldBy",
+    "dfc-b:specificCondition": "specificCondition",
+    "dfc-b:startDate": "startDate",
+    "dfc-b:startsAt": "startsAt",
+    "dfc-b:stockLimitation": "stockLimitation",
+    "dfc-b:storedIn": "storedIn",
+    "dfc-b:stores": "stores",
+    "dfc-b:street": "street",
+    "dfc-b:suppliedBy": "suppliedBy",
+    "dfc-b:supplies": "supplies",
+    "dfc-b:suppliesTo": "suppliesTo",
+    "dfc-b:to": "to",
+    "dfc-b:totalTheoriticalStock": "totalTheoriticalStock",
+    "dfc-b:tracedBy": "tracedBy",
+    "dfc-b:traces": "traces",
+    "dfc-b:transformedBy": "transformedBy",
+    "dfc-b:transforms": "transforms",
+    "dfc-b:transportedBy": "transportedBy",
+    "dfc-b:transports": "transports",
+    "dfc-b:typeOf": "typeOf",
+    "dfc-b:useVehicle": "useVehicle",
+    "dfc-b:usedInRoute": "usedInRoute",
+    "dfc-b:uses": "uses",
+    "dfc-b:value": "value",
+    "dfc-b:websitePage": "websitePage",
+    "dfc-t:hasPivot": "hasPivot",
+    "dfc-t:hostedBy": "hostedBy",
+    "dfc-t:represent": "represent",
+    "http://www.w3.org/2002/12/cal/icaltzd#byday": "byday",
+    "http://www.w3.org/2002/12/cal/icaltzd#bymonth": "bymonth",
+    "http://www.w3.org/2002/12/cal/icaltzd#dtend": "dtend",
+    "http://www.w3.org/2002/12/cal/icaltzd#dtstart": "dtstart",
+    "http://www.w3.org/2002/12/cal/icaltzd#freq": "freq",
+    "http://www.w3.org/2002/12/cal/icaltzd#interval": "interval",
+    "http://www.w3.org/2002/12/cal/icaltzd#rrule": "rrule",
+    "https://purl.org/geojson/vocab#coordinates": "coordinates",
+    "https://purl.org/geojson/vocab#geometry": "geometry",
+    "https://purl.org/geojson/vocab#properties": "properties",
+    "https://schema.org/dayOfWeek": "dayOfWeek",
+    "https://schema.org/opens": "opens",
+    "skos:broader": "broader",
+    "skos:inScheme": "inScheme",
+    "skos:narrower": "narrower",
+  };
 
   private static defaultContextUrl: string = "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json";
 
@@ -260,17 +521,22 @@ export class Connector {
     return this;
   }
 
-  async export(...objects: SemanticObject[]): Promise<Record<string, unknown>> {
+  async export(...objects: SemanticObject[]): Promise<string> {
     let context: Record<string, unknown> | undefined;
     try {
       context = await this.getContext();
     } catch {
-      // Context fetch failed — export without @context
+      // Context fetch failed — export without compaction
+      return JSON.stringify(new JsonLdSerializer(undefined).serialize(...objects), null, 2);
     }
-    return new JsonLdSerializer(context).serialize(...objects);
+    const expanded: Record<string, unknown> = new JsonLdSerializer(context).serialize(...objects) as Record<string, unknown>;
+    const compacted = await (jsonld.compact(expanded, context as any) as unknown as Promise<Record<string, unknown>>);
+    const output = compacted as Record<string, unknown>;
+    output["@context"] = this.contextUrl;
+    return JSON.stringify(output, null, 2);
   }
 
-  import(jsonLdData: string | Record<string, unknown>): SemanticObject | SemanticObject[] {
+  import(jsonLdData: string | Record<string, unknown>): SemanticObject[] {
     const data = typeof jsonLdData === "string" ? JSON.parse(jsonLdData) : jsonLdData;
 
     const entries: Array<Record<string, unknown>> = Array.isArray(data)
@@ -285,10 +551,18 @@ export class Connector {
       const semanticType = entry["@type"] as string | undefined;
       if (!semanticId || !semanticType) continue;
 
-      const Klass = SemanticObject.typeRegistry.get(semanticType);
+      const Klass = SemanticObject.typeRegistry.get(semanticType) as
+        new (semanticId: string, params?: Record<string, unknown>) => SemanticObject;
       if (!Klass) continue;
 
-      const obj = new Klass(semanticId) as SemanticObject;
+      const entryParams: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(entry)) {
+        if (key.startsWith("@")) continue;
+        const propName = this.predicateToPropName(key);
+        entryParams[propName] = value;
+      }
+
+      const obj = new Klass(semanticId, entryParams) as SemanticObject;
       objectsById.set(semanticId, obj);
       instances.push(obj);
     }
@@ -305,28 +579,28 @@ export class Connector {
         if (!(propName in obj)) continue;
 
         if (Array.isArray(value)) {
-          (obj as unknown as Record<string, unknown>)[propName] = value.map((v: unknown) => {
-            if (typeof v === "object" && v !== null && "@id" in (v as Record<string, unknown>)) {
-              const refId = (v as Record<string, unknown>)["@id"] as string;
-              return objectsById.get(refId) || refId;
-            }
-            if (typeof v === "string" && (v.startsWith("http") || v.startsWith("/") || v.startsWith("_:"))) {
-              return objectsById.get(v) || v;
-            }
-            return v;
-          });
-        } else if (typeof value === "object" && value !== null && "@id" in (value as Record<string, unknown>)) {
-          const refId = (value as Record<string, unknown>)["@id"] as string;
-          (obj as unknown as Record<string, unknown>)[propName] = objectsById.get(refId) || refId;
+          (obj as unknown as Record<string, unknown>)[propName] = value.map((v: unknown) =>
+            this.resolveReference(v, objectsById)
+          );
+        } else if (typeof value === "object" && value !== null && "@id" in value) {
+          (obj as unknown as Record<string, unknown>)[propName] = this.resolveReference(value, objectsById);
         } else if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {
           (obj as unknown as Record<string, unknown>)[propName] = objectsById.get(value) || value;
-        } else {
-          (obj as unknown as Record<string, unknown>)[propName] = value;
         }
       }
     }
 
-    return instances.length === 1 ? instances[0] : instances;
+    return instances;
+  }
+
+  private resolveReference(value: unknown, objectsById: Map<string, SemanticObject>): unknown {
+    if (typeof value === "string" && (value.startsWith("http") || value.startsWith("/") || value.startsWith("_:"))) {
+      return objectsById.get(value) || value;
+    }
+    if (typeof value === "object" && value !== null && "@id" in value) {
+      return objectsById.get((value as Record<string, unknown>)["@id"] as string) || value;
+    }
+    return value;
   }
 
 
@@ -453,6 +727,10 @@ export class Connector {
 
   createDeliveryStep(semanticId: string, params?: DeliveryStepParams): DeliveryStep {
     return new DeliveryStep(semanticId, params);
+  }
+
+  createEnterprise(semanticId: string, params?: EnterpriseParams): Enterprise {
+    return new Enterprise(semanticId, params);
   }
 
   createFeature(semanticId: string, params?: FeatureParams): Feature {
@@ -730,10 +1008,18 @@ export class Connector {
   }
 
   private predicateToPropName(predicate: string): string {
-    let name = predicate.replace(/^dfc-b:/, "");
-    const colonIndex = name.indexOf(":");
-    if (colonIndex !== -1) {
-      name = name.slice(colonIndex + 1);
+    const mapped = Connector.PREDICATE_MAP[predicate];
+    if (mapped !== undefined) return mapped;
+    // Fallback: extract the local name from any CURIE or URI
+    let name = predicate;
+    const hashIndex = name.lastIndexOf("#");
+    if (hashIndex !== -1) {
+      name = name.slice(hashIndex + 1);
+    } else {
+      const colonIndex = name.lastIndexOf(":");
+      if (colonIndex !== -1) {
+        name = name.slice(colonIndex + 1);
+      }
     }
     name = name.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
     name = name.charAt(0).toLowerCase() + name.slice(1);

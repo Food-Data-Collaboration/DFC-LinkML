@@ -2,14 +2,76 @@
 
 # Class from DFC Business Ontology: #Shipment
 require_relative '../core/semantic_object'
-require_relative 'relation'
 
 
 module DfcLinkmlConnector
   module Models
-    class Shipment < Relation
+    class Shipment < Core::SemanticObject
       SEMANTIC_TYPE = "dfc-b:Shipment".freeze
 
+      # @return [String]
+      attr_accessor :end_date
+
+      # @return [String]
+      attr_accessor :start_date
+
+      # @return [String]
+      attr_accessor :is_shipped_in
+
+      # @return [String]
+      attr_accessor :transports
+
+      # @return [String]
+      attr_accessor :date
+
+      # @return [String]
+      attr_accessor :description
+
+      # @return [String]
+      attr_accessor :name
+
+      # @return [String]
+      attr_accessor :characteristic_of
+
+      # @return [String]
+      attr_accessor :dimension
+
+      # @return [PhysicalPlace]
+      attr_accessor :ends_at
+
+      # @return [PhysicalPlace]
+      attr_accessor :starts_at
+
+      # @param semanticId [String]
+      # @param endDate: nil, startDate: nil, isShippedIn: nil, transports: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endsAt: nil, startsAt: nil
+      def initialize(semanticId, endDate: nil, startDate: nil, isShippedIn: nil, transports: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endsAt: nil, startsAt: nil)
+        super(semanticId)
+        @end_date = endDate
+        @start_date = startDate
+        @is_shipped_in = isShippedIn
+        @transports = transports
+        @date = date
+        @description = description
+        @name = name
+        @characteristic_of = characteristicOf
+        @dimension = dimension
+        @ends_at = endsAt
+        @starts_at = startsAt
+        self.semanticType = "dfc-b:Shipment"
+        registerSemanticProperty("dfc-b:endDate", &method("end_date")).valueSetter = method("end_date=")
+        registerSemanticProperty("dfc-b:startDate", &method("start_date")).valueSetter = method("start_date=")
+        registerSemanticProperty("dfc-b:isShippedIn", &method("is_shipped_in")).valueSetter = method("is_shipped_in=")
+        registerSemanticProperty("dfc-b:transports", &method("transports")).valueSetter = method("transports=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:endsAt", &method("ends_at")).valueSetter = method("ends_at=")
+        registerSemanticProperty("dfc-b:startsAt", &method("starts_at")).valueSetter = method("starts_at=")
+      end
+
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

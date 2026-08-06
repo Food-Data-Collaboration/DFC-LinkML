@@ -10,67 +10,53 @@ module DfcLinkmlConnector
       SEMANTIC_TYPE = "dfc-b:Vevent".freeze
 
       # @return [String]
-      attr_accessor :availability_time
-
-      # @return [String]
-      attr_accessor :byday
-
-      # @return [String]
-      attr_accessor :bymonth
-
-      # @return [String]
-      attr_accessor :closes
-
-      # @return [String]
-      attr_accessor :date
-
-      # @return [String]
       attr_accessor :dtend
 
       # @return [String]
       attr_accessor :dtstart
 
       # @return [String]
-      attr_accessor :duration
+      attr_accessor :date
 
       # @return [String]
-      attr_accessor :extra_availability_time
+      attr_accessor :description
 
       # @return [String]
-      attr_accessor :freq
+      attr_accessor :name
 
       # @return [String]
-      attr_accessor :interval
+      attr_accessor :characteristic_of
+
+      # @return [String]
+      attr_accessor :dimension
+
+      # @return [ValueRECUR]
+      attr_accessor :rrule
 
       # @param semanticId [String]
-      # @param availabilityTime: nil, byday: nil, bymonth: nil, closes: nil, date: nil, dtend: nil, dtstart: nil, duration: nil, extraAvailabilityTime: nil, freq: nil, interval: nil
-      def initialize(semanticId, availabilityTime: nil, byday: nil, bymonth: nil, closes: nil, date: nil, dtend: nil, dtstart: nil, duration: nil, extraAvailabilityTime: nil, freq: nil, interval: nil)
+      # @param dtend: nil, dtstart: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, rrule: nil
+      def initialize(semanticId, dtend: nil, dtstart: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, rrule: nil)
         super(semanticId)
-        @availability_time = availabilityTime
-        @byday = byday
-        @bymonth = bymonth
-        @closes = closes
-        @date = date
         @dtend = dtend
         @dtstart = dtstart
-        @duration = duration
-        @extra_availability_time = extraAvailabilityTime
-        @freq = freq
-        @interval = interval
+        @date = date
+        @description = description
+        @name = name
+        @characteristic_of = characteristicOf
+        @dimension = dimension
+        @rrule = rrule
         self.semanticType = "dfc-b:Vevent"
-        registerSemanticProperty("dfc-b:Vevent:availabilityTime", &method("availability_time")).valueSetter = method("availability_time=")
-        registerSemanticProperty("dfc-b:Vevent:byday", &method("byday")).valueSetter = method("byday=")
-        registerSemanticProperty("dfc-b:Vevent:bymonth", &method("bymonth")).valueSetter = method("bymonth=")
-        registerSemanticProperty("dfc-b:Vevent:closes", &method("closes")).valueSetter = method("closes=")
-        registerSemanticProperty("dfc-b:Vevent:date", &method("date")).valueSetter = method("date=")
-        registerSemanticProperty("dfc-b:Vevent:dtend", &method("dtend")).valueSetter = method("dtend=")
-        registerSemanticProperty("dfc-b:Vevent:dtstart", &method("dtstart")).valueSetter = method("dtstart=")
-        registerSemanticProperty("dfc-b:Vevent:duration", &method("duration")).valueSetter = method("duration=")
-        registerSemanticProperty("dfc-b:Vevent:extraAvailabilityTime", &method("extra_availability_time")).valueSetter = method("extra_availability_time=")
-        registerSemanticProperty("dfc-b:Vevent:freq", &method("freq")).valueSetter = method("freq=")
-        registerSemanticProperty("dfc-b:Vevent:interval", &method("interval")).valueSetter = method("interval=")
+        registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#dtend", &method("dtend")).valueSetter = method("dtend=")
+        registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#dtstart", &method("dtstart")).valueSetter = method("dtstart=")
+        registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
+        registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
+        registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
+        registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
+        registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#rrule", &method("rrule")).valueSetter = method("rrule=")
       end
 
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

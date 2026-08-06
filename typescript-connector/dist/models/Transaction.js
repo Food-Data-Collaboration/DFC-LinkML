@@ -22,13 +22,13 @@ export class Transaction extends HowSubject {
         this.to = params?.to;
         this.hasQuantity = params?.hasQuantity;
         this.semanticType = Transaction.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:Transaction:invoice_number", () => this.invoiceNumber);
-        this.registerSemanticProperty("dfc-b:Transaction:quantity", () => this.quantity);
-        this.registerSemanticProperty("dfc-b:Transaction:concerns", () => this.concerns);
-        this.registerSemanticProperty("dfc-b:Transaction:from", () => this.from);
-        this.registerSemanticProperty("dfc-b:Transaction:has_price", () => this.hasPrice);
-        this.registerSemanticProperty("dfc-b:Transaction:to", () => this.to);
-        this.registerSemanticProperty("dfc-b:Transaction:has_quantity", () => this.hasQuantity);
+        this.registerSemanticProperty("dfc-b:invoiceNumber", () => this.invoiceNumber);
+        this.registerSemanticProperty("dfc-b:quantity", () => this.quantity);
+        this.registerSemanticProperty("dfc-b:concerns", () => this.concerns);
+        this.registerSemanticProperty("dfc-b:from", () => this.from);
+        this.registerSemanticProperty("dfc-b:hasPrice", () => this.hasPrice);
+        this.registerSemanticProperty("dfc-b:to", () => this.to);
+        this.registerSemanticProperty("dfc-b:hasQuantity", () => this.hasQuantity);
     }
     static {
         SemanticObject.typeRegistry.set(Transaction.SEMANTIC_TYPE, Transaction);

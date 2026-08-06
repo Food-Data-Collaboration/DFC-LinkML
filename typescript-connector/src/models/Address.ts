@@ -43,15 +43,15 @@ export class Address extends WhereSubject {
     this.addressOf = params?.addressOf;
     this.hasCountry = params?.hasCountry;
     this.semanticType = Address.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Address:city", () => this.city);
-    this.registerSemanticProperty("dfc-b:Address:country", () => this.country);
-    this.registerSemanticProperty("dfc-b:Address:latitude", () => this.latitude);
-    this.registerSemanticProperty("dfc-b:Address:longitude", () => this.longitude);
-    this.registerSemanticProperty("dfc-b:Address:postcode", () => this.postcode);
-    this.registerSemanticProperty("dfc-b:Address:region", () => this.region);
-    this.registerSemanticProperty("dfc-b:Address:street", () => this.street);
-    this.registerSemanticProperty("dfc-b:Address:address_of", () => this.addressOf);
-    this.registerSemanticProperty("dfc-b:Address:has_country", () => this.hasCountry);
+    this.registerSemanticProperty("dfc-b:city", () => this.city);
+    this.registerSemanticProperty("dfc-b:country", () => this.country);
+    this.registerSemanticProperty("dfc-b:latitude", () => this.latitude);
+    this.registerSemanticProperty("dfc-b:longitude", () => this.longitude);
+    this.registerSemanticProperty("dfc-b:postcode", () => this.postcode);
+    this.registerSemanticProperty("dfc-b:region", () => this.region);
+    this.registerSemanticProperty("dfc-b:street", () => this.street);
+    this.registerSemanticProperty("dfc-b:addressOf", () => this.addressOf);
+    this.registerSemanticProperty("dfc-b:hasCountry", () => this.hasCountry);
   }
   static {
     SemanticObject.typeRegistry.set(Address.SEMANTIC_TYPE, Address);

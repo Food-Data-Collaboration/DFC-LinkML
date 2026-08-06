@@ -8,8 +8,8 @@ but with full class and property coverage from the LinkML schema.
 
 ## Schema Overview
 
-- **Classes**: 85
-- **Slots/Properties**: 246
+- **Classes**: 89
+- **Slots/Properties**: 255
 - **Enumerations**: 5
 
 ## Installation

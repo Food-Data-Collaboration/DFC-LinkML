@@ -12,8 +12,8 @@ export class SocialMedia extends WhatSubject {
         this.websitePage = params?.websitePage;
         this.socialMediaOf = params?.socialMediaOf;
         this.semanticType = SocialMedia.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:SocialMedia:website_page", () => this.websitePage);
-        this.registerSemanticProperty("dfc-b:SocialMedia:social_media_of", () => this.socialMediaOf);
+        this.registerSemanticProperty("dfc-b:websitePage", () => this.websitePage);
+        this.registerSemanticProperty("dfc-b:socialMediaOf", () => this.socialMediaOf);
     }
     static {
         SemanticObject.typeRegistry.set(SocialMedia.SEMANTIC_TYPE, SocialMedia);

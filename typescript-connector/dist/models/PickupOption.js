@@ -12,8 +12,8 @@ export class PickupOption extends ShippingOption {
         this.pickedUpAt = params?.pickedUpAt;
         this.uses = params?.uses;
         this.semanticType = PickupOption.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:PickupOption:picked_up_at", () => this.pickedUpAt);
-        this.registerSemanticProperty("dfc-b:PickupOption:uses", () => this.uses);
+        this.registerSemanticProperty("dfc-b:pickedUpAt", () => this.pickedUpAt);
+        this.registerSemanticProperty("dfc-b:uses", () => this.uses);
     }
     static {
         SemanticObject.typeRegistry.set(PickupOption.SEMANTIC_TYPE, PickupOption);

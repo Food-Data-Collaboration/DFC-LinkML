@@ -17,16 +17,17 @@ module DfcLinkmlConnector
       attr_accessor :product_option_value
 
       # @param semanticId [String]
-      # @param productOption: nil, productOptionValue: nil
-      def initialize(semanticId, productOption: nil, productOptionValue: nil)
-        super(semanticId)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, productOption: nil, productOptionValue: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, productOption: nil, productOptionValue: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @product_option = productOption
         @product_option_value = productOptionValue
         self.semanticType = "dfc-b:VariantCaracteristic"
-        registerSemanticProperty("dfc-b:VariantCaracteristic:hasProductOption", &method("product_option")).valueSetter = method("product_option=")
-        registerSemanticProperty("dfc-b:VariantCaracteristic:hasProductOptionValue", &method("product_option_value")).valueSetter = method("product_option_value=")
+        registerSemanticProperty("dfc-b:hasProductOption", &method("product_option")).valueSetter = method("product_option=")
+        registerSemanticProperty("dfc-b:hasProductOptionValue", &method("product_option_value")).valueSetter = method("product_option_value=")
       end
 
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

@@ -21,13 +21,13 @@ export class PhysicalCharacteristic extends SemanticObject {
         this.characteristicOf = params?.characteristicOf;
         this.hasDimension = params?.hasDimension;
         this.semanticType = PhysicalCharacteristic.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:PhysicalCharacteristic:has_physical_dimension", () => this.hasPhysicalDimension);
-        this.registerSemanticProperty("dfc-b:PhysicalCharacteristic:physical_characteristic_of", () => this.physicalCharacteristicOf);
-        this.registerSemanticProperty("dfc-b:PhysicalCharacteristic:date", () => this.date);
-        this.registerSemanticProperty("dfc-b:PhysicalCharacteristic:description", () => this.description);
-        this.registerSemanticProperty("dfc-b:PhysicalCharacteristic:name", () => this.name);
-        this.registerSemanticProperty("dfc-b:PhysicalCharacteristic:characteristic_of", () => this.characteristicOf);
-        this.registerSemanticProperty("dfc-b:PhysicalCharacteristic:has_dimension", () => this.hasDimension);
+        this.registerSemanticProperty("dfc-b:hasPhysicalDimension", () => this.hasPhysicalDimension);
+        this.registerSemanticProperty("dfc-b:physicalCharacteristicOf", () => this.physicalCharacteristicOf);
+        this.registerSemanticProperty("dfc-b:date", () => this.date);
+        this.registerSemanticProperty("dfc-b:description", () => this.description);
+        this.registerSemanticProperty("dfc-b:name", () => this.name);
+        this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+        this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
     }
     static {
         SemanticObject.typeRegistry.set(PhysicalCharacteristic.SEMANTIC_TYPE, PhysicalCharacteristic);

@@ -20,12 +20,12 @@ export class ProductBatch extends WhatSubject {
         this.identifies = params?.identifies;
         this.traces = params?.traces;
         this.semanticType = ProductBatch.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:ProductBatch:batch_number", () => this.batchNumber);
-        this.registerSemanticProperty("dfc-b:ProductBatch:best_before_date", () => this.bestBeforeDate);
-        this.registerSemanticProperty("dfc-b:ProductBatch:expiry_date", () => this.expiryDate);
-        this.registerSemanticProperty("dfc-b:ProductBatch:production_date", () => this.productionDate);
-        this.registerSemanticProperty("dfc-b:ProductBatch:identifies", () => this.identifies);
-        this.registerSemanticProperty("dfc-b:ProductBatch:traces", () => this.traces);
+        this.registerSemanticProperty("dfc-b:batchNumber", () => this.batchNumber);
+        this.registerSemanticProperty("dfc-b:bestBeforeDate", () => this.bestBeforeDate);
+        this.registerSemanticProperty("dfc-b:expiryDate", () => this.expiryDate);
+        this.registerSemanticProperty("dfc-b:productionDate", () => this.productionDate);
+        this.registerSemanticProperty("dfc-b:identifies", () => this.identifies);
+        this.registerSemanticProperty("dfc-b:traces", () => this.traces);
     }
     static {
         SemanticObject.typeRegistry.set(ProductBatch.SEMANTIC_TYPE, ProductBatch);

@@ -14,9 +14,9 @@ export class CustomerCategory extends WhoSubject {
         this.hasMember = params?.hasMember;
         this.hasOffer = params?.hasOffer;
         this.semanticType = CustomerCategory.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:CustomerCategory:defined_by", () => this.definedBy);
-        this.registerSemanticProperty("dfc-b:CustomerCategory:has_member", () => this.hasMember);
-        this.registerSemanticProperty("dfc-b:CustomerCategory:has_offer", () => this.hasOffer);
+        this.registerSemanticProperty("dfc-b:definedBy", () => this.definedBy);
+        this.registerSemanticProperty("dfc-b:hasMember", () => this.hasMember);
+        this.registerSemanticProperty("dfc-b:hasOffer", () => this.hasOffer);
     }
     static {
         SemanticObject.typeRegistry.set(CustomerCategory.SEMANTIC_TYPE, CustomerCategory);

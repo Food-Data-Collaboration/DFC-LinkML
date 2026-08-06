@@ -28,10 +28,10 @@ export class Catalog extends WhereSubject {
     this.lists = params?.lists;
     this.maintainedBy = params?.maintainedBy;
     this.semanticType = Catalog.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Catalog:end_date", () => this.endDate);
-    this.registerSemanticProperty("dfc-b:Catalog:start_date", () => this.startDate);
-    this.registerSemanticProperty("dfc-b:Catalog:lists", () => this.lists);
-    this.registerSemanticProperty("dfc-b:Catalog:maintained_by", () => this.maintainedBy);
+    this.registerSemanticProperty("dfc-b:endDate", () => this.endDate);
+    this.registerSemanticProperty("dfc-b:startDate", () => this.startDate);
+    this.registerSemanticProperty("dfc-b:lists", () => this.lists);
+    this.registerSemanticProperty("dfc-b:maintainedBy", () => this.maintainedBy);
   }
   static {
     SemanticObject.typeRegistry.set(Catalog.SEMANTIC_TYPE, Catalog);

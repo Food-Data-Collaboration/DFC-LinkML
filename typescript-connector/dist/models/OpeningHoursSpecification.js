@@ -23,14 +23,14 @@ export class OpeningHoursSpecification extends SemanticObject {
         this.characteristicOf = params?.characteristicOf;
         this.hasDimension = params?.hasDimension;
         this.semanticType = OpeningHoursSpecification.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:OpeningHoursSpecification:day_of_week", () => this.dayOfWeek);
-        this.registerSemanticProperty("dfc-b:OpeningHoursSpecification:opens", () => this.opens);
-        this.registerSemanticProperty("dfc-b:OpeningHoursSpecification:closes", () => this.closes);
-        this.registerSemanticProperty("dfc-b:OpeningHoursSpecification:date", () => this.date);
-        this.registerSemanticProperty("dfc-b:OpeningHoursSpecification:description", () => this.description);
-        this.registerSemanticProperty("dfc-b:OpeningHoursSpecification:name", () => this.name);
-        this.registerSemanticProperty("dfc-b:OpeningHoursSpecification:characteristic_of", () => this.characteristicOf);
-        this.registerSemanticProperty("dfc-b:OpeningHoursSpecification:has_dimension", () => this.hasDimension);
+        this.registerSemanticProperty("https://schema.org/dayOfWeek", () => this.dayOfWeek);
+        this.registerSemanticProperty("https://schema.org/opens", () => this.opens);
+        this.registerSemanticProperty("dfc-b:closes", () => this.closes);
+        this.registerSemanticProperty("dfc-b:date", () => this.date);
+        this.registerSemanticProperty("dfc-b:description", () => this.description);
+        this.registerSemanticProperty("dfc-b:name", () => this.name);
+        this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+        this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
     }
     static {
         SemanticObject.typeRegistry.set(OpeningHoursSpecification.SEMANTIC_TYPE, OpeningHoursSpecification);

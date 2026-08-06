@@ -54,19 +54,19 @@ export class CatalogItem extends SemanticObject {
     this.characteristicOf = params?.characteristicOf;
     this.hasDimension = params?.hasDimension;
     this.semanticType = CatalogItem.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:CatalogItem:extra_availability_time", () => this.extraAvailabilityTime);
-    this.registerSemanticProperty("dfc-b:CatalogItem:extra_delivery_condition", () => this.extraDeliveryCondition);
-    this.registerSemanticProperty("dfc-b:CatalogItem:sku", () => this.sku);
-    this.registerSemanticProperty("dfc-b:CatalogItem:stock_limitation", () => this.stockLimitation);
-    this.registerSemanticProperty("dfc-b:CatalogItem:listed_in", () => this.listedIn);
-    this.registerSemanticProperty("dfc-b:CatalogItem:managed_by", () => this.managedBy);
-    this.registerSemanticProperty("dfc-b:CatalogItem:offered_through", () => this.offeredThrough);
-    this.registerSemanticProperty("dfc-b:CatalogItem:references", () => this.references);
-    this.registerSemanticProperty("dfc-b:CatalogItem:date", () => this.date);
-    this.registerSemanticProperty("dfc-b:CatalogItem:description", () => this.description);
-    this.registerSemanticProperty("dfc-b:CatalogItem:name", () => this.name);
-    this.registerSemanticProperty("dfc-b:CatalogItem:characteristic_of", () => this.characteristicOf);
-    this.registerSemanticProperty("dfc-b:CatalogItem:has_dimension", () => this.hasDimension);
+    this.registerSemanticProperty("dfc-b:extraAvailabilityTime", () => this.extraAvailabilityTime);
+    this.registerSemanticProperty("dfc-b:extraDeliveryCondition", () => this.extraDeliveryCondition);
+    this.registerSemanticProperty("dfc-b:sku", () => this.sku);
+    this.registerSemanticProperty("dfc-b:stockLimitation", () => this.stockLimitation);
+    this.registerSemanticProperty("dfc-b:listedIn", () => this.listedIn);
+    this.registerSemanticProperty("dfc-b:managedBy", () => this.managedBy);
+    this.registerSemanticProperty("dfc-b:offeredThrough", () => this.offeredThrough);
+    this.registerSemanticProperty("dfc-b:references", () => this.references);
+    this.registerSemanticProperty("dfc-b:date", () => this.date);
+    this.registerSemanticProperty("dfc-b:description", () => this.description);
+    this.registerSemanticProperty("dfc-b:name", () => this.name);
+    this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+    this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
   }
   static {
     SemanticObject.typeRegistry.set(CatalogItem.SEMANTIC_TYPE, CatalogItem);

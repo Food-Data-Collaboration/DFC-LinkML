@@ -10,6 +10,19 @@ module DfcLinkmlConnector
     class Place < WhereSubject
       SEMANTIC_TYPE = "dfc-b:Place".freeze
 
+      # @return [String]
+      attr_accessor :hosts
+
+      # @param semanticId [String]
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
+        @hosts = hosts
+        self.semanticType = "dfc-b:Place"
+        registerSemanticProperty("dfc-b:hosts", &method("hosts")).valueSetter = method("hosts=")
+      end
+
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

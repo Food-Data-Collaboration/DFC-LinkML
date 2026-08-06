@@ -25,9 +25,9 @@ export class PhoneNumber extends WhatSubject {
     this.phoneNumber = params?.phoneNumber;
     this.phoneNumberOf = params?.phoneNumberOf;
     this.semanticType = PhoneNumber.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:PhoneNumber:country_code", () => this.countryCode);
-    this.registerSemanticProperty("dfc-b:PhoneNumber:phone_number", () => this.phoneNumber);
-    this.registerSemanticProperty("dfc-b:PhoneNumber:phone_number_of", () => this.phoneNumberOf);
+    this.registerSemanticProperty("dfc-b:countryCode", () => this.countryCode);
+    this.registerSemanticProperty("dfc-b:phoneNumber", () => this.phoneNumber);
+    this.registerSemanticProperty("dfc-b:phoneNumberOf", () => this.phoneNumberOf);
   }
   static {
     SemanticObject.typeRegistry.set(PhoneNumber.SEMANTIC_TYPE, PhoneNumber);

@@ -2,6 +2,6 @@
   "@context": "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json",
   "@id": "http://example.com/org1",
   "@type": "dfc-b:Enterprise",
-  "dfc-b:Enterprise:name": "Test Org",
-  "dfc-b:Enterprise:description": "A test enterprise"
+  "dfc-b:name": "Test Org",
+  "dfc-b:description": "A test enterprise"
 }

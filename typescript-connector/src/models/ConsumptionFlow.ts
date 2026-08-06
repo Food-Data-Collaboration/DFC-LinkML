@@ -43,15 +43,15 @@ export class ConsumptionFlow extends SemanticObject {
     this.hasDimension = params?.hasDimension;
     this.hasQuantity = params?.hasQuantity;
     this.semanticType = ConsumptionFlow.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:ConsumptionFlow:quantity", () => this.quantity);
-    this.registerSemanticProperty("dfc-b:ConsumptionFlow:consumes", () => this.consumes);
-    this.registerSemanticProperty("dfc-b:ConsumptionFlow:input_of", () => this.inputOf);
-    this.registerSemanticProperty("dfc-b:ConsumptionFlow:date", () => this.date);
-    this.registerSemanticProperty("dfc-b:ConsumptionFlow:description", () => this.description);
-    this.registerSemanticProperty("dfc-b:ConsumptionFlow:name", () => this.name);
-    this.registerSemanticProperty("dfc-b:ConsumptionFlow:characteristic_of", () => this.characteristicOf);
-    this.registerSemanticProperty("dfc-b:ConsumptionFlow:has_dimension", () => this.hasDimension);
-    this.registerSemanticProperty("dfc-b:ConsumptionFlow:has_quantity", () => this.hasQuantity);
+    this.registerSemanticProperty("dfc-b:quantity", () => this.quantity);
+    this.registerSemanticProperty("dfc-b:consumes", () => this.consumes);
+    this.registerSemanticProperty("dfc-b:inputOf", () => this.inputOf);
+    this.registerSemanticProperty("dfc-b:date", () => this.date);
+    this.registerSemanticProperty("dfc-b:description", () => this.description);
+    this.registerSemanticProperty("dfc-b:name", () => this.name);
+    this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+    this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
+    this.registerSemanticProperty("dfc-b:hasQuantity", () => this.hasQuantity);
   }
   static {
     SemanticObject.typeRegistry.set(ConsumptionFlow.SEMANTIC_TYPE, ConsumptionFlow);

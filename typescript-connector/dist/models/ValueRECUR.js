@@ -25,15 +25,15 @@ export class ValueRECUR extends SemanticObject {
         this.characteristicOf = params?.characteristicOf;
         this.hasDimension = params?.hasDimension;
         this.semanticType = ValueRECUR.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:Value_RECUR:byday", () => this.byday);
-        this.registerSemanticProperty("dfc-b:Value_RECUR:bymonth", () => this.bymonth);
-        this.registerSemanticProperty("dfc-b:Value_RECUR:freq", () => this.freq);
-        this.registerSemanticProperty("dfc-b:Value_RECUR:interval", () => this.interval);
-        this.registerSemanticProperty("dfc-b:Value_RECUR:date", () => this.date);
-        this.registerSemanticProperty("dfc-b:Value_RECUR:description", () => this.description);
-        this.registerSemanticProperty("dfc-b:Value_RECUR:name", () => this.name);
-        this.registerSemanticProperty("dfc-b:Value_RECUR:characteristic_of", () => this.characteristicOf);
-        this.registerSemanticProperty("dfc-b:Value_RECUR:has_dimension", () => this.hasDimension);
+        this.registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#byday", () => this.byday);
+        this.registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#bymonth", () => this.bymonth);
+        this.registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#freq", () => this.freq);
+        this.registerSemanticProperty("http://www.w3.org/2002/12/cal/icaltzd#interval", () => this.interval);
+        this.registerSemanticProperty("dfc-b:date", () => this.date);
+        this.registerSemanticProperty("dfc-b:description", () => this.description);
+        this.registerSemanticProperty("dfc-b:name", () => this.name);
+        this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+        this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
     }
     static {
         SemanticObject.typeRegistry.set(ValueRECUR.SEMANTIC_TYPE, ValueRECUR);

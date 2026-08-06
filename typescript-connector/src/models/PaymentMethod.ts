@@ -28,10 +28,10 @@ export class PaymentMethod extends HowSubject {
     this.hasPrice = params?.hasPrice;
     this.paidWith = params?.paidWith;
     this.semanticType = PaymentMethod.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:PaymentMethod:payment_method_provider", () => this.paymentMethodProvider);
-    this.registerSemanticProperty("dfc-b:PaymentMethod:payment_method_type", () => this.paymentMethodType);
-    this.registerSemanticProperty("dfc-b:PaymentMethod:has_price", () => this.hasPrice);
-    this.registerSemanticProperty("dfc-b:PaymentMethod:paid_with", () => this.paidWith);
+    this.registerSemanticProperty("dfc-b:paymentMethodProvider", () => this.paymentMethodProvider);
+    this.registerSemanticProperty("dfc-b:paymentMethodType", () => this.paymentMethodType);
+    this.registerSemanticProperty("dfc-b:hasPrice", () => this.hasPrice);
+    this.registerSemanticProperty("dfc-b:paidWith", () => this.paidWith);
   }
   static {
     SemanticObject.typeRegistry.set(PaymentMethod.SEMANTIC_TYPE, PaymentMethod);
