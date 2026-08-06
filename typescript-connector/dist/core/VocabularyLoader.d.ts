@@ -8,7 +8,9 @@ export declare class VocabularyLoader {
     bundledData(name: string): Record<string, unknown>;
     get taxonomyBaseUrl(): string;
     load(name: string, jsonData: Record<string, unknown>): this;
+    private extractConceptKey;
     loadFromUrl(name: string): Promise<this>;
+    private static readonly URL_TO_KEY;
     vocabulary(name: string): Record<string, unknown>;
     facet(key?: string): unknown;
     measure(key?: string): unknown;

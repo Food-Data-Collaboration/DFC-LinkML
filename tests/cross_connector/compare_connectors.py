@@ -2,7 +2,7 @@
 """Compare connector capabilities side by side.
 
 Usage:
-    python3 -m cross_connector.compare_connectors [A] [B]
+    python3 tests/cross_connector/compare_connectors.py [A] [B]
 
 Prints classes only-in-A / only-in-B / both, and per-class predicate
 differences (predicates A supports that B lacks, and vice versa).

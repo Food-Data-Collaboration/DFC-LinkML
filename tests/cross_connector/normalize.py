@@ -15,6 +15,17 @@ from __future__ import annotations
 from typing import Any
 
 
+def _stable_key(value: Any) -> tuple:
+    """Return an ordering key that never mixes incomparable value types.
+
+    Python 3 forbids comparing arbitrary mixed types (e.g. str vs dict), which
+    `sorted()` would raise on for JSON-LD lists containing both literals and
+    @id-wrapped objects. Sorting by (type-name, repr) keeps the order stable
+    and total.
+    """
+    return (type(value).__name__, repr(value))
+
+
 def normalize_value(value: Any) -> Any:
     """Normalize a JSON-LD value for comparison.
 
@@ -22,11 +33,11 @@ def normalize_value(value: Any) -> Any:
     Object references and plain strings are treated as the same content.
     """
     if isinstance(value, list):
-        return sorted(normalize_value(v) for v in value)
+        return sorted((normalize_value(v) for v in value), key=_stable_key)
     if isinstance(value, dict):
         if "@id" in value:
             return value["@id"]
-        return {k: normalize_value(v) for k, v in sorted(value.items())}
+        return {k: normalize_value(v) for k, v in sorted(value.items(), key=_stable_key)}
     if value is None:
         return None
     return value

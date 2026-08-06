@@ -305,11 +305,16 @@ module DfcLinkmlConnector
       # Loads the taxonomies shipped with the gem (ruby-gem/vocabularies),
       # falling back to network fetches only when the bundled files are absent.
       def load_bundled_taxonomies
-        load_facets(_bundled_json("Facet")) if _bundled_json("Facet")
-        load_measures(_bundled_json("Measure")) if _bundled_json("Measure")
-        load_product_types(_bundled_json("ProductType")) if _bundled_json("ProductType")
-        load_vocabulary("Scope", _bundled_json("Scope")) if _bundled_json("Scope")
-        load_vocabulary("VocabularyTerm", _bundled_json("VocabularyTerm")) if _bundled_json("VocabularyTerm")
+        facets = _bundled_json("Facet")
+        measures = _bundled_json("Measure")
+        product_types = _bundled_json("ProductType")
+        scopes = _bundled_json("Scope")
+        vocabulary_terms = _bundled_json("VocabularyTerm")
+        load_facets(facets) if facets
+        load_measures(measures) if measures
+        load_product_types(product_types) if product_types
+        load_vocabulary("Scope", scopes) if scopes
+        load_vocabulary("VocabularyTerm", vocabulary_terms) if vocabulary_terms
         self
       end
 
