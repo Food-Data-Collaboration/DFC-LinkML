@@ -576,11 +576,11 @@ export class Connector {{
   }}
 
   loadBundledTaxonomies(): this {{
-    this.loadFacets(this.vocabLoader.bundledData("Facet"));
-    this.loadMeasures(this.vocabLoader.bundledData("Measure"));
-    this.loadProductTypes(this.vocabLoader.bundledData("ProductType"));
-    this.loadVocabulary("Scope", this.vocabLoader.bundledData("Scope"));
-    this.loadVocabulary("VocabularyTerm", this.vocabLoader.bundledData("VocabularyTerm"));
+    this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
+    this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
+    this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+    this.otherVocabularies.set("Scope", this.buildNestedHash(this.vocabLoader.vocabulary("Scope")));
+    this.otherVocabularies.set("VocabularyTerm", this.buildNestedHash(this.vocabLoader.vocabulary("VocabularyTerm")));
     return this;
   }}
 
