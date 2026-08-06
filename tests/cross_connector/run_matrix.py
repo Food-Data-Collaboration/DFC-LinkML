@@ -194,6 +194,14 @@ def main() -> None:
 
     if args.verify_drop_in:
         pairs = drop_in_pairs(names)
+        if not pairs:
+            print(
+                "error: --verify-drop-in selected zero pairs "
+                f"(connectors given: {only or names}) — need at least one our-connector "
+                "and one official-connector to exercise the drop-in matrix.",
+                file=sys.stderr,
+            )
+            sys.exit(2)
     else:
         pairs = [(a, b) for a in names for b in names]
 
