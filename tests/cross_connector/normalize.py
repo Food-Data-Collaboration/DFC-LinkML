@@ -29,8 +29,10 @@ def _stable_key(value: Any) -> tuple:
 def normalize_value(value: Any) -> Any:
     """Normalize a JSON-LD value for comparison.
 
-    Container shape is ignored: ``{"@id": "x"}`` == ``"x"`` == ``["x"]``.
-    Object references and plain strings are treated as the same content.
+    Object references are resolved to their semanticId (``{"@id": "x"}`` is
+    collapsed to ``"x"``). Lists are kept as lists and sorted; container shape
+    (scalar vs 1-element array) is not unified, so a scalar and a single-element
+    list are treated as different values.
     """
     if isinstance(value, list):
         return sorted((normalize_value(v) for v in value), key=_stable_key)
@@ -46,9 +48,10 @@ def normalize_value(value: Any) -> Any:
 def extract_objects(doc: Any) -> dict[str, dict[str, Any]]:
     """Flatten a JSON-LD document into {semanticId: {type, predicates}}.
 
-    Predicate values are normalized (refs resolved to semanticIds, containers
-    unwrapped, lists sorted). Literal vs @id distinction is preserved by
-    wrapping @id-references in a sentinel tuple.
+    Predicate values are normalized (refs resolved to semanticIds, blank-node
+    prefixes collapsed, lists sorted). No literal-vs-@id sentinel is kept:
+    `normalize_value` collapses ``{"@id": "x"}`` to ``"x"``, so a literal
+    string and an @id reference to the same text compare equal.
     """
     entries: list[dict[str, Any]] = []
     if isinstance(doc, dict):

@@ -18,6 +18,14 @@ module DfcLinkmlConnector
         "Scope" => "scope.jsonld",
         "VocabularyTerm" => "vocabulary_term.jsonld",
       }.freeze
+      # Maps the taxonomy URL file name to the internal vocabulary key.
+      URL_TO_KEY = {
+        "facet" => "Facet",
+        "measure" => "Measure",
+        "producttype" => "ProductType",
+        "scope" => "Scope",
+        "vocabularyterm" => "VocabularyTerm",
+      }.freeze
 
       def initialize(taxonomy_version: "2.0.0", ontology_version: "2.0.0")
         @taxonomy_version = taxonomy_version
@@ -45,14 +53,15 @@ module DfcLinkmlConnector
       end
 
       def load_from_url(name)
-        url = "#{TAXONOMY_BASE_URL}/v#{@taxonomy_version}/#{name.downcase}.json"
+        url = "#{TAXONOMY_BASE_URL}/v#{@taxonomy_version}/#{name}.json"
         uri = URI(url)
         request = Net::HTTP::Get.new(uri)
         request["dfc-version"] = @ontology_version
         response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
         raise "Failed to fetch taxonomy from #{url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
         json_data = JSON.parse(response.body)
-        load(name, json_data)
+        key = URL_TO_KEY.fetch(name.downcase, name)
+        load(key, json_data)
       end
 
       def vocabulary(name)
