@@ -510,6 +510,10 @@ module DfcLinkmlConnector
 __PREDICATE_MAP__
       }.freeze
 
+      TYPE_ALIASES = {
+      "dfc-b:Enterprise" => "dfc-b:Organization",
+      }.freeze
+
       class << self
         def default_context_url
           @default_context_url ||= "__CONTEXT_URL__"
@@ -618,9 +622,15 @@ __PREDICATE_MAP__
 
         entries.each do |entry|
           semantic_id = entry["@id"]
-          semantic_type = entry["@type"]
+          raw_type = entry["@type"]
+          semantic_type = if raw_type.is_a?(Array)
+            raw_type.find { |t| t.is_a?(String) && !t.start_with?("@") }
+          else
+            raw_type
+          end
           next unless semantic_id && semantic_type
 
+          semantic_type = TYPE_ALIASES[semantic_type] || semantic_type
           klass = SemanticObject.type_registry[semantic_type]
           next unless klass
 

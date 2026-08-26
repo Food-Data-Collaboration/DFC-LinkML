@@ -352,6 +352,9 @@ export class Connector {
         "skos:inScheme": "inScheme",
         "skos:narrower": "narrower",
     };
+    static TYPE_ALIASES = {
+        "dfc-b:Enterprise": "dfc-b:Organization",
+    };
     static defaultContextUrl = "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json";
     static getDefaultContextUrl() {
         return Connector.defaultContextUrl;
@@ -463,10 +466,13 @@ export class Connector {
         const instances = [];
         for (const entry of entries) {
             const semanticId = entry["@id"];
-            const semanticType = entry["@type"];
+            const rawType = entry["@type"];
+            const semanticType = Array.isArray(rawType)
+                ? rawType.find((t) => typeof t === "string" && !t.startsWith("@"))
+                : rawType;
             if (!semanticId || !semanticType)
                 continue;
-            const Klass = SemanticObject.typeRegistry.get(semanticType);
+            const Klass = SemanticObject.typeRegistry.get(Connector.TYPE_ALIASES[semanticType] ?? semanticType);
             if (!Klass)
                 continue;
             const entryParams = {};

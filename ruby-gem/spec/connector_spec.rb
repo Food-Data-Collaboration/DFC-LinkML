@@ -92,6 +92,39 @@ RSpec.describe DfcLinkmlConnector::Core::Connector do
       expect(result.vat_number).to eq("999")
     end
 
+    it "imports JSON-LD with @type as an array" do
+      data = {
+        "@graph" => [
+          {
+            "@id" => "_:price1",
+            "@type" => ["dfc-b:Price", "dfc-b:Price"],
+            "dfc-b:VATrate" => ["5.5", "5.5"],
+          },
+        ],
+      }
+      result = connector.import(JSON.generate(data))
+      expect(result).to be_a(DfcLinkmlConnector::Models::Price)
+      expect(result.semanticId).to eq("_:price1")
+      expect(result.vat_rate).to eq(["5.5", "5.5"])
+    end
+
+    it "imports legacy dfc-b:Enterprise as dfc-b:Organization" do
+      data = {
+        "@graph" => [
+          {
+            "@id" => "http://example.com/legacy-org",
+            "@type" => "dfc-b:Enterprise",
+            "dfc-b:VATnumber" => "FR12345678901",
+            "dfc-b:name" => "Legacy Org",
+          },
+        ],
+      }
+      result = connector.import(JSON.generate(data))
+      expect(result).to be_a(DfcLinkmlConnector::Models::Organization)
+      expect(result.vat_number).to eq("FR12345678901")
+      expect(result.name).to eq("Legacy Org")
+    end
+
     it "accepts a Hash input as well as a JSON string" do
       data = JSON.parse(connector.export(build_organization))
       result = connector.import(data)
