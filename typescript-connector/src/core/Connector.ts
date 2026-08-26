@@ -444,6 +444,10 @@ export class Connector {
     "skos:narrower": "narrower",
   };
 
+  static readonly TYPE_ALIASES: Record<string, string> = {
+    "dfc-b:Enterprise": "dfc-b:Organization",
+  };
+
   private static defaultContextUrl: string = "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json";
 
   static getDefaultContextUrl(): string {
@@ -576,10 +580,15 @@ export class Connector {
 
     for (const entry of entries) {
       const semanticId = entry["@id"] as string | undefined;
-      const semanticType = entry["@type"] as string | undefined;
+      const rawType = entry["@type"];
+      const semanticType = Array.isArray(rawType)
+        ? (rawType.find((t: unknown) => typeof t === "string" && !t.startsWith("@")) as string | undefined)
+        : (rawType as string | undefined);
       if (!semanticId || !semanticType) continue;
 
-      const Klass = SemanticObject.typeRegistry.get(semanticType) as
+      const Klass = SemanticObject.typeRegistry.get(
+        Connector.TYPE_ALIASES[semanticType] ?? semanticType
+      ) as
         new (semanticId: string, params?: Record<string, unknown>) => SemanticObject;
       if (!Klass) continue;
 
