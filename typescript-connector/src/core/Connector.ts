@@ -463,6 +463,9 @@ export class Connector {
   private productTypes: Record<string, unknown> = {};
   private otherVocabularies = new Map<string, Record<string, unknown>>();
 
+  // Bundled v2.0.0 taxonomies are loaded unconditionally by design — the
+  // connector ships only that version offline. Callers requesting a different
+  // taxonomyVersion must override via load* methods.
   constructor(params: { ontologyVersion?: string; taxonomyVersion?: string } = {}) {
     this.ontologyVersion = params.ontologyVersion ?? "2.0.0";
     this.taxonomyVersion = params.taxonomyVersion ?? "2.0.0";

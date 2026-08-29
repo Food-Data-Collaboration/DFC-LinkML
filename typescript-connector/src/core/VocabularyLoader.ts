@@ -17,6 +17,9 @@ export class VocabularyLoader {
   private ontologyVersion: string;
   private vocabularies: Map<string, Record<string, unknown>>;
 
+  // Bundled v2.0.0 vocabularies are loaded unconditionally by design — the
+  // connector ships only that version offline. Callers requesting a different
+  // taxonomyVersion must override via loadBundled/load.
   constructor(taxonomyVersion: string = "2.0.0", ontologyVersion: string = "2.0.0") {
     this.taxonomyVersion = taxonomyVersion;
     this.ontologyVersion = ontologyVersion;

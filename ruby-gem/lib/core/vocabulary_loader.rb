@@ -19,12 +19,14 @@ module DfcLinkmlConnector
         "VocabularyTerm" => "vocabulary_term.jsonld",
       }.freeze
       # Maps the taxonomy URL file name to the internal vocabulary key.
+      # Keys are plural/lowercased URL segments (e.g. "facets") to match TS
+      # VocabularyLoader.URL_TO_KEY and the w3id taxonomy URLs.
       URL_TO_KEY = {
-        "facet" => "Facet",
-        "measure" => "Measure",
-        "producttype" => "ProductType",
-        "scope" => "Scope",
-        "vocabularyterm" => "VocabularyTerm",
+        "facets" => "Facet",
+        "measures" => "Measure",
+        "producttypes" => "ProductType",
+        "scopes" => "Scope",
+        "vocabularyterms" => "VocabularyTerm",
       }.freeze
 
       def initialize(taxonomy_version: "2.0.0", ontology_version: "2.0.0")
@@ -44,13 +46,39 @@ module DfcLinkmlConnector
       def load(name, json_data)
         concepts = {}
         json_data.fetch("@graph", []).each do |entry|
-          next unless entry["@type"]&.include?("skos:Concept")
-          notation = entry["skos:notation"] || entry["skos:prefLabel"]
+          types = entry["@type"]
+          types = [types] unless types.is_a?(Array)
+          is_concept = types&.any? { |t| t == "skos:Concept" || t == "http://www.w3.org/2004/02/skos/core#Concept" }
+          next unless is_concept
+          notation = extract_concept_key(entry)
+          next unless notation
           concepts[notation] = entry
         end
         @vocabularies[name] = concepts
         self
       end
+
+      private
+
+      def extract_concept_key(entry)
+        candidates = ["skos:notation", "http://www.w3.org/2004/02/skos/core#notation", "skos:prefLabel", "http://www.w3.org/2004/02/skos/core#prefLabel"]
+        candidates.each do |field|
+          value = entry[field]
+          next if value.nil?
+          return value if value.is_a?(String)
+          if value.is_a?(Array)
+            value.each do |item|
+              return item if item.is_a?(String)
+              if item.is_a?(Hash) && item["@value"].is_a?(String)
+                return item["@value"]
+              end
+            end
+          end
+        end
+        nil
+      end
+
+      public
 
       def load_from_url(name)
         url = "#{TAXONOMY_BASE_URL}/v#{@taxonomy_version}/#{name}.json"

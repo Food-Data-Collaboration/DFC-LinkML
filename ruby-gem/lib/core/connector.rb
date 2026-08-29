@@ -290,6 +290,9 @@ module DfcLinkmlConnector
 
       attr_reader :ontology_version, :taxonomy_version, :vocab_loader
 
+      # Bundled v2.0.0 vocabularies are loaded unconditionally by design — the gem
+      # ships only that version offline. Callers requesting a different
+      # taxonomy_version must override via load_* or load_from_url.
       def initialize(ontology_version: "2.0.0", taxonomy_version: "2.0.0")
         @ontology_version = ontology_version
         @taxonomy_version = taxonomy_version
