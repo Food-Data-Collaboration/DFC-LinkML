@@ -132,10 +132,13 @@ def export_scenario(path)
         resolved = value
       end
       if method == :lines=
+        next unless inst.respond_to?(:lines=)
         inst.lines = [resolved].flatten
       elsif method == :offers=
+        next unless inst.respond_to?(:offers=)
         inst.offers = [resolved].flatten
       else
+        next unless inst.respond_to?(method)
         inst.public_send(method, resolved)
       end
     end
