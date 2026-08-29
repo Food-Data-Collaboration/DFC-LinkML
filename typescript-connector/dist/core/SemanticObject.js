@@ -12,6 +12,13 @@ export class SemanticObject {
     registerSemanticProperty(predicate, getter) {
         this.semanticProperties.set(predicate, getter);
     }
+    getRegisteredPredicates() {
+        return [...this.semanticProperties.keys()];
+    }
+    getRegisteredValue(predicate) {
+        const getter = this.semanticProperties.get(predicate);
+        return getter ? getter() : undefined;
+    }
     toJsonLd(context) {
         const result = {
             "@id": this.semanticId,

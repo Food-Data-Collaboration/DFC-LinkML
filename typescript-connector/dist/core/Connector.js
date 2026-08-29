@@ -1,7 +1,8 @@
 import { SemanticObject } from "./SemanticObject.js";
 import { VocabularyLoader } from "./VocabularyLoader.js";
 import { JsonLdSerializer } from "./JsonLdSerializer.js";
-import * as jsonld from "jsonld";
+import jsonld from "jsonld";
+import bundledContextV200 from "../context/context_2.0.0.js";
 import { Address } from "../models/Address.js";
 import { Agent } from "../models/Agent.js";
 import { AllergenCharacteristic } from "../models/AllergenCharacteristic.js";
@@ -369,16 +370,39 @@ export class Connector {
     constructor(params = {}) {
         this.ontologyVersion = params.ontologyVersion ?? "2.0.0";
         this.taxonomyVersion = params.taxonomyVersion ?? "2.0.0";
-        this.vocabLoader = new VocabularyLoader(this.taxonomyVersion);
+        this.vocabLoader = new VocabularyLoader(this.taxonomyVersion, this.ontologyVersion);
+        this.loadBundledTaxonomies();
+    }
+    loadBundledTaxonomies() {
+        this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
+        this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
+        this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+        this.otherVocabularies.set("Scope", this.buildNestedHash(this.vocabLoader.vocabulary("Scope")));
+        this.otherVocabularies.set("VocabularyTerm", this.buildNestedHash(this.vocabLoader.vocabulary("VocabularyTerm")));
+        return this;
     }
     get contextUrl() {
-        return `${Connector.ONTOLOGY_BASE_URL}/v$this.ontologyVersion/context/context_${this.ontologyVersion}.json`;
+        return `${Connector.ONTOLOGY_BASE_URL}/v${this.ontologyVersion}/context/context_${this.ontologyVersion}.json`;
     }
     async getContext() {
         if (!this.contextCache) {
-            this.contextCache = await this.fetchContext();
+            const bundled = this.loadBundledContext();
+            if (bundled) {
+                this.contextCache = bundled;
+            }
+            else {
+                this.contextCache = await this.fetchContext();
+            }
         }
         return this.contextCache;
+    }
+    // Returns the JSON-LD context shipped with the connector for the current
+    // ontology version, or null so the caller falls back to the network.
+    loadBundledContext() {
+        if (this.ontologyVersion === "2.0.0") {
+            return bundledContextV200;
+        }
+        return null;
     }
     loadFacets(jsonData) {
         this.vocabLoader.load("Facet", jsonData);
@@ -774,7 +798,9 @@ export class Connector {
         return new WhoSubject(semanticId, params);
     }
     async fetchContext() {
-        const response = await fetch(this.contextUrl);
+        const response = await fetch(this.contextUrl, {
+            headers: { "dfc-version": this.ontologyVersion },
+        });
         if (!response.ok) {
             throw new Error(`Failed to fetch context from ${this.contextUrl}: ${response.status}`);
         }
