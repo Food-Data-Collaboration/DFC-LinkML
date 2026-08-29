@@ -18,6 +18,8 @@ Classification (robust, no fragile introspection):
       - else                          -> "node-loss" (reported, not failure)
 
 Exit code 1 if any mismatch or import/export failure is found.
+Exit code 2 if --verify-drop-in selects zero pairs or an unknown connector
+name yields no pairs.
 
 --verify-drop-in: run only the drop-in pairs (ours as source, official as
 target, plus official -> ours and ours -> ours baselines) and fail on any
@@ -190,7 +192,14 @@ def main() -> None:
     names = available_connectors()
     only = args.connectors or None
     if only:
-        names = [n for n in names if n in only]
+        filtered = [n for n in names if n in only]
+        if not filtered:
+            print(
+                f"error: unknown connector(s) {only!r} — no matches in {names}",
+                file=sys.stderr,
+            )
+            sys.exit(2)
+        names = filtered
 
     if args.verify_drop_in:
         pairs = drop_in_pairs(names)

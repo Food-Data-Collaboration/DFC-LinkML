@@ -54,6 +54,7 @@ const PARAM_METHODS = {
     vatRate: "setVatRate",
   },
   "dfc-b:Offer": {
+    name: "setName",
     hasPrice: "setPrice",
   },
 };

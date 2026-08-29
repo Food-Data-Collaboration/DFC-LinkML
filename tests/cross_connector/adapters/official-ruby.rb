@@ -44,6 +44,7 @@ PARAM_METHODS = {
     'offeredThrough' => :offers=,
   },
   'dfc-b:Offer' => {
+    'name' => :name=,
     'hasPrice' => :price=,
   },
 }.freeze
