@@ -15,7 +15,7 @@ Classification (robust, no fragile introspection):
   * predicate present in both: compare normalized values (shape-insensitive)
   * object missing from doc_AB:
       - if baseline_B lacks the @type -> "expected-drop" (B has no such class)
-      - else                          -> "node-loss" (reported, not failure)
+      - else                          -> "node-loss" (FAILURE: B supports it but lost it)
 
 Exit code 1 if any mismatch or import/export failure is found.
 Exit code 2 if --verify-drop-in selects zero pairs or an unknown connector
@@ -64,7 +64,7 @@ class RoundTripReport:
 
     @property
     def failures(self) -> list[Difference]:
-        return [d for d in self.differences if d.kind == "mismatch"]
+        return [d for d in self.differences if d.kind in ("mismatch", "node-loss")]
 
     def is_clean(self) -> bool:
         return not self.failures
@@ -94,7 +94,15 @@ def compare(source: str, target: str, scenario_path: Path) -> RoundTripReport:
         return report
 
     # baseline_B: the target's own round-trip of the same scenario.
-    baseline_b = _safe_import(target, export_jsonld(target, scenario_path), report)
+    try:
+        baseline_doc = export_jsonld(target, scenario_path)
+    except RuntimeError as exc:
+        report.differences.append(Difference(
+            "mismatch", "(scenario)", "",
+            detail=f"target {target} failed to export baseline: {exc}",
+        ))
+        return report
+    baseline_b = _safe_import(target, baseline_doc, report)
     if baseline_b is None:
         return report
 
@@ -203,7 +211,9 @@ def main() -> None:
 
     if args.verify_drop_in:
         pairs = drop_in_pairs(names)
-        if not pairs:
+        ours = [n for n in names if n in OURS]
+        official = [n for n in names if n in OFFICIAL]
+        if not pairs or not ours or not official:
             print(
                 "error: --verify-drop-in selected zero pairs "
                 f"(connectors given: {only or names}) — need at least one our-connector "

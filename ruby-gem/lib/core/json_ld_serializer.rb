@@ -69,7 +69,9 @@ module DfcLinkmlConnector
             end
           elsif value.is_a?(SemanticObject)
             result[predicate] = value.semanticId
-          elsif value.is_a?(Numeric)
+          elsif value.is_a?(Numeric) || value == true || value == false
+            result[predicate] = value
+          elsif value.is_a?(String)
             result[predicate] = value
           else
             result[predicate] = value.to_s

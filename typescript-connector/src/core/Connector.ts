@@ -478,6 +478,7 @@ export class Connector {
   }
 
   loadBundledTaxonomies(): this {
+    this.vocabLoader.loadBundled();
     this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
     this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
     this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));

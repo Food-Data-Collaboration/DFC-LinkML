@@ -422,18 +422,26 @@ module DfcLinkmlConnector
 
             if value.is_a?(Array)
               resolved = value.map do |v|
-                v.is_a?(String) && v.start_with?("http", "/") ? (objects_by_id[v] || v) : v
+                if v.is_a?(String) && (v.start_with?("http", "/") || v.start_with?("_:"))
+                  objects_by_id[v] || v
+                elsif v.is_a?(Hash) && v["@id"]
+                  objects_by_id[v["@id"]] || v
+                else
+                  v
+                end
               end
               obj.send(:"#{prop_name}=", resolved)
-            elsif value.is_a?(String) && (value.start_with?("http") || value.start_with?("/"))
+            elsif value.is_a?(String) && (value.start_with?("http") || value.start_with?("/") || value.start_with?("_:"))
               obj.send(:"#{prop_name}=", objects_by_id[value] || value)
+            elsif value.is_a?(Hash) && value["@id"]
+              obj.send(:"#{prop_name}=", objects_by_id[value["@id"]] || value)
             else
               obj.send(:"#{prop_name}=", value)
             end
           end
         end
 
-        instances.length == 1 ? instances.first : instances
+        instances
       end
 
       def facet

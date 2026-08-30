@@ -87,7 +87,10 @@ switch (subcommand) {
     exportScenario(process.argv[3]);
     break;
   case "import":
-    importData();
+    importData().catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
     break;
   default:
     console.error("usage: our-typescript.mjs {capabilities|export <scenario.json>|import}");

@@ -161,7 +161,7 @@ async function exportScenario(path) {
       }
     }
   });
-  const jsonld = await c.export(instances, { context: CTX });
+  const jsonld = await c.export(instances, { outputContext: CTX });
   process.stdout.write(jsonld);
 }
 
@@ -169,7 +169,7 @@ async function importData() {
   const jsonld = await readStdin();
   const c = new Connector();
   const objects = await c.import(jsonld);
-  const re = await c.export(objects, { context: CTX });
+  const re = await c.export(objects, { outputContext: CTX });
   process.stdout.write(re);
 }
 
@@ -178,10 +178,16 @@ switch (subcommand) {
     capabilities();
     break;
   case "export":
-    exportScenario(process.argv[3]);
+    exportScenario(process.argv[3]).catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
     break;
   case "import":
-    importData();
+    importData().catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
     break;
   default:
     console.error("usage: official-typescript.mjs {capabilities|export <scenario.json>|import}");
