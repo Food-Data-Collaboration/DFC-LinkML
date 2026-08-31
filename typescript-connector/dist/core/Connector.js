@@ -370,6 +370,9 @@ export class Connector {
     measures = {};
     productTypes = {};
     otherVocabularies = new Map();
+    // Bundled v2.0.0 taxonomies are loaded unconditionally by design — the
+    // connector ships only that version offline. Callers requesting a different
+    // taxonomyVersion must override via load* methods.
     constructor(params = {}) {
         this.ontologyVersion = params.ontologyVersion ?? "2.0.0";
         this.taxonomyVersion = params.taxonomyVersion ?? "2.0.0";
@@ -377,6 +380,7 @@ export class Connector {
         this.loadBundledTaxonomies();
     }
     loadBundledTaxonomies() {
+        this.vocabLoader.loadBundled();
         this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
         this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
         this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));

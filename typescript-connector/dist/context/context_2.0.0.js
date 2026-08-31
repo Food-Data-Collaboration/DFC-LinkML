@@ -4,7 +4,7 @@ export default {
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "dfc": "http://w3id.org/dfc/ontology/DFC_FullModel.owl#",
-        "dc": "http://purl.org/dc/elements/1.1/#",
+        "dc": "http://purl.org/dc/elements/1.1/",
         "dfc-b": "http://w3id.org/dfc/ontology/v2.0.0/src/DFC_BusinessOntology.owl#",
         "dfc-t": "http://w3id.org/dfc/ontology/v2.0.0/src/DFC_TechnicalOntology.owl#",
         "dfc-m": "http://w3id.org/dfc/taxonomies/v2.0.0/measures.rdf#",
