@@ -1,6 +1,9 @@
 declare const _default: {
     readonly "@context": {
         readonly skos: "http://www.w3.org/2004/02/skos/core#";
+        readonly "dfc-f": "http://w3id.org/dfc/taxonomies/v2.0.0/facets.rdf#";
+        readonly "dfc-m": "http://w3id.org/dfc/taxonomies/v2.0.0/measures.rdf#";
+        readonly "dfc-pt": "http://w3id.org/dfc/taxonomies/v2.0.0/productTypes.rdf#";
         readonly "dfc-v": "http://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#";
     };
     readonly "@graph": readonly [{

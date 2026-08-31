@@ -3,7 +3,7 @@ declare const _default: {
         readonly rdfs: "http://www.w3.org/2000/01/rdf-schema#";
         readonly skos: "http://www.w3.org/2004/02/skos/core#";
         readonly dfc: "http://w3id.org/dfc/ontology/DFC_FullModel.owl#";
-        readonly dc: "http://purl.org/dc/elements/1.1/#";
+        readonly dc: "http://purl.org/dc/elements/1.1/";
         readonly "dfc-b": "http://w3id.org/dfc/ontology/v2.0.0/src/DFC_BusinessOntology.owl#";
         readonly "dfc-t": "http://w3id.org/dfc/ontology/v2.0.0/src/DFC_TechnicalOntology.owl#";
         readonly "dfc-m": "http://w3id.org/dfc/taxonomies/v2.0.0/measures.rdf#";

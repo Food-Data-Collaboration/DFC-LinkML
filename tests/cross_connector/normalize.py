@@ -30,19 +30,43 @@ def normalize_value(value: Any) -> Any:
     """Normalize a JSON-LD value for comparison.
 
     Object references are resolved to their semanticId (``{"@id": "x"}`` is
-    collapsed to ``"x"``). Lists are kept as lists and sorted; container shape
-    (scalar vs 1-element array) is not unified, so a scalar and a single-element
-    list are treated as different values.
+    collapsed to ``"x"``). Repeated blank-node prefixes are collapsed to the
+    bare URI (``_:_:http://x`` == ``_:http://x`` == ``http://x``). Lists are
+    kept as lists and sorted; container shape (scalar vs 1-element array) is
+    not unified, so a scalar and a single-element list are treated as
+    different values.
     """
     if isinstance(value, list):
         return sorted((normalize_value(v) for v in value), key=_stable_key)
     if isinstance(value, dict):
         if "@id" in value:
-            return value["@id"]
+            return normalize_value(value["@id"])
         return {k: normalize_value(v) for k, v in sorted(value.items(), key=_stable_key)}
+    if isinstance(value, str):
+        collapsed = _collapse_blank_prefix(value)
+        if collapsed is not None:
+            return collapsed
     if value is None:
         return None
     return value
+
+
+def _collapse_blank_prefix(value: str) -> str | None:
+    """Collapse repeated ``_:`` prefixes on a reference string.
+
+    Official connectors wrap URIs in blank nodes that sometimes double up the
+    ``_:`` prefix (``_:_:http://x``). Strip every leading ``_:`` and return
+    the bare ``http://…`` URI, but only when the remainder still looks like a
+    reference (starts with ``http``); a plain local name like ``_:x`` or
+    ``_:_:x`` is left untouched so ``_:price1`` and ``_:_:price1`` remain
+    distinct (the double prefix is not collapsed for non-http blank nodes).
+    """
+    stripped = value
+    while stripped.startswith("_:"):
+        stripped = stripped[2:]
+    if stripped != value and stripped.startswith("http"):
+        return stripped
+    return None
 
 
 def extract_objects(doc: Any) -> dict[str, dict[str, Any]]:
@@ -67,10 +91,15 @@ def extract_objects(doc: Any) -> dict[str, dict[str, Any]]:
     for entry in entries:
         if not isinstance(entry, dict):
             continue
-        semantic_id = entry.get("@id")
-        if not isinstance(semantic_id, str):
+        raw_id = entry.get("@id")
+        if not isinstance(raw_id, str):
             continue
-        semantic_type = entry.get("@type")
+        semantic_id = _collapse_blank_prefix(raw_id) or raw_id
+        raw_type = entry.get("@type")
+        if isinstance(raw_type, list):
+            semantic_type = next((t for t in raw_type if isinstance(t, str) and not t.startswith("@")), None)
+        else:
+            semantic_type = raw_type
         predicates: dict[str, Any] = {}
         for key, value in entry.items():
             if key.startswith("@") or key == "@context":
@@ -81,6 +110,21 @@ def extract_objects(doc: Any) -> dict[str, dict[str, Any]]:
             "predicates": predicates,
         }
     return objects
+
+
+# DFC v2.0 renamed Enterprise to Organization. Official connectors (v1.16) still
+# emit `dfc-b:Enterprise`; our connectors import it as the canonical
+# `dfc-b:Organization`. Treat the two type strings as equivalent when comparing
+# round-trips so the normalization isn't reported as a mismatch.
+TYPE_ALIASES = {
+    "dfc-b:Enterprise": "dfc-b:Organization",
+}
+
+
+def canonical_type(semantic_type: str | None) -> str | None:
+    if semantic_type is None:
+        return None
+    return TYPE_ALIASES.get(semantic_type, semantic_type)
 
 
 def collect_referenced_ids(value: Any) -> set[str]:

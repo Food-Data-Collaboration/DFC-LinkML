@@ -29,13 +29,16 @@ def adapter_cmd(name: str, *args: str) -> list[str]:
 
 
 def run_adapter(name: str, *args: str, stdin: str | None = None) -> str:
-    result = subprocess.run(
-        adapter_cmd(name, *args),
-        input=stdin,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+    try:
+        result = subprocess.run(
+            adapter_cmd(name, *args),
+            input=stdin,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except (FileNotFoundError, OSError) as exc:
+        raise RuntimeError(f"{name} {args} failed to start runtime: {exc}") from exc
     if result.returncode != 0:
         raise RuntimeError(
             f"{name} {args} failed (rc={result.returncode}):\n"

@@ -2,6 +2,9 @@
 export default {
   "@context": {
     "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dfc-f": "http://w3id.org/dfc/taxonomies/v2.0.0/facets.rdf#",
+    "dfc-m": "http://w3id.org/dfc/taxonomies/v2.0.0/measures.rdf#",
+    "dfc-pt": "http://w3id.org/dfc/taxonomies/v2.0.0/productTypes.rdf#",
     "dfc-v": "http://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#"
   },
   "@graph": [

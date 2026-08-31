@@ -512,6 +512,42 @@ describe("Import/Export extended", () => {
     expect(order.hasPart).toBe(line);
   });
 
+  it("imports JSON-LD with @type as an array", () => {
+    const c = new Connector();
+    const jsonLd = {
+      "@graph": [
+        {
+          "@id": "_:price1",
+          "@type": ["dfc-b:Price", "dfc-b:Price"],
+          "dfc-b:VATrate": ["5.5", "5.5"],
+        },
+      ],
+    };
+    const result = c.import(jsonLd) as Price[];
+    expect(result).toHaveLength(1);
+    expect(result[0].semanticId).toBe("_:price1");
+    expect(result[0].vatRate).toEqual(["5.5", "5.5"] as unknown);
+  });
+
+  it("imports legacy dfc-b:Enterprise as dfc-b:Organization", () => {
+    const c = new Connector();
+    const jsonLd = {
+      "@graph": [
+        {
+          "@id": "http://example.com/legacy-org",
+          "@type": "dfc-b:Enterprise",
+          "dfc-b:VATnumber": "FR12345678901",
+          "dfc-b:name": "Legacy Org",
+        },
+      ],
+    };
+    const result = c.import(jsonLd) as Organization[];
+    expect(result).toHaveLength(1);
+    expect(result[0]).toBeInstanceOf(Organization);
+    expect(result[0].vatNumber).toBe("FR12345678901");
+    expect(result[0].name).toBe("Legacy Org");
+  });
+
   it("exports SemanticObject references as compacted IRI strings", async () => {
     const c = new Connector();
     const org2 = c.createOrganization("http://example.com/org2", { name: "Certifier" });

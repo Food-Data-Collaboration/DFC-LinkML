@@ -36,10 +36,14 @@ end
 
 # Canonical scenario param name => our-connector constructor kwarg.
 PARAM_MAP = {
-  'dfc-b:Order' => { 'orderNumber' => :orderNumber, 'hasPart' => :part },
-  'dfc-b:OrderLine' => { 'name' => :name, 'quantity' => :quantity },
+  'dfc-b:Order' => { 'orderNumber' => :orderNumber, 'orderedBy' => :orderedBy, 'hasPart' => :part },
+  'dfc-b:OrderLine' => { 'name' => :name, 'quantity' => :quantity, 'concerns' => :concerns },
   'dfc-b:SuppliedProduct' => { 'name' => :name, 'description' => :description },
   'dfc-b:Enterprise' => { 'name' => :name, 'description' => :description, 'vatNumber' => :vatNumber },
+  'dfc-b:Organization' => { 'name' => :name, 'description' => :description, 'vatNumber' => :vatNumber },
+  'dfc-b:CatalogItem' => { 'sku' => :sku, 'references' => :references, 'offeredThrough' => :offeredThrough },
+  'dfc-b:Price' => { 'vatRate' => :vatRate },
+  'dfc-b:Offer' => { 'name' => :name, 'hasPrice' => :price },
 }.freeze
 
 def export_scenario(path)

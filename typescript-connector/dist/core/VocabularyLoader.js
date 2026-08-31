@@ -14,6 +14,9 @@ export class VocabularyLoader {
     taxonomyVersion;
     ontologyVersion;
     vocabularies;
+    // Bundled v2.0.0 vocabularies are loaded unconditionally by design — the
+    // connector ships only that version offline. Callers requesting a different
+    // taxonomyVersion must override via loadBundled/load.
     constructor(taxonomyVersion = "2.0.0", ontologyVersion = "2.0.0") {
         this.taxonomyVersion = taxonomyVersion;
         this.ontologyVersion = ontologyVersion;

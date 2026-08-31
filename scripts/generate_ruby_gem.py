@@ -132,17 +132,23 @@ def get_all_slots_for_class(class_name: str, schema_data: dict):
 
     seen = set()
     for cls in hierarchy:
+        cls_slots = classes.get(cls, {}).get('slots', [])
         for slot_name, slot_data in slots.items():
-            domain = slot_data.get('domain', '')
-            if isinstance(domain, list):
-                matches = cls in domain
-            elif isinstance(domain, str):
-                matches = domain == cls
-            else:
-                matches = False
-            if matches and slot_name not in seen:
+            in_class_list = slot_name in cls_slots
+            if in_class_list and slot_name not in seen:
                 seen.add(slot_name)
                 yield slot_name, slot_data, cls
+            else:
+                domain = slot_data.get('domain', '')
+                if isinstance(domain, list):
+                    matches = cls in domain
+                elif isinstance(domain, str):
+                    matches = domain == cls
+                else:
+                    matches = False
+                if matches and slot_name not in seen:
+                    seen.add(slot_name)
+                    yield slot_name, slot_data, cls
 
         # For root classes, also include orphaned-domain slots
         # whose domain references only non-existent classes.
@@ -510,6 +516,10 @@ module DfcLinkmlConnector
 __PREDICATE_MAP__
       }.freeze
 
+      TYPE_ALIASES = {
+      "dfc-b:Enterprise" => "dfc-b:Organization",
+      }.freeze
+
       class << self
         def default_context_url
           @default_context_url ||= "__CONTEXT_URL__"
@@ -618,9 +628,15 @@ __PREDICATE_MAP__
 
         entries.each do |entry|
           semantic_id = entry["@id"]
-          semantic_type = entry["@type"]
+          raw_type = entry["@type"]
+          semantic_type = if raw_type.is_a?(Array)
+            raw_type.find { |t| t.is_a?(String) && !t.start_with?("@") }
+          else
+            raw_type
+          end
           next unless semantic_id && semantic_type
 
+          semantic_type = TYPE_ALIASES[semantic_type] || semantic_type
           klass = SemanticObject.type_registry[semantic_type]
           next unless klass
 
@@ -641,18 +657,26 @@ __PREDICATE_MAP__
 
             if value.is_a?(Array)
               resolved = value.map do |v|
-                v.is_a?(String) && v.start_with?("http", "/") ? (objects_by_id[v] || v) : v
+                if v.is_a?(String) && (v.start_with?("http", "/") || v.start_with?("_:"))
+                  objects_by_id[v] || v
+                elsif v.is_a?(Hash) && v["@id"]
+                  objects_by_id[v["@id"]] || v
+                else
+                  v
+                end
               end
               obj.send(:"#{prop_name}=", resolved)
-            elsif value.is_a?(String) && (value.start_with?("http") || value.start_with?("/"))
+            elsif value.is_a?(String) && (value.start_with?("http") || value.start_with?("/") || value.start_with?("_:"))
               obj.send(:"#{prop_name}=", objects_by_id[value] || value)
+            elsif value.is_a?(Hash) && value["@id"]
+              obj.send(:"#{prop_name}=", objects_by_id[value["@id"]] || value)
             else
               obj.send(:"#{prop_name}=", value)
             end
           end
         end
 
-        instances.length == 1 ? instances.first : instances
+        instances
       end
 
 ENUM_METHODS
@@ -831,7 +855,9 @@ module DfcLinkmlConnector
             end
           elsif value.is_a?(SemanticObject)
             result[predicate] = value.semanticId
-          elsif value.is_a?(Numeric)
+          elsif value.is_a?(Numeric) || value == true || value == false
+            result[predicate] = value
+          elsif value.is_a?(String)
             result[predicate] = value
           else
             result[predicate] = value.to_s

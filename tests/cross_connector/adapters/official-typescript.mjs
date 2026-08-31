@@ -24,10 +24,12 @@ const PARAM_METHODS = {
   "dfc-b:Order": {
     orderNumber: "setNumber",
     hasPart: "addLine",
+    orderedBy: "setClient",
   },
   "dfc-b:OrderLine": {
     quantity: "setQuantity",
     description: "setDescription",
+    concerns: "setOffer",
   },
   "dfc-b:SuppliedProduct": {
     name: "setName",
@@ -38,7 +40,36 @@ const PARAM_METHODS = {
     description: "setDescription",
     vatNumber: "setVatNumber",
   },
+  "dfc-b:Organization": {
+    name: "setName",
+    description: "setDescription",
+    vatNumber: "setVatNumber",
+  },
+  "dfc-b:CatalogItem": {
+    sku: "setSku",
+    references: "setOfferedProduct",
+    offeredThrough: "setOffers",
+  },
+  "dfc-b:Price": {
+    vatRate: "setVatRate",
+  },
+  "dfc-b:Offer": {
+    name: "setName",
+    hasPrice: "setPrice",
+  },
 };
+
+// Canonical scenario type => official factory method (official uses
+// Enterprise, not Organization).
+const TYPE_FACTORY = {
+  "dfc-b:Organization": "createEnterprise",
+};
+
+// Setters that take an array of objects rather than a single object.
+const ARRAY_SETTERS = new Set(["setOffers"]);
+
+// Setters that expect a SemanticObject reference (never a plain scalar/IRI).
+const OBJECT_REF_SETTERS = new Set(["setOfferedProduct", "setPrice", "setOffer", "setClient"]);
 
 const FACTORY_METHODS = [
   "createAddress", "createAgent", "createAllergenCharacteristic", "createCatalog",
@@ -99,7 +130,7 @@ async function exportScenario(path) {
   // Pre-create all instances (empty) so $ref params can link to objects.
   const byId = new Map();
   const instances = spec.objects.map((obj) => {
-    const method = `create${obj.type.replace(/^dfc-b:/, "")}`;
+    const method = TYPE_FACTORY[obj.type] ?? `create${obj.type.replace(/^dfc-b:/, "")}`;
     if (typeof c[method] !== "function") throw new Error(`Unknown type ${obj.type}`);
     const inst = c[method]({ semanticId: obj.semanticId });
     byId.set(obj.semanticId, inst);
@@ -110,11 +141,27 @@ async function exportScenario(path) {
     for (const [canonical, value] of Object.entries(obj.params ?? {})) {
       const method = PARAM_METHODS[obj.type]?.[canonical];
       if (!method) continue;
-      const resolved = value && typeof value === "object" && "$ref" in value ? byId.get(value.$ref) : value;
-      inst[method](resolved);
+      const isRef = value && typeof value === "object" && "$ref" in value;
+      if (isRef) {
+        const target = byId.get(value.$ref);
+        if (!target) continue;
+        if (ARRAY_SETTERS.has(method)) {
+          inst[method]([target]);
+        } else {
+          inst[method](target);
+        }
+      } else if (typeof inst[method] === "function" && !ARRAY_SETTERS.has(method) && !OBJECT_REF_SETTERS.has(method)) {
+        // Literal scalar params (e.g. sku, vatRate) pass through directly.
+        // External IRI refs for OBJECT_REF_SETTERS are intentionally dropped
+        // — expected-drop: official connector cannot resolve a plain IRI string
+        // to a SemanticObject (e.g. OrderLine.concerns = "http://...").
+        inst[method](value);
+      } else if (OBJECT_REF_SETTERS.has(method)) {
+        // external IRI reference, cannot be resolved to an object — expected-drop
+      }
     }
   });
-  const jsonld = await c.export(instances, { context: CTX });
+  const jsonld = await c.export(instances, { outputContext: CTX });
   process.stdout.write(jsonld);
 }
 
@@ -122,7 +169,7 @@ async function importData() {
   const jsonld = await readStdin();
   const c = new Connector();
   const objects = await c.import(jsonld);
-  const re = await c.export(objects, { context: CTX });
+  const re = await c.export(objects, { outputContext: CTX });
   process.stdout.write(re);
 }
 
@@ -131,10 +178,16 @@ switch (subcommand) {
     capabilities();
     break;
   case "export":
-    exportScenario(process.argv[3]);
+    exportScenario(process.argv[3]).catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
     break;
   case "import":
-    importData();
+    importData().catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
     break;
   default:
     console.error("usage: official-typescript.mjs {capabilities|export <scenario.json>|import}");

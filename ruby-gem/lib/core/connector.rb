@@ -278,6 +278,10 @@ module DfcLinkmlConnector
       "dfc-t:represent" => "represent",
       }.freeze
 
+      TYPE_ALIASES = {
+      "dfc-b:Enterprise" => "dfc-b:Organization",
+      }.freeze
+
       class << self
         def default_context_url
           @default_context_url ||= "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json"
@@ -389,9 +393,15 @@ module DfcLinkmlConnector
 
         entries.each do |entry|
           semantic_id = entry["@id"]
-          semantic_type = entry["@type"]
+          raw_type = entry["@type"]
+          semantic_type = if raw_type.is_a?(Array)
+            raw_type.find { |t| t.is_a?(String) && !t.start_with?("@") }
+          else
+            raw_type
+          end
           next unless semantic_id && semantic_type
 
+          semantic_type = TYPE_ALIASES[semantic_type] || semantic_type
           klass = SemanticObject.type_registry[semantic_type]
           next unless klass
 
@@ -412,18 +422,26 @@ module DfcLinkmlConnector
 
             if value.is_a?(Array)
               resolved = value.map do |v|
-                v.is_a?(String) && v.start_with?("http", "/") ? (objects_by_id[v] || v) : v
+                if v.is_a?(String) && (v.start_with?("http", "/") || v.start_with?("_:"))
+                  objects_by_id[v] || v
+                elsif v.is_a?(Hash) && v["@id"]
+                  objects_by_id[v["@id"]] || v
+                else
+                  v
+                end
               end
               obj.send(:"#{prop_name}=", resolved)
-            elsif value.is_a?(String) && (value.start_with?("http") || value.start_with?("/"))
+            elsif value.is_a?(String) && (value.start_with?("http") || value.start_with?("/") || value.start_with?("_:"))
               obj.send(:"#{prop_name}=", objects_by_id[value] || value)
+            elsif value.is_a?(Hash) && value["@id"]
+              obj.send(:"#{prop_name}=", objects_by_id[value["@id"]] || value)
             else
               obj.send(:"#{prop_name}=", value)
             end
           end
         end
 
-        instances.length == 1 ? instances.first : instances
+        instances
       end
 
       def facet
