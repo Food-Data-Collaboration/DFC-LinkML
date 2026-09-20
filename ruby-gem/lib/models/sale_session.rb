@@ -48,9 +48,12 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
+      # @return [QuantitativeValue]
+      attr_accessor :has_quantity
+
       # @param semanticId [String]
-      # @param endDate: nil, quantity: nil, startDate: nil, option: nil, holds: nil, hostedAt: nil, lists: nil, objectOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil
-      def initialize(semanticId, endDate: nil, quantity: nil, startDate: nil, option: nil, holds: nil, hostedAt: nil, lists: nil, objectOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil)
+      # @param endDate: nil, quantity: nil, startDate: nil, option: nil, holds: nil, hostedAt: nil, lists: nil, objectOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil
+      def initialize(semanticId, endDate: nil, quantity: nil, startDate: nil, option: nil, holds: nil, hostedAt: nil, lists: nil, objectOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil)
         super(semanticId)
         @end_date = endDate
         @quantity = quantity
@@ -65,6 +68,7 @@ module DfcLinkmlConnector
         @name = name
         @characteristic_of = characteristicOf
         @dimension = dimension
+        @has_quantity = hasQuantity
         self.semanticType = "dfc-b:SaleSession"
         registerSemanticProperty("dfc-b:endDate", &method("end_date")).valueSetter = method("end_date=")
         registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
@@ -79,6 +83,7 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
         registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
         registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:hasQuantity", &method("has_quantity")).valueSetter = method("has_quantity=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

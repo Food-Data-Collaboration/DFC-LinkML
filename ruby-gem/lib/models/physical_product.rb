@@ -40,9 +40,12 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :traced_by
 
+      # @return [QuantitativeValue]
+      attr_accessor :has_quantity
+
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, quantity: nil, concernedBy: nil, constituedBy: nil, consumedBy: nil, fulfills: nil, ownedBy: nil, producedBy: nil, represents: nil, tracedBy: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, quantity: nil, concernedBy: nil, constituedBy: nil, consumedBy: nil, fulfills: nil, ownedBy: nil, producedBy: nil, represents: nil, tracedBy: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, quantity: nil, concernedBy: nil, constituedBy: nil, consumedBy: nil, fulfills: nil, ownedBy: nil, producedBy: nil, represents: nil, tracedBy: nil, hasQuantity: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, quantity: nil, concernedBy: nil, constituedBy: nil, consumedBy: nil, fulfills: nil, ownedBy: nil, producedBy: nil, represents: nil, tracedBy: nil, hasQuantity: nil)
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @image = image
         @quantity = quantity
@@ -54,6 +57,7 @@ module DfcLinkmlConnector
         @produced_by = producedBy
         @represents = represents
         @traced_by = tracedBy
+        @has_quantity = hasQuantity
         self.semanticType = "dfc-b:PhysicalProduct"
         registerSemanticProperty("dfc-b:Image", &method("image")).valueSetter = method("image=")
         registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
@@ -65,6 +69,7 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:producedBy", &method("produced_by")).valueSetter = method("produced_by=")
         registerSemanticProperty("dfc-b:represents", &method("represents")).valueSetter = method("represents=")
         registerSemanticProperty("dfc-b:tracedBy", &method("traced_by")).valueSetter = method("traced_by=")
+        registerSemanticProperty("dfc-b:hasQuantity", &method("has_quantity")).valueSetter = method("has_quantity=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

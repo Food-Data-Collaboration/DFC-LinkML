@@ -33,9 +33,12 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
+      # @return [QuantitativeValue]
+      attr_accessor :has_quantity
+
       # @param semanticId [String]
-      # @param quantity: nil, outputOf: nil, produces: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil
-      def initialize(semanticId, quantity: nil, outputOf: nil, produces: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil)
+      # @param quantity: nil, outputOf: nil, produces: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil
+      def initialize(semanticId, quantity: nil, outputOf: nil, produces: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil)
         super(semanticId)
         @quantity = quantity
         @output_of = outputOf
@@ -45,6 +48,7 @@ module DfcLinkmlConnector
         @name = name
         @characteristic_of = characteristicOf
         @dimension = dimension
+        @has_quantity = hasQuantity
         self.semanticType = "dfc-b:ProductionFlow"
         registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
         registerSemanticProperty("dfc-b:outputOf", &method("output_of")).valueSetter = method("output_of=")
@@ -54,6 +58,7 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
         registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
         registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:hasQuantity", &method("has_quantity")).valueSetter = method("has_quantity=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

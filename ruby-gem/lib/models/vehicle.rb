@@ -26,21 +26,21 @@ module DfcLinkmlConnector
       attr_accessor :based_at
 
       # @return [QuantitativeValue]
-      attr_accessor :quantity
+      attr_accessor :has_quantity
 
       # @return [OpeningHoursSpecification]
       attr_accessor :is_available_during
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, frozen: nil, refrigerated: nil, ships: nil, usedInRoute: nil, basedAt: nil, quantity: nil, isAvailableDuring: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, frozen: nil, refrigerated: nil, ships: nil, usedInRoute: nil, basedAt: nil, quantity: nil, isAvailableDuring: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, frozen: nil, refrigerated: nil, ships: nil, usedInRoute: nil, basedAt: nil, hasQuantity: nil, isAvailableDuring: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, frozen: nil, refrigerated: nil, ships: nil, usedInRoute: nil, basedAt: nil, hasQuantity: nil, isAvailableDuring: nil)
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @frozen = frozen
         @refrigerated = refrigerated
         @ships = ships
         @used_in_route = usedInRoute
         @based_at = basedAt
-        @quantity = quantity
+        @has_quantity = hasQuantity
         @is_available_during = isAvailableDuring
         self.semanticType = "dfc-b:Vehicle"
         registerSemanticProperty("dfc-b:frozen", &method("frozen")).valueSetter = method("frozen=")
@@ -48,7 +48,7 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:ships", &method("ships")).valueSetter = method("ships=")
         registerSemanticProperty("dfc-b:usedInRoute", &method("used_in_route")).valueSetter = method("used_in_route=")
         registerSemanticProperty("dfc-b:basedAt", &method("based_at")).valueSetter = method("based_at=")
-        registerSemanticProperty("dfc-b:hasQuantity", &method("quantity")).valueSetter = method("quantity=")
+        registerSemanticProperty("dfc-b:hasQuantity", &method("has_quantity")).valueSetter = method("has_quantity=")
         registerSemanticProperty("dfc-b:isAvailableDuring", &method("is_available_during")).valueSetter = method("is_available_during=")
       end
 

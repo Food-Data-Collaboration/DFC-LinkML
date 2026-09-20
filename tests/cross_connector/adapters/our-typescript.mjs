@@ -84,7 +84,12 @@ switch (subcommand) {
     capabilities();
     break;
   case "export":
-    exportScenario(process.argv[3]);
+    try {
+      exportScenario(process.argv[3]);
+    } catch (err) {
+      console.error(err);
+      process.exit(1);
+    }
     break;
   case "import":
     importData().catch((err) => {

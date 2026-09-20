@@ -5,1132 +5,1553 @@ declare const _default: {
         readonly "dfc-m": "http://w3id.org/dfc/taxonomies/v2.0.0/measures.rdf#";
         readonly "dfc-pt": "http://w3id.org/dfc/taxonomies/v2.0.0/productTypes.rdf#";
         readonly "dfc-v": "http://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#";
+        readonly "dfc-s": "http://w3id.org/dfc/taxonomies/v2.0.0/scopes.rdf#";
     };
     readonly "@graph": readonly [{
-        readonly "@id": "dfc-v:Measure";
+        readonly "@id": "dfc-m:DFCProductGlossaryMeasure";
         readonly "@type": readonly ["skos:ConceptScheme"];
-        readonly "skos:prefLabel": "Measure";
-        readonly "skos:hasTopConcept": readonly ["dfc-f:packDe6", "dfc-f:ProductMeasureGlossary", "dfc-f:GlossaireMesureProduit", "dfc-f:QuantityUnit", "dfc-f:UnitDeQuantit", "dfc-f:Largeur", "dfc-f:Width", "dfc-f:PhysicalDimension", "dfc-f:DimensionPhysique", "dfc-f:douzaine", "dfc-f:dozen", "dfc-f:Volume", "dfc-f:Hauteur", "dfc-f:Height", "dfc-f:Depth", "dfc-f:Profondeur", "dfc-f:Weight", "dfc-f:Poids", "dfc-f:Dimension", "dfc-f:euro", "dfc-f:CurrencyUnit", "dfc-f:UnitDeDeviseMontaire", "dfc-f:tasse", "dfc-f:cup", "dfc-f:seau", "dfc-f:bucket", "dfc-f:milligramme", "dfc-f:milligram", "dfc-f:tablette", "dfc-f:tablet", "dfc-f:kit", "dfc-f:tonne", "dfc-f:inch", "dfc-f:pouce", "dfc-f:box", "dfc-f:bote", "dfc-f:packDe4", "dfc-f:net", "dfc-f:filet", "dfc-f:bundle", "dfc-f:lot", "dfc-f:plateau", "dfc-f:tray", "dfc-f:centilitre", "dfc-f:can", "dfc-f:canette", "dfc-f:pallet", "dfc-f:palette", "dfc-f:beerCrate", "dfc-f:casierBire", "dfc-f:carton", "dfc-f:halfDozen", "dfc-f:demiDouzaine", "dfc-f:grainBulk", "dfc-f:grainEnVrac", "dfc-f:gram", "dfc-f:gramme", "dfc-f:crate", "dfc-f:cagette", "dfc-f:kilogram", "dfc-f:kilogramme", "dfc-f:bac", "dfc-f:tub", "dfc-f:boteDeConserve", "dfc-f:tin", "dfc-f:pot", "dfc-f:ounce", "dfc-f:once", "dfc-f:gallonUK", "dfc-f:gallonGB", "dfc-f:panier", "dfc-f:basket", "dfc-f:centimetre", "dfc-f:centimtre", "dfc-f:punnet", "dfc-f:barquette", "dfc-f:decilitre", "dfc-f:litre", "dfc-f:keg", "dfc-f:ft", "dfc-f:pound", "dfc-f:decimetre", "dfc-f:decimtre", "dfc-f:cask", "dfc-f:tonneau", "dfc-f:package", "dfc-f:colis", "dfc-f:bag", "dfc-f:sac", "dfc-f:bottle", "dfc-f:bouteille", "dfc-f:baril", "dfc-f:drum", "dfc-f:paire", "dfc-f:pair", "dfc-f:tube", "dfc-f:roll", "dfc-f:rouleau", "dfc-f:pouch", "dfc-f:poche", "dfc-f:noduleBulk", "dfc-f:noduleEnVrac", "dfc-f:mtre", "dfc-f:metre", "dfc-f:packet", "dfc-f:sachet", "dfc-f:piece", "dfc-f:pice", "dfc-f:poudreEnVrac", "dfc-f:powderBulk", "dfc-f:liquideEnVrac", "dfc-f:liquidBulk", "dfc-f:bocal", "dfc-f:jar", "dfc-f:millilitre", "dfc-f:milliliter", "dfc-f:pourcent", "dfc-f:percent", "dfc-f:kilometre", "dfc-f:kilomtre", "dfc-f:botte", "dfc-f:bunch", "dfc-f:Units", "dfc-f:Unit", "dfc-f:GraisseSature", "dfc-f:SaturatedFat", "dfc-f:DimensionNutritionnelle", "dfc-f:NutrientDimension", "dfc-f:Copper", "dfc-f:Carbohydrates", "dfc-f:Sodium", "dfc-f:Fluoride", "dfc-f:Starch", "dfc-f:Amidon", "dfc-f:Calcium", "dfc-f:Slnium", "dfc-f:Selenium", "dfc-f:GraissePolyInsature", "dfc-f:PolyUnsaturatedFat", "dfc-f:VitamineB6", "dfc-f:VitaminB6", "dfc-f:Protine", "dfc-f:Protein", "dfc-f:Chloride", "dfc-f:Salt", "dfc-f:Sel", "dfc-f:Graisse", "dfc-f:Fat", "dfc-f:Magnesium", "dfc-f:Magnsium", "dfc-f:VitaminE", "dfc-f:VitamineE", "dfc-f:Iodine", "dfc-f:VitamineD", "dfc-f:VitaminD", "dfc-f:GraisseMonosature", "dfc-f:MonosaturatedFat", "dfc-f:Zinc", "dfc-f:Potassium", "dfc-f:Phosphore", "dfc-f:Phosphorus", "dfc-f:Sugars", "dfc-f:Sucres", "dfc-f:Manganse", "dfc-f:Manganese", "dfc-f:VitamineC", "dfc-f:VitaminC", "dfc-f:VitamineB12", "dfc-f:VitaminB12", "dfc-f:VitaminK", "dfc-f:VitamineK", "dfc-f:Cholesterol", "dfc-f:Cholestrol", "dfc-f:FolicAcid", "dfc-f:AcideFolique", "dfc-f:Transfat", "dfc-f:GraisseTrans", "dfc-f:Chrome", "dfc-f:Chromium", "dfc-f:Fibre", "dfc-f:Iron", "dfc-f:Fer", "dfc-f:VitamineA", "dfc-f:VitaminA", "dfc-f:Crustacs", "dfc-f:Crustaceans", "dfc-f:AllergenDimension", "dfc-f:DimensionAllergne", "dfc-f:Soy", "dfc-f:Soja", "dfc-f:LabellingDimension", "dfc-f:DimensionScoreDeLabellisation", "dfc-f:NutriScore", "dfc-f:EcoScore", "dfc-f:PlanetScore", "dfc-f:Celeriac", "dfc-f:Lupine", "dfc-f:Lupin", "dfc-f:GrainesDeSsame", "dfc-f:SesameSeeds", "dfc-f:Mustard", "dfc-f:Moutarde", "dfc-f:Oeufs", "dfc-f:Eggs", "dfc-f:Molluscs", "dfc-f:Mollusques", "dfc-f:CerealsContainingGluten", "dfc-f:CralesContenantDuGluten", "dfc-f:FruitsCoque", "dfc-f:Nuts", "dfc-f:MilkAndLactoseBasedProducts", "dfc-f:LaitEtProduitsBaseDeLactose", "dfc-f:Arachides", "dfc-f:Peanuts", "dfc-f:fishs", "dfc-f:Poissons", "dfc-f:dollarCanadien", "dfc-f:canadianDollar", "dfc-f:dollarAustralien", "dfc-f:australianDollar", "dfc-f:poundSterling", "dfc-f:livreSterling", "dfc-f:USDollar", "dfc-f:DollarUS"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Product measure glossary ";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Glossaire mesure produit";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:hasTopConcept": readonly ["dfc-m:Dimension", "dfc-m:Unit"];
     }, {
-        readonly "@id": "dfc-f:packDe6";
+        readonly "@id": "dfc-m:4Pack";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pack de 6";
-        readonly "skos:notation": "pack_de_6";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "4 pack";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "pack de 4";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "4p";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:ProductMeasureGlossary";
+        readonly "@id": "dfc-m:6Pack";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Product measure glossary ";
-        readonly "skos:notation": "Product_measure_glossary_";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "6 pack";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "pack de 6";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "6p";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:GlossaireMesureProduit";
+        readonly "@id": "dfc-m:AllergenDimension";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Glossaire mesure produit";
-        readonly "skos:notation": "Glossaire_mesure_produit";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Allergen dimension";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Dimension allergène";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "AllergenDimension";
+        readonly "skos:broader": readonly ["dfc-m:Dimension"];
     }, {
-        readonly "@id": "dfc-f:QuantityUnit";
+        readonly "@id": "dfc-m:AustralianDollar";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Quantity unit";
-        readonly "skos:notation": "Quantity_unit";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "australian dollar";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "dollar australien";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "$AU";
+        readonly "skos:broader": readonly ["dfc-m:CurrencyUnit"];
     }, {
-        readonly "@id": "dfc-f:UnitDeQuantit";
+        readonly "@id": "dfc-m:Bag";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Unité de quantité";
-        readonly "skos:notation": "Unit_de_quantit";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "bag";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "sac";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "bg";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:Largeur";
+        readonly "@id": "dfc-m:Basket";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Largeur";
-        readonly "skos:notation": "Largeur";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "basket";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "panier";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "bk";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:Width";
+        readonly "@id": "dfc-m:BeerCrate";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Width";
-        readonly "skos:notation": "Width";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "beer crate";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "casier à bière";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "cb";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:PhysicalDimension";
+        readonly "@id": "dfc-m:Bottle";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Physical dimension";
-        readonly "skos:notation": "Physical_dimension";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "bottle";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "bouteille";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "bo";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:DimensionPhysique";
+        readonly "@id": "dfc-m:Box";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Dimension physique";
-        readonly "skos:notation": "Dimension_physique";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "box";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "boîte";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "bx";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:douzaine";
+        readonly "@id": "dfc-m:Bucket";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "douzaine";
-        readonly "skos:notation": "douzaine";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "bucket";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "seau";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "bj";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:dozen";
+        readonly "@id": "dfc-m:Bunch";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "dozen";
-        readonly "skos:notation": "dozen";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "bunch";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "botte";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "bh";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:Volume";
+        readonly "@id": "dfc-m:Bundle";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Volume";
-        readonly "skos:notation": "Volume";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "bundle";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "lot";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Bundle";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:Hauteur";
+        readonly "@id": "dfc-m:Calcium";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Hauteur";
-        readonly "skos:notation": "Hauteur";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Calcium";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Calcium";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Calcium";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
     }, {
-        readonly "@id": "dfc-f:Height";
+        readonly "@id": "dfc-m:Can";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Height";
-        readonly "skos:notation": "Height";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "can";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "canette";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "cx";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
     }, {
-        readonly "@id": "dfc-f:Depth";
+        readonly "@id": "dfc-m:CanadianDollar";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Depth";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "canadian dollar";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "dollar canadien";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "$CA";
+        readonly "skos:broader": readonly ["dfc-m:CurrencyUnit"];
+    }, {
+        readonly "@id": "dfc-m:Carbohydrates";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Carbohydrates";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Carbohydrates";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Carbohydrates";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Carton";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "carton";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "carton";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "ct";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Cask";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "cask";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "tonneau";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "ck";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Celeriac";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Celeriac";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Celeriac";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Celeriac";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Centilitre";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "centilitre";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "centilitre";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "cl";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Centimetre";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "centimetre";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "centimètre";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "cm";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:CerealsWithGluten";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Cereals containing gluten";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Céréales contenant du gluten";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "CerealsWithGluten";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Chloride";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Chloride";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Chloride";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Chloride";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Cholesterol";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Cholesterol";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Cholestérol";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Cholesterol";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Chromium";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Chromium";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Chrome";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Chromium";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Copper";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Copper";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Copper";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Copper";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Crate";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "crate";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "cagette";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "cr";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Crustaceans";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Crustaceans";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Crustacés";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Crustaceans";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Cup";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "cup";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "tasse";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "cu";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:CurrencyUnit";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Currency unit";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Unité de devise monétaire";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "CurrencyUnit";
+        readonly "skos:broader": readonly ["dfc-m:Unit"];
+    }, {
+        readonly "@id": "dfc-m:Decilitre";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "decilitre";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "decilitre";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "dl";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Decimetre";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "decimetre";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "decimètre";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "dm";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Depth";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Depth";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Profondeur";
+            readonly "@language": "fr";
+        }];
         readonly "skos:notation": "Depth";
+        readonly "skos:broader": readonly ["dfc-m:PhysicalDimension"];
     }, {
-        readonly "@id": "dfc-f:Profondeur";
+        readonly "@id": "dfc-m:Dimension";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Profondeur";
-        readonly "skos:notation": "Profondeur";
-    }, {
-        readonly "@id": "dfc-f:Weight";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Weight";
-        readonly "skos:notation": "Weight";
-    }, {
-        readonly "@id": "dfc-f:Poids";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Poids";
-        readonly "skos:notation": "Poids";
-    }, {
-        readonly "@id": "dfc-f:Dimension";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Dimension";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Dimension";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Dimension";
+            readonly "@language": "fr";
+        }];
         readonly "skos:notation": "Dimension";
     }, {
-        readonly "@id": "dfc-f:euro";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "euro";
-        readonly "skos:notation": "euro";
-    }, {
-        readonly "@id": "dfc-f:CurrencyUnit";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Currency unit";
-        readonly "skos:notation": "Currency_unit";
-    }, {
-        readonly "@id": "dfc-f:UnitDeDeviseMontaire";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Unité de devise monétaire";
-        readonly "skos:notation": "Unit_de_devise_montaire";
-    }, {
-        readonly "@id": "dfc-f:tasse";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "tasse";
-        readonly "skos:notation": "tasse";
-    }, {
-        readonly "@id": "dfc-f:cup";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "cup";
-        readonly "skos:notation": "cup";
-    }, {
-        readonly "@id": "dfc-f:seau";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "seau";
-        readonly "skos:notation": "seau";
-    }, {
-        readonly "@id": "dfc-f:bucket";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "bucket";
-        readonly "skos:notation": "bucket";
-    }, {
-        readonly "@id": "dfc-f:milligramme";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "milligramme";
-        readonly "skos:notation": "milligramme";
-    }, {
-        readonly "@id": "dfc-f:milligram";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "milligram";
-        readonly "skos:notation": "milligram";
-    }, {
-        readonly "@id": "dfc-f:tablette";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "tablette";
-        readonly "skos:notation": "tablette";
-    }, {
-        readonly "@id": "dfc-f:tablet";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "tablet";
-        readonly "skos:notation": "tablet";
-    }, {
-        readonly "@id": "dfc-f:kit";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "kit";
-        readonly "skos:notation": "kit";
-    }, {
-        readonly "@id": "dfc-f:tonne";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "tonne";
-        readonly "skos:notation": "tonne";
-    }, {
-        readonly "@id": "dfc-f:inch";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "inch";
-        readonly "skos:notation": "inch";
-    }, {
-        readonly "@id": "dfc-f:pouce";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pouce";
-        readonly "skos:notation": "pouce";
-    }, {
-        readonly "@id": "dfc-f:box";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "box";
-        readonly "skos:notation": "box";
-    }, {
-        readonly "@id": "dfc-f:bote";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "boîte";
-        readonly "skos:notation": "bote";
-    }, {
-        readonly "@id": "dfc-f:packDe4";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pack de 4";
-        readonly "skos:notation": "pack_de_4";
-    }, {
-        readonly "@id": "dfc-f:net";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "net";
-        readonly "skos:notation": "net";
-    }, {
-        readonly "@id": "dfc-f:filet";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "filet";
-        readonly "skos:notation": "filet";
-    }, {
-        readonly "@id": "dfc-f:bundle";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "bundle";
-        readonly "skos:notation": "bundle";
-    }, {
-        readonly "@id": "dfc-f:lot";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "lot";
-        readonly "skos:notation": "lot";
-    }, {
-        readonly "@id": "dfc-f:plateau";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "plateau";
-        readonly "skos:notation": "plateau";
-    }, {
-        readonly "@id": "dfc-f:tray";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "tray";
-        readonly "skos:notation": "tray";
-    }, {
-        readonly "@id": "dfc-f:centilitre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "centilitre";
-        readonly "skos:notation": "centilitre";
-    }, {
-        readonly "@id": "dfc-f:can";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "can";
-        readonly "skos:notation": "can";
-    }, {
-        readonly "@id": "dfc-f:canette";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "canette";
-        readonly "skos:notation": "canette";
-    }, {
-        readonly "@id": "dfc-f:pallet";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pallet";
-        readonly "skos:notation": "pallet";
-    }, {
-        readonly "@id": "dfc-f:palette";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "palette";
-        readonly "skos:notation": "palette";
-    }, {
-        readonly "@id": "dfc-f:beerCrate";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "beer crate";
-        readonly "skos:notation": "beer_crate";
-    }, {
-        readonly "@id": "dfc-f:casierBire";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "casier à bière";
-        readonly "skos:notation": "casier__bire";
-    }, {
-        readonly "@id": "dfc-f:carton";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "carton";
-        readonly "skos:notation": "carton";
-    }, {
-        readonly "@id": "dfc-f:halfDozen";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "half dozen";
-        readonly "skos:notation": "half_dozen";
-    }, {
-        readonly "@id": "dfc-f:demiDouzaine";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "demi-douzaine";
-        readonly "skos:notation": "demi_douzaine";
-    }, {
-        readonly "@id": "dfc-f:grainBulk";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "grain bulk";
-        readonly "skos:notation": "grain_bulk";
-    }, {
-        readonly "@id": "dfc-f:grainEnVrac";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "grain en vrac";
-        readonly "skos:notation": "grain_en_vrac";
-    }, {
-        readonly "@id": "dfc-f:gram";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "gram";
-        readonly "skos:notation": "gram";
-    }, {
-        readonly "@id": "dfc-f:gramme";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "gramme";
-        readonly "skos:notation": "gramme";
-    }, {
-        readonly "@id": "dfc-f:crate";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "crate";
-        readonly "skos:notation": "crate";
-    }, {
-        readonly "@id": "dfc-f:cagette";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "cagette";
-        readonly "skos:notation": "cagette";
-    }, {
-        readonly "@id": "dfc-f:kilogram";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "kilogram";
-        readonly "skos:notation": "kilogram";
-    }, {
-        readonly "@id": "dfc-f:kilogramme";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "kilogramme";
-        readonly "skos:notation": "kilogramme";
-    }, {
-        readonly "@id": "dfc-f:bac";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "bac";
-        readonly "skos:notation": "bac";
-    }, {
-        readonly "@id": "dfc-f:tub";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "tub";
-        readonly "skos:notation": "tub";
-    }, {
-        readonly "@id": "dfc-f:boteDeConserve";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "boîte de conserve";
-        readonly "skos:notation": "bote_de_conserve";
-    }, {
-        readonly "@id": "dfc-f:tin";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "tin";
-        readonly "skos:notation": "tin";
-    }, {
-        readonly "@id": "dfc-f:pot";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pot";
-        readonly "skos:notation": "pot";
-    }, {
-        readonly "@id": "dfc-f:ounce";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "ounce";
-        readonly "skos:notation": "ounce";
-    }, {
-        readonly "@id": "dfc-f:once";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "once";
-        readonly "skos:notation": "once";
-    }, {
-        readonly "@id": "dfc-f:gallonUK";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "gallon (UK)";
-        readonly "skos:notation": "gallon_UK";
-    }, {
-        readonly "@id": "dfc-f:gallonGB";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "gallon (GB)";
-        readonly "skos:notation": "gallon_GB";
-    }, {
-        readonly "@id": "dfc-f:panier";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "panier";
-        readonly "skos:notation": "panier";
-    }, {
-        readonly "@id": "dfc-f:basket";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "basket";
-        readonly "skos:notation": "basket";
-    }, {
-        readonly "@id": "dfc-f:centimetre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "centimetre";
-        readonly "skos:notation": "centimetre";
-    }, {
-        readonly "@id": "dfc-f:centimtre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "centimètre";
-        readonly "skos:notation": "centimtre";
-    }, {
-        readonly "@id": "dfc-f:punnet";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "punnet";
-        readonly "skos:notation": "punnet";
-    }, {
-        readonly "@id": "dfc-f:barquette";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "barquette";
-        readonly "skos:notation": "barquette";
-    }, {
-        readonly "@id": "dfc-f:decilitre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "decilitre";
-        readonly "skos:notation": "decilitre";
-    }, {
-        readonly "@id": "dfc-f:litre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "litre";
-        readonly "skos:notation": "litre";
-    }, {
-        readonly "@id": "dfc-f:keg";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "keg";
-        readonly "skos:notation": "keg";
-    }, {
-        readonly "@id": "dfc-f:ft";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "fût";
-        readonly "skos:notation": "ft";
-    }, {
-        readonly "@id": "dfc-f:pound";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pound";
-        readonly "skos:notation": "pound";
-    }, {
-        readonly "@id": "dfc-f:decimetre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "decimetre";
-        readonly "skos:notation": "decimetre";
-    }, {
-        readonly "@id": "dfc-f:decimtre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "decimètre";
-        readonly "skos:notation": "decimtre";
-    }, {
-        readonly "@id": "dfc-f:cask";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "cask";
-        readonly "skos:notation": "cask";
-    }, {
-        readonly "@id": "dfc-f:tonneau";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "tonneau";
-        readonly "skos:notation": "tonneau";
-    }, {
-        readonly "@id": "dfc-f:package";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "package";
-        readonly "skos:notation": "package";
-    }, {
-        readonly "@id": "dfc-f:colis";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "colis";
-        readonly "skos:notation": "colis";
-    }, {
-        readonly "@id": "dfc-f:bag";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "bag";
-        readonly "skos:notation": "bag";
-    }, {
-        readonly "@id": "dfc-f:sac";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "sac";
-        readonly "skos:notation": "sac";
-    }, {
-        readonly "@id": "dfc-f:bottle";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "bottle";
-        readonly "skos:notation": "bottle";
-    }, {
-        readonly "@id": "dfc-f:bouteille";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "bouteille";
-        readonly "skos:notation": "bouteille";
-    }, {
-        readonly "@id": "dfc-f:baril";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "baril";
-        readonly "skos:notation": "baril";
-    }, {
-        readonly "@id": "dfc-f:drum";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "drum";
-        readonly "skos:notation": "drum";
-    }, {
-        readonly "@id": "dfc-f:paire";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "paire";
-        readonly "skos:notation": "paire";
-    }, {
-        readonly "@id": "dfc-f:pair";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pair";
-        readonly "skos:notation": "pair";
-    }, {
-        readonly "@id": "dfc-f:tube";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "tube";
-        readonly "skos:notation": "tube";
-    }, {
-        readonly "@id": "dfc-f:roll";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "roll";
-        readonly "skos:notation": "roll";
-    }, {
-        readonly "@id": "dfc-f:rouleau";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "rouleau";
-        readonly "skos:notation": "rouleau";
-    }, {
-        readonly "@id": "dfc-f:pouch";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pouch";
-        readonly "skos:notation": "pouch";
-    }, {
-        readonly "@id": "dfc-f:poche";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "poche";
-        readonly "skos:notation": "poche";
-    }, {
-        readonly "@id": "dfc-f:noduleBulk";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "nodule bulk";
-        readonly "skos:notation": "nodule_bulk";
-    }, {
-        readonly "@id": "dfc-f:noduleEnVrac";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "nodule en vrac";
-        readonly "skos:notation": "nodule_en_vrac";
-    }, {
-        readonly "@id": "dfc-f:mtre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "mètre";
-        readonly "skos:notation": "mtre";
-    }, {
-        readonly "@id": "dfc-f:metre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "metre";
-        readonly "skos:notation": "metre";
-    }, {
-        readonly "@id": "dfc-f:packet";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "packet";
-        readonly "skos:notation": "packet";
-    }, {
-        readonly "@id": "dfc-f:sachet";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "sachet";
-        readonly "skos:notation": "sachet";
-    }, {
-        readonly "@id": "dfc-f:piece";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "piece";
-        readonly "skos:notation": "piece";
-    }, {
-        readonly "@id": "dfc-f:pice";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pièce";
-        readonly "skos:notation": "pice";
-    }, {
-        readonly "@id": "dfc-f:poudreEnVrac";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "poudre en vrac";
-        readonly "skos:notation": "poudre_en_vrac";
-    }, {
-        readonly "@id": "dfc-f:powderBulk";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "powder bulk";
-        readonly "skos:notation": "powder_bulk";
-    }, {
-        readonly "@id": "dfc-f:liquideEnVrac";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "liquide en vrac";
-        readonly "skos:notation": "liquide_en_vrac";
-    }, {
-        readonly "@id": "dfc-f:liquidBulk";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "liquid bulk";
-        readonly "skos:notation": "liquid_bulk";
-    }, {
-        readonly "@id": "dfc-f:bocal";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "bocal";
-        readonly "skos:notation": "bocal";
-    }, {
-        readonly "@id": "dfc-f:jar";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "jar";
-        readonly "skos:notation": "jar";
-    }, {
-        readonly "@id": "dfc-f:millilitre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "millilitre";
-        readonly "skos:notation": "millilitre";
-    }, {
-        readonly "@id": "dfc-f:milliliter";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "milliliter";
-        readonly "skos:notation": "milliliter";
-    }, {
-        readonly "@id": "dfc-f:pourcent";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pourcent";
-        readonly "skos:notation": "pourcent";
-    }, {
-        readonly "@id": "dfc-f:percent";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "percent";
-        readonly "skos:notation": "percent";
-    }, {
-        readonly "@id": "dfc-f:kilometre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "kilometre";
-        readonly "skos:notation": "kilometre";
-    }, {
-        readonly "@id": "dfc-f:kilomtre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "kilomètre";
-        readonly "skos:notation": "kilomtre";
-    }, {
-        readonly "@id": "dfc-f:botte";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "botte";
-        readonly "skos:notation": "botte";
-    }, {
-        readonly "@id": "dfc-f:bunch";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "bunch";
-        readonly "skos:notation": "bunch";
-    }, {
-        readonly "@id": "dfc-f:Units";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Unités";
-        readonly "skos:notation": "Units";
-    }, {
-        readonly "@id": "dfc-f:Unit";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Unit";
+        readonly "@id": "dfc-m:Dozen";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "dozen";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "douzaine";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "dzn";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Drum";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "drum";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "baril";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "dr";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:EcoScore";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Eco-score";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Eco-score";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "EcoScore";
+        readonly "skos:broader": readonly ["dfc-m:LabellingDimension"];
+    }, {
+        readonly "@id": "dfc-m:Eggs";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Eggs";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Oeufs";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Eggs";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Euro";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "euro";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "euro";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "€";
+        readonly "skos:broader": readonly ["dfc-m:CurrencyUnit"];
+    }, {
+        readonly "@id": "dfc-m:Fat";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Fat";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Graisse";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Fat";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Fibre";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Fibre";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Fibre";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Fibre";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Fishs";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "fishs";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Poissons";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Fishs";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Fluoride";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Fluoride";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Fluoride";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Fluoride";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:FolicAcid";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Folic acid";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Acide folique";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "FolicAcid";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:FourPack";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "4 pack";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "pack de 4";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "4p";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Gallon";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "gallon (UK)";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "gallon (GB)";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "gal";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:GrainBulk";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "grain bulk";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "grain en vrac";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "vr";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Gram";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "gram";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "gramme";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "g";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:HalfDozen";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "half dozen";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "demi-douzaine";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "hd";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Height";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Height";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Hauteur";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Height";
+        readonly "skos:broader": readonly ["dfc-m:PhysicalDimension"];
+    }, {
+        readonly "@id": "dfc-m:Inch";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "inch";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "pouce";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "in";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Iodine";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Iodine";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Iodine";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Iodine";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Iron";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Iron";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Fer";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Iron";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Jar";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "jar";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "bocal";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "jr";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Keg";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "keg";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "fût";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "kg";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Kilogram";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "kilogram";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "kilogramme";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "kg";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Kilometre";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "kilometre";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "kilomètre";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "km";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Kit";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "kit";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "kit";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "ki";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:LabellingDimension";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Labelling dimension";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Dimension score de labellisation";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "LabellingDimension";
+        readonly "skos:broader": readonly ["dfc-m:Dimension"];
+    }, {
+        readonly "@id": "dfc-m:LactoseMilks";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Milk and lactose-based products";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Lait et produits à base de lactose";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "LactoseMilks";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:LiquidBulk";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "liquid bulk";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "liquide en vrac";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "vl";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Litre";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "litre";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "litre";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "l";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Lupine";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Lupine";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Lupin";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Lupine";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Magnesium";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Magnesium";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Magnésium";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Magnesium";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Manganese";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Manganese";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Manganèse";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Manganese";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Metre";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "metre";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "mètre";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "m";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Milligram";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "milligram";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "milligramme";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "g";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Millilitre";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "milliliter";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "millilitre";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "ml";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Molluscs";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Molluscs";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Mollusques";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Molluscs";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:MonosaturatedFat";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Monosaturated fat";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Graisse monosaturée";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "MonosaturatedFat";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Mustard";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Mustard";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Moutarde";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Mustard";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Net";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "net";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "filet";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "nt";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:NoduleBulk";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "nodule bulk";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "nodule en vrac";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "vo";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:NutriScore";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Nutri-score";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Nutri-score";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "NutriScore";
+        readonly "skos:broader": readonly ["dfc-m:LabellingDimension"];
+    }, {
+        readonly "@id": "dfc-m:NutrientDimension";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Nutrient dimension";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Dimension nutritionnelle";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "NutrientDimension";
+        readonly "skos:broader": readonly ["dfc-m:Dimension"];
+    }, {
+        readonly "@id": "dfc-m:Nuts";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Nuts";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Fruits à coque";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Nuts";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Ounce";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "ounce";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "once";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "oz";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Package";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "package";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "colis";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "pack";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Packet";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "packet";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "sachet";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "pa";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Pair";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "pair";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "paire";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "pr";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Pallet";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "pallet";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "palette";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "px";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Peanuts";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Peanuts";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Arachides";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Peanuts";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Percent";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "percent";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "pourcent";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "%";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Phosphorus";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Phosphorus";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Phosphore";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Phosphorus";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:PhysicalDimension";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Physical dimension";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Dimension physique";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "PhysicalDimension";
+        readonly "skos:broader": readonly ["dfc-m:Dimension"];
+    }, {
+        readonly "@id": "dfc-m:Piece";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "piece";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "pièce";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "u";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:PlanetScore";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Planet-score";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Planet-score";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "PlanetScore";
+        readonly "skos:broader": readonly ["dfc-m:LabellingDimension"];
+    }, {
+        readonly "@id": "dfc-m:PolyunsaturatedFat";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Poly-unsaturated fat";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Graisse poly-insaturée";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "PolyunsaturatedFat";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Pot";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "pot";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "pot";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "pt";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Potassium";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Potassium";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Potassium";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Potassium";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Pouch";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "pouch";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "poche";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "po";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:PoundMass";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "pound";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "pound";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "lb";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:PoundSterling";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "pound sterling";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "livre sterling";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "£";
+        readonly "skos:broader": readonly ["dfc-m:CurrencyUnit"];
+    }, {
+        readonly "@id": "dfc-m:PowderBulk";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "powder bulk";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "poudre en vrac";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "vy";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Protein";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Protein";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Protéine";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Protein";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Punnet";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "punnet";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "barquette";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "pj";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:QuantityUnit";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Quantity unit";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Unité de quantité";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "QuantityUnit";
+        readonly "skos:broader": readonly ["dfc-m:Unit"];
+    }, {
+        readonly "@id": "dfc-m:Roll";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "roll";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "rouleau";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "ro";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Salt";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Salt";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Sel";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Salt";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:SaturatedFat";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Saturated fat";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Graisse saturée";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "SaturatedFat";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Selenium";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Selenium";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Sélénium";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Selenium";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:SesameSeeds";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Sesame seeds";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Graines de sésame";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "SesameSeeds";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:SixPack";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "6 pack";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "pack de 6";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "6p";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Sodium";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Sodium";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Sodium";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Sodium";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Soy";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Soy";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Soja";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Soy";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Starch";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Starch";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Amidon";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Starch";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Sugars";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Sugars";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Sucres";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Sugars";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Sulphites";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Sulfur dioxide and sulphites in a concentration of more than 10mg/kg or 10mg/l (expressed as SO2)";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Anhydride sulfureux et sulfites en concentration de plus de 10mg/kg ou 10 mg/l (exprimés en SO2)";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Sulphites";
+        readonly "skos:broader": readonly ["dfc-m:AllergenDimension"];
+    }, {
+        readonly "@id": "dfc-m:Tablet";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "tablet";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "tablette";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "t1";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Tin";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "tin";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "boîte de conserve";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "tn";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Tonne";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "tonne";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "tonne";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "T";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Transfat";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Transfat";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Graisse trans";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Transfat";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
+    }, {
+        readonly "@id": "dfc-m:Tray";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "tray";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "plateau";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "pu";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Tub";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "tub";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "bac";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "tb";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:Tube";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "tube";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "tube";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "td";
+        readonly "skos:broader": readonly ["dfc-m:QuantityUnit"];
+    }, {
+        readonly "@id": "dfc-m:USDollar";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "US Dollar";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Dollar US";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "$US";
+        readonly "skos:broader": readonly ["dfc-m:CurrencyUnit"];
+    }, {
+        readonly "@id": "dfc-m:Unit";
+        readonly "@type": readonly ["skos:Concept"];
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Unit";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Unités";
+            readonly "@language": "fr";
+        }];
         readonly "skos:notation": "Unit";
     }, {
-        readonly "@id": "dfc-f:GraisseSature";
+        readonly "@id": "dfc-m:VitaminA";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Graisse saturée";
-        readonly "skos:notation": "Graisse_sature";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Vitamin A";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Vitamine A";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "VitaminA";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
     }, {
-        readonly "@id": "dfc-f:SaturatedFat";
+        readonly "@id": "dfc-m:VitaminB12";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Saturated fat";
-        readonly "skos:notation": "Saturated_fat";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Vitamin B12";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Vitamine B12";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "VitaminB12";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
     }, {
-        readonly "@id": "dfc-f:DimensionNutritionnelle";
+        readonly "@id": "dfc-m:VitaminB6";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Dimension nutritionnelle";
-        readonly "skos:notation": "Dimension_nutritionnelle";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Vitamin B6";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Vitamine B6";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "VitaminB6";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
     }, {
-        readonly "@id": "dfc-f:NutrientDimension";
+        readonly "@id": "dfc-m:VitaminC";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Nutrient dimension";
-        readonly "skos:notation": "Nutrient_dimension";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Vitamin C";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Vitamine C";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "VitaminC";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
     }, {
-        readonly "@id": "dfc-f:Copper";
+        readonly "@id": "dfc-m:VitaminD";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Copper";
-        readonly "skos:notation": "Copper";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Vitamin D";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Vitamine D";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "VitaminD";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
     }, {
-        readonly "@id": "dfc-f:Carbohydrates";
+        readonly "@id": "dfc-m:VitaminE";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Carbohydrates";
-        readonly "skos:notation": "Carbohydrates";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Vitamin E";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Vitamine E";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "VitaminE";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
     }, {
-        readonly "@id": "dfc-f:Sodium";
+        readonly "@id": "dfc-m:VitaminK";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Sodium";
-        readonly "skos:notation": "Sodium";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Vitamin K";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Vitamine K";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "VitaminK";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
     }, {
-        readonly "@id": "dfc-f:Fluoride";
+        readonly "@id": "dfc-m:Volume";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Fluoride";
-        readonly "skos:notation": "Fluoride";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Volume";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Volume";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Volume";
+        readonly "skos:broader": readonly ["dfc-m:PhysicalDimension"];
     }, {
-        readonly "@id": "dfc-f:Starch";
+        readonly "@id": "dfc-m:Weight";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Starch";
-        readonly "skos:notation": "Starch";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Weight";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Poids";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Weight";
+        readonly "skos:broader": readonly ["dfc-m:PhysicalDimension"];
     }, {
-        readonly "@id": "dfc-f:Amidon";
+        readonly "@id": "dfc-m:Width";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Amidon";
-        readonly "skos:notation": "Amidon";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Width";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Largeur";
+            readonly "@language": "fr";
+        }];
+        readonly "skos:notation": "Width";
+        readonly "skos:broader": readonly ["dfc-m:PhysicalDimension"];
     }, {
-        readonly "@id": "dfc-f:Calcium";
+        readonly "@id": "dfc-m:Zinc";
         readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Calcium";
-        readonly "skos:notation": "Calcium";
-    }, {
-        readonly "@id": "dfc-f:Slnium";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Sélénium";
-        readonly "skos:notation": "Slnium";
-    }, {
-        readonly "@id": "dfc-f:Selenium";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Selenium";
-        readonly "skos:notation": "Selenium";
-    }, {
-        readonly "@id": "dfc-f:GraissePolyInsature";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Graisse poly-insaturée";
-        readonly "skos:notation": "Graisse_poly_insature";
-    }, {
-        readonly "@id": "dfc-f:PolyUnsaturatedFat";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Poly-unsaturated fat";
-        readonly "skos:notation": "Poly_unsaturated_fat";
-    }, {
-        readonly "@id": "dfc-f:VitamineB6";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamine B6";
-        readonly "skos:notation": "Vitamine_B6";
-    }, {
-        readonly "@id": "dfc-f:VitaminB6";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamin B6";
-        readonly "skos:notation": "Vitamin_B6";
-    }, {
-        readonly "@id": "dfc-f:Protine";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Protéine";
-        readonly "skos:notation": "Protine";
-    }, {
-        readonly "@id": "dfc-f:Protein";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Protein";
-        readonly "skos:notation": "Protein";
-    }, {
-        readonly "@id": "dfc-f:Chloride";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Chloride";
-        readonly "skos:notation": "Chloride";
-    }, {
-        readonly "@id": "dfc-f:Salt";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Salt";
-        readonly "skos:notation": "Salt";
-    }, {
-        readonly "@id": "dfc-f:Sel";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Sel";
-        readonly "skos:notation": "Sel";
-    }, {
-        readonly "@id": "dfc-f:Graisse";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Graisse";
-        readonly "skos:notation": "Graisse";
-    }, {
-        readonly "@id": "dfc-f:Fat";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Fat";
-        readonly "skos:notation": "Fat";
-    }, {
-        readonly "@id": "dfc-f:Magnesium";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Magnesium";
-        readonly "skos:notation": "Magnesium";
-    }, {
-        readonly "@id": "dfc-f:Magnsium";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Magnésium";
-        readonly "skos:notation": "Magnsium";
-    }, {
-        readonly "@id": "dfc-f:VitaminE";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamin E";
-        readonly "skos:notation": "Vitamin_E";
-    }, {
-        readonly "@id": "dfc-f:VitamineE";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamine E";
-        readonly "skos:notation": "Vitamine_E";
-    }, {
-        readonly "@id": "dfc-f:Iodine";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Iodine";
-        readonly "skos:notation": "Iodine";
-    }, {
-        readonly "@id": "dfc-f:VitamineD";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamine D";
-        readonly "skos:notation": "Vitamine_D";
-    }, {
-        readonly "@id": "dfc-f:VitaminD";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamin D";
-        readonly "skos:notation": "Vitamin_D";
-    }, {
-        readonly "@id": "dfc-f:GraisseMonosature";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Graisse monosaturée";
-        readonly "skos:notation": "Graisse_monosature";
-    }, {
-        readonly "@id": "dfc-f:MonosaturatedFat";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Monosaturated fat";
-        readonly "skos:notation": "Monosaturated_fat";
-    }, {
-        readonly "@id": "dfc-f:Zinc";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Zinc";
+        readonly "skos:prefLabel": readonly [{
+            readonly "@value": "Zinc";
+            readonly "@language": "en";
+        }, {
+            readonly "@value": "Zinc";
+            readonly "@language": "fr";
+        }];
         readonly "skos:notation": "Zinc";
-    }, {
-        readonly "@id": "dfc-f:Potassium";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Potassium";
-        readonly "skos:notation": "Potassium";
-    }, {
-        readonly "@id": "dfc-f:Phosphore";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Phosphore";
-        readonly "skos:notation": "Phosphore";
-    }, {
-        readonly "@id": "dfc-f:Phosphorus";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Phosphorus";
-        readonly "skos:notation": "Phosphorus";
-    }, {
-        readonly "@id": "dfc-f:Sugars";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Sugars";
-        readonly "skos:notation": "Sugars";
-    }, {
-        readonly "@id": "dfc-f:Sucres";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Sucres";
-        readonly "skos:notation": "Sucres";
-    }, {
-        readonly "@id": "dfc-f:Manganse";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Manganèse";
-        readonly "skos:notation": "Manganse";
-    }, {
-        readonly "@id": "dfc-f:Manganese";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Manganese";
-        readonly "skos:notation": "Manganese";
-    }, {
-        readonly "@id": "dfc-f:VitamineC";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamine C";
-        readonly "skos:notation": "Vitamine_C";
-    }, {
-        readonly "@id": "dfc-f:VitaminC";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamin C";
-        readonly "skos:notation": "Vitamin_C";
-    }, {
-        readonly "@id": "dfc-f:VitamineB12";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamine B12";
-        readonly "skos:notation": "Vitamine_B12";
-    }, {
-        readonly "@id": "dfc-f:VitaminB12";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamin B12";
-        readonly "skos:notation": "Vitamin_B12";
-    }, {
-        readonly "@id": "dfc-f:VitaminK";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamin K";
-        readonly "skos:notation": "Vitamin_K";
-    }, {
-        readonly "@id": "dfc-f:VitamineK";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamine K";
-        readonly "skos:notation": "Vitamine_K";
-    }, {
-        readonly "@id": "dfc-f:Cholesterol";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Cholesterol";
-        readonly "skos:notation": "Cholesterol";
-    }, {
-        readonly "@id": "dfc-f:Cholestrol";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Cholestérol";
-        readonly "skos:notation": "Cholestrol";
-    }, {
-        readonly "@id": "dfc-f:FolicAcid";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Folic acid";
-        readonly "skos:notation": "Folic_acid";
-    }, {
-        readonly "@id": "dfc-f:AcideFolique";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Acide folique";
-        readonly "skos:notation": "Acide_folique";
-    }, {
-        readonly "@id": "dfc-f:Transfat";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Transfat";
-        readonly "skos:notation": "Transfat";
-    }, {
-        readonly "@id": "dfc-f:GraisseTrans";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Graisse trans";
-        readonly "skos:notation": "Graisse_trans";
-    }, {
-        readonly "@id": "dfc-f:Chrome";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Chrome";
-        readonly "skos:notation": "Chrome";
-    }, {
-        readonly "@id": "dfc-f:Chromium";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Chromium";
-        readonly "skos:notation": "Chromium";
-    }, {
-        readonly "@id": "dfc-f:Fibre";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Fibre";
-        readonly "skos:notation": "Fibre";
-    }, {
-        readonly "@id": "dfc-f:Iron";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Iron";
-        readonly "skos:notation": "Iron";
-    }, {
-        readonly "@id": "dfc-f:Fer";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Fer";
-        readonly "skos:notation": "Fer";
-    }, {
-        readonly "@id": "dfc-f:VitamineA";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamine A";
-        readonly "skos:notation": "Vitamine_A";
-    }, {
-        readonly "@id": "dfc-f:VitaminA";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Vitamin A";
-        readonly "skos:notation": "Vitamin_A";
-    }, {
-        readonly "@id": "dfc-f:Crustacs";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Crustacés";
-        readonly "skos:notation": "Crustacs";
-    }, {
-        readonly "@id": "dfc-f:Crustaceans";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Crustaceans";
-        readonly "skos:notation": "Crustaceans";
-    }, {
-        readonly "@id": "dfc-f:AllergenDimension";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Allergen dimension";
-        readonly "skos:notation": "Allergen_dimension";
-    }, {
-        readonly "@id": "dfc-f:DimensionAllergne";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Dimension allergène";
-        readonly "skos:notation": "Dimension_allergne";
-    }, {
-        readonly "@id": "dfc-f:Soy";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Soy";
-        readonly "skos:notation": "Soy";
-    }, {
-        readonly "@id": "dfc-f:Soja";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Soja";
-        readonly "skos:notation": "Soja";
-    }, {
-        readonly "@id": "dfc-f:LabellingDimension";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Labelling dimension";
-        readonly "skos:notation": "Labelling_dimension";
-    }, {
-        readonly "@id": "dfc-f:DimensionScoreDeLabellisation";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Dimension score de labellisation";
-        readonly "skos:notation": "Dimension_score_de_labellisation";
-    }, {
-        readonly "@id": "dfc-f:NutriScore";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Nutri-score";
-        readonly "skos:notation": "Nutri_score";
-    }, {
-        readonly "@id": "dfc-f:EcoScore";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Eco-score";
-        readonly "skos:notation": "Eco_score";
-    }, {
-        readonly "@id": "dfc-f:PlanetScore";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Planet-score";
-        readonly "skos:notation": "Planet_score";
-    }, {
-        readonly "@id": "dfc-f:Celeriac";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Celeriac";
-        readonly "skos:notation": "Celeriac";
-    }, {
-        readonly "@id": "dfc-f:Lupine";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Lupine";
-        readonly "skos:notation": "Lupine";
-    }, {
-        readonly "@id": "dfc-f:Lupin";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Lupin";
-        readonly "skos:notation": "Lupin";
-    }, {
-        readonly "@id": "dfc-f:GrainesDeSsame";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Graines de sésame";
-        readonly "skos:notation": "Graines_de_ssame";
-    }, {
-        readonly "@id": "dfc-f:SesameSeeds";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Sesame seeds";
-        readonly "skos:notation": "Sesame_seeds";
-    }, {
-        readonly "@id": "dfc-f:Mustard";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Mustard";
-        readonly "skos:notation": "Mustard";
-    }, {
-        readonly "@id": "dfc-f:Moutarde";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Moutarde";
-        readonly "skos:notation": "Moutarde";
-    }, {
-        readonly "@id": "dfc-f:Oeufs";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Oeufs";
-        readonly "skos:notation": "Oeufs";
-    }, {
-        readonly "@id": "dfc-f:Eggs";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Eggs";
-        readonly "skos:notation": "Eggs";
-    }, {
-        readonly "@id": "dfc-f:Molluscs";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Molluscs";
-        readonly "skos:notation": "Molluscs";
-    }, {
-        readonly "@id": "dfc-f:Mollusques";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Mollusques";
-        readonly "skos:notation": "Mollusques";
-    }, {
-        readonly "@id": "dfc-f:CerealsContainingGluten";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Cereals containing gluten";
-        readonly "skos:notation": "Cereals_containing_gluten";
-    }, {
-        readonly "@id": "dfc-f:CralesContenantDuGluten";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Céréales contenant du gluten";
-        readonly "skos:notation": "Crales_contenant_du_gluten";
-    }, {
-        readonly "@id": "dfc-f:FruitsCoque";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Fruits à coque";
-        readonly "skos:notation": "Fruits__coque";
-    }, {
-        readonly "@id": "dfc-f:Nuts";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Nuts";
-        readonly "skos:notation": "Nuts";
-    }, {
-        readonly "@id": "dfc-f:MilkAndLactoseBasedProducts";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Milk and lactose-based products";
-        readonly "skos:notation": "Milk_and_lactose_based_products";
-    }, {
-        readonly "@id": "dfc-f:LaitEtProduitsBaseDeLactose";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Lait et produits à base de lactose";
-        readonly "skos:notation": "Lait_et_produits__base_de_lactose";
-    }, {
-        readonly "@id": "dfc-f:Arachides";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Arachides";
-        readonly "skos:notation": "Arachides";
-    }, {
-        readonly "@id": "dfc-f:Peanuts";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Peanuts";
-        readonly "skos:notation": "Peanuts";
-    }, {
-        readonly "@id": "dfc-f:fishs";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "fishs";
-        readonly "skos:notation": "fishs";
-    }, {
-        readonly "@id": "dfc-f:Poissons";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Poissons";
-        readonly "skos:notation": "Poissons";
-    }, {
-        readonly "@id": "dfc-f:dollarCanadien";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "dollar canadien";
-        readonly "skos:notation": "dollar_canadien";
-    }, {
-        readonly "@id": "dfc-f:canadianDollar";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "canadian dollar";
-        readonly "skos:notation": "canadian_dollar";
-    }, {
-        readonly "@id": "dfc-f:dollarAustralien";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "dollar australien";
-        readonly "skos:notation": "dollar_australien";
-    }, {
-        readonly "@id": "dfc-f:australianDollar";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "australian dollar";
-        readonly "skos:notation": "australian_dollar";
-    }, {
-        readonly "@id": "dfc-f:poundSterling";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "pound sterling";
-        readonly "skos:notation": "pound_sterling";
-    }, {
-        readonly "@id": "dfc-f:livreSterling";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "livre sterling";
-        readonly "skos:notation": "livre_sterling";
-    }, {
-        readonly "@id": "dfc-f:USDollar";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "US Dollar";
-        readonly "skos:notation": "US_Dollar";
-    }, {
-        readonly "@id": "dfc-f:DollarUS";
-        readonly "@type": readonly ["skos:Concept"];
-        readonly "skos:prefLabel": "Dollar US";
-        readonly "skos:notation": "Dollar_US";
+        readonly "skos:broader": readonly ["dfc-m:NutrientDimension"];
     }];
 };
 export default _default;

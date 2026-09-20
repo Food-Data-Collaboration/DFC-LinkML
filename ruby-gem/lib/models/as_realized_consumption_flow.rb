@@ -11,9 +11,9 @@ module DfcLinkmlConnector
       SEMANTIC_TYPE = "dfc-b:AsRealizedConsumptionFlow".freeze
 
       # @param semanticId [String]
-      # @param quantity: nil, consumes: nil, inputOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil
-      def initialize(semanticId, quantity: nil, consumes: nil, inputOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil)
-        super(semanticId, quantity: quantity, consumes: consumes, inputOf: inputOf, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
+      # @param quantity: nil, consumes: nil, inputOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil
+      def initialize(semanticId, quantity: nil, consumes: nil, inputOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil)
+        super(semanticId, quantity: quantity, consumes: consumes, inputOf: inputOf, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, hasQuantity: hasQuantity)
 
         self.semanticType = "dfc-b:AsRealizedConsumptionFlow"
 

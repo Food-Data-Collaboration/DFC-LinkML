@@ -198,6 +198,13 @@ def main() -> None:
     args = parser.parse_args()
 
     names = available_connectors()
+    if not names:
+        print(
+            "error: no connectors available — nothing to compare. "
+            "Check that the node/ruby adapters initialize successfully.",
+            file=sys.stderr,
+        )
+        sys.exit(2)
     only = args.connectors or None
     if only:
         filtered = [n for n in names if n in only]

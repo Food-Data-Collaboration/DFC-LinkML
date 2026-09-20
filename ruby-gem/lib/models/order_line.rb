@@ -42,9 +42,12 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
+      # @return [QuantitativeValue]
+      attr_accessor :has_quantity
+
       # @param semanticId [String]
-      # @param discount: nil, quantity: nil, concerns: nil, price: nil, isFulfilledBy: nil, partOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil
-      def initialize(semanticId, discount: nil, quantity: nil, concerns: nil, price: nil, isFulfilledBy: nil, partOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil)
+      # @param discount: nil, quantity: nil, concerns: nil, price: nil, isFulfilledBy: nil, partOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil
+      def initialize(semanticId, discount: nil, quantity: nil, concerns: nil, price: nil, isFulfilledBy: nil, partOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil)
         super(semanticId)
         @discount = discount
         @quantity = quantity
@@ -57,6 +60,7 @@ module DfcLinkmlConnector
         @name = name
         @characteristic_of = characteristicOf
         @dimension = dimension
+        @has_quantity = hasQuantity
         self.semanticType = "dfc-b:OrderLine"
         registerSemanticProperty("dfc-b:discount", &method("discount")).valueSetter = method("discount=")
         registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
@@ -69,6 +73,7 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
         registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
         registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:hasQuantity", &method("has_quantity")).valueSetter = method("has_quantity=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

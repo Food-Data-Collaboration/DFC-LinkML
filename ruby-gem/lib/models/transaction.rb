@@ -28,9 +28,12 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :to
 
+      # @return [QuantitativeValue]
+      attr_accessor :has_quantity
+
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, invoiceNumber: nil, quantity: nil, concerns: nil, from: nil, price: nil, to: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, invoiceNumber: nil, quantity: nil, concerns: nil, from: nil, price: nil, to: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, invoiceNumber: nil, quantity: nil, concerns: nil, from: nil, price: nil, to: nil, hasQuantity: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, invoiceNumber: nil, quantity: nil, concerns: nil, from: nil, price: nil, to: nil, hasQuantity: nil)
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @invoice_number = invoiceNumber
         @quantity = quantity
@@ -38,6 +41,7 @@ module DfcLinkmlConnector
         @from = from
         @price = price
         @to = to
+        @has_quantity = hasQuantity
         self.semanticType = "dfc-b:Transaction"
         registerSemanticProperty("dfc-b:invoiceNumber", &method("invoice_number")).valueSetter = method("invoice_number=")
         registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
@@ -45,6 +49,7 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:from", &method("from")).valueSetter = method("from=")
         registerSemanticProperty("dfc-b:hasPrice", &method("price")).valueSetter = method("price=")
         registerSemanticProperty("dfc-b:to", &method("to")).valueSetter = method("to=")
+        registerSemanticProperty("dfc-b:hasQuantity", &method("has_quantity")).valueSetter = method("has_quantity=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

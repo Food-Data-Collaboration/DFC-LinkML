@@ -11,6 +11,7 @@ export default {
     "dfc-pt": "http://w3id.org/dfc/taxonomies/v2.0.0/productTypes.rdf#",
     "dfc-f": "http://w3id.org/dfc/taxonomies/v2.0.0/facets.rdf#",
     "dfc-v": "http://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#",
+    "dfc-s": "http://w3id.org/dfc/taxonomies/v2.0.0/scopes.rdf#",
     "ontosec": "http://www.semanticweb.org/ontologies/2008/11/OntologySecurity.owl#",
     "dfc-b:DFC_BusinessOntology_ObjectProperty": {
       "@type": "@id"

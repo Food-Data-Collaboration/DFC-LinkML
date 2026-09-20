@@ -20,9 +20,9 @@ module DfcLinkmlConnector
       attr_accessor :stored_in
 
       # @param semanticId [String]
-      # @param availabilityDate: nil, quantity: nil, transportedBy: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, constitutes: nil, identifiedBy: nil, storedIn: nil
-      def initialize(semanticId, availabilityDate: nil, quantity: nil, transportedBy: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, constitutes: nil, identifiedBy: nil, storedIn: nil)
-        super(semanticId, availabilityDate: availabilityDate, quantity: quantity, transportedBy: transportedBy, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
+      # @param availabilityDate: nil, quantity: nil, transportedBy: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil, constitutes: nil, identifiedBy: nil, storedIn: nil
+      def initialize(semanticId, availabilityDate: nil, quantity: nil, transportedBy: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil, constitutes: nil, identifiedBy: nil, storedIn: nil)
+        super(semanticId, availabilityDate: availabilityDate, quantity: quantity, transportedBy: transportedBy, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, hasQuantity: hasQuantity)
         @constitutes = constitutes
         @identified_by = identifiedBy
         @stored_in = storedIn

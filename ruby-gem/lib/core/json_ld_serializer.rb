@@ -27,11 +27,14 @@ module DfcLinkmlConnector
       end
 
       # Returns a compacted JSON-LD JSON string using the official context.
-      # Falls back to the plain serialization when no context is available.
+      # Falls back to the plain serialization when no context is available,
+      # keeping the context URL so CURIE predicates stay expandable.
       def to_json(*objects)
         doc = serialize(*objects)
         inner = _inner_context
-        unless inner.nil?
+        if inner.nil?
+          doc["@context"] ||= _context_iri
+        else
           expanded = JSON::LD::API.expand(doc.merge("@context" => inner))
           doc = JSON::LD::API.compact(expanded, inner)
           doc["@context"] = _context_iri

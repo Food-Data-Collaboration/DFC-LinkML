@@ -34,9 +34,12 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :address_of
 
+      # @return [String]
+      attr_accessor :has_country
+
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, city: nil, country: nil, latitude: nil, longitude: nil, postcode: nil, region: nil, street: nil, addressOf: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, city: nil, country: nil, latitude: nil, longitude: nil, postcode: nil, region: nil, street: nil, addressOf: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, city: nil, country: nil, latitude: nil, longitude: nil, postcode: nil, region: nil, street: nil, addressOf: nil, hasCountry: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, city: nil, country: nil, latitude: nil, longitude: nil, postcode: nil, region: nil, street: nil, addressOf: nil, hasCountry: nil)
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @city = city
         @country = country
@@ -46,6 +49,7 @@ module DfcLinkmlConnector
         @region = region
         @street = street
         @address_of = addressOf
+        @has_country = hasCountry
         self.semanticType = "dfc-b:Address"
         registerSemanticProperty("dfc-b:city", &method("city")).valueSetter = method("city=")
         registerSemanticProperty("dfc-b:country", &method("country")).valueSetter = method("country=")
@@ -55,6 +59,7 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:region", &method("region")).valueSetter = method("region=")
         registerSemanticProperty("dfc-b:street", &method("street")).valueSetter = method("street=")
         registerSemanticProperty("dfc-b:addressOf", &method("address_of")).valueSetter = method("address_of=")
+        registerSemanticProperty("dfc-b:hasCountry", &method("has_country")).valueSetter = method("has_country=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

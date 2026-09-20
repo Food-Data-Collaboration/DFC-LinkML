@@ -17,19 +17,19 @@ module DfcLinkmlConnector
       attr_accessor :is_ingredient_of
 
       # @return [QuantitativeValue]
-      attr_accessor :quantity
+      attr_accessor :has_quantity
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, composedOf: nil, isIngredientOf: nil, quantity: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, composedOf: nil, isIngredientOf: nil, quantity: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, composedOf: nil, isIngredientOf: nil, hasQuantity: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, composedOf: nil, isIngredientOf: nil, hasQuantity: nil)
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @composed_of = composedOf
         @is_ingredient_of = isIngredientOf
-        @quantity = quantity
+        @has_quantity = hasQuantity
         self.semanticType = "dfc-b:Ingredient"
         registerSemanticProperty("dfc-b:composedOf", &method("composed_of")).valueSetter = method("composed_of=")
         registerSemanticProperty("dfc-b:isIngredientOf", &method("is_ingredient_of")).valueSetter = method("is_ingredient_of=")
-        registerSemanticProperty("dfc-b:hasQuantity", &method("quantity")).valueSetter = method("quantity=")
+        registerSemanticProperty("dfc-b:hasQuantity", &method("has_quantity")).valueSetter = method("has_quantity=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

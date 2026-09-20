@@ -45,6 +45,12 @@ RSpec.describe DfcLinkmlConnector::Core::Connector do
       expect(parsed).not_to have_key("@graph")
     end
 
+    it "emits the context URL even when context loading fails" do
+      allow(connector).to receive(:context).and_raise("network down")
+      parsed = JSON.parse(connector.export(build_organization))
+      expect(parsed["@context"]).to eq(context_url)
+    end
+
     it "wraps multiple objects in @graph" do
       json = connector.export(build_organization, DfcLinkmlConnector::Models::Organization.new("http://example.com/org2"))
       parsed = JSON.parse(json)

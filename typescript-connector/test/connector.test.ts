@@ -161,6 +161,16 @@ describe("Import/Export", () => {
     expect(parsed["@type"]).toBe("dfc-b:SuppliedProduct");
   });
 
+  it("keeps the context URL when context fetch fails", async () => {
+    vi.mocked(globalThis.fetch).mockRejectedValueOnce(new Error("network down"));
+    const c = new Connector();
+    const p = c.createSuppliedProduct("http://myplatform.com/tomato", {
+      description: "Tomato",
+    });
+    const parsed = JSON.parse(await c.export(p)) as Record<string, unknown>;
+    expect(parsed["@context"]).toBe(c.contextUrl);
+  });
+
   it("import/export round-trips single object and preserves scalar properties", async () => {
     const c = new Connector();
     const original = c.createSuppliedProduct("http://myplatform.com/tomato", {

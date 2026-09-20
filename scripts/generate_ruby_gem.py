@@ -70,10 +70,30 @@ def to_file_name(name: str) -> str:
     return name.lower()
 
 
+# has_-prefixed slots whose stripped form collides with a bare slot
+# (e.g. has_quantity vs quantity). Those keep their prefix so both get
+# distinct accessors. Computed from the schema in main().
+_HAS_PREFIX_KEEP: set[str] = set()
+
+
+def _init_has_prefix_keep(schema_data: dict) -> None:
+    """Find has_-prefixed slots colliding with a bare slot of the same base."""
+    global _HAS_PREFIX_KEEP
+    by_base: dict[str, list[str]] = {}
+    for slot in schema_data.get('slots', {}):
+        by_base.setdefault(ruby_property_name(slot), []).append(slot)
+    _HAS_PREFIX_KEEP = {
+        s
+        for owners in by_base.values()
+        for s in owners
+        if s.startswith('has') and any(not o.startswith('has') for o in owners)
+    }
+
+
 def ruby_property_name(slot_name: str) -> str:
     """Convert a slot name to a Ruby accessor name (snake_case)."""
     name = slot_name
-    if name.startswith('has'):
+    if name.startswith('has') and slot_name not in _HAS_PREFIX_KEEP:
         name = name[3:]
     name = re.sub(r'(?<!^)(?=[A-Z])', '_', name)
     name = name.lower()
@@ -93,7 +113,7 @@ def ruby_property_name(slot_name: str) -> str:
 def ruby_param_name(slot_name: str) -> str:
     """Convert a slot name to a Ruby keyword parameter name (camelCase)."""
     name = slot_name
-    if name.startswith('has'):
+    if name.startswith('has') and slot_name not in _HAS_PREFIX_KEEP:
         name = name[3:]
     name = re.sub(r'(?<!^)(?=[A-Z])', '_', name)
     name = name.lower()
@@ -848,11 +868,14 @@ module DfcLinkmlConnector
       end
 
       # Returns a compacted JSON-LD JSON string using the official context.
-      # Falls back to the plain serialization when no context is available.
+      # Falls back to the plain serialization when no context is available,
+      # keeping the context URL so CURIE predicates stay expandable.
       def to_json(*objects)
         doc = serialize(*objects)
         inner = _inner_context
-        unless inner.nil?
+        if inner.nil?
+          doc["@context"] ||= _context_iri
+        else
           expanded = JSON::LD::API.expand(doc.merge("@context" => inner))
           doc = JSON::LD::API.compact(expanded, inner)
           doc["@context"] = _context_iri
@@ -1237,6 +1260,9 @@ def main():
 
     print(f"Loading schema: {schema_path}", file=sys.stderr)
     schema_data = parse_schema(schema_path)
+    _init_has_prefix_keep(schema_data)
+    if _HAS_PREFIX_KEEP:
+        print(f"Keeping has_ prefix for colliding slots: {sorted(_HAS_PREFIX_KEEP)}", file=sys.stderr)
 
     gem_name = "dfc-linkml-connector"
     output_dir = Path("ruby-gem")

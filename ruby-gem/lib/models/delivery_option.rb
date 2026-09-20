@@ -26,9 +26,9 @@ module DfcLinkmlConnector
       attr_accessor :uses
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, optionOf: nil, selectedBy: nil, accessibilityInfo: nil, deliveryConstraint: nil, deliveredAt: nil, refersTo: nil, uses: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, optionOf: nil, selectedBy: nil, accessibilityInfo: nil, deliveryConstraint: nil, deliveredAt: nil, refersTo: nil, uses: nil)
-        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, endDate: endDate, fee: fee, quantity: quantity, startDate: startDate, optionOf: optionOf, selectedBy: selectedBy)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, optionOf: nil, selectedBy: nil, hasQuantity: nil, accessibilityInfo: nil, deliveryConstraint: nil, deliveredAt: nil, refersTo: nil, uses: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, optionOf: nil, selectedBy: nil, hasQuantity: nil, accessibilityInfo: nil, deliveryConstraint: nil, deliveredAt: nil, refersTo: nil, uses: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, endDate: endDate, fee: fee, quantity: quantity, startDate: startDate, optionOf: optionOf, selectedBy: selectedBy, hasQuantity: hasQuantity)
         @accessibility_info = accessibilityInfo
         @delivery_constraint = deliveryConstraint
         @delivered_at = deliveredAt

@@ -17,9 +17,9 @@ module DfcLinkmlConnector
       attr_accessor :localized_by
 
       # @param semanticId [String]
-      # @param availabilityDate: nil, quantity: nil, transportedBy: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, constitutes: nil, localizedBy: nil
-      def initialize(semanticId, availabilityDate: nil, quantity: nil, transportedBy: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, constitutes: nil, localizedBy: nil)
-        super(semanticId, availabilityDate: availabilityDate, quantity: quantity, transportedBy: transportedBy, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
+      # @param availabilityDate: nil, quantity: nil, transportedBy: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil, constitutes: nil, localizedBy: nil
+      def initialize(semanticId, availabilityDate: nil, quantity: nil, transportedBy: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hasQuantity: nil, constitutes: nil, localizedBy: nil)
+        super(semanticId, availabilityDate: availabilityDate, quantity: quantity, transportedBy: transportedBy, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, hasQuantity: hasQuantity)
         @constitutes = constitutes
         @localized_by = localizedBy
         self.semanticType = "dfc-b:TheoriticalStock"

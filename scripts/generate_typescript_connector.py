@@ -381,6 +381,9 @@ export class VocabularyLoader {{
   private ontologyVersion: string;
   private vocabularies: Map<string, Record<string, unknown>>;
 
+  // Bundled v2.0.0 vocabularies are loaded unconditionally by design — the
+  // connector ships only that version offline. Callers requesting a different
+  // taxonomyVersion must override via loadBundled/load.
   constructor(taxonomyVersion: string = "{taxonomy_version}", ontologyVersion: string = "{taxonomy_version}") {{
     this.taxonomyVersion = taxonomyVersion;
     this.ontologyVersion = ontologyVersion;
@@ -572,6 +575,9 @@ export class Connector {{
   private productTypes: Record<string, unknown> = {{}};
   private otherVocabularies = new Map<string, Record<string, unknown>>();
 
+  // Bundled v2.0.0 taxonomies are loaded unconditionally by design — the
+  // connector ships only that version offline. Callers requesting a different
+  // taxonomyVersion must override via load* methods.
   constructor(params: {{ ontologyVersion?: string; taxonomyVersion?: string }} = {{}}) {{
     this.ontologyVersion = params.ontologyVersion ?? "{ontology_version}";
     this.taxonomyVersion = params.taxonomyVersion ?? "{taxonomy_version}";
@@ -580,6 +586,7 @@ export class Connector {{
   }}
 
   loadBundledTaxonomies(): this {{
+    this.vocabLoader.loadBundled();
     this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
     this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
     this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
@@ -660,8 +667,11 @@ export class Connector {{
     try {{
       context = await this.getContext();
     }} catch {{
-      // Context fetch failed — export without compaction
-      return JSON.stringify(new JsonLdSerializer(undefined).serialize(...objects), null, 2);
+      // Context fetch failed — export without compaction, but keep the
+      // context URL so CURIE predicates stay expandable.
+      const fallback = new JsonLdSerializer(undefined).serialize(...objects) as Record<string, unknown>;
+      fallback["@context"] = this.contextUrl;
+      return JSON.stringify(fallback, null, 2);
     }}
     const expanded: Record<string, unknown> = new JsonLdSerializer(context).serialize(...objects) as Record<string, unknown>;
     const compacted = await (jsonld.compact(expanded, context as any) as unknown as Promise<Record<string, unknown>>);

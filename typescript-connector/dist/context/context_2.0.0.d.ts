@@ -10,6 +10,7 @@ declare const _default: {
         readonly "dfc-pt": "http://w3id.org/dfc/taxonomies/v2.0.0/productTypes.rdf#";
         readonly "dfc-f": "http://w3id.org/dfc/taxonomies/v2.0.0/facets.rdf#";
         readonly "dfc-v": "http://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#";
+        readonly "dfc-s": "http://w3id.org/dfc/taxonomies/v2.0.0/scopes.rdf#";
         readonly ontosec: "http://www.semanticweb.org/ontologies/2008/11/OntologySecurity.owl#";
         readonly "dfc-b:DFC_BusinessOntology_ObjectProperty": {
             readonly "@type": "@id";

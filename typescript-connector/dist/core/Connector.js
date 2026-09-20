@@ -452,8 +452,11 @@ export class Connector {
             context = await this.getContext();
         }
         catch {
-            // Context fetch failed — export without compaction
-            return JSON.stringify(new JsonLdSerializer(undefined).serialize(...objects), null, 2);
+            // Context fetch failed — export without compaction, but keep the
+            // context URL so CURIE predicates stay expandable.
+            const fallback = new JsonLdSerializer(undefined).serialize(...objects);
+            fallback["@context"] = this.contextUrl;
+            return JSON.stringify(fallback, null, 2);
         }
         const expanded = new JsonLdSerializer(context).serialize(...objects);
         const compacted = await jsonld.compact(expanded, context);

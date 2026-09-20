@@ -4,143 +4,187 @@
     "dfc-f": "http://w3id.org/dfc/taxonomies/v2.0.0/facets.rdf#",
     "dfc-m": "http://w3id.org/dfc/taxonomies/v2.0.0/measures.rdf#",
     "dfc-pt": "http://w3id.org/dfc/taxonomies/v2.0.0/productTypes.rdf#",
-    "dfc-v": "http://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#"
+    "dfc-v": "http://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#",
+    "dfc-s": "http://w3id.org/dfc/taxonomies/v2.0.0/scopes.rdf#"
   },
   "@graph": [
     {
-      "@id": "dfc-v:Scope",
+      "@id": "dfc-s:DFCScopes",
       "@type": [
         "skos:ConceptScheme"
       ],
-      "skos:prefLabel": "Scope",
-      "skos:hasTopConcept": [
-        "dfc-f:AuthorizationScopes",
-        "dfc-f:PrimtresDautorisation",
-        "dfc-f:LireLesCommandesDeLentreprise",
-        "dfc-f:ReadEnterpriseOrders",
-        "dfc-f:LireLesDonnesDeLentreprise",
-        "dfc-f:ReadEnterpriseData",
-        "dfc-f:WriteEnterpriseProducts",
-        "dfc-f:crireLesProduitsDeLentreprise",
-        "dfc-f:crireLesCommandesDeLentreprise",
-        "dfc-f:WriteEnterpriseOrders",
-        "dfc-f:WriteEnterpriseData",
-        "dfc-f:crireLesDonnesDeLentreprise",
-        "dfc-f:ReadEnterpriseProducts",
-        "dfc-f:LireLesProduitsDeLentreprise"
+      "skos:prefLabel": [
+        {
+          "@value": "Authorization scopes",
+          "@language": "en"
+        },
+        {
+          "@value": "Périmètres d'autorisation",
+          "@language": "fr"
+        }
       ]
     },
     {
-      "@id": "dfc-f:AuthorizationScopes",
+      "@id": "dfc-s:ReadEnterprise",
       "@type": [
         "skos:Concept"
       ],
-      "skos:prefLabel": "Authorization scopes",
-      "skos:notation": "Authorization_scopes"
+      "skos:prefLabel": [
+        {
+          "@value": "Read enterprise data",
+          "@language": "en"
+        },
+        {
+          "@value": "Lire les données de l'entreprise",
+          "@language": "fr"
+        }
+      ],
+      "skos:notation": "ReadEnterprise",
+      "skos:definition": [
+        {
+          "@value": "This scope allows portals to access the associated producer's enterprise data",
+          "@language": "en"
+        },
+        {
+          "@value": "Ce périmètre permet aux portails d'accéder aux données de l'entreprise du producteur associé",
+          "@language": "fr"
+        }
+      ]
     },
     {
-      "@id": "dfc-f:PrimtresDautorisation",
+      "@id": "dfc-s:ReadOrders",
       "@type": [
         "skos:Concept"
       ],
-      "skos:prefLabel": "Périmètres d'autorisation",
-      "skos:notation": "Primtres_dautorisation"
+      "skos:prefLabel": [
+        {
+          "@value": "Read enterprise orders",
+          "@language": "en"
+        },
+        {
+          "@value": "Lire les commandes de l'entreprise",
+          "@language": "fr"
+        }
+      ],
+      "skos:notation": "ReadOrders",
+      "skos:definition": [
+        {
+          "@value": "This scope allows portals to read the associated producer's orders",
+          "@language": "en"
+        },
+        {
+          "@value": "Ce périmètre permet aux portails de lire les commandes du producteur associé",
+          "@language": "fr"
+        }
+      ]
     },
     {
-      "@id": "dfc-f:LireLesCommandesDeLentreprise",
+      "@id": "dfc-s:ReadProducts",
       "@type": [
         "skos:Concept"
       ],
-      "skos:prefLabel": "Lire les commandes de l'entreprise",
-      "skos:notation": "Lire_les_commandes_de_lentreprise"
+      "skos:prefLabel": [
+        {
+          "@value": "Read enterprise products",
+          "@language": "en"
+        },
+        {
+          "@value": "Lire les produits de l'entreprise",
+          "@language": "fr"
+        }
+      ],
+      "skos:notation": "ReadProducts",
+      "skos:definition": [
+        {
+          "@value": "This scope allows portals to access the associated producer's products",
+          "@language": "en"
+        },
+        {
+          "@value": "Ce périmètre permet aux portails d'accéder aux produits du producteur associé",
+          "@language": "fr"
+        }
+      ]
     },
     {
-      "@id": "dfc-f:ReadEnterpriseOrders",
+      "@id": "dfc-s:WriteEnterprise",
       "@type": [
         "skos:Concept"
       ],
-      "skos:prefLabel": "Read enterprise orders",
-      "skos:notation": "Read_enterprise_orders"
+      "skos:prefLabel": [
+        {
+          "@value": "Write enterprise data",
+          "@language": "en"
+        },
+        {
+          "@value": "Écrire les données de l'entreprise",
+          "@language": "fr"
+        }
+      ],
+      "skos:notation": "WriteEnterprise",
+      "skos:definition": [
+        {
+          "@value": "This scope allows portals to modify the associated producer's enterprise data",
+          "@language": "en"
+        },
+        {
+          "@value": "Ce périmètre permet aux portails de modifier les données de l'entreprise du producteur associé",
+          "@language": "fr"
+        }
+      ]
     },
     {
-      "@id": "dfc-f:LireLesDonnesDeLentreprise",
+      "@id": "dfc-s:WriteOrders",
       "@type": [
         "skos:Concept"
       ],
-      "skos:prefLabel": "Lire les données de l'entreprise",
-      "skos:notation": "Lire_les_donnes_de_lentreprise"
+      "skos:prefLabel": [
+        {
+          "@value": "Write enterprise orders",
+          "@language": "en"
+        },
+        {
+          "@value": "Écrire les commandes de l'entreprise",
+          "@language": "fr"
+        }
+      ],
+      "skos:notation": "WriteOrders",
+      "skos:definition": [
+        {
+          "@value": "This scope allows portals to modify the associated producer's orders",
+          "@language": "en"
+        },
+        {
+          "@value": "Ce périmètre permet aux portails de modifier les commandes du producteur associé",
+          "@language": "fr"
+        }
+      ]
     },
     {
-      "@id": "dfc-f:ReadEnterpriseData",
+      "@id": "dfc-s:WriteProducts",
       "@type": [
         "skos:Concept"
       ],
-      "skos:prefLabel": "Read enterprise data",
-      "skos:notation": "Read_enterprise_data"
-    },
-    {
-      "@id": "dfc-f:WriteEnterpriseProducts",
-      "@type": [
-        "skos:Concept"
+      "skos:prefLabel": [
+        {
+          "@value": "Write enterprise products",
+          "@language": "en"
+        },
+        {
+          "@value": "Écrire les produits de l'entreprise",
+          "@language": "fr"
+        }
       ],
-      "skos:prefLabel": "Write enterprise products",
-      "skos:notation": "Write_enterprise_products"
-    },
-    {
-      "@id": "dfc-f:crireLesProduitsDeLentreprise",
-      "@type": [
-        "skos:Concept"
-      ],
-      "skos:prefLabel": "Écrire les produits de l'entreprise",
-      "skos:notation": "crire_les_produits_de_lentreprise"
-    },
-    {
-      "@id": "dfc-f:crireLesCommandesDeLentreprise",
-      "@type": [
-        "skos:Concept"
-      ],
-      "skos:prefLabel": "Écrire les commandes de l'entreprise",
-      "skos:notation": "crire_les_commandes_de_lentreprise"
-    },
-    {
-      "@id": "dfc-f:WriteEnterpriseOrders",
-      "@type": [
-        "skos:Concept"
-      ],
-      "skos:prefLabel": "Write enterprise orders",
-      "skos:notation": "Write_enterprise_orders"
-    },
-    {
-      "@id": "dfc-f:WriteEnterpriseData",
-      "@type": [
-        "skos:Concept"
-      ],
-      "skos:prefLabel": "Write enterprise data",
-      "skos:notation": "Write_enterprise_data"
-    },
-    {
-      "@id": "dfc-f:crireLesDonnesDeLentreprise",
-      "@type": [
-        "skos:Concept"
-      ],
-      "skos:prefLabel": "Écrire les données de l'entreprise",
-      "skos:notation": "crire_les_donnes_de_lentreprise"
-    },
-    {
-      "@id": "dfc-f:ReadEnterpriseProducts",
-      "@type": [
-        "skos:Concept"
-      ],
-      "skos:prefLabel": "Read enterprise products",
-      "skos:notation": "Read_enterprise_products"
-    },
-    {
-      "@id": "dfc-f:LireLesProduitsDeLentreprise",
-      "@type": [
-        "skos:Concept"
-      ],
-      "skos:prefLabel": "Lire les produits de l'entreprise",
-      "skos:notation": "Lire_les_produits_de_lentreprise"
+      "skos:notation": "WriteProducts",
+      "skos:definition": [
+        {
+          "@value": "This scope allows portals to modify the associated producer's products",
+          "@language": "en"
+        },
+        {
+          "@value": "Ce périmètre permet aux portails de modifier les produits du producteur associé",
+          "@language": "fr"
+        }
+      ]
     }
   ]
 }

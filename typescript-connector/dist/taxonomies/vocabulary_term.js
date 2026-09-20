@@ -5,139 +5,295 @@ export default {
         "dfc-f": "http://w3id.org/dfc/taxonomies/v2.0.0/facets.rdf#",
         "dfc-m": "http://w3id.org/dfc/taxonomies/v2.0.0/measures.rdf#",
         "dfc-pt": "http://w3id.org/dfc/taxonomies/v2.0.0/productTypes.rdf#",
-        "dfc-v": "http://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#"
+        "dfc-v": "http://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.rdf#",
+        "dfc-s": "http://w3id.org/dfc/taxonomies/v2.0.0/scopes.rdf#"
     },
     "@graph": [
         {
-            "@id": "dfc-v:VocabularyTerm",
+            "@id": "dfc-v:DFCVocabulary",
             "@type": [
                 "skos:ConceptScheme"
             ],
-            "skos:prefLabel": "VocabularyTerm",
+            "skos:prefLabel": "DFC_Vocabulary",
             "skos:hasTopConcept": [
-                "dfc-f:Held",
-                "dfc-f:OrderStatus",
-                "dfc-f:FulfilmentState",
-                "dfc-f:FulfilmentStatus",
-                "dfc-f:OrderState",
-                "dfc-f:DFCVocabulary",
-                "dfc-f:move",
-                "dfc-f:TransformationType",
-                "dfc-f:Unfulfilled",
-                "dfc-f:Cancelled",
-                "dfc-f:Fulfilled",
-                "dfc-f:States",
-                "dfc-f:Status",
-                "dfc-f:modify",
-                "dfc-f:separate",
-                "dfc-f:pickup",
-                "dfc-f:use",
-                "dfc-f:consume",
-                "dfc-f:lower",
-                "dfc-f:produce",
-                "dfc-f:combine",
-                "dfc-f:raise",
-                "dfc-f:dropoff",
-                "dfc-f:accept",
-                "dfc-f:PaymentStatus",
-                "dfc-f:PaymentState",
-                "dfc-f:Paid",
-                "dfc-f:Unpaid",
-                "dfc-f:Draft",
-                "dfc-f:Complete",
-                "dfc-f:FulfilmentState"
+                "dfc-v:States",
+                "dfc-v:Status",
+                "dfc-v:transformationType"
             ]
         },
         {
-            "@id": "dfc-f:Held",
+            "@id": "dfc-v:Accept",
             "@type": [
                 "skos:Concept"
             ],
-            "skos:prefLabel": "Held",
-            "skos:notation": "Held"
+            "skos:prefLabel": "accept",
+            "skos:notation": "Accept",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
         },
         {
-            "@id": "dfc-f:OrderStatus",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "Order status",
-            "skos:notation": "Order_status"
-        },
-        {
-            "@id": "dfc-f:FulfilmentState",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "Fulfilment state",
-            "skos:notation": "Fulfilment_state"
-        },
-        {
-            "@id": "dfc-f:FulfilmentStatus",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "Fulfilment status",
-            "skos:notation": "Fulfilment_status"
-        },
-        {
-            "@id": "dfc-f:OrderState",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "Order state",
-            "skos:notation": "Order_state"
-        },
-        {
-            "@id": "dfc-f:DFCVocabulary",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "DFC_Vocabulary",
-            "skos:notation": "DFC_Vocabulary"
-        },
-        {
-            "@id": "dfc-f:move",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "move",
-            "skos:notation": "move"
-        },
-        {
-            "@id": "dfc-f:TransformationType",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "Transformation type",
-            "skos:notation": "Transformation_type"
-        },
-        {
-            "@id": "dfc-f:Unfulfilled",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "Unfulfilled",
-            "skos:notation": "Unfulfilled"
-        },
-        {
-            "@id": "dfc-f:Cancelled",
+            "@id": "dfc-v:Cancelled",
             "@type": [
                 "skos:Concept"
             ],
             "skos:prefLabel": "Cancelled",
-            "skos:notation": "Cancelled"
+            "skos:notation": "Cancelled",
+            "skos:broader": [
+                "dfc-v:FulfilmentStates",
+                "dfc-v:FulfilmentStatus",
+                "dfc-v:OrderStates",
+                "dfc-v:OrderStatus",
+                "dfc-v:PaymentStates",
+                "dfc-v:PaymentStatus"
+            ]
         },
         {
-            "@id": "dfc-f:Fulfilled",
+            "@id": "dfc-v:Combine",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "combine",
+            "skos:notation": "Combine",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:Complete",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Complete",
+            "skos:notation": "Complete",
+            "skos:broader": [
+                "dfc-v:OrderStates",
+                "dfc-v:OrderStatus"
+            ]
+        },
+        {
+            "@id": "dfc-v:Consume",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "consume",
+            "skos:notation": "Consume",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:Draft",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Draft",
+            "skos:notation": "Draft",
+            "skos:broader": [
+                "dfc-v:OrderStates",
+                "dfc-v:OrderStatus"
+            ]
+        },
+        {
+            "@id": "dfc-v:Dropoff",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "dropoff",
+            "skos:notation": "Dropoff",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:Fulfilled",
             "@type": [
                 "skos:Concept"
             ],
             "skos:prefLabel": "Fulfilled",
-            "skos:notation": "Fulfilled"
+            "skos:notation": "Fulfilled",
+            "skos:broader": [
+                "dfc-v:FulfilmentStates",
+                "dfc-v:FulfilmentStatus"
+            ]
         },
         {
-            "@id": "dfc-f:States",
+            "@id": "dfc-v:FulfilmentStates",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Fulfilment state",
+            "skos:notation": "FulfilmentStates",
+            "skos:broader": [
+                "dfc-v:States",
+                "dfc-v:Status"
+            ]
+        },
+        {
+            "@id": "dfc-v:FulfilmentStatus",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Fulfilment status",
+            "skos:notation": "FulfilmentStatus",
+            "skos:broader": [
+                "dfc-v:States",
+                "dfc-v:Status"
+            ]
+        },
+        {
+            "@id": "dfc-v:Held",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Held",
+            "skos:notation": "Held",
+            "skos:broader": [
+                "dfc-v:FulfilmentStates",
+                "dfc-v:FulfilmentStatus",
+                "dfc-v:OrderStates",
+                "dfc-v:OrderStatus"
+            ]
+        },
+        {
+            "@id": "dfc-v:Lower",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "lower",
+            "skos:notation": "Lower",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:Modify",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "modify",
+            "skos:notation": "Modify",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:Move",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "move",
+            "skos:notation": "Move",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:OrderStates",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Order state",
+            "skos:notation": "OrderStates",
+            "skos:broader": [
+                "dfc-v:States",
+                "dfc-v:Status"
+            ]
+        },
+        {
+            "@id": "dfc-v:OrderStatus",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Order status",
+            "skos:notation": "OrderStatus",
+            "skos:broader": [
+                "dfc-v:States",
+                "dfc-v:Status"
+            ]
+        },
+        {
+            "@id": "dfc-v:Paid",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Paid",
+            "skos:notation": "Paid",
+            "skos:broader": [
+                "dfc-v:PaymentStates",
+                "dfc-v:PaymentStatus"
+            ]
+        },
+        {
+            "@id": "dfc-v:PaymentStates",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Payment state",
+            "skos:notation": "PaymentStates",
+            "skos:broader": [
+                "dfc-v:States",
+                "dfc-v:Status"
+            ]
+        },
+        {
+            "@id": "dfc-v:PaymentStatus",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Payment status",
+            "skos:notation": "PaymentStatus",
+            "skos:broader": [
+                "dfc-v:States",
+                "dfc-v:Status"
+            ]
+        },
+        {
+            "@id": "dfc-v:Pickup",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "pickup",
+            "skos:notation": "Pickup",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:Produce",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "produce",
+            "skos:notation": "Produce",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:Raise",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "raise",
+            "skos:notation": "Raise",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:Separate",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "separate",
+            "skos:notation": "Separate",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:States",
             "@type": [
                 "skos:Concept"
             ],
@@ -145,7 +301,7 @@ export default {
             "skos:notation": "States"
         },
         {
-            "@id": "dfc-f:Status",
+            "@id": "dfc-v:Status",
             "@type": [
                 "skos:Concept"
             ],
@@ -153,148 +309,195 @@ export default {
             "skos:notation": "Status"
         },
         {
-            "@id": "dfc-f:modify",
+            "@id": "dfc-v:TransformationType",
             "@type": [
                 "skos:Concept"
             ],
-            "skos:prefLabel": "modify",
-            "skos:notation": "modify"
+            "skos:prefLabel": "Transformation type",
+            "skos:notation": "TransformationType"
         },
         {
-            "@id": "dfc-f:separate",
+            "@id": "dfc-v:Unfulfilled",
             "@type": [
                 "skos:Concept"
             ],
-            "skos:prefLabel": "separate",
-            "skos:notation": "separate"
+            "skos:prefLabel": "Unfulfilled",
+            "skos:notation": "Unfulfilled",
+            "skos:broader": [
+                "dfc-v:FulfilmentStates",
+                "dfc-v:FulfilmentStatus"
+            ]
         },
         {
-            "@id": "dfc-f:pickup",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "pickup",
-            "skos:notation": "pickup"
-        },
-        {
-            "@id": "dfc-f:use",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "use",
-            "skos:notation": "use"
-        },
-        {
-            "@id": "dfc-f:consume",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "consume",
-            "skos:notation": "consume"
-        },
-        {
-            "@id": "dfc-f:lower",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "lower",
-            "skos:notation": "lower"
-        },
-        {
-            "@id": "dfc-f:produce",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "produce",
-            "skos:notation": "produce"
-        },
-        {
-            "@id": "dfc-f:combine",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "combine",
-            "skos:notation": "combine"
-        },
-        {
-            "@id": "dfc-f:raise",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "raise",
-            "skos:notation": "raise"
-        },
-        {
-            "@id": "dfc-f:dropoff",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "dropoff",
-            "skos:notation": "dropoff"
-        },
-        {
-            "@id": "dfc-f:accept",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "accept",
-            "skos:notation": "accept"
-        },
-        {
-            "@id": "dfc-f:PaymentStatus",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "Payment status",
-            "skos:notation": "Payment_status"
-        },
-        {
-            "@id": "dfc-f:PaymentState",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "Payment state",
-            "skos:notation": "Payment_state"
-        },
-        {
-            "@id": "dfc-f:Paid",
-            "@type": [
-                "skos:Concept"
-            ],
-            "skos:prefLabel": "Paid",
-            "skos:notation": "Paid"
-        },
-        {
-            "@id": "dfc-f:Unpaid",
+            "@id": "dfc-v:Unpaid",
             "@type": [
                 "skos:Concept"
             ],
             "skos:prefLabel": "Unpaid",
-            "skos:notation": "Unpaid"
+            "skos:notation": "Unpaid",
+            "skos:broader": [
+                "dfc-v:PaymentStates",
+                "dfc-v:PaymentStatus"
+            ]
         },
         {
-            "@id": "dfc-f:Draft",
+            "@id": "dfc-v:Use",
             "@type": [
                 "skos:Concept"
             ],
-            "skos:prefLabel": "Draft",
-            "skos:notation": "Draft"
+            "skos:prefLabel": "use",
+            "skos:notation": "Use",
+            "skos:broader": [
+                "dfc-v:TransformationType"
+            ]
         },
         {
-            "@id": "dfc-f:Complete",
+            "@id": "dfc-v:accept",
             "@type": [
                 "skos:Concept"
             ],
-            "skos:prefLabel": "Complete",
-            "skos:notation": "Complete"
+            "skos:prefLabel": "accept",
+            "skos:notation": "accept",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
         },
         {
-            "@id": "dfc-f:FulfilmentState",
+            "@id": "dfc-v:c_734fc709",
             "@type": [
                 "skos:Concept"
             ],
             "skos:prefLabel": "FulfilmentState",
-            "skos:notation": "FulfilmentState"
+            "skos:notation": "c_734fc709"
+        },
+        {
+            "@id": "dfc-v:combine",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "combine",
+            "skos:notation": "combine",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:consume",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "consume",
+            "skos:notation": "consume",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:dropoff",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "dropoff",
+            "skos:notation": "dropoff",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:lower",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "lower",
+            "skos:notation": "lower",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:modify",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "modify",
+            "skos:notation": "modify",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:move",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "move",
+            "skos:notation": "move",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:pickup",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "pickup",
+            "skos:notation": "pickup",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:produce",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "produce",
+            "skos:notation": "produce",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:raise",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "raise",
+            "skos:notation": "raise",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:separate",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "separate",
+            "skos:notation": "separate",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
+        },
+        {
+            "@id": "dfc-v:transformationType",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "Transformation type",
+            "skos:notation": "transformationType"
+        },
+        {
+            "@id": "dfc-v:use",
+            "@type": [
+                "skos:Concept"
+            ],
+            "skos:prefLabel": "use",
+            "skos:notation": "use",
+            "skos:broader": [
+                "dfc-v:transformationType"
+            ]
         }
     ]
 };
