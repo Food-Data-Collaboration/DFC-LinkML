@@ -137,5 +137,23 @@ RSpec.describe DfcLinkmlConnector::Core::Connector do
       result = result.first if result.is_a?(Array)
       expect(result.name).to eq("My Org")
     end
+
+    it "round-trips embedded value objects without @id (e.g. official Price)" do
+      data = {
+        "@context" => context_url,
+        "@graph" => [
+          {
+            "@id" => "http://example.com/offer1",
+            "@type" => "dfc-b:Offer",
+            "dfc-b:hasPrice" => { "@type" => "dfc-b:Price", "dfc-b:VATrate" => 5.5 },
+          },
+        ],
+      }
+      imported = connector.import(JSON.generate(data))
+      offer = imported.find { |o| o.semanticId == "http://example.com/offer1" }
+      expect(offer.price).to eq({ "@type" => "dfc-b:Price", "dfc-b:VATrate" => 5.5 })
+      parsed = JSON.parse(connector.export(offer))
+      expect(parsed["dfc-b:hasPrice"]).to eq({ "@type" => "dfc-b:Price", "dfc-b:VATrate" => 5.5 })
+    end
   end
 end

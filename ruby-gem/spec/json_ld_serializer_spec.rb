@@ -48,6 +48,13 @@ RSpec.describe DfcLinkmlConnector::Core::JsonLdSerializer do
       expect(doc).to have_key("dfc-b:VATnumber")
       expect(doc).not_to have_key("dfc-b:Organization:name")
     end
+
+    it "keeps embedded hashes as JSON-LD nodes, not Ruby inspect strings" do
+      offer = DfcLinkmlConnector::Models::Offer.new("http://example.com/offer1")
+      offer.price = { "@type" => "dfc-b:Price", "dfc-b:VATrate" => 5.5 }
+      doc = described_class.new(context, context_url).serialize(offer)
+      expect(doc["dfc-b:hasPrice"]).to eq({ "@type" => "dfc-b:Price", "dfc-b:VATrate" => 5.5 })
+    end
   end
 
   describe "#to_json" do

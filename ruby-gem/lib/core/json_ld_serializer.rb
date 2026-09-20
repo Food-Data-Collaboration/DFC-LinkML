@@ -69,6 +69,10 @@ module DfcLinkmlConnector
             end
           elsif value.is_a?(SemanticObject)
             result[predicate] = value.semanticId
+          elsif value.is_a?(Hash)
+            # Embedded blank node (e.g. official Price value object without
+            # @id): keep as-is so it serializes to JSON-LD, not Ruby inspect.
+            result[predicate] = value
           elsif value.is_a?(Numeric) || value == true || value == false
             result[predicate] = value
           elsif value.is_a?(String)
