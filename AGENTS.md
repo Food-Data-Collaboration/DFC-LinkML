@@ -1,80 +1,46 @@
 # DFC-LinkML — Agent Instructions
 
-## Project
-
-LinkML schemas and generated connector code for the Data Food Consortium (DFC) ontology. A Python OWL→LinkML converter feeds generator scripts that produce a Ruby gem (`ruby-gem/`) and a TypeScript connector (`typescript-connector/`).
-
-## Setup
-
-```bash
-# Python deps (already installed: pytest, rdflib, linkml, etc.)
-python3 -m pytest tests/ -v
-
-# TypeScript connector
-cd typescript-connector && npm ci && npm test && npm run build
-
-# Ruby gem
-cd ruby-gem && bundle install
-```
+LinkML schemas (`src/`, current v2.0.0) converted from the DFC OWL ontology, plus generated connectors: TypeScript (`typescript-connector/`) and Ruby (`ruby-gem/`).
 
 ## Test
 
 | Component | Command | Notes |
 |-----------|---------|-------|
-| Python converter | `python3 -m pytest tests/test_owl2linkml.py -v` | Hits w3id.org — slow and requires network |
-| TypeScript connector | `cd typescript-connector && npm test` | Vitest, 42 tests, fast (no network) |
-| TypeScript build | `cd typescript-connector && npm run build` | Compiles `src/` → `dist/` |
-| Ruby gem | `cd ruby-gem && bundle exec rake spec` | RSpec (15 tests), fast, no network |
-
-Run from the repo root for Python; `cd` into sub-packages for TS/Ruby.
+| Python converter | `python3 -m pytest tests/test_owl2linkml.py -v` (repo root) | Add `-m "not integration"` for fast offline run; `integration`-marked tests hit w3id.org, slow |
+| Cross-connector matrix | `python3 tests/cross_connector/run_matrix.py --verify-drop-in` (repo root) | Needs node + ruby, official-connector deps, network |
+| TypeScript | `npm test`, `npm run build` (in `typescript-connector/`) | `vitest run` (not `test:watch`), offline, fast |
+| Ruby | `bundle exec rake spec` (in `ruby-gem/`) | RSpec, offline, fast |
 
 ## Generation pipeline
 
 ```
-scripts/owl2linkml.py  →  src/*.yaml  (LinkML schemas)
-         ↓
-scripts/generate_typescript_connector.py  →  typescript-connector/src/models/
-scripts/generate_ruby_gem.py              →  ruby-gem/lib/models/
+scripts/owl2linkml.py --config config/dfc-default.yaml --ontology-version 2.0.0 --taxonomy-version 2.0.0 --output src/dfc_business_linkml_v2_0.yaml
+python3 scripts/generate_typescript_connector.py [--schema …] [--output …]  # defaults: src/dfc_business_linkml_v2_0.yaml → typescript-connector/
+python3 scripts/generate_ruby_gem.py  # no flags; fixed schema lookup → ruby-gem/
 ```
 
-**Generator scripts are the source of truth.** Never edit generated model code by hand — always regenerate. Both `generate_typescript_connector.py` and `generate_ruby_gem.py` share logic and must be kept in sync (slot matching, orphan-domain handling, constructor param forwarding).
+- **Never hand-edit generated code** (`typescript-connector/src/models|core/`, `ruby-gem/lib/models|core/`) or `src/*.yaml` — always change the generator and regenerate.
+- Regeneration only wipes what it regenerates: TS preserves `src/context/` + `src/taxonomies/`, Ruby preserves `vocabularies/` + `contexts/` + `spec/`; `package.json`, `tsconfig.json`, `Rakefile`, `*.gemspec` are static. New bundled/static files must be added to the generators' preservation lists (and Ruby `spec.files`).
 
-- `src/` contains the authoritative LinkML YAML schemas. Version `v2.0.0` is current.
-- `typescript-connector/src/` and `ruby-gem/lib/` are fully generated; `package.json`, `tsconfig.json`, `*.gemspec` are static.
-- **Regeneration preserves bundled files** (safe to run any time): TS keeps `src/context/` + `src/taxonomies/`, Ruby keeps `contexts/` + `vocabularies/` + `spec/`. These are hand-maintained SKOS/JSON-LD exports, not schema-derived, but the generated core imports them at build/runtime. If you add new bundled files, ensure the generators' preservation lists (and the Ruby `gemspec` `spec.files`) include them.
+## Generator invariants (TS ↔ Ruby must stay in sync)
 
-## Conventions
+- **Predicates are official short-form** from slot `aliases` (e.g. `dfc-b:VATnumber`), never `dfc-b:Class:snake_case`. Both generators emit a `PREDICATE_MAP` (predicate → propName) consulted before the local-name fallback on import.
+- **`Enterprise` → `Organization` alias**: DFC v2.0 renamed the class; official v1.16 connectors still emit `dfc-b:Enterprise`. The alias table exists in 3 places — keep aligned: TS `Connector.ts` `TYPE_ALIASES`, Ruby `connector.rb` `TYPE_ALIASES`, `tests/cross_connector/normalize.py` `canonical_type()`.
+- **Import always returns an array** (`SemanticObject[]` / Ruby Array); single `@graph` entry → 1-element array. Array `@type` → first non-`@` entry.
+- **Export `@context` as a URL string**, not an inline object.
+- Child constructors **must forward all params** via `super(...)` so ancestor properties are set; slots whose `domain` names no schema class go on **all root classes** (no `is_a`) so they inherit down.
 
-- Ontology URLs use RDF/XML format (`.rdf`), not OWL/XML (`.owl`) — rdflib cannot parse OWL/XML `IRI` elements.
-- Versioned URLs follow pattern: `https://w3id.org/dfc/ontology/v{version}/src/DFC_BusinessOntology.rdf`
-- Enum values come from external SKOS taxonomies via `reachable_from` in config (`config/dfc-default.yaml`), not embedded in schemas.
-- The DFC config file (`config/dfc-default.yaml`) controls skip lists, prefixes, and taxonomy enum mappings.
+## Gotchas
 
-## Common pitfalls
-
-### Cross-connector incompatibility (`.agents/cross-import-gaps.md`)
-- TS connector uses `dfc-b:Organization`; Ruby connector expects `dfc-b:Enterprise` — TS→Ruby import crashes.
-- TS exports inline `@context` objects; Ruby's json-ld v3 expects a context URL string — TS→Ruby import rejected.
-- Predicate format mismatch: TS uses `dfc-b:ClassName:snake_case`; Ruby uses compacted short-form `dfc-b:propertyName`.
-
-### Ruby gem bugs (`.agents/ruby-connector-issues.md`)
-- `require_relative 'semantic_object'` in model files resolves to wrong directory — should be `../core/semantic_object`.
-- Model classes use `Core::ParentClass` prefix for same-namespace parents — bare constant name works.
-- `inherited` hook in `semantic_object.rb` uses class instance variable incorrectly — causes `NoMethodError` on `[]=`.
-
-### Generator logic
-- **Constructor param forwarding**: child class constructors **must** forward `params` to parent: `super(semanticId, params)`, not just `super(semanticId)`. Without this, ancestor properties are never set.
-- **Orphaned-domain slots**: slots whose `domain` references classes not in the schema must be assigned to all root classes (classes with no `is_a`) so they propagate through inheritance.
-- **JSON-LD predicate keys**: each slot registers the **official OWL predicate** (`dfc-b:{alias}` from `slot.aliases`, e.g. `dfc-b:VATnumber`), NOT `dfc-b:{Class}:{snake_case}`. Edge namespaces use `dfc-t:`/`skos:` or full URIs via `predicate_for_slot()`.
-- **Import reverse map**: `predicateToPropName`/`_predicate_to_prop_name` consult a generated `PREDICATE_MAP` (predicate → propName) before the local-name fallback. Both TS and Ruby generate this map from slot aliases and must stay in sync.
-- **Import returns**: always `SemanticObject[]` (Ruby: Array; TS: `SemanticObject[]`, sync). Single `@graph` entry → 1-element array; use `result[0]`. `Array.isArray(result)` is always true.
-- **Legacy type alias**: DFC v2.0 renamed `Enterprise`→`Organization`, but official v1.16 connectors emit `@type: dfc-b:Enterprise`. Both connectors map it to `dfc-b:Organization` on import via `TYPE_ALIASES` (TS `Connector.ts`, Ruby `connector.rb`); both generators emit this table and must stay in sync. Keep `normalize.canonical_type()` in `tests/cross_connector/normalize.py` aligned so the matrix doesn't flag the normalization.
-- **Array `@type` on import**: official-ts emits `@type` as an array (`["dfc-b:Price","dfc-b:Price"]`); both connectors pick the first non-`@` entry. The generator import templates encode this — keep them in sync.
+- Ontology URLs use `.rdf` (RDF/XML), not `.owl` — rdflib cannot parse OWL/XML `IRI` elements. Pattern: `https://w3id.org/dfc/ontology/v{version}/src/DFC_BusinessOntology.rdf`. Root `agents.md` still shows `.owl` URLs — stale, follow `config/dfc-default.yaml`.
+- Enum values come from external SKOS taxonomies via `reachable_from`, not embedded; ontology and taxonomy versions are independent flags (`--ontology-version` vs `--taxonomy-version`).
+- `jsonld` is a `devDependency` but imported at runtime by `src/core/Connector.ts`; shipped `files: ["dist"]` relies on it — don't remove or break that import.
+- Ruby `vocabularies/*.jsonld` (compacted SKOS) are the canonical taxon data also bundled as TS modules in `src/taxonomies/` — keep both sides shipping the same concepts.
+- `.agents/` is gitignored local scratch — do not cite it or depend on it; the invariants above are the durable record. Skills in `.opencode/` (`skills.linkml.md`, `skills.ruby.md`, `skills.ts.md`) have per-component details.
+- `scripts/generate_php_connector.py` is WIP with no committed output — ignore unless asked. `scripts/add_enum_shacl.py` maintains enum constraints in `shacl/`.
 
 ## Reference
 
-- `agents.md` (lowercase, root) — DFC ontology and taxonomy version URLs
-- `.opencode/skills/` — skills docs: `skills.linkml.md`, `skills.ruby.md`, `skills.ts.md`, `dfc-orders.md`, `dfc-orders-common-patterns.md`
-- `.agents/` — `cross-import-gaps.md`, `ruby-connector-issues.md`
-- `scripts/owl2linkml.py` — main converter (687 lines)
-- `config/dfc-default.yaml` — DFC converter configuration
+- `scripts/owl2linkml.py` — OWL→LinkML converter; `config/dfc-default.yaml` — skip lists, prefixes, taxonomy enums
+- `tests/cross_connector/{run_matrix.py,normalize.py,adapters/,scenarios/}` — drop-in parity harness vs official connectors
+- CI (`.github/workflows/publish.yml`) only publishes the TS package on `@fooddatacollaboration/linkml-connector@*` tags
