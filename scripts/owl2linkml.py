@@ -339,7 +339,33 @@ def _get_object_ranges(g: Graph, prop: URIRef, skip_classes: set[str] = None) ->
                 name = _local_name(item)
                 if name and name not in skip_classes:
                     ranges.append(name)
+    if not ranges:
+        # The DFC ontology expresses most object ranges via owl:Restriction
+        # (onProperty + allValuesFrom/someValuesFrom) instead of rdfs:range.
+        ranges = _get_restriction_ranges(g, prop, skip_classes)
     return list(set(ranges)) or ["string"]
+
+
+def _get_restriction_ranges(g: Graph, prop: URIRef, skip_classes: set[str]) -> list[str]:
+    """Get range classes from owl:Restriction allValuesFrom/someValuesFrom."""
+    ranges = []
+    for restriction in g.subjects(OWL.onProperty, prop):
+        if (restriction, RDF.type, OWL.Restriction) not in g:
+            continue
+        for pred in (OWL.allValuesFrom, OWL.someValuesFrom):
+            node = _get_property(g, restriction, pred)
+            if node is None:
+                continue
+            if isinstance(node, URIRef):
+                name = _local_name(node)
+                if name and name not in skip_classes:
+                    ranges.append(name)
+            elif (union_of := _get_property(g, node, OWL.unionOf)):
+                for item in g.items(union_of):
+                    name = _local_name(item)
+                    if name and name not in skip_classes:
+                        ranges.append(name)
+    return list(set(ranges))
 
 
 def _resolve_datatype(range_node) -> Optional[str]:

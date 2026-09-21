@@ -1307,7 +1307,7 @@ slots:
     inverse: has_address
   affiliated_to:
     description: URI of a Person associated with the Enterprise
-    range: string
+    range: Person
     domain:
     - Agent
     aliases:
@@ -1316,7 +1316,7 @@ slots:
     inverse: affiliates
   affiliates:
     description: Enterprises that the Person is affliated to
-    range: string
+    range: Organization
     domain:
     - Organization
     aliases:
@@ -1342,7 +1342,7 @@ slots:
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   belongs_to:
     description: A Customer (as an Agent) can belong to a particular CustomerCategory as defined by the owning Enterprise
-    range: string
+    range: SaleSession
     domain:
     - Order
     aliases:
@@ -1483,7 +1483,7 @@ slots:
     inverse: has_container_information
   coordinated_by:
     description: Confirms the Enterprise Coordinates certain SaleSessions, and defines margin %age that the Enterprise takes for managing the SaleSession
-    range: string
+    range: Organization
     domain:
     - Coordination
     aliases:
@@ -1492,7 +1492,7 @@ slots:
     inverse: coordinates
   defined_by:
     description: Determines which Enterprise has defined the CustomerCategory
-    range: string
+    range: Organization
     domain:
     - CustomerCategory
     aliases:
@@ -1501,7 +1501,7 @@ slots:
     inverse: defines
   defines:
     description: Defines any/all categories of Customer utilised by the Enterprise for segmentation (primarily for pricing, potentially also for marketing)
-    range: string
+    range: CustomerCategory
     domain:
     - Organization
     aliases:
@@ -1542,7 +1542,7 @@ slots:
     inverse: has_facet
   from:
     description: 'Object property from OWL: from'
-    range: string
+    range: Agent
     domain:
     - Transaction
     aliases:
@@ -1568,7 +1568,7 @@ slots:
     inverse: has_geographical_origin
   has_address:
     description: Address of Agent
-    range: string
+    range: Address
     domain:
     - Agent
     - PhysicalPlace
@@ -1587,7 +1587,7 @@ slots:
     inverse: allergen_characteristic_of
   has_allergen_dimension:
     description: 'Object property from OWL: hasAllergenDimension'
-    range: string
+    range: Concept
     domain:
     - AllergenCharacteristic
     aliases:
@@ -1720,7 +1720,7 @@ slots:
     inverse: labelling_characteristic_of
   has_labelling_dimension:
     description: 'Object property from OWL: hasLabellingDimension'
-    range: string
+    range: Concept
     domain:
     - LabellingCharacteristic
     aliases:
@@ -1728,7 +1728,7 @@ slots:
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_main_contact:
     description: The Person, if any, who is a principal contact for this physical location
-    range: string
+    range: Person
     domain:
     - Organization
     - PhysicalPlace
@@ -1765,7 +1765,7 @@ slots:
     inverse: nutrient_characteristic_of
   has_nutrient_dimension:
     description: 'Object property from OWL: hasNutrientDimension'
-    range: string
+    range: Concept
     domain:
     - NutrientCharacteristic
     aliases:
@@ -1773,7 +1773,7 @@ slots:
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_object:
     description: The Sales Session that is subject to the coordination
-    range: string
+    range: SaleSession
     domain:
     - Coordination
     aliases:
@@ -1791,7 +1791,7 @@ slots:
     inverse: offers_to
   has_option:
     description: Any (and all) ShippingOptions that are available for the session
-    range: string
+    range: ShippingOption
     domain:
     - SaleSession
     aliases:
@@ -1819,7 +1819,7 @@ slots:
     inverse: output_of
   has_part:
     description: All OrderLines that make up the Order
-    range: string
+    range: OrderLine
     domain:
     - Order
     aliases:
@@ -1873,7 +1873,7 @@ slots:
     inverse: physical_characteristic_of
   has_physical_dimension:
     description: 'Object property from OWL: hasPhysicalDimension'
-    range: string
+    range: Concept
     domain:
     - PhysicalCharacteristic
     aliases:
@@ -1928,7 +1928,7 @@ slots:
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_reference:
     description: 'Object property from OWL: hasReference'
-    range: string
+    range: SuppliedProduct
     domain:
     - LocalizedProduct
     aliases:
@@ -2049,7 +2049,7 @@ slots:
     inverse: belongs_to
   hosted_at:
     description: The location the session is hosted at. This could be a physical (e.g. a shop or market) or virtual place (e.g. online store).
-    range: string
+    range: Place
     domain:
     - SaleSession
     - TemplateSaleSession
@@ -2059,7 +2059,7 @@ slots:
     inverse: hosts
   hosts:
     description: All Sales Sessions that have been, are being or will be hosted at this location
-    range: string
+    range: SaleSession
     domain:
     - Place
     aliases:
@@ -2068,7 +2068,7 @@ slots:
     inverse: hosted_at
   identified_by:
     description: 'Object property from OWL: identifiedBy'
-    range: string
+    range: ProductBatch
     domain:
     - RealStock
     aliases:
@@ -2077,7 +2077,7 @@ slots:
     inverse: identifies
   identifies:
     description: 'Object property from OWL: identifies'
-    range: string
+    range: RealStock
     domain:
     - ProductBatch
     aliases:
@@ -2086,7 +2086,7 @@ slots:
     inverse: identified_by
   industrialized_by:
     description: 'Object property from OWL: industrializedBy'
-    range: string
+    range: SuppliedProduct
     domain:
     - TechnicalProduct
     aliases:
@@ -2095,7 +2095,7 @@ slots:
     inverse: industrializes
   industrializes:
     description: The Technical Product that is created to industrialize this Supplied Product
-    range: string
+    range: TechnicalProduct
     domain:
     - SuppliedProduct
     aliases:
@@ -2148,7 +2148,7 @@ slots:
     inverse: has_ingredient
   is_member_of:
     description: 'Object property from OWL: isMemberOf'
-    range: string
+    range: CustomerCategory
     domain:
     - Agent
     aliases:
@@ -2248,7 +2248,7 @@ slots:
     inverse: listed_in
   localized_by:
     description: 'Object property from OWL: localizedBy'
-    range: string
+    range: PhysicalPlace
     domain:
     - TheoriticalStock
     aliases:
@@ -2257,7 +2257,7 @@ slots:
     inverse: localizes
   localizes:
     description: Any theoretical stock that is associated with this location
-    range: string
+    range: TheoriticalStock
     domain:
     - PhysicalPlace
     aliases:
@@ -2275,7 +2275,7 @@ slots:
     inverse: has_main_contact
   maintained_by:
     description: The Enterprise that maintains the Catalog (may differ from the owner of the Products)
-    range: string
+    range: Organization
     domain:
     - Catalog
     aliases:
@@ -2284,7 +2284,7 @@ slots:
     inverse: maintains
   maintains:
     description: A set of reference of defined products
-    range: string
+    range: Catalog
     domain:
     - Organization
     aliases:
@@ -2293,7 +2293,7 @@ slots:
     inverse: maintained_by
   managed_by:
     description: The Enterprise that manages the CatalogItem (may differ from the owner of the Product)
-    range: string
+    range: Organization
     domain:
     - CatalogItem
     aliases:
@@ -2302,7 +2302,7 @@ slots:
     inverse: manages
   manages:
     description: A reference of a defined product in a catalog managed by an enterprise
-    range: string
+    range: CatalogItem
     domain:
     - Organization
     aliases:
@@ -2329,7 +2329,7 @@ slots:
     inverse: has_nutrient_characteristic
   object_of:
     description: The Coordination (that defines which Enterprise coordinates the Sales Sesison)
-    range: string
+    range: Coordination
     domain:
     - SaleSession
     aliases:
@@ -2338,7 +2338,7 @@ slots:
     inverse: has_object
   offered_through:
     description: All Offers that this Catalog Item is offered to categories of customer through
-    range: string
+    range: Offer
     domain:
     - CatalogItem
     aliases:
@@ -2347,7 +2347,7 @@ slots:
     inverse: offers
   offers:
     description: 'The (1 & only 1) CatalogItem that this Offer relates to '
-    range: string
+    range: CatalogItem
     domain:
     - Offer
     aliases:
@@ -2356,7 +2356,7 @@ slots:
     inverse: offered_through
   offers_to:
     description: The (1 & only 1) CustomerCategory that is eligible for this Offer
-    range: string
+    range: CustomerCategory
     domain:
     - Offer
     aliases:
@@ -2365,7 +2365,7 @@ slots:
     inverse: has_offer
   option_of:
     description: All Sales Sessions the ShippingOption is available for selection during.
-    range: string
+    range: SaleSession
     domain:
     - ShippingOption
     aliases:
@@ -2374,7 +2374,7 @@ slots:
     inverse: has_option
   ordered_by:
     description: 'Object property from OWL: orderedBy'
-    range: string
+    range: Agent
     domain:
     - Order
     aliases:
@@ -2383,7 +2383,7 @@ slots:
     inverse: orders
   orders:
     description: Any Orders placed by the Agent
-    range: string
+    range: Order
     domain:
     - Agent
     aliases:
@@ -2401,7 +2401,7 @@ slots:
     inverse: has_output
   owned_by:
     description: 'Object property from OWL: ownedBy'
-    range: string
+    range: Agent
     domain:
     - Brand
     - PhysicalProduct
@@ -2429,7 +2429,7 @@ slots:
     inverse: has_payment_method
   part_of:
     description: The Order this OrderLine is associated with (1 and only 1)
-    range: string
+    range: Order
     domain:
     - OrderLine
     aliases:
@@ -2509,7 +2509,7 @@ slots:
     inverse: produced_by
   proposed_by:
     description: 'Object property from OWL: proposedBy'
-    range: string
+    range: Organization
     domain:
     - TechnicalProduct
     aliases:
@@ -2518,7 +2518,7 @@ slots:
     inverse: proposes
   proposes:
     description: All TechnicalProducts proposed by the Enterprise
-    range: string
+    range: TechnicalProduct
     domain:
     - Organization
     aliases:
@@ -2527,7 +2527,7 @@ slots:
     inverse: proposed_by
   reference_of:
     description: The Localized Product that is created in reference to this Supplied Product
-    range: string
+    range: LocalizedProduct
     domain:
     - SuppliedProduct
     aliases:
@@ -2536,7 +2536,7 @@ slots:
     inverse: has_reference
   referenced_by:
     description: Any/all CatalogItems that reference the Product for sale
-    range: string
+    range: CatalogItem
     domain:
     - DefinedProduct
     aliases:
@@ -2545,7 +2545,7 @@ slots:
     inverse: references
   references:
     description: The Product that the CatalogItem is listing for sale
-    range: string
+    range: DefinedProduct
     domain:
     - CatalogItem
     aliases:
@@ -2554,7 +2554,7 @@ slots:
     inverse: referenced_by
   refers_to:
     description: The Address the delivery will be/was made to
-    range: string
+    range: Address
     domain:
     - DeliveryOption
     aliases:
@@ -2562,7 +2562,7 @@ slots:
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   represented_by:
     description: 'Object property from OWL: representedBy'
-    range: string
+    range: PhysicalProduct
     domain:
     - LocalizedProduct
     aliases:
@@ -2571,7 +2571,7 @@ slots:
     inverse: represents
   represents:
     description: 'Object property from OWL: represents'
-    range: string
+    range: LocalizedProduct
     domain:
     - PhysicalProduct
     aliases:
@@ -2580,7 +2580,7 @@ slots:
     inverse: represented_by
   requested_by:
     description: 'Object property from OWL: requestedBy'
-    range: string
+    range: Agent
     domain:
     - FunctionalProduct
     aliases:
@@ -2589,7 +2589,7 @@ slots:
     inverse: requests
   requests:
     description: Any & all Functional Products that are requested by the Agent
-    range: string
+    range: FunctionalProduct
     domain:
     - Agent
     aliases:
@@ -2598,7 +2598,7 @@ slots:
     inverse: requested_by
   satisfied_by:
     description: 'Object property from OWL: satisfiedBy'
-    range: string
+    range: TechnicalProduct
     domain:
     - FunctionalProduct
     aliases:
@@ -2607,7 +2607,7 @@ slots:
     inverse: satisfies
   satisfies:
     description: 'Object property from OWL: satisfies'
-    range: string
+    range: FunctionalProduct
     domain:
     - TechnicalProduct
     aliases:
@@ -2625,7 +2625,7 @@ slots:
     inverse: selects
   selects:
     description: The method of shipping selected for the ORder (e.g. Overnight courier, same-day delivery, economy delivery )
-    range: string
+    range: ShippingOption
     domain:
     - Order
     aliases:
@@ -2678,7 +2678,7 @@ slots:
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   stored_in:
     description: 'Object property from OWL: storedIn'
-    range: string
+    range: PhysicalPlace
     domain:
     - RealStock
     aliases:
@@ -2687,7 +2687,7 @@ slots:
     inverse: stores
   stores:
     description: Any real stock that is associated with this location
-    range: string
+    range: RealStock
     domain:
     - PhysicalPlace
     aliases:
@@ -2696,7 +2696,7 @@ slots:
     inverse: stored_in
   supplied_by:
     description: The Enterprise that supplies the Product
-    range: string
+    range: Organization
     domain:
     - SuppliedProduct
     aliases:
@@ -2705,7 +2705,7 @@ slots:
     inverse: supplies
   supplies:
     description: All Products supplied by the Enterprise
-    range: string
+    range: SuppliedProduct
     domain:
     - Organization
     aliases:
@@ -2721,7 +2721,7 @@ slots:
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   to:
     description: 'Object property from OWL: to'
-    range: string
+    range: Agent
     domain:
     - Transaction
     aliases:
@@ -2729,7 +2729,7 @@ slots:
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   traced_by:
     description: 'Object property from OWL: tracedBy'
-    range: string
+    range: ProductBatch
     domain:
     - PhysicalProduct
     aliases:
@@ -2738,7 +2738,7 @@ slots:
     inverse: traces
   traces:
     description: 'Object property from OWL: traces'
-    range: string
+    range: PhysicalProduct
     domain:
     - ProductBatch
     aliases:
@@ -2747,7 +2747,7 @@ slots:
     inverse: traced_by
   transformed_by:
     description: 'Object property from OWL: transformedBy'
-    range: string
+    range: Organization
     domain:
     - AsPlannedLocalTransformation
     aliases:
@@ -2756,7 +2756,7 @@ slots:
     inverse: transforms
   transforms:
     description: Any PlannedLocalTransformations owned by the Enterprise
-    range: string
+    range: AsPlannedLocalTransformation
     domain:
     - Organization
     aliases:
@@ -2827,21 +2827,21 @@ slots:
     namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_BusinessOntology.owl#
   has_pivot:
     description: possède un point pivot
-    range: string
+    range: RepresentationPivot
     domain: []
     aliases:
     - hasPivot
     namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_TechnicalOntology.owl#
   hosted_by:
     description: 'Object property from OWL: hostedBy'
-    range: string
+    range: Platform
     domain: []
     aliases:
     - hostedBy
     namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_TechnicalOntology.owl#
   represent:
     description: 'Object property from OWL: represent'
-    range: string
+    range: RepresentedThing
     domain: []
     aliases:
     - represent

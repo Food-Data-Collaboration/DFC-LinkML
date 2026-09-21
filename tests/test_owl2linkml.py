@@ -627,6 +627,24 @@ class TestEdgeCases:
         assert "relatedTo" in props
         assert props["relatedTo"]["range"] == "string"
 
+    def test_object_property_range_from_restriction(self):
+        """Object property range inferred from owl:Restriction allValuesFrom."""
+        from rdflib import BNode, Graph, OWL, URIRef, RDF, RDFS
+        from scripts.owl2linkml import get_object_properties
+
+        g = Graph()
+        base = "http://example.com/"
+        prop = URIRef(base + "defines")
+        g.add((prop, RDF.type, OWL.ObjectProperty))
+        restriction = BNode()
+        g.add((restriction, RDF.type, OWL.Restriction))
+        g.add((restriction, OWL.onProperty, prop))
+        g.add((restriction, OWL.allValuesFrom, URIRef(base + "CustomerCategory")))
+
+        props = get_object_properties(g)
+        assert "defines" in props
+        assert props["defines"]["range"] == "CustomerCategory"
+
 
 @pytest.mark.integration
 class TestCompleteness:
