@@ -1,0 +1,33 @@
+{
+  "name": "product",
+  "version": "2.0.0",
+  "objects": [
+    {
+      "type": "dfc-b:SuppliedProduct",
+      "semanticId": "http://example.com/tomato",
+      "params": { "name": "Tomato", "description": "Fresh tomato" }
+    },
+    {
+      "type": "dfc-b:CatalogItem",
+      "semanticId": "http://example.com/ci1",
+      "params": {
+        "sku": "SKU-1",
+        "references": { "$ref": "http://example.com/tomato" },
+        "offeredThrough": { "$ref": "http://example.com/offer1" }
+      }
+    },
+    {
+      "type": "dfc-b:Price",
+      "semanticId": "http://example.com/price1",
+      "params": { "vatRate": 5.5 }
+    },
+    {
+      "type": "dfc-b:Offer",
+      "semanticId": "http://example.com/offer1",
+      "params": {
+        "name": "Main offer",
+        "hasPrice": { "$ref": "http://example.com/price1" }
+      }
+    }
+  ]
+}

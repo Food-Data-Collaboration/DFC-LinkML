@@ -25,9 +25,9 @@ export class Person extends Agent {
     this.firstName = params?.firstName;
     this.mainContactOf = params?.mainContactOf;
     this.semanticType = Person.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Person:family_name", () => this.familyName);
-    this.registerSemanticProperty("dfc-b:Person:first_name", () => this.firstName);
-    this.registerSemanticProperty("dfc-b:Person:main_contact_of", () => this.mainContactOf);
+    this.registerSemanticProperty("dfc-b:familyName", () => this.familyName);
+    this.registerSemanticProperty("dfc-b:firstName", () => this.firstName);
+    this.registerSemanticProperty("dfc-b:mainContactOf", () => this.mainContactOf);
   }
   static {
     SemanticObject.typeRegistry.set(Person.SEMANTIC_TYPE, Person);

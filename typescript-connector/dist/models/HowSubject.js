@@ -17,11 +17,11 @@ export class HowSubject extends SemanticObject {
         this.characteristicOf = params?.characteristicOf;
         this.hasDimension = params?.hasDimension;
         this.semanticType = HowSubject.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:How_Subject:date", () => this.date);
-        this.registerSemanticProperty("dfc-b:How_Subject:description", () => this.description);
-        this.registerSemanticProperty("dfc-b:How_Subject:name", () => this.name);
-        this.registerSemanticProperty("dfc-b:How_Subject:characteristic_of", () => this.characteristicOf);
-        this.registerSemanticProperty("dfc-b:How_Subject:has_dimension", () => this.hasDimension);
+        this.registerSemanticProperty("dfc-b:date", () => this.date);
+        this.registerSemanticProperty("dfc-b:description", () => this.description);
+        this.registerSemanticProperty("dfc-b:name", () => this.name);
+        this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+        this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
     }
     static {
         SemanticObject.typeRegistry.set(HowSubject.SEMANTIC_TYPE, HowSubject);

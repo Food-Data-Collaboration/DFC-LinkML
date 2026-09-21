@@ -9,7 +9,7 @@ export interface StockParams {
     name?: string;
     characteristicOf?: string;
     hasDimension?: string;
-    hasQuantity?: QuantitativeValue;
+    hasQuantity?: QuantitativeValue | string;
 }
 export declare class Stock extends SemanticObject {
     static get SEMANTIC_TYPE(): string;
@@ -21,6 +21,6 @@ export declare class Stock extends SemanticObject {
     name?: string;
     characteristicOf?: string;
     hasDimension?: string;
-    hasQuantity?: QuantitativeValue;
+    hasQuantity?: QuantitativeValue | string;
     constructor(semanticId: string, params?: StockParams);
 }

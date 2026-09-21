@@ -1,4 +1,5 @@
 import { WhatSubject, type WhatSubjectParams } from "./WhatSubject.js";
+import type { CatalogItem } from "./CatalogItem.js";
 import type { ProductOption } from "./ProductOption.js";
 import type { QuantitativeValue } from "./QuantitativeValue.js";
 export interface DefinedProductParams extends WhatSubjectParams {
@@ -30,9 +31,9 @@ export interface DefinedProductParams extends WhatSubjectParams {
     hasUnit?: string;
     hasVariant?: string;
     processOf?: string;
-    referencedBy?: string;
-    hasQuantity?: QuantitativeValue;
-    hasReferenceProductOption?: ProductOption;
+    hasQuantity?: QuantitativeValue | string;
+    hasReferenceProductOption?: ProductOption | string;
+    referencedBy?: CatalogItem | string;
 }
 export declare class DefinedProduct extends WhatSubject {
     static get SEMANTIC_TYPE(): string;
@@ -64,8 +65,8 @@ export declare class DefinedProduct extends WhatSubject {
     hasUnit?: string;
     hasVariant?: string;
     processOf?: string;
-    referencedBy?: string;
-    hasQuantity?: QuantitativeValue;
-    hasReferenceProductOption?: ProductOption;
+    hasQuantity?: QuantitativeValue | string;
+    hasReferenceProductOption?: ProductOption | string;
+    referencedBy?: CatalogItem | string;
     constructor(semanticId: string, params?: DefinedProductParams);
 }

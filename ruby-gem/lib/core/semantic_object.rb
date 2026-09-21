@@ -13,17 +13,6 @@ module DfcLinkmlConnector
 
       class << self
         attr_reader :type_registry
-
-        def inherited(subclass)
-          super
-          if subclass.const_defined?(:SEMANTIC_TYPE)
-            @type_registry[subclass::SEMANTIC_TYPE] = subclass
-          end
-        end
-
-        def register_type(semantic_type)
-          @type_registry[semantic_type] = self
-        end
       end
 
       attr_accessor :semanticId
@@ -39,6 +28,15 @@ module DfcLinkmlConnector
         prop = SemanticProperty.new(predicate, &getter)
         @semanticProperties[predicate] = prop
         prop
+      end
+
+      def registered_predicates
+        @semanticProperties.keys
+      end
+
+      def registered_value(predicate)
+        prop = @semanticProperties[predicate]
+        prop&.getter&.call
       end
 
       def semantic_property_value(predicate)
@@ -66,7 +64,11 @@ module DfcLinkmlConnector
             end
           elsif value.is_a?(SemanticObject)
             result[predicate] = value.semanticId
-          elsif value.is_a?(Numeric)
+          elsif value.is_a?(Numeric) || value == true || value == false
+            result[predicate] = value
+          elsif value.is_a?(Hash)
+            # Embedded blank node (e.g. official Price value object without
+            # @id): keep as-is so it serializes to JSON-LD, not Ruby inspect.
             result[predicate] = value
           else
             result[predicate] = value.to_s

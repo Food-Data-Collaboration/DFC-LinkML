@@ -1,4 +1,7 @@
 import { WhatSubject, type WhatSubjectParams } from "./WhatSubject.js";
+import type { Agent } from "./Agent.js";
+import type { LocalizedProduct } from "./LocalizedProduct.js";
+import type { ProductBatch } from "./ProductBatch.js";
 import type { QuantitativeValue } from "./QuantitativeValue.js";
 export interface PhysicalProductParams extends WhatSubjectParams {
     image?: string;
@@ -7,11 +10,11 @@ export interface PhysicalProductParams extends WhatSubjectParams {
     constituedBy?: string;
     consumedBy?: string;
     fulfills?: string[];
-    ownedBy?: string;
     producedBy?: string;
-    represents?: string[];
-    tracedBy?: string;
-    hasQuantity?: QuantitativeValue;
+    hasQuantity?: QuantitativeValue | string;
+    ownedBy?: Agent | string;
+    represents?: (LocalizedProduct | string)[];
+    tracedBy?: ProductBatch | string;
 }
 export declare class PhysicalProduct extends WhatSubject {
     static get SEMANTIC_TYPE(): string;
@@ -21,10 +24,10 @@ export declare class PhysicalProduct extends WhatSubject {
     constituedBy?: string;
     consumedBy?: string;
     fulfills?: string[];
-    ownedBy?: string;
     producedBy?: string;
-    represents?: string[];
-    tracedBy?: string;
-    hasQuantity?: QuantitativeValue;
+    hasQuantity?: QuantitativeValue | string;
+    ownedBy?: Agent | string;
+    represents?: (LocalizedProduct | string)[];
+    tracedBy?: ProductBatch | string;
     constructor(semanticId: string, params?: PhysicalProductParams);
 }

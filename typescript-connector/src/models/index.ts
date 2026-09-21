@@ -24,6 +24,7 @@ export { DitributedRepresentation, type DitributedRepresentationParams } from ".
 export { DefinedProduct, type DefinedProductParams } from "./DefinedProduct.js";
 export { DeliveryOption, type DeliveryOptionParams } from "./DeliveryOption.js";
 export { DeliveryStep, type DeliveryStepParams } from "./DeliveryStep.js";
+export { Enterprise, type EnterpriseParams } from "./Enterprise.js";
 export { Feature, type FeatureParams } from "./Feature.js";
 export { FunctionalProduct, type FunctionalProductParams } from "./FunctionalProduct.js";
 export { Geometry, type GeometryParams } from "./Geometry.js";

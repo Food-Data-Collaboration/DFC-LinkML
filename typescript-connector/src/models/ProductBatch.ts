@@ -1,14 +1,16 @@
 // Class from DFC Business Ontology: #ProductBatch
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhatSubject, type WhatSubjectParams } from "./WhatSubject.js";
+import type { PhysicalProduct } from "./PhysicalProduct.js";
+import type { RealStock } from "./RealStock.js";
 
 export interface ProductBatchParams extends WhatSubjectParams {
   batchNumber?: string;
   bestBeforeDate?: string;
   expiryDate?: string;
   productionDate?: string;
-  identifies?: string[];
-  traces?: string[];
+  identifies?: (RealStock | string)[];
+  traces?: (PhysicalProduct | string)[];
 }
 export class ProductBatch extends WhatSubject {
   static get SEMANTIC_TYPE(): string {
@@ -19,8 +21,8 @@ export class ProductBatch extends WhatSubject {
   bestBeforeDate?: string;
   expiryDate?: string;
   productionDate?: string;
-  identifies?: string[];
-  traces?: string[];
+  identifies?: (RealStock | string)[];
+  traces?: (PhysicalProduct | string)[];
 
   constructor(
     semanticId: string,
@@ -34,12 +36,12 @@ export class ProductBatch extends WhatSubject {
     this.identifies = params?.identifies;
     this.traces = params?.traces;
     this.semanticType = ProductBatch.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:ProductBatch:batch_number", () => this.batchNumber);
-    this.registerSemanticProperty("dfc-b:ProductBatch:best_before_date", () => this.bestBeforeDate);
-    this.registerSemanticProperty("dfc-b:ProductBatch:expiry_date", () => this.expiryDate);
-    this.registerSemanticProperty("dfc-b:ProductBatch:production_date", () => this.productionDate);
-    this.registerSemanticProperty("dfc-b:ProductBatch:identifies", () => this.identifies);
-    this.registerSemanticProperty("dfc-b:ProductBatch:traces", () => this.traces);
+    this.registerSemanticProperty("dfc-b:batchNumber", () => this.batchNumber);
+    this.registerSemanticProperty("dfc-b:bestBeforeDate", () => this.bestBeforeDate);
+    this.registerSemanticProperty("dfc-b:expiryDate", () => this.expiryDate);
+    this.registerSemanticProperty("dfc-b:productionDate", () => this.productionDate);
+    this.registerSemanticProperty("dfc-b:identifies", () => this.identifies);
+    this.registerSemanticProperty("dfc-b:traces", () => this.traces);
   }
   static {
     SemanticObject.typeRegistry.set(ProductBatch.SEMANTIC_TYPE, ProductBatch);

@@ -6,7 +6,7 @@ import type { QuantitativeValue } from "./QuantitativeValue.js";
 export interface IngredientParams extends WhatSubjectParams {
   composedOf?: string;
   isIngredientOf?: string;
-  hasQuantity?: QuantitativeValue;
+  hasQuantity?: QuantitativeValue | string;
 }
 export class Ingredient extends WhatSubject {
   static get SEMANTIC_TYPE(): string {
@@ -15,7 +15,7 @@ export class Ingredient extends WhatSubject {
 
   composedOf?: string;
   isIngredientOf?: string;
-  hasQuantity?: QuantitativeValue;
+  hasQuantity?: QuantitativeValue | string;
 
   constructor(
     semanticId: string,
@@ -26,9 +26,9 @@ export class Ingredient extends WhatSubject {
     this.isIngredientOf = params?.isIngredientOf;
     this.hasQuantity = params?.hasQuantity;
     this.semanticType = Ingredient.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Ingredient:composed_of", () => this.composedOf);
-    this.registerSemanticProperty("dfc-b:Ingredient:is_ingredient_of", () => this.isIngredientOf);
-    this.registerSemanticProperty("dfc-b:Ingredient:has_quantity", () => this.hasQuantity);
+    this.registerSemanticProperty("dfc-b:composedOf", () => this.composedOf);
+    this.registerSemanticProperty("dfc-b:isIngredientOf", () => this.isIngredientOf);
+    this.registerSemanticProperty("dfc-b:hasQuantity", () => this.hasQuantity);
   }
   static {
     SemanticObject.typeRegistry.set(Ingredient.SEMANTIC_TYPE, Ingredient);

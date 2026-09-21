@@ -1,10 +1,11 @@
 // Class from DFC Business Ontology: #Brand
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhatSubject, type WhatSubjectParams } from "./WhatSubject.js";
+import type { Agent } from "./Agent.js";
 
 export interface BrandParams extends WhatSubjectParams {
   brandOf?: string;
-  ownedBy?: string;
+  ownedBy?: Agent | string;
 }
 export class Brand extends WhatSubject {
   static get SEMANTIC_TYPE(): string {
@@ -12,7 +13,7 @@ export class Brand extends WhatSubject {
   }
 
   brandOf?: string;
-  ownedBy?: string;
+  ownedBy?: Agent | string;
 
   constructor(
     semanticId: string,
@@ -22,8 +23,8 @@ export class Brand extends WhatSubject {
     this.brandOf = params?.brandOf;
     this.ownedBy = params?.ownedBy;
     this.semanticType = Brand.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Brand:brand_of", () => this.brandOf);
-    this.registerSemanticProperty("dfc-b:Brand:owned_by", () => this.ownedBy);
+    this.registerSemanticProperty("dfc-b:brandOf", () => this.brandOf);
+    this.registerSemanticProperty("dfc-b:ownedBy", () => this.ownedBy);
   }
   static {
     SemanticObject.typeRegistry.set(Brand.SEMANTIC_TYPE, Brand);

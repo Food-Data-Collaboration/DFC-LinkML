@@ -1,12 +1,39 @@
+import bundledFacet from "../taxonomies/facet.js";
+import bundledMeasure from "../taxonomies/measure.js";
+import bundledProductType from "../taxonomies/product_type.js";
+import bundledScope from "../taxonomies/scope.js";
+import bundledVocabularyTerm from "../taxonomies/vocabulary_term.js";
 export class VocabularyLoader {
+    static BUNDLED = {
+        Facet: bundledFacet,
+        Measure: bundledMeasure,
+        ProductType: bundledProductType,
+        Scope: bundledScope,
+        VocabularyTerm: bundledVocabularyTerm,
+    };
     taxonomyVersion;
+    ontologyVersion;
     vocabularies;
-    constructor(taxonomyVersion = "2.0.0") {
+    // Bundled v2.0.0 vocabularies are loaded unconditionally by design — the
+    // connector ships only that version offline. Callers requesting a different
+    // taxonomyVersion must override via loadBundled/load.
+    constructor(taxonomyVersion = "2.0.0", ontologyVersion = "2.0.0") {
         this.taxonomyVersion = taxonomyVersion;
+        this.ontologyVersion = ontologyVersion;
         this.vocabularies = new Map();
+        this.loadBundled();
+    }
+    loadBundled() {
+        for (const [name, data] of Object.entries(VocabularyLoader.BUNDLED)) {
+            this.load(name, data);
+        }
+        return this;
+    }
+    bundledData(name) {
+        return VocabularyLoader.BUNDLED[name] || {};
     }
     get taxonomyBaseUrl() {
-        return `https://w3id.org/dfc/taxonomies/v$this.taxonomyVersion`;
+        return `https://w3id.org/dfc/taxonomies/v${this.taxonomyVersion}`;
     }
     load(name, jsonData) {
         const concepts = {};
@@ -26,10 +53,10 @@ export class VocabularyLoader {
                     types.includes("http://www.w3.org/2004/02/skos/core#Concept");
                 if (!isConcept)
                     continue;
-                const key = this.extractConceptKey(entryObj);
-                if (key === undefined)
-                    continue;
-                concepts[key] = entryObj;
+                const notation = this.extractConceptKey(entryObj);
+                if (notation !== undefined) {
+                    concepts[notation] = entryObj;
+                }
             }
         }
         this.vocabularies.set(name, concepts);
@@ -53,9 +80,9 @@ export class VocabularyLoader {
                     if (typeof item === "string")
                         return item;
                     if (typeof item === "object" && item !== null) {
-                        const v = item["@value"];
-                        if (typeof v === "string")
-                            return v;
+                        const wrapped = item["@value"];
+                        if (typeof wrapped === "string")
+                            return wrapped;
                     }
                 }
             }
@@ -63,14 +90,24 @@ export class VocabularyLoader {
         return undefined;
     }
     async loadFromUrl(name) {
-        const url = `${this.taxonomyBaseUrl}/${name.toLowerCase()}.json`;
-        const response = await fetch(url);
+        const url = `${this.taxonomyBaseUrl}/${name}.json`;
+        const response = await fetch(url, {
+            headers: { "dfc-version": this.ontologyVersion },
+        });
         if (!response.ok) {
             throw new Error(`Failed to fetch taxonomy from ${url}: ${response.status}`);
         }
         const jsonData = await response.json();
-        return this.load(name, jsonData);
+        const key = VocabularyLoader.URL_TO_KEY[name.toLowerCase()] || name;
+        return this.load(key, jsonData);
     }
+    static URL_TO_KEY = {
+        facets: "Facet",
+        measures: "Measure",
+        producttypes: "ProductType",
+        scopes: "Scope",
+        vocabularyterms: "VocabularyTerm",
+    };
     vocabulary(name) {
         return this.vocabularies.get(name) || {};
     }

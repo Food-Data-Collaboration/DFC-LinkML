@@ -22,13 +22,13 @@ export class Vehicle extends WhatSubject {
         this.hasQuantity = params?.hasQuantity;
         this.isAvailableDuring = params?.isAvailableDuring;
         this.semanticType = Vehicle.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:Vehicle:frozen", () => this.frozen);
-        this.registerSemanticProperty("dfc-b:Vehicle:refrigerated", () => this.refrigerated);
-        this.registerSemanticProperty("dfc-b:Vehicle:ships", () => this.ships);
-        this.registerSemanticProperty("dfc-b:Vehicle:used_in_route", () => this.usedInRoute);
-        this.registerSemanticProperty("dfc-b:Vehicle:based_at", () => this.basedAt);
-        this.registerSemanticProperty("dfc-b:Vehicle:has_quantity", () => this.hasQuantity);
-        this.registerSemanticProperty("dfc-b:Vehicle:is_available_during", () => this.isAvailableDuring);
+        this.registerSemanticProperty("dfc-b:frozen", () => this.frozen);
+        this.registerSemanticProperty("dfc-b:refrigerated", () => this.refrigerated);
+        this.registerSemanticProperty("dfc-b:ships", () => this.ships);
+        this.registerSemanticProperty("dfc-b:usedInRoute", () => this.usedInRoute);
+        this.registerSemanticProperty("dfc-b:basedAt", () => this.basedAt);
+        this.registerSemanticProperty("dfc-b:hasQuantity", () => this.hasQuantity);
+        this.registerSemanticProperty("dfc-b:isAvailableDuring", () => this.isAvailableDuring);
     }
     static {
         SemanticObject.typeRegistry.set(Vehicle.SEMANTIC_TYPE, Vehicle);

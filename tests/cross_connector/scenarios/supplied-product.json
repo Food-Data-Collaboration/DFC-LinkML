@@ -1,0 +1,11 @@
+{
+  "name": "supplied-product",
+  "version": "2.0.0",
+  "objects": [
+    {
+      "type": "dfc-b:SuppliedProduct",
+      "semanticId": "http://example.com/tomato",
+      "params": { "name": "Tomato", "description": "Fresh tomato" }
+    }
+  ]
+}

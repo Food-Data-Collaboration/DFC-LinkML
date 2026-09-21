@@ -10,18 +10,16 @@ module DfcLinkmlConnector
     class ProductOptionValue < WhatSubject
       SEMANTIC_TYPE = "dfc-b:ProductOptionValue".freeze
 
-      # @return [String]
-      attr_accessor :specific_condition
-
       # @param semanticId [String]
-      # @param specificCondition: nil
-      def initialize(semanticId, specificCondition: nil)
-        super(semanticId)
-        @specific_condition = specificCondition
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
+
         self.semanticType = "dfc-b:ProductOptionValue"
-        registerSemanticProperty("dfc-b:ProductOptionValue:specificCondition", &method("specific_condition")).valueSetter = method("specific_condition=")
+
       end
 
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

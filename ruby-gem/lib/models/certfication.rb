@@ -16,17 +16,28 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :certification_score
 
+      # @return [String]
+      attr_accessor :operator_id
+
+      # @return [String]
+      attr_accessor :certifies
+
       # @param semanticId [String]
-      # @param certiferReference: nil, certificationScore: nil
-      def initialize(semanticId, certiferReference: nil, certificationScore: nil)
-        super(semanticId)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, certiferReference: nil, certificationScore: nil, operatorId: nil, certifies: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, certiferReference: nil, certificationScore: nil, operatorId: nil, certifies: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @certifer_reference = certiferReference
         @certification_score = certificationScore
+        @operator_id = operatorId
+        @certifies = certifies
         self.semanticType = "dfc-b:Certfication"
-        registerSemanticProperty("dfc-b:Certfication:certiferReference", &method("certifer_reference")).valueSetter = method("certifer_reference=")
-        registerSemanticProperty("dfc-b:Certfication:certificationScore", &method("certification_score")).valueSetter = method("certification_score=")
+        registerSemanticProperty("dfc-b:certiferReference", &method("certifer_reference")).valueSetter = method("certifer_reference=")
+        registerSemanticProperty("dfc-b:certificationScore", &method("certification_score")).valueSetter = method("certification_score=")
+        registerSemanticProperty("dfc-b:operatorId", &method("operator_id")).valueSetter = method("operator_id=")
+        registerSemanticProperty("dfc-b:certifies", &method("certifies")).valueSetter = method("certifies=")
       end
 
+      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
 end

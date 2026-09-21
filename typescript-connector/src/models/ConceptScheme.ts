@@ -30,11 +30,11 @@ export class ConceptScheme extends SemanticObject {
     this.characteristicOf = params?.characteristicOf;
     this.hasDimension = params?.hasDimension;
     this.semanticType = ConceptScheme.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:ConceptScheme:date", () => this.date);
-    this.registerSemanticProperty("dfc-b:ConceptScheme:description", () => this.description);
-    this.registerSemanticProperty("dfc-b:ConceptScheme:name", () => this.name);
-    this.registerSemanticProperty("dfc-b:ConceptScheme:characteristic_of", () => this.characteristicOf);
-    this.registerSemanticProperty("dfc-b:ConceptScheme:has_dimension", () => this.hasDimension);
+    this.registerSemanticProperty("dfc-b:date", () => this.date);
+    this.registerSemanticProperty("dfc-b:description", () => this.description);
+    this.registerSemanticProperty("dfc-b:name", () => this.name);
+    this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+    this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
   }
   static {
     SemanticObject.typeRegistry.set(ConceptScheme.SEMANTIC_TYPE, ConceptScheme);

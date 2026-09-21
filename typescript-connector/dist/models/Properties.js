@@ -17,11 +17,11 @@ export class Properties extends SemanticObject {
         this.characteristicOf = params?.characteristicOf;
         this.hasDimension = params?.hasDimension;
         this.semanticType = Properties.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:Properties:date", () => this.date);
-        this.registerSemanticProperty("dfc-b:Properties:description", () => this.description);
-        this.registerSemanticProperty("dfc-b:Properties:name", () => this.name);
-        this.registerSemanticProperty("dfc-b:Properties:characteristic_of", () => this.characteristicOf);
-        this.registerSemanticProperty("dfc-b:Properties:has_dimension", () => this.hasDimension);
+        this.registerSemanticProperty("dfc-b:date", () => this.date);
+        this.registerSemanticProperty("dfc-b:description", () => this.description);
+        this.registerSemanticProperty("dfc-b:name", () => this.name);
+        this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+        this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
     }
     static {
         SemanticObject.typeRegistry.set(Properties.SEMANTIC_TYPE, Properties);

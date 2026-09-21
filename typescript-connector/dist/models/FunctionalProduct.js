@@ -12,8 +12,8 @@ export class FunctionalProduct extends DefinedProduct {
         this.requestedBy = params?.requestedBy;
         this.satisfiedBy = params?.satisfiedBy;
         this.semanticType = FunctionalProduct.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:FunctionalProduct:requested_by", () => this.requestedBy);
-        this.registerSemanticProperty("dfc-b:FunctionalProduct:satisfied_by", () => this.satisfiedBy);
+        this.registerSemanticProperty("dfc-b:requestedBy", () => this.requestedBy);
+        this.registerSemanticProperty("dfc-b:satisfiedBy", () => this.satisfiedBy);
     }
     static {
         SemanticObject.typeRegistry.set(FunctionalProduct.SEMANTIC_TYPE, FunctionalProduct);

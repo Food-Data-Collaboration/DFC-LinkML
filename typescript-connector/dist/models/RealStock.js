@@ -14,9 +14,9 @@ export class RealStock extends Stock {
         this.identifiedBy = params?.identifiedBy;
         this.storedIn = params?.storedIn;
         this.semanticType = RealStock.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:RealStock:constitutes", () => this.constitutes);
-        this.registerSemanticProperty("dfc-b:RealStock:identified_by", () => this.identifiedBy);
-        this.registerSemanticProperty("dfc-b:RealStock:stored_in", () => this.storedIn);
+        this.registerSemanticProperty("dfc-b:constitutes", () => this.constitutes);
+        this.registerSemanticProperty("dfc-b:identifiedBy", () => this.identifiedBy);
+        this.registerSemanticProperty("dfc-b:storedIn", () => this.storedIn);
     }
     static {
         SemanticObject.typeRegistry.set(RealStock.SEMANTIC_TYPE, RealStock);

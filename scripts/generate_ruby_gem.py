@@ -70,10 +70,82 @@ def to_file_name(name: str) -> str:
     return name.lower()
 
 
+# has_-prefixed slots whose stripped form collides with a bare slot
+# (e.g. has_quantity vs quantity). Those keep their prefix so both get
+# distinct accessors. Computed from the schema in main().
+_HAS_PREFIX_KEEP: set[str] = set()
+
+
+def _init_has_prefix_keep(schema_data: dict) -> None:
+    """Find has_-prefixed slots colliding with a bare slot of the same base."""
+    global _HAS_PREFIX_KEEP
+    by_base: dict[str, list[str]] = {}
+    for slot in schema_data.get('slots', {}):
+        by_base.setdefault(ruby_property_name(slot), []).append(slot)
+    _HAS_PREFIX_KEEP = {
+        s
+        for owners in by_base.values()
+        for s in owners
+        if s.startswith('has') and any(not o.startswith('has') for o in owners)
+    }
+
+
+# Generated parent-class overrides (schema class name -> schema class name).
+# Currently used for owl:equivalentClass handling: when Enterprise carries no
+# slots of its own but Organization does (DFC v2.0), Enterprise is generated
+# as a subclass of Organization so the deprecated class keeps the full API.
+# Computed from the schema in main().
+_PARENT_OVERRIDES: dict[str, str] = {}
+
+
+def _own_slots(class_name: str, schema_data: dict) -> set[str]:
+    """Slots owned by a class: explicit list plus domain matches (no inheritance)."""
+    classes = schema_data['classes']
+    slots = schema_data['slots']
+    own = set(classes.get(class_name, {}).get('slots', []))
+    for slot_name, slot_data in slots.items():
+        domain = slot_data.get('domain', '')
+        if isinstance(domain, list):
+            matches = class_name in domain
+        elif isinstance(domain, str):
+            matches = domain == class_name
+        else:
+            matches = False
+        if matches:
+            own.add(slot_name)
+    return own
+
+
+def _init_parent_overrides(schema_data: dict) -> None:
+    """Compute generated parent-class overrides from the schema."""
+    global _PARENT_OVERRIDES
+    _PARENT_OVERRIDES = {}
+    classes = schema_data.get('classes', {})
+    if ('Enterprise' in classes and 'Organization' in classes
+            and not _own_slots('Enterprise', schema_data)
+            and _own_slots('Organization', schema_data)):
+        _PARENT_OVERRIDES['Enterprise'] = 'Organization'
+
+
+def _enterprise_alias(schema_data: dict) -> dict[str, str]:
+    """Legacy type aliases, derived from the schema.
+
+    DFC v2.0 renamed Enterprise to Organization (the old class is a
+    deprecated equivalentClass stub), so imports canonicalize it. Schemas
+    where Enterprise owns slots its target lacks (v1.16) get no alias.
+    """
+    classes = schema_data.get('classes', {})
+    if 'Enterprise' not in classes or 'Organization' not in classes:
+        return {}
+    if _own_slots('Enterprise', schema_data) - _own_slots('Organization', schema_data):
+        return {}
+    return {'dfc-b:Enterprise': 'dfc-b:Organization'}
+
+
 def ruby_property_name(slot_name: str) -> str:
     """Convert a slot name to a Ruby accessor name (snake_case)."""
     name = slot_name
-    if name.startswith('has'):
+    if name.startswith('has') and slot_name not in _HAS_PREFIX_KEEP:
         name = name[3:]
     name = re.sub(r'(?<!^)(?=[A-Z])', '_', name)
     name = name.lower()
@@ -93,7 +165,7 @@ def ruby_property_name(slot_name: str) -> str:
 def ruby_param_name(slot_name: str) -> str:
     """Convert a slot name to a Ruby keyword parameter name (camelCase)."""
     name = slot_name
-    if name.startswith('has'):
+    if name.startswith('has') and slot_name not in _HAS_PREFIX_KEEP:
         name = name[3:]
     name = re.sub(r'(?<!^)(?=[A-Z])', '_', name)
     name = name.lower()
@@ -116,9 +188,14 @@ def get_class_hierarchy(class_name: str, classes: dict) -> list:
     """Get the inheritance chain for a class, from root to class."""
     chain = []
     current = class_name
+    first = True
     while current:
         chain.append(current)
-        current = classes.get(current, {}).get('is_a', '')
+        if first and current in _PARENT_OVERRIDES:
+            current = _PARENT_OVERRIDES[current]
+        else:
+            current = classes.get(current, {}).get('is_a', '')
+        first = False
     chain.reverse()
     return chain
 
@@ -132,11 +209,23 @@ def get_all_slots_for_class(class_name: str, schema_data: dict):
 
     seen = set()
     for cls in hierarchy:
+        cls_slots = classes.get(cls, {}).get('slots', [])
         for slot_name, slot_data in slots.items():
-            domain = slot_data.get('domain', '')
-            if domain == cls and slot_name not in seen:
+            in_class_list = slot_name in cls_slots
+            if in_class_list and slot_name not in seen:
                 seen.add(slot_name)
                 yield slot_name, slot_data, cls
+            else:
+                domain = slot_data.get('domain', '')
+                if isinstance(domain, list):
+                    matches = cls in domain
+                elif isinstance(domain, str):
+                    matches = domain == cls
+                else:
+                    matches = False
+                if matches and slot_name not in seen:
+                    seen.add(slot_name)
+                    yield slot_name, slot_data, cls
 
         # For root classes, also include orphaned-domain slots
         # whose domain references only non-existent classes.
@@ -192,13 +281,35 @@ def rdf_prefix_for_class(class_name: str) -> str:
     return f'dfc-b:{class_name}'
 
 
+def predicate_for_slot(slot_name: str, slot_data: dict) -> str:
+    """Compute the official JSON-LD predicate CURIE/URI for a slot.
+
+    DFC business/technical ontology properties use the dfc-b/dfc-t prefixes;
+    skos uses the skos prefix; other namespaces fall back to the full URI.
+    """
+    aliases = slot_data.get('aliases') or [slot_name]
+    alias = aliases[0]
+    namespace = slot_data.get('namespace', '')
+    if 'DFC_BusinessOntology' in namespace:
+        return f'dfc-b:{alias}'
+    if 'DFC_TechnicalOntology' in namespace:
+        return f'dfc-t:{alias}'
+    if 'skos/core' in namespace:
+        return f'skos:{alias}'
+    if namespace:
+        return f'{namespace}{alias}'
+    return f'dfc-b:{alias}'
+
+
 def ruby_type_for_slot(slot_data: dict, schema_data: dict) -> str:
     """Determine the Ruby type annotation for a slot."""
     range_type = slot_data.get('range', 'string')
     classes = schema_data['classes']
 
     if range_type in classes:
-        return to_ruby_class_name(range_type)
+        # Relationship slot: at runtime the value may be a URI string, an
+        # embedded Hash, or a resolved model instance.
+        return f'{to_ruby_class_name(range_type)}, String'
     elif range_type in ('float', 'decimal', 'double'):
         return 'Float'
     elif range_type in ('integer', 'int', 'NonNegativeInteger', 'PositiveInteger'):
@@ -253,17 +364,6 @@ module DfcLinkmlConnector
 
       class << self
         attr_reader :type_registry
-
-        def inherited(subclass)
-          super
-          if subclass.const_defined?(:SEMANTIC_TYPE)
-            @type_registry[subclass::SEMANTIC_TYPE] = subclass
-          end
-        end
-
-        def register_type(semantic_type)
-          @type_registry[semantic_type] = self
-        end
       end
 
       attr_accessor :semanticId
@@ -279,6 +379,15 @@ module DfcLinkmlConnector
         prop = SemanticProperty.new(predicate, &getter)
         @semanticProperties[predicate] = prop
         prop
+      end
+
+      def registered_predicates
+        @semanticProperties.keys
+      end
+
+      def registered_value(predicate)
+        prop = @semanticProperties[predicate]
+        prop&.getter&.call
       end
 
       def semantic_property_value(predicate)
@@ -306,7 +415,11 @@ module DfcLinkmlConnector
             end
           elsif value.is_a?(SemanticObject)
             result[predicate] = value.semanticId
-          elsif value.is_a?(Numeric)
+          elsif value.is_a?(Numeric) || value == true || value == false
+            result[predicate] = value
+          elsif value.is_a?(Hash)
+            # Embedded blank node (e.g. official Price value object without
+            # @id): keep as-is so it serializes to JSON-LD, not Ruby inspect.
             result[predicate] = value
           else
             result[predicate] = value.to_s
@@ -368,31 +481,87 @@ module DfcLinkmlConnector
     # Loads DFC SKOS vocabularies from JSON-LD files.
     # Supports fetching from versioned w3id URLs or loading local data.
     class VocabularyLoader
-      TAXONOMY_BASE_URL = "__TAXONOMY_BASE_URL__".freeze
+      TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies".freeze
+      BUNDLED_DIR = File.expand_path("../../vocabularies", __dir__).freeze
+      BUNDLED_FILES = {
+        "Facet" => "facet.jsonld",
+        "Measure" => "measure.jsonld",
+        "ProductType" => "product_type.jsonld",
+        "Scope" => "scope.jsonld",
+        "VocabularyTerm" => "vocabulary_term.jsonld",
+      }.freeze
+      # Maps the taxonomy URL file name to the internal vocabulary key.
+      # Keys are plural/lowercased URL segments (e.g. "facets") to match TS
+      # VocabularyLoader.URL_TO_KEY and the w3id taxonomy URLs.
+      URL_TO_KEY = {
+        "facets" => "Facet",
+        "measures" => "Measure",
+        "producttypes" => "ProductType",
+        "scopes" => "Scope",
+        "vocabularyterms" => "VocabularyTerm",
+      }.freeze
 
-      def initialize(taxonomy_version: "__TAXONOMY_VERSION__")
+      def initialize(taxonomy_version: "__TAXONOMY_VERSION__", ontology_version: "__TAXONOMY_VERSION__")
         @taxonomy_version = taxonomy_version
+        @ontology_version = ontology_version
         @vocabularies = {}
+      end
+
+      def load_bundled(name)
+        file = BUNDLED_FILES[name]
+        return self unless file
+        path = File.join(BUNDLED_DIR, file)
+        return self unless File.exist?(path)
+        load(name, JSON.parse(File.read(path)))
       end
 
       def load(name, json_data)
         concepts = {}
         json_data.fetch("@graph", []).each do |entry|
-          next unless entry["@type"]&.include?("skos:Concept")
-          notation = entry["skos:notation"] || entry["skos:prefLabel"]
+          types = entry["@type"]
+          types = [types] unless types.is_a?(Array)
+          is_concept = types&.any? { |t| t == "skos:Concept" || t == "http://www.w3.org/2004/02/skos/core#Concept" }
+          next unless is_concept
+          notation = extract_concept_key(entry)
+          next unless notation
           concepts[notation] = entry
         end
         @vocabularies[name] = concepts
         self
       end
 
+      private
+
+      def extract_concept_key(entry)
+        candidates = ["skos:notation", "http://www.w3.org/2004/02/skos/core#notation", "skos:prefLabel", "http://www.w3.org/2004/02/skos/core#prefLabel"]
+        candidates.each do |field|
+          value = entry[field]
+          next if value.nil?
+          return value if value.is_a?(String)
+          if value.is_a?(Array)
+            value.each do |item|
+              return item if item.is_a?(String)
+              if item.is_a?(Hash) && item["@value"].is_a?(String)
+                return item["@value"]
+              end
+            end
+          end
+        end
+        nil
+      end
+
+      public
+
       def load_from_url(name)
-        url = "#{TAXONOMY_BASE_URL}/#{name.downcase}.json"
+        url = "#{TAXONOMY_BASE_URL}/v#{@taxonomy_version}/#{name}.json"
         uri = URI(url)
-        response = Net::HTTP.get_response(uri)
+        request = Net::HTTP::Get.new(uri)
+        request["dfc-version"] = @ontology_version
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
         raise "Failed to fetch taxonomy from #{url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
         json_data = JSON.parse(response.body)
-        load(name, json_data)
+        key = URL_TO_KEY.fetch(name.downcase, name)
+        load(key, json_data)
       end
 
       def vocabulary(name)
@@ -405,8 +574,6 @@ ENUM_METHODS
 end
 '''
 
-    taxonomy_base_url = f'https://w3id.org/dfc/taxonomies/v{taxonomy_version}'
-    code = code.replace('__TAXONOMY_BASE_URL__', taxonomy_base_url)
     code = code.replace('__TAXONOMY_VERSION__', taxonomy_version)
     code = code.replace('ENUM_METHODS', enum_methods.rstrip())
     return code
@@ -429,6 +596,36 @@ def generate_connector_class(schema_data: dict) -> str:
 
 '''
 
+    predicate_map_lines = []
+    for slot_name, slot_data in schema_data.get('slots', {}).items():
+        predicate_map_lines.append(f'      "{predicate_for_slot(slot_name, slot_data)}" => "{ruby_property_name(slot_name)}",')
+    predicate_map_str = '\n'.join(predicate_map_lines)
+
+    alias_lines = '\n'.join(
+        f'      "{pred}" => "{target}",'
+        for pred, target in sorted(_enterprise_alias(schema_data).items())
+    )
+
+    # Predicate local names (e.g. "hasBrand") whose has_ prefix is preserved
+    # because the stripped form collides with a bare slot (see
+    # _HAS_PREFIX_KEEP). Used by the _predicate_to_prop_name fallback so
+    # URI-form predicates map to the same accessor as the CURIE form.
+    # Both CamelCase locals and snake_case forms are listed so the fallback
+    # matches regardless of which form the expanded predicate carries.
+    keep_names: set[str] = set()
+    for slot_name in _HAS_PREFIX_KEEP:
+        slot_data = schema_data.get('slots', {}).get(slot_name, {})
+        local = predicate_for_slot(slot_name, slot_data)
+        for sep in ('#', ':', '/'):
+            if sep in local:
+                local = local.split(sep)[-1]
+        keep_names.add(local)
+        keep_names.add(ruby_property_name(slot_name))
+    keep_lines = '\n'.join(
+        f'        "{name}",'
+        for name in sorted(keep_names)
+    )
+
     code = '''# frozen_string_literal: true
 
 require 'json'
@@ -449,6 +646,22 @@ module DfcLinkmlConnector
     class Connector
       ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology".freeze
       TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies".freeze
+      BUNDLED_CONTEXT_DIR = File.expand_path("../../contexts", __dir__).freeze
+
+      PREDICATE_MAP = {
+__PREDICATE_MAP__
+      }.freeze
+
+      TYPE_ALIASES = {
+__TYPE_ALIASES__
+      }.freeze
+
+      # Predicate local names whose has_ prefix is preserved (e.g. "hasBrand"
+      # vs "brand"). Mirrors ruby_property_name's _HAS_PREFIX_KEEP handling
+      # so the _predicate_to_prop_name fallback agrees with PREDICATE_MAP.
+      HAS_PREFIX_KEEP = [
+__HAS_PREFIX_KEEP__
+      ].freeze
 
       class << self
         def default_context_url
@@ -462,15 +675,35 @@ module DfcLinkmlConnector
 
       attr_reader :ontology_version, :taxonomy_version, :vocab_loader
 
+      # Bundled v2.0.0 vocabularies are loaded unconditionally by design — the gem
+      # ships only that version offline. Callers requesting a different
+      # taxonomy_version must override via load_* or load_from_url.
       def initialize(ontology_version: "__ONTOLOGY_VERSION__", taxonomy_version: "__TAXONOMY_VERSION__")
         @ontology_version = ontology_version
         @taxonomy_version = taxonomy_version
-        @vocab_loader = VocabularyLoader.new(taxonomy_version: taxonomy_version)
+        @vocab_loader = VocabularyLoader.new(taxonomy_version: taxonomy_version, ontology_version: ontology_version)
         @context = nil
         @facets = {}
         @measures = {}
         @product_types = {}
         @other_vocabularies = {}
+        load_bundled_taxonomies
+      end
+
+      # Loads the taxonomies shipped with the gem (ruby-gem/vocabularies),
+      # falling back to network fetches only when the bundled files are absent.
+      def load_bundled_taxonomies
+        facets = _bundled_json("Facet")
+        measures = _bundled_json("Measure")
+        product_types = _bundled_json("ProductType")
+        scopes = _bundled_json("Scope")
+        vocabulary_terms = _bundled_json("VocabularyTerm")
+        load_facets(facets) if facets
+        load_measures(measures) if measures
+        load_product_types(product_types) if product_types
+        load_vocabulary("Scope", scopes) if scopes
+        load_vocabulary("VocabularyTerm", vocabulary_terms) if vocabulary_terms
+        self
       end
 
       def context_url
@@ -478,24 +711,34 @@ module DfcLinkmlConnector
       end
 
       def context
-        @context ||= _fetch_context
+        @context ||= _bundled_context || _fetch_context
+      end
+
+      # Loads the JSON-LD context shipped with the gem (ruby-gem/contexts).
+      # Returns nil if no bundled context matches the requested version, so the
+      # caller falls back to fetching it from the network.
+      def bundled_context
+        _bundled_context
       end
 
       def load_facets(json_data)
         @vocab_loader.load("Facet", json_data)
         @facets = _build_nested_hash(@vocab_loader.vocabulary("Facet"))
+        @other_vocabularies["Facet"] = @facets
         self
       end
 
       def load_measures(json_data)
         @vocab_loader.load("Measure", json_data)
         @measures = _build_nested_hash(@vocab_loader.vocabulary("Measure"))
+        @other_vocabularies["Measure"] = @measures
         self
       end
 
       def load_product_types(json_data)
         @vocab_loader.load("ProductType", json_data)
         @product_types = _build_nested_hash(@vocab_loader.vocabulary("ProductType"))
+        @other_vocabularies["ProductType"] = @product_types
         self
       end
 
@@ -518,7 +761,8 @@ module DfcLinkmlConnector
       end
 
       def export(*objects)
-        JsonLdSerializer.new(context).serialize(*objects)
+        serializer = JsonLdSerializer.new(_safe_context, context_url)
+        serializer.to_json(*objects)
       end
 
       # Import JSON-LD data and return SemanticObject instances.
@@ -533,9 +777,15 @@ module DfcLinkmlConnector
 
         entries.each do |entry|
           semantic_id = entry["@id"]
-          semantic_type = entry["@type"]
+          raw_type = entry["@type"]
+          semantic_type = if raw_type.is_a?(Array)
+            raw_type.find { |t| t.is_a?(String) && !t.start_with?("@") }
+          else
+            raw_type
+          end
           next unless semantic_id && semantic_type
 
+          semantic_type = TYPE_ALIASES[semantic_type] || semantic_type
           klass = SemanticObject.type_registry[semantic_type]
           next unless klass
 
@@ -556,36 +806,79 @@ module DfcLinkmlConnector
 
             if value.is_a?(Array)
               resolved = value.map do |v|
-                v.is_a?(String) && v.start_with?("http", "/") ? (objects_by_id[v] || v) : v
+                if v.is_a?(String) && (v.start_with?("http", "/") || v.start_with?("_:"))
+                  objects_by_id[v] || v
+                elsif v.is_a?(Hash) && v["@id"]
+                  objects_by_id[v["@id"]] || v
+                else
+                  v
+                end
               end
               obj.send(:"#{prop_name}=", resolved)
-            elsif value.is_a?(String) && (value.start_with?("http") || value.start_with?("/"))
+            elsif value.is_a?(String) && (value.start_with?("http") || value.start_with?("/") || value.start_with?("_:"))
               obj.send(:"#{prop_name}=", objects_by_id[value] || value)
+            elsif value.is_a?(Hash) && value["@id"]
+              obj.send(:"#{prop_name}=", objects_by_id[value["@id"]] || value)
             else
               obj.send(:"#{prop_name}=", value)
             end
           end
         end
 
-        instances.length == 1 ? instances.first : instances
+        instances
       end
 
 ENUM_METHODS
       private
 
+      def _bundled_context
+        file = "context_#{@ontology_version}.json"
+        path = File.join(BUNDLED_CONTEXT_DIR, file)
+        return nil unless File.exist?(path)
+        JSON.parse(File.read(path))
+      end
+
+      def _bundled_json(name)
+        file = VocabularyLoader::BUNDLED_FILES[name]
+        return nil unless file
+        path = File.join(VocabularyLoader::BUNDLED_DIR, file)
+        File.exist?(path) ? JSON.parse(File.read(path)) : nil
+      end
+
+      def _safe_context
+        context
+      rescue => e
+        warn "Warning: could not load JSON-LD context (#{e.message}); exporting without compaction."
+        nil
+      end
+
       def _fetch_context
         uri = URI(context_url)
-        response = Net::HTTP.get_response(uri)
+        response = _http_get_follow_redirects(uri)
         raise "Failed to fetch context from #{context_url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
         JSON.parse(response.body)
       rescue => e
         raise "Failed to load JSON-LD context: #{e.message}"
       end
 
+      def _http_get_follow_redirects(uri, limit = 5)
+        raise "Too many redirects fetching #{uri}" if limit.zero?
+        request = Net::HTTP::Get.new(uri)
+        request["dfc-version"] = @ontology_version
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
+        if response.is_a?(Net::HTTPRedirection) && response["location"]
+          redirect_uri = URI.join(uri.to_s, response["location"])
+          return _http_get_follow_redirects(redirect_uri, limit - 1)
+        end
+        response
+      end
+
       def _fetch_taxonomy_json(name)
         url = "#{TAXONOMY_BASE_URL}/v#{@taxonomy_version}/#{name}.json"
         uri = URI(url)
-        response = Net::HTTP.get_response(uri)
+        request = Net::HTTP::Get.new(uri)
+        request["dfc-version"] = @ontology_version
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
         raise "Failed to fetch taxonomy from #{url}: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
         JSON.parse(response.body)
       end
@@ -609,9 +902,21 @@ ENUM_METHODS
       end
 
       def _predicate_to_prop_name(predicate)
-        name = predicate.gsub(/^dfc-b:/, "")
-        if name.start_with?("has")
-          name = name[3..-1]
+        return PREDICATE_MAP[predicate] if PREDICATE_MAP.key?(predicate)
+
+        name = predicate.dup
+        if name.include?("#")
+          name = name[(name.rindex("#") + 1)..-1]
+        else
+          colon_index = name.rindex(":")
+          name = name[(colon_index + 1)..-1] if colon_index
+        end
+        # Keep the has_ prefix for colliding slots (e.g. hasBrand vs brand);
+        # otherwise strip it to match ruby_property_name.
+        unless HAS_PREFIX_KEEP.include?(name)
+          if name.start_with?("has")
+            name = name[3..-1]
+          end
         end
         name = name.gsub(/([A-Z])/, "_\\\\1").downcase
         name.sub!(/^_/, "")
@@ -626,6 +931,9 @@ end
     code = code.replace('__ONTOLOGY_VERSION__', ontology_version)
     code = code.replace('__TAXONOMY_VERSION__', taxonomy_version)
     code = code.replace('ENUM_METHODS', enum_methods.rstrip())
+    code = code.replace('__PREDICATE_MAP__', predicate_map_str.rstrip())
+    code = code.replace('__TYPE_ALIASES__', alias_lines)
+    code = code.replace('__HAS_PREFIX_KEEP__', keep_lines)
     return code
 
 
@@ -634,38 +942,57 @@ def generate_json_ld_serializer() -> str:
     return '''# frozen_string_literal: true
 
 require 'json'
+require 'json/ld'
 
 module DfcLinkmlConnector
   module Core
     # Serializes DFC semantic objects to JSON-LD.
     class JsonLdSerializer
-      def initialize(context = nil)
+      def initialize(context = nil, context_url = nil)
         @context = context
+        @context_url = context_url
       end
 
+      # Returns the JSON-LD document as a Hash with CURIE predicates
+      # (uncompacted). Single objects are returned as-is; multiple objects
+      # are wrapped in an @graph.
       def serialize(*objects)
-        result = {
-          "@context" => @context || Connector.default_context_url,
-        }
-
         if objects.length == 1
-          obj = objects.first
-          return _serialize_object(obj)
+          return _serialize_object(objects.first)
         end
 
-        graph = []
-        objects.each do |obj|
-          graph << _serialize_object(obj)
-        end
-        result["@graph"] = graph
-        result
+        {
+          "@context" => _context_iri,
+          "@graph" => objects.map { |obj| _serialize_object(obj) },
+        }
       end
 
+      # Returns a compacted JSON-LD JSON string using the official context.
+      # Falls back to the plain serialization when no context is available,
+      # keeping the context URL so CURIE predicates stay expandable.
       def to_json(*objects)
-        JSON.pretty_generate(serialize(*objects))
+        doc = serialize(*objects)
+        inner = _inner_context
+        if inner.nil?
+          doc["@context"] ||= _context_iri
+        else
+          expanded = JSON::LD::API.expand(doc.merge("@context" => inner))
+          doc = JSON::LD::API.compact(expanded, inner)
+          doc["@context"] = _context_iri
+        end
+        JSON.pretty_generate(doc)
       end
 
       private
+
+      def _context_iri
+        @context_url || Connector.default_context_url
+      end
+
+      def _inner_context
+        return nil if @context.nil?
+        @context.is_a?(Hash) && @context.key?("@context") ? @context["@context"] : @context
+      end
 
       def _serialize_object(obj)
         result = {
@@ -673,26 +1000,29 @@ module DfcLinkmlConnector
           "@type" => obj.semanticType,
         }
 
-        obj.instance_variables.each do |ivar|
-          next if ivar == :@semanticId || ivar == :@semanticType || ivar == :@semanticProperties
-          value = obj.instance_variable_get(ivar)
+        obj.instance_variable_get(:@semanticProperties).each do |predicate, prop|
+          value = prop.getter.call
           next if value.nil?
-
-          name = ivar.to_s.sub(/^@/, '')
 
           if value.is_a?(Array)
             next if value.empty?
             if value.first.is_a?(SemanticObject)
-              result["dfc-b:#{name}"] = value.map { |v| v.semanticId }
+              result[predicate] = value.map { |v| v.semanticId }
             else
-              result["dfc-b:#{name}"] = value
+              result[predicate] = value
             end
           elsif value.is_a?(SemanticObject)
-            result["dfc-b:#{name}"] = value.semanticId
-          elsif value.is_a?(Numeric)
-            result["dfc-b:#{name}"] = value
+            result[predicate] = value.semanticId
+          elsif value.is_a?(Hash)
+            # Embedded blank node (e.g. official Price value object without
+            # @id): keep as-is so it serializes to JSON-LD, not Ruby inspect.
+            result[predicate] = value
+          elsif value.is_a?(Numeric) || value == true || value == false
+            result[predicate] = value
+          elsif value.is_a?(String)
+            result[predicate] = value
           else
-            result["dfc-b:#{name}"] = value.to_s
+            result[predicate] = value.to_s
           end
         end
 
@@ -743,19 +1073,25 @@ def generate_vocabulary_file(enum_name: str, enum_data: dict, schema_data: dict)
 def generate_semantic_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     """Generate a semantic object model file wrapped in module namespace."""
     ruby_name = to_ruby_class_name(class_name)
-    parent_raw = get_parent_ruby_class(class_data)
+    # Parent comes from the (possibly overridden) hierarchy so slot
+    # inheritance and the extends clause always agree.
+    hierarchy = get_class_hierarchy(class_name, schema_data['classes'])
+    if len(hierarchy) > 1:
+        parent_raw = to_ruby_class_name(hierarchy[-2])
+    else:
+        parent_raw = 'SemanticObject'
     description = class_data.get('description', '').replace("'", "'\\''")
     semantic_type = rdf_prefix_for_class(class_name)
 
     data_props = get_data_properties(class_name, schema_data)
     obj_props = get_object_properties(class_name, schema_data)
 
-    parent = f"Core::{parent_raw}" if parent_raw != "SemanticObject" else "Core::SemanticObject"
+    parent = f"Core::{parent_raw}" if parent_raw == "SemanticObject" else parent_raw
 
     code = f'''# frozen_string_literal: true
 
 # {description}
-require_relative 'semantic_object'
+require_relative '../core/semantic_object'
 '''
 
     if parent_raw != 'SemanticObject':
@@ -804,29 +1140,44 @@ module DfcLinkmlConnector
             own_props_for_init.append((slot_name, prop_name, slot_data, is_collection))
         all_props.append((slot_name, prop_name, slot_data, owner, is_collection))
 
-    if own_props_for_init:
-        all_params = []
-        assignments = []
-        registrations = []
+    inherited_props_for_init = [
+        (slot_name, prop_name, slot_data, is_collection)
+        for slot_name, prop_name, slot_data, owner, is_collection in all_props
+        if owner != class_name
+    ]
 
-        for slot_name, prop_name, slot_data, is_collection in own_props_for_init:
-            param_name = ruby_param_name(slot_name)
-            if is_collection:
-                all_params.append(f'{param_name}: []')
-                assignments.append(f'        @{prop_name} = {param_name}')
-            else:
-                all_params.append(f'{param_name}: nil')
-                assignments.append(f'        @{prop_name} = {param_name}')
-            registrations.append(f'        registerSemanticProperty("{semantic_type}:{slot_name}", &method("{prop_name}")).valueSetter = method("{prop_name}=")')
+    all_params = []
+    assignments = []
+    registrations = []
+    super_kwargs = []
 
-        params_str = ', '.join(all_params)
-        assignments_str = '\n'.join(assignments)
-        registrations_str = '\n'.join(registrations)
+    for slot_name, prop_name, slot_data, is_collection in inherited_props_for_init:
+        param_name = ruby_param_name(slot_name)
+        if is_collection:
+            all_params.append(f'{param_name}: []')
+        else:
+            all_params.append(f'{param_name}: nil')
+        super_kwargs.append(f'{param_name}: {param_name}')
 
-        code += f'''      # @param semanticId [String]
+    for slot_name, prop_name, slot_data, is_collection in own_props_for_init:
+        param_name = ruby_param_name(slot_name)
+        if is_collection:
+            all_params.append(f'{param_name}: []')
+            assignments.append(f'        @{prop_name} = {param_name}')
+        else:
+            all_params.append(f'{param_name}: nil')
+            assignments.append(f'        @{prop_name} = {param_name}')
+        registrations.append(f'        registerSemanticProperty("{predicate_for_slot(slot_name, slot_data)}", &method("{prop_name}")).valueSetter = method("{prop_name}=")')
+
+    params_str = ', '.join(all_params)
+    assignments_str = '\n'.join(assignments)
+    registrations_str = '\n'.join(registrations)
+    super_str = f'super(semanticId, {", ".join(super_kwargs)})' if super_kwargs else 'super(semanticId)'
+
+    code += f'''      # @param semanticId [String]
       # @param {params_str}
       def initialize(semanticId, {params_str})
-        super(semanticId)
+        {super_str}
 {assignments_str}
         self.semanticType = "{semantic_type}"
 {registrations_str}
@@ -834,7 +1185,8 @@ module DfcLinkmlConnector
 
 '''
 
-    code += '''    end
+    code += '''      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
+    end
   end
 end
 '''
@@ -885,8 +1237,14 @@ def generate_gemspec(schema_data: dict, gem_name: str) -> str:
   spec.homepage      = "https://github.com/Food-Data-Collaboration/DFC-LinkML"
   spec.license       = "AGPL-3.0"
 
-  spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"]
+  spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"] + Dir["contexts/**/*.json"]
   spec.require_paths = ["lib"]
+
+  spec.add_dependency "json-ld", "~> 3.3"
+  spec.add_dependency "rdf", "~> 3.3"
+
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
 
   spec.required_ruby_version = ">= 2.7.0"
 
@@ -1008,13 +1366,44 @@ def main():
 
     print(f"Loading schema: {schema_path}", file=sys.stderr)
     schema_data = parse_schema(schema_path)
+    _init_has_prefix_keep(schema_data)
+    if _HAS_PREFIX_KEEP:
+        print(f"Keeping has_ prefix for colliding slots: {sorted(_HAS_PREFIX_KEEP)}", file=sys.stderr)
+    _init_parent_overrides(schema_data)
+    if _PARENT_OVERRIDES:
+        print(f"Parent overrides: {_PARENT_OVERRIDES}", file=sys.stderr)
 
     gem_name = "dfc-linkml-connector"
     output_dir = Path("ruby-gem")
 
     if output_dir.exists():
         import shutil
+        # Preserve static vocabulary files (SKOS taxonomy exports) across regeneration.
+        preserved_vocab = {}
+        vocab_dir = output_dir / 'vocabularies'
+        if vocab_dir.exists():
+            for f in vocab_dir.glob('*.jsonld'):
+                preserved_vocab[f.name] = f.read_text(encoding='utf-8')
+        # Preserve bundled JSON-LD context files (ruby-gem/contexts) across
+        # regeneration. They are hand-maintained, not produced from the schema,
+        # but the generated connector loads them at runtime.
+        preserved_contexts = {}
+        context_dir = output_dir / 'contexts'
+        if context_dir.exists():
+            for f in context_dir.glob('*.json'):
+                preserved_contexts[f.name] = f.read_text(encoding='utf-8')
+        # Preserve hand-written rspec tests across regeneration.
+        preserved_spec = {}
+        spec_dir = output_dir / 'spec'
+        if spec_dir.exists():
+            for f in spec_dir.rglob('*'):
+                if f.is_file():
+                    preserved_spec[str(f.relative_to(output_dir))] = f.read_text(encoding='utf-8')
         shutil.rmtree(output_dir)
+    else:
+        preserved_vocab = {}
+        preserved_contexts = {}
+        preserved_spec = {}
 
     output_dir.mkdir()
     (output_dir / 'lib').mkdir()
@@ -1040,10 +1429,10 @@ def main():
     (output_dir / 'LICENSE').write_text('AGPL-3.0 License\n')
     print("  - LICENSE", file=sys.stderr)
 
-    (output_dir / '.gitignore').write_text('*.gem\n.bundle/\npkg/\n')
+    (output_dir / '.gitignore').write_text('*.gem\n.bundle/\npkg/\nspec/examples.txt\nGemfile.lock\n')
     print("  - .gitignore", file=sys.stderr)
 
-    (output_dir / 'Rakefile').write_text('require "bundler/gem_tasks"\ntask default: :spec\n')
+    (output_dir / 'Rakefile').write_text('require "bundler/gem_tasks"\nrequire "rspec/core/rake_task"\n\nRSpec::Core::RakeTask.new(:spec)\n\ntask default: :spec\n')
     print("  - Rakefile", file=sys.stderr)
 
     print("\nGenerating library files...", file=sys.stderr)
@@ -1064,13 +1453,25 @@ def main():
     print("  - lib/dfc_linkml_connector.rb", file=sys.stderr)
 
     print("\nGenerating vocabulary files...", file=sys.stderr)
-    vocab_count = 0
-    for enum_name, enum_data in schema_data.get('enums', {}).items():
-        content = generate_vocabulary_file(enum_name, enum_data, schema_data)
-        file_name = to_snake_case(enum_name) + '.jsonld'
-        (output_dir / 'vocabularies' / file_name).write_text(content)
-        vocab_count += 1
-    print(f"  - {vocab_count} vocabulary files", file=sys.stderr)
+    if preserved_vocab:
+        for name, content in preserved_vocab.items():
+            (output_dir / 'vocabularies' / name).write_text(content, encoding='utf-8')
+        print(f"  - {len(preserved_vocab)} vocabulary files preserved (static SKOS exports)", file=sys.stderr)
+    else:
+        vocab_count = 0
+        for enum_name, enum_data in schema_data.get('enums', {}).items():
+            content = generate_vocabulary_file(enum_name, enum_data, schema_data)
+            file_name = to_snake_case(enum_name) + '.jsonld'
+            (output_dir / 'vocabularies' / file_name).write_text(content, encoding='utf-8')
+            vocab_count += 1
+        print(f"  - {vocab_count} vocabulary files", file=sys.stderr)
+
+    print("\nRestoring bundled context files...", file=sys.stderr)
+    if preserved_contexts:
+        (output_dir / 'contexts').mkdir(exist_ok=True)
+        for name, content in preserved_contexts.items():
+            (output_dir / 'contexts' / name).write_text(content, encoding='utf-8')
+        print(f"  - {len(preserved_contexts)} context files preserved (static JSON-LD contexts)", file=sys.stderr)
 
     print("\nGenerating model classes...", file=sys.stderr)
     model_count = 0
@@ -1081,6 +1482,13 @@ def main():
         (output_dir / 'lib' / 'models' / f'{file_name}.rb').write_text(model_code)
         model_count += 1
     print(f"  - {model_count} model files", file=sys.stderr)
+
+    if preserved_spec:
+        for rel_path, content in preserved_spec.items():
+            target = output_dir / rel_path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(content, encoding='utf-8')
+        print(f"  - {len(preserved_spec)} preserved spec files", file=sys.stderr)
 
     print(f"\nGem generated in: {output_dir}/", file=sys.stderr)
     print(f"To build: cd {output_dir} && gem build {gem_name}.gemspec", file=sys.stderr)

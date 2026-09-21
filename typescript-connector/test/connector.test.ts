@@ -83,9 +83,9 @@ describe("SuppliedProduct", () => {
     const jsonLd = p.toJsonLd();
     expect(jsonLd["@id"]).toBe("http://myplatform.com/tomato");
     expect(jsonLd["@type"]).toBe("dfc-b:SuppliedProduct");
-    expect(jsonLd["dfc-b:What_Subject:description"]).toBe("Awesome tomato");
-    expect(jsonLd["dfc-b:SuppliedProduct:frozen"]).toBe(true);
-    expect(jsonLd["dfc-b:SuppliedProduct:total_theoritical_stock"]).toBe(100);
+    expect(jsonLd["dfc-b:description"]).toBe("Awesome tomato");
+    expect(jsonLd["dfc-b:frozen"]).toBe(true);
+    expect(jsonLd["dfc-b:totalTheoriticalStock"]).toBe(100);
   });
 });
 
@@ -112,8 +112,8 @@ describe("Address", () => {
     const jsonLd = a.toJsonLd();
     expect(jsonLd["@id"]).toBe("http://myplatform.com/address1");
     expect(jsonLd["@type"]).toBe("dfc-b:Address");
-    expect(jsonLd["dfc-b:Address:city"]).toBe("Tours");
-    expect(jsonLd["dfc-b:Address:country"]).toBe("France");
+    expect(jsonLd["dfc-b:city"]).toBe("Tours");
+    expect(jsonLd["dfc-b:country"]).toBe("France");
   });
 });
 
@@ -142,10 +142,11 @@ describe("Import/Export", () => {
       ],
     };
     const result = c.import(jsonLd);
-    expect(Array.isArray(result)).toBe(false);
-    if (!Array.isArray(result)) {
-      expect(result.semanticId).toBe("http://myplatform.com/address1");
-      expect(result.semanticType).toBe("dfc-b:Address");
+    expect(Array.isArray(result)).toBe(true);
+    if (Array.isArray(result)) {
+      expect(result.length).toBeGreaterThan(0);
+      expect(result[0].semanticId).toBe("http://myplatform.com/address1");
+      expect(result[0].semanticType).toBe("dfc-b:Address");
     }
   });
 
@@ -155,8 +156,19 @@ describe("Import/Export", () => {
       description: "Tomato",
     });
     const exported = await c.export(p);
-    expect(exported["@id"]).toBe("http://myplatform.com/tomato");
-    expect(exported["@type"]).toBe("dfc-b:SuppliedProduct");
+    const parsed = JSON.parse(exported) as Record<string, unknown>;
+    expect(parsed["@id"]).toBe("http://myplatform.com/tomato");
+    expect(parsed["@type"]).toBe("dfc-b:SuppliedProduct");
+  });
+
+  it("keeps the context URL when context fetch fails", async () => {
+    vi.mocked(globalThis.fetch).mockRejectedValueOnce(new Error("network down"));
+    const c = new Connector();
+    const p = c.createSuppliedProduct("http://myplatform.com/tomato", {
+      description: "Tomato",
+    });
+    const parsed = JSON.parse(await c.export(p)) as Record<string, unknown>;
+    expect(parsed["@context"]).toBe(c.contextUrl);
   });
 
   it("import/export round-trips single object and preserves scalar properties", async () => {
@@ -167,8 +179,9 @@ describe("Import/Export", () => {
       totalTheoriticalStock: 100,
     });
     const exported = await c.export(original);
-    const imported = c.import(exported);
-    const obj = Array.isArray(imported) ? imported[0] : imported;
+    const parsed = JSON.parse(exported) as Record<string, unknown>;
+    const imported = c.import(parsed);
+    const obj = imported[0];
     expect(obj.semanticId).toBe("http://myplatform.com/tomato");
     expect(obj.semanticType).toBe("dfc-b:SuppliedProduct");
     expect((obj as SuppliedProduct).description).toBe("Round trip test");
@@ -256,14 +269,37 @@ describe("Organization", () => {
       description: "A test organization",
       vatNumber: "FR123456789",
       vatStatus: true,
-      organizationId: "ORG-001",
+      enterpriseId: "ORG-001",
     });
     expect(org.name).toBe("Test Org");
     expect(org.description).toBe("A test organization");
     expect(org.vatNumber).toBe("FR123456789");
     expect(org.vatStatus).toBe(true);
-    expect(org.organizationId).toBe("ORG-001");
+    expect(org.enterpriseId).toBe("ORG-001");
     expect(org.semanticType).toBe("dfc-b:Organization");
+  });
+});
+
+describe("Enterprise", () => {
+  it("carries Organization attributes (deprecated equivalentClass)", async () => {
+    const c = new Connector();
+    const ent = c.createEnterprise("http://example.com/ent1", {
+      name: "Ent",
+      vatNumber: "FR12345678901",
+    });
+    expect(ent.vatNumber).toBe("FR12345678901");
+    expect(ent.semanticType).toBe("dfc-b:Enterprise");
+    const parsed = JSON.parse(await c.export(ent)) as Record<string, unknown>;
+    expect(parsed["dfc-b:VATnumber"]).toBe("FR12345678901");
+    const imported = c.import(parsed);
+    expect(imported[0].semanticType).toBe("dfc-b:Organization");
+  });
+
+  it("exposes nested taxonomy maps through getters", () => {
+    const c = new Connector();
+    expect("aocfr" in c.facet).toBe(true);
+    expect("kg" in c.measure).toBe(true);
+    expect("readorders" in c.scope).toBe(true);
   });
 });
 
@@ -376,8 +412,8 @@ describe("DefinedProduct", () => {
 });
 
 describe("SemanticObject.typeRegistry", () => {
-  it("has entries for all 88 model classes", () => {
-    expect(SemanticObject.typeRegistry.size).toBe(88);
+  it("has entries for all 89 model classes", () => {
+    expect(SemanticObject.typeRegistry.size).toBe(89);
     expect(SemanticObject.typeRegistry.get("dfc-b:What_Subject")).toBe(WhatSubject);
     expect(SemanticObject.typeRegistry.get("dfc-b:Where_Subject")).toBe(WhereSubject);
     expect(SemanticObject.typeRegistry.get("dfc-b:Who_Subject")).toBe(WhoSubject);
@@ -509,15 +545,52 @@ describe("Import/Export extended", () => {
     expect(order.hasPart).toBe(line);
   });
 
-  it("exports SemanticObject references as @id-wrapped objects", async () => {
+  it("imports JSON-LD with @type as an array", () => {
+    const c = new Connector();
+    const jsonLd = {
+      "@graph": [
+        {
+          "@id": "_:price1",
+          "@type": ["dfc-b:Price", "dfc-b:Price"],
+          "dfc-b:VATrate": ["5.5", "5.5"],
+        },
+      ],
+    };
+    const result = c.import(jsonLd) as Price[];
+    expect(result).toHaveLength(1);
+    expect(result[0].semanticId).toBe("_:price1");
+    expect(result[0].vatRate).toEqual(["5.5", "5.5"] as unknown);
+  });
+
+  it("imports legacy dfc-b:Enterprise as dfc-b:Organization", () => {
+    const c = new Connector();
+    const jsonLd = {
+      "@graph": [
+        {
+          "@id": "http://example.com/legacy-org",
+          "@type": "dfc-b:Enterprise",
+          "dfc-b:VATnumber": "FR12345678901",
+          "dfc-b:name": "Legacy Org",
+        },
+      ],
+    };
+    const result = c.import(jsonLd) as Organization[];
+    expect(result).toHaveLength(1);
+    expect(result[0]).toBeInstanceOf(Organization);
+    expect(result[0].vatNumber).toBe("FR12345678901");
+    expect(result[0].name).toBe("Legacy Org");
+  });
+
+  it("exports SemanticObject references as compacted IRI strings", async () => {
     const c = new Connector();
     const org2 = c.createOrganization("http://example.com/org2", { name: "Certifier" });
     const org1 = c.createOrganization("http://example.com/org1", { name: "Farm Org" });
     (org1 as unknown as Record<string, unknown>).isCertifiedBy = org2;
     const exported = await c.export(org1, org2);
-    const graph = exported["@graph"] as Record<string, unknown>[];
+    const parsed = JSON.parse(exported) as Record<string, unknown>;
+    const graph = parsed["@graph"] as Record<string, unknown>[];
     const entry = graph.find(e => e["@id"] === "http://example.com/org1") as Record<string, unknown>;
-    expect(entry["dfc-b:Organization:is_certified_by"]).toEqual({ "@id": "http://example.com/org2" });
+    expect(entry["dfc-b:isCertifiedBy"]).toBe("http://example.com/org2");
   });
 
   it("round-trips @id-wrapped references correctly", async () => {

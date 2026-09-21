@@ -17,11 +17,11 @@ export class Individual extends SemanticObject {
         this.characteristicOf = params?.characteristicOf;
         this.hasDimension = params?.hasDimension;
         this.semanticType = Individual.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:Individual:date", () => this.date);
-        this.registerSemanticProperty("dfc-b:Individual:description", () => this.description);
-        this.registerSemanticProperty("dfc-b:Individual:name", () => this.name);
-        this.registerSemanticProperty("dfc-b:Individual:characteristic_of", () => this.characteristicOf);
-        this.registerSemanticProperty("dfc-b:Individual:has_dimension", () => this.hasDimension);
+        this.registerSemanticProperty("dfc-b:date", () => this.date);
+        this.registerSemanticProperty("dfc-b:description", () => this.description);
+        this.registerSemanticProperty("dfc-b:name", () => this.name);
+        this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+        this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
     }
     static {
         SemanticObject.typeRegistry.set(Individual.SEMANTIC_TYPE, Individual);

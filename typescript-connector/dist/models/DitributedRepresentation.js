@@ -17,11 +17,11 @@ export class DitributedRepresentation extends SemanticObject {
         this.characteristicOf = params?.characteristicOf;
         this.hasDimension = params?.hasDimension;
         this.semanticType = DitributedRepresentation.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:DFC_DitributedRepresentation:date", () => this.date);
-        this.registerSemanticProperty("dfc-b:DFC_DitributedRepresentation:description", () => this.description);
-        this.registerSemanticProperty("dfc-b:DFC_DitributedRepresentation:name", () => this.name);
-        this.registerSemanticProperty("dfc-b:DFC_DitributedRepresentation:characteristic_of", () => this.characteristicOf);
-        this.registerSemanticProperty("dfc-b:DFC_DitributedRepresentation:has_dimension", () => this.hasDimension);
+        this.registerSemanticProperty("dfc-b:date", () => this.date);
+        this.registerSemanticProperty("dfc-b:description", () => this.description);
+        this.registerSemanticProperty("dfc-b:name", () => this.name);
+        this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
+        this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
     }
     static {
         SemanticObject.typeRegistry.set(DitributedRepresentation.SEMANTIC_TYPE, DitributedRepresentation);

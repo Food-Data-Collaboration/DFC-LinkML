@@ -26,6 +26,7 @@ import { DitributedRepresentation } from "../models/DitributedRepresentation.js"
 import { DefinedProduct } from "../models/DefinedProduct.js";
 import { DeliveryOption } from "../models/DeliveryOption.js";
 import { DeliveryStep } from "../models/DeliveryStep.js";
+import { Enterprise } from "../models/Enterprise.js";
 import { Feature } from "../models/Feature.js";
 import { FunctionalProduct } from "../models/FunctionalProduct.js";
 import { Geometry } from "../models/Geometry.js";
@@ -114,6 +115,7 @@ import type { DitributedRepresentationParams } from "../models/DitributedReprese
 import type { DefinedProductParams } from "../models/DefinedProduct.js";
 import type { DeliveryOptionParams } from "../models/DeliveryOption.js";
 import type { DeliveryStepParams } from "../models/DeliveryStep.js";
+import type { EnterpriseParams } from "../models/Enterprise.js";
 import type { FeatureParams } from "../models/Feature.js";
 import type { FunctionalProductParams } from "../models/FunctionalProduct.js";
 import type { GeometryParams } from "../models/Geometry.js";
@@ -179,6 +181,8 @@ import type { WhoSubjectParams } from "../models/WhoSubject.js";
 export declare class Connector {
     static readonly ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology";
     static readonly TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies";
+    static readonly PREDICATE_MAP: Record<string, string>;
+    static readonly TYPE_ALIASES: Record<string, string>;
     private static defaultContextUrl;
     static getDefaultContextUrl(): string;
     static setDefaultContextUrl(url: string): void;
@@ -194,8 +198,10 @@ export declare class Connector {
         ontologyVersion?: string;
         taxonomyVersion?: string;
     });
+    loadBundledTaxonomies(): this;
     get contextUrl(): string;
     getContext(): Promise<Record<string, unknown>>;
+    loadBundledContext(): Record<string, unknown> | null;
     loadFacets(jsonData: Record<string, unknown>): this;
     loadMeasures(jsonData: Record<string, unknown>): this;
     loadProductTypes(jsonData: Record<string, unknown>): this;
@@ -203,8 +209,9 @@ export declare class Connector {
     loadFacetsFromUrl(): Promise<this>;
     loadMeasuresFromUrl(): Promise<this>;
     loadProductTypesFromUrl(): Promise<this>;
-    export(...objects: SemanticObject[]): Promise<Record<string, unknown>>;
-    import(jsonLdData: string | Record<string, unknown>): SemanticObject | SemanticObject[];
+    export(...objects: SemanticObject[]): Promise<string>;
+    import(jsonLdData: string | Record<string, unknown>): SemanticObject[];
+    private resolveReference;
     get facet(): Record<string, unknown>;
     get measure(): Record<string, unknown>;
     get product_type(): Record<string, unknown>;
@@ -236,6 +243,7 @@ export declare class Connector {
     createDefinedProduct(semanticId: string, params?: DefinedProductParams): DefinedProduct;
     createDeliveryOption(semanticId: string, params?: DeliveryOptionParams): DeliveryOption;
     createDeliveryStep(semanticId: string, params?: DeliveryStepParams): DeliveryStep;
+    createEnterprise(semanticId: string, params?: EnterpriseParams): Enterprise;
     createFeature(semanticId: string, params?: FeatureParams): Feature;
     createFunctionalProduct(semanticId: string, params?: FunctionalProductParams): FunctionalProduct;
     createGeometry(semanticId: string, params?: GeometryParams): Geometry;

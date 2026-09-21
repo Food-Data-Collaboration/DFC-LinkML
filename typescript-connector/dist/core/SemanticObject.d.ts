@@ -6,6 +6,8 @@ export declare class SemanticObject {
     private semanticProperties;
     constructor(semanticId: string);
     registerSemanticProperty(predicate: string, getter: () => unknown): void;
+    getRegisteredPredicates(): string[];
+    getRegisteredValue(predicate: string): unknown;
     toJsonLd(context?: unknown): Record<string, unknown>;
     toJson(context?: unknown): string;
 }

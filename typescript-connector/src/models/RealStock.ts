@@ -1,11 +1,13 @@
 // Class from DFC Business Ontology: #RealStock
 import { SemanticObject } from "../core/SemanticObject.js";
 import { Stock, type StockParams } from "./Stock.js";
+import type { PhysicalPlace } from "./PhysicalPlace.js";
+import type { ProductBatch } from "./ProductBatch.js";
 
 export interface RealStockParams extends StockParams {
   constitutes?: string[];
-  identifiedBy?: string;
-  storedIn?: string;
+  identifiedBy?: ProductBatch | string;
+  storedIn?: PhysicalPlace | string;
 }
 export class RealStock extends Stock {
   static get SEMANTIC_TYPE(): string {
@@ -13,8 +15,8 @@ export class RealStock extends Stock {
   }
 
   constitutes?: string[];
-  identifiedBy?: string;
-  storedIn?: string;
+  identifiedBy?: ProductBatch | string;
+  storedIn?: PhysicalPlace | string;
 
   constructor(
     semanticId: string,
@@ -25,9 +27,9 @@ export class RealStock extends Stock {
     this.identifiedBy = params?.identifiedBy;
     this.storedIn = params?.storedIn;
     this.semanticType = RealStock.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:RealStock:constitutes", () => this.constitutes);
-    this.registerSemanticProperty("dfc-b:RealStock:identified_by", () => this.identifiedBy);
-    this.registerSemanticProperty("dfc-b:RealStock:stored_in", () => this.storedIn);
+    this.registerSemanticProperty("dfc-b:constitutes", () => this.constitutes);
+    this.registerSemanticProperty("dfc-b:identifiedBy", () => this.identifiedBy);
+    this.registerSemanticProperty("dfc-b:storedIn", () => this.storedIn);
   }
   static {
     SemanticObject.typeRegistry.set(RealStock.SEMANTIC_TYPE, RealStock);

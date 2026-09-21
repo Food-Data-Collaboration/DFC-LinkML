@@ -12,6 +12,13 @@ export class SemanticObject {
     registerSemanticProperty(predicate, getter) {
         this.semanticProperties.set(predicate, getter);
     }
+    getRegisteredPredicates() {
+        return [...this.semanticProperties.keys()];
+    }
+    getRegisteredValue(predicate) {
+        const getter = this.semanticProperties.get(predicate);
+        return getter ? getter() : undefined;
+    }
     toJsonLd(context) {
         const result = {
             "@id": this.semanticId,
@@ -27,10 +34,10 @@ export class SemanticObject {
             if (Array.isArray(value)) {
                 if (value.length === 0)
                     continue;
-                result[predicate] = value.map((v) => v instanceof SemanticObject ? v.semanticId : v);
+                result[predicate] = value.map((v) => v instanceof SemanticObject ? { "@id": v.semanticId } : v);
             }
             else if (value instanceof SemanticObject) {
-                result[predicate] = value.semanticId;
+                result[predicate] = { "@id": value.semanticId };
             }
             else {
                 result[predicate] = value;

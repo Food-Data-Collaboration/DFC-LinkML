@@ -7,9 +7,9 @@ export interface VehicleParams extends WhatSubjectParams {
     refrigerated?: boolean;
     ships?: string[];
     usedInRoute?: string;
-    basedAt?: PhysicalPlace;
-    hasQuantity?: QuantitativeValue;
-    isAvailableDuring?: OpeningHoursSpecification;
+    basedAt?: PhysicalPlace | string;
+    hasQuantity?: QuantitativeValue | string;
+    isAvailableDuring?: OpeningHoursSpecification | string;
 }
 export declare class Vehicle extends WhatSubject {
     static get SEMANTIC_TYPE(): string;
@@ -17,8 +17,8 @@ export declare class Vehicle extends WhatSubject {
     refrigerated?: boolean;
     ships?: string[];
     usedInRoute?: string;
-    basedAt?: PhysicalPlace;
-    hasQuantity?: QuantitativeValue;
-    isAvailableDuring?: OpeningHoursSpecification;
+    basedAt?: PhysicalPlace | string;
+    hasQuantity?: QuantitativeValue | string;
+    isAvailableDuring?: OpeningHoursSpecification | string;
     constructor(semanticId: string, params?: VehicleParams);
 }

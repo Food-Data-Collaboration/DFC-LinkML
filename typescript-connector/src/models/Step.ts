@@ -7,8 +7,8 @@ export interface StepParams extends WhereSubjectParams {
   arrivalDate?: string;
   duration?: string;
   isStepOf?: string;
-  delivery?: Shipment;
-  pickUp?: Shipment;
+  delivery?: Shipment | string;
+  pickUp?: Shipment | string;
 }
 export class Step extends WhereSubject {
   static get SEMANTIC_TYPE(): string {
@@ -18,8 +18,8 @@ export class Step extends WhereSubject {
   arrivalDate?: string;
   duration?: string;
   isStepOf?: string;
-  delivery?: Shipment;
-  pickUp?: Shipment;
+  delivery?: Shipment | string;
+  pickUp?: Shipment | string;
 
   constructor(
     semanticId: string,
@@ -32,11 +32,11 @@ export class Step extends WhereSubject {
     this.delivery = params?.delivery;
     this.pickUp = params?.pickUp;
     this.semanticType = Step.SEMANTIC_TYPE;
-    this.registerSemanticProperty("dfc-b:Step:arrival_date", () => this.arrivalDate);
-    this.registerSemanticProperty("dfc-b:Step:duration", () => this.duration);
-    this.registerSemanticProperty("dfc-b:Step:is_step_of", () => this.isStepOf);
-    this.registerSemanticProperty("dfc-b:Step:delivery", () => this.delivery);
-    this.registerSemanticProperty("dfc-b:Step:pick_up", () => this.pickUp);
+    this.registerSemanticProperty("dfc-b:arrivalDate", () => this.arrivalDate);
+    this.registerSemanticProperty("dfc-b:duration", () => this.duration);
+    this.registerSemanticProperty("dfc-b:isStepOf", () => this.isStepOf);
+    this.registerSemanticProperty("dfc-b:delivery", () => this.delivery);
+    this.registerSemanticProperty("dfc-b:pickUp", () => this.pickUp);
   }
   static {
     SemanticObject.typeRegistry.set(Step.SEMANTIC_TYPE, Step);

@@ -1,4 +1,7 @@
 import { DefinedProduct, type DefinedProductParams } from "./DefinedProduct.js";
+import type { LocalizedProduct } from "./LocalizedProduct.js";
+import type { Organization } from "./Organization.js";
+import type { TechnicalProduct } from "./TechnicalProduct.js";
 export interface SuppliedProductParams extends DefinedProductParams {
     availabilityTime?: string;
     deliveryCondition?: string;
@@ -6,10 +9,10 @@ export interface SuppliedProductParams extends DefinedProductParams {
     refrigerated?: boolean;
     totalTheoriticalStock?: number;
     hasTemperature?: string;
-    industrializes?: string[];
     producedBy?: string;
-    referenceOf?: string;
-    suppliedBy?: string;
+    industrializes?: (TechnicalProduct | string)[];
+    referenceOf?: LocalizedProduct | string;
+    suppliedBy?: Organization | string;
 }
 export declare class SuppliedProduct extends DefinedProduct {
     static get SEMANTIC_TYPE(): string;
@@ -19,9 +22,9 @@ export declare class SuppliedProduct extends DefinedProduct {
     refrigerated?: boolean;
     totalTheoriticalStock?: number;
     hasTemperature?: string;
-    industrializes?: string[];
     producedBy?: string;
-    referenceOf?: string;
-    suppliedBy?: string;
+    industrializes?: (TechnicalProduct | string)[];
+    referenceOf?: LocalizedProduct | string;
+    suppliedBy?: Organization | string;
     constructor(semanticId: string, params?: SuppliedProductParams);
 }

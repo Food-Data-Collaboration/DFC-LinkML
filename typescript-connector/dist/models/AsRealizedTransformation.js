@@ -18,11 +18,11 @@ export class AsRealizedTransformation extends Transformation {
         this.hasInput = params?.hasInput;
         this.hasOutput = params?.hasOutput;
         this.semanticType = AsRealizedTransformation.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:AsRealizedTransformation:cost", () => this.cost);
-        this.registerSemanticProperty("dfc-b:AsRealizedTransformation:end_date", () => this.endDate);
-        this.registerSemanticProperty("dfc-b:AsRealizedTransformation:start_date", () => this.startDate);
-        this.registerSemanticProperty("dfc-b:AsRealizedTransformation:has_input", () => this.hasInput);
-        this.registerSemanticProperty("dfc-b:AsRealizedTransformation:has_output", () => this.hasOutput);
+        this.registerSemanticProperty("dfc-b:cost", () => this.cost);
+        this.registerSemanticProperty("dfc-b:endDate", () => this.endDate);
+        this.registerSemanticProperty("dfc-b:startDate", () => this.startDate);
+        this.registerSemanticProperty("dfc-b:hasInput", () => this.hasInput);
+        this.registerSemanticProperty("dfc-b:hasOutput", () => this.hasOutput);
     }
     static {
         SemanticObject.typeRegistry.set(AsRealizedTransformation.SEMANTIC_TYPE, AsRealizedTransformation);
