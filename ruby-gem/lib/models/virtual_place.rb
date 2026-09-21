@@ -17,8 +17,8 @@ module DfcLinkmlConnector
       attr_accessor :website_page
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: nil, url: nil, websitePage: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: nil, url: nil, websitePage: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: [], url: nil, websitePage: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: [], url: nil, websitePage: nil)
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, hosts: hosts)
         @url = url
         @website_page = websitePage

@@ -17,9 +17,9 @@ module DfcLinkmlConnector
       attr_accessor :uses
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, optionOf: nil, selectedBy: nil, hasQuantity: nil, pickedUpAt: nil, uses: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, optionOf: nil, selectedBy: nil, hasQuantity: nil, pickedUpAt: nil, uses: nil)
-        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, endDate: endDate, fee: fee, quantity: quantity, startDate: startDate, optionOf: optionOf, selectedBy: selectedBy, hasQuantity: hasQuantity)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, selectedBy: nil, hasQuantity: nil, optionOf: nil, pickedUpAt: nil, uses: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, selectedBy: nil, hasQuantity: nil, optionOf: nil, pickedUpAt: nil, uses: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, endDate: endDate, fee: fee, quantity: quantity, startDate: startDate, selectedBy: selectedBy, hasQuantity: hasQuantity, optionOf: optionOf)
         @picked_up_at = pickedUpAt
         @uses = uses
         self.semanticType = "dfc-b:PickupOption"

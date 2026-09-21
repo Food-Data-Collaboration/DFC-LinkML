@@ -36,10 +36,10 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
-      # @return [PhysicalPlace]
+      # @return [PhysicalPlace, String]
       attr_accessor :ends_at
 
-      # @return [PhysicalPlace]
+      # @return [PhysicalPlace, String]
       attr_accessor :starts_at
 
       # @param semanticId [String]

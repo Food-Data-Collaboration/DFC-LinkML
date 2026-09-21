@@ -1,4 +1,5 @@
 import { SemanticObject } from "../core/SemanticObject.js";
+import type { Order } from "./Order.js";
 import type { QuantitativeValue } from "./QuantitativeValue.js";
 export interface OrderLineParams {
     discount?: number;
@@ -6,13 +7,13 @@ export interface OrderLineParams {
     concerns?: string[];
     hasPrice?: string;
     isFulfilledBy?: string;
-    partOf?: string;
     date?: string;
     description?: string;
     name?: string;
     characteristicOf?: string;
     hasDimension?: string;
-    hasQuantity?: QuantitativeValue;
+    hasQuantity?: QuantitativeValue | string;
+    partOf?: Order | string;
 }
 export declare class OrderLine extends SemanticObject {
     static get SEMANTIC_TYPE(): string;
@@ -21,12 +22,12 @@ export declare class OrderLine extends SemanticObject {
     concerns?: string[];
     hasPrice?: string;
     isFulfilledBy?: string;
-    partOf?: string;
     date?: string;
     description?: string;
     name?: string;
     characteristicOf?: string;
     hasDimension?: string;
-    hasQuantity?: QuantitativeValue;
+    hasQuantity?: QuantitativeValue | string;
+    partOf?: Order | string;
     constructor(semanticId: string, params?: OrderLineParams);
 }

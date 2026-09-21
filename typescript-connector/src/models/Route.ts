@@ -6,7 +6,7 @@ import type { Feature } from "./Feature.js";
 export interface RouteParams extends WhereSubjectParams {
   hasStep?: string;
   useVehicle?: string;
-  hasGeoJsonFeature?: Feature;
+  hasGeoJsonFeature?: Feature | string;
 }
 export class Route extends WhereSubject {
   static get SEMANTIC_TYPE(): string {
@@ -15,7 +15,7 @@ export class Route extends WhereSubject {
 
   hasStep?: string;
   useVehicle?: string;
-  hasGeoJsonFeature?: Feature;
+  hasGeoJsonFeature?: Feature | string;
 
   constructor(
     semanticId: string,

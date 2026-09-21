@@ -94,18 +94,18 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :process_of
 
-      # @return [String]
-      attr_accessor :referenced_by
-
-      # @return [QuantitativeValue]
+      # @return [QuantitativeValue, String]
       attr_accessor :has_quantity
 
-      # @return [ProductOption]
+      # @return [ProductOption, String]
       attr_accessor :reference_product_option
 
+      # @return [CatalogItem, String]
+      attr_accessor :referenced_by
+
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, url: nil, brand: nil, claim: nil, percentageOfAlcoholByVolume: nil, lifetime: nil, physicalCharacteristics: nil, quantity: nil, specificCondition: nil, composes: nil, consumedBy: nil, allergenCharacteristic: nil, hasBrand: nil, certification: nil, characteristic: nil, hasClaim: nil, containerInformation: nil, geographicalOrigin: nil, ingredient: nil, labellingCharacteristic: nil, natureOrigin: nil, nutrientCharacteristic: nil, partOrigin: nil, physicalCharacteristic: nil, type: nil, unit: nil, variant: nil, processOf: nil, referencedBy: nil, hasQuantity: nil, referenceProductOption: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, url: nil, brand: nil, claim: nil, percentageOfAlcoholByVolume: nil, lifetime: nil, physicalCharacteristics: nil, quantity: nil, specificCondition: nil, composes: nil, consumedBy: nil, allergenCharacteristic: nil, hasBrand: nil, certification: nil, characteristic: nil, hasClaim: nil, containerInformation: nil, geographicalOrigin: nil, ingredient: nil, labellingCharacteristic: nil, natureOrigin: nil, nutrientCharacteristic: nil, partOrigin: nil, physicalCharacteristic: nil, type: nil, unit: nil, variant: nil, processOf: nil, referencedBy: nil, hasQuantity: nil, referenceProductOption: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, url: nil, brand: nil, claim: nil, percentageOfAlcoholByVolume: nil, lifetime: nil, physicalCharacteristics: nil, quantity: nil, specificCondition: nil, composes: nil, consumedBy: nil, allergenCharacteristic: nil, hasBrand: nil, certification: nil, characteristic: nil, hasClaim: nil, containerInformation: nil, geographicalOrigin: nil, ingredient: nil, labellingCharacteristic: nil, natureOrigin: nil, nutrientCharacteristic: nil, partOrigin: nil, physicalCharacteristic: nil, type: nil, unit: nil, variant: nil, processOf: nil, hasQuantity: nil, referenceProductOption: nil, referencedBy: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, url: nil, brand: nil, claim: nil, percentageOfAlcoholByVolume: nil, lifetime: nil, physicalCharacteristics: nil, quantity: nil, specificCondition: nil, composes: nil, consumedBy: nil, allergenCharacteristic: nil, hasBrand: nil, certification: nil, characteristic: nil, hasClaim: nil, containerInformation: nil, geographicalOrigin: nil, ingredient: nil, labellingCharacteristic: nil, natureOrigin: nil, nutrientCharacteristic: nil, partOrigin: nil, physicalCharacteristic: nil, type: nil, unit: nil, variant: nil, processOf: nil, hasQuantity: nil, referenceProductOption: nil, referencedBy: nil)
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @image = image
         @url = url
@@ -135,9 +135,9 @@ module DfcLinkmlConnector
         @unit = unit
         @variant = variant
         @process_of = processOf
-        @referenced_by = referencedBy
         @has_quantity = hasQuantity
         @reference_product_option = referenceProductOption
+        @referenced_by = referencedBy
         self.semanticType = "dfc-b:DefinedProduct"
         registerSemanticProperty("dfc-b:Image", &method("image")).valueSetter = method("image=")
         registerSemanticProperty("dfc-b:URL", &method("url")).valueSetter = method("url=")
@@ -167,9 +167,9 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:hasUnit", &method("unit")).valueSetter = method("unit=")
         registerSemanticProperty("dfc-b:hasVariant", &method("variant")).valueSetter = method("variant=")
         registerSemanticProperty("dfc-b:processOf", &method("process_of")).valueSetter = method("process_of=")
-        registerSemanticProperty("dfc-b:referencedBy", &method("referenced_by")).valueSetter = method("referenced_by=")
         registerSemanticProperty("dfc-b:hasQuantity", &method("has_quantity")).valueSetter = method("has_quantity=")
         registerSemanticProperty("dfc-b:hasReferenceProductOption", &method("reference_product_option")).valueSetter = method("reference_product_option=")
+        registerSemanticProperty("dfc-b:referencedBy", &method("referenced_by")).valueSetter = method("referenced_by=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

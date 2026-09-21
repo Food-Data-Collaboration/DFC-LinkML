@@ -10,10 +10,10 @@ export class LocalizedProduct extends WhatSubject {
     quantity;
     constituedBy;
     consumedBy;
-    hasReference;
     producedBy;
-    representedBy;
     hasQuantity;
+    hasReference;
+    representedBy;
     constructor(semanticId, params) {
         super(semanticId, params);
         this.image = params?.image;
@@ -21,20 +21,20 @@ export class LocalizedProduct extends WhatSubject {
         this.quantity = params?.quantity;
         this.constituedBy = params?.constituedBy;
         this.consumedBy = params?.consumedBy;
-        this.hasReference = params?.hasReference;
         this.producedBy = params?.producedBy;
-        this.representedBy = params?.representedBy;
         this.hasQuantity = params?.hasQuantity;
+        this.hasReference = params?.hasReference;
+        this.representedBy = params?.representedBy;
         this.semanticType = LocalizedProduct.SEMANTIC_TYPE;
         this.registerSemanticProperty("dfc-b:Image", () => this.image);
         this.registerSemanticProperty("dfc-b:cost", () => this.cost);
         this.registerSemanticProperty("dfc-b:quantity", () => this.quantity);
         this.registerSemanticProperty("dfc-b:constituedBy", () => this.constituedBy);
         this.registerSemanticProperty("dfc-b:consumedBy", () => this.consumedBy);
-        this.registerSemanticProperty("dfc-b:hasReference", () => this.hasReference);
         this.registerSemanticProperty("dfc-b:producedBy", () => this.producedBy);
-        this.registerSemanticProperty("dfc-b:representedBy", () => this.representedBy);
         this.registerSemanticProperty("dfc-b:hasQuantity", () => this.hasQuantity);
+        this.registerSemanticProperty("dfc-b:hasReference", () => this.hasReference);
+        this.registerSemanticProperty("dfc-b:representedBy", () => this.representedBy);
     }
     static {
         SemanticObject.typeRegistry.set(LocalizedProduct.SEMANTIC_TYPE, LocalizedProduct);

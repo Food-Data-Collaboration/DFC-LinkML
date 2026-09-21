@@ -11,8 +11,8 @@ export class SuppliedProduct extends DefinedProduct {
     refrigerated;
     totalTheoriticalStock;
     hasTemperature;
-    industrializes;
     producedBy;
+    industrializes;
     referenceOf;
     suppliedBy;
     constructor(semanticId, params) {
@@ -23,8 +23,8 @@ export class SuppliedProduct extends DefinedProduct {
         this.refrigerated = params?.refrigerated;
         this.totalTheoriticalStock = params?.totalTheoriticalStock;
         this.hasTemperature = params?.hasTemperature;
-        this.industrializes = params?.industrializes;
         this.producedBy = params?.producedBy;
+        this.industrializes = params?.industrializes;
         this.referenceOf = params?.referenceOf;
         this.suppliedBy = params?.suppliedBy;
         this.semanticType = SuppliedProduct.SEMANTIC_TYPE;
@@ -34,8 +34,8 @@ export class SuppliedProduct extends DefinedProduct {
         this.registerSemanticProperty("dfc-b:refrigerated", () => this.refrigerated);
         this.registerSemanticProperty("dfc-b:totalTheoriticalStock", () => this.totalTheoriticalStock);
         this.registerSemanticProperty("dfc-b:hasTemperature", () => this.hasTemperature);
-        this.registerSemanticProperty("dfc-b:industrializes", () => this.industrializes);
         this.registerSemanticProperty("dfc-b:producedBy", () => this.producedBy);
+        this.registerSemanticProperty("dfc-b:industrializes", () => this.industrializes);
         this.registerSemanticProperty("dfc-b:referenceOf", () => this.referenceOf);
         this.registerSemanticProperty("dfc-b:suppliedBy", () => this.suppliedBy);
     }

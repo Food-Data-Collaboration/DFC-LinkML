@@ -5,16 +5,16 @@ import type { ProductOption } from "./ProductOption.js";
 import type { ProductOptionValue } from "./ProductOptionValue.js";
 
 export interface VariantCaracteristicParams extends WhatSubjectParams {
-  hasProductOption?: ProductOption;
-  hasProductOptionValue?: ProductOptionValue;
+  hasProductOption?: ProductOption | string;
+  hasProductOptionValue?: ProductOptionValue | string;
 }
 export class VariantCaracteristic extends WhatSubject {
   static get SEMANTIC_TYPE(): string {
     return "dfc-b:VariantCaracteristic";
   }
 
-  hasProductOption?: ProductOption;
-  hasProductOptionValue?: ProductOptionValue;
+  hasProductOption?: ProductOption | string;
+  hasProductOptionValue?: ProductOptionValue | string;
 
   constructor(
     semanticId: string,

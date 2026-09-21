@@ -33,7 +33,7 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
-      # @return [QuantitativeValue]
+      # @return [QuantitativeValue, String]
       attr_accessor :has_quantity
 
       # @param semanticId [String]

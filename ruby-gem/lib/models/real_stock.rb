@@ -13,10 +13,10 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :constitutes
 
-      # @return [String]
+      # @return [ProductBatch, String]
       attr_accessor :identified_by
 
-      # @return [String]
+      # @return [PhysicalPlace, String]
       attr_accessor :stored_in
 
       # @param semanticId [String]

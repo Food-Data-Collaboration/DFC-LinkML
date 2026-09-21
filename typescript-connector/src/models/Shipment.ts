@@ -12,8 +12,8 @@ export interface ShipmentParams {
   name?: string;
   characteristicOf?: string;
   hasDimension?: string;
-  endsAt?: PhysicalPlace;
-  startsAt?: PhysicalPlace;
+  endsAt?: PhysicalPlace | string;
+  startsAt?: PhysicalPlace | string;
 }
 export class Shipment extends SemanticObject {
   static get SEMANTIC_TYPE(): string {
@@ -29,8 +29,8 @@ export class Shipment extends SemanticObject {
   name?: string;
   characteristicOf?: string;
   hasDimension?: string;
-  endsAt?: PhysicalPlace;
-  startsAt?: PhysicalPlace;
+  endsAt?: PhysicalPlace | string;
+  startsAt?: PhysicalPlace | string;
 
   constructor(
     semanticId: string,

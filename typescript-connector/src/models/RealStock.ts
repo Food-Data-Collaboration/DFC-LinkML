@@ -1,11 +1,13 @@
 // Class from DFC Business Ontology: #RealStock
 import { SemanticObject } from "../core/SemanticObject.js";
 import { Stock, type StockParams } from "./Stock.js";
+import type { PhysicalPlace } from "./PhysicalPlace.js";
+import type { ProductBatch } from "./ProductBatch.js";
 
 export interface RealStockParams extends StockParams {
   constitutes?: string[];
-  identifiedBy?: string;
-  storedIn?: string;
+  identifiedBy?: ProductBatch | string;
+  storedIn?: PhysicalPlace | string;
 }
 export class RealStock extends Stock {
   static get SEMANTIC_TYPE(): string {
@@ -13,8 +15,8 @@ export class RealStock extends Stock {
   }
 
   constitutes?: string[];
-  identifiedBy?: string;
-  storedIn?: string;
+  identifiedBy?: ProductBatch | string;
+  storedIn?: PhysicalPlace | string;
 
   constructor(
     semanticId: string,

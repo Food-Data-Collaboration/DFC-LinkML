@@ -13,9 +13,6 @@ module DfcLinkmlConnector
       attr_accessor :allergen_characteristic_of
 
       # @return [String]
-      attr_accessor :allergen_dimension
-
-      # @return [String]
       attr_accessor :date
 
       # @return [String]
@@ -30,25 +27,28 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
+      # @return [Concept, String]
+      attr_accessor :allergen_dimension
+
       # @param semanticId [String]
-      # @param allergenCharacteristicOf: nil, allergenDimension: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil
-      def initialize(semanticId, allergenCharacteristicOf: nil, allergenDimension: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil)
+      # @param allergenCharacteristicOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, allergenDimension: nil
+      def initialize(semanticId, allergenCharacteristicOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, allergenDimension: nil)
         super(semanticId)
         @allergen_characteristic_of = allergenCharacteristicOf
-        @allergen_dimension = allergenDimension
         @date = date
         @description = description
         @name = name
         @characteristic_of = characteristicOf
         @dimension = dimension
+        @allergen_dimension = allergenDimension
         self.semanticType = "dfc-b:AllergenCharacteristic"
         registerSemanticProperty("dfc-b:allergenCharacteristicOf", &method("allergen_characteristic_of")).valueSetter = method("allergen_characteristic_of=")
-        registerSemanticProperty("dfc-b:hasAllergenDimension", &method("allergen_dimension")).valueSetter = method("allergen_dimension=")
         registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
         registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
         registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
         registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
         registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:hasAllergenDimension", &method("allergen_dimension")).valueSetter = method("allergen_dimension=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

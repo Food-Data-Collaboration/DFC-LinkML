@@ -100,12 +100,47 @@ def predicate_for_slot(slot_name: str, slot_data: dict) -> str:
     return f'dfc-b:{alias}'
 
 
+# Generated parent-class overrides (schema class name -> schema class name).
+# Currently used for owl:equivalentClass handling: when Enterprise carries no
+# slots of its own but Organization does (DFC v2.0), Enterprise is generated
+# as a subclass of Organization so the deprecated class keeps the full API.
+# Computed from the schema in main().
+_PARENT_OVERRIDES: dict[str, str] = {}
+
+
+def _own_slots(class_name: str, schema_data: dict) -> set[str]:
+    """Slots owned by a class: explicit list plus domain matches (no inheritance)."""
+    classes = schema_data['classes']
+    slots = schema_data['slots']
+    own = set(classes.get(class_name, {}).get('slots', []))
+    for slot_name, slot_data in slots.items():
+        if slot_matches_class(slot_data, class_name):
+            own.add(slot_name)
+    return own
+
+
+def _init_parent_overrides(schema_data: dict) -> None:
+    """Compute generated parent-class overrides from the schema."""
+    global _PARENT_OVERRIDES
+    _PARENT_OVERRIDES = {}
+    classes = schema_data.get('classes', {})
+    if ('Enterprise' in classes and 'Organization' in classes
+            and not _own_slots('Enterprise', schema_data)
+            and _own_slots('Organization', schema_data)):
+        _PARENT_OVERRIDES['Enterprise'] = 'Organization'
+
+
 def get_class_hierarchy(class_name: str, classes: dict) -> list:
     chain = []
     current = class_name
+    first = True
     while current:
         chain.append(current)
-        current = classes.get(current, {}).get('is_a', '')
+        if first and current in _PARENT_OVERRIDES:
+            current = _PARENT_OVERRIDES[current]
+        else:
+            current = classes.get(current, {}).get('is_a', '')
+        first = False
     chain.reverse()
     return chain
 
@@ -196,7 +231,9 @@ def ts_type_for_slot(slot_data: dict, schema_data: dict) -> str:
     range_type = get_range_value(slot_data)
     classes = schema_data['classes']
     if range_type in classes:
-        return to_ts_class_name(range_type)
+        # Relationship slot: at runtime the value may be a URI string, an
+        # embedded object, or a resolved model instance.
+        return f'{to_ts_class_name(range_type)} | string'
     elif range_type in ('float', 'decimal', 'double', 'integer', 'int', 'NonNegativeInteger', 'PositiveInteger'):
         return 'number'
     elif range_type in ('boolean', 'bool'):
@@ -205,6 +242,13 @@ def ts_type_for_slot(slot_data: dict, schema_data: dict) -> str:
         return 'string'
     else:
         return 'string'
+
+
+def ts_prop_type(ts_type: str, is_collection: bool) -> str:
+    """Render a property type, parenthesizing unions inside collections."""
+    if is_collection:
+        return f'({ts_type})[]' if ' | ' in ts_type else f'{ts_type}[]'
+    return ts_type
 
 
 def is_collection_property(slot_name: str, slot_data: dict) -> bool:
@@ -590,6 +634,9 @@ export class Connector {{
     this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
     this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
     this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+    this.otherVocabularies.set("Facet", this.facets);
+    this.otherVocabularies.set("Measure", this.measures);
+    this.otherVocabularies.set("ProductType", this.productTypes);
     this.otherVocabularies.set("Scope", this.buildNestedHash(this.vocabLoader.vocabulary("Scope")));
     this.otherVocabularies.set("VocabularyTerm", this.buildNestedHash(this.vocabLoader.vocabulary("VocabularyTerm")));
     return this;
@@ -623,18 +670,21 @@ export class Connector {{
   loadFacets(jsonData: Record<string, unknown>): this {{
     this.vocabLoader.load("Facet", jsonData);
     this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
+    this.otherVocabularies.set("Facet", this.facets);
     return this;
   }}
 
   loadMeasures(jsonData: Record<string, unknown>): this {{
     this.vocabLoader.load("Measure", jsonData);
     this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
+    this.otherVocabularies.set("Measure", this.measures);
     return this;
   }}
 
   loadProductTypes(jsonData: Record<string, unknown>): this {{
     this.vocabLoader.load("ProductType", jsonData);
     this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+    this.otherVocabularies.set("ProductType", this.productTypes);
     return this;
   }}
 
@@ -647,18 +697,21 @@ export class Connector {{
   async loadFacetsFromUrl(): Promise<this> {{
     await this.vocabLoader.loadFromUrl("facets");
     this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
+    this.otherVocabularies.set("Facet", this.facets);
     return this;
   }}
 
   async loadMeasuresFromUrl(): Promise<this> {{
     await this.vocabLoader.loadFromUrl("measures");
     this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
+    this.otherVocabularies.set("Measure", this.measures);
     return this;
   }}
 
   async loadProductTypesFromUrl(): Promise<this> {{
     await this.vocabLoader.loadFromUrl("productTypes");
     this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+    this.otherVocabularies.set("ProductType", this.productTypes);
     return this;
   }}
 
@@ -806,7 +859,13 @@ export class Connector {{
 
 def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     ts_name = to_ts_class_name(class_name)
-    parent_raw = get_parent_ts_class(class_data)
+    # Parent comes from the (possibly overridden) hierarchy so slot
+    # inheritance and the extends clause always agree.
+    hierarchy = get_class_hierarchy(class_name, schema_data['classes'])
+    if len(hierarchy) > 1:
+        parent_raw = to_ts_class_name(hierarchy[-2])
+    else:
+        parent_raw = 'SemanticObject'
     semantic_type = f"dfc-b:{class_name}"
     description = class_data.get('description', '').replace("'", "\\'")
 
@@ -851,12 +910,11 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     interface_props = []
     for slot_name, slot_data, owner in all_own_props:
         prop_name = ts_property_name(slot_name)
-        ts_type = ts_type_for_slot(slot_data, schema_data)
-        is_collection = is_collection_property(slot_name, slot_data)
-        if is_collection:
-            interface_props.append(f'  {prop_name}?: {ts_type}[];')
-        else:
-            interface_props.append(f'  {prop_name}?: {ts_type};')
+        ts_type = ts_prop_type(
+            ts_type_for_slot(slot_data, schema_data),
+            is_collection_property(slot_name, slot_data),
+        )
+        interface_props.append(f'  {prop_name}?: {ts_type};')
     interface_props_str = '\n'.join(interface_props)
 
     interface_block = f'''export interface {ts_name}Params{ext} {{
@@ -874,13 +932,11 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
 
     for slot_name, slot_data, owner in all_own_props:
         prop_name = ts_property_name(slot_name)
-        ts_type = ts_type_for_slot(slot_data, schema_data)
-        is_collection = is_collection_property(slot_name, slot_data)
-
-        if is_collection:
-            class_props.append(f'  {prop_name}?: {ts_type}[];')
-        else:
-            class_props.append(f'  {prop_name}?: {ts_type};')
+        ts_type = ts_prop_type(
+            ts_type_for_slot(slot_data, schema_data),
+            is_collection_property(slot_name, slot_data),
+        )
+        class_props.append(f'  {prop_name}?: {ts_type};')
 
         constructor_params.append(f'{prop_name}')
         constructor_body_self.append(f'    this.{prop_name} = params?.{prop_name};')
@@ -995,6 +1051,9 @@ def main():
 
     print(f"Loading schema: {schema_path}", file=sys.stderr)
     schema_data = parse_schema(schema_path)
+    _init_parent_overrides(schema_data)
+    if _PARENT_OVERRIDES:
+        print(f"Parent overrides: {_PARENT_OVERRIDES}", file=sys.stderr)
 
     output_dir = Path(args.output) if args.output else Path("typescript-connector")
     src_dir = output_dir / 'src'

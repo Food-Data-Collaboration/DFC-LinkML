@@ -26,40 +26,40 @@ module DfcLinkmlConnector
       attr_accessor :consumed_by
 
       # @return [String]
-      attr_accessor :reference
-
-      # @return [String]
       attr_accessor :produced_by
 
-      # @return [String]
-      attr_accessor :represented_by
-
-      # @return [QuantitativeValue]
+      # @return [QuantitativeValue, String]
       attr_accessor :has_quantity
 
+      # @return [SuppliedProduct, String]
+      attr_accessor :reference
+
+      # @return [PhysicalProduct, String]
+      attr_accessor :represented_by
+
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, cost: nil, quantity: nil, constituedBy: nil, consumedBy: nil, reference: nil, producedBy: nil, representedBy: nil, hasQuantity: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, cost: nil, quantity: nil, constituedBy: nil, consumedBy: nil, reference: nil, producedBy: nil, representedBy: nil, hasQuantity: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, cost: nil, quantity: nil, constituedBy: nil, consumedBy: nil, producedBy: nil, hasQuantity: nil, reference: nil, representedBy: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, cost: nil, quantity: nil, constituedBy: nil, consumedBy: nil, producedBy: nil, hasQuantity: nil, reference: nil, representedBy: nil)
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @image = image
         @cost = cost
         @quantity = quantity
         @constitued_by = constituedBy
         @consumed_by = consumedBy
-        @reference = reference
         @produced_by = producedBy
-        @represented_by = representedBy
         @has_quantity = hasQuantity
+        @reference = reference
+        @represented_by = representedBy
         self.semanticType = "dfc-b:LocalizedProduct"
         registerSemanticProperty("dfc-b:Image", &method("image")).valueSetter = method("image=")
         registerSemanticProperty("dfc-b:cost", &method("cost")).valueSetter = method("cost=")
         registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
         registerSemanticProperty("dfc-b:constituedBy", &method("constitued_by")).valueSetter = method("constitued_by=")
         registerSemanticProperty("dfc-b:consumedBy", &method("consumed_by")).valueSetter = method("consumed_by=")
-        registerSemanticProperty("dfc-b:hasReference", &method("reference")).valueSetter = method("reference=")
         registerSemanticProperty("dfc-b:producedBy", &method("produced_by")).valueSetter = method("produced_by=")
-        registerSemanticProperty("dfc-b:representedBy", &method("represented_by")).valueSetter = method("represented_by=")
         registerSemanticProperty("dfc-b:hasQuantity", &method("has_quantity")).valueSetter = method("has_quantity=")
+        registerSemanticProperty("dfc-b:hasReference", &method("reference")).valueSetter = method("reference=")
+        registerSemanticProperty("dfc-b:representedBy", &method("represented_by")).valueSetter = method("represented_by=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -1,12 +1,13 @@
 // Class from DFC Business Ontology: #Catalog
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhereSubject, type WhereSubjectParams } from "./WhereSubject.js";
+import type { Organization } from "./Organization.js";
 
 export interface CatalogParams extends WhereSubjectParams {
   endDate?: string;
   startDate?: string;
   lists?: string[];
-  maintainedBy?: string;
+  maintainedBy?: Organization | string;
 }
 export class Catalog extends WhereSubject {
   static get SEMANTIC_TYPE(): string {
@@ -16,7 +17,7 @@ export class Catalog extends WhereSubject {
   endDate?: string;
   startDate?: string;
   lists?: string[];
-  maintainedBy?: string;
+  maintainedBy?: Organization | string;
 
   constructor(
     semanticId: string,

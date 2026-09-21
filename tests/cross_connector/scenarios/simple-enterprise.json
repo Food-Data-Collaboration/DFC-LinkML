@@ -5,7 +5,7 @@
     {
       "type": "dfc-b:Enterprise",
       "semanticId": "http://example.com/org1",
-      "params": { "name": "Farm Org", "description": "A test farm" }
+      "params": { "name": "Farm Org", "description": "A test farm", "vatNumber": "FR12345678901" }
     }
   ]
 }

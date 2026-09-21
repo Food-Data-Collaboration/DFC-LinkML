@@ -384,6 +384,9 @@ export class Connector {
         this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
         this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
         this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+        this.otherVocabularies.set("Facet", this.facets);
+        this.otherVocabularies.set("Measure", this.measures);
+        this.otherVocabularies.set("ProductType", this.productTypes);
         this.otherVocabularies.set("Scope", this.buildNestedHash(this.vocabLoader.vocabulary("Scope")));
         this.otherVocabularies.set("VocabularyTerm", this.buildNestedHash(this.vocabLoader.vocabulary("VocabularyTerm")));
         return this;
@@ -414,16 +417,19 @@ export class Connector {
     loadFacets(jsonData) {
         this.vocabLoader.load("Facet", jsonData);
         this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
+        this.otherVocabularies.set("Facet", this.facets);
         return this;
     }
     loadMeasures(jsonData) {
         this.vocabLoader.load("Measure", jsonData);
         this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
+        this.otherVocabularies.set("Measure", this.measures);
         return this;
     }
     loadProductTypes(jsonData) {
         this.vocabLoader.load("ProductType", jsonData);
         this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+        this.otherVocabularies.set("ProductType", this.productTypes);
         return this;
     }
     loadVocabulary(name, jsonData) {
@@ -434,16 +440,19 @@ export class Connector {
     async loadFacetsFromUrl() {
         await this.vocabLoader.loadFromUrl("facets");
         this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
+        this.otherVocabularies.set("Facet", this.facets);
         return this;
     }
     async loadMeasuresFromUrl() {
         await this.vocabLoader.loadFromUrl("measures");
         this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
+        this.otherVocabularies.set("Measure", this.measures);
         return this;
     }
     async loadProductTypesFromUrl() {
         await this.vocabLoader.loadFromUrl("productTypes");
         this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+        this.otherVocabularies.set("ProductType", this.productTypes);
         return this;
     }
     async export(...objects) {

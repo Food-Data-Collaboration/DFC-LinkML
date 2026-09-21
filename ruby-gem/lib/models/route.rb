@@ -16,7 +16,7 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :use_vehicle
 
-      # @return [Feature]
+      # @return [Feature, String]
       attr_accessor :geo_json_feature
 
       # @param semanticId [String]

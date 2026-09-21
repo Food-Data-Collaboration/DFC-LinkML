@@ -13,7 +13,7 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :constitutes
 
-      # @return [String]
+      # @return [PhysicalPlace, String]
       attr_accessor :localized_by
 
       # @param semanticId [String]

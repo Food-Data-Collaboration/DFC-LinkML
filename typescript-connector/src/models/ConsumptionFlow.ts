@@ -11,7 +11,7 @@ export interface ConsumptionFlowParams {
   name?: string;
   characteristicOf?: string;
   hasDimension?: string;
-  hasQuantity?: QuantitativeValue;
+  hasQuantity?: QuantitativeValue | string;
 }
 export class ConsumptionFlow extends SemanticObject {
   static get SEMANTIC_TYPE(): string {
@@ -26,7 +26,7 @@ export class ConsumptionFlow extends SemanticObject {
   name?: string;
   characteristicOf?: string;
   hasDimension?: string;
-  hasQuantity?: QuantitativeValue;
+  hasQuantity?: QuantitativeValue | string;
 
   constructor(
     semanticId: string,

@@ -16,7 +16,7 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :is_ingredient_of
 
-      # @return [QuantitativeValue]
+      # @return [QuantitativeValue, String]
       attr_accessor :has_quantity
 
       # @param semanticId [String]

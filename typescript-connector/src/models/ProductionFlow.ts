@@ -11,7 +11,7 @@ export interface ProductionFlowParams {
   name?: string;
   characteristicOf?: string;
   hasDimension?: string;
-  hasQuantity?: QuantitativeValue;
+  hasQuantity?: QuantitativeValue | string;
 }
 export class ProductionFlow extends SemanticObject {
   static get SEMANTIC_TYPE(): string {
@@ -26,7 +26,7 @@ export class ProductionFlow extends SemanticObject {
   name?: string;
   characteristicOf?: string;
   hasDimension?: string;
-  hasQuantity?: QuantitativeValue;
+  hasQuantity?: QuantitativeValue | string;
 
   constructor(
     semanticId: string,

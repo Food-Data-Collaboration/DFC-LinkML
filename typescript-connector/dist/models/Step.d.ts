@@ -4,15 +4,15 @@ export interface StepParams extends WhereSubjectParams {
     arrivalDate?: string;
     duration?: string;
     isStepOf?: string;
-    delivery?: Shipment;
-    pickUp?: Shipment;
+    delivery?: Shipment | string;
+    pickUp?: Shipment | string;
 }
 export declare class Step extends WhereSubject {
     static get SEMANTIC_TYPE(): string;
     arrivalDate?: string;
     duration?: string;
     isStepOf?: string;
-    delivery?: Shipment;
-    pickUp?: Shipment;
+    delivery?: Shipment | string;
+    pickUp?: Shipment | string;
     constructor(semanticId: string, params?: StepParams);
 }

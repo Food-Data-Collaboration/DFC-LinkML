@@ -13,7 +13,7 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :brand_of
 
-      # @return [String]
+      # @return [Agent, String]
       attr_accessor :owned_by
 
       # @param semanticId [String]

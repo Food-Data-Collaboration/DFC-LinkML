@@ -10,10 +10,10 @@ module DfcLinkmlConnector
     class VariantCaracteristic < WhatSubject
       SEMANTIC_TYPE = "dfc-b:VariantCaracteristic".freeze
 
-      # @return [ProductOption]
+      # @return [ProductOption, String]
       attr_accessor :product_option
 
-      # @return [ProductOptionValue]
+      # @return [ProductOptionValue, String]
       attr_accessor :product_option_value
 
       # @param semanticId [String]

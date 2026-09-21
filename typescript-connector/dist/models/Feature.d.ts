@@ -7,8 +7,8 @@ export interface FeatureParams {
     name?: string;
     characteristicOf?: string;
     hasDimension?: string;
-    geometry?: Geometry;
-    properties?: Properties[];
+    geometry?: Geometry | string;
+    properties?: (Properties | string)[];
 }
 export declare class Feature extends SemanticObject {
     static get SEMANTIC_TYPE(): string;
@@ -17,7 +17,7 @@ export declare class Feature extends SemanticObject {
     name?: string;
     characteristicOf?: string;
     hasDimension?: string;
-    geometry?: Geometry;
-    properties?: Properties[];
+    geometry?: Geometry | string;
+    properties?: (Properties | string)[];
     constructor(semanticId: string, params?: FeatureParams);
 }

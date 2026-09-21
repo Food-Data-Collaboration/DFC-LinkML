@@ -6,14 +6,10 @@ export class Order extends SemanticObject {
     }
     discount;
     orderNumber;
-    belongsTo;
     hasFulfilmentStatus;
     hasOrderStatus;
-    hasPart;
     hasPaymentMethod;
     hasPaymentStatus;
-    orderedBy;
-    selects;
     soldBy;
     uses;
     date;
@@ -21,18 +17,18 @@ export class Order extends SemanticObject {
     name;
     characteristicOf;
     hasDimension;
+    belongsTo;
+    hasPart;
+    orderedBy;
+    selects;
     constructor(semanticId, params) {
         super(semanticId);
         this.discount = params?.discount;
         this.orderNumber = params?.orderNumber;
-        this.belongsTo = params?.belongsTo;
         this.hasFulfilmentStatus = params?.hasFulfilmentStatus;
         this.hasOrderStatus = params?.hasOrderStatus;
-        this.hasPart = params?.hasPart;
         this.hasPaymentMethod = params?.hasPaymentMethod;
         this.hasPaymentStatus = params?.hasPaymentStatus;
-        this.orderedBy = params?.orderedBy;
-        this.selects = params?.selects;
         this.soldBy = params?.soldBy;
         this.uses = params?.uses;
         this.date = params?.date;
@@ -40,17 +36,17 @@ export class Order extends SemanticObject {
         this.name = params?.name;
         this.characteristicOf = params?.characteristicOf;
         this.hasDimension = params?.hasDimension;
+        this.belongsTo = params?.belongsTo;
+        this.hasPart = params?.hasPart;
+        this.orderedBy = params?.orderedBy;
+        this.selects = params?.selects;
         this.semanticType = Order.SEMANTIC_TYPE;
         this.registerSemanticProperty("dfc-b:discount", () => this.discount);
         this.registerSemanticProperty("dfc-b:orderNumber", () => this.orderNumber);
-        this.registerSemanticProperty("dfc-b:belongsTo", () => this.belongsTo);
         this.registerSemanticProperty("dfc-b:hasFulfilmentStatus", () => this.hasFulfilmentStatus);
         this.registerSemanticProperty("dfc-b:hasOrderStatus", () => this.hasOrderStatus);
-        this.registerSemanticProperty("dfc-b:hasPart", () => this.hasPart);
         this.registerSemanticProperty("dfc-b:hasPaymentMethod", () => this.hasPaymentMethod);
         this.registerSemanticProperty("dfc-b:hasPaymentStatus", () => this.hasPaymentStatus);
-        this.registerSemanticProperty("dfc-b:orderedBy", () => this.orderedBy);
-        this.registerSemanticProperty("dfc-b:selects", () => this.selects);
         this.registerSemanticProperty("dfc-b:soldBy", () => this.soldBy);
         this.registerSemanticProperty("dfc-b:uses", () => this.uses);
         this.registerSemanticProperty("dfc-b:date", () => this.date);
@@ -58,6 +54,10 @@ export class Order extends SemanticObject {
         this.registerSemanticProperty("dfc-b:name", () => this.name);
         this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
         this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
+        this.registerSemanticProperty("dfc-b:belongsTo", () => this.belongsTo);
+        this.registerSemanticProperty("dfc-b:hasPart", () => this.hasPart);
+        this.registerSemanticProperty("dfc-b:orderedBy", () => this.orderedBy);
+        this.registerSemanticProperty("dfc-b:selects", () => this.selects);
     }
     static {
         SemanticObject.typeRegistry.set(Order.SEMANTIC_TYPE, Order);

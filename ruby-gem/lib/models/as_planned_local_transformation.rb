@@ -25,7 +25,7 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :output
 
-      # @return [String]
+      # @return [Organization, String]
       attr_accessor :transformed_by
 
       # @param semanticId [String]

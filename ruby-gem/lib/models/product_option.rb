@@ -10,7 +10,7 @@ module DfcLinkmlConnector
     class ProductOption < WhatSubject
       SEMANTIC_TYPE = "dfc-b:ProductOption".freeze
 
-      # @return [ProductOptionValue]
+      # @return [ProductOptionValue, String]
       attr_accessor :reference_product_option_value
 
       # @param semanticId [String]

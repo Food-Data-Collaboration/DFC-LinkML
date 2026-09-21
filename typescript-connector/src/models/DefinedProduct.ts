@@ -1,6 +1,7 @@
 // Class from DFC Business Ontology: #DefinedProduct
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhatSubject, type WhatSubjectParams } from "./WhatSubject.js";
+import type { CatalogItem } from "./CatalogItem.js";
 import type { ProductOption } from "./ProductOption.js";
 import type { QuantitativeValue } from "./QuantitativeValue.js";
 
@@ -33,9 +34,9 @@ export interface DefinedProductParams extends WhatSubjectParams {
   hasUnit?: string;
   hasVariant?: string;
   processOf?: string;
-  referencedBy?: string;
-  hasQuantity?: QuantitativeValue;
-  hasReferenceProductOption?: ProductOption;
+  hasQuantity?: QuantitativeValue | string;
+  hasReferenceProductOption?: ProductOption | string;
+  referencedBy?: CatalogItem | string;
 }
 export class DefinedProduct extends WhatSubject {
   static get SEMANTIC_TYPE(): string {
@@ -70,9 +71,9 @@ export class DefinedProduct extends WhatSubject {
   hasUnit?: string;
   hasVariant?: string;
   processOf?: string;
-  referencedBy?: string;
-  hasQuantity?: QuantitativeValue;
-  hasReferenceProductOption?: ProductOption;
+  hasQuantity?: QuantitativeValue | string;
+  hasReferenceProductOption?: ProductOption | string;
+  referencedBy?: CatalogItem | string;
 
   constructor(
     semanticId: string,
@@ -107,9 +108,9 @@ export class DefinedProduct extends WhatSubject {
     this.hasUnit = params?.hasUnit;
     this.hasVariant = params?.hasVariant;
     this.processOf = params?.processOf;
-    this.referencedBy = params?.referencedBy;
     this.hasQuantity = params?.hasQuantity;
     this.hasReferenceProductOption = params?.hasReferenceProductOption;
+    this.referencedBy = params?.referencedBy;
     this.semanticType = DefinedProduct.SEMANTIC_TYPE;
     this.registerSemanticProperty("dfc-b:Image", () => this.image);
     this.registerSemanticProperty("dfc-b:URL", () => this.url);
@@ -139,9 +140,9 @@ export class DefinedProduct extends WhatSubject {
     this.registerSemanticProperty("dfc-b:hasUnit", () => this.hasUnit);
     this.registerSemanticProperty("dfc-b:hasVariant", () => this.hasVariant);
     this.registerSemanticProperty("dfc-b:processOf", () => this.processOf);
-    this.registerSemanticProperty("dfc-b:referencedBy", () => this.referencedBy);
     this.registerSemanticProperty("dfc-b:hasQuantity", () => this.hasQuantity);
     this.registerSemanticProperty("dfc-b:hasReferenceProductOption", () => this.hasReferenceProductOption);
+    this.registerSemanticProperty("dfc-b:referencedBy", () => this.referencedBy);
   }
   static {
     SemanticObject.typeRegistry.set(DefinedProduct.SEMANTIC_TYPE, DefinedProduct);

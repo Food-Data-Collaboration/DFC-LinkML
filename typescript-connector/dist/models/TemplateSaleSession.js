@@ -4,30 +4,30 @@ export class TemplateSaleSession extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:TemplateSaleSession";
     }
-    hostedAt;
     isTemplateSaleSessionOf;
     date;
     description;
     name;
     characteristicOf;
     hasDimension;
+    hostedAt;
     constructor(semanticId, params) {
         super(semanticId);
-        this.hostedAt = params?.hostedAt;
         this.isTemplateSaleSessionOf = params?.isTemplateSaleSessionOf;
         this.date = params?.date;
         this.description = params?.description;
         this.name = params?.name;
         this.characteristicOf = params?.characteristicOf;
         this.hasDimension = params?.hasDimension;
+        this.hostedAt = params?.hostedAt;
         this.semanticType = TemplateSaleSession.SEMANTIC_TYPE;
-        this.registerSemanticProperty("dfc-b:hostedAt", () => this.hostedAt);
         this.registerSemanticProperty("dfc-b:isTemplateSaleSessionOf", () => this.isTemplateSaleSessionOf);
         this.registerSemanticProperty("dfc-b:date", () => this.date);
         this.registerSemanticProperty("dfc-b:description", () => this.description);
         this.registerSemanticProperty("dfc-b:name", () => this.name);
         this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
         this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
+        this.registerSemanticProperty("dfc-b:hostedAt", () => this.hostedAt);
     }
     static {
         SemanticObject.typeRegistry.set(TemplateSaleSession.SEMANTIC_TYPE, TemplateSaleSession);

@@ -144,6 +144,25 @@ RSpec.describe DfcLinkmlConnector::Core::Connector do
       expect(result.name).to eq("My Org")
     end
 
+    it "Enterprise carries Organization attributes (deprecated equivalentClass)" do
+      ent = DfcLinkmlConnector::Models::Enterprise.new(
+        "http://example.com/ent1", vatNumber: "FR12345678901", name: "Ent"
+      )
+      expect(ent.vat_number).to eq("FR12345678901")
+      parsed = JSON.parse(connector.export(ent))
+      expect(parsed["@type"]).to eq("dfc-b:Enterprise")
+      expect(parsed["dfc-b:VATnumber"]).to eq("FR12345678901")
+      imported = connector.import(JSON.generate(parsed)).first
+      expect(imported).to be_a(DfcLinkmlConnector::Models::Organization)
+      expect(imported.vat_number).to eq("FR12345678901")
+    end
+
+    it "exposes nested taxonomy maps through getters" do
+      expect(connector.facet).to have_key("aocfr")
+      expect(connector.measure).to have_key("kg")
+      expect(connector.scope).to have_key("readorders")
+    end
+
     it "round-trips embedded value objects without @id (e.g. official Price)" do
       data = {
         "@context" => context_url,

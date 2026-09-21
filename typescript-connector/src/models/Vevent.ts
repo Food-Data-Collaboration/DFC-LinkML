@@ -10,7 +10,7 @@ export interface VeventParams {
   name?: string;
   characteristicOf?: string;
   hasDimension?: string;
-  rrule?: ValueRECUR;
+  rrule?: ValueRECUR | string;
 }
 export class Vevent extends SemanticObject {
   static get SEMANTIC_TYPE(): string {
@@ -24,7 +24,7 @@ export class Vevent extends SemanticObject {
   name?: string;
   characteristicOf?: string;
   hasDimension?: string;
-  rrule?: ValueRECUR;
+  rrule?: ValueRECUR | string;
 
   constructor(
     semanticId: string,

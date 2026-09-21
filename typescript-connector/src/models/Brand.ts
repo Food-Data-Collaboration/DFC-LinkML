@@ -1,10 +1,11 @@
 // Class from DFC Business Ontology: #Brand
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhatSubject, type WhatSubjectParams } from "./WhatSubject.js";
+import type { Agent } from "./Agent.js";
 
 export interface BrandParams extends WhatSubjectParams {
   brandOf?: string;
-  ownedBy?: string;
+  ownedBy?: Agent | string;
 }
 export class Brand extends WhatSubject {
   static get SEMANTIC_TYPE(): string {
@@ -12,7 +13,7 @@ export class Brand extends WhatSubject {
   }
 
   brandOf?: string;
-  ownedBy?: string;
+  ownedBy?: Agent | string;
 
   constructor(
     semanticId: string,

@@ -343,18 +343,21 @@ module DfcLinkmlConnector
       def load_facets(json_data)
         @vocab_loader.load("Facet", json_data)
         @facets = _build_nested_hash(@vocab_loader.vocabulary("Facet"))
+        @other_vocabularies["Facet"] = @facets
         self
       end
 
       def load_measures(json_data)
         @vocab_loader.load("Measure", json_data)
         @measures = _build_nested_hash(@vocab_loader.vocabulary("Measure"))
+        @other_vocabularies["Measure"] = @measures
         self
       end
 
       def load_product_types(json_data)
         @vocab_loader.load("ProductType", json_data)
         @product_types = _build_nested_hash(@vocab_loader.vocabulary("ProductType"))
+        @other_vocabularies["ProductType"] = @product_types
         self
       end
 

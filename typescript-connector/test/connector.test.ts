@@ -280,6 +280,29 @@ describe("Organization", () => {
   });
 });
 
+describe("Enterprise", () => {
+  it("carries Organization attributes (deprecated equivalentClass)", async () => {
+    const c = new Connector();
+    const ent = c.createEnterprise("http://example.com/ent1", {
+      name: "Ent",
+      vatNumber: "FR12345678901",
+    });
+    expect(ent.vatNumber).toBe("FR12345678901");
+    expect(ent.semanticType).toBe("dfc-b:Enterprise");
+    const parsed = JSON.parse(await c.export(ent)) as Record<string, unknown>;
+    expect(parsed["dfc-b:VATnumber"]).toBe("FR12345678901");
+    const imported = c.import(parsed);
+    expect(imported[0].semanticType).toBe("dfc-b:Organization");
+  });
+
+  it("exposes nested taxonomy maps through getters", () => {
+    const c = new Connector();
+    expect("aocfr" in c.facet).toBe(true);
+    expect("kg" in c.measure).toBe(true);
+    expect("readorders" in c.scope).toBe(true);
+  });
+});
+
 describe("Person", () => {
   it("creates via factory with properties", () => {
     const c = new Connector();

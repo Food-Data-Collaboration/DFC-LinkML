@@ -6,7 +6,7 @@ import type { QuantitativeValue } from "./QuantitativeValue.js";
 export interface IngredientParams extends WhatSubjectParams {
   composedOf?: string;
   isIngredientOf?: string;
-  hasQuantity?: QuantitativeValue;
+  hasQuantity?: QuantitativeValue | string;
 }
 export class Ingredient extends WhatSubject {
   static get SEMANTIC_TYPE(): string {
@@ -15,7 +15,7 @@ export class Ingredient extends WhatSubject {
 
   composedOf?: string;
   isIngredientOf?: string;
-  hasQuantity?: QuantitativeValue;
+  hasQuantity?: QuantitativeValue | string;
 
   constructor(
     semanticId: string,

@@ -20,26 +20,26 @@ module DfcLinkmlConnector
       attr_accessor :delivered_at
 
       # @return [String]
-      attr_accessor :refers_to
-
-      # @return [String]
       attr_accessor :uses
 
+      # @return [Address, String]
+      attr_accessor :refers_to
+
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, optionOf: nil, selectedBy: nil, hasQuantity: nil, accessibilityInfo: nil, deliveryConstraint: nil, deliveredAt: nil, refersTo: nil, uses: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, optionOf: nil, selectedBy: nil, hasQuantity: nil, accessibilityInfo: nil, deliveryConstraint: nil, deliveredAt: nil, refersTo: nil, uses: nil)
-        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, endDate: endDate, fee: fee, quantity: quantity, startDate: startDate, optionOf: optionOf, selectedBy: selectedBy, hasQuantity: hasQuantity)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, selectedBy: nil, hasQuantity: nil, optionOf: nil, accessibilityInfo: nil, deliveryConstraint: nil, deliveredAt: nil, uses: nil, refersTo: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, selectedBy: nil, hasQuantity: nil, optionOf: nil, accessibilityInfo: nil, deliveryConstraint: nil, deliveredAt: nil, uses: nil, refersTo: nil)
+        super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, endDate: endDate, fee: fee, quantity: quantity, startDate: startDate, selectedBy: selectedBy, hasQuantity: hasQuantity, optionOf: optionOf)
         @accessibility_info = accessibilityInfo
         @delivery_constraint = deliveryConstraint
         @delivered_at = deliveredAt
-        @refers_to = refersTo
         @uses = uses
+        @refers_to = refersTo
         self.semanticType = "dfc-b:DeliveryOption"
         registerSemanticProperty("dfc-b:accessibilityInfo", &method("accessibility_info")).valueSetter = method("accessibility_info=")
         registerSemanticProperty("dfc-b:deliveryConstraint", &method("delivery_constraint")).valueSetter = method("delivery_constraint=")
         registerSemanticProperty("dfc-b:deliveredAt", &method("delivered_at")).valueSetter = method("delivered_at=")
-        registerSemanticProperty("dfc-b:refersTo", &method("refers_to")).valueSetter = method("refers_to=")
         registerSemanticProperty("dfc-b:uses", &method("uses")).valueSetter = method("uses=")
+        registerSemanticProperty("dfc-b:refersTo", &method("refers_to")).valueSetter = method("refers_to=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

@@ -1,21 +1,28 @@
 // Class from DFC Business Ontology: #Organization
 import { SemanticObject } from "../core/SemanticObject.js";
 import { Agent, type AgentParams } from "./Agent.js";
+import type { AsPlannedLocalTransformation } from "./AsPlannedLocalTransformation.js";
+import type { Catalog } from "./Catalog.js";
+import type { CatalogItem } from "./CatalogItem.js";
+import type { CustomerCategory } from "./CustomerCategory.js";
+import type { Person } from "./Person.js";
+import type { SuppliedProduct } from "./SuppliedProduct.js";
+import type { TechnicalProduct } from "./TechnicalProduct.js";
 
 export interface OrganizationParams extends AgentParams {
   vatNumber?: string;
   vatStatus?: boolean;
   enterpriseId?: string;
-  affiliates?: string[];
-  defines?: string[];
-  hasMainContact?: string;
   hasTemplateSaleSession?: string;
   isCertifiedBy?: string;
-  maintains?: string[];
-  manages?: string[];
-  proposes?: string[];
-  supplies?: string[];
-  transforms?: string[];
+  affiliates?: (Organization | string)[];
+  defines?: (CustomerCategory | string)[];
+  hasMainContact?: Person | string;
+  maintains?: (Catalog | string)[];
+  manages?: (CatalogItem | string)[];
+  proposes?: (TechnicalProduct | string)[];
+  supplies?: (SuppliedProduct | string)[];
+  transforms?: (AsPlannedLocalTransformation | string)[];
 }
 export class Organization extends Agent {
   static get SEMANTIC_TYPE(): string {
@@ -25,16 +32,16 @@ export class Organization extends Agent {
   vatNumber?: string;
   vatStatus?: boolean;
   enterpriseId?: string;
-  affiliates?: string[];
-  defines?: string[];
-  hasMainContact?: string;
   hasTemplateSaleSession?: string;
   isCertifiedBy?: string;
-  maintains?: string[];
-  manages?: string[];
-  proposes?: string[];
-  supplies?: string[];
-  transforms?: string[];
+  affiliates?: (Organization | string)[];
+  defines?: (CustomerCategory | string)[];
+  hasMainContact?: Person | string;
+  maintains?: (Catalog | string)[];
+  manages?: (CatalogItem | string)[];
+  proposes?: (TechnicalProduct | string)[];
+  supplies?: (SuppliedProduct | string)[];
+  transforms?: (AsPlannedLocalTransformation | string)[];
 
   constructor(
     semanticId: string,
@@ -44,11 +51,11 @@ export class Organization extends Agent {
     this.vatNumber = params?.vatNumber;
     this.vatStatus = params?.vatStatus;
     this.enterpriseId = params?.enterpriseId;
+    this.hasTemplateSaleSession = params?.hasTemplateSaleSession;
+    this.isCertifiedBy = params?.isCertifiedBy;
     this.affiliates = params?.affiliates;
     this.defines = params?.defines;
     this.hasMainContact = params?.hasMainContact;
-    this.hasTemplateSaleSession = params?.hasTemplateSaleSession;
-    this.isCertifiedBy = params?.isCertifiedBy;
     this.maintains = params?.maintains;
     this.manages = params?.manages;
     this.proposes = params?.proposes;
@@ -58,11 +65,11 @@ export class Organization extends Agent {
     this.registerSemanticProperty("dfc-b:VATnumber", () => this.vatNumber);
     this.registerSemanticProperty("dfc-b:VATstatus", () => this.vatStatus);
     this.registerSemanticProperty("dfc-b:enterpriseID", () => this.enterpriseId);
+    this.registerSemanticProperty("dfc-b:hasTemplateSaleSession", () => this.hasTemplateSaleSession);
+    this.registerSemanticProperty("dfc-b:isCertifiedBy", () => this.isCertifiedBy);
     this.registerSemanticProperty("dfc-b:affiliates", () => this.affiliates);
     this.registerSemanticProperty("dfc-b:defines", () => this.defines);
     this.registerSemanticProperty("dfc-b:hasMainContact", () => this.hasMainContact);
-    this.registerSemanticProperty("dfc-b:hasTemplateSaleSession", () => this.hasTemplateSaleSession);
-    this.registerSemanticProperty("dfc-b:isCertifiedBy", () => this.isCertifiedBy);
     this.registerSemanticProperty("dfc-b:maintains", () => this.maintains);
     this.registerSemanticProperty("dfc-b:manages", () => this.manages);
     this.registerSemanticProperty("dfc-b:proposes", () => this.proposes);

@@ -10,9 +10,6 @@ module DfcLinkmlConnector
       SEMANTIC_TYPE = "dfc-b:TemplateSaleSession".freeze
 
       # @return [String]
-      attr_accessor :hosted_at
-
-      # @return [String]
       attr_accessor :is_template_sale_session_of
 
       # @return [String]
@@ -30,25 +27,28 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
+      # @return [Place, String]
+      attr_accessor :hosted_at
+
       # @param semanticId [String]
-      # @param hostedAt: nil, isTemplateSaleSessionOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil
-      def initialize(semanticId, hostedAt: nil, isTemplateSaleSessionOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil)
+      # @param isTemplateSaleSessionOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hostedAt: nil
+      def initialize(semanticId, isTemplateSaleSessionOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hostedAt: nil)
         super(semanticId)
-        @hosted_at = hostedAt
         @is_template_sale_session_of = isTemplateSaleSessionOf
         @date = date
         @description = description
         @name = name
         @characteristic_of = characteristicOf
         @dimension = dimension
+        @hosted_at = hostedAt
         self.semanticType = "dfc-b:TemplateSaleSession"
-        registerSemanticProperty("dfc-b:hostedAt", &method("hosted_at")).valueSetter = method("hosted_at=")
         registerSemanticProperty("dfc-b:isTemplateSaleSessionOf", &method("is_template_sale_session_of")).valueSetter = method("is_template_sale_session_of=")
         registerSemanticProperty("dfc-b:date", &method("date")).valueSetter = method("date=")
         registerSemanticProperty("dfc-b:description", &method("description")).valueSetter = method("description=")
         registerSemanticProperty("dfc-b:name", &method("name")).valueSetter = method("name=")
         registerSemanticProperty("dfc-b:characteristicOf", &method("characteristic_of")).valueSetter = method("characteristic_of=")
         registerSemanticProperty("dfc-b:hasDimension", &method("dimension")).valueSetter = method("dimension=")
+        registerSemanticProperty("dfc-b:hostedAt", &method("hosted_at")).valueSetter = method("hosted_at=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

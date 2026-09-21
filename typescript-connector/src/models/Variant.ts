@@ -5,7 +5,7 @@ import type { VariantCaracteristic } from "./VariantCaracteristic.js";
 
 export interface VariantParams extends DefinedProductParams {
   isVariantOf?: string;
-  hasVariantCaracteristic?: VariantCaracteristic;
+  hasVariantCaracteristic?: VariantCaracteristic | string;
 }
 export class Variant extends DefinedProduct {
   static get SEMANTIC_TYPE(): string {
@@ -13,7 +13,7 @@ export class Variant extends DefinedProduct {
   }
 
   isVariantOf?: string;
-  hasVariantCaracteristic?: VariantCaracteristic;
+  hasVariantCaracteristic?: VariantCaracteristic | string;
 
   constructor(
     semanticId: string,

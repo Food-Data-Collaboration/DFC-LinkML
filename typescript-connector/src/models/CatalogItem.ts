@@ -1,5 +1,8 @@
 // Class from DFC Business Ontology: #CatalogItem
 import { SemanticObject } from "../core/SemanticObject.js";
+import type { DefinedProduct } from "./DefinedProduct.js";
+import type { Offer } from "./Offer.js";
+import type { Organization } from "./Organization.js";
 
 export interface CatalogItemParams {
   extraAvailabilityTime?: string;
@@ -7,14 +10,14 @@ export interface CatalogItemParams {
   sku?: string;
   stockLimitation?: number;
   listedIn?: string;
-  managedBy?: string;
-  offeredThrough?: string;
-  references?: string[];
   date?: string;
   description?: string;
   name?: string;
   characteristicOf?: string;
   hasDimension?: string;
+  managedBy?: Organization | string;
+  offeredThrough?: Offer | string;
+  references?: (DefinedProduct | string)[];
 }
 export class CatalogItem extends SemanticObject {
   static get SEMANTIC_TYPE(): string {
@@ -26,14 +29,14 @@ export class CatalogItem extends SemanticObject {
   sku?: string;
   stockLimitation?: number;
   listedIn?: string;
-  managedBy?: string;
-  offeredThrough?: string;
-  references?: string[];
   date?: string;
   description?: string;
   name?: string;
   characteristicOf?: string;
   hasDimension?: string;
+  managedBy?: Organization | string;
+  offeredThrough?: Offer | string;
+  references?: (DefinedProduct | string)[];
 
   constructor(
     semanticId: string,
@@ -45,28 +48,28 @@ export class CatalogItem extends SemanticObject {
     this.sku = params?.sku;
     this.stockLimitation = params?.stockLimitation;
     this.listedIn = params?.listedIn;
-    this.managedBy = params?.managedBy;
-    this.offeredThrough = params?.offeredThrough;
-    this.references = params?.references;
     this.date = params?.date;
     this.description = params?.description;
     this.name = params?.name;
     this.characteristicOf = params?.characteristicOf;
     this.hasDimension = params?.hasDimension;
+    this.managedBy = params?.managedBy;
+    this.offeredThrough = params?.offeredThrough;
+    this.references = params?.references;
     this.semanticType = CatalogItem.SEMANTIC_TYPE;
     this.registerSemanticProperty("dfc-b:extraAvailabilityTime", () => this.extraAvailabilityTime);
     this.registerSemanticProperty("dfc-b:extraDeliveryCondition", () => this.extraDeliveryCondition);
     this.registerSemanticProperty("dfc-b:sku", () => this.sku);
     this.registerSemanticProperty("dfc-b:stockLimitation", () => this.stockLimitation);
     this.registerSemanticProperty("dfc-b:listedIn", () => this.listedIn);
-    this.registerSemanticProperty("dfc-b:managedBy", () => this.managedBy);
-    this.registerSemanticProperty("dfc-b:offeredThrough", () => this.offeredThrough);
-    this.registerSemanticProperty("dfc-b:references", () => this.references);
     this.registerSemanticProperty("dfc-b:date", () => this.date);
     this.registerSemanticProperty("dfc-b:description", () => this.description);
     this.registerSemanticProperty("dfc-b:name", () => this.name);
     this.registerSemanticProperty("dfc-b:characteristicOf", () => this.characteristicOf);
     this.registerSemanticProperty("dfc-b:hasDimension", () => this.hasDimension);
+    this.registerSemanticProperty("dfc-b:managedBy", () => this.managedBy);
+    this.registerSemanticProperty("dfc-b:offeredThrough", () => this.offeredThrough);
+    this.registerSemanticProperty("dfc-b:references", () => this.references);
   }
   static {
     SemanticObject.typeRegistry.set(CatalogItem.SEMANTIC_TYPE, CatalogItem);

@@ -23,33 +23,33 @@ module DfcLinkmlConnector
       attr_accessor :start_date
 
       # @return [String]
-      attr_accessor :option_of
-
-      # @return [String]
       attr_accessor :selected_by
 
-      # @return [QuantitativeValue]
+      # @return [QuantitativeValue, String]
       attr_accessor :has_quantity
 
+      # @return [SaleSession, String]
+      attr_accessor :option_of
+
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, optionOf: nil, selectedBy: nil, hasQuantity: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, optionOf: nil, selectedBy: nil, hasQuantity: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, selectedBy: nil, hasQuantity: nil, optionOf: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, endDate: nil, fee: nil, quantity: nil, startDate: nil, selectedBy: nil, hasQuantity: nil, optionOf: nil)
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @end_date = endDate
         @fee = fee
         @quantity = quantity
         @start_date = startDate
-        @option_of = optionOf
         @selected_by = selectedBy
         @has_quantity = hasQuantity
+        @option_of = optionOf
         self.semanticType = "dfc-b:ShippingOption"
         registerSemanticProperty("dfc-b:endDate", &method("end_date")).valueSetter = method("end_date=")
         registerSemanticProperty("dfc-b:fee", &method("fee")).valueSetter = method("fee=")
         registerSemanticProperty("dfc-b:quantity", &method("quantity")).valueSetter = method("quantity=")
         registerSemanticProperty("dfc-b:startDate", &method("start_date")).valueSetter = method("start_date=")
-        registerSemanticProperty("dfc-b:optionOf", &method("option_of")).valueSetter = method("option_of=")
         registerSemanticProperty("dfc-b:selectedBy", &method("selected_by")).valueSetter = method("selected_by=")
         registerSemanticProperty("dfc-b:hasQuantity", &method("has_quantity")).valueSetter = method("has_quantity=")
+        registerSemanticProperty("dfc-b:optionOf", &method("option_of")).valueSetter = method("option_of=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

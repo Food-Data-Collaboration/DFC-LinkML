@@ -7,8 +7,8 @@ export interface StepParams extends WhereSubjectParams {
   arrivalDate?: string;
   duration?: string;
   isStepOf?: string;
-  delivery?: Shipment;
-  pickUp?: Shipment;
+  delivery?: Shipment | string;
+  pickUp?: Shipment | string;
 }
 export class Step extends WhereSubject {
   static get SEMANTIC_TYPE(): string {
@@ -18,8 +18,8 @@ export class Step extends WhereSubject {
   arrivalDate?: string;
   duration?: string;
   isStepOf?: string;
-  delivery?: Shipment;
-  pickUp?: Shipment;
+  delivery?: Shipment | string;
+  pickUp?: Shipment | string;
 
   constructor(
     semanticId: string,

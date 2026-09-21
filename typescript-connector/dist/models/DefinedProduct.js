@@ -33,9 +33,9 @@ export class DefinedProduct extends WhatSubject {
     hasUnit;
     hasVariant;
     processOf;
-    referencedBy;
     hasQuantity;
     hasReferenceProductOption;
+    referencedBy;
     constructor(semanticId, params) {
         super(semanticId, params);
         this.image = params?.image;
@@ -66,9 +66,9 @@ export class DefinedProduct extends WhatSubject {
         this.hasUnit = params?.hasUnit;
         this.hasVariant = params?.hasVariant;
         this.processOf = params?.processOf;
-        this.referencedBy = params?.referencedBy;
         this.hasQuantity = params?.hasQuantity;
         this.hasReferenceProductOption = params?.hasReferenceProductOption;
+        this.referencedBy = params?.referencedBy;
         this.semanticType = DefinedProduct.SEMANTIC_TYPE;
         this.registerSemanticProperty("dfc-b:Image", () => this.image);
         this.registerSemanticProperty("dfc-b:URL", () => this.url);
@@ -98,9 +98,9 @@ export class DefinedProduct extends WhatSubject {
         this.registerSemanticProperty("dfc-b:hasUnit", () => this.hasUnit);
         this.registerSemanticProperty("dfc-b:hasVariant", () => this.hasVariant);
         this.registerSemanticProperty("dfc-b:processOf", () => this.processOf);
-        this.registerSemanticProperty("dfc-b:referencedBy", () => this.referencedBy);
         this.registerSemanticProperty("dfc-b:hasQuantity", () => this.hasQuantity);
         this.registerSemanticProperty("dfc-b:hasReferenceProductOption", () => this.hasReferenceProductOption);
+        this.registerSemanticProperty("dfc-b:referencedBy", () => this.referencedBy);
     }
     static {
         SemanticObject.typeRegistry.set(DefinedProduct.SEMANTIC_TYPE, DefinedProduct);

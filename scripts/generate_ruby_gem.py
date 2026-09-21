@@ -90,6 +90,43 @@ def _init_has_prefix_keep(schema_data: dict) -> None:
     }
 
 
+# Generated parent-class overrides (schema class name -> schema class name).
+# Currently used for owl:equivalentClass handling: when Enterprise carries no
+# slots of its own but Organization does (DFC v2.0), Enterprise is generated
+# as a subclass of Organization so the deprecated class keeps the full API.
+# Computed from the schema in main().
+_PARENT_OVERRIDES: dict[str, str] = {}
+
+
+def _own_slots(class_name: str, schema_data: dict) -> set[str]:
+    """Slots owned by a class: explicit list plus domain matches (no inheritance)."""
+    classes = schema_data['classes']
+    slots = schema_data['slots']
+    own = set(classes.get(class_name, {}).get('slots', []))
+    for slot_name, slot_data in slots.items():
+        domain = slot_data.get('domain', '')
+        if isinstance(domain, list):
+            matches = class_name in domain
+        elif isinstance(domain, str):
+            matches = domain == class_name
+        else:
+            matches = False
+        if matches:
+            own.add(slot_name)
+    return own
+
+
+def _init_parent_overrides(schema_data: dict) -> None:
+    """Compute generated parent-class overrides from the schema."""
+    global _PARENT_OVERRIDES
+    _PARENT_OVERRIDES = {}
+    classes = schema_data.get('classes', {})
+    if ('Enterprise' in classes and 'Organization' in classes
+            and not _own_slots('Enterprise', schema_data)
+            and _own_slots('Organization', schema_data)):
+        _PARENT_OVERRIDES['Enterprise'] = 'Organization'
+
+
 def ruby_property_name(slot_name: str) -> str:
     """Convert a slot name to a Ruby accessor name (snake_case)."""
     name = slot_name
@@ -136,9 +173,14 @@ def get_class_hierarchy(class_name: str, classes: dict) -> list:
     """Get the inheritance chain for a class, from root to class."""
     chain = []
     current = class_name
+    first = True
     while current:
         chain.append(current)
-        current = classes.get(current, {}).get('is_a', '')
+        if first and current in _PARENT_OVERRIDES:
+            current = _PARENT_OVERRIDES[current]
+        else:
+            current = classes.get(current, {}).get('is_a', '')
+        first = False
     chain.reverse()
     return chain
 
@@ -250,7 +292,9 @@ def ruby_type_for_slot(slot_data: dict, schema_data: dict) -> str:
     classes = schema_data['classes']
 
     if range_type in classes:
-        return to_ruby_class_name(range_type)
+        # Relationship slot: at runtime the value may be a URI string, an
+        # embedded Hash, or a resolved model instance.
+        return f'{to_ruby_class_name(range_type)}, String'
     elif range_type in ('float', 'decimal', 'double'):
         return 'Float'
     elif range_type in ('integer', 'int', 'NonNegativeInteger', 'PositiveInteger'):
@@ -633,18 +677,21 @@ __PREDICATE_MAP__
       def load_facets(json_data)
         @vocab_loader.load("Facet", json_data)
         @facets = _build_nested_hash(@vocab_loader.vocabulary("Facet"))
+        @other_vocabularies["Facet"] = @facets
         self
       end
 
       def load_measures(json_data)
         @vocab_loader.load("Measure", json_data)
         @measures = _build_nested_hash(@vocab_loader.vocabulary("Measure"))
+        @other_vocabularies["Measure"] = @measures
         self
       end
 
       def load_product_types(json_data)
         @vocab_loader.load("ProductType", json_data)
         @product_types = _build_nested_hash(@vocab_loader.vocabulary("ProductType"))
+        @other_vocabularies["ProductType"] = @product_types
         self
       end
 
@@ -973,7 +1020,13 @@ def generate_vocabulary_file(enum_name: str, enum_data: dict, schema_data: dict)
 def generate_semantic_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     """Generate a semantic object model file wrapped in module namespace."""
     ruby_name = to_ruby_class_name(class_name)
-    parent_raw = get_parent_ruby_class(class_data)
+    # Parent comes from the (possibly overridden) hierarchy so slot
+    # inheritance and the extends clause always agree.
+    hierarchy = get_class_hierarchy(class_name, schema_data['classes'])
+    if len(hierarchy) > 1:
+        parent_raw = to_ruby_class_name(hierarchy[-2])
+    else:
+        parent_raw = 'SemanticObject'
     description = class_data.get('description', '').replace("'", "'\\''")
     semantic_type = rdf_prefix_for_class(class_name)
 
@@ -1263,6 +1316,9 @@ def main():
     _init_has_prefix_keep(schema_data)
     if _HAS_PREFIX_KEEP:
         print(f"Keeping has_ prefix for colliding slots: {sorted(_HAS_PREFIX_KEEP)}", file=sys.stderr)
+    _init_parent_overrides(schema_data)
+    if _PARENT_OVERRIDES:
+        print(f"Parent overrides: {_PARENT_OVERRIDES}", file=sys.stderr)
 
     gem_name = "dfc-linkml-connector"
     output_dir = Path("ruby-gem")

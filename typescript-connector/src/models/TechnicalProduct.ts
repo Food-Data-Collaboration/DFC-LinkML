@@ -1,20 +1,23 @@
 // Class from DFC Business Ontology: #TechnicalProduct
 import { SemanticObject } from "../core/SemanticObject.js";
 import { DefinedProduct, type DefinedProductParams } from "./DefinedProduct.js";
+import type { FunctionalProduct } from "./FunctionalProduct.js";
+import type { Organization } from "./Organization.js";
+import type { SuppliedProduct } from "./SuppliedProduct.js";
 
 export interface TechnicalProductParams extends DefinedProductParams {
-  industrializedBy?: string;
-  proposedBy?: string;
-  satisfies?: string[];
+  industrializedBy?: SuppliedProduct | string;
+  proposedBy?: Organization | string;
+  satisfies?: (FunctionalProduct | string)[];
 }
 export class TechnicalProduct extends DefinedProduct {
   static get SEMANTIC_TYPE(): string {
     return "dfc-b:TechnicalProduct";
   }
 
-  industrializedBy?: string;
-  proposedBy?: string;
-  satisfies?: string[];
+  industrializedBy?: SuppliedProduct | string;
+  proposedBy?: Organization | string;
+  satisfies?: (FunctionalProduct | string)[];
 
   constructor(
     semanticId: string,

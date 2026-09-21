@@ -482,6 +482,9 @@ export class Connector {
     this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
     this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
     this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+    this.otherVocabularies.set("Facet", this.facets);
+    this.otherVocabularies.set("Measure", this.measures);
+    this.otherVocabularies.set("ProductType", this.productTypes);
     this.otherVocabularies.set("Scope", this.buildNestedHash(this.vocabLoader.vocabulary("Scope")));
     this.otherVocabularies.set("VocabularyTerm", this.buildNestedHash(this.vocabLoader.vocabulary("VocabularyTerm")));
     return this;
@@ -515,18 +518,21 @@ export class Connector {
   loadFacets(jsonData: Record<string, unknown>): this {
     this.vocabLoader.load("Facet", jsonData);
     this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
+    this.otherVocabularies.set("Facet", this.facets);
     return this;
   }
 
   loadMeasures(jsonData: Record<string, unknown>): this {
     this.vocabLoader.load("Measure", jsonData);
     this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
+    this.otherVocabularies.set("Measure", this.measures);
     return this;
   }
 
   loadProductTypes(jsonData: Record<string, unknown>): this {
     this.vocabLoader.load("ProductType", jsonData);
     this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+    this.otherVocabularies.set("ProductType", this.productTypes);
     return this;
   }
 
@@ -539,18 +545,21 @@ export class Connector {
   async loadFacetsFromUrl(): Promise<this> {
     await this.vocabLoader.loadFromUrl("facets");
     this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
+    this.otherVocabularies.set("Facet", this.facets);
     return this;
   }
 
   async loadMeasuresFromUrl(): Promise<this> {
     await this.vocabLoader.loadFromUrl("measures");
     this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
+    this.otherVocabularies.set("Measure", this.measures);
     return this;
   }
 
   async loadProductTypesFromUrl(): Promise<this> {
     await this.vocabLoader.loadFromUrl("productTypes");
     this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
+    this.otherVocabularies.set("ProductType", this.productTypes);
     return this;
   }
 

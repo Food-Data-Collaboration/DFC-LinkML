@@ -19,10 +19,10 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :is_step_of
 
-      # @return [Shipment]
+      # @return [Shipment, String]
       attr_accessor :delivery
 
-      # @return [Shipment]
+      # @return [Shipment, String]
       attr_accessor :pick_up
 
       # @param semanticId [String]

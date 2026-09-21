@@ -22,15 +22,15 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :production_date
 
-      # @return [String]
+      # @return [Array<RealStock, String>]
       attr_accessor :identifies
 
-      # @return [String]
+      # @return [Array<PhysicalProduct, String>]
       attr_accessor :traces
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, batchNumber: nil, bestBeforeDate: nil, expiryDate: nil, productionDate: nil, identifies: nil, traces: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, batchNumber: nil, bestBeforeDate: nil, expiryDate: nil, productionDate: nil, identifies: nil, traces: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, batchNumber: nil, bestBeforeDate: nil, expiryDate: nil, productionDate: nil, identifies: [], traces: []
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, batchNumber: nil, bestBeforeDate: nil, expiryDate: nil, productionDate: nil, identifies: [], traces: [])
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @batch_number = batchNumber
         @best_before_date = bestBeforeDate

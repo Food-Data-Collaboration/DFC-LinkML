@@ -1,6 +1,7 @@
 // Class from DFC Business Ontology: #AsPlannedLocalTransformation
 import { SemanticObject } from "../core/SemanticObject.js";
 import { Transformation, type TransformationParams } from "./Transformation.js";
+import type { Organization } from "./Organization.js";
 
 export interface AsPlannedLocalTransformationParams extends TransformationParams {
   cost?: number;
@@ -8,7 +9,7 @@ export interface AsPlannedLocalTransformationParams extends TransformationParams
   startDate?: string;
   hasInput?: string;
   hasOutput?: string;
-  transformedBy?: string;
+  transformedBy?: Organization | string;
 }
 export class AsPlannedLocalTransformation extends Transformation {
   static get SEMANTIC_TYPE(): string {
@@ -20,7 +21,7 @@ export class AsPlannedLocalTransformation extends Transformation {
   startDate?: string;
   hasInput?: string;
   hasOutput?: string;
-  transformedBy?: string;
+  transformedBy?: Organization | string;
 
   constructor(
     semanticId: string,

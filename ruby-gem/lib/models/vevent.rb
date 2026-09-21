@@ -30,7 +30,7 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
-      # @return [ValueRECUR]
+      # @return [ValueRECUR, String]
       attr_accessor :rrule
 
       # @param semanticId [String]

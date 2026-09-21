@@ -1,6 +1,9 @@
 // Class from DFC Business Ontology: #SuppliedProduct
 import { SemanticObject } from "../core/SemanticObject.js";
 import { DefinedProduct, type DefinedProductParams } from "./DefinedProduct.js";
+import type { LocalizedProduct } from "./LocalizedProduct.js";
+import type { Organization } from "./Organization.js";
+import type { TechnicalProduct } from "./TechnicalProduct.js";
 
 export interface SuppliedProductParams extends DefinedProductParams {
   availabilityTime?: string;
@@ -9,10 +12,10 @@ export interface SuppliedProductParams extends DefinedProductParams {
   refrigerated?: boolean;
   totalTheoriticalStock?: number;
   hasTemperature?: string;
-  industrializes?: string[];
   producedBy?: string;
-  referenceOf?: string;
-  suppliedBy?: string;
+  industrializes?: (TechnicalProduct | string)[];
+  referenceOf?: LocalizedProduct | string;
+  suppliedBy?: Organization | string;
 }
 export class SuppliedProduct extends DefinedProduct {
   static get SEMANTIC_TYPE(): string {
@@ -25,10 +28,10 @@ export class SuppliedProduct extends DefinedProduct {
   refrigerated?: boolean;
   totalTheoriticalStock?: number;
   hasTemperature?: string;
-  industrializes?: string[];
   producedBy?: string;
-  referenceOf?: string;
-  suppliedBy?: string;
+  industrializes?: (TechnicalProduct | string)[];
+  referenceOf?: LocalizedProduct | string;
+  suppliedBy?: Organization | string;
 
   constructor(
     semanticId: string,
@@ -41,8 +44,8 @@ export class SuppliedProduct extends DefinedProduct {
     this.refrigerated = params?.refrigerated;
     this.totalTheoriticalStock = params?.totalTheoriticalStock;
     this.hasTemperature = params?.hasTemperature;
-    this.industrializes = params?.industrializes;
     this.producedBy = params?.producedBy;
+    this.industrializes = params?.industrializes;
     this.referenceOf = params?.referenceOf;
     this.suppliedBy = params?.suppliedBy;
     this.semanticType = SuppliedProduct.SEMANTIC_TYPE;
@@ -52,8 +55,8 @@ export class SuppliedProduct extends DefinedProduct {
     this.registerSemanticProperty("dfc-b:refrigerated", () => this.refrigerated);
     this.registerSemanticProperty("dfc-b:totalTheoriticalStock", () => this.totalTheoriticalStock);
     this.registerSemanticProperty("dfc-b:hasTemperature", () => this.hasTemperature);
-    this.registerSemanticProperty("dfc-b:industrializes", () => this.industrializes);
     this.registerSemanticProperty("dfc-b:producedBy", () => this.producedBy);
+    this.registerSemanticProperty("dfc-b:industrializes", () => this.industrializes);
     this.registerSemanticProperty("dfc-b:referenceOf", () => this.referenceOf);
     this.registerSemanticProperty("dfc-b:suppliedBy", () => this.suppliedBy);
   }

@@ -19,7 +19,7 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :lists
 
-      # @return [String]
+      # @return [Organization, String]
       attr_accessor :maintained_by
 
       # @param semanticId [String]

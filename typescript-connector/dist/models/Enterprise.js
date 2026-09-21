@@ -1,7 +1,7 @@
 // Class from DFC Business Ontology: #Enterprise
 import { SemanticObject } from "../core/SemanticObject.js";
-import { Agent } from "./Agent.js";
-export class Enterprise extends Agent {
+import { Organization } from "./Organization.js";
+export class Enterprise extends Organization {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Enterprise";
     }

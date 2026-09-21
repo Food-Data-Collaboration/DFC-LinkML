@@ -11,45 +11,45 @@ module DfcLinkmlConnector
       SEMANTIC_TYPE = "dfc-b:PhysicalPlace".freeze
 
       # @return [String]
-      attr_accessor :address
-
-      # @return [String]
-      attr_accessor :main_contact
-
-      # @return [String]
       attr_accessor :has_phone_number
 
-      # @return [String]
-      attr_accessor :localizes
+      # @return [Address, String]
+      attr_accessor :address
 
-      # @return [String]
-      attr_accessor :stores
-
-      # @return [Feature]
+      # @return [Feature, String]
       attr_accessor :geo_json_feature
 
-      # @return [OpeningHoursSpecification]
+      # @return [Person, String]
+      attr_accessor :main_contact
+
+      # @return [OpeningHoursSpecification, String]
       attr_accessor :is_open_during
 
+      # @return [Array<TheoriticalStock, String>]
+      attr_accessor :localizes
+
+      # @return [Array<RealStock, String>]
+      attr_accessor :stores
+
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: nil, address: nil, mainContact: nil, hasPhoneNumber: nil, localizes: nil, stores: nil, geoJsonFeature: nil, isOpenDuring: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: nil, address: nil, mainContact: nil, hasPhoneNumber: nil, localizes: nil, stores: nil, geoJsonFeature: nil, isOpenDuring: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: [], hasPhoneNumber: nil, address: nil, geoJsonFeature: nil, mainContact: nil, isOpenDuring: nil, localizes: [], stores: []
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hosts: [], hasPhoneNumber: nil, address: nil, geoJsonFeature: nil, mainContact: nil, isOpenDuring: nil, localizes: [], stores: [])
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, hosts: hosts)
-        @address = address
-        @main_contact = mainContact
         @has_phone_number = hasPhoneNumber
+        @address = address
+        @geo_json_feature = geoJsonFeature
+        @main_contact = mainContact
+        @is_open_during = isOpenDuring
         @localizes = localizes
         @stores = stores
-        @geo_json_feature = geoJsonFeature
-        @is_open_during = isOpenDuring
         self.semanticType = "dfc-b:PhysicalPlace"
-        registerSemanticProperty("dfc-b:hasAddress", &method("address")).valueSetter = method("address=")
-        registerSemanticProperty("dfc-b:hasMainContact", &method("main_contact")).valueSetter = method("main_contact=")
         registerSemanticProperty("dfc-b:hasPhoneNumber", &method("has_phone_number")).valueSetter = method("has_phone_number=")
+        registerSemanticProperty("dfc-b:hasAddress", &method("address")).valueSetter = method("address=")
+        registerSemanticProperty("dfc-b:hasGeoJsonFeature", &method("geo_json_feature")).valueSetter = method("geo_json_feature=")
+        registerSemanticProperty("dfc-b:hasMainContact", &method("main_contact")).valueSetter = method("main_contact=")
+        registerSemanticProperty("dfc-b:isOpenDuring", &method("is_open_during")).valueSetter = method("is_open_during=")
         registerSemanticProperty("dfc-b:localizes", &method("localizes")).valueSetter = method("localizes=")
         registerSemanticProperty("dfc-b:stores", &method("stores")).valueSetter = method("stores=")
-        registerSemanticProperty("dfc-b:hasGeoJsonFeature", &method("geo_json_feature")).valueSetter = method("geo_json_feature=")
-        registerSemanticProperty("dfc-b:isOpenDuring", &method("is_open_during")).valueSetter = method("is_open_during=")
       end
 
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self

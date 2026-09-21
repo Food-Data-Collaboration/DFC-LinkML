@@ -24,10 +24,10 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
-      # @return [Geometry]
+      # @return [Geometry, String]
       attr_accessor :geometry
 
-      # @return [Array<Properties>]
+      # @return [Array<Properties, String>]
       attr_accessor :properties
 
       # @param semanticId [String]

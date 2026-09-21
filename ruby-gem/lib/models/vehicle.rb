@@ -22,13 +22,13 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :used_in_route
 
-      # @return [PhysicalPlace]
+      # @return [PhysicalPlace, String]
       attr_accessor :based_at
 
-      # @return [QuantitativeValue]
+      # @return [QuantitativeValue, String]
       attr_accessor :has_quantity
 
-      # @return [OpeningHoursSpecification]
+      # @return [OpeningHoursSpecification, String]
       attr_accessor :is_available_during
 
       # @param semanticId [String]
