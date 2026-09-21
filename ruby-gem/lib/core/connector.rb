@@ -282,6 +282,22 @@ module DfcLinkmlConnector
       "dfc-b:Enterprise" => "dfc-b:Organization",
       }.freeze
 
+      # Predicate local names whose has_ prefix is preserved (e.g. "hasBrand"
+      # vs "brand"). Mirrors ruby_property_name's _HAS_PREFIX_KEEP handling
+      # so the _predicate_to_prop_name fallback agrees with PREDICATE_MAP.
+      HAS_PREFIX_KEEP = [
+        "hasBrand",
+        "hasClaim",
+        "hasCountry",
+        "hasPhoneNumber",
+        "hasQuantity",
+        "has_brand",
+        "has_claim",
+        "has_country",
+        "has_phone_number",
+        "has_quantity",
+      ].freeze
+
       class << self
         def default_context_url
           @default_context_url ||= "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json"
@@ -548,8 +564,12 @@ module DfcLinkmlConnector
           colon_index = name.rindex(":")
           name = name[(colon_index + 1)..-1] if colon_index
         end
-        if name.start_with?("has")
-          name = name[3..-1]
+        # Keep the has_ prefix for colliding slots (e.g. hasBrand vs brand);
+        # otherwise strip it to match ruby_property_name.
+        unless HAS_PREFIX_KEEP.include?(name)
+          if name.start_with?("has")
+            name = name[3..-1]
+          end
         end
         name = name.gsub(/([A-Z])/, "_\\1").downcase
         name.sub!(/^_/, "")

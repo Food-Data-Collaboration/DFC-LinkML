@@ -415,7 +415,7 @@ module DfcLinkmlConnector
             end
           elsif value.is_a?(SemanticObject)
             result[predicate] = value.semanticId
-          elsif value.is_a?(Numeric)
+          elsif value.is_a?(Numeric) || value == true || value == false
             result[predicate] = value
           elsif value.is_a?(Hash)
             # Embedded blank node (e.g. official Price value object without
@@ -606,6 +606,26 @@ def generate_connector_class(schema_data: dict) -> str:
         for pred, target in sorted(_enterprise_alias(schema_data).items())
     )
 
+    # Predicate local names (e.g. "hasBrand") whose has_ prefix is preserved
+    # because the stripped form collides with a bare slot (see
+    # _HAS_PREFIX_KEEP). Used by the _predicate_to_prop_name fallback so
+    # URI-form predicates map to the same accessor as the CURIE form.
+    # Both CamelCase locals and snake_case forms are listed so the fallback
+    # matches regardless of which form the expanded predicate carries.
+    keep_names: set[str] = set()
+    for slot_name in _HAS_PREFIX_KEEP:
+        slot_data = schema_data.get('slots', {}).get(slot_name, {})
+        local = predicate_for_slot(slot_name, slot_data)
+        for sep in ('#', ':', '/'):
+            if sep in local:
+                local = local.split(sep)[-1]
+        keep_names.add(local)
+        keep_names.add(ruby_property_name(slot_name))
+    keep_lines = '\n'.join(
+        f'        "{name}",'
+        for name in sorted(keep_names)
+    )
+
     code = '''# frozen_string_literal: true
 
 require 'json'
@@ -635,6 +655,13 @@ __PREDICATE_MAP__
       TYPE_ALIASES = {
 __TYPE_ALIASES__
       }.freeze
+
+      # Predicate local names whose has_ prefix is preserved (e.g. "hasBrand"
+      # vs "brand"). Mirrors ruby_property_name's _HAS_PREFIX_KEEP handling
+      # so the _predicate_to_prop_name fallback agrees with PREDICATE_MAP.
+      HAS_PREFIX_KEEP = [
+__HAS_PREFIX_KEEP__
+      ].freeze
 
       class << self
         def default_context_url
@@ -884,8 +911,12 @@ ENUM_METHODS
           colon_index = name.rindex(":")
           name = name[(colon_index + 1)..-1] if colon_index
         end
-        if name.start_with?("has")
-          name = name[3..-1]
+        # Keep the has_ prefix for colliding slots (e.g. hasBrand vs brand);
+        # otherwise strip it to match ruby_property_name.
+        unless HAS_PREFIX_KEEP.include?(name)
+          if name.start_with?("has")
+            name = name[3..-1]
+          end
         end
         name = name.gsub(/([A-Z])/, "_\\\\1").downcase
         name.sub!(/^_/, "")
@@ -902,6 +933,7 @@ end
     code = code.replace('ENUM_METHODS', enum_methods.rstrip())
     code = code.replace('__PREDICATE_MAP__', predicate_map_str.rstrip())
     code = code.replace('__TYPE_ALIASES__', alias_lines)
+    code = code.replace('__HAS_PREFIX_KEEP__', keep_lines)
     return code
 
 
