@@ -130,6 +130,21 @@ def _init_parent_overrides(schema_data: dict) -> None:
         _PARENT_OVERRIDES['Enterprise'] = 'Organization'
 
 
+def _enterprise_alias(schema_data: dict) -> dict[str, str]:
+    """Legacy type aliases, derived from the schema.
+
+    DFC v2.0 renamed Enterprise to Organization (the old class is a
+    deprecated equivalentClass stub), so imports canonicalize it. Schemas
+    where Enterprise owns slots its target lacks (v1.16) get no alias.
+    """
+    classes = schema_data.get('classes', {})
+    if 'Enterprise' not in classes or 'Organization' not in classes:
+        return {}
+    if _own_slots('Enterprise', schema_data) - _own_slots('Organization', schema_data):
+        return {}
+    return {'dfc-b:Enterprise': 'dfc-b:Organization'}
+
+
 def get_class_hierarchy(class_name: str, classes: dict) -> list:
     chain = []
     current = class_name
@@ -580,6 +595,10 @@ def generate_connector_class(schema_data: dict) -> str:
         predicate_map[predicate_for_slot(slot_name, slot_data)] = ts_property_name(slot_name)
     predicate_map_str = '\n'.join(f'    "{pred}": "{prop}",' for pred, prop in sorted(predicate_map.items()))
 
+    # Enterprise->Organization reflects the DFC v2.0 rename; schemas where
+    # Enterprise owns its slots (v1.16) get no alias (see _enterprise_alias).
+    type_aliases_str = '\n'.join(f'    "{pred}": "{target}",' for pred, target in sorted(_enterprise_alias(schema_data).items()))
+
     return f'''import {{ SemanticObject }} from "./SemanticObject.js";
 import {{ VocabularyLoader }} from "./VocabularyLoader.js";
 import {{ JsonLdSerializer }} from "./JsonLdSerializer.js";
@@ -597,7 +616,7 @@ export class Connector {{
   }};
 
   static readonly TYPE_ALIASES: Record<string, string> = {{
-    "dfc-b:Enterprise": "dfc-b:Organization",
+{type_aliases_str}
   }};
 
   private static defaultContextUrl: string = "https://w3id.org/dfc/ontology/v{ontology_version}/context/context_{ontology_version}.json";

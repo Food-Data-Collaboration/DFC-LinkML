@@ -127,6 +127,21 @@ def _init_parent_overrides(schema_data: dict) -> None:
         _PARENT_OVERRIDES['Enterprise'] = 'Organization'
 
 
+def _enterprise_alias(schema_data: dict) -> dict[str, str]:
+    """Legacy type aliases, derived from the schema.
+
+    DFC v2.0 renamed Enterprise to Organization (the old class is a
+    deprecated equivalentClass stub), so imports canonicalize it. Schemas
+    where Enterprise owns slots its target lacks (v1.16) get no alias.
+    """
+    classes = schema_data.get('classes', {})
+    if 'Enterprise' not in classes or 'Organization' not in classes:
+        return {}
+    if _own_slots('Enterprise', schema_data) - _own_slots('Organization', schema_data):
+        return {}
+    return {'dfc-b:Enterprise': 'dfc-b:Organization'}
+
+
 def ruby_property_name(slot_name: str) -> str:
     """Convert a slot name to a Ruby accessor name (snake_case)."""
     name = slot_name
@@ -586,6 +601,11 @@ def generate_connector_class(schema_data: dict) -> str:
         predicate_map_lines.append(f'      "{predicate_for_slot(slot_name, slot_data)}" => "{ruby_property_name(slot_name)}",')
     predicate_map_str = '\n'.join(predicate_map_lines)
 
+    alias_lines = '\n'.join(
+        f'      "{pred}" => "{target}",'
+        for pred, target in sorted(_enterprise_alias(schema_data).items())
+    )
+
     code = '''# frozen_string_literal: true
 
 require 'json'
@@ -613,7 +633,7 @@ __PREDICATE_MAP__
       }.freeze
 
       TYPE_ALIASES = {
-      "dfc-b:Enterprise" => "dfc-b:Organization",
+__TYPE_ALIASES__
       }.freeze
 
       class << self
@@ -881,6 +901,7 @@ end
     code = code.replace('__TAXONOMY_VERSION__', taxonomy_version)
     code = code.replace('ENUM_METHODS', enum_methods.rstrip())
     code = code.replace('__PREDICATE_MAP__', predicate_map_str.rstrip())
+    code = code.replace('__TYPE_ALIASES__', alias_lines)
     return code
 
 
