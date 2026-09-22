@@ -47,5 +47,7 @@ python3 scripts/generate_php_connector.py [--schema …] [--output …]  # defau
 ## Reference
 
 - `scripts/owl2linkml.py` — OWL→LinkML converter; `config/dfc-default.yaml` — skip lists, prefixes, taxonomy enums
-- `tests/cross_connector/{run_matrix.py,normalize.py,adapters/,scenarios/}` — drop-in parity harness vs official connectors
+- `config/dfc-official-api.yaml` — curated official-v2 API map (single source for code-plane parity)
+- `tests/cross_connector/{run_matrix.py,normalize.py,adapters/,scenarios/,codeplane_inventory.py}` — drop-in parity harness vs official connectors
+- `docs/{migration-guide,api-gaps-typescript,api-gaps-ruby}.md` — code-plane migration docs (generated gap tables + guide)
 - CI (`.github/workflows/publish.yml`) only publishes the TS package on `@fooddatacollaboration/linkml-connector@*` tags

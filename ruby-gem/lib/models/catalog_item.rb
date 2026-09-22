@@ -81,6 +81,12 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:references", &method("references")).valueSetter = method("references=")
       end
 
+      # Official DFC v2 API aliases (see config/dfc-official-api.yaml).
+      alias_method :product, :references
+      alias_method :product=, :references=
+      alias_method :offers, :offered_through
+      alias_method :offers=, :offered_through=
+
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end

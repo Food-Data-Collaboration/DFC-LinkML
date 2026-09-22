@@ -566,15 +566,24 @@ def generate_connector_class(schema_data: dict) -> str:
 
     type_imports_str = '\n'.join(type_imports)
 
-    # Factory methods
+    # Factory methods accept both ours positional form
+    # `createX(semanticId, params)` and the official object form
+    # `createX({ semanticId, ...params })` (migration aid).
     factory_methods = ''
     for cn in class_names:
         ts = to_ts_class_name(cn)
         if ts == 'SemanticObject':
             continue
         factory_methods += f'''
-  create{ts}(semanticId: string, params?: {ts}Params): {ts} {{
-    return new {ts}(semanticId, params);
+  create{ts}(
+    semanticIdOrArgs: string | ({{ semanticId: string }} & {ts}Params),
+    params?: {ts}Params,
+  ): {ts} {{
+    if (typeof semanticIdOrArgs === "string") {{
+      return new {ts}(semanticIdOrArgs, params);
+    }}
+    const {{ semanticId, ...rest }} = semanticIdOrArgs;
+    return new {ts}(semanticId, rest as {ts}Params);
   }}
 '''
 

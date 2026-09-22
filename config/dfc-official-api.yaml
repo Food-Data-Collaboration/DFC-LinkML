@@ -1,0 +1,88 @@
+# Official v2 API map — single source of truth for code-plane parity.
+#
+# Canonical names are the shared vocabulary used by the harness adapters
+# (tests/cross_connector/adapters/* PARAM_MAPs). `predicate` is the official
+# JSON-LD predicate ours registers. `ruby`/`ts` give the official v2
+# reader/writer (plus adder/remover where they exist); null = absent upstream
+# (dropped on official export = expected-drop, documented not aliased).
+#
+# Checked against: @datafoodconsortium/connector 2.0.0-beta.2,
+# datafoodconsortium-connector 2.0.0.pre.beta8.
+# Verified by tests/cross_connector/codeplane_inventory.py — edit here, not
+# in the adapters or generators.
+
+# Known type counterparts whose names differ (usually spelling fixes
+# upstream). Used for class-coverage checks and alias candidates.
+type_aliases:
+  dfc-b:TheoreticalStock: dfc-b:TheoriticalStock
+
+slots:
+  # -- Order --
+  - canonical: orderNumber
+    predicate: dfc-b:orderNumber
+    ruby: { get: number, set: number= }
+    ts: { get: getNumber, set: setNumber }
+  - canonical: hasPart
+    predicate: dfc-b:hasPart
+    ruby: { get: lines, set: lines=, add: null, remove: null }
+    ts: { get: getLines, set: setLines, add: addLine, remove: removeLine }
+  - canonical: orderedBy
+    predicate: dfc-b:orderedBy
+    ruby: { get: client, set: client= }
+    ts: { get: getClient, set: setClient }
+
+  # -- OrderLine --
+  - canonical: quantity
+    predicate: dfc-b:quantity
+    ruby: { get: quantity, set: quantity= }
+    ts: { get: getQuantity, set: setQuantity }
+  - canonical: concerns
+    predicate: dfc-b:concerns
+    ruby: { get: offer, set: offer= }
+    ts: { get: getOffer, set: setOffer }
+
+  # -- Shared scalar slots (subset of classes each) --
+  - canonical: description
+    predicate: dfc-b:description
+    classes: [OrderLine, SuppliedProduct, Enterprise, Organization]
+    ruby: { get: description, set: description= }
+    ts: { get: getDescription, set: setDescription }
+  - canonical: name
+    predicate: dfc-b:name
+    classes: [SuppliedProduct, Enterprise, Organization]
+    ruby: { get: name, set: name= }
+    ts: { get: getName, set: setName }
+    note: Official OrderLine/Offer have no name accessors; covered classes only.
+
+  # -- Enterprise / Organization (v2: Organization only) --
+  - canonical: vatNumber
+    predicate: dfc-b:VATnumber
+    classes: [Enterprise, Organization]
+    ruby: { get: vatNumber, set: vatNumber= }
+    ts: { get: getVatNumber, set: setVatNumber }
+
+  # -- CatalogItem --
+  - canonical: sku
+    predicate: dfc-b:sku
+    ruby: { get: sku, set: sku= }
+    ts: { get: getSku, set: setSku }
+  - canonical: references
+    predicate: dfc-b:references
+    ruby: { get: product, set: product= }
+    ts: { get: getOfferedProduct, set: setOfferedProduct }
+  - canonical: offeredThrough
+    predicate: dfc-b:offeredThrough
+    ruby: { get: offers, set: offers=, add: null, remove: null }
+    ts: { get: getOfferers, set: setOffers, add: addOffer, remove: removeOffer }
+
+  # -- Price (embedded value object upstream) --
+  - canonical: vatRate
+    predicate: dfc-b:VATrate
+    ruby: { get: vatRate, set: vatRate= }
+    ts: { get: getVatRate, set: setVatRate }
+
+  # -- Offer --
+  - canonical: hasPrice
+    predicate: dfc-b:hasPrice
+    ruby: { get: price, set: price= }
+    ts: { get: getPrice, set: setPrice }

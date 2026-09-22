@@ -101,6 +101,14 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:selects", &method("selects")).valueSetter = method("selects=")
       end
 
+      # Official DFC v2 API aliases (see config/dfc-official-api.yaml).
+      alias_method :number, :order_number
+      alias_method :number=, :order_number=
+      alias_method :lines, :part
+      alias_method :lines=, :part=
+      alias_method :client, :ordered_by
+      alias_method :client=, :ordered_by=
+
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end
