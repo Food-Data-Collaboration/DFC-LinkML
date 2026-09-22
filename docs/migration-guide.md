@@ -1,11 +1,11 @@
-# Migration guide: official DFC connectors → LinkML connectors
+# Migration guide: original DFC connectors → LinkML connectors
 
-Swap the official Data Food Consortium connectors for ours with only
-mechanical changes. Direction is one-way: ours replace the official
-connector. Perfect parity is not the goal — everything below either works
+Swap the original DFC connectors for the LinkML genreated ones with only
+mechanical changes. Direction is one-way: LinkML replaces the original
+connector. Perfect parity is not achieved: but everything either works
 unchanged or rewrites by rule.
 
-Checked against official TypeScript `2.0.0-beta.2` and Ruby
+These migrations were verified against original TypeScript `2.0.0-beta.2` and Ruby
 `2.0.0.pre.beta8`. Per-class method tables live in
 [`api-gaps-typescript.md`](api-gaps-typescript.md) and
 [`api-gaps-ruby.md`](api-gaps-ruby.md) (generated — see
@@ -18,15 +18,15 @@ The worked flows below are executed as tests —
 ## What works unchanged
 
 - Package install aside, **reads** need no changes: import our JSON-LD with
-  the official connector and vice versa (verified by
-  `run_matrix.py --verify-drop-in`, official→ours fully green).
+  the original connector and vice versa (verified by
+  `run_matrix.py --verify-drop-in`, original→LinkML fully green).
 - Predicates on the wire are identical (`dfc-b:VATnumber`, …).
-- Class inventory: ours is a superset (89 classes). `Enterprise` still exists
-  in ours (deprecated subclass of `Organization`); v2 officials removed it.
+- Class inventory: LinkML is a superset (89 classes). `Enterprise` still exists
+  in LinkML (deprecated subclass of `Organization`); v2 originals removed it.
 
 ## TypeScript: before → after
 
-Before (official):
+Before (original):
 
 ```ts
 import { Connector } from "@datafoodconsortium/connector";
@@ -49,7 +49,7 @@ const jsonld = await c.export([org, tomato, line, order], {
 });
 ```
 
-After (ours — same construction shape, fields instead of methods):
+After (LinkML — same construction shape, fields instead of methods):
 
 ```ts
 import { Connector } from "@fooddatacollaboration/linkml-connector";
@@ -81,7 +81,7 @@ const doc = JSON.parse(await c.export(org, tomato, line, order));
 
 Rewrite rules (mechanical, no behavior change):
 
-| Official | Ours | Note |
+| Official | LinkML | Note |
 |---|---|---|
 | `createX({ semanticId, ... })` | same (supported) or `createX(semanticId, params)` | object form accepted |
 | `setName(x)` / `getName()` | `o.name = x` / `o.name` | fields, not methods |
@@ -91,7 +91,7 @@ Rewrite rules (mechanical, no behavior change):
 
 ## Ruby: before → after
 
-Before (official):
+Before (original):
 
 ```ruby
 c = DataFoodConsortium::Connector::Connector.instance
@@ -106,14 +106,14 @@ order.client = org
 jsonld = c.export(org, tomato, order)
 ```
 
-After (ours — official setter names work through aliases, kwargs optional):
+After (LinkML — original setter names work through aliases, kwargs optional):
 
 ```ruby
 connector = DfcLinkmlConnector::Core::Connector.new
 org = DfcLinkmlConnector::Models::Organization.new(
   "http://example.com/org1", name: "Farm Org", vatNumber: "FR12345678901"
 )
-org.vatNumber = "FR12345678901" # alias, like official
+org.vatNumber = "FR12345678901" # alias, like original
 tomato = DfcLinkmlConnector::Models::SuppliedProduct.new(
   "http://example.com/tomato", name: "Tomato", description: "Fresh tomato"
 )
@@ -139,21 +139,21 @@ Notes:
   `product=`→`references=`, `offers=`→`offered_through=`,
   `vatNumber=`→`vat_number=`). Identical names need nothing.
 - Constructor kwargs are camelCase (`vatNumber:`, `orderNumber:`) just like
-  official setters without `=`.
+  original setters without `=`.
 
 ## Deliberate differences (not migrated, by design)
 
 - `import()` always returns an array, even for a single `@graph` entry.
 - Export `@context` is a URL string, never an inline object.
-- Ours ship 89 classes vs ~50 official factories; extra classes are inert.
+- Ours ship 89 classes vs ~50 original factories; extra classes are inert.
 - TypeScript has no `supplyProduct`-style domain methods — use fields.
-- `dfc-b:Enterprise` documents import as `dfc-b:Organization` in ours;
-  official v2 dropped the type entirely.
+- `dfc-b:Enterprise` documents import as `dfc-b:Organization` in LinkML;
+  original v2 dropped the type entirely.
 
-## v1 vs v2 official notes
+## v1 vs v2 original notes
 
 - v1 (TS `1.0.0-beta.2`, Ruby `1.3.0`) uses `Enterprise` and
   `dfc-b:hasDescription`; v2 uses `Organization` and keeps
-  `dfc-b:hasDescription` while ours registers `dfc-b:description`. The matrix
+  `dfc-b:hasDescription` while LinkML registers `dfc-b:description`. The matrix
   treats these as expected drops in both directions.
 - Our `Enterprise` class + `TYPE_ALIASES` keep v1 documents readable.
