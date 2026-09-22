@@ -123,7 +123,14 @@ class OrderLine extends SemanticObject implements IOrderLine
 
     public function removeConcerns(string|SemanticObject $concerns): void
     {
+        if ($this->concerns === null) {
+            return;
+        }
         if (!is_array($this->concerns)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->concerns === $concerns) {
+                $this->concerns = [];
+            }
             return;
         }
         $key = array_search($concerns, $this->concerns, true);

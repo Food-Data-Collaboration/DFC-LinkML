@@ -68,7 +68,14 @@ class Place extends WhereSubject implements IPlace
 
     public function removeHosts(SaleSession|string|SemanticObject $hosts): void
     {
+        if ($this->hosts === null) {
+            return;
+        }
         if (!is_array($this->hosts)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->hosts === $hosts) {
+                $this->hosts = [];
+            }
             return;
         }
         $key = array_search($hosts, $this->hosts, true);

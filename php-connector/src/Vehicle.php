@@ -110,7 +110,14 @@ class Vehicle extends WhatSubject implements IVehicle
 
     public function removeShips(string|SemanticObject $ships): void
     {
+        if ($this->ships === null) {
+            return;
+        }
         if (!is_array($this->ships)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->ships === $ships) {
+                $this->ships = [];
+            }
             return;
         }
         $key = array_search($ships, $this->ships, true);

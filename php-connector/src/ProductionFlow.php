@@ -113,7 +113,14 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
 
     public function removeProduces(string|SemanticObject $produces): void
     {
+        if ($this->produces === null) {
+            return;
+        }
         if (!is_array($this->produces)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->produces === $produces) {
+                $this->produces = [];
+            }
             return;
         }
         $key = array_search($produces, $this->produces, true);

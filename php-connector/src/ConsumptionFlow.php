@@ -102,7 +102,14 @@ class ConsumptionFlow extends SemanticObject implements IConsumptionFlow
 
     public function removeConsumes(string|SemanticObject $consumes): void
     {
+        if ($this->consumes === null) {
+            return;
+        }
         if (!is_array($this->consumes)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->consumes === $consumes) {
+                $this->consumes = [];
+            }
             return;
         }
         $key = array_search($consumes, $this->consumes, true);

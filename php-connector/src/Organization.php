@@ -165,7 +165,14 @@ class Organization extends Agent implements IOrganization
 
     public function removeAffiliates(Organization|string|SemanticObject $affiliates): void
     {
+        if ($this->affiliates === null) {
+            return;
+        }
         if (!is_array($this->affiliates)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->affiliates === $affiliates) {
+                $this->affiliates = [];
+            }
             return;
         }
         $key = array_search($affiliates, $this->affiliates, true);
@@ -201,7 +208,14 @@ class Organization extends Agent implements IOrganization
 
     public function removeDefines(CustomerCategory|string|SemanticObject $defines): void
     {
+        if ($this->defines === null) {
+            return;
+        }
         if (!is_array($this->defines)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->defines === $defines) {
+                $this->defines = [];
+            }
             return;
         }
         $key = array_search($defines, $this->defines, true);
@@ -248,7 +262,14 @@ class Organization extends Agent implements IOrganization
 
     public function removeMaintains(Catalog|string|SemanticObject $maintains): void
     {
+        if ($this->maintains === null) {
+            return;
+        }
         if (!is_array($this->maintains)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->maintains === $maintains) {
+                $this->maintains = [];
+            }
             return;
         }
         $key = array_search($maintains, $this->maintains, true);
@@ -284,7 +305,14 @@ class Organization extends Agent implements IOrganization
 
     public function removeManages(CatalogItem|string|SemanticObject $manages): void
     {
+        if ($this->manages === null) {
+            return;
+        }
         if (!is_array($this->manages)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->manages === $manages) {
+                $this->manages = [];
+            }
             return;
         }
         $key = array_search($manages, $this->manages, true);
@@ -320,7 +348,14 @@ class Organization extends Agent implements IOrganization
 
     public function removeProposes(TechnicalProduct|string|SemanticObject $proposes): void
     {
+        if ($this->proposes === null) {
+            return;
+        }
         if (!is_array($this->proposes)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->proposes === $proposes) {
+                $this->proposes = [];
+            }
             return;
         }
         $key = array_search($proposes, $this->proposes, true);
@@ -356,7 +391,14 @@ class Organization extends Agent implements IOrganization
 
     public function removeSupplies(SuppliedProduct|string|SemanticObject $supplies): void
     {
+        if ($this->supplies === null) {
+            return;
+        }
         if (!is_array($this->supplies)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->supplies === $supplies) {
+                $this->supplies = [];
+            }
             return;
         }
         $key = array_search($supplies, $this->supplies, true);
@@ -392,7 +434,14 @@ class Organization extends Agent implements IOrganization
 
     public function removeTransforms(AsPlannedLocalTransformation|string|SemanticObject $transforms): void
     {
+        if ($this->transforms === null) {
+            return;
+        }
         if (!is_array($this->transforms)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->transforms === $transforms) {
+                $this->transforms = [];
+            }
             return;
         }
         $key = array_search($transforms, $this->transforms, true);

@@ -81,7 +81,14 @@ class Geometry extends SemanticObject implements IGeometry
 
     public function removeCoordinates(string|SemanticObject $coordinates): void
     {
+        if ($this->coordinates === null) {
+            return;
+        }
         if (!is_array($this->coordinates)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->coordinates === $coordinates) {
+                $this->coordinates = [];
+            }
             return;
         }
         $key = array_search($coordinates, $this->coordinates, true);

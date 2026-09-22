@@ -113,7 +113,14 @@ class DeliveryOption extends ShippingOption implements IDeliveryOption
 
     public function removeUses(string|SemanticObject $uses): void
     {
+        if ($this->uses === null) {
+            return;
+        }
         if (!is_array($this->uses)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->uses === $uses) {
+                $this->uses = [];
+            }
             return;
         }
         $key = array_search($uses, $this->uses, true);

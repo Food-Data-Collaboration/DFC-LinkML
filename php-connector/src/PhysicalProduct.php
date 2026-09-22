@@ -156,7 +156,14 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
 
     public function removeFulfills(string|SemanticObject $fulfills): void
     {
+        if ($this->fulfills === null) {
+            return;
+        }
         if (!is_array($this->fulfills)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->fulfills === $fulfills) {
+                $this->fulfills = [];
+            }
             return;
         }
         $key = array_search($fulfills, $this->fulfills, true);
@@ -225,7 +232,14 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
 
     public function removeRepresents(LocalizedProduct|string|SemanticObject $represents): void
     {
+        if ($this->represents === null) {
+            return;
+        }
         if (!is_array($this->represents)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->represents === $represents) {
+                $this->represents = [];
+            }
             return;
         }
         $key = array_search($represents, $this->represents, true);

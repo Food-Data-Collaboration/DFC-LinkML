@@ -174,7 +174,14 @@ class SuppliedProduct extends DefinedProduct implements ISuppliedProduct
 
     public function removeIndustrializes(TechnicalProduct|string|SemanticObject $industrializes): void
     {
+        if ($this->industrializes === null) {
+            return;
+        }
         if (!is_array($this->industrializes)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->industrializes === $industrializes) {
+                $this->industrializes = [];
+            }
             return;
         }
         $key = array_search($industrializes, $this->industrializes, true);

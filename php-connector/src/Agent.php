@@ -160,7 +160,14 @@ class Agent extends WhoSubject implements IAgent
 
     public function removeOwns(string|SemanticObject $owns): void
     {
+        if ($this->owns === null) {
+            return;
+        }
         if (!is_array($this->owns)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->owns === $owns) {
+                $this->owns = [];
+            }
             return;
         }
         $key = array_search($owns, $this->owns, true);
@@ -196,7 +203,14 @@ class Agent extends WhoSubject implements IAgent
 
     public function removeSells(string|SemanticObject $sells): void
     {
+        if ($this->sells === null) {
+            return;
+        }
         if (!is_array($this->sells)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->sells === $sells) {
+                $this->sells = [];
+            }
             return;
         }
         $key = array_search($sells, $this->sells, true);
@@ -265,7 +279,14 @@ class Agent extends WhoSubject implements IAgent
 
     public function removeOrders(Order|string|SemanticObject $orders): void
     {
+        if ($this->orders === null) {
+            return;
+        }
         if (!is_array($this->orders)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->orders === $orders) {
+                $this->orders = [];
+            }
             return;
         }
         $key = array_search($orders, $this->orders, true);
@@ -301,7 +322,14 @@ class Agent extends WhoSubject implements IAgent
 
     public function removeRequests(FunctionalProduct|string|SemanticObject $requests): void
     {
+        if ($this->requests === null) {
+            return;
+        }
         if (!is_array($this->requests)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->requests === $requests) {
+                $this->requests = [];
+            }
             return;
         }
         $key = array_search($requests, $this->requests, true);

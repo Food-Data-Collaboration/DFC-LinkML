@@ -128,7 +128,14 @@ class ProductBatch extends WhatSubject implements IProductBatch
 
     public function removeIdentifies(RealStock|string|SemanticObject $identifies): void
     {
+        if ($this->identifies === null) {
+            return;
+        }
         if (!is_array($this->identifies)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->identifies === $identifies) {
+                $this->identifies = [];
+            }
             return;
         }
         $key = array_search($identifies, $this->identifies, true);
@@ -164,7 +171,14 @@ class ProductBatch extends WhatSubject implements IProductBatch
 
     public function removeTraces(PhysicalProduct|string|SemanticObject $traces): void
     {
+        if ($this->traces === null) {
+            return;
+        }
         if (!is_array($this->traces)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->traces === $traces) {
+                $this->traces = [];
+            }
             return;
         }
         $key = array_search($traces, $this->traces, true);

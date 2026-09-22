@@ -98,7 +98,14 @@ class OpeningHoursSpecification extends SemanticObject implements IOpeningHoursS
 
     public function removeOpens(string|SemanticObject $opens): void
     {
+        if ($this->opens === null) {
+            return;
+        }
         if (!is_array($this->opens)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->opens === $opens) {
+                $this->opens = [];
+            }
             return;
         }
         $key = array_search($opens, $this->opens, true);
@@ -134,7 +141,14 @@ class OpeningHoursSpecification extends SemanticObject implements IOpeningHoursS
 
     public function removeCloses(string|SemanticObject $closes): void
     {
+        if ($this->closes === null) {
+            return;
+        }
         if (!is_array($this->closes)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->closes === $closes) {
+                $this->closes = [];
+            }
             return;
         }
         $key = array_search($closes, $this->closes, true);

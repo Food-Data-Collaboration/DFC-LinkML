@@ -130,7 +130,14 @@ class Shipment extends SemanticObject implements IShipment
 
     public function removeTransports(string|SemanticObject $transports): void
     {
+        if ($this->transports === null) {
+            return;
+        }
         if (!is_array($this->transports)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->transports === $transports) {
+                $this->transports = [];
+            }
             return;
         }
         $key = array_search($transports, $this->transports, true);

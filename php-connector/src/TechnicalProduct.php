@@ -98,7 +98,14 @@ class TechnicalProduct extends DefinedProduct implements ITechnicalProduct
 
     public function removeSatisfies(FunctionalProduct|string|SemanticObject $satisfies): void
     {
+        if ($this->satisfies === null) {
+            return;
+        }
         if (!is_array($this->satisfies)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->satisfies === $satisfies) {
+                $this->satisfies = [];
+            }
             return;
         }
         $key = array_search($satisfies, $this->satisfies, true);

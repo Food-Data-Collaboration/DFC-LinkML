@@ -109,7 +109,14 @@ class Certfication extends WhatSubject implements ICertfication
 
     public function removeCertifies(string|SemanticObject $certifies): void
     {
+        if ($this->certifies === null) {
+            return;
+        }
         if (!is_array($this->certifies)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->certifies === $certifies) {
+                $this->certifies = [];
+            }
             return;
         }
         $key = array_search($certifies, $this->certifies, true);

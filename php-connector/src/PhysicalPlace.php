@@ -146,7 +146,14 @@ class PhysicalPlace extends Place implements IPhysicalPlace
 
     public function removeLocalizes(TheoriticalStock|string|SemanticObject $localizes): void
     {
+        if ($this->localizes === null) {
+            return;
+        }
         if (!is_array($this->localizes)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->localizes === $localizes) {
+                $this->localizes = [];
+            }
             return;
         }
         $key = array_search($localizes, $this->localizes, true);
@@ -182,7 +189,14 @@ class PhysicalPlace extends Place implements IPhysicalPlace
 
     public function removeStores(RealStock|string|SemanticObject $stores): void
     {
+        if ($this->stores === null) {
+            return;
+        }
         if (!is_array($this->stores)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->stores === $stores) {
+                $this->stores = [];
+            }
             return;
         }
         $key = array_search($stores, $this->stores, true);

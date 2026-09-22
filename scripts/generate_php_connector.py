@@ -1227,7 +1227,14 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
 
     public function {uniform_remove}({ptype} ${prop_name}): void
     {{
+        if ($this->{prop_name} === null) {{
+            return;
+        }}
         if (!is_array($this->{prop_name})) {{
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->{prop_name} === ${prop_name}) {{
+                $this->{prop_name} = [];
+            }}
             return;
         }}
         $key = array_search(${prop_name}, $this->{prop_name}, true);

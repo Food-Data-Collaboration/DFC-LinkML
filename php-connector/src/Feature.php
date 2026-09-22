@@ -152,7 +152,14 @@ class Feature extends SemanticObject implements IFeature
 
     public function removeProperties(Properties|string|SemanticObject $properties): void
     {
+        if ($this->properties === null) {
+            return;
+        }
         if (!is_array($this->properties)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->properties === $properties) {
+                $this->properties = [];
+            }
             return;
         }
         $key = array_search($properties, $this->properties, true);

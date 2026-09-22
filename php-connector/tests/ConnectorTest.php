@@ -137,6 +137,21 @@ final class ConnectorTest extends TestCase
         );
     }
 
+    public function testRemoveClearsSingularShapedValueOnMatch(): void
+    {
+        // Collections preserve singular shape (setX stores a scalar as-is),
+        // so removeX must also handle the scalar case instead of no-op'ing.
+        $o = $this->connector->createOrganization('http://example.com/o', []);
+        $o->setAffiliates('http://example.com/a');
+        $o->removeAffiliates('http://example.com/a');
+        $doc = json_decode($this->connector->export($o), true);
+        $this->assertArrayNotHasKey('dfc-b:affiliates', $doc);
+        $o->setAffiliates('http://example.com/a');
+        $o->removeAffiliates('http://example.com/b');
+        $doc = json_decode($this->connector->export($o), true);
+        $this->assertSame('http://example.com/a', $doc['dfc-b:affiliates']);
+    }
+
     public function testEnterpriseCarriesOrganizationAttributes(): void
     {
         $ent = $this->connector->createEnterprise('http://example.com/ent1', [

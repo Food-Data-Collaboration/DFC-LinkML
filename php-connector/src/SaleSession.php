@@ -142,7 +142,14 @@ class SaleSession extends SemanticObject implements ISaleSession
 
     public function removeHolds(string|SemanticObject $holds): void
     {
+        if ($this->holds === null) {
+            return;
+        }
         if (!is_array($this->holds)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->holds === $holds) {
+                $this->holds = [];
+            }
             return;
         }
         $key = array_search($holds, $this->holds, true);
@@ -178,7 +185,14 @@ class SaleSession extends SemanticObject implements ISaleSession
 
     public function removeLists(string|SemanticObject $lists): void
     {
+        if ($this->lists === null) {
+            return;
+        }
         if (!is_array($this->lists)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->lists === $lists) {
+                $this->lists = [];
+            }
             return;
         }
         $key = array_search($lists, $this->lists, true);

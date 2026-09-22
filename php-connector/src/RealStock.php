@@ -75,7 +75,14 @@ class RealStock extends Stock implements IRealStock
 
     public function removeConstitutes(string|SemanticObject $constitutes): void
     {
+        if ($this->constitutes === null) {
+            return;
+        }
         if (!is_array($this->constitutes)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->constitutes === $constitutes) {
+                $this->constitutes = [];
+            }
             return;
         }
         $key = array_search($constitutes, $this->constitutes, true);

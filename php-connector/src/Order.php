@@ -195,7 +195,14 @@ class Order extends SemanticObject implements IOrder
 
     public function removeUses(string|SemanticObject $uses): void
     {
+        if ($this->uses === null) {
+            return;
+        }
         if (!is_array($this->uses)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->uses === $uses) {
+                $this->uses = [];
+            }
             return;
         }
         $key = array_search($uses, $this->uses, true);
@@ -319,7 +326,14 @@ class Order extends SemanticObject implements IOrder
 
     public function removeSelects(ShippingOption|string|SemanticObject $selects): void
     {
+        if ($this->selects === null) {
+            return;
+        }
         if (!is_array($this->selects)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->selects === $selects) {
+                $this->selects = [];
+            }
             return;
         }
         $key = array_search($selects, $this->selects, true);

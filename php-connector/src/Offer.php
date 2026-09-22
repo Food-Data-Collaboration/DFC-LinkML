@@ -211,7 +211,14 @@ class Offer extends SemanticObject implements IOffer
 
     public function removeOffers(CatalogItem|string|SemanticObject $offers): void
     {
+        if ($this->offers === null) {
+            return;
+        }
         if (!is_array($this->offers)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->offers === $offers) {
+                $this->offers = [];
+            }
             return;
         }
         $key = array_search($offers, $this->offers, true);
@@ -247,7 +254,14 @@ class Offer extends SemanticObject implements IOffer
 
     public function removeOffersTo(CustomerCategory|string|SemanticObject $offersTo): void
     {
+        if ($this->offersTo === null) {
+            return;
+        }
         if (!is_array($this->offersTo)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->offersTo === $offersTo) {
+                $this->offersTo = [];
+            }
             return;
         }
         $key = array_search($offersTo, $this->offersTo, true);

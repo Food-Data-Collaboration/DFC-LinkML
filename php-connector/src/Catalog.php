@@ -99,7 +99,14 @@ class Catalog extends WhereSubject implements ICatalog
 
     public function removeLists(string|SemanticObject $lists): void
     {
+        if ($this->lists === null) {
+            return;
+        }
         if (!is_array($this->lists)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->lists === $lists) {
+                $this->lists = [];
+            }
             return;
         }
         $key = array_search($lists, $this->lists, true);

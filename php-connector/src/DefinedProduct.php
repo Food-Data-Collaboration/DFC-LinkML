@@ -226,7 +226,14 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
 
     public function removePhysicalCharacteristics(string|SemanticObject $physicalCharacteristics): void
     {
+        if ($this->physicalCharacteristics === null) {
+            return;
+        }
         if (!is_array($this->physicalCharacteristics)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->physicalCharacteristics === $physicalCharacteristics) {
+                $this->physicalCharacteristics = [];
+            }
             return;
         }
         $key = array_search($physicalCharacteristics, $this->physicalCharacteristics, true);
@@ -284,7 +291,14 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
 
     public function removeComposes(string|SemanticObject $composes): void
     {
+        if ($this->composes === null) {
+            return;
+        }
         if (!is_array($this->composes)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->composes === $composes) {
+                $this->composes = [];
+            }
             return;
         }
         $key = array_search($composes, $this->composes, true);

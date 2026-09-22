@@ -237,7 +237,14 @@ class CatalogItem extends SemanticObject implements ICatalogItem
 
     public function removeReferences(DefinedProduct|string|SemanticObject $references): void
     {
+        if ($this->references === null) {
+            return;
+        }
         if (!is_array($this->references)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->references === $references) {
+                $this->references = [];
+            }
             return;
         }
         $key = array_search($references, $this->references, true);
