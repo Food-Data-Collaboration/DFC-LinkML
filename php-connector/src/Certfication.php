@@ -115,6 +115,9 @@ class Certfication extends WhatSubject implements ICertfication
         $key = array_search($certifies, $this->certifies, true);
         if ($key !== false) {
             unset($this->certifies[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->certifies = array_values($this->certifies);
         }
     }
 }

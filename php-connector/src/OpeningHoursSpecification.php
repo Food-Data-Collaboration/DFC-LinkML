@@ -104,6 +104,9 @@ class OpeningHoursSpecification extends SemanticObject implements IOpeningHoursS
         $key = array_search($opens, $this->opens, true);
         if ($key !== false) {
             unset($this->opens[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->opens = array_values($this->opens);
         }
     }
 
@@ -137,6 +140,9 @@ class OpeningHoursSpecification extends SemanticObject implements IOpeningHoursS
         $key = array_search($closes, $this->closes, true);
         if ($key !== false) {
             unset($this->closes[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->closes = array_values($this->closes);
         }
     }
 

@@ -171,6 +171,9 @@ class Organization extends Agent implements IOrganization
         $key = array_search($affiliates, $this->affiliates, true);
         if ($key !== false) {
             unset($this->affiliates[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->affiliates = array_values($this->affiliates);
         }
     }
 
@@ -204,6 +207,9 @@ class Organization extends Agent implements IOrganization
         $key = array_search($defines, $this->defines, true);
         if ($key !== false) {
             unset($this->defines[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->defines = array_values($this->defines);
         }
     }
 
@@ -248,6 +254,9 @@ class Organization extends Agent implements IOrganization
         $key = array_search($maintains, $this->maintains, true);
         if ($key !== false) {
             unset($this->maintains[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->maintains = array_values($this->maintains);
         }
     }
 
@@ -281,6 +290,9 @@ class Organization extends Agent implements IOrganization
         $key = array_search($manages, $this->manages, true);
         if ($key !== false) {
             unset($this->manages[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->manages = array_values($this->manages);
         }
     }
 
@@ -314,6 +326,9 @@ class Organization extends Agent implements IOrganization
         $key = array_search($proposes, $this->proposes, true);
         if ($key !== false) {
             unset($this->proposes[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->proposes = array_values($this->proposes);
         }
     }
 
@@ -347,6 +362,9 @@ class Organization extends Agent implements IOrganization
         $key = array_search($supplies, $this->supplies, true);
         if ($key !== false) {
             unset($this->supplies[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->supplies = array_values($this->supplies);
         }
     }
 
@@ -380,6 +398,9 @@ class Organization extends Agent implements IOrganization
         $key = array_search($transforms, $this->transforms, true);
         if ($key !== false) {
             unset($this->transforms[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->transforms = array_values($this->transforms);
         }
     }
 }

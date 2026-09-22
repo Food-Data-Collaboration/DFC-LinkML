@@ -12,7 +12,7 @@ LinkML schemas (`src/`, current v2.0.0) converted from the DFC OWL ontology, plu
 | Ruby | `bundle exec rake spec` (in `ruby-gem/`) | RSpec, offline, fast |
 | PHP | `composer install && vendor/bin/phpunit` (in `php-connector/`) | PHPUnit, offline, fast (needs php-xml ext) |
 
-Matrix official deps: TypeScript `@datafoodconsortium/connector@2.0.0-beta.2` (pinned in `tests/package.json`, installed to gitignored `tests/node_modules/`); Ruby `datafoodconsortium-connector >= 2.0.0.pre.beta8` system gem (pinned via `gem` call in `adapters/official-ruby.rb`); PHP has no official v2 (packagist beta3 is v1-only) so there is no `official-php` adapter — ours is tested against the official Ruby/TS v2 connectors.
+Matrix official deps: TypeScript `@datafoodconsortium/connector@2.0.0-beta.2` (pinned in `tests/package.json`, installed to gitignored `tests/node_modules/`); Ruby `datafoodconsortium-connector = 2.0.0.pre.beta8` system gem (exact pin via `gem` call in `adapters/official-ruby.rb`); PHP has no official v2 (packagist beta3 is v1-only) so there is no `official-php` adapter — ours is tested against the official Ruby/TS v2 connectors.
 
 ## Generation pipeline
 

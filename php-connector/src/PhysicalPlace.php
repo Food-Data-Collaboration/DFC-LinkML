@@ -152,6 +152,9 @@ class PhysicalPlace extends Place implements IPhysicalPlace
         $key = array_search($localizes, $this->localizes, true);
         if ($key !== false) {
             unset($this->localizes[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->localizes = array_values($this->localizes);
         }
     }
 
@@ -185,6 +188,9 @@ class PhysicalPlace extends Place implements IPhysicalPlace
         $key = array_search($stores, $this->stores, true);
         if ($key !== false) {
             unset($this->stores[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->stores = array_values($this->stores);
         }
     }
 }

@@ -217,6 +217,9 @@ class Offer extends SemanticObject implements IOffer
         $key = array_search($offers, $this->offers, true);
         if ($key !== false) {
             unset($this->offers[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->offers = array_values($this->offers);
         }
     }
 
@@ -250,6 +253,9 @@ class Offer extends SemanticObject implements IOffer
         $key = array_search($offersTo, $this->offersTo, true);
         if ($key !== false) {
             unset($this->offersTo[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->offersTo = array_values($this->offersTo);
         }
     }
 }

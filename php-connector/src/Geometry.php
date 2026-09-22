@@ -87,6 +87,9 @@ class Geometry extends SemanticObject implements IGeometry
         $key = array_search($coordinates, $this->coordinates, true);
         if ($key !== false) {
             unset($this->coordinates[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->coordinates = array_values($this->coordinates);
         }
     }
 

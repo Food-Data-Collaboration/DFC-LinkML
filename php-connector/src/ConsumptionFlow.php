@@ -108,6 +108,9 @@ class ConsumptionFlow extends SemanticObject implements IConsumptionFlow
         $key = array_search($consumes, $this->consumes, true);
         if ($key !== false) {
             unset($this->consumes[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->consumes = array_values($this->consumes);
         }
     }
 

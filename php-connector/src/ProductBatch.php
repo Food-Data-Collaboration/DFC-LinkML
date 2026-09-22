@@ -134,6 +134,9 @@ class ProductBatch extends WhatSubject implements IProductBatch
         $key = array_search($identifies, $this->identifies, true);
         if ($key !== false) {
             unset($this->identifies[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->identifies = array_values($this->identifies);
         }
     }
 
@@ -167,6 +170,9 @@ class ProductBatch extends WhatSubject implements IProductBatch
         $key = array_search($traces, $this->traces, true);
         if ($key !== false) {
             unset($this->traces[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->traces = array_values($this->traces);
         }
     }
 }

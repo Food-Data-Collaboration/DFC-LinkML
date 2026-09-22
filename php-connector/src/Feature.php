@@ -158,6 +158,9 @@ class Feature extends SemanticObject implements IFeature
         $key = array_search($properties, $this->properties, true);
         if ($key !== false) {
             unset($this->properties[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->properties = array_values($this->properties);
         }
     }
 }

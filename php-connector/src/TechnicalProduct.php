@@ -104,6 +104,9 @@ class TechnicalProduct extends DefinedProduct implements ITechnicalProduct
         $key = array_search($satisfies, $this->satisfies, true);
         if ($key !== false) {
             unset($this->satisfies[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->satisfies = array_values($this->satisfies);
         }
     }
 }

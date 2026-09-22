@@ -166,6 +166,9 @@ class Agent extends WhoSubject implements IAgent
         $key = array_search($owns, $this->owns, true);
         if ($key !== false) {
             unset($this->owns[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->owns = array_values($this->owns);
         }
     }
 
@@ -199,6 +202,9 @@ class Agent extends WhoSubject implements IAgent
         $key = array_search($sells, $this->sells, true);
         if ($key !== false) {
             unset($this->sells[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->sells = array_values($this->sells);
         }
     }
 
@@ -265,6 +271,9 @@ class Agent extends WhoSubject implements IAgent
         $key = array_search($orders, $this->orders, true);
         if ($key !== false) {
             unset($this->orders[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->orders = array_values($this->orders);
         }
     }
 
@@ -298,6 +307,9 @@ class Agent extends WhoSubject implements IAgent
         $key = array_search($requests, $this->requests, true);
         if ($key !== false) {
             unset($this->requests[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->requests = array_values($this->requests);
         }
     }
 }

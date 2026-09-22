@@ -116,6 +116,9 @@ class Vehicle extends WhatSubject implements IVehicle
         $key = array_search($ships, $this->ships, true);
         if ($key !== false) {
             unset($this->ships[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->ships = array_values($this->ships);
         }
     }
 

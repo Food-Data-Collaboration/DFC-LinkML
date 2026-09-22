@@ -162,6 +162,9 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
         $key = array_search($fulfills, $this->fulfills, true);
         if ($key !== false) {
             unset($this->fulfills[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->fulfills = array_values($this->fulfills);
         }
     }
 
@@ -228,6 +231,9 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
         $key = array_search($represents, $this->represents, true);
         if ($key !== false) {
             unset($this->represents[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->represents = array_values($this->represents);
         }
     }
 

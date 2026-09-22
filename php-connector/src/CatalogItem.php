@@ -243,6 +243,9 @@ class CatalogItem extends SemanticObject implements ICatalogItem
         $key = array_search($references, $this->references, true);
         if ($key !== false) {
             unset($this->references[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->references = array_values($this->references);
         }
     }
 }

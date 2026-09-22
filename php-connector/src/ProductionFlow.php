@@ -119,6 +119,9 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
         $key = array_search($produces, $this->produces, true);
         if ($key !== false) {
             unset($this->produces[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->produces = array_values($this->produces);
         }
     }
 

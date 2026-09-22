@@ -8,7 +8,7 @@
 #   export <scenario.json>  -> JSON-LD (reads scenario from file, writes to stdout)
 #   import                  -> canonical summary (reads JSON-LD from stdin)
 
-gem 'datafoodconsortium-connector', '>= 2.0.0.pre.beta8'
+gem 'datafoodconsortium-connector', '= 2.0.0.pre.beta8'
 
 require 'json'
 require 'datafoodconsortium/connector'

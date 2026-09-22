@@ -136,6 +136,9 @@ class Shipment extends SemanticObject implements IShipment
         $key = array_search($transports, $this->transports, true);
         if ($key !== false) {
             unset($this->transports[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->transports = array_values($this->transports);
         }
     }
 

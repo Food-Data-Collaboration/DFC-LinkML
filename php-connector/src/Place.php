@@ -74,6 +74,9 @@ class Place extends WhereSubject implements IPlace
         $key = array_search($hosts, $this->hosts, true);
         if ($key !== false) {
             unset($this->hosts[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->hosts = array_values($this->hosts);
         }
     }
 }

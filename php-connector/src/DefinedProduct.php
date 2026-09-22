@@ -232,6 +232,9 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         $key = array_search($physicalCharacteristics, $this->physicalCharacteristics, true);
         if ($key !== false) {
             unset($this->physicalCharacteristics[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->physicalCharacteristics = array_values($this->physicalCharacteristics);
         }
     }
 
@@ -287,6 +290,9 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         $key = array_search($composes, $this->composes, true);
         if ($key !== false) {
             unset($this->composes[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->composes = array_values($this->composes);
         }
     }
 

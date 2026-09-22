@@ -201,6 +201,9 @@ class Order extends SemanticObject implements IOrder
         $key = array_search($uses, $this->uses, true);
         if ($key !== false) {
             unset($this->uses[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->uses = array_values($this->uses);
         }
     }
 
@@ -322,6 +325,9 @@ class Order extends SemanticObject implements IOrder
         $key = array_search($selects, $this->selects, true);
         if ($key !== false) {
             unset($this->selects[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->selects = array_values($this->selects);
         }
     }
 }

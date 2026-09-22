@@ -115,6 +115,9 @@ class Transaction extends HowSubject implements ITransaction
         $key = array_search($concerns, $this->concerns, true);
         if ($key !== false) {
             unset($this->concerns[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->concerns = array_values($this->concerns);
         }
     }
 

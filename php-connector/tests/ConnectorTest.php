@@ -116,6 +116,27 @@ final class ConnectorTest extends TestCase
         $this->assertArrayHasKey('readorders', $this->connector->getScope());
     }
 
+    public function testRemovingMiddleElementKeepsJsonArrayShape(): void
+    {
+        $a = $this->connector->createOrganization('http://example.com/a', ['name' => 'A']);
+        $b = $this->connector->createOrganization('http://example.com/b', ['name' => 'B']);
+        $d = $this->connector->createOrganization('http://example.com/d', ['name' => 'D']);
+        $o = $this->connector->createOrganization('http://example.com/o', []);
+        $o->setAffiliates([$a, $b, $d]);
+        $o->removeAffiliates($b);
+        $doc = json_decode($this->connector->export($o), true);
+        // Without reindexing, unset() leaves key gaps and json_encode emits
+        // an object instead of an array (shape change on re-export).
+        $this->assertSame(
+            ['http://example.com/a', 'http://example.com/d'],
+            array_values($doc['dfc-b:affiliates'])
+        );
+        $this->assertSame(
+            ['http://example.com/a', 'http://example.com/d'],
+            $doc['dfc-b:affiliates']
+        );
+    }
+
     public function testEnterpriseCarriesOrganizationAttributes(): void
     {
         $ent = $this->connector->createEnterprise('http://example.com/ent1', [

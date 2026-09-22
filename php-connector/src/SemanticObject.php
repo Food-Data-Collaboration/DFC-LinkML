@@ -106,9 +106,19 @@ class SemanticObject
 
             if (is_array($value)) {
                 if (empty($value)) continue;
-                $result[$predicate] = array_map(function ($v) {
+                // Reindex int-keyed sequences only: a gappy key sequence
+                // (e.g. after removal) would json_encode as an object
+                // instead of an array. Assoc hashes (embedded nodes) and
+                // mixed keys pass through untouched.
+                $mapped = array_map(function ($v) {
                     return $v instanceof self ? $v->getSemanticId() : $v;
                 }, $value);
+                $allIntKeys = true;
+                foreach ($mapped as $k => $_v) {
+                    if (!is_int($k)) { $allIntKeys = false; break; }
+                }
+                $result[$predicate] = $allIntKeys
+                    ? array_values($mapped) : $mapped;
             } elseif ($value instanceof self) {
                 $result[$predicate] = $value->getSemanticId();
             } else {

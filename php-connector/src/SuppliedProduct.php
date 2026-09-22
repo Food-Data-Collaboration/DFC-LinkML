@@ -180,6 +180,9 @@ class SuppliedProduct extends DefinedProduct implements ISuppliedProduct
         $key = array_search($industrializes, $this->industrializes, true);
         if ($key !== false) {
             unset($this->industrializes[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->industrializes = array_values($this->industrializes);
         }
     }
 

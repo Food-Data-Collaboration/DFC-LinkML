@@ -148,6 +148,9 @@ class SaleSession extends SemanticObject implements ISaleSession
         $key = array_search($holds, $this->holds, true);
         if ($key !== false) {
             unset($this->holds[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->holds = array_values($this->holds);
         }
     }
 
@@ -181,6 +184,9 @@ class SaleSession extends SemanticObject implements ISaleSession
         $key = array_search($lists, $this->lists, true);
         if ($key !== false) {
             unset($this->lists[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->lists = array_values($this->lists);
         }
     }
 
