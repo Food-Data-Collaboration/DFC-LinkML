@@ -142,28 +142,28 @@ def _enterprise_alias(schema_data: dict) -> dict[str, str]:
     return {'dfc-b:Enterprise': 'dfc-b:Organization'}
 
 
-def load_official_api() -> list[dict]:
-    """Load canonical→official-v2 mapping for code-plane aliases.
+def load_original_api() -> list[dict]:
+    """Load canonical→original-v2 mapping for code-plane aliases.
 
     Returns [] when the file is absent so the generator stays usable
     standalone (no aliases emitted).
     """
-    for p in ('config/dfc-official-api.yaml', '../config/dfc-official-api.yaml',
-              '../../config/dfc-official-api.yaml'):
+    for p in ('config/dfc-original-api.yaml', '../config/dfc-original-api.yaml',
+              '../../config/dfc-original-api.yaml'):
         if Path(p).exists():
             import yaml
             return yaml.safe_load(Path(p).read_text()).get('slots', [])
-    print("Official API map not found; skipping code-plane aliases",
+    print("Original API map not found; skipping code-plane aliases",
           file=sys.stderr)
     return []
 
 
-def official_aliases_for_class(class_name: str, schema_data: dict,
+def original_aliases_for_class(class_name: str, schema_data: dict,
                                api_slots: list[dict]) -> list[tuple[str, str]]:
-    """Official-v2 reader/writer names to alias onto ours accessors.
+    """Original-v2 reader/writer names to alias onto LinkML accessors.
 
-    Returns (official, ours) pairs, skipping identical names and collisions
-    where the official name already means something else on this class.
+    Returns (original, LinkML) pairs, skipping identical names and collisions
+    where the original name already means something else on this class.
     Includes inherited slots (aliases work through inheritance too).
     """
     pred_to_prop: dict[str, str] = {}
@@ -334,7 +334,7 @@ def rdf_prefix_for_class(class_name: str) -> str:
 
 
 def predicate_for_slot(slot_name: str, slot_data: dict) -> str:
-    """Compute the official JSON-LD predicate CURIE/URI for a slot.
+    """Compute the original JSON-LD predicate CURIE/URI for a slot.
 
     DFC business/technical ontology properties use the dfc-b/dfc-t prefixes;
     skos uses the skos prefix; other namespaces fall back to the full URI.
@@ -470,7 +470,7 @@ module DfcLinkmlConnector
           elsif value.is_a?(Numeric) || value == true || value == false
             result[predicate] = value
           elsif value.is_a?(Hash)
-            # Embedded blank node (e.g. official Price value object without
+            # Embedded blank node (e.g. original Price value object without
             # @id): keep as-is so it serializes to JSON-LD, not Ruby inspect.
             result[predicate] = value
           else
@@ -724,7 +724,7 @@ __HAS_PREFIX_KEEP__
           @default_context_url = url
         end
 
-        # Official-connector migration aid: the official gem exposes a
+        # Original-connector migration aid: the original gem exposes a
         # singleton; ours is instantiable, this default instance covers
         # `Connector.instance` call sites.
         def instance
@@ -1026,7 +1026,7 @@ module DfcLinkmlConnector
         }
       end
 
-      # Returns a compacted JSON-LD JSON string using the official context.
+      # Returns a compacted JSON-LD JSON string using the original context.
       # Falls back to the plain serialization when no context is available,
       # keeping the context URL so CURIE predicates stay expandable.
       def to_json(*objects)
@@ -1073,7 +1073,7 @@ module DfcLinkmlConnector
           elsif value.is_a?(SemanticObject)
             result[predicate] = value.semanticId
           elsif value.is_a?(Hash)
-            # Embedded blank node (e.g. official Price value object without
+            # Embedded blank node (e.g. original Price value object without
             # @id): keep as-is so it serializes to JSON-LD, not Ruby inspect.
             result[predicate] = value
           elsif value.is_a?(Numeric) || value == true || value == false
@@ -1234,16 +1234,16 @@ module DfcLinkmlConnector
     registrations_str = '\n'.join(registrations)
     super_str = f'super(semanticId, {", ".join(super_kwargs)})' if super_kwargs else 'super(semanticId)'
 
-    # Official-v2 reader/writer aliases (migration aid). attr_accessor
+    # Original-v2 reader/writer aliases (migration aid). attr_accessor
     # defines reader+writer before initialize, so alias_method is safe here.
     alias_lines = []
-    for official, target in official_aliases_for_class(
+    for official, target in original_aliases_for_class(
             class_name, schema_data, api_slots or []):
         alias_lines.append(f'      alias_method :{official}, :{target}')
     alias_block = ""
     if alias_lines:
-        alias_block = ("      # Official DFC v2 API aliases "
-                       "(see config/dfc-official-api.yaml).\n"
+        alias_block = ("      # Original DFC v2 API aliases "
+                       "(see config/dfc-original-api.yaml).\n"
                        + "\n".join(alias_lines) + "\n\n")
     code += f'''      # @param semanticId [String]
       # @param {params_str}
@@ -1443,9 +1443,9 @@ def main():
     _init_parent_overrides(schema_data)
     if _PARENT_OVERRIDES:
         print(f"Parent overrides: {_PARENT_OVERRIDES}", file=sys.stderr)
-    api_slots = load_official_api()
+    api_slots = load_original_api()
     if api_slots:
-        print(f"Official API aliases from: config/dfc-official-api.yaml "
+        print(f"Original API aliases from: config/dfc-original-api.yaml "
               f"({len(api_slots)} slots)", file=sys.stderr)
 
     gem_name = "dfc-linkml-connector"

@@ -147,10 +147,10 @@ def _enterprise_alias(schema_data: dict) -> dict[str, str]:
 
 
 def predicate_for_slot(slot_name: str, slot_data: dict) -> str:
-    """Compute the official JSON-LD predicate CURIE/URI for a slot.
+    """Compute the original JSON-LD predicate CURIE/URI for a slot.
 
     Uses the first alias (the original OWL property name), never the
-    LinkML snake_case form, so predicates match the official connectors.
+    LinkML snake_case form, so predicates match the original connectors.
     """
     aliases = slot_data.get('aliases') or [slot_name]
     alias = aliases[0]
@@ -667,7 +667,7 @@ class Connector
     public const TAXONOMY_BASE_URL = 'https://w3id.org/dfc/taxonomies';
     public const DEFAULT_CONTEXT_URL = '{context_url}';
 
-    // Maps official JSON-LD predicates (short-form, from slot aliases) to
+    // Maps original JSON-LD predicates (short-form, from slot aliases) to
     // PHP property names. Consulted before the local-name fallback on import.
     public const PREDICATE_MAP = [
 {predicate_map_str}
@@ -759,7 +759,7 @@ class Connector
         return $this;
     }}
 
-    // Export objects to a JSON-LD string. Predicates are already official
+    // Export objects to a JSON-LD string. Predicates are already original
     // CURIEs, so no compaction step is needed; the context is emitted as a
     // URL string (never inlined).
     public function export(SemanticObject ...$objects): string

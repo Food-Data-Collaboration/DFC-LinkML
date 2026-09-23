@@ -2,14 +2,14 @@
 
 require_relative "spec_helper"
 
-# Official DFC v2 API aliases (migration aid).
-# Mirrors config/dfc-official-api.yaml: official reader/writer names delegate
-# to ours accessors. If an entry here fails, either the generator stopped
+# Original DFC v2 API aliases (migration aid).
+# Mirrors config/dfc-original-api.yaml: original reader/writer names delegate
+# to LinkML accessors. If an entry here fails, either the generator stopped
 # emitting it or upstream renamed something — check the yaml + inventory docs.
-RSpec.describe "Official API aliases" do
+RSpec.describe "Original API aliases" do
   let(:connector) { DfcLinkmlConnector::Core::Connector.new }
 
-  # official reader/writer => ours accessor, per model
+  # original reader/writer => LinkML accessor, per model
   ALIASES = {
     DfcLinkmlConnector::Models::Order => {
       number: :order_number, :number= => :order_number=,
@@ -31,7 +31,7 @@ RSpec.describe "Official API aliases" do
     },
   }.freeze
 
-  it "exposes every official alias" do
+  it "exposes every original alias" do
     ALIASES.each do |klass, pairs|
       obj = klass.new("http://example.com/probe")
       pairs.each_key do |official|
@@ -51,14 +51,14 @@ RSpec.describe "Official API aliases" do
     expect(org.vat_number).to eq("FR1")
   end
 
-  it "round-trips official-style access through export" do
+  it "round-trips original-style access through export" do
     order = DfcLinkmlConnector::Models::Order.new("http://example.com/order1")
     order.number = "ORD-1"
     doc = JSON.parse(connector.export(order))
     expect(doc["dfc-b:orderNumber"]).to eq("ORD-1")
   end
 
-  it "provides the official-style singleton" do
+  it "provides the original-style singleton" do
     a = DfcLinkmlConnector::Core::Connector.instance
     b = DfcLinkmlConnector::Core::Connector.instance
     expect(a).to be(b)

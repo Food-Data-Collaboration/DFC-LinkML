@@ -21,8 +21,8 @@ Exit code 1 if any mismatch or import/export failure is found.
 Exit code 2 if --verify-drop-in selects zero pairs or an unknown connector
 name yields no pairs.
 
---verify-drop-in: run only the drop-in pairs (ours as source, official as
-target, plus official -> ours and ours -> ours baselines) and fail on any
+--verify-drop-in: run only the drop-in pairs (LinkML as source, original as
+target, plus original -> LinkML and LinkML -> LinkML baselines) and fail on any
 unexpected mismatch. Expected drops are reported but allowed.
 """
 
@@ -177,11 +177,11 @@ def scenarios() -> list[Path]:
 def drop_in_pairs(names: list[str]) -> list[tuple[str, str]]:
     """Pairs exercised by the drop-in verification.
 
-    Only our connectors drop in *for* the official ones, so we verify:
-      * ours -> ours     (baseline, our connectors interop with each other)
+    Only LinkML connectors drop in *for* the original ones, so we verify:
+      * ours -> ours     (baseline, LinkML connectors interop with each other)
       * ours -> official (docs we produce must be consumable by DFC tools)
-      * official -> ours (docs official tools produce must import into ours)
-    Official -> official is out of scope (not a replacement scenario).
+      * official -> ours (docs original tools produce must import into LinkML)
+    Original -> original is out of scope (not a replacement scenario).
     """
     ours = [n for n in names if n in OURS]
     official = [n for n in names if n in OFFICIAL]
@@ -226,7 +226,7 @@ def main() -> None:
             print(
                 "error: --verify-drop-in selected zero pairs "
                 f"(connectors given: {only or names}) — need at least one our-connector "
-                "and one official-connector to exercise the drop-in matrix.",
+                "and one original-connector to exercise the drop-in matrix.",
                 file=sys.stderr,
             )
             sys.exit(2)

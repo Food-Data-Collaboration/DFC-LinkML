@@ -81,7 +81,7 @@ def ts_property_name(slot_name: str) -> str:
 
 
 def predicate_for_slot(slot_name: str, slot_data: dict) -> str:
-    """Compute the official JSON-LD predicate CURIE/URI for a slot.
+    """Compute the original JSON-LD predicate CURIE/URI for a slot.
 
     DFC business/technical ontology properties use the dfc-b/dfc-t prefixes;
     skos uses the skos prefix; other namespaces fall back to the full URI.
@@ -567,7 +567,7 @@ def generate_connector_class(schema_data: dict) -> str:
     type_imports_str = '\n'.join(type_imports)
 
     # Factory methods accept both ours positional form
-    # `createX(semanticId, params)` and the official object form
+    # `createX(semanticId, params)` and the original object form
     # `createX({ semanticId, ...params })` (migration aid).
     factory_methods = ''
     for cn in class_names:
@@ -969,7 +969,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
         constructor_params.append(f'{prop_name}')
         constructor_body_self.append(f'    this.{prop_name} = params?.{prop_name};')
 
-        # Registration predicate uses the official OWL predicate CURIE
+        # Registration predicate uses the original OWL predicate CURIE
         predicate = predicate_for_slot(slot_name, slot_data)
         registrations.append(f'    this.registerSemanticProperty("{predicate}", () => this.{prop_name});')
 

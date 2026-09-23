@@ -1,10 +1,10 @@
-# Official v2 API map — single source of truth for code-plane parity.
+# Original v2 API map — single source of truth for code-plane parity.
 #
 # Canonical names are the shared vocabulary used by the harness adapters
-# (tests/cross_connector/adapters/* PARAM_MAPs). `predicate` is the official
-# JSON-LD predicate ours registers. `ruby`/`ts` give the official v2
+# (tests/cross_connector/adapters/* PARAM_MAPs). `predicate` is the original
+# JSON-LD predicate LinkML registers. `ruby`/`ts` give the original v2
 # reader/writer (plus adder/remover where they exist); null = absent upstream
-# (dropped on official export = expected-drop, documented not aliased).
+# (dropped on original export = expected-drop, documented not aliased).
 #
 # Checked against: @datafoodconsortium/connector 2.0.0-beta.2,
 # datafoodconsortium-connector 2.0.0.pre.beta8.
@@ -52,7 +52,7 @@ slots:
     classes: [SuppliedProduct, Enterprise, Organization]
     ruby: { get: name, set: name= }
     ts: { get: getName, set: setName }
-    note: Official OrderLine/Offer have no name accessors; covered classes only.
+    note: Original OrderLine/Offer have no name accessors; covered classes only.
 
   # -- Enterprise / Organization (v2: Organization only) --
   - canonical: vatNumber

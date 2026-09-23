@@ -26,7 +26,7 @@ module DfcLinkmlConnector
         }
       end
 
-      # Returns a compacted JSON-LD JSON string using the official context.
+      # Returns a compacted JSON-LD JSON string using the original context.
       # Falls back to the plain serialization when no context is available,
       # keeping the context URL so CURIE predicates stay expandable.
       def to_json(*objects)
@@ -73,7 +73,7 @@ module DfcLinkmlConnector
           elsif value.is_a?(SemanticObject)
             result[predicate] = value.semanticId
           elsif value.is_a?(Hash)
-            # Embedded blank node (e.g. official Price value object without
+            # Embedded blank node (e.g. original Price value object without
             # @id): keep as-is so it serializes to JSON-LD, not Ruby inspect.
             result[predicate] = value
           elsif value.is_a?(Numeric) || value == true || value == false

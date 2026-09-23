@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Adapter for the official DFC Ruby connector (datafoodconsortium-connector
+# Adapter for the original DFC Ruby connector (datafoodconsortium-connector
 # gem, v2 line: 2.0.0.pre.beta.x).
 # Subcommands:
 #   capabilities            -> JSON classes/predicates map

@@ -42,7 +42,7 @@ RSpec.describe DfcLinkmlConnector::Core::JsonLdSerializer do
       expect(doc["@graph"].length).to eq(2)
     end
 
-    it "emits official compacted predicates" do
+    it "emits original compacted predicates" do
       doc = described_class.new(context, context_url).serialize(build_organization)
       expect(doc).to have_key("dfc-b:name")
       expect(doc).to have_key("dfc-b:VATnumber")

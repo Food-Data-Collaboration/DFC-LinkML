@@ -1,6 +1,6 @@
 # Migration guide: original DFC connectors → LinkML connectors
 
-Swap the original DFC connectors for the LinkML genreated ones with only
+Swap the original DFC connectors for the LinkML generated ones with only
 mechanical changes. Direction is one-way: LinkML replaces the original
 connector. Perfect parity is not achieved: but everything either works
 unchanged or rewrites by rule.
@@ -81,7 +81,7 @@ const doc = JSON.parse(await c.export(org, tomato, line, order));
 
 Rewrite rules (mechanical, no behavior change):
 
-| Official | LinkML | Note |
+| Original | LinkML | Note |
 |---|---|---|
 | `createX({ semanticId, ... })` | same (supported) or `createX(semanticId, params)` | object form accepted |
 | `setName(x)` / `getName()` | `o.name = x` / `o.name` | fields, not methods |
@@ -134,7 +134,7 @@ Notes:
 
 - `Connector.instance` exists (default-instance shim); prefer `Connector.new`.
 - Writers differing only by name are `alias_method`s generated from
-  `config/dfc-official-api.yaml` (`number=`→`order_number=`,
+  `config/dfc-original-api.yaml` (`number=`→`order_number=`,
   `lines=`→`part=`, `client=`→`ordered_by=`, `offer=`→`concerns=`,
   `product=`→`references=`, `offers=`→`offered_through=`,
   `vatNumber=`→`vat_number=`). Identical names need nothing.
@@ -145,7 +145,7 @@ Notes:
 
 - `import()` always returns an array, even for a single `@graph` entry.
 - Export `@context` is a URL string, never an inline object.
-- Ours ship 89 classes vs ~50 original factories; extra classes are inert.
+- LinkML ships 89 classes vs ~50 original factories; extra classes are inert.
 - TypeScript has no `supplyProduct`-style domain methods — use fields.
 - `dfc-b:Enterprise` documents import as `dfc-b:Organization` in LinkML;
   original v2 dropped the type entirely.
@@ -156,4 +156,4 @@ Notes:
   `dfc-b:hasDescription`; v2 uses `Organization` and keeps
   `dfc-b:hasDescription` while LinkML registers `dfc-b:description`. The matrix
   treats these as expected drops in both directions.
-- Our `Enterprise` class + `TYPE_ALIASES` keep v1 documents readable.
+- The LinkML `Enterprise` class + `TYPE_ALIASES` keep v1 documents readable.

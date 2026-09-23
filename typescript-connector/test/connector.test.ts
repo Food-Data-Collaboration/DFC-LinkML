@@ -303,8 +303,8 @@ describe("Enterprise", () => {
   });
 });
 
-describe("Official-style factory object form", () => {
-  it("accepts createX({ semanticId, ...params }) like the official connector", async () => {
+describe("Original-style factory object form", () => {
+  it("accepts createX({ semanticId, ...params }) like the original connector", async () => {
     const c = new Connector();
     const org = c.createOrganization({
       semanticId: "http://example.com/org1",

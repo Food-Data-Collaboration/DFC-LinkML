@@ -4,7 +4,7 @@ import { Connector } from "../src/index.js";
 // Worked example from docs/migration-guide.md ("TypeScript after").
 // Keep in sync with the guide: this is the executed version of it.
 describe("Migration example", () => {
-  it("builds an order graph with official-style construction", async () => {
+  it("builds an order graph with original-style construction", async () => {
     const c = new Connector();
     const org = c.createOrganization({
       semanticId: "http://example.com/org1",

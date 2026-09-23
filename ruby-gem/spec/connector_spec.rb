@@ -32,7 +32,7 @@ RSpec.describe DfcLinkmlConnector::Core::Connector do
       expect(connector.export(build_organization)).to be_a(String)
     end
 
-    it "emits compacted official predicates" do
+    it "emits compacted original predicates" do
       json = connector.export(build_organization)
       parsed = JSON.parse(json)
       expect(parsed).to have_key("dfc-b:name")
@@ -163,7 +163,7 @@ RSpec.describe DfcLinkmlConnector::Core::Connector do
       expect(connector.scope).to have_key("readorders")
     end
 
-    it "round-trips embedded value objects without @id (e.g. official Price)" do
+    it "round-trips embedded value objects without @id (e.g. original Price)" do
       data = {
         "@context" => context_url,
         "@graph" => [

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Adapter for the official DFC TypeScript connector (@datafoodconsortium/connector,
+// Adapter for the original DFC TypeScript connector (@datafoodconsortium/connector,
 // v2 line: 2.0.0-beta.x).
 // Subcommands:
 //   capabilities            -> JSON classes/predicates map

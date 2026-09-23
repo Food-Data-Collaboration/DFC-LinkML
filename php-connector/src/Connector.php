@@ -32,7 +32,7 @@ class Connector
     public const TAXONOMY_BASE_URL = 'https://w3id.org/dfc/taxonomies';
     public const DEFAULT_CONTEXT_URL = 'https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json';
 
-    // Maps official JSON-LD predicates (short-form, from slot aliases) to
+    // Maps original JSON-LD predicates (short-form, from slot aliases) to
     // PHP property names. Consulted before the local-name fallback on import.
     public const PREDICATE_MAP = [
         'http://www.w3.org/2002/12/cal/icaltzd#byday' => 'byday',
@@ -470,7 +470,7 @@ class Connector
         return $this;
     }
 
-    // Export objects to a JSON-LD string. Predicates are already official
+    // Export objects to a JSON-LD string. Predicates are already original
     // CURIEs, so no compaction step is needed; the context is emitted as a
     // URL string (never inlined).
     public function export(SemanticObject ...$objects): string

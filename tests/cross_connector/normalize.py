@@ -54,7 +54,7 @@ def normalize_value(value: Any) -> Any:
 def _collapse_blank_prefix(value: str) -> str | None:
     """Collapse repeated ``_:`` prefixes on a reference string.
 
-    Official connectors wrap URIs in blank nodes that sometimes double up the
+    Original connectors wrap URIs in blank nodes that sometimes double up the
     ``_:`` prefix (``_:_:http://x``). Strip every leading ``_:`` and return
     the bare ``http://…`` URI, but only when the remainder still looks like a
     reference (starts with ``http``); a plain local name like ``_:x`` or
@@ -112,8 +112,8 @@ def extract_objects(doc: Any) -> dict[str, dict[str, Any]]:
     return objects
 
 
-# DFC v2.0 renamed Enterprise to Organization. Official connectors (v1.16) still
-# emit `dfc-b:Enterprise`; our connectors import it as the canonical
+# DFC v2.0 renamed Enterprise to Organization. Original connectors (v1.16) still
+# emit `dfc-b:Enterprise`; LinkML connectors import it as the canonical
 # `dfc-b:Organization`. Treat the two type strings as equivalent when comparing
 # round-trips so the normalization isn't reported as a mismatch.
 TYPE_ALIASES = {
