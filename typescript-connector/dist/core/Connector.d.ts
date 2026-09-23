@@ -217,95 +217,273 @@ export declare class Connector {
     get product_type(): Record<string, unknown>;
     get scope(): Record<string, unknown>;
     get vocabulary_term(): Record<string, unknown>;
-    createAddress(semanticId: string, params?: AddressParams): Address;
-    createAgent(semanticId: string, params?: AgentParams): Agent;
-    createAllergenCharacteristic(semanticId: string, params?: AllergenCharacteristicParams): AllergenCharacteristic;
-    createAsPlannedConsumptionFlow(semanticId: string, params?: AsPlannedConsumptionFlowParams): AsPlannedConsumptionFlow;
-    createAsPlannedLocalConsumptionFlow(semanticId: string, params?: AsPlannedLocalConsumptionFlowParams): AsPlannedLocalConsumptionFlow;
-    createAsPlannedLocalProductionFlow(semanticId: string, params?: AsPlannedLocalProductionFlowParams): AsPlannedLocalProductionFlow;
-    createAsPlannedLocalTransformation(semanticId: string, params?: AsPlannedLocalTransformationParams): AsPlannedLocalTransformation;
-    createAsPlannedProductionFlow(semanticId: string, params?: AsPlannedProductionFlowParams): AsPlannedProductionFlow;
-    createAsPlannedTransformation(semanticId: string, params?: AsPlannedTransformationParams): AsPlannedTransformation;
-    createAsRealizedConsumptionFlow(semanticId: string, params?: AsRealizedConsumptionFlowParams): AsRealizedConsumptionFlow;
-    createAsRealizedProductionFlow(semanticId: string, params?: AsRealizedProductionFlowParams): AsRealizedProductionFlow;
-    createAsRealizedTransformation(semanticId: string, params?: AsRealizedTransformationParams): AsRealizedTransformation;
-    createBrand(semanticId: string, params?: BrandParams): Brand;
-    createCatalog(semanticId: string, params?: CatalogParams): Catalog;
-    createCatalogItem(semanticId: string, params?: CatalogItemParams): CatalogItem;
-    createCertfication(semanticId: string, params?: CertficationParams): Certfication;
-    createCollection(semanticId: string, params?: CollectionParams): Collection;
-    createConcept(semanticId: string, params?: ConceptParams): Concept;
-    createConceptScheme(semanticId: string, params?: ConceptSchemeParams): ConceptScheme;
-    createConsumptionFlow(semanticId: string, params?: ConsumptionFlowParams): ConsumptionFlow;
-    createCoordination(semanticId: string, params?: CoordinationParams): Coordination;
-    createCustomerCategory(semanticId: string, params?: CustomerCategoryParams): CustomerCategory;
-    createDitributedRepresentation(semanticId: string, params?: DitributedRepresentationParams): DitributedRepresentation;
-    createDefinedProduct(semanticId: string, params?: DefinedProductParams): DefinedProduct;
-    createDeliveryOption(semanticId: string, params?: DeliveryOptionParams): DeliveryOption;
-    createDeliveryStep(semanticId: string, params?: DeliveryStepParams): DeliveryStep;
-    createEnterprise(semanticId: string, params?: EnterpriseParams): Enterprise;
-    createFeature(semanticId: string, params?: FeatureParams): Feature;
-    createFunctionalProduct(semanticId: string, params?: FunctionalProductParams): FunctionalProduct;
-    createGeometry(semanticId: string, params?: GeometryParams): Geometry;
-    createHowSubject(semanticId: string, params?: HowSubjectParams): HowSubject;
-    createIndividual(semanticId: string, params?: IndividualParams): Individual;
-    createIngredient(semanticId: string, params?: IngredientParams): Ingredient;
-    createLabellingCharacteristic(semanticId: string, params?: LabellingCharacteristicParams): LabellingCharacteristic;
-    createLength(semanticId: string, params?: LengthParams): Length;
-    createLocalizedProduct(semanticId: string, params?: LocalizedProductParams): LocalizedProduct;
-    createNutrientCharacteristic(semanticId: string, params?: NutrientCharacteristicParams): NutrientCharacteristic;
-    createOffer(semanticId: string, params?: OfferParams): Offer;
-    createOpeningHoursSpecification(semanticId: string, params?: OpeningHoursSpecificationParams): OpeningHoursSpecification;
-    createOrder(semanticId: string, params?: OrderParams): Order;
-    createOrderLine(semanticId: string, params?: OrderLineParams): OrderLine;
-    createOrganization(semanticId: string, params?: OrganizationParams): Organization;
-    createPaymentMethod(semanticId: string, params?: PaymentMethodParams): PaymentMethod;
-    createPerson(semanticId: string, params?: PersonParams): Person;
-    createPhoneNumber(semanticId: string, params?: PhoneNumberParams): PhoneNumber;
-    createPhysicalCharacteristic(semanticId: string, params?: PhysicalCharacteristicParams): PhysicalCharacteristic;
-    createPhysicalPlace(semanticId: string, params?: PhysicalPlaceParams): PhysicalPlace;
-    createPhysicalProduct(semanticId: string, params?: PhysicalProductParams): PhysicalProduct;
-    createPickUpStep(semanticId: string, params?: PickUpStepParams): PickUpStep;
-    createPickupOption(semanticId: string, params?: PickupOptionParams): PickupOption;
-    createPlace(semanticId: string, params?: PlaceParams): Place;
-    createPlatform(semanticId: string, params?: PlatformParams): Platform;
-    createPoint(semanticId: string, params?: PointParams): Point;
-    createPolygon(semanticId: string, params?: PolygonParams): Polygon;
-    createPrice(semanticId: string, params?: PriceParams): Price;
-    createProductBatch(semanticId: string, params?: ProductBatchParams): ProductBatch;
-    createProductOption(semanticId: string, params?: ProductOptionParams): ProductOption;
-    createProductOptionValue(semanticId: string, params?: ProductOptionValueParams): ProductOptionValue;
-    createProductionFlow(semanticId: string, params?: ProductionFlowParams): ProductionFlow;
-    createProperties(semanticId: string, params?: PropertiesParams): Properties;
-    createQuantitativeValue(semanticId: string, params?: QuantitativeValueParams): QuantitativeValue;
-    createRealStock(semanticId: string, params?: RealStockParams): RealStock;
-    createRepresentationPivot(semanticId: string, params?: RepresentationPivotParams): RepresentationPivot;
-    createRepresentedThing(semanticId: string, params?: RepresentedThingParams): RepresentedThing;
-    createRoute(semanticId: string, params?: RouteParams): Route;
-    createSaleSession(semanticId: string, params?: SaleSessionParams): SaleSession;
-    createShipment(semanticId: string, params?: ShipmentParams): Shipment;
-    createShippingOption(semanticId: string, params?: ShippingOptionParams): ShippingOption;
-    createSocialMedia(semanticId: string, params?: SocialMediaParams): SocialMedia;
-    createStep(semanticId: string, params?: StepParams): Step;
-    createStock(semanticId: string, params?: StockParams): Stock;
-    createSuppliedProduct(semanticId: string, params?: SuppliedProductParams): SuppliedProduct;
-    createTechnicalProduct(semanticId: string, params?: TechnicalProductParams): TechnicalProduct;
-    createTemperature(semanticId: string, params?: TemperatureParams): Temperature;
-    createTemplateSaleSession(semanticId: string, params?: TemplateSaleSessionParams): TemplateSaleSession;
-    createTheoriticalStock(semanticId: string, params?: TheoriticalStockParams): TheoriticalStock;
-    createTransaction(semanticId: string, params?: TransactionParams): Transaction;
-    createTransformation(semanticId: string, params?: TransformationParams): Transformation;
-    createValueRECUR(semanticId: string, params?: ValueRECURParams): ValueRECUR;
-    createVariant(semanticId: string, params?: VariantParams): Variant;
-    createVariantCaracteristic(semanticId: string, params?: VariantCaracteristicParams): VariantCaracteristic;
-    createVehicle(semanticId: string, params?: VehicleParams): Vehicle;
-    createVevent(semanticId: string, params?: VeventParams): Vevent;
-    createVirtualPlace(semanticId: string, params?: VirtualPlaceParams): VirtualPlace;
-    createVolume(semanticId: string, params?: VolumeParams): Volume;
-    createWeight(semanticId: string, params?: WeightParams): Weight;
-    createWhatSubject(semanticId: string, params?: WhatSubjectParams): WhatSubject;
-    createWhereSubject(semanticId: string, params?: WhereSubjectParams): WhereSubject;
-    createWhoSubject(semanticId: string, params?: WhoSubjectParams): WhoSubject;
+    createAddress(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AddressParams), params?: AddressParams): Address;
+    createAgent(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AgentParams), params?: AgentParams): Agent;
+    createAllergenCharacteristic(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AllergenCharacteristicParams), params?: AllergenCharacteristicParams): AllergenCharacteristic;
+    createAsPlannedConsumptionFlow(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AsPlannedConsumptionFlowParams), params?: AsPlannedConsumptionFlowParams): AsPlannedConsumptionFlow;
+    createAsPlannedLocalConsumptionFlow(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AsPlannedLocalConsumptionFlowParams), params?: AsPlannedLocalConsumptionFlowParams): AsPlannedLocalConsumptionFlow;
+    createAsPlannedLocalProductionFlow(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AsPlannedLocalProductionFlowParams), params?: AsPlannedLocalProductionFlowParams): AsPlannedLocalProductionFlow;
+    createAsPlannedLocalTransformation(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AsPlannedLocalTransformationParams), params?: AsPlannedLocalTransformationParams): AsPlannedLocalTransformation;
+    createAsPlannedProductionFlow(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AsPlannedProductionFlowParams), params?: AsPlannedProductionFlowParams): AsPlannedProductionFlow;
+    createAsPlannedTransformation(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AsPlannedTransformationParams), params?: AsPlannedTransformationParams): AsPlannedTransformation;
+    createAsRealizedConsumptionFlow(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AsRealizedConsumptionFlowParams), params?: AsRealizedConsumptionFlowParams): AsRealizedConsumptionFlow;
+    createAsRealizedProductionFlow(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AsRealizedProductionFlowParams), params?: AsRealizedProductionFlowParams): AsRealizedProductionFlow;
+    createAsRealizedTransformation(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & AsRealizedTransformationParams), params?: AsRealizedTransformationParams): AsRealizedTransformation;
+    createBrand(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & BrandParams), params?: BrandParams): Brand;
+    createCatalog(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & CatalogParams), params?: CatalogParams): Catalog;
+    createCatalogItem(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & CatalogItemParams), params?: CatalogItemParams): CatalogItem;
+    createCertfication(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & CertficationParams), params?: CertficationParams): Certfication;
+    createCollection(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & CollectionParams), params?: CollectionParams): Collection;
+    createConcept(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & ConceptParams), params?: ConceptParams): Concept;
+    createConceptScheme(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & ConceptSchemeParams), params?: ConceptSchemeParams): ConceptScheme;
+    createConsumptionFlow(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & ConsumptionFlowParams), params?: ConsumptionFlowParams): ConsumptionFlow;
+    createCoordination(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & CoordinationParams), params?: CoordinationParams): Coordination;
+    createCustomerCategory(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & CustomerCategoryParams), params?: CustomerCategoryParams): CustomerCategory;
+    createDitributedRepresentation(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & DitributedRepresentationParams), params?: DitributedRepresentationParams): DitributedRepresentation;
+    createDefinedProduct(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & DefinedProductParams), params?: DefinedProductParams): DefinedProduct;
+    createDeliveryOption(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & DeliveryOptionParams), params?: DeliveryOptionParams): DeliveryOption;
+    createDeliveryStep(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & DeliveryStepParams), params?: DeliveryStepParams): DeliveryStep;
+    createEnterprise(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & EnterpriseParams), params?: EnterpriseParams): Enterprise;
+    createFeature(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & FeatureParams), params?: FeatureParams): Feature;
+    createFunctionalProduct(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & FunctionalProductParams), params?: FunctionalProductParams): FunctionalProduct;
+    createGeometry(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & GeometryParams), params?: GeometryParams): Geometry;
+    createHowSubject(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & HowSubjectParams), params?: HowSubjectParams): HowSubject;
+    createIndividual(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & IndividualParams), params?: IndividualParams): Individual;
+    createIngredient(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & IngredientParams), params?: IngredientParams): Ingredient;
+    createLabellingCharacteristic(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & LabellingCharacteristicParams), params?: LabellingCharacteristicParams): LabellingCharacteristic;
+    createLength(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & LengthParams), params?: LengthParams): Length;
+    createLocalizedProduct(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & LocalizedProductParams), params?: LocalizedProductParams): LocalizedProduct;
+    createNutrientCharacteristic(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & NutrientCharacteristicParams), params?: NutrientCharacteristicParams): NutrientCharacteristic;
+    createOffer(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & OfferParams), params?: OfferParams): Offer;
+    createOpeningHoursSpecification(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & OpeningHoursSpecificationParams), params?: OpeningHoursSpecificationParams): OpeningHoursSpecification;
+    createOrder(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & OrderParams), params?: OrderParams): Order;
+    createOrderLine(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & OrderLineParams), params?: OrderLineParams): OrderLine;
+    createOrganization(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & OrganizationParams), params?: OrganizationParams): Organization;
+    createPaymentMethod(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PaymentMethodParams), params?: PaymentMethodParams): PaymentMethod;
+    createPerson(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PersonParams), params?: PersonParams): Person;
+    createPhoneNumber(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PhoneNumberParams), params?: PhoneNumberParams): PhoneNumber;
+    createPhysicalCharacteristic(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PhysicalCharacteristicParams), params?: PhysicalCharacteristicParams): PhysicalCharacteristic;
+    createPhysicalPlace(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PhysicalPlaceParams), params?: PhysicalPlaceParams): PhysicalPlace;
+    createPhysicalProduct(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PhysicalProductParams), params?: PhysicalProductParams): PhysicalProduct;
+    createPickUpStep(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PickUpStepParams), params?: PickUpStepParams): PickUpStep;
+    createPickupOption(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PickupOptionParams), params?: PickupOptionParams): PickupOption;
+    createPlace(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PlaceParams), params?: PlaceParams): Place;
+    createPlatform(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PlatformParams), params?: PlatformParams): Platform;
+    createPoint(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PointParams), params?: PointParams): Point;
+    createPolygon(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PolygonParams), params?: PolygonParams): Polygon;
+    createPrice(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PriceParams), params?: PriceParams): Price;
+    createProductBatch(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & ProductBatchParams), params?: ProductBatchParams): ProductBatch;
+    createProductOption(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & ProductOptionParams), params?: ProductOptionParams): ProductOption;
+    createProductOptionValue(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & ProductOptionValueParams), params?: ProductOptionValueParams): ProductOptionValue;
+    createProductionFlow(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & ProductionFlowParams), params?: ProductionFlowParams): ProductionFlow;
+    createProperties(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & PropertiesParams), params?: PropertiesParams): Properties;
+    createQuantitativeValue(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & QuantitativeValueParams), params?: QuantitativeValueParams): QuantitativeValue;
+    createRealStock(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & RealStockParams), params?: RealStockParams): RealStock;
+    createRepresentationPivot(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & RepresentationPivotParams), params?: RepresentationPivotParams): RepresentationPivot;
+    createRepresentedThing(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & RepresentedThingParams), params?: RepresentedThingParams): RepresentedThing;
+    createRoute(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & RouteParams), params?: RouteParams): Route;
+    createSaleSession(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & SaleSessionParams), params?: SaleSessionParams): SaleSession;
+    createShipment(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & ShipmentParams), params?: ShipmentParams): Shipment;
+    createShippingOption(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & ShippingOptionParams), params?: ShippingOptionParams): ShippingOption;
+    createSocialMedia(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & SocialMediaParams), params?: SocialMediaParams): SocialMedia;
+    createStep(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & StepParams), params?: StepParams): Step;
+    createStock(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & StockParams), params?: StockParams): Stock;
+    createSuppliedProduct(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & SuppliedProductParams), params?: SuppliedProductParams): SuppliedProduct;
+    createTechnicalProduct(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & TechnicalProductParams), params?: TechnicalProductParams): TechnicalProduct;
+    createTemperature(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & TemperatureParams), params?: TemperatureParams): Temperature;
+    createTemplateSaleSession(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & TemplateSaleSessionParams), params?: TemplateSaleSessionParams): TemplateSaleSession;
+    createTheoriticalStock(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & TheoriticalStockParams), params?: TheoriticalStockParams): TheoriticalStock;
+    createTransaction(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & TransactionParams), params?: TransactionParams): Transaction;
+    createTransformation(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & TransformationParams), params?: TransformationParams): Transformation;
+    createValueRECUR(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & ValueRECURParams), params?: ValueRECURParams): ValueRECUR;
+    createVariant(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & VariantParams), params?: VariantParams): Variant;
+    createVariantCaracteristic(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & VariantCaracteristicParams), params?: VariantCaracteristicParams): VariantCaracteristic;
+    createVehicle(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & VehicleParams), params?: VehicleParams): Vehicle;
+    createVevent(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & VeventParams), params?: VeventParams): Vevent;
+    createVirtualPlace(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & VirtualPlaceParams), params?: VirtualPlaceParams): VirtualPlace;
+    createVolume(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & VolumeParams), params?: VolumeParams): Volume;
+    createWeight(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & WeightParams), params?: WeightParams): Weight;
+    createWhatSubject(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & WhatSubjectParams), params?: WhatSubjectParams): WhatSubject;
+    createWhereSubject(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & WhereSubjectParams), params?: WhereSubjectParams): WhereSubject;
+    createWhoSubject(semanticIdOrArgs: string | ({
+        semanticId: string;
+    } & WhoSubjectParams), params?: WhoSubjectParams): WhoSubject;
     private fetchContext;
     private buildNestedHash;
     private predicateToPropName;

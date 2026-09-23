@@ -12,6 +12,7 @@ ADAPTERS_DIR = Path(__file__).parent / "adapters"
 CONNECTORS: dict[str, str] = {
     "our-typescript": "node",
     "our-ruby": "ruby",
+    "our-php": "php",
     "official-typescript": "node",
     "official-ruby": "ruby",
 }
@@ -19,6 +20,7 @@ CONNECTORS: dict[str, str] = {
 ADAPTER_SCRIPT: dict[str, str] = {
     "our-typescript": "our-typescript.mjs",
     "our-ruby": "our-ruby.rb",
+    "our-php": "our-php.php",
     "official-typescript": "official-typescript.mjs",
     "official-ruby": "official-ruby.rb",
 }

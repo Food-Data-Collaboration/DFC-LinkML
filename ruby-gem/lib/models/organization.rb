@@ -82,6 +82,10 @@ module DfcLinkmlConnector
         registerSemanticProperty("dfc-b:transforms", &method("transforms")).valueSetter = method("transforms=")
       end
 
+      # Official DFC v2 API aliases (see config/dfc-official-api.yaml).
+      alias_method :vatNumber, :vat_number
+      alias_method :vatNumber=, :vat_number=
+
       Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
   end

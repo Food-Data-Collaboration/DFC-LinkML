@@ -1,11 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Adapter for the official DFC Ruby connector (datafoodconsortium-connector gem).
+# Adapter for the official DFC Ruby connector (datafoodconsortium-connector
+# gem, v2 line: 2.0.0.pre.beta.x).
 # Subcommands:
 #   capabilities            -> JSON classes/predicates map
 #   export <scenario.json>  -> JSON-LD (reads scenario from file, writes to stdout)
 #   import                  -> canonical summary (reads JSON-LD from stdin)
+
+gem 'datafoodconsortium-connector', '= 2.0.0.pre.beta8'
 
 require 'json'
 require 'datafoodconsortium/connector'
@@ -52,10 +55,10 @@ PARAM_METHODS = {
 # Object-reference setters that must never receive a plain string/IRI.
 OBJECT_REF_SETTERS = [:product=, :offer=, :client=, :price=].freeze
 
-# Canonical scenario type => official connector class (official uses
-# Enterprise, not Organization).
+# Canonical scenario type => official connector class (v2 renamed Enterprise
+# to Organization; legacy Enterprise scenarios are built as Organizations).
 TYPE_CLASS = {
-  'dfc-b:Organization' => 'Enterprise',
+  'dfc-b:Enterprise' => 'Organization',
 }.freeze
 
 def normalize_refs(value)

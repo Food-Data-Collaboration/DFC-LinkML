@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Adapter for the official DFC TypeScript connector (@datafoodconsortium/connector).
+// Adapter for the official DFC TypeScript connector (@datafoodconsortium/connector,
+// v2 line: 2.0.0-beta.x).
 // Subcommands:
 //   capabilities            -> JSON classes/predicates map
 //   export <scenario.json>  -> JSON-LD
@@ -17,7 +18,7 @@ const mod = await import(path.join(__dirname, "..", "..", "node_modules", "@data
 
 const { Connector } = mod;
 const subcommand = process.argv[2];
-const CTX = "https://w3id.org/dfc/ontology/context/context_1.16.0.json";
+const CTX = "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json";
 
 // Canonical scenario param name => official-connector setter method.
 const PARAM_METHODS = {
@@ -59,10 +60,11 @@ const PARAM_METHODS = {
   },
 };
 
-// Canonical scenario type => official factory method (official uses
-// Enterprise, not Organization).
+// Canonical scenario type => official factory method (v2 renamed Enterprise
+// to Organization; legacy Enterprise scenarios are built as Organizations).
 const TYPE_FACTORY = {
-  "dfc-b:Organization": "createEnterprise",
+  "dfc-b:Organization": "createOrganization",
+  "dfc-b:Enterprise": "createOrganization",
 };
 
 // Setters that take an array of objects rather than a single object.
@@ -74,7 +76,7 @@ const OBJECT_REF_SETTERS = new Set(["setOfferedProduct", "setPrice", "setOffer",
 const FACTORY_METHODS = [
   "createAddress", "createAgent", "createAllergenCharacteristic", "createCatalog",
   "createCatalogItem", "createCustomerCategory", "createDefinedProduct",
-  "createDeliveryOption", "createEnterprise", "createLocalizedProduct",
+  "createDeliveryOption", "createOrganization", "createLocalizedProduct",
   "createNutrientCharacteristic", "createOffer", "createOpeningHoursSpecification",
   "createOrder", "createOrderLine", "createPaymentMethod", "createPerson",
   "createPhoneNumber", "createPhysicalCharacteristic", "createPhysicalPlace",
@@ -103,7 +105,7 @@ function capabilities() {
   // The semantizer context exposes the connector's full predicate vocabulary
   // (dfc-b:/dfc-t: prefixes). Per-class predicates are not introspectable from
   // the semantizer layer, so each class reports the global predicate surface.
-  const probe = c.createEnterprise({ semanticId: "_:probe" });
+  const probe = c.createOrganization({ semanticId: "_:probe" });
   const prefixes = probe._semantizer?._context?._prefixes || [];
   const globalPredicates = prefixes
     .map((p) => p.prefix)

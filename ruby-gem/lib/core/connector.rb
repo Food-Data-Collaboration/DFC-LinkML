@@ -306,6 +306,13 @@ module DfcLinkmlConnector
         def default_context_url=(url)
           @default_context_url = url
         end
+
+        # Official-connector migration aid: the official gem exposes a
+        # singleton; ours is instantiable, this default instance covers
+        # `Connector.instance` call sites.
+        def instance
+          @instance ||= new
+        end
       end
 
       attr_reader :ontology_version, :taxonomy_version, :vocab_loader

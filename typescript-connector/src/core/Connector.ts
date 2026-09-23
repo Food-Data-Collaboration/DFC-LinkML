@@ -675,360 +675,983 @@ export class Connector {
   }
 
 
-  createAddress(semanticId: string, params?: AddressParams): Address {
-    return new Address(semanticId, params);
-  }
-
-  createAgent(semanticId: string, params?: AgentParams): Agent {
-    return new Agent(semanticId, params);
-  }
-
-  createAllergenCharacteristic(semanticId: string, params?: AllergenCharacteristicParams): AllergenCharacteristic {
-    return new AllergenCharacteristic(semanticId, params);
-  }
-
-  createAsPlannedConsumptionFlow(semanticId: string, params?: AsPlannedConsumptionFlowParams): AsPlannedConsumptionFlow {
-    return new AsPlannedConsumptionFlow(semanticId, params);
-  }
-
-  createAsPlannedLocalConsumptionFlow(semanticId: string, params?: AsPlannedLocalConsumptionFlowParams): AsPlannedLocalConsumptionFlow {
-    return new AsPlannedLocalConsumptionFlow(semanticId, params);
-  }
-
-  createAsPlannedLocalProductionFlow(semanticId: string, params?: AsPlannedLocalProductionFlowParams): AsPlannedLocalProductionFlow {
-    return new AsPlannedLocalProductionFlow(semanticId, params);
-  }
-
-  createAsPlannedLocalTransformation(semanticId: string, params?: AsPlannedLocalTransformationParams): AsPlannedLocalTransformation {
-    return new AsPlannedLocalTransformation(semanticId, params);
-  }
-
-  createAsPlannedProductionFlow(semanticId: string, params?: AsPlannedProductionFlowParams): AsPlannedProductionFlow {
-    return new AsPlannedProductionFlow(semanticId, params);
-  }
-
-  createAsPlannedTransformation(semanticId: string, params?: AsPlannedTransformationParams): AsPlannedTransformation {
-    return new AsPlannedTransformation(semanticId, params);
-  }
-
-  createAsRealizedConsumptionFlow(semanticId: string, params?: AsRealizedConsumptionFlowParams): AsRealizedConsumptionFlow {
-    return new AsRealizedConsumptionFlow(semanticId, params);
-  }
-
-  createAsRealizedProductionFlow(semanticId: string, params?: AsRealizedProductionFlowParams): AsRealizedProductionFlow {
-    return new AsRealizedProductionFlow(semanticId, params);
-  }
-
-  createAsRealizedTransformation(semanticId: string, params?: AsRealizedTransformationParams): AsRealizedTransformation {
-    return new AsRealizedTransformation(semanticId, params);
-  }
-
-  createBrand(semanticId: string, params?: BrandParams): Brand {
-    return new Brand(semanticId, params);
-  }
-
-  createCatalog(semanticId: string, params?: CatalogParams): Catalog {
-    return new Catalog(semanticId, params);
-  }
-
-  createCatalogItem(semanticId: string, params?: CatalogItemParams): CatalogItem {
-    return new CatalogItem(semanticId, params);
-  }
-
-  createCertfication(semanticId: string, params?: CertficationParams): Certfication {
-    return new Certfication(semanticId, params);
-  }
-
-  createCollection(semanticId: string, params?: CollectionParams): Collection {
-    return new Collection(semanticId, params);
-  }
-
-  createConcept(semanticId: string, params?: ConceptParams): Concept {
-    return new Concept(semanticId, params);
-  }
-
-  createConceptScheme(semanticId: string, params?: ConceptSchemeParams): ConceptScheme {
-    return new ConceptScheme(semanticId, params);
-  }
-
-  createConsumptionFlow(semanticId: string, params?: ConsumptionFlowParams): ConsumptionFlow {
-    return new ConsumptionFlow(semanticId, params);
-  }
-
-  createCoordination(semanticId: string, params?: CoordinationParams): Coordination {
-    return new Coordination(semanticId, params);
-  }
-
-  createCustomerCategory(semanticId: string, params?: CustomerCategoryParams): CustomerCategory {
-    return new CustomerCategory(semanticId, params);
-  }
-
-  createDitributedRepresentation(semanticId: string, params?: DitributedRepresentationParams): DitributedRepresentation {
-    return new DitributedRepresentation(semanticId, params);
-  }
-
-  createDefinedProduct(semanticId: string, params?: DefinedProductParams): DefinedProduct {
-    return new DefinedProduct(semanticId, params);
-  }
-
-  createDeliveryOption(semanticId: string, params?: DeliveryOptionParams): DeliveryOption {
-    return new DeliveryOption(semanticId, params);
-  }
-
-  createDeliveryStep(semanticId: string, params?: DeliveryStepParams): DeliveryStep {
-    return new DeliveryStep(semanticId, params);
-  }
-
-  createEnterprise(semanticId: string, params?: EnterpriseParams): Enterprise {
-    return new Enterprise(semanticId, params);
-  }
-
-  createFeature(semanticId: string, params?: FeatureParams): Feature {
-    return new Feature(semanticId, params);
-  }
-
-  createFunctionalProduct(semanticId: string, params?: FunctionalProductParams): FunctionalProduct {
-    return new FunctionalProduct(semanticId, params);
-  }
-
-  createGeometry(semanticId: string, params?: GeometryParams): Geometry {
-    return new Geometry(semanticId, params);
-  }
-
-  createHowSubject(semanticId: string, params?: HowSubjectParams): HowSubject {
-    return new HowSubject(semanticId, params);
-  }
-
-  createIndividual(semanticId: string, params?: IndividualParams): Individual {
-    return new Individual(semanticId, params);
-  }
-
-  createIngredient(semanticId: string, params?: IngredientParams): Ingredient {
-    return new Ingredient(semanticId, params);
-  }
-
-  createLabellingCharacteristic(semanticId: string, params?: LabellingCharacteristicParams): LabellingCharacteristic {
-    return new LabellingCharacteristic(semanticId, params);
-  }
-
-  createLength(semanticId: string, params?: LengthParams): Length {
-    return new Length(semanticId, params);
-  }
-
-  createLocalizedProduct(semanticId: string, params?: LocalizedProductParams): LocalizedProduct {
-    return new LocalizedProduct(semanticId, params);
-  }
-
-  createNutrientCharacteristic(semanticId: string, params?: NutrientCharacteristicParams): NutrientCharacteristic {
-    return new NutrientCharacteristic(semanticId, params);
-  }
-
-  createOffer(semanticId: string, params?: OfferParams): Offer {
-    return new Offer(semanticId, params);
-  }
-
-  createOpeningHoursSpecification(semanticId: string, params?: OpeningHoursSpecificationParams): OpeningHoursSpecification {
-    return new OpeningHoursSpecification(semanticId, params);
-  }
-
-  createOrder(semanticId: string, params?: OrderParams): Order {
-    return new Order(semanticId, params);
-  }
-
-  createOrderLine(semanticId: string, params?: OrderLineParams): OrderLine {
-    return new OrderLine(semanticId, params);
-  }
-
-  createOrganization(semanticId: string, params?: OrganizationParams): Organization {
-    return new Organization(semanticId, params);
-  }
-
-  createPaymentMethod(semanticId: string, params?: PaymentMethodParams): PaymentMethod {
-    return new PaymentMethod(semanticId, params);
-  }
-
-  createPerson(semanticId: string, params?: PersonParams): Person {
-    return new Person(semanticId, params);
-  }
-
-  createPhoneNumber(semanticId: string, params?: PhoneNumberParams): PhoneNumber {
-    return new PhoneNumber(semanticId, params);
-  }
-
-  createPhysicalCharacteristic(semanticId: string, params?: PhysicalCharacteristicParams): PhysicalCharacteristic {
-    return new PhysicalCharacteristic(semanticId, params);
-  }
-
-  createPhysicalPlace(semanticId: string, params?: PhysicalPlaceParams): PhysicalPlace {
-    return new PhysicalPlace(semanticId, params);
-  }
-
-  createPhysicalProduct(semanticId: string, params?: PhysicalProductParams): PhysicalProduct {
-    return new PhysicalProduct(semanticId, params);
-  }
-
-  createPickUpStep(semanticId: string, params?: PickUpStepParams): PickUpStep {
-    return new PickUpStep(semanticId, params);
-  }
-
-  createPickupOption(semanticId: string, params?: PickupOptionParams): PickupOption {
-    return new PickupOption(semanticId, params);
-  }
-
-  createPlace(semanticId: string, params?: PlaceParams): Place {
-    return new Place(semanticId, params);
-  }
-
-  createPlatform(semanticId: string, params?: PlatformParams): Platform {
-    return new Platform(semanticId, params);
-  }
-
-  createPoint(semanticId: string, params?: PointParams): Point {
-    return new Point(semanticId, params);
-  }
-
-  createPolygon(semanticId: string, params?: PolygonParams): Polygon {
-    return new Polygon(semanticId, params);
-  }
-
-  createPrice(semanticId: string, params?: PriceParams): Price {
-    return new Price(semanticId, params);
-  }
-
-  createProductBatch(semanticId: string, params?: ProductBatchParams): ProductBatch {
-    return new ProductBatch(semanticId, params);
-  }
-
-  createProductOption(semanticId: string, params?: ProductOptionParams): ProductOption {
-    return new ProductOption(semanticId, params);
-  }
-
-  createProductOptionValue(semanticId: string, params?: ProductOptionValueParams): ProductOptionValue {
-    return new ProductOptionValue(semanticId, params);
-  }
-
-  createProductionFlow(semanticId: string, params?: ProductionFlowParams): ProductionFlow {
-    return new ProductionFlow(semanticId, params);
-  }
-
-  createProperties(semanticId: string, params?: PropertiesParams): Properties {
-    return new Properties(semanticId, params);
-  }
-
-  createQuantitativeValue(semanticId: string, params?: QuantitativeValueParams): QuantitativeValue {
-    return new QuantitativeValue(semanticId, params);
-  }
-
-  createRealStock(semanticId: string, params?: RealStockParams): RealStock {
-    return new RealStock(semanticId, params);
-  }
-
-  createRepresentationPivot(semanticId: string, params?: RepresentationPivotParams): RepresentationPivot {
-    return new RepresentationPivot(semanticId, params);
-  }
-
-  createRepresentedThing(semanticId: string, params?: RepresentedThingParams): RepresentedThing {
-    return new RepresentedThing(semanticId, params);
-  }
-
-  createRoute(semanticId: string, params?: RouteParams): Route {
-    return new Route(semanticId, params);
-  }
-
-  createSaleSession(semanticId: string, params?: SaleSessionParams): SaleSession {
-    return new SaleSession(semanticId, params);
-  }
-
-  createShipment(semanticId: string, params?: ShipmentParams): Shipment {
-    return new Shipment(semanticId, params);
-  }
-
-  createShippingOption(semanticId: string, params?: ShippingOptionParams): ShippingOption {
-    return new ShippingOption(semanticId, params);
-  }
-
-  createSocialMedia(semanticId: string, params?: SocialMediaParams): SocialMedia {
-    return new SocialMedia(semanticId, params);
-  }
-
-  createStep(semanticId: string, params?: StepParams): Step {
-    return new Step(semanticId, params);
-  }
-
-  createStock(semanticId: string, params?: StockParams): Stock {
-    return new Stock(semanticId, params);
-  }
-
-  createSuppliedProduct(semanticId: string, params?: SuppliedProductParams): SuppliedProduct {
-    return new SuppliedProduct(semanticId, params);
-  }
-
-  createTechnicalProduct(semanticId: string, params?: TechnicalProductParams): TechnicalProduct {
-    return new TechnicalProduct(semanticId, params);
-  }
-
-  createTemperature(semanticId: string, params?: TemperatureParams): Temperature {
-    return new Temperature(semanticId, params);
-  }
-
-  createTemplateSaleSession(semanticId: string, params?: TemplateSaleSessionParams): TemplateSaleSession {
-    return new TemplateSaleSession(semanticId, params);
-  }
-
-  createTheoriticalStock(semanticId: string, params?: TheoriticalStockParams): TheoriticalStock {
-    return new TheoriticalStock(semanticId, params);
-  }
-
-  createTransaction(semanticId: string, params?: TransactionParams): Transaction {
-    return new Transaction(semanticId, params);
-  }
-
-  createTransformation(semanticId: string, params?: TransformationParams): Transformation {
-    return new Transformation(semanticId, params);
-  }
-
-  createValueRECUR(semanticId: string, params?: ValueRECURParams): ValueRECUR {
-    return new ValueRECUR(semanticId, params);
-  }
-
-  createVariant(semanticId: string, params?: VariantParams): Variant {
-    return new Variant(semanticId, params);
-  }
-
-  createVariantCaracteristic(semanticId: string, params?: VariantCaracteristicParams): VariantCaracteristic {
-    return new VariantCaracteristic(semanticId, params);
-  }
-
-  createVehicle(semanticId: string, params?: VehicleParams): Vehicle {
-    return new Vehicle(semanticId, params);
-  }
-
-  createVevent(semanticId: string, params?: VeventParams): Vevent {
-    return new Vevent(semanticId, params);
-  }
-
-  createVirtualPlace(semanticId: string, params?: VirtualPlaceParams): VirtualPlace {
-    return new VirtualPlace(semanticId, params);
-  }
-
-  createVolume(semanticId: string, params?: VolumeParams): Volume {
-    return new Volume(semanticId, params);
-  }
-
-  createWeight(semanticId: string, params?: WeightParams): Weight {
-    return new Weight(semanticId, params);
-  }
-
-  createWhatSubject(semanticId: string, params?: WhatSubjectParams): WhatSubject {
-    return new WhatSubject(semanticId, params);
-  }
-
-  createWhereSubject(semanticId: string, params?: WhereSubjectParams): WhereSubject {
-    return new WhereSubject(semanticId, params);
-  }
-
-  createWhoSubject(semanticId: string, params?: WhoSubjectParams): WhoSubject {
-    return new WhoSubject(semanticId, params);
+  createAddress(
+    semanticIdOrArgs: string | ({ semanticId: string } & AddressParams),
+    params?: AddressParams,
+  ): Address {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Address(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Address(semanticId, rest as AddressParams);
+  }
+
+  createAgent(
+    semanticIdOrArgs: string | ({ semanticId: string } & AgentParams),
+    params?: AgentParams,
+  ): Agent {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Agent(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Agent(semanticId, rest as AgentParams);
+  }
+
+  createAllergenCharacteristic(
+    semanticIdOrArgs: string | ({ semanticId: string } & AllergenCharacteristicParams),
+    params?: AllergenCharacteristicParams,
+  ): AllergenCharacteristic {
+    if (typeof semanticIdOrArgs === "string") {
+      return new AllergenCharacteristic(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new AllergenCharacteristic(semanticId, rest as AllergenCharacteristicParams);
+  }
+
+  createAsPlannedConsumptionFlow(
+    semanticIdOrArgs: string | ({ semanticId: string } & AsPlannedConsumptionFlowParams),
+    params?: AsPlannedConsumptionFlowParams,
+  ): AsPlannedConsumptionFlow {
+    if (typeof semanticIdOrArgs === "string") {
+      return new AsPlannedConsumptionFlow(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new AsPlannedConsumptionFlow(semanticId, rest as AsPlannedConsumptionFlowParams);
+  }
+
+  createAsPlannedLocalConsumptionFlow(
+    semanticIdOrArgs: string | ({ semanticId: string } & AsPlannedLocalConsumptionFlowParams),
+    params?: AsPlannedLocalConsumptionFlowParams,
+  ): AsPlannedLocalConsumptionFlow {
+    if (typeof semanticIdOrArgs === "string") {
+      return new AsPlannedLocalConsumptionFlow(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new AsPlannedLocalConsumptionFlow(semanticId, rest as AsPlannedLocalConsumptionFlowParams);
+  }
+
+  createAsPlannedLocalProductionFlow(
+    semanticIdOrArgs: string | ({ semanticId: string } & AsPlannedLocalProductionFlowParams),
+    params?: AsPlannedLocalProductionFlowParams,
+  ): AsPlannedLocalProductionFlow {
+    if (typeof semanticIdOrArgs === "string") {
+      return new AsPlannedLocalProductionFlow(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new AsPlannedLocalProductionFlow(semanticId, rest as AsPlannedLocalProductionFlowParams);
+  }
+
+  createAsPlannedLocalTransformation(
+    semanticIdOrArgs: string | ({ semanticId: string } & AsPlannedLocalTransformationParams),
+    params?: AsPlannedLocalTransformationParams,
+  ): AsPlannedLocalTransformation {
+    if (typeof semanticIdOrArgs === "string") {
+      return new AsPlannedLocalTransformation(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new AsPlannedLocalTransformation(semanticId, rest as AsPlannedLocalTransformationParams);
+  }
+
+  createAsPlannedProductionFlow(
+    semanticIdOrArgs: string | ({ semanticId: string } & AsPlannedProductionFlowParams),
+    params?: AsPlannedProductionFlowParams,
+  ): AsPlannedProductionFlow {
+    if (typeof semanticIdOrArgs === "string") {
+      return new AsPlannedProductionFlow(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new AsPlannedProductionFlow(semanticId, rest as AsPlannedProductionFlowParams);
+  }
+
+  createAsPlannedTransformation(
+    semanticIdOrArgs: string | ({ semanticId: string } & AsPlannedTransformationParams),
+    params?: AsPlannedTransformationParams,
+  ): AsPlannedTransformation {
+    if (typeof semanticIdOrArgs === "string") {
+      return new AsPlannedTransformation(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new AsPlannedTransformation(semanticId, rest as AsPlannedTransformationParams);
+  }
+
+  createAsRealizedConsumptionFlow(
+    semanticIdOrArgs: string | ({ semanticId: string } & AsRealizedConsumptionFlowParams),
+    params?: AsRealizedConsumptionFlowParams,
+  ): AsRealizedConsumptionFlow {
+    if (typeof semanticIdOrArgs === "string") {
+      return new AsRealizedConsumptionFlow(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new AsRealizedConsumptionFlow(semanticId, rest as AsRealizedConsumptionFlowParams);
+  }
+
+  createAsRealizedProductionFlow(
+    semanticIdOrArgs: string | ({ semanticId: string } & AsRealizedProductionFlowParams),
+    params?: AsRealizedProductionFlowParams,
+  ): AsRealizedProductionFlow {
+    if (typeof semanticIdOrArgs === "string") {
+      return new AsRealizedProductionFlow(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new AsRealizedProductionFlow(semanticId, rest as AsRealizedProductionFlowParams);
+  }
+
+  createAsRealizedTransformation(
+    semanticIdOrArgs: string | ({ semanticId: string } & AsRealizedTransformationParams),
+    params?: AsRealizedTransformationParams,
+  ): AsRealizedTransformation {
+    if (typeof semanticIdOrArgs === "string") {
+      return new AsRealizedTransformation(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new AsRealizedTransformation(semanticId, rest as AsRealizedTransformationParams);
+  }
+
+  createBrand(
+    semanticIdOrArgs: string | ({ semanticId: string } & BrandParams),
+    params?: BrandParams,
+  ): Brand {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Brand(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Brand(semanticId, rest as BrandParams);
+  }
+
+  createCatalog(
+    semanticIdOrArgs: string | ({ semanticId: string } & CatalogParams),
+    params?: CatalogParams,
+  ): Catalog {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Catalog(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Catalog(semanticId, rest as CatalogParams);
+  }
+
+  createCatalogItem(
+    semanticIdOrArgs: string | ({ semanticId: string } & CatalogItemParams),
+    params?: CatalogItemParams,
+  ): CatalogItem {
+    if (typeof semanticIdOrArgs === "string") {
+      return new CatalogItem(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new CatalogItem(semanticId, rest as CatalogItemParams);
+  }
+
+  createCertfication(
+    semanticIdOrArgs: string | ({ semanticId: string } & CertficationParams),
+    params?: CertficationParams,
+  ): Certfication {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Certfication(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Certfication(semanticId, rest as CertficationParams);
+  }
+
+  createCollection(
+    semanticIdOrArgs: string | ({ semanticId: string } & CollectionParams),
+    params?: CollectionParams,
+  ): Collection {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Collection(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Collection(semanticId, rest as CollectionParams);
+  }
+
+  createConcept(
+    semanticIdOrArgs: string | ({ semanticId: string } & ConceptParams),
+    params?: ConceptParams,
+  ): Concept {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Concept(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Concept(semanticId, rest as ConceptParams);
+  }
+
+  createConceptScheme(
+    semanticIdOrArgs: string | ({ semanticId: string } & ConceptSchemeParams),
+    params?: ConceptSchemeParams,
+  ): ConceptScheme {
+    if (typeof semanticIdOrArgs === "string") {
+      return new ConceptScheme(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new ConceptScheme(semanticId, rest as ConceptSchemeParams);
+  }
+
+  createConsumptionFlow(
+    semanticIdOrArgs: string | ({ semanticId: string } & ConsumptionFlowParams),
+    params?: ConsumptionFlowParams,
+  ): ConsumptionFlow {
+    if (typeof semanticIdOrArgs === "string") {
+      return new ConsumptionFlow(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new ConsumptionFlow(semanticId, rest as ConsumptionFlowParams);
+  }
+
+  createCoordination(
+    semanticIdOrArgs: string | ({ semanticId: string } & CoordinationParams),
+    params?: CoordinationParams,
+  ): Coordination {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Coordination(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Coordination(semanticId, rest as CoordinationParams);
+  }
+
+  createCustomerCategory(
+    semanticIdOrArgs: string | ({ semanticId: string } & CustomerCategoryParams),
+    params?: CustomerCategoryParams,
+  ): CustomerCategory {
+    if (typeof semanticIdOrArgs === "string") {
+      return new CustomerCategory(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new CustomerCategory(semanticId, rest as CustomerCategoryParams);
+  }
+
+  createDitributedRepresentation(
+    semanticIdOrArgs: string | ({ semanticId: string } & DitributedRepresentationParams),
+    params?: DitributedRepresentationParams,
+  ): DitributedRepresentation {
+    if (typeof semanticIdOrArgs === "string") {
+      return new DitributedRepresentation(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new DitributedRepresentation(semanticId, rest as DitributedRepresentationParams);
+  }
+
+  createDefinedProduct(
+    semanticIdOrArgs: string | ({ semanticId: string } & DefinedProductParams),
+    params?: DefinedProductParams,
+  ): DefinedProduct {
+    if (typeof semanticIdOrArgs === "string") {
+      return new DefinedProduct(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new DefinedProduct(semanticId, rest as DefinedProductParams);
+  }
+
+  createDeliveryOption(
+    semanticIdOrArgs: string | ({ semanticId: string } & DeliveryOptionParams),
+    params?: DeliveryOptionParams,
+  ): DeliveryOption {
+    if (typeof semanticIdOrArgs === "string") {
+      return new DeliveryOption(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new DeliveryOption(semanticId, rest as DeliveryOptionParams);
+  }
+
+  createDeliveryStep(
+    semanticIdOrArgs: string | ({ semanticId: string } & DeliveryStepParams),
+    params?: DeliveryStepParams,
+  ): DeliveryStep {
+    if (typeof semanticIdOrArgs === "string") {
+      return new DeliveryStep(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new DeliveryStep(semanticId, rest as DeliveryStepParams);
+  }
+
+  createEnterprise(
+    semanticIdOrArgs: string | ({ semanticId: string } & EnterpriseParams),
+    params?: EnterpriseParams,
+  ): Enterprise {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Enterprise(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Enterprise(semanticId, rest as EnterpriseParams);
+  }
+
+  createFeature(
+    semanticIdOrArgs: string | ({ semanticId: string } & FeatureParams),
+    params?: FeatureParams,
+  ): Feature {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Feature(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Feature(semanticId, rest as FeatureParams);
+  }
+
+  createFunctionalProduct(
+    semanticIdOrArgs: string | ({ semanticId: string } & FunctionalProductParams),
+    params?: FunctionalProductParams,
+  ): FunctionalProduct {
+    if (typeof semanticIdOrArgs === "string") {
+      return new FunctionalProduct(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new FunctionalProduct(semanticId, rest as FunctionalProductParams);
+  }
+
+  createGeometry(
+    semanticIdOrArgs: string | ({ semanticId: string } & GeometryParams),
+    params?: GeometryParams,
+  ): Geometry {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Geometry(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Geometry(semanticId, rest as GeometryParams);
+  }
+
+  createHowSubject(
+    semanticIdOrArgs: string | ({ semanticId: string } & HowSubjectParams),
+    params?: HowSubjectParams,
+  ): HowSubject {
+    if (typeof semanticIdOrArgs === "string") {
+      return new HowSubject(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new HowSubject(semanticId, rest as HowSubjectParams);
+  }
+
+  createIndividual(
+    semanticIdOrArgs: string | ({ semanticId: string } & IndividualParams),
+    params?: IndividualParams,
+  ): Individual {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Individual(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Individual(semanticId, rest as IndividualParams);
+  }
+
+  createIngredient(
+    semanticIdOrArgs: string | ({ semanticId: string } & IngredientParams),
+    params?: IngredientParams,
+  ): Ingredient {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Ingredient(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Ingredient(semanticId, rest as IngredientParams);
+  }
+
+  createLabellingCharacteristic(
+    semanticIdOrArgs: string | ({ semanticId: string } & LabellingCharacteristicParams),
+    params?: LabellingCharacteristicParams,
+  ): LabellingCharacteristic {
+    if (typeof semanticIdOrArgs === "string") {
+      return new LabellingCharacteristic(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new LabellingCharacteristic(semanticId, rest as LabellingCharacteristicParams);
+  }
+
+  createLength(
+    semanticIdOrArgs: string | ({ semanticId: string } & LengthParams),
+    params?: LengthParams,
+  ): Length {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Length(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Length(semanticId, rest as LengthParams);
+  }
+
+  createLocalizedProduct(
+    semanticIdOrArgs: string | ({ semanticId: string } & LocalizedProductParams),
+    params?: LocalizedProductParams,
+  ): LocalizedProduct {
+    if (typeof semanticIdOrArgs === "string") {
+      return new LocalizedProduct(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new LocalizedProduct(semanticId, rest as LocalizedProductParams);
+  }
+
+  createNutrientCharacteristic(
+    semanticIdOrArgs: string | ({ semanticId: string } & NutrientCharacteristicParams),
+    params?: NutrientCharacteristicParams,
+  ): NutrientCharacteristic {
+    if (typeof semanticIdOrArgs === "string") {
+      return new NutrientCharacteristic(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new NutrientCharacteristic(semanticId, rest as NutrientCharacteristicParams);
+  }
+
+  createOffer(
+    semanticIdOrArgs: string | ({ semanticId: string } & OfferParams),
+    params?: OfferParams,
+  ): Offer {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Offer(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Offer(semanticId, rest as OfferParams);
+  }
+
+  createOpeningHoursSpecification(
+    semanticIdOrArgs: string | ({ semanticId: string } & OpeningHoursSpecificationParams),
+    params?: OpeningHoursSpecificationParams,
+  ): OpeningHoursSpecification {
+    if (typeof semanticIdOrArgs === "string") {
+      return new OpeningHoursSpecification(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new OpeningHoursSpecification(semanticId, rest as OpeningHoursSpecificationParams);
+  }
+
+  createOrder(
+    semanticIdOrArgs: string | ({ semanticId: string } & OrderParams),
+    params?: OrderParams,
+  ): Order {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Order(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Order(semanticId, rest as OrderParams);
+  }
+
+  createOrderLine(
+    semanticIdOrArgs: string | ({ semanticId: string } & OrderLineParams),
+    params?: OrderLineParams,
+  ): OrderLine {
+    if (typeof semanticIdOrArgs === "string") {
+      return new OrderLine(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new OrderLine(semanticId, rest as OrderLineParams);
+  }
+
+  createOrganization(
+    semanticIdOrArgs: string | ({ semanticId: string } & OrganizationParams),
+    params?: OrganizationParams,
+  ): Organization {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Organization(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Organization(semanticId, rest as OrganizationParams);
+  }
+
+  createPaymentMethod(
+    semanticIdOrArgs: string | ({ semanticId: string } & PaymentMethodParams),
+    params?: PaymentMethodParams,
+  ): PaymentMethod {
+    if (typeof semanticIdOrArgs === "string") {
+      return new PaymentMethod(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new PaymentMethod(semanticId, rest as PaymentMethodParams);
+  }
+
+  createPerson(
+    semanticIdOrArgs: string | ({ semanticId: string } & PersonParams),
+    params?: PersonParams,
+  ): Person {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Person(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Person(semanticId, rest as PersonParams);
+  }
+
+  createPhoneNumber(
+    semanticIdOrArgs: string | ({ semanticId: string } & PhoneNumberParams),
+    params?: PhoneNumberParams,
+  ): PhoneNumber {
+    if (typeof semanticIdOrArgs === "string") {
+      return new PhoneNumber(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new PhoneNumber(semanticId, rest as PhoneNumberParams);
+  }
+
+  createPhysicalCharacteristic(
+    semanticIdOrArgs: string | ({ semanticId: string } & PhysicalCharacteristicParams),
+    params?: PhysicalCharacteristicParams,
+  ): PhysicalCharacteristic {
+    if (typeof semanticIdOrArgs === "string") {
+      return new PhysicalCharacteristic(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new PhysicalCharacteristic(semanticId, rest as PhysicalCharacteristicParams);
+  }
+
+  createPhysicalPlace(
+    semanticIdOrArgs: string | ({ semanticId: string } & PhysicalPlaceParams),
+    params?: PhysicalPlaceParams,
+  ): PhysicalPlace {
+    if (typeof semanticIdOrArgs === "string") {
+      return new PhysicalPlace(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new PhysicalPlace(semanticId, rest as PhysicalPlaceParams);
+  }
+
+  createPhysicalProduct(
+    semanticIdOrArgs: string | ({ semanticId: string } & PhysicalProductParams),
+    params?: PhysicalProductParams,
+  ): PhysicalProduct {
+    if (typeof semanticIdOrArgs === "string") {
+      return new PhysicalProduct(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new PhysicalProduct(semanticId, rest as PhysicalProductParams);
+  }
+
+  createPickUpStep(
+    semanticIdOrArgs: string | ({ semanticId: string } & PickUpStepParams),
+    params?: PickUpStepParams,
+  ): PickUpStep {
+    if (typeof semanticIdOrArgs === "string") {
+      return new PickUpStep(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new PickUpStep(semanticId, rest as PickUpStepParams);
+  }
+
+  createPickupOption(
+    semanticIdOrArgs: string | ({ semanticId: string } & PickupOptionParams),
+    params?: PickupOptionParams,
+  ): PickupOption {
+    if (typeof semanticIdOrArgs === "string") {
+      return new PickupOption(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new PickupOption(semanticId, rest as PickupOptionParams);
+  }
+
+  createPlace(
+    semanticIdOrArgs: string | ({ semanticId: string } & PlaceParams),
+    params?: PlaceParams,
+  ): Place {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Place(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Place(semanticId, rest as PlaceParams);
+  }
+
+  createPlatform(
+    semanticIdOrArgs: string | ({ semanticId: string } & PlatformParams),
+    params?: PlatformParams,
+  ): Platform {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Platform(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Platform(semanticId, rest as PlatformParams);
+  }
+
+  createPoint(
+    semanticIdOrArgs: string | ({ semanticId: string } & PointParams),
+    params?: PointParams,
+  ): Point {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Point(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Point(semanticId, rest as PointParams);
+  }
+
+  createPolygon(
+    semanticIdOrArgs: string | ({ semanticId: string } & PolygonParams),
+    params?: PolygonParams,
+  ): Polygon {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Polygon(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Polygon(semanticId, rest as PolygonParams);
+  }
+
+  createPrice(
+    semanticIdOrArgs: string | ({ semanticId: string } & PriceParams),
+    params?: PriceParams,
+  ): Price {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Price(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Price(semanticId, rest as PriceParams);
+  }
+
+  createProductBatch(
+    semanticIdOrArgs: string | ({ semanticId: string } & ProductBatchParams),
+    params?: ProductBatchParams,
+  ): ProductBatch {
+    if (typeof semanticIdOrArgs === "string") {
+      return new ProductBatch(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new ProductBatch(semanticId, rest as ProductBatchParams);
+  }
+
+  createProductOption(
+    semanticIdOrArgs: string | ({ semanticId: string } & ProductOptionParams),
+    params?: ProductOptionParams,
+  ): ProductOption {
+    if (typeof semanticIdOrArgs === "string") {
+      return new ProductOption(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new ProductOption(semanticId, rest as ProductOptionParams);
+  }
+
+  createProductOptionValue(
+    semanticIdOrArgs: string | ({ semanticId: string } & ProductOptionValueParams),
+    params?: ProductOptionValueParams,
+  ): ProductOptionValue {
+    if (typeof semanticIdOrArgs === "string") {
+      return new ProductOptionValue(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new ProductOptionValue(semanticId, rest as ProductOptionValueParams);
+  }
+
+  createProductionFlow(
+    semanticIdOrArgs: string | ({ semanticId: string } & ProductionFlowParams),
+    params?: ProductionFlowParams,
+  ): ProductionFlow {
+    if (typeof semanticIdOrArgs === "string") {
+      return new ProductionFlow(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new ProductionFlow(semanticId, rest as ProductionFlowParams);
+  }
+
+  createProperties(
+    semanticIdOrArgs: string | ({ semanticId: string } & PropertiesParams),
+    params?: PropertiesParams,
+  ): Properties {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Properties(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Properties(semanticId, rest as PropertiesParams);
+  }
+
+  createQuantitativeValue(
+    semanticIdOrArgs: string | ({ semanticId: string } & QuantitativeValueParams),
+    params?: QuantitativeValueParams,
+  ): QuantitativeValue {
+    if (typeof semanticIdOrArgs === "string") {
+      return new QuantitativeValue(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new QuantitativeValue(semanticId, rest as QuantitativeValueParams);
+  }
+
+  createRealStock(
+    semanticIdOrArgs: string | ({ semanticId: string } & RealStockParams),
+    params?: RealStockParams,
+  ): RealStock {
+    if (typeof semanticIdOrArgs === "string") {
+      return new RealStock(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new RealStock(semanticId, rest as RealStockParams);
+  }
+
+  createRepresentationPivot(
+    semanticIdOrArgs: string | ({ semanticId: string } & RepresentationPivotParams),
+    params?: RepresentationPivotParams,
+  ): RepresentationPivot {
+    if (typeof semanticIdOrArgs === "string") {
+      return new RepresentationPivot(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new RepresentationPivot(semanticId, rest as RepresentationPivotParams);
+  }
+
+  createRepresentedThing(
+    semanticIdOrArgs: string | ({ semanticId: string } & RepresentedThingParams),
+    params?: RepresentedThingParams,
+  ): RepresentedThing {
+    if (typeof semanticIdOrArgs === "string") {
+      return new RepresentedThing(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new RepresentedThing(semanticId, rest as RepresentedThingParams);
+  }
+
+  createRoute(
+    semanticIdOrArgs: string | ({ semanticId: string } & RouteParams),
+    params?: RouteParams,
+  ): Route {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Route(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Route(semanticId, rest as RouteParams);
+  }
+
+  createSaleSession(
+    semanticIdOrArgs: string | ({ semanticId: string } & SaleSessionParams),
+    params?: SaleSessionParams,
+  ): SaleSession {
+    if (typeof semanticIdOrArgs === "string") {
+      return new SaleSession(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new SaleSession(semanticId, rest as SaleSessionParams);
+  }
+
+  createShipment(
+    semanticIdOrArgs: string | ({ semanticId: string } & ShipmentParams),
+    params?: ShipmentParams,
+  ): Shipment {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Shipment(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Shipment(semanticId, rest as ShipmentParams);
+  }
+
+  createShippingOption(
+    semanticIdOrArgs: string | ({ semanticId: string } & ShippingOptionParams),
+    params?: ShippingOptionParams,
+  ): ShippingOption {
+    if (typeof semanticIdOrArgs === "string") {
+      return new ShippingOption(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new ShippingOption(semanticId, rest as ShippingOptionParams);
+  }
+
+  createSocialMedia(
+    semanticIdOrArgs: string | ({ semanticId: string } & SocialMediaParams),
+    params?: SocialMediaParams,
+  ): SocialMedia {
+    if (typeof semanticIdOrArgs === "string") {
+      return new SocialMedia(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new SocialMedia(semanticId, rest as SocialMediaParams);
+  }
+
+  createStep(
+    semanticIdOrArgs: string | ({ semanticId: string } & StepParams),
+    params?: StepParams,
+  ): Step {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Step(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Step(semanticId, rest as StepParams);
+  }
+
+  createStock(
+    semanticIdOrArgs: string | ({ semanticId: string } & StockParams),
+    params?: StockParams,
+  ): Stock {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Stock(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Stock(semanticId, rest as StockParams);
+  }
+
+  createSuppliedProduct(
+    semanticIdOrArgs: string | ({ semanticId: string } & SuppliedProductParams),
+    params?: SuppliedProductParams,
+  ): SuppliedProduct {
+    if (typeof semanticIdOrArgs === "string") {
+      return new SuppliedProduct(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new SuppliedProduct(semanticId, rest as SuppliedProductParams);
+  }
+
+  createTechnicalProduct(
+    semanticIdOrArgs: string | ({ semanticId: string } & TechnicalProductParams),
+    params?: TechnicalProductParams,
+  ): TechnicalProduct {
+    if (typeof semanticIdOrArgs === "string") {
+      return new TechnicalProduct(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new TechnicalProduct(semanticId, rest as TechnicalProductParams);
+  }
+
+  createTemperature(
+    semanticIdOrArgs: string | ({ semanticId: string } & TemperatureParams),
+    params?: TemperatureParams,
+  ): Temperature {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Temperature(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Temperature(semanticId, rest as TemperatureParams);
+  }
+
+  createTemplateSaleSession(
+    semanticIdOrArgs: string | ({ semanticId: string } & TemplateSaleSessionParams),
+    params?: TemplateSaleSessionParams,
+  ): TemplateSaleSession {
+    if (typeof semanticIdOrArgs === "string") {
+      return new TemplateSaleSession(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new TemplateSaleSession(semanticId, rest as TemplateSaleSessionParams);
+  }
+
+  createTheoriticalStock(
+    semanticIdOrArgs: string | ({ semanticId: string } & TheoriticalStockParams),
+    params?: TheoriticalStockParams,
+  ): TheoriticalStock {
+    if (typeof semanticIdOrArgs === "string") {
+      return new TheoriticalStock(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new TheoriticalStock(semanticId, rest as TheoriticalStockParams);
+  }
+
+  createTransaction(
+    semanticIdOrArgs: string | ({ semanticId: string } & TransactionParams),
+    params?: TransactionParams,
+  ): Transaction {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Transaction(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Transaction(semanticId, rest as TransactionParams);
+  }
+
+  createTransformation(
+    semanticIdOrArgs: string | ({ semanticId: string } & TransformationParams),
+    params?: TransformationParams,
+  ): Transformation {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Transformation(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Transformation(semanticId, rest as TransformationParams);
+  }
+
+  createValueRECUR(
+    semanticIdOrArgs: string | ({ semanticId: string } & ValueRECURParams),
+    params?: ValueRECURParams,
+  ): ValueRECUR {
+    if (typeof semanticIdOrArgs === "string") {
+      return new ValueRECUR(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new ValueRECUR(semanticId, rest as ValueRECURParams);
+  }
+
+  createVariant(
+    semanticIdOrArgs: string | ({ semanticId: string } & VariantParams),
+    params?: VariantParams,
+  ): Variant {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Variant(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Variant(semanticId, rest as VariantParams);
+  }
+
+  createVariantCaracteristic(
+    semanticIdOrArgs: string | ({ semanticId: string } & VariantCaracteristicParams),
+    params?: VariantCaracteristicParams,
+  ): VariantCaracteristic {
+    if (typeof semanticIdOrArgs === "string") {
+      return new VariantCaracteristic(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new VariantCaracteristic(semanticId, rest as VariantCaracteristicParams);
+  }
+
+  createVehicle(
+    semanticIdOrArgs: string | ({ semanticId: string } & VehicleParams),
+    params?: VehicleParams,
+  ): Vehicle {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Vehicle(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Vehicle(semanticId, rest as VehicleParams);
+  }
+
+  createVevent(
+    semanticIdOrArgs: string | ({ semanticId: string } & VeventParams),
+    params?: VeventParams,
+  ): Vevent {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Vevent(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Vevent(semanticId, rest as VeventParams);
+  }
+
+  createVirtualPlace(
+    semanticIdOrArgs: string | ({ semanticId: string } & VirtualPlaceParams),
+    params?: VirtualPlaceParams,
+  ): VirtualPlace {
+    if (typeof semanticIdOrArgs === "string") {
+      return new VirtualPlace(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new VirtualPlace(semanticId, rest as VirtualPlaceParams);
+  }
+
+  createVolume(
+    semanticIdOrArgs: string | ({ semanticId: string } & VolumeParams),
+    params?: VolumeParams,
+  ): Volume {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Volume(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Volume(semanticId, rest as VolumeParams);
+  }
+
+  createWeight(
+    semanticIdOrArgs: string | ({ semanticId: string } & WeightParams),
+    params?: WeightParams,
+  ): Weight {
+    if (typeof semanticIdOrArgs === "string") {
+      return new Weight(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new Weight(semanticId, rest as WeightParams);
+  }
+
+  createWhatSubject(
+    semanticIdOrArgs: string | ({ semanticId: string } & WhatSubjectParams),
+    params?: WhatSubjectParams,
+  ): WhatSubject {
+    if (typeof semanticIdOrArgs === "string") {
+      return new WhatSubject(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new WhatSubject(semanticId, rest as WhatSubjectParams);
+  }
+
+  createWhereSubject(
+    semanticIdOrArgs: string | ({ semanticId: string } & WhereSubjectParams),
+    params?: WhereSubjectParams,
+  ): WhereSubject {
+    if (typeof semanticIdOrArgs === "string") {
+      return new WhereSubject(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new WhereSubject(semanticId, rest as WhereSubjectParams);
+  }
+
+  createWhoSubject(
+    semanticIdOrArgs: string | ({ semanticId: string } & WhoSubjectParams),
+    params?: WhoSubjectParams,
+  ): WhoSubject {
+    if (typeof semanticIdOrArgs === "string") {
+      return new WhoSubject(semanticIdOrArgs, params);
+    }
+    const { semanticId, ...rest } = semanticIdOrArgs;
+    return new WhoSubject(semanticId, rest as WhoSubjectParams);
   }
 
   private async fetchContext(): Promise<Record<string, unknown>> {

@@ -142,6 +142,58 @@ def _enterprise_alias(schema_data: dict) -> dict[str, str]:
     return {'dfc-b:Enterprise': 'dfc-b:Organization'}
 
 
+def load_official_api() -> list[dict]:
+    """Load canonical→official-v2 mapping for code-plane aliases.
+
+    Returns [] when the file is absent so the generator stays usable
+    standalone (no aliases emitted).
+    """
+    for p in ('config/dfc-official-api.yaml', '../config/dfc-official-api.yaml',
+              '../../config/dfc-official-api.yaml'):
+        if Path(p).exists():
+            import yaml
+            return yaml.safe_load(Path(p).read_text()).get('slots', [])
+    print("Official API map not found; skipping code-plane aliases",
+          file=sys.stderr)
+    return []
+
+
+def official_aliases_for_class(class_name: str, schema_data: dict,
+                               api_slots: list[dict]) -> list[tuple[str, str]]:
+    """Official-v2 reader/writer names to alias onto ours accessors.
+
+    Returns (official, ours) pairs, skipping identical names and collisions
+    where the official name already means something else on this class.
+    Includes inherited slots (aliases work through inheritance too).
+    """
+    pred_to_prop: dict[str, str] = {}
+    for slot_name, slot_data, _owner in get_all_slots_for_class(
+            class_name, schema_data):
+        pred_to_prop[predicate_for_slot(slot_name, slot_data)] = \
+            ruby_property_name(slot_name)
+    prop_names = set(pred_to_prop.values())
+    aliases: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for entry in api_slots:
+        ours = pred_to_prop.get(entry.get('predicate', ''))
+        if not ours:
+            continue
+        for role in ('get', 'set'):
+            official = (entry.get('ruby') or {}).get(role)
+            if not official:
+                continue
+            target = ours + ('=' if role == 'set' else '')
+            if official == target or official in seen:
+                continue
+            if official.rstrip('=') in prop_names:
+                print(f"WARNING: not aliasing {official} on {class_name}: "
+                      f"already an accessor", file=sys.stderr)
+                continue
+            seen.add(official)
+            aliases.append((official, target))
+    return aliases
+
+
 def ruby_property_name(slot_name: str) -> str:
     """Convert a slot name to a Ruby accessor name (snake_case)."""
     name = slot_name
@@ -671,6 +723,13 @@ __HAS_PREFIX_KEEP__
         def default_context_url=(url)
           @default_context_url = url
         end
+
+        # Official-connector migration aid: the official gem exposes a
+        # singleton; ours is instantiable, this default instance covers
+        # `Connector.instance` call sites.
+        def instance
+          @instance ||= new
+        end
       end
 
       attr_reader :ontology_version, :taxonomy_version, :vocab_loader
@@ -1070,7 +1129,8 @@ def generate_vocabulary_file(enum_name: str, enum_data: dict, schema_data: dict)
     return json.dumps(vocab, indent=2, ensure_ascii=False)
 
 
-def generate_semantic_model(class_name: str, class_data: dict, schema_data: dict) -> str:
+def generate_semantic_model(class_name: str, class_data: dict, schema_data: dict,
+                            api_slots: list[dict] | None = None) -> str:
     """Generate a semantic object model file wrapped in module namespace."""
     ruby_name = to_ruby_class_name(class_name)
     # Parent comes from the (possibly overridden) hierarchy so slot
@@ -1174,6 +1234,17 @@ module DfcLinkmlConnector
     registrations_str = '\n'.join(registrations)
     super_str = f'super(semanticId, {", ".join(super_kwargs)})' if super_kwargs else 'super(semanticId)'
 
+    # Official-v2 reader/writer aliases (migration aid). attr_accessor
+    # defines reader+writer before initialize, so alias_method is safe here.
+    alias_lines = []
+    for official, target in official_aliases_for_class(
+            class_name, schema_data, api_slots or []):
+        alias_lines.append(f'      alias_method :{official}, :{target}')
+    alias_block = ""
+    if alias_lines:
+        alias_block = ("      # Official DFC v2 API aliases "
+                       "(see config/dfc-official-api.yaml).\n"
+                       + "\n".join(alias_lines) + "\n\n")
     code += f'''      # @param semanticId [String]
       # @param {params_str}
       def initialize(semanticId, {params_str})
@@ -1183,7 +1254,7 @@ module DfcLinkmlConnector
 {registrations_str}
       end
 
-'''
+{alias_block}'''
 
     code += '''      Core::SemanticObject.type_registry[SEMANTIC_TYPE] = self
     end
@@ -1372,6 +1443,10 @@ def main():
     _init_parent_overrides(schema_data)
     if _PARENT_OVERRIDES:
         print(f"Parent overrides: {_PARENT_OVERRIDES}", file=sys.stderr)
+    api_slots = load_official_api()
+    if api_slots:
+        print(f"Official API aliases from: config/dfc-official-api.yaml "
+              f"({len(api_slots)} slots)", file=sys.stderr)
 
     gem_name = "dfc-linkml-connector"
     output_dir = Path("ruby-gem")
@@ -1476,7 +1551,8 @@ def main():
     print("\nGenerating model classes...", file=sys.stderr)
     model_count = 0
     for class_name, class_data in schema_data.get('classes', {}).items():
-        model_code = generate_semantic_model(class_name, class_data, schema_data)
+        model_code = generate_semantic_model(class_name, class_data, schema_data,
+                                               api_slots)
         ruby_name = to_ruby_class_name(class_name)
         file_name = to_file_name(ruby_name)
         (output_dir / 'lib' / 'models' / f'{file_name}.rb').write_text(model_code)

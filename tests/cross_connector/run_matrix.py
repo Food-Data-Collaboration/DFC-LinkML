@@ -41,7 +41,9 @@ from runner import available_connectors, export_jsonld, import_jsonld  # noqa: E
 
 SCENARIOS_DIR = Path(__file__).parent / "scenarios"
 
-OURS = ("our-typescript", "our-ruby")
+OURS = ("our-typescript", "our-ruby", "our-php")
+# Note: no official-php — upstream packagist beta3 is v1-only with no v2
+# line, so it cannot round-trip v2 docs. Re-add if upstream ships v2.
 OFFICIAL = ("official-typescript", "official-ruby")
 
 

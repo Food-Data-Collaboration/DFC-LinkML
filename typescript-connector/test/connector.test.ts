@@ -303,6 +303,29 @@ describe("Enterprise", () => {
   });
 });
 
+describe("Official-style factory object form", () => {
+  it("accepts createX({ semanticId, ...params }) like the official connector", async () => {
+    const c = new Connector();
+    const org = c.createOrganization({
+      semanticId: "http://example.com/org1",
+      name: "Farm Org",
+      vatNumber: "FR12345678901",
+    });
+    expect(org).toBeInstanceOf(Organization);
+    expect(org.name).toBe("Farm Org");
+    const parsed = JSON.parse(await c.export(org)) as Record<string, unknown>;
+    expect(parsed["dfc-b:VATnumber"]).toBe("FR12345678901");
+  });
+
+  it("keeps the positional createX(semanticId, params) form working", () => {
+    const c = new Connector();
+    const org = c.createOrganization("http://example.com/org1", {
+      name: "Farm Org",
+    });
+    expect(org.name).toBe("Farm Org");
+  });
+});
+
 describe("Person", () => {
   it("creates via factory with properties", () => {
     const c = new Connector();
