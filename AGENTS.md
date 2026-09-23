@@ -11,6 +11,7 @@ LinkML schemas (`src/`, current v2.0.0) converted from the DFC OWL ontology, plu
 | TypeScript | `npm test`, `npm run build` (in `typescript-connector/`) | `vitest run` (not `test:watch`), offline, fast |
 | Ruby | `bundle exec rake spec` (in `ruby-gem/`) | RSpec, offline, fast |
 | PHP | `composer install && vendor/bin/phpunit` (in `php-connector/`) | PHPUnit, offline, fast (needs php-xml ext) |
+| Conformance | `python -m pytest tests/conformance -q` (repo root) | Shared fixtures × LinkML connectors; needs node + ruby + php runtimes |
 
 Matrix original deps: TypeScript `@datafoodconsortium/connector@2.0.0-beta.2` (pinned in `tests/package.json`, installed to gitignored `tests/node_modules/`); Ruby `datafoodconsortium-connector = 2.0.0.pre.beta8` system gem (exact pin via `gem` call in `adapters/official-ruby.rb`); PHP has no original v2 (packagist beta3 is v1-only) so there is no `official-php` adapter — LinkML is tested against the original Ruby/TS v2 connectors.
 
@@ -50,4 +51,4 @@ python3 scripts/generate_php_connector.py [--schema …] [--output …]  # defau
 - `config/dfc-original-api.yaml` — curated original-v2 API map (single source for code-plane parity)
 - `tests/cross_connector/{run_matrix.py,normalize.py,adapters/,scenarios/,codeplane_inventory.py}` — drop-in parity harness vs original connectors
 - `docs/{migration-guide,api-gaps-typescript,api-gaps-ruby}.md` — code-plane migration docs (generated gap tables + guide)
-- CI (`.github/workflows/publish.yml`) only publishes the TS package on `@fooddatacollaboration/linkml-connector@*` tags
+- CI (`.github/workflows/ci.yml`: unit suites, generation check, conformance + LinkML-only matrix; `publish.yml` only publishes the TS package on `@fooddatacollaboration/linkml-connector@*` tags)
