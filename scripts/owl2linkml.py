@@ -245,18 +245,49 @@ def get_object_properties(g: Graph, skip_properties: set[str] = None, skip_class
     return props
 
 
-def get_subclass_relations(g: Graph, skip_classes: set[str] = None) -> dict[str, str]:
-    """Extract direct subclass relations."""
+def get_subclass_relations(g: Graph, skip_classes: set[str] = None,
+                           known_classes: set[str] = None) -> dict[str, str]:
+    """Extract direct subclass relations.
+
+    Handles both plain superclass IRIs and anonymous
+    ``owl:intersectionOf`` superclasses of the form
+    ``Class ⊓ Restriction...`` (e.g. Price is a QuantitativeValue this
+    way): when exactly one intersection member is a known, non-skipped
+    class, it is recorded as the parent. Direct URI parents always win so
+    the result is deterministic regardless of triple order. Members that
+    are not real classes (e.g. the ``DFC_BusinessOntology_Characteristic``
+    union artefact) are ignored rather than recorded as dangling parents.
+    """
     if skip_classes is None:
         skip_classes = DEFAULT_SKIP_CLASSES
+    if known_classes is None:
+        known_classes = get_classes(g, skip_classes)
     relations = {}
+    deferred: list = []
     for sub_cls, super_cls in g.subject_objects(RDFS.subClassOf):
         sub_name = _local_name(sub_cls)
-        super_name = _local_name(super_cls)
-
-        if sub_name and super_name and sub_name not in skip_classes:
-            if super_name not in skip_classes:
+        if not sub_name or sub_name in skip_classes:
+            continue
+        if isinstance(super_cls, URIRef):
+            super_name = _local_name(super_cls)
+            if super_name and super_name not in skip_classes:
                 relations[sub_name] = super_name
+        else:
+            deferred.append((sub_name, super_cls))
+    for sub_name, super_cls in deferred:
+        if sub_name in relations:
+            continue
+        inter = _get_property(g, super_cls, OWL.intersectionOf)
+        if inter is None:
+            continue
+        named = [n for n in (_local_name(x) for x in g.items(inter))
+                 if n and n not in skip_classes and n in known_classes]
+        if len(named) == 1:
+            relations[sub_name] = named[0]
+        elif len(named) > 1:
+            logger.warning(
+                f"Ambiguous intersectionOf parent for {sub_name}: {named}; "
+                f"skipping")
     return relations
 
 
@@ -713,7 +744,7 @@ def main(
     logger.info(f"Found {len(obj_props)} object properties")
 
     logger.info("Extracting subclass relations...")
-    subclass_relations = get_subclass_relations(g, skip_classes)
+    subclass_relations = get_subclass_relations(g, skip_classes, classes)
     logger.info(f"Found {len(subclass_relations)} subclass relations")
 
     logger.info("Extracting inverse relationships...")

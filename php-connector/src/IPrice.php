@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IPrice extends CharacteristicOfable, Dateable, Describable, Dimensionable, IsPriceOfable, VatRateable
+interface IPrice extends CharacteristicOfable, Dateable, Describable, Dimensionable, IsPriceOfable, Measurable, Valueable, VatRateable
 {
 }

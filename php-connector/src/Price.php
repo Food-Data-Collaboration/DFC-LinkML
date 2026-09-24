@@ -25,40 +25,26 @@
 */
 namespace DataFoodConsortium\Connector;
 
+use DataFoodConsortium\Connector\QuantitativeValue;
 use DataFoodConsortium\Connector\SemanticObject;
 
-class Price extends SemanticObject implements IPrice
+class Price extends QuantitativeValue implements IPrice
 {
     public const SEMANTIC_TYPE = 'dfc-b:Price';
 
     private float|string|SemanticObject|array|null $vatRate = null;
     private string|SemanticObject|array|null $isPriceOf = null;
-    private string|SemanticObject|array|null $date = null;
-    private string|SemanticObject|array|null $description = null;
-    private string|SemanticObject|array|null $name = null;
-    private string|SemanticObject|array|null $characteristicOf = null;
-    private string|SemanticObject|array|null $dimension = null;
 
     public function __construct(
         string $semanticId,
         array $params = []
     ) {
-                parent::__construct($semanticId);
+                parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->vatRate = $params['vatRate'] ?? null;
         $this->isPriceOf = $params['isPriceOf'] ?? null;
-        $this->date = $params['date'] ?? null;
-        $this->description = $params['description'] ?? null;
-        $this->name = $params['name'] ?? null;
-        $this->characteristicOf = $params['characteristicOf'] ?? null;
-        $this->dimension = $params['dimension'] ?? null;
         $this->registerSemanticProperty('dfc-b:VATrate', fn() => $this->vatRate);
         $this->registerSemanticProperty('dfc-b:isPriceOf', fn() => $this->isPriceOf);
-        $this->registerSemanticProperty('dfc-b:date', fn() => $this->date);
-        $this->registerSemanticProperty('dfc-b:description', fn() => $this->description);
-        $this->registerSemanticProperty('dfc-b:name', fn() => $this->name);
-        $this->registerSemanticProperty('dfc-b:characteristicOf', fn() => $this->characteristicOf);
-        $this->registerSemanticProperty('dfc-b:hasDimension', fn() => $this->dimension);
     }
     public function getVatRate(): float|string|SemanticObject|array|null
     {
@@ -79,61 +65,6 @@ class Price extends SemanticObject implements IPrice
     public function setIsPriceOf(string|SemanticObject|array|null $isPriceOf): static
     {
         $this->isPriceOf = $isPriceOf;
-        return $this;
-    }
-
-    public function getDate(): string|SemanticObject|array|null
-    {
-        return $this->date;
-    }
-
-    public function setDate(string|SemanticObject|array|null $date): static
-    {
-        $this->date = $date;
-        return $this;
-    }
-
-    public function getDescription(): string|SemanticObject|array|null
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string|SemanticObject|array|null $description): static
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function getName(): string|SemanticObject|array|null
-    {
-        return $this->name;
-    }
-
-    public function setName(string|SemanticObject|array|null $name): static
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function getCharacteristicOf(): string|SemanticObject|array|null
-    {
-        return $this->characteristicOf;
-    }
-
-    public function setCharacteristicOf(string|SemanticObject|array|null $characteristicOf): static
-    {
-        $this->characteristicOf = $characteristicOf;
-        return $this;
-    }
-
-    public function getDimension(): string|SemanticObject|array|null
-    {
-        return $this->dimension;
-    }
-
-    public function setDimension(string|SemanticObject|array|null $dimension): static
-    {
-        $this->dimension = $dimension;
         return $this;
     }
 }

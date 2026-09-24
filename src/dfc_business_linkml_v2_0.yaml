@@ -396,6 +396,7 @@ classes:
     is_a: Geometry
   Price:
     description: 'Class from DFC Business Ontology: #Price'
+    is_a: QuantitativeValue
     slots:
     - vat_rate
     - is_price_of
