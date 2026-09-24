@@ -475,6 +475,77 @@ class TestEdgeCases:
         from scripts.owl2linkml import get_subclass_relations
         assert get_subclass_relations(Graph()) == {}
 
+    def _intersection_graph(self):
+        """Graph with Price subClassOf (QuantitativeValue ∩ Restriction)."""
+        from rdflib import Graph, URIRef, BNode, RDF, RDFS, OWL
+        from rdflib.collection import Collection
+        g = Graph()
+        base = "http://example.com/"
+        qv = URIRef(base + "QuantitativeValue")
+        price = URIRef(base + "Price")
+        g.add((qv, RDF.type, OWL.Class))
+        g.add((price, RDF.type, OWL.Class))
+        restr = BNode()
+        g.add((restr, RDF.type, OWL.Restriction))
+        inter = BNode()
+        Collection(g, inter, [qv, restr])
+        sup = BNode()
+        g.add((sup, OWL.intersectionOf, inter))
+        g.add((price, RDFS.subClassOf, sup))
+        return g, base
+
+    def test_intersection_of_single_class_is_parent(self):
+        """intersectionOf(Class, Restriction...) records Class as parent."""
+        from scripts.owl2linkml import get_subclass_relations
+        g, _ = self._intersection_graph()
+        assert get_subclass_relations(g) == {"Price": "QuantitativeValue"}
+
+    def test_intersection_of_non_class_member_skipped(self):
+        """A member that is not a known class can never become a parent."""
+        from rdflib import URIRef, BNode, RDF, RDFS, OWL
+        from rdflib.collection import Collection
+        from scripts.owl2linkml import get_subclass_relations
+        g, base = self._intersection_graph()
+        # Replace the class member with a non-class node (ontology artefact).
+        g.remove((None, None, None))
+        fake = URIRef(base + "DFC_BusinessOntology_Characteristic")
+        restr = BNode()
+        g.add((restr, RDF.type, OWL.Restriction))
+        inter = BNode()
+        Collection(g, inter, [fake, restr])
+        sup = BNode()
+        g.add((sup, OWL.intersectionOf, inter))
+        g.add((URIRef(base + "Price"), RDFS.subClassOf, sup))
+        assert get_subclass_relations(g) == {}
+
+    def test_intersection_of_two_classes_skipped(self):
+        """Ambiguous multiple inheritance is skipped, not guessed."""
+        from rdflib import URIRef, BNode, RDF, RDFS, OWL
+        from rdflib.collection import Collection
+        from scripts.owl2linkml import get_subclass_relations
+        g, base = self._intersection_graph()
+        g.remove((None, None, None))
+        a = URIRef(base + "A")
+        b = URIRef(base + "B")
+        g.add((a, RDF.type, OWL.Class))
+        g.add((b, RDF.type, OWL.Class))
+        inter = BNode()
+        Collection(g, inter, [a, b])
+        sup = BNode()
+        g.add((sup, OWL.intersectionOf, inter))
+        g.add((URIRef(base + "Price"), RDFS.subClassOf, sup))
+        assert get_subclass_relations(g) == {}
+
+    def test_direct_parent_wins_over_intersection(self):
+        """A direct superclass beats an intersection parent deterministically."""
+        from rdflib import URIRef, RDFS, OWL, RDF
+        from scripts.owl2linkml import get_subclass_relations
+        g, base = self._intersection_graph()
+        agent = URIRef(base + "Agent")
+        g.add((agent, RDF.type, OWL.Class))
+        g.add((URIRef(base + "Price"), RDFS.subClassOf, agent))
+        assert get_subclass_relations(g) == {"Price": "Agent"}
+
     def test_underscore_classes_are_skipped(self):
         """Classes with underscore prefix are excluded."""
         from rdflib import Graph, OWL, URIRef, RDF
@@ -720,6 +791,19 @@ class TestCompleteness:
             if parent and parent not in schema["classes"]:
                 bad.append(f"{name}: is_a {parent} is not a defined class")
         assert not bad, f"Dangling parent references:\n" + "\n".join(bad)
+
+    def test_price_inherits_quantitative_value_slots(self):
+        """Price is a QuantitativeValue via intersectionOf, so amount
+        (value) and currency (has_unit) resolve through its parent.
+        Regression test: the extractor used to drop anonymous
+        intersectionOf parents entirely. Note the schema lists own slots
+        per class; inheritance resolves downstream via is_a."""
+        _, _, _, subclass_relations, _, schema = self._build_schema()
+        assert subclass_relations.get("Price") == "QuantitativeValue"
+        assert schema["classes"]["Price"].get("is_a") == "QuantitativeValue"
+        qv_slots = schema["classes"]["QuantitativeValue"].get("slots", [])
+        assert "value" in qv_slots, f"QuantitativeValue slots: {sorted(qv_slots)}"
+        assert "has_unit" in qv_slots, f"QuantitativeValue slots: {sorted(qv_slots)}"
 
     def test_all_inverse_relations_preserved(self):
         """Every owl:inverseOf relationship appears as bidirectional inverse slot annotations."""

@@ -1,21 +1,11 @@
-import { SemanticObject } from "../core/SemanticObject.js";
-export interface PriceParams {
+import { QuantitativeValue, type QuantitativeValueParams } from "./QuantitativeValue.js";
+export interface PriceParams extends QuantitativeValueParams {
     vatRate?: number;
     isPriceOf?: string;
-    date?: string;
-    description?: string;
-    name?: string;
-    characteristicOf?: string;
-    hasDimension?: string;
 }
-export declare class Price extends SemanticObject {
+export declare class Price extends QuantitativeValue {
     static get SEMANTIC_TYPE(): string;
     vatRate?: number;
     isPriceOf?: string;
-    date?: string;
-    description?: string;
-    name?: string;
-    characteristicOf?: string;
-    hasDimension?: string;
     constructor(semanticId: string, params?: PriceParams);
 }
