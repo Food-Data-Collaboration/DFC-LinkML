@@ -1,6 +1,6 @@
 {
   "name": "@fooddatacollaboration/linkml-connector",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "TypeScript connector for the Data Food Consortium (DFC) standard, generated from LinkML schema",
   "type": "module",
   "main": "dist/index.js",

@@ -1,0 +1,7 @@
+{
+    "@id": "http://example.com/tomato",
+    "@type": "dfc-b:SuppliedProduct",
+    "dfc-b:description": "Fresh tomato",
+    "dfc-b:name": "Tomato",
+    "@context": "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json"
+}
