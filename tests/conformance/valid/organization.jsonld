@@ -1,0 +1,8 @@
+{
+    "@id": "http://example.com/org1",
+    "@type": "dfc-b:Organization",
+    "dfc-b:description": "A test farm",
+    "dfc-b:name": "Farm Org",
+    "dfc-b:VATnumber": "FR12345678901",
+    "@context": "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json"
+}

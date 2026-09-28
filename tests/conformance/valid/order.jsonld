@@ -1,0 +1,25 @@
+{
+    "@graph": [
+        {
+            "@id": "http://example.com/org1",
+            "@type": "dfc-b:Organization",
+            "dfc-b:description": "A test farm",
+            "dfc-b:name": "Farm Org"
+        },
+        {
+            "@id": "http://example.com/order1",
+            "@type": "dfc-b:Order",
+            "dfc-b:orderNumber": "ORD-001",
+            "dfc-b:hasPart": "http://example.com/line1",
+            "dfc-b:orderedBy": "http://example.com/org1"
+        },
+        {
+            "@id": "http://example.com/line1",
+            "@type": "dfc-b:OrderLine",
+            "dfc-b:quantity": 5,
+            "dfc-b:concerns": "http://example.com/tomato",
+            "dfc-b:name": "Line 1"
+        }
+    ],
+    "@context": "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json"
+}

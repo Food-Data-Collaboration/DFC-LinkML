@@ -1,0 +1,93 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pytest pyyaml click rdflib
+      - run: python -m pytest tests/test_owl2linkml.py -m "not integration" -q
+
+  connectors:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lang: [typescript, ruby, php]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        if: matrix.lang == 'typescript'
+        with:
+          node-version: "20"
+      - uses: ruby/setup-ruby@v1
+        if: matrix.lang == 'ruby'
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+          working-directory: ruby-gem
+      - uses: shivammathur/setup-php@v2
+        if: matrix.lang == 'php'
+        with:
+          php-version: "8.2"
+          extensions: dom, mbstring, xmlwriter
+          tools: composer
+      - run: npm install && npm test && npm run build
+        if: matrix.lang == 'typescript'
+        working-directory: typescript-connector
+      - run: bundle exec rake spec
+        if: matrix.lang == 'ruby'
+        working-directory: ruby-gem
+      - run: composer install && vendor/bin/phpunit
+        if: matrix.lang == 'php'
+        working-directory: php-connector
+
+  generation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pyyaml
+      # Connector steps only: the schema step needs network (ontology
+      # download), so it runs manually, not here.
+      - run: python3 scripts/generate_all.py --steps typescript,ruby,php --check
+
+  conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: dom, mbstring, xmlwriter
+          tools: composer
+      - run: pip install pytest pyyaml
+      - run: npm install
+        working-directory: tests
+      - run: gem install datafoodconsortium-connector -v '= 2.0.0.pre.beta8' --pre --no-document
+      - run: gem install json-ld rdf --no-document
+      - run: composer dump-autoload
+        working-directory: php-connector
+      - run: npm install && npm run build
+        working-directory: typescript-connector
+      - run: python -m pytest tests/conformance -q
+      # LinkML-only subset: the full --verify-drop-in includes
+      # ours->original pairs with known upstream v2 gaps (see PR #17).
+      - run: python tests/cross_connector/run_matrix.py our-typescript our-ruby our-php
