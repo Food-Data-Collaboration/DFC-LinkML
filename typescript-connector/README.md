@@ -1,23 +1,23 @@
-# @fooddatacollaboration/linkml-connector
+# @siol-data/linkml-connector
 
 TypeScript connector for the [Data Food Consortium (DFC)](https://datafoodconsortium.org/) standard, generated from the DFC LinkML schema (v2.0.0).
 
 ## Install
 
-The package is published to [jsr.io](https://jsr.io/@fooddatacollaboration/linkml-connector) (canonical registry). Install with any package manager using the `npm:` specifier:
+The package is published to [jsr.io](https://jsr.io/@siol-data/linkml-connector) (canonical registry). Install with any package manager using the `npm:` specifier:
 
 ```bash
-npm install npm:@fooddatacollaboration/linkml-connector
+npm install npm:@siol-data/linkml-connector
 # pnpm
-pnpm add npm:@fooddatacollaboration/linkml-connector
+pnpm add npm:@siol-data/linkml-connector
 # yarn
-yarn add npm:@fooddatacollaboration/linkml-connector
+yarn add npm:@siol-data/linkml-connector
 ```
 
 ## Quick start
 
 ```typescript
-import { Connector } from "@fooddatacollaboration/linkml-connector";
+import { Connector } from "@siol-data/linkml-connector";
 
 const c = new Connector();
 
