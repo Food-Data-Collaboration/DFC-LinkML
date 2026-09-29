@@ -4,15 +4,39 @@ TypeScript connector for the [Data Food Consortium (DFC)](https://datafoodconsor
 
 ## Install
 
-The package is published to [jsr.io](https://jsr.io/@siol-data/linkml-connector) (canonical registry). Install with any package manager using the `npm:` specifier:
+Published to [jsr.io](https://jsr.io/@siol-data/linkml-connector) (canonical registry).
 
 ```bash
-npm install npm:@siol-data/linkml-connector
-# pnpm
-pnpm add npm:@siol-data/linkml-connector
-# yarn
-yarn add npm:@siol-data/linkml-connector
+npx jsr add @siol-data/linkml-connector
 ```
+
+That writes an `@jsr:registry` entry to `.npmrc` (commit it) and adds the
+package to your `dependencies`, so plain `npm install` works from then on.
+
+<details>
+<summary>Manual setup (equivalent)</summary>
+
+```bash
+# .npmrc
+@jsr:registry=https://npm.jsr.io
+```
+
+```bash
+npm install @jsr/siol-data__linkml-connector@2
+```
+
+Note the import name differs: `@jsr/siol-data__linkml-connector` here,
+vs `@siol-data/linkml-connector` after `jsr add` (which aliases it in
+`package.json`). You can keep the short name either way:
+
+```json
+{ "dependencies": { "@siol-data/linkml-connector": "npm:@jsr/siol-data__linkml-connector@^2.0.1" } }
+```
+
+</details>
+
+pnpm (10.9+) and Yarn (4.9+) support `jsr:` specifiers natively:
+`pnpm add jsr:@siol-data/linkml-connector`.
 
 ## Quick start
 
