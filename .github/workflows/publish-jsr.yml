@@ -1,7 +1,4 @@
-name: Publish TypeScript Connector (npmjs, legacy)
-# Superseded by publish-jsr.yml (jsr.io is the canonical registry).
-# Kept dormant; delete together with the NPM_TOKEN secret once jsr
-# publishing is verified.
+name: Publish TypeScript Connector (jsr)
 on:
   push:
     tags:
@@ -9,6 +6,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # jsr exchanges this OIDC token for publish rights
+      contents: read
     defaults:
       run:
         working-directory: typescript-connector
@@ -17,10 +17,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm test
       - run: npm run build
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npx jsr publish --dry-run --allow-dirty
+      - run: npx jsr publish
+        if: startsWith(github.ref, 'refs/tags/@fooddatacollaboration/linkml-connector@')

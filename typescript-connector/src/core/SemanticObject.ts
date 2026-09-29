@@ -1,5 +1,5 @@
 export class SemanticObject {
-  static typeRegistry = new Map<string, typeof SemanticObject>();
+  static typeRegistry: Map<string, typeof SemanticObject> = new Map();
 
   static get SEMANTIC_TYPE(): string {
     return "";

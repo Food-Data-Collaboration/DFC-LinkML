@@ -41,6 +41,11 @@ jobs:
       - run: npm install && npm test && npm run build
         if: matrix.lang == 'typescript'
         working-directory: typescript-connector
+      # jsr.io "slow types" check: gates the publishing path, so enforce it
+      # on every PR rather than discovering it at release time.
+      - run: npx jsr publish --dry-run --allow-dirty
+        if: matrix.lang == 'typescript'
+        working-directory: typescript-connector
       - run: bundle exec rake spec
         if: matrix.lang == 'ruby'
         working-directory: ruby-gem

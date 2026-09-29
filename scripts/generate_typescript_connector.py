@@ -313,8 +313,11 @@ def generate_package_json(schema_data: dict) -> str:
 
 
 def generate_semantic_object_base() -> str:
+    # Explicit annotations in the public API are required by the jsr.io
+    # registry's "slow types" check (publishing path), so they are part of
+    # the contract, not a style choice.
     return '''export class SemanticObject {
-  static typeRegistry = new Map<string, typeof SemanticObject>();
+  static typeRegistry: Map<string, typeof SemanticObject> = new Map();
 
   static get SEMANTIC_TYPE(): string {
     return "";
