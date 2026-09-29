@@ -4,8 +4,14 @@ TypeScript connector for the [Data Food Consortium (DFC)](https://datafoodconsor
 
 ## Install
 
+The package is published to [jsr.io](https://jsr.io/@fooddatacollaboration/linkml-connector) (canonical registry). Install with any package manager using the `npm:` specifier:
+
 ```bash
-npm install @fooddatacollaboration/linkml-connector
+npm install npm:@fooddatacollaboration/linkml-connector
+# pnpm
+pnpm add npm:@fooddatacollaboration/linkml-connector
+# yarn
+yarn add npm:@fooddatacollaboration/linkml-connector
 ```
 
 ## Quick start
