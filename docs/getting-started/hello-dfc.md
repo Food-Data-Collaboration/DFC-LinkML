@@ -6,8 +6,8 @@ concepts are identical.
 ## Install
 
 ```bash
-# TypeScript
-npm install @fooddatacollaboration/linkml-connector
+# TypeScript (published to jsr.io; the CLI writes the .npmrc entry for you)
+npx jsr add @siol-data/linkml-connector
 
 # Ruby
 gem install dfc-linkml-connector
@@ -19,7 +19,7 @@ composer require fooddatacollaboration/linkml-connector
 ## Create an organization
 
 ```typescript
-import { Connector } from "@fooddatacollaboration/linkml-connector";
+import { Connector } from "@siol-data/linkml-connector";
 
 const c = new Connector();
 const org = c.createOrganization({
