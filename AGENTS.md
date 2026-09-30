@@ -51,4 +51,4 @@ python3 scripts/generate_php_connector.py [--schema …] [--output …]  # defau
 - `config/dfc-original-api.yaml` — curated original-v2 API map (single source for code-plane parity)
 - `tests/cross_connector/{run_matrix.py,normalize.py,adapters/,scenarios/,codeplane_inventory.py}` — drop-in parity harness vs original connectors
 - `docs/{migration-guide,api-gaps-typescript,api-gaps-ruby}.md` — code-plane migration docs (generated gap tables + guide)
-- CI (`.github/workflows/ci.yml`: unit suites, generation check, conformance + LinkML-only matrix; `publish.yml` only publishes the TS package on `@fooddatacollaboration/linkml-connector@*` tags)
+- CI (`.github/workflows/ci.yml`: unit suites, generation check, conformance + LinkML-only matrix; `publish-jsr.yml` publishes the TS package to jsr.io on `@siol-data/linkml-connector@*` tags via OIDC — npmjs publishing is retired)

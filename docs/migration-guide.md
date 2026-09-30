@@ -52,7 +52,7 @@ const jsonld = await c.export([org, tomato, line, order], {
 After (LinkML — same construction shape, fields instead of methods):
 
 ```ts
-import { Connector } from "@fooddatacollaboration/linkml-connector";
+import { Connector } from "@siol-data/linkml-connector";
 const c = new Connector();
 const org = c.createOrganization({
   semanticId: "http://example.com/org1",

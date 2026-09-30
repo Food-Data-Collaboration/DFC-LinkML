@@ -24,10 +24,10 @@ Source of truth: DFC ontology `2.0.0` + taxonomies `2.0.0`
 - **No network required** for construct/export/import with bundled data;
   taxonomy/context fetch methods are opt-in.
 
-## TypeScript — `@fooddatacollaboration/linkml-connector`
+## TypeScript — `@siol-data/linkml-connector`
 
 ```ts
-import { Connector, Organization, SuppliedProduct } from "@fooddatacollaboration/linkml-connector";
+import { Connector, Organization, SuppliedProduct } from "@siol-data/linkml-connector";
 ```
 
 - `new Connector({ ontologyVersion?, taxonomyVersion? })`
