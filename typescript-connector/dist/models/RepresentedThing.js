@@ -1,6 +1,10 @@
-// Class from DFC Business Ontology: #RepresentedThing
 import { SemanticObject } from "../core/SemanticObject.js";
 import { DitributedRepresentation } from "./DitributedRepresentation.js";
+/**
+ * A DFC `dfc-b:RepresentedThing`, serialized with `@type:
+ *   dfc-b:RepresentedThing`.
+ * Class hierarchy: `DFC_DitributedRepresentation` -> `RepresentedThing`.
+ */
 export class RepresentedThing extends DitributedRepresentation {
     static get SEMANTIC_TYPE() {
         return "dfc-b:RepresentedThing";

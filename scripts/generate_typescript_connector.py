@@ -17,6 +17,7 @@ Usage:
 import json
 import re
 import sys
+import textwrap
 import yaml
 from pathlib import Path
 
@@ -288,6 +289,126 @@ def is_collection_property(slot_name: str, slot_data: dict) -> bool:
 
 
 # ---------------------------------------------------------------------------
+# JSDoc emission
+# ---------------------------------------------------------------------------
+# jsr scores symbol documentation from JSDoc blocks, and the published docs
+# on jsr.io are rendered from them. The DFC OWL carries descriptions for every
+# class and slot, so the docs are generated from the schema rather than
+# hand-written, and stay in step with regeneration.
+
+def _jsdoc_escape(text: str) -> str:
+    """Make a string safe to embed inside a /** */ block."""
+    # A literal */ would close the comment early. OWL annotations arrive
+    # verbatim, so also drop control characters. Spaces are printable and
+    # must be kept.
+    cleaned = ''.join(ch for ch in text if ch.isprintable())
+    return cleaned.replace('*/', '*\\/').rstrip()
+
+
+def _wrap_jsdoc(lines: list[str], indent: str = '') -> str:
+    """Render a JSDoc block, or an empty string when there is nothing to say.
+
+    Entries are word-wrapped so generated files stay readable. A wrapped
+    entry keeps its continuations aligned under the first line.
+    """
+    if not lines:
+        return ''
+
+    star = f'{indent} *'
+    width = max(76 - len(indent) - 3, 24)
+    body: list[str] = []
+    for entry in lines:
+        if not entry.strip():
+            body.append(star)
+            continue
+        wrapped = textwrap.wrap(
+            entry,
+            width=width,
+            break_long_words=False,
+            break_on_hyphens=False,
+        ) or [entry]
+        body.append(f'{star} {wrapped[0]}')
+        for cont in wrapped[1:]:
+            body.append(f'{star}   {cont}')
+
+    # Collapse runs of blank comment lines.
+    collapsed: list[str] = []
+    for line in body:
+        if line == star and collapsed and collapsed[-1] == star:
+            continue
+        collapsed.append(line)
+    while collapsed and collapsed[-1] == star:
+        collapsed.pop()
+
+    if not collapsed:
+        return ''
+
+    return f'{indent}/**\n' + '\n'.join(collapsed) + f'\n{indent} */\n'
+
+
+def _meaningful_description(desc: str, name: str) -> str:
+    """Drop descriptions that only restate the name or the source.
+
+    The DFC OWL annotates every class and slot, but for many the annotation
+    is a provenance note ("Class from DFC Business Ontology: #Address",
+    "Data property from OWL: byday") rather than a definition. The generated
+    docs already state the DFC type predicate, hierarchy, and properties, so
+    repeating that note adds nothing.
+    """
+    cleaned = _jsdoc_escape(desc.strip())
+    if not cleaned:
+        return ''
+    tail = cleaned.rsplit(':', 1)[-1].strip().lstrip('#').lower()
+    if tail == name.lower():
+        return ''
+    if cleaned.lower().startswith(('class from ', 'data property from ',
+                                    'object property from ', 'property from ')):
+        return ''
+    return cleaned
+
+
+def _slot_doc_lines(slot_name: str, slot_data: dict) -> list[str]:
+    """JSDoc lines for one property, carrying the predicate it serializes to."""
+    lines: list[str] = []
+    desc = _meaningful_description(str(slot_data.get('description', '')), slot_name)
+    if desc:
+        lines.append(desc)
+        lines.append('')
+
+    lines.append(f'Serializes as `{predicate_for_slot(slot_name, slot_data)}`.')
+    return lines
+
+
+def _factory_doc_lines(class_name: str, class_data: dict, schema_data: dict, ts_name: str) -> str:
+    """Body of the JSDoc on a generated `createX` factory method."""
+    desc = _meaningful_description(str(class_data.get('description', '')), class_name)
+
+    hierarchy = get_class_hierarchy(class_name, schema_data['classes'])
+    own = [
+        s for s, _d, o in get_all_slots_for_class(class_name, schema_data)
+        if o == class_name
+    ]
+    prop_names = [ts_property_name(s) for s in own]
+
+    parts: list[str] = []
+    if desc:
+        parts.append(desc)
+    parts.append(f'Serialized as `@type: dfc-b:{class_name}`.')
+    if len(hierarchy) > 1:
+        parts.append('Class hierarchy: ' + ' -> '.join(f'`{h}`' for h in hierarchy) + '.')
+    if prop_names:
+        parts.append(f'Properties: {", ".join(prop_names)}.')
+
+    wrapped = textwrap.wrap(
+        ' '.join(parts),
+        width=69,
+        break_long_words=False,
+        break_on_hyphens=False,
+    )
+    return '\n'.join(f'   * {line}' for line in wrapped) + '\n   *'
+
+
+# ---------------------------------------------------------------------------
 # Template generators
 # ---------------------------------------------------------------------------
 
@@ -316,14 +437,36 @@ def generate_semantic_object_base() -> str:
     # Explicit annotations in the public API are required by the jsr.io
     # registry's "slow types" check (publishing path), so they are part of
     # the contract, not a style choice.
-    return '''export class SemanticObject {
+    return '''/**
+ * Base class for every DFC model object.
+ *
+ * A `SemanticObject` carries a stable `semanticId` and a set of predicates
+ * that are serialized into JSON-LD. Subclasses register their properties in
+ * the constructor via {@link registerSemanticProperty}, mapping an original
+ * DFC predicate (for example `dfc-b:name`) to a getter for the property.
+ *
+ * Every generated DFC class (`Organization`, `SuppliedProduct`, `Price`, ...)
+ * extends this, directly or through its ancestors.
+ *
+ * @example
+ * ```ts
+ * const org = c.createOrganization("https://example.org/org/1", { name: "Acme" });
+ * org.getRegisteredPredicates(); // ["dfc-b:name"]
+ * org.toJsonLd();                 // { "@id": ..., "@type": "dfc-b:Organization", ... }
+ * ```
+ */
+export class SemanticObject {
+  /** Maps a DFC type predicate to its class, populated as model modules load. */
   static typeRegistry: Map<string, typeof SemanticObject> = new Map();
 
+  /** The DFC type predicate for this class, e.g. `dfc-b:Organization`. */
   static get SEMANTIC_TYPE(): string {
     return "";
   }
 
+  /** The object's stable identity, serialized as `@id`. */
   semanticId: string;
+  /** The DFC type predicate, serialized as `@type`. */
   semanticType: string = "";
   private semanticProperties = new Map<string, () => unknown>();
 
@@ -331,19 +474,35 @@ def generate_semantic_object_base() -> str:
     this.semanticId = semanticId;
   }
 
+  /**
+   * Registers a property so it is emitted on export.
+   *
+   * @param predicate Original DFC predicate, e.g. `dfc-b:vatNumber`.
+   * @param getter Returns the current value; called at export time.
+   */
   registerSemanticProperty(predicate: string, getter: () => unknown): void {
     this.semanticProperties.set(predicate, getter);
   }
 
+  /** All DFC predicates registered on this object. */
   getRegisteredPredicates(): string[] {
     return [...this.semanticProperties.keys()];
   }
 
+  /** The current value of one registered predicate, or `undefined`. */
   getRegisteredValue(predicate: string): unknown {
     const getter = this.semanticProperties.get(predicate);
     return getter ? getter() : undefined;
   }
 
+  /**
+   * Serializes this object to a JSON-LD node.
+   *
+   * Nested objects are emitted as `{"@id": ...}` references. A sequence of
+   * exactly one is collapsed to a scalar, matching JSON-LD compaction.
+   *
+   * @param context Optional `@context` to attach to the node.
+   */
   toJsonLd(context?: unknown): Record<string, unknown> {
     const result: Record<string, unknown> = {
       "@id": this.semanticId,
@@ -373,6 +532,7 @@ def generate_semantic_object_base() -> str:
     return result;
   }
 
+  /** Serializes this object to a pretty-printed JSON-LD string. */
   toJson(context?: unknown): string {
     return JSON.stringify(this.toJsonLd(context), null, 2);
   }
@@ -383,13 +543,29 @@ def generate_semantic_object_base() -> str:
 def generate_json_ld_serializer() -> str:
     return '''import { SemanticObject } from "./SemanticObject.js";
 
+/**
+ * Combines one or more {@link SemanticObject} instances into a JSON-LD
+ * document, running the `jsonld` compaction pass.
+ *
+ * A single object is emitted as a bare node; two or more are wrapped in a
+ * `@graph` array. `@context` is always emitted as a URL string rather than
+ * an inline object, so documents stay compact and shareable.
+ *
+ * The {@link Connector} uses this internally; you rarely need it directly.
+ */
 export class JsonLdSerializer {
   private context: unknown;
 
+  /** @param context The `@context` to attach, normally a context URL string. */
   constructor(context?: unknown) {
     this.context = context;
   }
 
+  /**
+   * Serializes objects to a JSON-LD document.
+   *
+   * @returns A bare node for one object, otherwise a `@graph` document.
+   */
   serialize(...objects: SemanticObject[]): Record<string, unknown> {
     if (objects.length === 1) {
       return this.serializeObject(objects[0]);
@@ -430,6 +606,16 @@ import bundledProductType from "../taxonomies/product_type.js";
 import bundledScope from "../taxonomies/scope.js";
 import bundledVocabularyTerm from "../taxonomies/vocabulary_term.js";
 
+/**
+ * Loads the SKOS controlled vocabularies that DFC models refer to: facets,
+ * measures, product types, scopes, and vocabulary terms.
+ *
+ * The bundled v2.0.0 vocabularies ship with the package and are loaded on
+ * construction, so construct, export, and import all work offline. Loading a
+ * different taxonomy version is opt-in via {{@link VocabularyLoader.load}}.
+ *
+ * Most callers use {{@link Connector}} instead, which wraps this loader.
+ */
 export class VocabularyLoader {{
   private static readonly BUNDLED: Record<string, Record<string, unknown>> = {{
     Facet: bundledFacet as Record<string, unknown>,
@@ -446,6 +632,10 @@ export class VocabularyLoader {{
   // Bundled v2.0.0 vocabularies are loaded unconditionally by design — the
   // connector ships only that version offline. Callers requesting a different
   // taxonomyVersion must override via loadBundled/load.
+  /**
+   * @param taxonomyVersion Version of the SKOS taxonomies to load.
+   * @param ontologyVersion Version of the DFC ontology whose context to use.
+   */
   constructor(taxonomyVersion: string = "{taxonomy_version}", ontologyVersion: string = "{taxonomy_version}") {{
     this.taxonomyVersion = taxonomyVersion;
     this.ontologyVersion = ontologyVersion;
@@ -453,6 +643,7 @@ export class VocabularyLoader {{
     this.loadBundled();
   }}
 
+  /** Loads the bundled vocabularies, replacing any currently loaded data. */
   loadBundled(): this {{
     for (const [name, data] of Object.entries(VocabularyLoader.BUNDLED)) {{
       this.load(name, data);
@@ -460,14 +651,22 @@ export class VocabularyLoader {{
     return this;
   }}
 
+  /** The raw bundled data for one vocabulary, or an empty object. */
   bundledData(name: string): Record<string, unknown> {{
     return VocabularyLoader.BUNDLED[name] || {{}};
   }}
 
+  /** Base URL of the SKOS taxonomies for the loaded taxonomy version. */
   get taxonomyBaseUrl(): string {{
     return `https://w3id.org/dfc/taxonomies/v${{this.taxonomyVersion}}`;
   }}
 
+  /**
+   * Loads a vocabulary from SKOS JSON-LD, keeping every `skos:Concept` found.
+   *
+   * @param name Vocabulary name, e.g. `Facet`.
+   * @param jsonData A node, an array of nodes, or a document with `@graph`.
+   */
   load(name: string, jsonData: Record<string, unknown>): this {{
     const concepts: Record<string, unknown> = {{}};
     const sources = Array.isArray(jsonData) ? jsonData : [jsonData];
@@ -578,6 +777,14 @@ def generate_connector_class(schema_data: dict) -> str:
         if ts == 'SemanticObject':
             continue
         factory_methods += f'''
+  /**
+   * Creates a {{@link {ts}}}.
+   *
+{_factory_doc_lines(cn, classes.get(cn, {}), schema_data, ts)}
+   * @param semanticIdOrArgs The object's identity, or an object whose
+   *   `semanticId` is the identity and whose other keys are the parameters.
+   * @param params Properties for the object, when passing the identity first.
+   */
   create{ts}(
     semanticIdOrArgs: string | ({{ semanticId: string }} & {ts}Params),
     params?: {ts}Params,
@@ -619,24 +826,58 @@ import bundledContextV200 from "../context/context_2.0.0.js";
 {model_imports_str}
 {type_imports_str}
 
+/**
+ * Entry point for reading and writing DFC data.
+ *
+ * A `Connector` creates DFC model objects, exports them to JSON-LD, and
+ * imports JSON-LD back into model objects. It carries the ontology and
+ * taxonomy versions and owns the controlled-vocabulary loading, so the
+ * bundled v2.0.0 data is available offline with no network access.
+ *
+ * Every DFC class has a `createX` factory. Factories accept either the
+ * positional form `createX(semanticId, params)` or the object form
+ * `createX({{ semanticId, ...params }})`, so code written against the
+ * original DFC connectors migrates with minimal edits.
+ *
+ * @example
+ * ```ts
+ * const c = new Connector();
+ *
+ * const org = c.createOrganization("https://example.com/org/1", {{
+ *   name: "Acme Farms",
+ * }});
+ *
+ * const jsonld = await c.export(org);
+ * const [back] = c.import(jsonld);
+ * ```
+ */
 export class Connector {{
   static readonly ONTOLOGY_BASE_URL = "https://w3id.org/dfc/ontology";
   static readonly TAXONOMY_BASE_URL = "https://w3id.org/dfc/taxonomies";
 
+  /** Maps each original DFC predicate to the property name used here. */
   static readonly PREDICATE_MAP: Record<string, string> = {{
 {predicate_map_str}
   }};
 
+  /**
+   * Maps legacy DFC type predicates onto their current names.
+   *
+   * DFC v2.0 renamed `Enterprise` to `Organization`; documents using the old
+   * name still import cleanly.
+   */
   static readonly TYPE_ALIASES: Record<string, string> = {{
 {type_aliases_str}
   }};
 
   private static defaultContextUrl: string = "https://w3id.org/dfc/ontology/v{ontology_version}/context/context_{ontology_version}.json";
 
+  /** The `@context` URL used when none is supplied on export. */
   static getDefaultContextUrl(): string {{
     return Connector.defaultContextUrl;
   }}
 
+  /** Overrides the default `@context` URL for this process. */
   static setDefaultContextUrl(url: string): void {{
     Connector.defaultContextUrl = url;
   }}
@@ -673,10 +914,17 @@ export class Connector {{
     return this;
   }}
 
+  /** The `@context` URL for this connector's ontology version. */
   get contextUrl(): string {{
     return `${{Connector.ONTOLOGY_BASE_URL}}/v${{this.ontologyVersion}}/context/context_${{this.ontologyVersion}}.json`;
   }}
 
+  /**
+   * The JSON-LD context used for compaction.
+   *
+   * Prefers the context bundled with the package, so this resolves without
+   * network access for the default ontology version.
+   */
   async getContext(): Promise<Record<string, unknown>> {{
     if (!this.contextCache) {{
       const bundled = this.loadBundledContext();
@@ -698,6 +946,7 @@ export class Connector {{
     return null;
   }}
 
+  /** Replaces the `Facet` vocabulary from SKOS JSON-LD data. */
   loadFacets(jsonData: Record<string, unknown>): this {{
     this.vocabLoader.load("Facet", jsonData);
     this.facets = this.buildNestedHash(this.vocabLoader.vocabulary("Facet"));
@@ -705,6 +954,7 @@ export class Connector {{
     return this;
   }}
 
+  /** Replaces the `Measure` vocabulary from SKOS JSON-LD data. */
   loadMeasures(jsonData: Record<string, unknown>): this {{
     this.vocabLoader.load("Measure", jsonData);
     this.measures = this.buildNestedHash(this.vocabLoader.vocabulary("Measure"));
@@ -712,6 +962,7 @@ export class Connector {{
     return this;
   }}
 
+  /** Replaces the `ProductType` vocabulary from SKOS JSON-LD data. */
   loadProductTypes(jsonData: Record<string, unknown>): this {{
     this.vocabLoader.load("ProductType", jsonData);
     this.productTypes = this.buildNestedHash(this.vocabLoader.vocabulary("ProductType"));
@@ -746,6 +997,18 @@ export class Connector {{
     return this;
   }}
 
+  /**
+   * Serializes objects to a compacted JSON-LD document.
+   *
+   * Predicates are emitted in their original short form (`dfc-b:name`, not
+   * `dfc-b:Class:snake_case`) and `@context` is written as a URL string, so
+   * output stays compact and directly comparable with the original DFC
+   * connectors. One object produces a bare node; several produce a `@graph`.
+   *
+   * @param objects The objects to serialize. All reachable objects should be
+   *   passed so references resolve.
+   * @returns A pretty-printed JSON-LD string.
+   */
   async export(...objects: SemanticObject[]): Promise<string> {{
     let context: Record<string, unknown> | undefined;
     try {{
@@ -764,6 +1027,18 @@ export class Connector {{
     return JSON.stringify(output, null, 2);
   }}
 
+  /**
+   * Reads a JSON-LD document into DFC model objects.
+   *
+   * Accepts either a JSON string or an already-parsed document, in any
+   * `@graph` form. Legacy type names are mapped through
+   * {{@link Connector.TYPE_ALIASES}} and predicates through
+   * {{@link Connector.PREDICATE_MAP}}, so data written against the original
+   * DFC connectors loads without rewriting. The shape of each property is
+   * preserved: a single reference stays a scalar.
+   *
+   * @returns The decoded objects, always an array, even for one entry.
+   */
   import(jsonLdData: string | Record<string, unknown>): SemanticObject[] {{
     const data = typeof jsonLdData === "string" ? JSON.parse(jsonLdData) : jsonLdData;
 
@@ -945,13 +1220,51 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
             ts_type_for_slot(slot_data, schema_data),
             is_collection_property(slot_name, slot_data),
         )
-        interface_props.append(f'  {prop_name}?: {ts_type};')
+        doc = _wrap_jsdoc(_slot_doc_lines(slot_name, slot_data), '  ')
+        interface_props.append(f'{doc}  {prop_name}?: {ts_type};')
     interface_props_str = '\n'.join(interface_props)
 
-    interface_block = f'''export interface {ts_name}Params{ext} {{
+    # JSDoc for the params interface. The interface members carry the
+    # per-slot docs; this covers the interface symbol itself.
+    own_prop_names = [ts_property_name(s) for s, _d, _o in all_own_props]
+    if own_prop_names:
+        props_preview = ', '.join(own_prop_names)
+        params_doc = _wrap_jsdoc([
+            f'Constructor parameters for {{@link {ts_name}}}.',
+            '',
+            f'Own DFC properties: {props_preview}.',
+            '',
+            f'Inherited parameters come from {{@link {parent_raw}Params}}.' if ext else '',
+        ])
+    else:
+        params_doc = _wrap_jsdoc([
+            f'Constructor parameters for {{@link {ts_name}}}.',
+        ])
+    params_doc = params_doc.rstrip('\n') + '\n'
+
+    # JSDoc for the class itself: what it is in DFC terms, its predicate, its
+    # place in the hierarchy, and the properties it adds.
+    class_doc_lines: list[str] = []
+    desc = _meaningful_description(description, class_name)
+    if desc:
+        class_doc_lines.append(desc)
+        class_doc_lines.append('')
+    class_doc_lines.append(f'A DFC `{semantic_type}`, serialized with `@type: {semantic_type}`.')
+    if len(hierarchy) > 1:
+        chain = ' -> '.join(f'`{h}`' for h in hierarchy)
+        class_doc_lines.append(f'Class hierarchy: {chain}.')
+    else:
+        class_doc_lines.append('Root of its hierarchy; extends the connector `SemanticObject` base.')
+    if own_prop_names:
+        class_doc_lines.append(
+            f'Own DFC properties: {", ".join(own_prop_names)}.'
+        )
+    class_doc = _wrap_jsdoc(class_doc_lines)
+
+    interface_block = f'''{params_doc}export interface {ts_name}Params{ext} {{
 {interface_props_str}
 }}
-''' if interface_props else f'''export interface {ts_name}Params{ext} {{}}
+''' if interface_props else f'''{params_doc}export interface {ts_name}Params{ext} {{}}
 '''
 
     # Build class properties and constructor
@@ -967,7 +1280,10 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
             ts_type_for_slot(slot_data, schema_data),
             is_collection_property(slot_name, slot_data),
         )
-        class_props.append(f'  {prop_name}?: {ts_type};')
+        class_props.append(
+            f'{_wrap_jsdoc(_slot_doc_lines(slot_name, slot_data), "  ")}'
+            f'  {prop_name}?: {ts_type};'
+        )
 
         constructor_params.append(f'{prop_name}')
         constructor_body_self.append(f'    this.{prop_name} = params?.{prop_name};')
@@ -1005,10 +1321,10 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
   }}
 '''
 
-    code = f'''// {description}
-{imports_str}
+    code = f'''{imports_str}
 
-{interface_block}export class {ts_name} extends {parent_raw} {{
+{interface_block}
+{class_doc}export class {ts_name} extends {parent_raw} {{
   static get SEMANTIC_TYPE(): string {{
     return "{semantic_type}";
   }}

@@ -1,20 +1,81 @@
-// Class from DFC Business Ontology: #Offer
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:Offer`, serialized with `@type: dfc-b:Offer`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: discount, stockLimitation, concernedBy, hasPrice,
+ *   listedIn, date, description, name, characteristicOf, hasDimension,
+ *   offers, offersTo.
+ */
 export class Offer extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Offer";
     }
+    /**
+     * Any discount applied to the Price
+     *
+     * Serializes as `dfc-b:discount`.
+     */
     discount;
+    /**
+     * Any limit on the stock of this particular listing. This ay differ from
+     *   stock limits on the Product (for example if the Product is listed in
+     *   multiple catalogues)
+     *
+     * Serializes as `dfc-b:stockLimitation`.
+     */
     stockLimitation;
+    /**
+     * Any/All Order Lines that relate to this Product
+     *
+     * Serializes as `dfc-b:concernedBy`.
+     */
     concernedBy;
+    /**
+     * The offered Price for the Product listed in the CatalogItem for this
+     *   cateogry of Customer
+     *
+     * Serializes as `dfc-b:hasPrice`.
+     */
     hasPrice;
+    /**
+     * All Sales Sessions that this Offer is listed in
+     *
+     * Serializes as `dfc-b:listedIn`.
+     */
     listedIn;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
+    /**
+     * The (1 & only 1) CatalogItem that this Offer relates to
+     *
+     * Serializes as `dfc-b:offers`.
+     */
     offers;
+    /**
+     * The (1 & only 1) CustomerCategory that is eligible for this Offer
+     *
+     * Serializes as `dfc-b:offersTo`.
+     */
     offersTo;
     constructor(semanticId, params) {
         super(semanticId);

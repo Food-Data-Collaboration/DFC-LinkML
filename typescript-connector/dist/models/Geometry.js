@@ -1,14 +1,39 @@
-// Class from DFC Business Ontology: #Geometry
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:Geometry`, serialized with `@type: dfc-b:Geometry`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: coordinates, date, description, name,
+ *   characteristicOf, hasDimension.
+ */
 export class Geometry extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Geometry";
     }
+    /**
+     * Serializes as `https://purl.org/geojson/vocab#coordinates`.
+     */
     coordinates;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
     constructor(semanticId, params) {
         super(semanticId);

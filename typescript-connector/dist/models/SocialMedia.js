@@ -1,11 +1,23 @@
-// Class from DFC Business Ontology: #SocialMedia
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhatSubject } from "./WhatSubject.js";
+/**
+ * A DFC `dfc-b:SocialMedia`, serialized with `@type: dfc-b:SocialMedia`.
+ * Class hierarchy: `What_Subject` -> `SocialMedia`.
+ * Own DFC properties: websitePage, socialMediaOf.
+ */
 export class SocialMedia extends WhatSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:SocialMedia";
     }
+    /**
+     * DEPRECATE
+     *
+     * Serializes as `dfc-b:websitePage`.
+     */
     websitePage;
+    /**
+     * Serializes as `dfc-b:socialMediaOf`.
+     */
     socialMediaOf;
     constructor(semanticId, params) {
         super(semanticId, params);

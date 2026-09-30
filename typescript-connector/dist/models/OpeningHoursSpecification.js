@@ -1,16 +1,48 @@
-// Class from DFC Business Ontology: #OpeningHoursSpecification
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:OpeningHoursSpecification`, serialized with `@type:
+ *   dfc-b:OpeningHoursSpecification`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: dayOfWeek, opens, closes, date, description, name,
+ *   characteristicOf, hasDimension.
+ */
 export class OpeningHoursSpecification extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:OpeningHoursSpecification";
     }
+    /**
+     * Serializes as `https://schema.org/dayOfWeek`.
+     */
     dayOfWeek;
+    /**
+     * Serializes as `https://schema.org/opens`.
+     */
     opens;
+    /**
+     * Serializes as `dfc-b:closes`.
+     */
     closes;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
     constructor(semanticId, params) {
         super(semanticId);

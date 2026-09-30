@@ -1,20 +1,64 @@
-// Class from DFC Business Ontology: #Concept
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:Concept`, serialized with `@type: dfc-b:Concept`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: certificateOf, claimOf, containerInformationOf,
+ *   geographicalOriginOf, natureOriginOf, partOriginOf, typeOf, date,
+ *   description, name, characteristicOf, hasDimension.
+ */
 export class Concept extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Concept";
     }
+    /**
+     * Serializes as `dfc-b:certificateOf`.
+     */
     certificateOf;
+    /**
+     * Serializes as `dfc-b:claimOf`.
+     */
     claimOf;
+    /**
+     * Serializes as `dfc-b:containerInformationOf`.
+     */
     containerInformationOf;
+    /**
+     * Serializes as `dfc-b:geographicalOriginOf`.
+     */
     geographicalOriginOf;
+    /**
+     * Serializes as `dfc-b:natureOriginOf`.
+     */
     natureOriginOf;
+    /**
+     * Serializes as `dfc-b:partOriginOf`.
+     */
     partOriginOf;
+    /**
+     * Serializes as `dfc-b:typeOf`.
+     */
     typeOf;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
     constructor(semanticId, params) {
         super(semanticId);

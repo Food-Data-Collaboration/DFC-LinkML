@@ -1,40 +1,216 @@
-// Class from DFC Business Ontology: #DefinedProduct
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhatSubject } from "./WhatSubject.js";
+/**
+ * A DFC `dfc-b:DefinedProduct`, serialized with `@type:
+ *   dfc-b:DefinedProduct`.
+ * Class hierarchy: `What_Subject` -> `DefinedProduct`.
+ * Own DFC properties: image, url, brand, claim,
+ *   hasPercentageOfAlcoholByVolume, lifetime, physicalCharacteristics,
+ *   quantity, specificCondition, composes, consumedBy,
+ *   hasAllergenCharacteristic, hasBrand, hasCertification, hasCharacteristic,
+ *   hasClaim, hasContainerInformation, hasGeographicalOrigin, hasIngredient,
+ *   hasLabellingCharacteristic, hasNatureOrigin, hasNutrientCharacteristic,
+ *   hasPartOrigin, hasPhysicalCharacteristic, hasType, hasUnit, hasVariant,
+ *   processOf, hasQuantity, hasReferenceProductOption, referencedBy.
+ */
 export class DefinedProduct extends WhatSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:DefinedProduct";
     }
+    /**
+     * A URL for an image of the Product
+     *
+     * Serializes as `dfc-b:Image`.
+     */
     image;
+    /**
+     * The Universal Resource Locator address of the virtual place
+     *
+     * Serializes as `dfc-b:URL`.
+     */
     url;
+    /**
+     * Deprecated onto v5.0
+     *
+     * Serializes as `dfc-b:brand`.
+     */
     brand;
+    /**
+     * **Deprecated** Any claims of a Product. **Deprecated**
+     *
+     * Serializes as `dfc-b:claim`.
+     */
     claim;
+    /**
+     * Percentage of Alcohol (by volume) in the Product, expressed as a number
+     *   in the range 0.00 - 100.00
+     *
+     * Serializes as `dfc-b:hasPercentageOfAlcoholByVolume`.
+     */
     hasPercentageOfAlcoholByVolume;
+    /**
+     * Lifetime of the product (in days), expressed as a number
+     *
+     * Serializes as `dfc-b:lifetime`.
+     */
     lifetime;
+    /**
+     * **Deprecated** Any Physical Characteristics of a Product.
+     *   **Deprecated**
+     *
+     * Serializes as `dfc-b:physicalCharacteristics`.
+     */
     physicalCharacteristics;
+    /**
+     * DEPRECATE
+     *
+     * Serializes as `dfc-b:quantity`.
+     */
     quantity;
+    /**
+     * Any specific conditions requried for storage or carriage of the Product
+     *
+     * Serializes as `dfc-b:specificCondition`.
+     */
     specificCondition;
+    /**
+     * DEPRECATE
+     *
+     * Serializes as `dfc-b:composes`.
+     */
     composes;
+    /**
+     * The ConsmuptionFlow by which the Product is transformed into other
+     *   Products
+     *
+     * Serializes as `dfc-b:consumedBy`.
+     */
     consumedBy;
+    /**
+     * Details of allergens contains in the product
+     *
+     * Serializes as `dfc-b:hasAllergenCharacteristic`.
+     */
     hasAllergenCharacteristic;
+    /**
+     * The brand a Product is sold under (Enterprises can market under
+     *   different Brands, some Brands can be collaborative across Enterprises)
+     *
+     * Serializes as `dfc-b:hasBrand`.
+     */
     hasBrand;
+    /**
+     * SKOS:Concept that details any certification the product holds (e.g.
+     *   Organic, Biodynamic etc), enumerated in the Facets vocabulary
+     *
+     * Serializes as `dfc-b:hasCertification`.
+     */
     hasCertification;
+    /**
+     * SuperProperty of:AllergenCharacteristicLabellingCharacteristic
+     *   NutrientCharacteristic PhysicalCharacteristic
+     *
+     * Serializes as `dfc-b:hasCharacteristic`.
+     */
     hasCharacteristic;
+    /**
+     * Any unverified/uncertified claim made by the Product (e.g. "Low Fat",
+     *   Locally Grow")
+     *
+     * Serializes as `dfc-b:hasClaim`.
+     */
     hasClaim;
+    /**
+     * SKOS:Concept that details the container the product is supplied in
+     *   (e.g.box, tin, paper bag etc), enumerated in the Measures vocabulary
+     *   (#containerUnit)
+     *
+     * Serializes as `dfc-b:hasContainerInformation`.
+     */
     hasContainerInformation;
+    /**
+     * Serializes as `dfc-b:hasGeographicalOrigin`.
+     */
     hasGeographicalOrigin;
+    /**
+     * Links DefinedProducts (via composes relationship) to allow recipe
+     *   construction N.B. This is similar (simplified) functionality to the
+     *   AsPlannedTransformation loop. These two options are not compatible.
+     *
+     * Serializes as `dfc-b:hasIngredient`.
+     */
     hasIngredient;
+    /**
+     * Labelling information about the product (from dfc-m:LabellingDimension)
+     *
+     * Serializes as `dfc-b:hasLabellingCharacteristic`.
+     */
     hasLabellingCharacteristic;
+    /**
+     * The natural origin of the product, e.g. Plant, Animal
+     *
+     * Serializes as `dfc-b:hasNatureOrigin`.
+     */
     hasNatureOrigin;
+    /**
+     * Nutrient information about the product (from dfc-m:NutrientDimension)
+     *
+     * Serializes as `dfc-b:hasNutrientCharacteristic`.
+     */
     hasNutrientCharacteristic;
+    /**
+     * The part of the plant or animal that the product originated from (e.g.
+     *   egg, animal body, seed, root )
+     *
+     * Serializes as `dfc-b:hasPartOrigin`.
+     */
     hasPartOrigin;
+    /**
+     * Physical information about the product (from dfc-m:PhysicalDimension)
+     *
+     * Serializes as `dfc-b:hasPhysicalCharacteristic`.
+     */
     hasPhysicalCharacteristic;
+    /**
+     * The Product Type grouping for the Product, for more detail see
+     *   Taxonomies/ProductType
+     *
+     * Serializes as `dfc-b:hasType`.
+     */
     hasType;
+    /**
+     * A Currency Unit. listed within the skos:concept of CurrencyUnit in the
+     *   measures.rdf
+     *
+     * Serializes as `dfc-b:hasUnit`.
+     */
     hasUnit;
+    /**
+     * Serializes as `dfc-b:hasVariant`.
+     */
     hasVariant;
+    /**
+     * DEPRECATE
+     *
+     * Serializes as `dfc-b:processOf`.
+     */
     processOf;
+    /**
+     * The actual numeric value of the Price, in the currency unit specified
+     *   with hasUnit
+     *
+     * Serializes as `dfc-b:hasQuantity`.
+     */
     hasQuantity;
+    /**
+     * Serializes as `dfc-b:hasReferenceProductOption`.
+     */
     hasReferenceProductOption;
+    /**
+     * Any/all CatalogItems that reference the Product for sale
+     *
+     * Serializes as `dfc-b:referencedBy`.
+     */
     referencedBy;
     constructor(semanticId, params) {
         super(semanticId, params);

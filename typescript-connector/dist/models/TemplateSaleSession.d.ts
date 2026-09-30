@@ -1,22 +1,87 @@
 import { SemanticObject } from "../core/SemanticObject.js";
 import type { Place } from "./Place.js";
+/**
+ * Constructor parameters for {@link TemplateSaleSession}.
+ *
+ * Own DFC properties: isTemplateSaleSessionOf, date, description, name,
+ *   characteristicOf, hasDimension, hostedAt.
+ */
 export interface TemplateSaleSessionParams {
+    /**
+     * Serializes as `dfc-b:isTemplateSaleSessionOf`.
+     */
     isTemplateSaleSessionOf?: string;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date?: string;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description?: string;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name?: string;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf?: string;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension?: string;
+    /**
+     * The location the session is hosted at. This could be a physical (e.g. a
+     *   shop or market) or virtual place (e.g. online store).
+     *
+     * Serializes as `dfc-b:hostedAt`.
+     */
     hostedAt?: Place | string;
 }
+/**
+ * A DFC `dfc-b:TemplateSaleSession`, serialized with `@type:
+ *   dfc-b:TemplateSaleSession`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: isTemplateSaleSessionOf, date, description, name,
+ *   characteristicOf, hasDimension, hostedAt.
+ */
 export declare class TemplateSaleSession extends SemanticObject {
     static get SEMANTIC_TYPE(): string;
+    /**
+     * Serializes as `dfc-b:isTemplateSaleSessionOf`.
+     */
     isTemplateSaleSessionOf?: string;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date?: string;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description?: string;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name?: string;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf?: string;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension?: string;
+    /**
+     * The location the session is hosted at. This could be a physical (e.g. a
+     *   shop or market) or virtual place (e.g. online store).
+     *
+     * Serializes as `dfc-b:hostedAt`.
+     */
     hostedAt?: Place | string;
     constructor(semanticId: string, params?: TemplateSaleSessionParams);
 }

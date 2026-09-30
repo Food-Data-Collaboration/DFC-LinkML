@@ -48,6 +48,7 @@ python3 scripts/generate_php_connector.py [--schema …] [--output …]  # defau
 ## Reference
 
 - `scripts/owl2linkml.py` — OWL→LinkML converter; `config/dfc-default.yaml` — skip lists, prefixes, taxonomy enums
+- `tests/test_jsr_score.py` — guards the jsr.io documentation factor (JSDoc on ≥80% of exported symbols, no malformed JSDoc). JSDoc is emitted by `scripts/generate_typescript_connector.py` from the schema descriptions, so never hand-edit `typescript-connector/src/**` to add docs. Remaining jsr points (package description, runtime compatibility) live in the jsr.io dashboard — `jsr.json` has no field for them.
 - `config/dfc-original-api.yaml` — curated original-v2 API map (single source for code-plane parity)
 - `tests/cross_connector/{run_matrix.py,normalize.py,adapters/,scenarios/,codeplane_inventory.py}` — drop-in parity harness vs original connectors
 - `docs/{migration-guide,api-gaps-typescript,api-gaps-ruby}.md` — code-plane migration docs (generated gap tables + guide)

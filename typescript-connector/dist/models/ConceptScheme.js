@@ -1,13 +1,36 @@
-// Class from DFC Business Ontology: #ConceptScheme
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:ConceptScheme`, serialized with `@type:
+ *   dfc-b:ConceptScheme`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: date, description, name, characteristicOf,
+ *   hasDimension.
+ */
 export class ConceptScheme extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:ConceptScheme";
     }
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
     constructor(semanticId, params) {
         super(semanticId);

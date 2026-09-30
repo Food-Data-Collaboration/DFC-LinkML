@@ -1,12 +1,31 @@
-// Class from DFC Business Ontology: #Person
 import { SemanticObject } from "../core/SemanticObject.js";
 import { Agent } from "./Agent.js";
+/**
+ * A DFC `dfc-b:Person`, serialized with `@type: dfc-b:Person`.
+ * Class hierarchy: `Who_Subject` -> `Agent` -> `Person`.
+ * Own DFC properties: familyName, firstName, mainContactOf.
+ */
 export class Person extends Agent {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Person";
     }
+    /**
+     * Family name or surname of Person
+     *
+     * Serializes as `dfc-b:familyName`.
+     */
     familyName;
+    /**
+     * First name of Person
+     *
+     * Serializes as `dfc-b:firstName`.
+     */
     firstName;
+    /**
+     * An Enterprise that the Person is the Main Contact for
+     *
+     * Serializes as `dfc-b:mainContactOf`.
+     */
     mainContactOf;
     constructor(semanticId, params) {
         super(semanticId, params);

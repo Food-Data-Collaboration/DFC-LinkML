@@ -1,6 +1,10 @@
-// Class from DFC Business Ontology: #Transformation
 import { SemanticObject } from "../core/SemanticObject.js";
 import { HowSubject } from "./HowSubject.js";
+/**
+ * A DFC `dfc-b:Transformation`, serialized with `@type:
+ *   dfc-b:Transformation`.
+ * Class hierarchy: `How_Subject` -> `Transformation`.
+ */
 export class Transformation extends HowSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Transformation";

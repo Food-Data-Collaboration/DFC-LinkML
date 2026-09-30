@@ -1,11 +1,25 @@
-// Class from DFC Business Ontology: #VirtualPlace
 import { SemanticObject } from "../core/SemanticObject.js";
 import { Place } from "./Place.js";
+/**
+ * A DFC `dfc-b:VirtualPlace`, serialized with `@type: dfc-b:VirtualPlace`.
+ * Class hierarchy: `Where_Subject` -> `Place` -> `VirtualPlace`.
+ * Own DFC properties: url, websitePage.
+ */
 export class VirtualPlace extends Place {
     static get SEMANTIC_TYPE() {
         return "dfc-b:VirtualPlace";
     }
+    /**
+     * The Universal Resource Locator address of the virtual place
+     *
+     * Serializes as `dfc-b:URL`.
+     */
     url;
+    /**
+     * DEPRECATE
+     *
+     * Serializes as `dfc-b:websitePage`.
+     */
     websitePage;
     constructor(semanticId, params) {
         super(semanticId, params);

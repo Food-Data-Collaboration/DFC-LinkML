@@ -1,16 +1,55 @@
-// Class from DFC Business Ontology: #Coordination
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:Coordination`, serialized with `@type: dfc-b:Coordination`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: marginPercent, date, description, name,
+ *   characteristicOf, hasDimension, coordinatedBy, hasObject.
+ */
 export class Coordination extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Coordination";
     }
+    /**
+     * The percentage margin the coordinating Enterprise is charging as
+     *   comission for managing the Sales Session (from 0-100%)
+     *
+     * Serializes as `dfc-b:marginPercent`.
+     */
     marginPercent;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
+    /**
+     * Confirms the Enterprise Coordinates certain SaleSessions, and defines
+     *   margin %age that the Enterprise takes for managing the SaleSession
+     *
+     * Serializes as `dfc-b:coordinatedBy`.
+     */
     coordinatedBy;
+    /**
+     * The Sales Session that is subject to the coordination
+     *
+     * Serializes as `dfc-b:hasObject`.
+     */
     hasObject;
     constructor(semanticId, params) {
         super(semanticId);

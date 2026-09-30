@@ -1,20 +1,74 @@
-// Class from DFC Business Ontology: #PhysicalProduct
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhatSubject } from "./WhatSubject.js";
+/**
+ * A DFC `dfc-b:PhysicalProduct`, serialized with `@type:
+ *   dfc-b:PhysicalProduct`.
+ * Class hierarchy: `What_Subject` -> `PhysicalProduct`.
+ * Own DFC properties: image, quantity, concernedBy, constituedBy,
+ *   consumedBy, fulfills, producedBy, hasQuantity, ownedBy, represents,
+ *   tracedBy.
+ */
 export class PhysicalProduct extends WhatSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:PhysicalProduct";
     }
+    /**
+     * A URL for an image of the Product
+     *
+     * Serializes as `dfc-b:Image`.
+     */
     image;
+    /**
+     * DEPRECATE
+     *
+     * Serializes as `dfc-b:quantity`.
+     */
     quantity;
+    /**
+     * Any/All Order Lines that relate to this Product
+     *
+     * Serializes as `dfc-b:concernedBy`.
+     */
     concernedBy;
+    /**
+     * Serializes as `dfc-b:constituedBy`.
+     */
     constituedBy;
+    /**
+     * The ConsmuptionFlow by which the Product is transformed into other
+     *   Products
+     *
+     * Serializes as `dfc-b:consumedBy`.
+     */
     consumedBy;
+    /**
+     * Serializes as `dfc-b:fulfills`.
+     */
     fulfills;
+    /**
+     * Link to another SuppleidProduct that is produced by this Product
+     *
+     * Serializes as `dfc-b:producedBy`.
+     */
     producedBy;
+    /**
+     * The actual numeric value of the Price, in the currency unit specified
+     *   with hasUnit
+     *
+     * Serializes as `dfc-b:hasQuantity`.
+     */
     hasQuantity;
+    /**
+     * Serializes as `dfc-b:ownedBy`.
+     */
     ownedBy;
+    /**
+     * Serializes as `dfc-b:represents`.
+     */
     represents;
+    /**
+     * Serializes as `dfc-b:tracedBy`.
+     */
     tracedBy;
     constructor(semanticId, params) {
         super(semanticId, params);

@@ -1,17 +1,61 @@
-// Class from DFC Business Ontology: #ProductionFlow
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:ProductionFlow`, serialized with `@type:
+ *   dfc-b:ProductionFlow`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: quantity, outputOf, produces, date, description,
+ *   name, characteristicOf, hasDimension, hasQuantity.
+ */
 export class ProductionFlow extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:ProductionFlow";
     }
+    /**
+     * DEPRECATE
+     *
+     * Serializes as `dfc-b:quantity`.
+     */
     quantity;
+    /**
+     * The transformation the produced product is outputed from
+     *
+     * Serializes as `dfc-b:outputOf`.
+     */
     outputOf;
+    /**
+     * Link to another SuppleidProduct that is produced from this Product
+     *
+     * Serializes as `dfc-b:produces`.
+     */
     produces;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
+    /**
+     * The actual numeric value of the Price, in the currency unit specified
+     *   with hasUnit
+     *
+     * Serializes as `dfc-b:hasQuantity`.
+     */
     hasQuantity;
     constructor(semanticId, params) {
         super(semanticId);

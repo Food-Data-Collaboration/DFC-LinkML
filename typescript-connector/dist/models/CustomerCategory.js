@@ -1,12 +1,28 @@
-// Class from DFC Business Ontology: #CustomerCategory
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhoSubject } from "./WhoSubject.js";
+/**
+ * A DFC `dfc-b:CustomerCategory`, serialized with `@type:
+ *   dfc-b:CustomerCategory`.
+ * Class hierarchy: `Who_Subject` -> `CustomerCategory`.
+ * Own DFC properties: hasMember, hasOffer, definedBy.
+ */
 export class CustomerCategory extends WhoSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:CustomerCategory";
     }
+    /**
+     * Serializes as `dfc-b:hasMember`.
+     */
     hasMember;
+    /**
+     * Serializes as `dfc-b:hasOffer`.
+     */
     hasOffer;
+    /**
+     * Determines which Enterprise has defined the CustomerCategory
+     *
+     * Serializes as `dfc-b:definedBy`.
+     */
     definedBy;
     constructor(semanticId, params) {
         super(semanticId, params);

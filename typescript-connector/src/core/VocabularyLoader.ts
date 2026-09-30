@@ -4,6 +4,16 @@ import bundledProductType from "../taxonomies/product_type.js";
 import bundledScope from "../taxonomies/scope.js";
 import bundledVocabularyTerm from "../taxonomies/vocabulary_term.js";
 
+/**
+ * Loads the SKOS controlled vocabularies that DFC models refer to: facets,
+ * measures, product types, scopes, and vocabulary terms.
+ *
+ * The bundled v2.0.0 vocabularies ship with the package and are loaded on
+ * construction, so construct, export, and import all work offline. Loading a
+ * different taxonomy version is opt-in via {@link VocabularyLoader.load}.
+ *
+ * Most callers use {@link Connector} instead, which wraps this loader.
+ */
 export class VocabularyLoader {
   private static readonly BUNDLED: Record<string, Record<string, unknown>> = {
     Facet: bundledFacet as Record<string, unknown>,
@@ -20,6 +30,10 @@ export class VocabularyLoader {
   // Bundled v2.0.0 vocabularies are loaded unconditionally by design — the
   // connector ships only that version offline. Callers requesting a different
   // taxonomyVersion must override via loadBundled/load.
+  /**
+   * @param taxonomyVersion Version of the SKOS taxonomies to load.
+   * @param ontologyVersion Version of the DFC ontology whose context to use.
+   */
   constructor(taxonomyVersion: string = "2.0.0", ontologyVersion: string = "2.0.0") {
     this.taxonomyVersion = taxonomyVersion;
     this.ontologyVersion = ontologyVersion;
@@ -27,6 +41,7 @@ export class VocabularyLoader {
     this.loadBundled();
   }
 
+  /** Loads the bundled vocabularies, replacing any currently loaded data. */
   loadBundled(): this {
     for (const [name, data] of Object.entries(VocabularyLoader.BUNDLED)) {
       this.load(name, data);
@@ -34,14 +49,22 @@ export class VocabularyLoader {
     return this;
   }
 
+  /** The raw bundled data for one vocabulary, or an empty object. */
   bundledData(name: string): Record<string, unknown> {
     return VocabularyLoader.BUNDLED[name] || {};
   }
 
+  /** Base URL of the SKOS taxonomies for the loaded taxonomy version. */
   get taxonomyBaseUrl(): string {
     return `https://w3id.org/dfc/taxonomies/v${this.taxonomyVersion}`;
   }
 
+  /**
+   * Loads a vocabulary from SKOS JSON-LD, keeping every `skos:Concept` found.
+   *
+   * @param name Vocabulary name, e.g. `Facet`.
+   * @param jsonData A node, an array of nodes, or a document with `@graph`.
+   */
   load(name: string, jsonData: Record<string, unknown>): this {
     const concepts: Record<string, unknown> = {};
     const sources = Array.isArray(jsonData) ? jsonData : [jsonData];

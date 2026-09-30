@@ -1,13 +1,30 @@
-// Class from DFC Business Ontology: #Certfication
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhatSubject } from "./WhatSubject.js";
+/**
+ * A DFC `dfc-b:Certfication`, serialized with `@type: dfc-b:Certfication`.
+ * Class hierarchy: `What_Subject` -> `Certfication`.
+ * Own DFC properties: certiferReference, certificationScore, operatorId,
+ *   certifies.
+ */
 export class Certfication extends WhatSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Certfication";
     }
+    /**
+     * Serializes as `dfc-b:certiferReference`.
+     */
     certiferReference;
+    /**
+     * Serializes as `dfc-b:certificationScore`.
+     */
     certificationScore;
+    /**
+     * Serializes as `dfc-b:operatorId`.
+     */
     operatorId;
+    /**
+     * Serializes as `dfc-b:certifies`.
+     */
     certifies;
     constructor(semanticId, params) {
         super(semanticId, params);

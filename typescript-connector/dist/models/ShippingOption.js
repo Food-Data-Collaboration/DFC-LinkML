@@ -1,16 +1,57 @@
-// Class from DFC Business Ontology: #ShippingOption
 import { SemanticObject } from "../core/SemanticObject.js";
 import { HowSubject } from "./HowSubject.js";
+/**
+ * A DFC `dfc-b:ShippingOption`, serialized with `@type:
+ *   dfc-b:ShippingOption`.
+ * Class hierarchy: `How_Subject` -> `ShippingOption`.
+ * Own DFC properties: endDate, fee, quantity, startDate, selectedBy,
+ *   hasQuantity, optionOf.
+ */
 export class ShippingOption extends HowSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:ShippingOption";
     }
+    /**
+     * The date/time that the Sales Session ends
+     *
+     * Serializes as `dfc-b:endDate`.
+     */
     endDate;
+    /**
+     * The value of any fee associated with the Shipping Option
+     *
+     * Serializes as `dfc-b:fee`.
+     */
     fee;
+    /**
+     * DEPRECATE
+     *
+     * Serializes as `dfc-b:quantity`.
+     */
     quantity;
+    /**
+     * The date/time that the Sales Session starts
+     *
+     * Serializes as `dfc-b:startDate`.
+     */
     startDate;
+    /**
+     * Serializes as `dfc-b:selectedBy`.
+     */
     selectedBy;
+    /**
+     * The actual numeric value of the Price, in the currency unit specified
+     *   with hasUnit
+     *
+     * Serializes as `dfc-b:hasQuantity`.
+     */
     hasQuantity;
+    /**
+     * All Sales Sessions the ShippingOption is available for selection
+     *   during.
+     *
+     * Serializes as `dfc-b:optionOf`.
+     */
     optionOf;
     constructor(semanticId, params) {
         super(semanticId, params);

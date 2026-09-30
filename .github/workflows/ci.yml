@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install pytest pyyaml click rdflib
-      - run: python -m pytest tests/test_owl2linkml.py -m "not integration" -q
+      - run: python -m pytest tests/test_owl2linkml.py tests/test_jsr_score.py -m "not integration" -q
 
   connectors:
     runs-on: ubuntu-latest

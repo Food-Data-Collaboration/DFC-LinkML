@@ -1,22 +1,68 @@
-// Class from DFC Business Ontology: #Collection
 import { SemanticObject } from "../core/SemanticObject.js";
 
+/**
+ * Constructor parameters for {@link Collection}.
+ *
+ * Own DFC properties: date, description, name, characteristicOf,
+ *   hasDimension.
+ */
 export interface CollectionParams {
+  /**
+   * Serializes as `dfc-b:date`.
+   */
   date?: string;
+  /**
+   * Serializes as `dfc-b:description`.
+   */
   description?: string;
+  /**
+   * Name of the Enterprise
+   *
+   * Serializes as `dfc-b:name`.
+   */
   name?: string;
+  /**
+   * Serializes as `dfc-b:characteristicOf`.
+   */
   characteristicOf?: string;
+  /**
+   * Serializes as `dfc-b:hasDimension`.
+   */
   hasDimension?: string;
 }
+
+/**
+ * A DFC `dfc-b:Collection`, serialized with `@type: dfc-b:Collection`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: date, description, name, characteristicOf,
+ *   hasDimension.
+ */
 export class Collection extends SemanticObject {
   static get SEMANTIC_TYPE(): string {
     return "dfc-b:Collection";
   }
 
+  /**
+   * Serializes as `dfc-b:date`.
+   */
   date?: string;
+  /**
+   * Serializes as `dfc-b:description`.
+   */
   description?: string;
+  /**
+   * Name of the Enterprise
+   *
+   * Serializes as `dfc-b:name`.
+   */
   name?: string;
+  /**
+   * Serializes as `dfc-b:characteristicOf`.
+   */
   characteristicOf?: string;
+  /**
+   * Serializes as `dfc-b:hasDimension`.
+   */
   hasDimension?: string;
 
   constructor(

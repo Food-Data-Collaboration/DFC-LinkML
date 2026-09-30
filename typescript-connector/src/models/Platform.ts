@@ -1,8 +1,15 @@
-// Class from DFC Business Ontology: #Platform
 import { SemanticObject } from "../core/SemanticObject.js";
 import { DitributedRepresentation, type DitributedRepresentationParams } from "./DitributedRepresentation.js";
 
+/**
+ * Constructor parameters for {@link Platform}.
+ */
 export interface PlatformParams extends DitributedRepresentationParams {}
+
+/**
+ * A DFC `dfc-b:Platform`, serialized with `@type: dfc-b:Platform`.
+ * Class hierarchy: `DFC_DitributedRepresentation` -> `Platform`.
+ */
 export class Platform extends DitributedRepresentation {
   static get SEMANTIC_TYPE(): string {
     return "dfc-b:Platform";

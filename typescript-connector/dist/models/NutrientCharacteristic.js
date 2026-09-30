@@ -1,15 +1,44 @@
-// Class from DFC Business Ontology: #NutrientCharacteristic
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:NutrientCharacteristic`, serialized with `@type:
+ *   dfc-b:NutrientCharacteristic`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: nutrientCharacteristicOf, date, description, name,
+ *   characteristicOf, hasDimension, hasNutrientDimension.
+ */
 export class NutrientCharacteristic extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:NutrientCharacteristic";
     }
+    /**
+     * Serializes as `dfc-b:nutrientCharacteristicOf`.
+     */
     nutrientCharacteristicOf;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
+    /**
+     * Serializes as `dfc-b:hasNutrientDimension`.
+     */
     hasNutrientDimension;
     constructor(semanticId, params) {
         super(semanticId);

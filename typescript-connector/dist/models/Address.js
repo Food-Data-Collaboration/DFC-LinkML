@@ -1,18 +1,71 @@
-// Class from DFC Business Ontology: #Address
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhereSubject } from "./WhereSubject.js";
+/**
+ * A DFC `dfc-b:Address`, serialized with `@type: dfc-b:Address`.
+ * Class hierarchy: `Where_Subject` -> `Address`.
+ * Own DFC properties: city, country, latitude, longitude, postcode, region,
+ *   street, addressOf, hasCountry.
+ */
 export class Address extends WhereSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Address";
     }
+    /**
+     * The postal city (may be a town) that the address is located within
+     *
+     * Serializes as `dfc-b:city`.
+     */
     city;
+    /**
+     * The ISO country that the address is located within
+     *
+     * Serializes as `dfc-b:country`.
+     */
     country;
+    /**
+     * numeric latitude of the Address location
+     *
+     * Serializes as `dfc-b:latitude`.
+     */
     latitude;
+    /**
+     * numeric longitude of the Address location
+     *
+     * Serializes as `dfc-b:longitude`.
+     */
     longitude;
+    /**
+     * The code defined by the relevant authority that facilitates mail
+     *   delivery to that address
+     *
+     * Serializes as `dfc-b:postcode`.
+     */
     postcode;
+    /**
+     * The Region (adminstrative district below Country) the Address is
+     *   located within
+     *
+     * Serializes as `dfc-b:region`.
+     */
     region;
+    /**
+     * Street part of the address. May also be referred to as "first line of
+     *   address" in some locales. Generally includes a street name and building
+     *   name or number (in any order)
+     *
+     * Serializes as `dfc-b:street`.
+     */
     street;
+    /**
+     * The Agent (Person or Enterprise) or PhysicalPlace that the Address
+     *   relates to
+     *
+     * Serializes as `dfc-b:addressOf`.
+     */
     addressOf;
+    /**
+     * Serializes as `dfc-b:hasCountry`.
+     */
     hasCountry;
     constructor(semanticId, params) {
         super(semanticId, params);

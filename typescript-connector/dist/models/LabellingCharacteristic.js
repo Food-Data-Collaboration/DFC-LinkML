@@ -1,15 +1,44 @@
-// Class from DFC Business Ontology: #LabellingCharacteristic
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:LabellingCharacteristic`, serialized with `@type:
+ *   dfc-b:LabellingCharacteristic`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: labellingCharacteristicOf, date, description, name,
+ *   characteristicOf, hasDimension, hasLabellingDimension.
+ */
 export class LabellingCharacteristic extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:LabellingCharacteristic";
     }
+    /**
+     * Serializes as `dfc-b:labellingCharacteristicOf`.
+     */
     labellingCharacteristicOf;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
+    /**
+     * Serializes as `dfc-b:hasLabellingDimension`.
+     */
     hasLabellingDimension;
     constructor(semanticId, params) {
         super(semanticId);

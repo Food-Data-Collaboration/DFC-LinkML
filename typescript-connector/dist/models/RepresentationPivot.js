@@ -1,6 +1,10 @@
-// Class from DFC Business Ontology: #RepresentationPivot
 import { SemanticObject } from "../core/SemanticObject.js";
 import { DitributedRepresentation } from "./DitributedRepresentation.js";
+/**
+ * A DFC `dfc-b:RepresentationPivot`, serialized with `@type:
+ *   dfc-b:RepresentationPivot`.
+ * Class hierarchy: `DFC_DitributedRepresentation` -> `RepresentationPivot`.
+ */
 export class RepresentationPivot extends DitributedRepresentation {
     static get SEMANTIC_TYPE() {
         return "dfc-b:RepresentationPivot";

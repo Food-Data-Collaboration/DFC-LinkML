@@ -1,15 +1,50 @@
-// Class from DFC Business Ontology: #AsPlannedLocalTransformation
 import { SemanticObject } from "../core/SemanticObject.js";
 import { Transformation } from "./Transformation.js";
+/**
+ * A DFC `dfc-b:AsPlannedLocalTransformation`, serialized with `@type:
+ *   dfc-b:AsPlannedLocalTransformation`.
+ * Class hierarchy: `How_Subject` -> `Transformation` ->
+ *   `AsPlannedLocalTransformation`.
+ * Own DFC properties: cost, endDate, startDate, hasInput, hasOutput,
+ *   transformedBy.
+ */
 export class AsPlannedLocalTransformation extends Transformation {
     static get SEMANTIC_TYPE() {
         return "dfc-b:AsPlannedLocalTransformation";
     }
+    /**
+     * Serializes as `dfc-b:cost`.
+     */
     cost;
+    /**
+     * The date/time that the Sales Session ends
+     *
+     * Serializes as `dfc-b:endDate`.
+     */
     endDate;
+    /**
+     * The date/time that the Sales Session starts
+     *
+     * Serializes as `dfc-b:startDate`.
+     */
     startDate;
+    /**
+     * The PlannedConsumptionFlow that is the input of the
+     *   PlannedTransformation
+     *
+     * Serializes as `dfc-b:hasInput`.
+     */
     hasInput;
+    /**
+     * The PlannedProductionFlow that is the output of the
+     *   PlannedTransformation
+     *
+     * Serializes as `dfc-b:hasOutput`.
+     */
     hasOutput;
+    /**
+     * Serializes as `dfc-b:transformedBy`.
+     */
     transformedBy;
     constructor(semanticId, params) {
         super(semanticId, params);

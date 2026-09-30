@@ -1,13 +1,34 @@
-// Class from DFC Business Ontology: #PaymentMethod
 import { SemanticObject } from "../core/SemanticObject.js";
 import { HowSubject } from "./HowSubject.js";
+/**
+ * A DFC `dfc-b:PaymentMethod`, serialized with `@type:
+ *   dfc-b:PaymentMethod`.
+ * Class hierarchy: `How_Subject` -> `PaymentMethod`.
+ * Own DFC properties: paymentMethodProvider, paymentMethodType, hasPrice,
+ *   paidWith.
+ */
 export class PaymentMethod extends HowSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:PaymentMethod";
     }
+    /**
+     * Serializes as `dfc-b:paymentMethodProvider`.
+     */
     paymentMethodProvider;
+    /**
+     * Serializes as `dfc-b:paymentMethodType`.
+     */
     paymentMethodType;
+    /**
+     * The offered Price for the Product listed in the CatalogItem for this
+     *   cateogry of Customer
+     *
+     * Serializes as `dfc-b:hasPrice`.
+     */
     hasPrice;
+    /**
+     * Serializes as `dfc-b:paidWith`.
+     */
     paidWith;
     constructor(semanticId, params) {
         super(semanticId, params);

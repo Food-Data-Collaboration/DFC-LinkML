@@ -1,16 +1,47 @@
-// Class from DFC Business Ontology: #Vevent
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:Vevent`, serialized with `@type: dfc-b:Vevent`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: dtend, dtstart, date, description, name,
+ *   characteristicOf, hasDimension, rrule.
+ */
 export class Vevent extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Vevent";
     }
+    /**
+     * Serializes as `http://www.w3.org/2002/12/cal/icaltzd#dtend`.
+     */
     dtend;
+    /**
+     * Serializes as `http://www.w3.org/2002/12/cal/icaltzd#dtstart`.
+     */
     dtstart;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
+    /**
+     * Serializes as `http://www.w3.org/2002/12/cal/icaltzd#rrule`.
+     */
     rrule;
     constructor(semanticId, params) {
         super(semanticId);

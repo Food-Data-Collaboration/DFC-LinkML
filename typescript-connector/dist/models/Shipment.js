@@ -1,19 +1,69 @@
-// Class from DFC Business Ontology: #Shipment
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:Shipment`, serialized with `@type: dfc-b:Shipment`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: endDate, startDate, isShippedIn, transports, date,
+ *   description, name, characteristicOf, hasDimension, endsAt, startsAt.
+ */
 export class Shipment extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Shipment";
     }
+    /**
+     * The date/time that the Sales Session ends
+     *
+     * Serializes as `dfc-b:endDate`.
+     */
     endDate;
+    /**
+     * The date/time that the Sales Session starts
+     *
+     * Serializes as `dfc-b:startDate`.
+     */
     startDate;
+    /**
+     * Serializes as `dfc-b:isShippedIn`.
+     */
     isShippedIn;
+    /**
+     * The Stock that is transported by a Shipment.
+     *
+     * Serializes as `dfc-b:transports`.
+     */
     transports;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
+    /**
+     * The destination of the Shipment.
+     *
+     * Serializes as `dfc-b:endsAt`.
+     */
     endsAt;
+    /**
+     * The origin point of the Shipment.
+     *
+     * Serializes as `dfc-b:startsAt`.
+     */
     startsAt;
     constructor(semanticId, params) {
         super(semanticId);

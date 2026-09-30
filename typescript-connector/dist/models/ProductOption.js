@@ -1,10 +1,18 @@
-// Class from DFC Business Ontology: #ProductOption
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhatSubject } from "./WhatSubject.js";
+/**
+ * A DFC `dfc-b:ProductOption`, serialized with `@type:
+ *   dfc-b:ProductOption`.
+ * Class hierarchy: `What_Subject` -> `ProductOption`.
+ * Own DFC properties: hasReferenceProductOptionValue.
+ */
 export class ProductOption extends WhatSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:ProductOption";
     }
+    /**
+     * Serializes as `dfc-b:hasReferenceProductOptionValue`.
+     */
     hasReferenceProductOptionValue;
     constructor(semanticId, params) {
         super(semanticId, params);

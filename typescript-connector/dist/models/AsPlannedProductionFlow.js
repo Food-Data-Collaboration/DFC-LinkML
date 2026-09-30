@@ -1,6 +1,10 @@
-// Class from DFC Business Ontology: #AsPlannedProductionFlow
 import { SemanticObject } from "../core/SemanticObject.js";
 import { ProductionFlow } from "./ProductionFlow.js";
+/**
+ * A DFC `dfc-b:AsPlannedProductionFlow`, serialized with `@type:
+ *   dfc-b:AsPlannedProductionFlow`.
+ * Class hierarchy: `ProductionFlow` -> `AsPlannedProductionFlow`.
+ */
 export class AsPlannedProductionFlow extends ProductionFlow {
     static get SEMANTIC_TYPE() {
         return "dfc-b:AsPlannedProductionFlow";

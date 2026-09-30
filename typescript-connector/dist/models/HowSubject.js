@@ -1,13 +1,35 @@
-// Class from DFC Business Ontology: #How_Subject
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:How_Subject`, serialized with `@type: dfc-b:How_Subject`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: date, description, name, characteristicOf,
+ *   hasDimension.
+ */
 export class HowSubject extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:How_Subject";
     }
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
     constructor(semanticId, params) {
         super(semanticId);

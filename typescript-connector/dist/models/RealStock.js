@@ -1,12 +1,25 @@
-// Class from DFC Business Ontology: #RealStock
 import { SemanticObject } from "../core/SemanticObject.js";
 import { Stock } from "./Stock.js";
+/**
+ * A DFC `dfc-b:RealStock`, serialized with `@type: dfc-b:RealStock`.
+ * Class hierarchy: `Stock` -> `RealStock`.
+ * Own DFC properties: constitutes, identifiedBy, storedIn.
+ */
 export class RealStock extends Stock {
     static get SEMANTIC_TYPE() {
         return "dfc-b:RealStock";
     }
+    /**
+     * Serializes as `dfc-b:constitutes`.
+     */
     constitutes;
+    /**
+     * Serializes as `dfc-b:identifiedBy`.
+     */
     identifiedBy;
+    /**
+     * Serializes as `dfc-b:storedIn`.
+     */
     storedIn;
     constructor(semanticId, params) {
         super(semanticId, params);

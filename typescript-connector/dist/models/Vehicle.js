@@ -1,16 +1,53 @@
-// Class from DFC Business Ontology: #Vehicle
 import { SemanticObject } from "../core/SemanticObject.js";
 import { WhatSubject } from "./WhatSubject.js";
+/**
+ * A DFC `dfc-b:Vehicle`, serialized with `@type: dfc-b:Vehicle`.
+ * Class hierarchy: `What_Subject` -> `Vehicle`.
+ * Own DFC properties: frozen, refrigerated, ships, usedInRoute, basedAt,
+ *   hasQuantity, isAvailableDuring.
+ */
 export class Vehicle extends WhatSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Vehicle";
     }
+    /**
+     * Defines if the parent class supports or requires refrigeration to a
+     *   safe temperature to maintain frozen products.
+     *
+     * Serializes as `dfc-b:frozen`.
+     */
     frozen;
+    /**
+     * Defines if the parent class supports or requires refrigeration to a
+     *   safe temperature to maintain refrigerated products (typically 0-5°C).
+     *
+     * Serializes as `dfc-b:refrigerated`.
+     */
     refrigerated;
+    /**
+     * Serializes as `dfc-b:ships`.
+     */
     ships;
+    /**
+     * Serializes as `dfc-b:usedInRoute`.
+     */
     usedInRoute;
+    /**
+     * Serializes as `dfc-b:basedAt`.
+     */
     basedAt;
+    /**
+     * The actual numeric value of the Price, in the currency unit specified
+     *   with hasUnit
+     *
+     * Serializes as `dfc-b:hasQuantity`.
+     */
     hasQuantity;
+    /**
+     * Operating window of the Vehicle.
+     *
+     * Serializes as `dfc-b:isAvailableDuring`.
+     */
     isAvailableDuring;
     constructor(semanticId, params) {
         super(semanticId, params);

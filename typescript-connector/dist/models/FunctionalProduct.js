@@ -1,11 +1,23 @@
-// Class from DFC Business Ontology: #FunctionalProduct
 import { SemanticObject } from "../core/SemanticObject.js";
 import { DefinedProduct } from "./DefinedProduct.js";
+/**
+ * A DFC `dfc-b:FunctionalProduct`, serialized with `@type:
+ *   dfc-b:FunctionalProduct`.
+ * Class hierarchy: `What_Subject` -> `DefinedProduct` ->
+ *   `FunctionalProduct`.
+ * Own DFC properties: requestedBy, satisfiedBy.
+ */
 export class FunctionalProduct extends DefinedProduct {
     static get SEMANTIC_TYPE() {
         return "dfc-b:FunctionalProduct";
     }
+    /**
+     * Serializes as `dfc-b:requestedBy`.
+     */
     requestedBy;
+    /**
+     * Serializes as `dfc-b:satisfiedBy`.
+     */
     satisfiedBy;
     constructor(semanticId, params) {
         super(semanticId, params);

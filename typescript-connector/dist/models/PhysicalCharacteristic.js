@@ -1,15 +1,44 @@
-// Class from DFC Business Ontology: #PhysicalCharacteristic
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:PhysicalCharacteristic`, serialized with `@type:
+ *   dfc-b:PhysicalCharacteristic`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: physicalCharacteristicOf, date, description, name,
+ *   characteristicOf, hasDimension, hasPhysicalDimension.
+ */
 export class PhysicalCharacteristic extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:PhysicalCharacteristic";
     }
+    /**
+     * Serializes as `dfc-b:physicalCharacteristicOf`.
+     */
     physicalCharacteristicOf;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
+    /**
+     * Serializes as `dfc-b:hasPhysicalDimension`.
+     */
     hasPhysicalDimension;
     constructor(semanticId, params) {
         super(semanticId);

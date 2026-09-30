@@ -1,16 +1,52 @@
-// Class from DFC Business Ontology: #Transaction
 import { SemanticObject } from "../core/SemanticObject.js";
 import { HowSubject } from "./HowSubject.js";
+/**
+ * A DFC `dfc-b:Transaction`, serialized with `@type: dfc-b:Transaction`.
+ * Class hierarchy: `How_Subject` -> `Transaction`.
+ * Own DFC properties: invoiceNumber, quantity, concerns, hasPrice, from,
+ *   hasQuantity, to.
+ */
 export class Transaction extends HowSubject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Transaction";
     }
+    /**
+     * Serializes as `dfc-b:invoiceNumber`.
+     */
     invoiceNumber;
+    /**
+     * DEPRECATE
+     *
+     * Serializes as `dfc-b:quantity`.
+     */
     quantity;
+    /**
+     * The Product that has been ordered (1 and only 1)
+     *
+     * Serializes as `dfc-b:concerns`.
+     */
     concerns;
+    /**
+     * The offered Price for the Product listed in the CatalogItem for this
+     *   cateogry of Customer
+     *
+     * Serializes as `dfc-b:hasPrice`.
+     */
     hasPrice;
+    /**
+     * Serializes as `dfc-b:from`.
+     */
     from;
+    /**
+     * The actual numeric value of the Price, in the currency unit specified
+     *   with hasUnit
+     *
+     * Serializes as `dfc-b:hasQuantity`.
+     */
     hasQuantity;
+    /**
+     * Serializes as `dfc-b:to`.
+     */
     to;
     constructor(semanticId, params) {
         super(semanticId, params);

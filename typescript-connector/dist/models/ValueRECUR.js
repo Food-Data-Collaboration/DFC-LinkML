@@ -1,17 +1,51 @@
-// Class from DFC Business Ontology: #Value_RECUR
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:Value_RECUR`, serialized with `@type: dfc-b:Value_RECUR`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: byday, bymonth, freq, interval, date, description,
+ *   name, characteristicOf, hasDimension.
+ */
 export class ValueRECUR extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:Value_RECUR";
     }
+    /**
+     * Serializes as `http://www.w3.org/2002/12/cal/icaltzd#byday`.
+     */
     byday;
+    /**
+     * Serializes as `http://www.w3.org/2002/12/cal/icaltzd#bymonth`.
+     */
     bymonth;
+    /**
+     * Serializes as `http://www.w3.org/2002/12/cal/icaltzd#freq`.
+     */
     freq;
+    /**
+     * Serializes as `http://www.w3.org/2002/12/cal/icaltzd#interval`.
+     */
     interval;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
     constructor(semanticId, params) {
         super(semanticId);

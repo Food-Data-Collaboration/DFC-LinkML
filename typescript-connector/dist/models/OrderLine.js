@@ -1,20 +1,78 @@
-// Class from DFC Business Ontology: #OrderLine
 import { SemanticObject } from "../core/SemanticObject.js";
+/**
+ * A DFC `dfc-b:OrderLine`, serialized with `@type: dfc-b:OrderLine`.
+ * Root of its hierarchy; extends the connector `SemanticObject` base.
+ * Own DFC properties: discount, quantity, concerns, hasPrice,
+ *   isFulfilledBy, date, description, name, characteristicOf, hasDimension,
+ *   hasQuantity, partOf.
+ */
 export class OrderLine extends SemanticObject {
     static get SEMANTIC_TYPE() {
         return "dfc-b:OrderLine";
     }
+    /**
+     * Any discount applied to the Price
+     *
+     * Serializes as `dfc-b:discount`.
+     */
     discount;
+    /**
+     * DEPRECATE
+     *
+     * Serializes as `dfc-b:quantity`.
+     */
     quantity;
+    /**
+     * The Product that has been ordered (1 and only 1)
+     *
+     * Serializes as `dfc-b:concerns`.
+     */
     concerns;
+    /**
+     * The offered Price for the Product listed in the CatalogItem for this
+     *   cateogry of Customer
+     *
+     * Serializes as `dfc-b:hasPrice`.
+     */
     hasPrice;
+    /**
+     * Serializes as `dfc-b:isFulfilledBy`.
+     */
     isFulfilledBy;
+    /**
+     * Serializes as `dfc-b:date`.
+     */
     date;
+    /**
+     * Serializes as `dfc-b:description`.
+     */
     description;
+    /**
+     * Name of the Enterprise
+     *
+     * Serializes as `dfc-b:name`.
+     */
     name;
+    /**
+     * Serializes as `dfc-b:characteristicOf`.
+     */
     characteristicOf;
+    /**
+     * Serializes as `dfc-b:hasDimension`.
+     */
     hasDimension;
+    /**
+     * The actual numeric value of the Price, in the currency unit specified
+     *   with hasUnit
+     *
+     * Serializes as `dfc-b:hasQuantity`.
+     */
     hasQuantity;
+    /**
+     * The Order this OrderLine is associated with (1 and only 1)
+     *
+     * Serializes as `dfc-b:partOf`.
+     */
     partOf;
     constructor(semanticId, params) {
         super(semanticId);

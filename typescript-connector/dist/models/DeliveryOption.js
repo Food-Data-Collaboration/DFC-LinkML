@@ -1,14 +1,44 @@
-// Class from DFC Business Ontology: #DeliveryOption
 import { SemanticObject } from "../core/SemanticObject.js";
 import { ShippingOption } from "./ShippingOption.js";
+/**
+ * A DFC `dfc-b:DeliveryOption`, serialized with `@type:
+ *   dfc-b:DeliveryOption`.
+ * Class hierarchy: `How_Subject` -> `ShippingOption` -> `DeliveryOption`.
+ * Own DFC properties: accessibilityInfo, deliveryConstraint, deliveredAt,
+ *   uses, refersTo.
+ */
 export class DeliveryOption extends ShippingOption {
     static get SEMANTIC_TYPE() {
         return "dfc-b:DeliveryOption";
     }
+    /**
+     * Serializes as `dfc-b:accessibilityInfo`.
+     */
     accessibilityInfo;
+    /**
+     * Any constraints (time or physical) that are applied to the delivery
+     *   (e.g. "9am-5pm Mon - Fri only", "only deliver after 6pm", or "Delivery
+     *   to be left in porch")
+     *
+     * Serializes as `dfc-b:deliveryConstraint`.
+     */
     deliveryConstraint;
+    /**
+     * Serializes as `dfc-b:deliveredAt`.
+     */
     deliveredAt;
+    /**
+     * *** DEPRECATED *** Use `refersTo` instead.The Address the delivery will
+     *   be/was made to
+     *
+     * Serializes as `dfc-b:uses`.
+     */
     uses;
+    /**
+     * The Address the delivery will be/was made to
+     *
+     * Serializes as `dfc-b:refersTo`.
+     */
     refersTo;
     constructor(semanticId, params) {
         super(semanticId, params);

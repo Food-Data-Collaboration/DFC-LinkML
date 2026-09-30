@@ -1,8 +1,15 @@
-// Class from DFC Business Ontology: #Polygon
 import { SemanticObject } from "../core/SemanticObject.js";
 import { Geometry, type GeometryParams } from "./Geometry.js";
 
+/**
+ * Constructor parameters for {@link Polygon}.
+ */
 export interface PolygonParams extends GeometryParams {}
+
+/**
+ * A DFC `dfc-b:Polygon`, serialized with `@type: dfc-b:Polygon`.
+ * Class hierarchy: `Geometry` -> `Polygon`.
+ */
 export class Polygon extends Geometry {
   static get SEMANTIC_TYPE(): string {
     return "dfc-b:Polygon";
