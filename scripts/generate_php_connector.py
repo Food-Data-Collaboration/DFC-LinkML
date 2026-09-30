@@ -601,6 +601,15 @@ class SemanticObject
                 }
                 $result[$predicate] = $allIntKeys
                     ? array_values($mapped) : $mapped;
+                // Collapse a sequence of exactly one to a scalar. This is
+                // what JSON-LD compaction does for properties that are not
+                // @list/@set, and it is what the original DFC connectors and
+                // the TypeScript/Ruby LinkML connectors do. PHP has no
+                // ml/json-ld runtime dep, so without this the exported shape
+                // diverges: an array here, a scalar everywhere else.
+                if ($allIntKeys && count($mapped) === 1) {
+                    $result[$predicate] = $mapped[0];
+                }
             } elseif ($value instanceof self) {
                 $result[$predicate] = $value->getSemanticId();
             } else {
