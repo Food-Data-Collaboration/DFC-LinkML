@@ -1,0 +1,26 @@
+# container_information_of
+
+[← all properties](index.md)
+
+## Description
+
+Object property from OWL: containerInformationOf
+
+## Definition
+
+- **Predicate**: `dfc-b:containerInformationOf`
+- **Range**: `string` (literal)
+- **Inverse**: `has_container_information`
+
+## Declared domain
+
+[`Concept`](../classes/Concept.md)
+
+## Available on (1)
+
+[`Concept`](../classes/Concept.md)
+
+## Notes
+
+- Declared on 1 class(es) in the ontology, but inherited by 1. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
+- The schema records no `required` or `multivalued` flag for this slot.

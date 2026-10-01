@@ -1,0 +1,26 @@
+# Certfication
+
+[← all classes](index.md)
+
+## Description
+
+Class from DFC Business Ontology: #Certfication
+
+## Identity
+
+- **JSON-LD type**: `dfc-b:Certfication`
+- **Hierarchy**: `What_Subject` → `Certfication`
+
+## Properties (4)
+
+| Property | Predicate | Range | Kind | Defined on |
+|---|---|---|---|---|
+| [`certifer_reference`](../properties/certifer_reference.md) | `dfc-b:certiferReference` | `string` | literal | this class |
+| [`certification_score`](../properties/certification_score.md) | `dfc-b:certificationScore` | `string` | literal | this class |
+| [`operator_id`](../properties/operator_id.md) | `dfc-b:operatorId` | `string` | literal | this class |
+| [`certifies`](../properties/certifies.md) | `dfc-b:certifies` | `string` | literal | this class |
+
+## Notes
+
+- The schema carries no `required` or `multivalued` flags, so this page does not state either. Cardinality is decided by the connector generators from the property name, which is a heuristic — do not rely on it for validation.
+- `dfc-b:Class:property` local names are never emitted. Predicates are always the original short form.

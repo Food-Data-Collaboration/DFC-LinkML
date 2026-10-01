@@ -1,0 +1,26 @@
+# has_variant_caracteristic
+
+[← all properties](index.md)
+
+## Description
+
+Object property from OWL: hasVariantCaracteristic
+
+## Definition
+
+- **Predicate**: `dfc-b:hasVariantCaracteristic`
+- **Range**: `VariantCaracteristic` (a DFC class)
+- **Target type**: [`VariantCaracteristic`](../classes/VariantCaracteristic.md)
+
+## Declared domain
+
+[`Variant`](../classes/Variant.md)
+
+## Available on (1)
+
+[`Variant`](../classes/Variant.md)
+
+## Notes
+
+- Declared on 1 class(es) in the ontology, but inherited by 1. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
+- The schema records no `required` or `multivalued` flag for this slot.
