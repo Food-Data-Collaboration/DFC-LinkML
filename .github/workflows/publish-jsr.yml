@@ -22,3 +22,24 @@ jobs:
       - run: npm run build
       - run: npx jsr publish --dry-run --allow-dirty
       - run: npx jsr publish
+      # Nudge packagist too. Its GitHub hook fires on every push, but a tag
+      # push that races the hook (or a hook that was never installed) would
+      # otherwise leave the PHP package a week behind. Harmless when the hook
+      # has already done the work. Uses the same credential packagist's own
+      # webhook validates with; see docs for rotation.
+      - name: Notify packagist
+        if: success()
+        env:
+          PACKAGIST_API_TOKEN: ${{ secrets.PACKAGIST_API_TOKEN }}
+          PACKAGIST_USERNAME: ${{ vars.PACKAGIST_USERNAME }}
+        run: |
+          if [ -z "$PACKAGIST_USERNAME" ]; then
+            echo "PACKAGIST_USERNAME not set; relying on the GitHub hook."
+            exit 0
+          fi
+          curl --fail --silent --show-error \
+            -X POST "https://packagist.org/api/update-package" \
+            -H 'content-type: application/json' \
+            -d "{\"repository\":{\"url\":\"https://github.com/${{ github.repository }}\"}}" \
+            -u "${PACKAGIST_USERNAME}:${PACKAGIST_API_TOKEN}" \
+            && echo "packagist notified"

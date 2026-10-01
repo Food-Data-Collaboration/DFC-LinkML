@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = 'dfc-linkml-connector'
-  spec.version       = '2.0.0'
+  spec.version       = '2.0.4'
   spec.authors       = ["Data Food Consortium"]
   spec.email         = ["hello@fooddatacollaboration.org.uk"]
   spec.summary       = 'Generated LinkML schema'

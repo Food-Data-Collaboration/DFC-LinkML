@@ -158,6 +158,26 @@ def load_original_api() -> list[dict]:
     return []
 
 
+def load_sdk_version(fallback: str) -> str:
+    """The SDK version for the generated gemspec.
+
+    config/dfc-release.yaml is the single source of truth, shared with
+    scripts/tag_release.py. The schema's own `version` is the DFC ontology
+    version, which is not the same thing — conflating them left the gem
+    pinned at 2.0.0 while the TypeScript package moved on.
+    """
+    for p in ('config/dfc-release.yaml', '../config/dfc-release.yaml',
+              '../../config/dfc-release.yaml'):
+        if Path(p).exists():
+            import yaml
+            found = yaml.safe_load(Path(p).read_text()).get('sdk_version')
+            if found:
+                return str(found)
+    print(f"Release manifest has no sdk_version; using schema version "
+          f"{fallback}", file=sys.stderr)
+    return fallback
+
+
 def original_aliases_for_class(class_name: str, schema_data: dict,
                                api_slots: list[dict]) -> list[tuple[str, str]]:
     """Original-v2 reader/writer names to alias onto LinkML accessors.
@@ -1296,7 +1316,9 @@ end
 
 
 def generate_gemspec(schema_data: dict, gem_name: str) -> str:
-    version = schema_data.get('version', '0.1.0')
+    # The gem version is the SDK version from config/dfc-release.yaml, not the
+    # schema's `version` (that is the DFC ontology version).
+    version = load_sdk_version(schema_data.get('version', '0.1.0'))
     description = schema_data.get('description', 'DFC LinkML Connector')
     return f'''Gem::Specification.new do |spec|
   spec.name          = \'{gem_name}\'

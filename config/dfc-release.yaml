@@ -8,6 +8,26 @@
 dfc_ontology_version: "2.0.0"
 dfc_taxonomy_version: "2.0.0"
 
+# SDK version — the version of the generated connectors, which tracks the DFC
+# major version and is independent of the ontology/taxonomy pins above.
+# This is the single source of truth. scripts/tag_release.py bumps it and
+# fans it out to every manifest; do not hand-edit the versions it writes:
+#
+#   typescript-connector/jsr.json          (static; jsr.io publish)
+#   typescript-connector/package.json      (static; npm identity)
+#   ruby-gem/*.gemspec                     (generated from this value)
+#
+# php-connector/composer.json deliberately has no version: packagist.org
+# derives it from the git tag instead.
+#
+# The registries need different tag shapes for the same release, which
+# tag_release.py creates together:
+#
+#   @siol-data/linkml-connector@X.Y.Z   jsr.io     (publish-jsr.yml trigger)
+#   vX.Y.Z                              packagist  (composer require)
+#   vX.Y.Z                              RubyGems   (gem install, once published)
+sdk_version: "2.0.4"
+
 ontology:
   business_url: "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_BusinessOntology.rdf"
   technical_url: "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_TechnicalOntology.rdf"
