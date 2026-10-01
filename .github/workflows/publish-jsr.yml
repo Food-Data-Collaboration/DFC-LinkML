@@ -22,24 +22,36 @@ jobs:
       - run: npm run build
       - run: npx jsr publish --dry-run --allow-dirty
       - run: npx jsr publish
-      # Nudge packagist too. Its GitHub hook fires on every push, but a tag
-      # push that races the hook (or a hook that was never installed) would
-      # otherwise leave the PHP package a week behind. Harmless when the hook
-      # has already done the work. Uses the same credential packagist's own
-      # webhook validates with; see docs for rotation.
+      # Nudge packagist too. Its GitHub webhook fires on every push, but a tag
+      # push can race it, and the webhook alone is a single point of failure
+      # for the PHP package. Harmless when the hook already did the work.
+      #
+      # Per packagist's documented contract the credentials go in the query
+      # string, not as basic auth. The token is a secret so Actions masks it
+      # in logs.
+      #
+      # Deliberately not fatal: the jsr publish above is the primary action,
+      # and a packagist credential problem must not fail it. A failure here
+      # logs a warning and the weekly crawl still catches up.
       - name: Notify packagist
         if: success()
+        continue-on-error: true
         env:
           PACKAGIST_API_TOKEN: ${{ secrets.PACKAGIST_API_TOKEN }}
-          PACKAGIST_USERNAME: ${{ vars.PACKAGIST_USERNAME }}
+          PACKAGIST_USERNAME: ${{ secrets.PACKAGIST_USERNAME }}
         run: |
-          if [ -z "$PACKAGIST_USERNAME" ]; then
-            echo "PACKAGIST_USERNAME not set; relying on the GitHub hook."
+          if [ -z "$PACKAGIST_USERNAME" ] || [ -z "$PACKAGIST_API_TOKEN" ]; then
+            echo "::warning::packagist credentials not set; relying on the GitHub webhook."
             exit 0
           fi
-          curl --fail --silent --show-error \
-            -X POST "https://packagist.org/api/update-package" \
+          code=$(curl --silent --output /tmp/pk.out --write-out '%{http_code}' \
+            -X POST \
+            "https://packagist.org/api/update-package?username=${PACKAGIST_USERNAME}&apiToken=${PACKAGIST_API_TOKEN}" \
             -H 'content-type: application/json' \
-            -d "{\"repository\":{\"url\":\"https://github.com/${{ github.repository }}\"}}" \
-            -u "${PACKAGIST_USERNAME}:${PACKAGIST_API_TOKEN}" \
-            && echo "packagist notified"
+            -d "{\"repository\":{\"url\":\"https://github.com/${GITHUB_REPOSITORY}\"}}" || true)
+          case "$code" in
+            2*) echo "packagist notified (HTTP $code)" ;;
+            *)  echo "::warning::packagist update returned HTTP $code: $(head -c 200 /tmp/pk.out)"
+                echo "::warning::the jsr publish above succeeded; packagist will retry on its next crawl."
+                ;;
+          esac
