@@ -6,9 +6,12 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Generated LinkML schema'
   spec.description   = 'Ruby semantic object connector for the Data Food Consortium (DFC) standard.'
   spec.homepage      = "https://github.com/Food-Data-Collaboration/DFC-LinkML"
-  spec.license       = "AGPL-3.0"
+  spec.license       = "MIT"
 
-  spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"] + Dir["contexts/**/*.json"]
+  # LICENSE and README.md must ship: the MIT notice has to travel with the
+  # gem for the licence to be enforceable.
+  spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"] \
+    + Dir["contexts/**/*.json"] + ["LICENSE", "README.md"]
   spec.require_paths = ["lib"]
 
   spec.add_dependency "json-ld", "~> 3.3"

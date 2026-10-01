@@ -73,4 +73,6 @@ objects = connector.import(data)
 
 ## License
 
-AGPL-3.0
+MIT. The generated connectors are MIT licensed; the LinkML codebase that
+generates them is licensed separately under AGPLv3 (see the repository root
+`LICENSE`).

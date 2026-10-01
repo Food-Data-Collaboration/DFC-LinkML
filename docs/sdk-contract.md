@@ -58,7 +58,7 @@ require "dfc_linkml_connector"
   (always an array).
 - Internal: `Core::SemanticObject` registry, serializer/loader internals.
 
-## PHP — `fooddatacollaboration/linkml-connector`
+## PHP — `siol-data/linkml-connector`
 
 ```php
 use DataFoodConsortium\Connector\Connector;

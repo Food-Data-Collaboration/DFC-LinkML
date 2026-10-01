@@ -10,8 +10,12 @@ Architecture mirrors the Ruby/TypeScript generators:
 - src/I{Entity}.php — entity interfaces
 - src/{Entity}.php — concrete model classes
 
+Outputs:
+- php-connector/            — the PHP package (development manifest)
+- <repo>/composer.json      — packagist manifest (see generate_root_composer_json)
+
 Usage:
-    python3 generate_php_connector.py [--schema SCHEMA] [--output DIR]
+    python3 generate_php_connector.py [--schema SCHEMA] [--output DIR] [--root DIR]
 """
 
 import json
@@ -19,6 +23,10 @@ import re
 import sys
 import yaml
 from pathlib import Path
+
+# Publish identity, shared with the TypeScript and Ruby packages.
+PACKAGIST_PACKAGE_NAME = "siol-data/linkml-connector"
+REPO_HOMEPAGE = "https://github.com/Food-Data-Collaboration/DFC-LinkML"
 
 
 def parse_schema(schema_path: str) -> dict:
@@ -481,15 +489,26 @@ LICENSE_BLOCK = '''<?php
 
 
 def generate_composer_json(schema_data: dict) -> str:
+    """composer.json for the PHP connector, as used from php-connector/.
+
+    This is the development manifest: it carries require-dev for the test
+    suite. The packagist-facing manifest at the repository root is
+    generated separately by generate_root_composer_json().
+    """
     data = {
-        "name": "fooddatacollaboration/linkml-connector",
+        "name": PACKAGIST_PACKAGE_NAME,
         "type": "library",
         "description": "DFC LinkML Semantic Object Connector for PHP",
         "keywords": [
             "data food consortium", "short supply chain", "farming",
             "semantic web", "rdf", "object model"
         ],
-        "license": "AGPL-3.0",
+        "license": "MIT",
+        "homepage": REPO_HOMEPAGE,
+        "support": {
+            "source": f"{REPO_HOMEPAGE}/tree/main/php-connector",
+            "issues": f"{REPO_HOMEPAGE}/issues"
+        },
         "require": {
             "php": ">=8.1"
         },
@@ -500,6 +519,85 @@ def generate_composer_json(schema_data: dict) -> str:
             "psr-4": {
                 "DataFoodConsortium\\Connector\\": "src"
             }
+        }
+    }
+    return json.dumps(data, indent=4) + "\n"
+
+
+def generate_root_composer_json(schema_data: dict) -> str:
+    """composer.json at the repository root, for packagist.
+
+    packagist.org requires composer.json in the repository root and has no
+    documented way to read one from a subdirectory, so a PHP manifest has to
+    sit at the root of this polyglot repository. It is generated rather than
+    hand-written so its identity cannot drift from php-connector/composer.json.
+
+    Two differences from the development manifest:
+
+    - autoload paths are repo-relative (packagist serves the whole repository
+      zipball as the dist), so "php-connector/src" rather than "src".
+    - archive.exclude trims the other connectors and the LinkML codebase out
+      of the dist, so `composer require` does not download the TypeScript and
+      Ruby packages. The list is a deny-list of the top-level entries that are
+      not part of the PHP package: a new top-level directory is therefore
+      included until someone adds it here. That fails safe, since an
+      unexpected extra file cannot break autoloading, whereas an
+      over-eager exclude can ship a package with no classes in it.
+      tests/test_packagist_manifest.py keeps the two in sync.
+
+    The root LICENSE is excluded even though the package licence is MIT: it is
+    the AGPLv3 notice for the LinkML codebase. The connector's own MIT notice
+    ships as php-connector/LICENSE, so the archive is unambiguous about the
+    licence of the code it actually contains.
+    """
+    data = {
+        "name": PACKAGIST_PACKAGE_NAME,
+        "type": "library",
+        "description": "DFC LinkML Semantic Object Connector for PHP",
+        "keywords": [
+            "data food consortium", "short supply chain", "farming",
+            "semantic web", "rdf", "object model"
+        ],
+        "license": "MIT",
+        "homepage": REPO_HOMEPAGE,
+        "support": {
+            "source": f"{REPO_HOMEPAGE}/tree/main/php-connector",
+            "issues": f"{REPO_HOMEPAGE}/issues"
+        },
+        "require": {
+            "php": ">=8.1"
+        },
+        "autoload": {
+            "psr-4": {
+                "DataFoodConsortium\\Connector\\": "php-connector/src"
+            }
+        },
+        "archive": {
+            "exclude": [
+                # Publish metadata, not shipped code.
+                "/composer.json",
+                # The root LICENSE is the AGPLv3 notice for the LinkML
+                # codebase. This package is MIT, and the MIT notice ships as
+                # php-connector/LICENSE, so shipping the AGPL text here would
+                # misstate the licence of the code in the same archive.
+                "/LICENSE",
+                # Build inputs and tooling. The generator is AGPLv3 and is not
+                # needed to consume a generated connector.
+                "/AGENTS.md",
+                "/Makefile",
+                "/config",
+                "/docs",
+                "/scripts",
+                "/shacl",
+                "/src",
+                "/tests",
+                # The other two generated connectors, so a PHP consumer does
+                # not download the TypeScript and Ruby packages.
+                "/ruby-gem",
+                "/typescript-connector",
+                # Not shipped.
+                "/.github",
+            ]
         }
     }
     return json.dumps(data, indent=4) + "\n"
@@ -1310,6 +1408,14 @@ def main():
     parser = argparse.ArgumentParser(description="Generate PHP connector from LinkML schema")
     parser.add_argument('--schema', default=None, help='Path to LinkML schema YAML file')
     parser.add_argument('--output', default=None, help='Output directory for PHP package')
+    parser.add_argument(
+        '--root', default=None,
+        help='Repository root for the packagist manifest (default: parent of --output)',
+    )
+    parser.add_argument(
+        '--no-root-manifest', action='store_true',
+        help='Skip writing the repository-root composer.json',
+    )
     args = parser.parse_args()
 
     schema_paths = [
@@ -1396,9 +1502,20 @@ def main():
         model_count += 1
     print(f"  - {model_count} model files", file=sys.stderr)
 
-    # composer.json
+    # composer.json (development manifest, relative to php-connector/)
     (output_dir / 'composer.json').write_text(generate_composer_json(schema_data))
     print("  - composer.json", file=sys.stderr)
+
+    # packagist.org only reads composer.json from the repository root, so the
+    # publishable manifest is generated there as well.
+    if not args.no_root_manifest:
+        root_dir = (
+            Path(args.root) if args.root
+            else output_dir.resolve().parent
+        )
+        root_manifest = root_dir / 'composer.json'
+        root_manifest.write_text(generate_root_composer_json(schema_data))
+        print(f"  - {root_manifest} (packagist)", file=sys.stderr)
 
     # Bundled SKOS vocabularies + JSON-LD context: copy the canonical exports
     # from ruby-gem (the durable offline taxon/context data). Preserved files

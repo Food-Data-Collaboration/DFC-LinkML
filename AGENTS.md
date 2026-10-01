@@ -44,6 +44,8 @@ python3 scripts/generate_php_connector.py [--schema …] [--output …]  # defau
 - Ruby `vocabularies/*.jsonld` (compacted SKOS) are the canonical taxon data also bundled as TS modules in `src/taxonomies/` — keep both sides shipping the same concepts.
 - `.agents/` is gitignored local scratch — do not cite it or depend on it; the invariants above are the durable record. Skills in `.opencode/` (`skills.linkml.md`, `skills.ruby.md`, `skills.ts.md`, `skills.php.md`) have per-component details.
 - `scripts/generate_php_connector.py` generates `php-connector/` (models + trait/entity interfaces + `Connector.php` + `SemanticObject.php`). PHP has no `ml/json-ld` runtime dep — predicates are already original CURIEs so no compaction step is needed. `scripts/add_enum_shacl.py` maintains enum constraints in `shacl/`.
+- **Licence split**: the LinkML codebase (generators, schema, config, tests, shacl) is AGPLv3 — root `LICENSE`. The three generated connectors are MIT, each with its own `LICENSE` beside its code. Never "fix" one side to match the other.
+- **Two composer.json files, both generated** by the PHP generator: `php-connector/composer.json` (dev manifest, carries `require-dev`) and root `composer.json` (packagist manifest). packagist.org only reads the repository root, and has no documented subdirectory support, so the root copy is unavoidable in this polyglot repo — generate it, don't hand-edit it. The root manifest must keep `archive.exclude` in sync with the repo's top-level entries; `tests/test_packagist_manifest.py` enforces that.
 
 ## Reference
 
@@ -53,3 +55,4 @@ python3 scripts/generate_php_connector.py [--schema …] [--output …]  # defau
 - `tests/cross_connector/{run_matrix.py,normalize.py,adapters/,scenarios/,codeplane_inventory.py}` — drop-in parity harness vs original connectors
 - `docs/{migration-guide,api-gaps-typescript,api-gaps-ruby}.md` — code-plane migration docs (generated gap tables + guide)
 - CI (`.github/workflows/ci.yml`: unit suites, generation check, conformance + LinkML-only matrix; `publish-jsr.yml` publishes the TS package to jsr.io on `@siol-data/linkml-connector@*` tags via OIDC — npmjs publishing is retired)
+- PHP publish path: `siol-data/linkml-connector` on packagist.org. packagist needs no token and no 2FA — it reads the git tag for the version, so publishing is a tag push, not a credentialed upload. `tests/{test_packagist_manifest,test_php_readme}.py` guard it. **Not yet claimed on packagist** — the vendor name is permanent once used.

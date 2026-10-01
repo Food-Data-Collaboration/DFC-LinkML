@@ -1306,9 +1306,12 @@ def generate_gemspec(schema_data: dict, gem_name: str) -> str:
   spec.summary       = \'{description}\'
   spec.description   = \'Ruby semantic object connector for the Data Food Consortium (DFC) standard.\'
   spec.homepage      = "https://github.com/Food-Data-Collaboration/DFC-LinkML"
-  spec.license       = "AGPL-3.0"
+  spec.license       = "MIT"
 
-  spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"] + Dir["contexts/**/*.json"]
+  # LICENSE and README.md must ship: the MIT notice has to travel with the
+  # gem for the licence to be enforceable.
+  spec.files = Dir["lib/**/*.rb"] + Dir["vocabularies/**/*.jsonld"] \\
+    + Dir["contexts/**/*.json"] + ["LICENSE", "README.md"]
   spec.require_paths = ["lib"]
 
   spec.add_dependency "json-ld", "~> 3.3"
@@ -1323,6 +1326,30 @@ def generate_gemspec(schema_data: dict, gem_name: str) -> str:
     "rubygems_mfa_required" => "true"
   }}
 end
+'''
+
+
+MIT_LICENSE_TEXT = '''MIT License
+
+Copyright (c) 2026 Food Data Collaboration
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 '''
 
 
@@ -1414,7 +1441,9 @@ objects = connector.import(data)
 
 ## License
 
-AGPL-3.0
+MIT. The generated connectors are MIT licensed; the LinkML codebase that
+generates them is licensed separately under AGPLv3 (see the repository root
+`LICENSE`).
 '''
 
 
@@ -1501,7 +1530,10 @@ def main():
     (output_dir / 'README.md').write_text(generate_readme(schema_data, gem_name))
     print("  - README.md", file=sys.stderr)
 
-    (output_dir / 'LICENSE').write_text('AGPL-3.0 License\n')
+    # The generated connectors are MIT; the LinkML codebase that generates
+    # them is AGPLv3 (root LICENSE). Shipping the MIT text here is what lets
+    # the gem be redistributed without a copyleft obligation on the consumer.
+    (output_dir / 'LICENSE').write_text(MIT_LICENSE_TEXT)
     print("  - LICENSE", file=sys.stderr)
 
     (output_dir / '.gitignore').write_text('*.gem\n.bundle/\npkg/\nspec/examples.txt\nGemfile.lock\n')
