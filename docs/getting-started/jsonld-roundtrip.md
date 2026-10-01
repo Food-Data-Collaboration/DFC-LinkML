@@ -80,10 +80,68 @@ $backOrg = $imported[array_search(
 echo $backOrg->getVatNumber(); // "FR12345678901"
 ```
 
+## Inherited properties
+
+Not every property is declared on the class you construct. `Price` adds
+`vatRate` to `QuantitativeValue`, which is where `value` and `hasUnit` come
+from. A round trip must carry those through too, which is a real regression
+risk: the OWL models `Price` as an intersection, and a converter that reads
+only the asserted class loses them.
+
+```typescript
+const price = c.createPrice({
+  semanticId: "https://example.org/price/1",
+  value: 42.5,          // inherited from QuantitativeValue
+  vatRate: 5.5,         // declared on Price
+  hasUnit: "dfc-m:EUR", // inherited from QuantitativeValue
+});
+
+const priceDoc = JSON.parse(await c.export(price));
+console.log(priceDoc["dfc-b:value"]); // 42.5
+
+const [backPrice] = c.import(priceDoc);
+console.log(backPrice.value, backPrice.hasUnit); // 42.5 dfc-m:EUR
+```
+
+```ruby
+price = DfcLinkmlConnector::Models::Price.new(
+  "https://example.org/price/1",
+  value: 42.5,          # inherited from QuantitativeValue
+  vatRate: 5.5,         # declared on Price
+  unit: "dfc-m:EUR"     # inherited from QuantitativeValue
+)
+
+price_doc = JSON.parse(connector.export(price))
+puts price_doc["dfc-b:value"] # 42.5
+
+back_price = connector.import(price_doc).first
+puts back_price.value, back_price.unit # 42.5 dfc-m:EUR
+```
+
+```php
+$price = $connector->createPrice("https://example.org/price/1", [
+    "value" => 42.5,  // inherited from QuantitativeValue
+    "vatRate" => 5.5, // declared on Price
+    "unit" => "dfc-m:EUR", // inherited from QuantitativeValue
+]);
+
+$priceDoc = json_decode($connector->export($price), true);
+echo $priceDoc["dfc-b:value"]; // 42.5
+
+$backPrice = $connector->import($priceDoc)[0];
+echo $backPrice->getValue(), " ", $backPrice->getUnit(); // 42.5 dfc-m:EUR
+```
+
+The property is named `hasUnit` in TypeScript but `unit` in Ruby and PHP:
+the DFC slot is `has_unit`, and each connector derives its property name from
+the local part of the predicate. All three serialize to the same
+`dfc-b:hasUnit` predicate, so the wire format does not differ.
+
 ## Guarantees
 
 - **All properties survive** the round trip (scalar, collection, and
-  relationship alike).
+  relationship alike), including properties inherited from a superclass or
+  from an `owl:intersectionOf` parent.
 - **Single-node exports** are bare objects (no `@graph`); import still
   returns a 1-element array.
 - **References resolve**: a relationship pointing at a node in the same

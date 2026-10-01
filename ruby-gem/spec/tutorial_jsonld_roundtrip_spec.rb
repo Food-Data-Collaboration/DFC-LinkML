@@ -32,4 +32,28 @@ RSpec.describe "Tutorial: JSON-LD round trip (Ruby)" do
     expect(back_single.length).to eq(1)
     expect(back_single.first.semanticType).to eq("dfc-b:Organization")
   end
+
+  it "carries properties inherited from a superclass through the round trip" do
+    # Price is declared in the OWL as an intersectionOf QuantitativeValue, so
+    # value/unit are inherited rather than asserted on the class. A converter
+    # that reads only the asserted class silently drops them.
+    connector = DfcLinkmlConnector::Core::Connector.new
+    price = DfcLinkmlConnector::Models::Price.new(
+      "https://example.org/price/1",
+      value: 42.5,       # inherited from QuantitativeValue
+      vatRate: 5.5,      # declared on Price
+      unit: "dfc-m:EUR"  # inherited from QuantitativeValue
+    )
+
+    doc = JSON.parse(connector.export(price))
+    expect(doc["dfc-b:value"]).to eq(42.5)
+    expect(doc["dfc-b:hasUnit"]).to eq("dfc-m:EUR")
+    expect(doc["dfc-b:VATrate"]).to eq(5.5)
+
+    back = connector.import(doc).first
+    expect(back).to be_a(DfcLinkmlConnector::Models::Price)
+    expect(back.value).to eq(42.5)
+    expect(back.unit).to eq("dfc-m:EUR")
+    expect(back.vat_rate).to eq(5.5)
+  end
 end

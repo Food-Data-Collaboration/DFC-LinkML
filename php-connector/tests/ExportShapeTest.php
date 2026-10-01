@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DataFoodConsortium\Connector\Tests;
 
 use DataFoodConsortium\Connector\Connector;
+use DataFoodConsortium\Connector\SemanticObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -94,5 +95,71 @@ final class ExportShapeTest extends TestCase
 
         $entry = $this->entry(json_decode($c->export($org), true), '/o/1');
         $this->assertArrayNotHasKey('dfc-b:supplies', $entry);
+    }
+
+    /**
+     * A sparse singleton, e.g. `[5 => $product]`, must collapse exactly like a
+     * dense one. array_map preserves the original keys, so reading $mapped[0]
+     * from a sparse sequence warns and exports null.
+     */
+    public function testSparseSingletonCollapsesToScalar(): void
+    {
+        $c = new Connector();
+        $p = $c->createSuppliedProduct('https://example.org/p/0', ['name' => 'P0']);
+        $org = $c->createOrganization('https://example.org/o/1', ['name' => 'F']);
+        $org->setSupplies([5 => $p]);
+
+        $entry = $this->entry(json_decode($c->export($org, $p), true), '/o/1');
+        $this->assertSame('https://example.org/p/0', $entry['dfc-b:supplies']);
+    }
+
+    public function testSparseSequenceOfTwoStaysAnArray(): void
+    {
+        $c = new Connector();
+        $a = $c->createSuppliedProduct('https://example.org/p/0', ['name' => 'P0']);
+        $b = $c->createSuppliedProduct('https://example.org/p/1', ['name' => 'P1']);
+        $org = $c->createOrganization('https://example.org/o/1', ['name' => 'F']);
+        $org->setSupplies([3 => $a, 9 => $b]);
+
+        $entry = $this->entry(json_decode($c->export($org, $a, $b), true), '/o/1');
+        $this->assertSame(
+            ['https://example.org/p/0', 'https://example.org/p/1'],
+            $entry['dfc-b:supplies']
+        );
+    }
+
+    /**
+     * An assoc hash is an embedded node, not a sequence, so it must pass
+     * through as an object: never reindexed, never collapsed.
+     *
+     * Tested on SemanticObject directly because no DFC model property is
+     * declared as a collection of embedded nodes, so the model factories
+     * cannot produce this shape.
+     */
+    public function testAssocHashIsPassedThrough(): void
+    {
+        $o = new SemanticObject('https://example.org/n/1');
+        $o->registerSemanticProperty(
+            'dfc-b:hasNested',
+            fn() => ['@id' => 'https://example.org/inner/1', 'k' => 'v'],
+        );
+
+        $node = $o->toJsonLd();
+        $this->assertSame(
+            ['@id' => 'https://example.org/inner/1', 'k' => 'v'],
+            $node['dfc-b:hasNested'],
+            'an assoc hash must survive as an object',
+        );
+    }
+
+    /** A single-entry assoc hash must not be mistaken for a one-element sequence. */
+    public function testSingleEntryAssocHashIsNotCollapsed(): void
+    {
+        $o = new SemanticObject('https://example.org/n/1');
+        $o->registerSemanticProperty('dfc-b:hasNested', fn() => ['k' => 'v']);
+
+        $node = $o->toJsonLd();
+        $this->assertIsArray($node['dfc-b:hasNested']);
+        $this->assertSame(['k' => 'v'], $node['dfc-b:hasNested']);
     }
 }

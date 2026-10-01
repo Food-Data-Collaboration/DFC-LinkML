@@ -6,6 +6,7 @@ namespace DataFoodConsortium\Connector\Tests;
 
 use DataFoodConsortium\Connector\Connector;
 use DataFoodConsortium\Connector\Organization;
+use DataFoodConsortium\Connector\Price;
 use DataFoodConsortium\Connector\SuppliedProduct;
 use PHPUnit\Framework\TestCase;
 
@@ -46,5 +47,34 @@ final class TutorialJsonLdRoundtripTest extends TestCase
         $backSingle = $connector->import($single);
         $this->assertCount(1, $backSingle);
         $this->assertSame('dfc-b:Organization', $backSingle[0]->getSemanticType());
+    }
+
+    /**
+     * Price is declared in the OWL as an intersectionOf QuantitativeValue, so
+     * value/hasUnit are inherited rather than asserted on the class. A
+     * converter that reads only the asserted class silently drops them.
+     */
+    public function testCarriesPropertiesInheritedFromASuperclass(): void
+    {
+        $connector = new Connector();
+        $price = $connector->createPrice('https://example.org/price/1', [
+            'value' => 42.5, // inherited from QuantitativeValue
+            'vatRate' => 5.5, // declared on Price
+            // Named `unit` here and in Ruby, `hasUnit` in TypeScript: each
+            // derives the property name from the local part of the
+            // `dfc-b:hasUnit` predicate. The wire format is identical.
+            'unit' => 'dfc-m:EUR', // inherited from QuantitativeValue
+        ]);
+
+        $doc = json_decode($connector->export($price), true);
+        $this->assertSame(42.5, $doc['dfc-b:value']);
+        $this->assertSame('dfc-m:EUR', $doc['dfc-b:hasUnit']);
+        $this->assertSame(5.5, $doc['dfc-b:VATrate']);
+
+        $back = $connector->import($doc)[0];
+        $this->assertInstanceOf(Price::class, $back);
+        $this->assertSame(42.5, $back->getValue());
+        $this->assertSame('dfc-m:EUR', $back->getUnit());
+        $this->assertSame(5.5, $back->getVatRate());
     }
 }

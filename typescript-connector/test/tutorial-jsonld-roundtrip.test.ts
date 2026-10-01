@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Connector, Organization, SuppliedProduct } from "../src/index.js";
+import { Connector, Organization, Price, SuppliedProduct } from "../src/index.js";
 
 // Executed version of docs/getting-started/jsonld-roundtrip.md (TypeScript).
 describe("Tutorial: JSON-LD round trip (TypeScript)", () => {
@@ -42,5 +42,29 @@ describe("Tutorial: JSON-LD round trip (TypeScript)", () => {
     const backSingle = c.import(single);
     expect(backSingle).toHaveLength(1);
     expect(backSingle[0].semanticType).toBe("dfc-b:Organization");
+  });
+
+  it("carries properties inherited from a superclass through the round trip", async () => {
+    // Price is declared in the OWL as an intersectionOf QuantitativeValue, so
+    // value/hasUnit are inherited rather than asserted on the class. A
+    // converter that reads only the asserted class silently drops them.
+    const c = new Connector();
+    const price = c.createPrice({
+      semanticId: "https://example.org/price/1",
+      value: 42.5, // inherited from QuantitativeValue
+      vatRate: 5.5, // declared on Price
+      hasUnit: "dfc-m:EUR", // inherited from QuantitativeValue
+    });
+
+    const doc = JSON.parse(await c.export(price)) as Record<string, unknown>;
+    expect(doc["dfc-b:value"]).toBe(42.5);
+    expect(doc["dfc-b:hasUnit"]).toBe("dfc-m:EUR");
+    expect(doc["dfc-b:VATrate"]).toBe(5.5);
+
+    const [back] = c.import(doc);
+    expect(back).toBeInstanceOf(Price);
+    expect(back.value).toBe(42.5);
+    expect(back.hasUnit).toBe("dfc-m:EUR");
+    expect(back.vatRate).toBe(5.5);
   });
 });
