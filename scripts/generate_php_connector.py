@@ -697,8 +697,23 @@ class SemanticObject
                 foreach ($mapped as $k => $_v) {
                     if (!is_int($k)) { $allIntKeys = false; break; }
                 }
+                // Reindex before anything reads a positional key. A sparse
+                // sequence such as [5 => $p] survives array_map with its
+                // original keys, so indexing $mapped[0] directly would warn
+                // and export null.
                 $result[$predicate] = $allIntKeys
                     ? array_values($mapped) : $mapped;
+                // Collapse a sequence of exactly one to a scalar. This is
+                // what JSON-LD compaction does for properties that are not
+                // @list/@set, and it is what the original DFC connectors and
+                // the TypeScript/Ruby LinkML connectors do. PHP has no
+                // ml/json-ld runtime dep, so without this the exported shape
+                // diverges: an array here, a scalar everywhere else.
+                //
+                // Read the already-normalized $result, not $mapped.
+                if ($allIntKeys && count($mapped) === 1) {
+                    $result[$predicate] = $result[$predicate][0];
+                }
             } elseif ($value instanceof self) {
                 $result[$predicate] = $value->getSemanticId();
             } else {
