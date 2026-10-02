@@ -69,7 +69,7 @@ def test_entry_point_documents_all_three_installs():
     text = read(ENTRY)
     assert 'npx jsr add @siol-data/linkml-connector' in text
     assert 'gem install dfc-linkml-connector' in text
-    assert 'composer require siol-data/linkml-connector' in text
+    assert 'composer require siol-data/dfc-connector' in text
 
 
 def test_entry_point_hello_matches_reality():

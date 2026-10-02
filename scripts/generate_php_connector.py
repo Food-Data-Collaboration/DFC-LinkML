@@ -28,7 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cardinality  # noqa: E402
 
 # Publish identity, shared with the TypeScript and Ruby packages.
-PACKAGIST_PACKAGE_NAME = "siol-data/linkml-connector"
+PACKAGIST_PACKAGE_NAME = "siol-data/dfc-connector"
 REPO_HOMEPAGE = "https://github.com/Food-Data-Collaboration/DFC-LinkML"
 
 

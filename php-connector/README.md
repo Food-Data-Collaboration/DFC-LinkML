@@ -1,4 +1,4 @@
-# siol-data/linkml-connector
+# siol-data/dfc-connector
 
 TypeScript, Ruby, and PHP connectors for the [Data Food Consortium (DFC)](https://datafoodconsortium.org/)
 standard, generated from the DFC LinkML schema (v2.0.0).
@@ -10,7 +10,7 @@ AGPLv3 (see the repository root `LICENSE`).
 ## Install
 
 ```bash
-composer require siol-data/linkml-connector
+composer require siol-data/dfc-connector
 ```
 
 Requires PHP 8.1 or later. No PHP extension dependencies.

@@ -1,5 +1,5 @@
 {
-    "name": "siol-data/linkml-connector",
+    "name": "siol-data/dfc-connector",
     "type": "library",
     "description": "DFC LinkML Semantic Object Connector for PHP",
     "keywords": [

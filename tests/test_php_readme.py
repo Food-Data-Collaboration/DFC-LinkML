@@ -41,7 +41,7 @@ def test_readme_exists():
 
 def test_readme_documents_the_publish_identity():
     text = README.read_text(encoding='utf-8')
-    assert 'composer require siol-data/linkml-connector' in text, (
+    assert 'composer require siol-data/dfc-connector' in text, (
         'README must show the published package name'
     )
 

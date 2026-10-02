@@ -26,7 +26,7 @@ REPO = Path(__file__).resolve().parent.parent
 ROOT_MANIFEST = REPO / 'composer.json'
 DEV_MANIFEST = REPO / 'php-connector' / 'composer.json'
 
-PACKAGE_NAME = 'siol-data/linkml-connector'
+PACKAGE_NAME = 'siol-data/dfc-connector'
 PHP_NAMESPACE = 'DataFoodConsortium\\Connector\\'
 
 # Top-level entries that make up the PHP package as packagist serves it.

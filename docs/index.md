@@ -29,7 +29,7 @@ naming, and the differences are documented rather than smoothed over.
 === "PHP"
 
     ```bash
-    composer require siol-data/linkml-connector
+    composer require siol-data/dfc-connector
     ```
 
     packagist.org reads `composer.json` from the repository root of
