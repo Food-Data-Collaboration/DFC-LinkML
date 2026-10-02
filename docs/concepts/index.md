@@ -46,6 +46,8 @@ enforced. A concept CURIE that does not exist is still just a string that
 exports cleanly.
 
 **Validation** — only SHACL shapes ship. The connectors preserve and
-normalise, they do not reject, and they drop unknown terms. If that matters
-to you, know it before you round-trip a document with your own predicates in
-it.
+normalise, they do not reject, and they keep exactly what the schema says a
+class can hold — which means a document mixing in your own predicates does
+not survive a round trip. See
+[property retention](validation.md#property-retention) before you rely on
+that.

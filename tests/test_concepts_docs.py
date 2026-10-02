@@ -65,6 +65,44 @@ def test_all_links_in_docs_resolve():
     assert not broken, 'broken links:\n' + '\n'.join(broken[:20])
 
 
+def _anchors(page: Path) -> set[str]:
+    """GitHub-style heading anchors for a markdown file."""
+    out = set()
+    for line in page.read_text(encoding='utf-8').splitlines():
+        m = re.match(r'^#{1,6}\s+(.*)', line)
+        if not m:
+            continue
+        text = m.group(1).strip().lower()
+        text = re.sub(r'`|\*|_', '', text)
+        text = re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', text)
+        slug = re.sub(r'[^a-z0-9 \-]', '', text).strip().replace(' ', '-')
+        out.add(slug)
+    return out
+
+
+def test_all_link_anchors_exist():
+    """Renaming a heading must not silently break inbound links.
+
+    A section rename left `build-a-catalog.md` pointing at a heading that no
+    longer existed, and only a reader would have noticed.
+    """
+    broken = []
+    for page in sorted(DOCS.rglob('*.md')):
+        for target in LINK.findall(read(page)):
+            if '#' not in target:
+                continue
+            path_part, _, anchor = target.partition('#')
+            if not path_part:
+                dest = page
+            else:
+                dest = (page.parent / path_part).resolve()
+                if not dest.exists():
+                    continue  # reported by test_all_links_in_docs_resolve
+            if anchor and anchor not in _anchors(dest):
+                broken.append(f'{page.relative_to(DOCS)} -> {target}')
+    assert not broken, 'anchors not found:\n' + '\n'.join(broken[:20])
+
+
 def test_concepts_link_into_the_generated_reference():
     """Phase 3 exists to explain the reference, so it must link into it."""
     linked = False

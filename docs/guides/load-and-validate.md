@@ -82,6 +82,10 @@ await c.export(org);   // no "https://your.org/internal-id"
 **If your own terms are mixed into the document, capture them before
 importing.** You cannot get them back out through the connector.
 
+The full rule — including that deprecated properties *are* kept, and that
+known properties on the wrong class are dropped — is in
+[property retention](../concepts/validation.md#property-retention).
+
 ### References resolve only within the document
 
 A property pointing at an `@id` present in the same document comes back as

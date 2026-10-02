@@ -226,7 +226,7 @@ same `@id`.
   `carrots.price = ...` in TypeScript does not raise — it sets a field the
   model never registered, and the value vanishes on export. This is the same
   behaviour that drops unknown terms on import; see
-  [validation](../concepts/validation.md#the-unknown-field-caveat-concretely).
+  [property retention](../concepts/validation.md#property-retention).
   Check the [model reference](../reference/model/index.md) for what a class
   actually has.
 - **`Enterprise` is gone.** DFC v2.0 renamed it to `Organization`. Importing
@@ -234,6 +234,11 @@ same `@id`.
   it.
 - **Property names differ per language.** `dfc-b:hasUnit` is `hasUnit` in
   TypeScript, `unit` in Ruby and PHP. Predicates are identical.
+- **`country` and `countryName` are transposed in PHP**, so the same property
+  name emits a different predicate per language — `country` gives
+  `dfc-b:country` in TypeScript and Ruby but `dfc-b:hasCountry` in PHP. Same
+  caution for `quantity`. See
+  [the divergence note](../concepts/validation.md#one-caveat-country-means-different-things-in-php).
 - **Never compare two exports byte-for-byte.** Key order differs by
   connector — TypeScript and Ruby emit `@context` first, PHP last.
 - **`isPriceOf` is optional in practice.** Nothing enforces the cycle
