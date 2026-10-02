@@ -182,9 +182,11 @@ const extras = Object.fromEntries(
 // store `extras` keyed by @id, then re-attach on the way out
 ```
 
-The conformance suite in `tests/conformance/` covers known-shape round trips.
-Extension preservation is not tested because the behaviour is that
-extensions are not preserved.
+The conformance suite in `tests/conformance/` covers known-shape round trips,
+and the [conformance report](../conformance.md) is its scoreboard — regenerated
+from the same fixtures on each release, so it cannot drift. Extension
+preservation is not tested because the behaviour is that extensions are not
+preserved.
 
 ## Where to put your own checks
 
