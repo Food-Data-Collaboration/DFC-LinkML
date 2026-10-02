@@ -133,6 +133,22 @@ def manifest_versions() -> dict[str, str | None]:
     }
 
 
+def _untagged(version: str) -> bool:
+    """True when neither registry tag exists for `version`.
+
+    Tags are immutable on both registries, so a version whose tags are absent
+    was never published -- the manifests can be left there by an interrupted
+    release without the number being spent.
+    """
+    return all(
+        subprocess.run(
+            ['git', 'rev-parse', '-q', '--verify', f'refs/tags/{tag}'],
+            cwd=REPO, capture_output=True,
+        ).returncode != 0
+        for tag in tag_names(version).values()
+    )
+
+
 def report(version: str) -> bool:
     """Print the manifest versions and tags. Returns True if all agree."""
     print(f'\nsdk_version: {version}')
@@ -187,8 +203,18 @@ def main(argv: list[str] | None = None) -> None:
 
     if args.show or not (args.bump or args.apply or args.tag):
         version = current
+    elif args.bump:
+        version = bump(current, args.bump)
+    elif args.apply and not args.tag:
+        # Preparing a release without --tag: bump, unless the manifests already
+        # sit at a version that has never been tagged. That is the state an
+        # interrupted release leaves behind, and bumping again would skip it.
+        version = current if _untagged(current) else bump(current, 'patch')
     else:
-        version = bump(current, args.bump or 'patch')
+        # --tag (with --apply). Tag whatever the manifests already say: the
+        # documented flow is `--bump patch --apply`, commit, then `--tag`, so
+        # bumping here again would skip a version.
+        version = current
 
     if not args.apply and not args.tag:
         if version != current:
