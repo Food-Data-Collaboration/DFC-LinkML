@@ -2,11 +2,15 @@
 
 PHP strips the `has_` prefix, so `has_country` and `country` both wanted the
 property name `country`. The generator used to resolve that by renaming the
-*bare* slot to `countryName`, which transposed the two predicates -- the same
-property name emitted a different predicate per language, so PHP documents
-were not interchangeable with TypeScript ones. `phone_number` /
-`has_phone_number` was missed entirely and silently lost
-`dfc-b:phoneNumber`.
+*bare* slot to `countryName`, which transposed the two property names relative
+to their slots -- the same property name emitted a different predicate per
+language, so PHP documents were not interchangeable with TypeScript ones.
+
+This was an API-naming fault, not a wire fault: pre-fix PHP emitted the correct
+predicates (`dfc-b:quantity`, `dfc-b:phoneNumber`) under the transposed names.
+Only `quantity`, `brand`, `claim` and `country` were ever transposed;
+`phone_number` / `has_phone_number` have disjoint domains and never collided,
+so adding that pair only renamed Agent's property to match TypeScript and Ruby.
 
 Each slot now keeps its own name, matching the TypeScript and Ruby
 generators. This is the check that makes that true.

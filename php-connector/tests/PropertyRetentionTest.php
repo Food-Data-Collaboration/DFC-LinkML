@@ -182,10 +182,13 @@ final class PropertyRetentionTest extends TestCase
      *
      * PHP strips the `has_` prefix, so `has_country` and `country` both
      * wanted the property name `country`. The generator used to rename the
-     * *bare* slot to `countryName`, which transposed the predicates -- the
-     * same property name emitted a different predicate per language -- and
-     * `phone_number`/`has_phone_number` was missed entirely, silently losing
-     * dfc-b:phoneNumber. Each slot now keeps its own name.
+     * *bare* slot to `countryName`, which transposed the two property names
+     * relative to their slots -- the same property name emitted a different
+     * predicate per language. Each slot now keeps its own name.
+     *
+     * Note this was an API-naming fault, not a wire fault: pre-fix PHP emitted
+     * the correct predicates (dfc-b:quantity, dfc-b:phoneNumber) under the
+     * transposed names. Only the property names were wrong.
      */
     public function testCollisionPairsKeepTheirOwnPropertyNames(): void
     {
@@ -216,8 +219,15 @@ final class PropertyRetentionTest extends TestCase
         }
     }
 
-    /** dfc-b:phoneNumber was previously unreachable through Agent. */
-    public function testPhoneNumberIsNotLost(): void
+    /**
+     * `phone_number` and `has_phone_number` have disjoint domains
+     * (PhoneNumber vs Agent/PhysicalPlace), so this pair never collided and
+     * was never transposed. Adding it to the keep-the-`has_`-prefix table
+     * only renamed Agent's property `phoneNumber` -> `hasPhoneNumber`, to
+     * match TypeScript and Ruby. What matters here is that the rename did not
+     * disturb the two bindings themselves: each class keeps its own predicate.
+     */
+    public function testPhoneNumberPairKeepsItsOwnPropertyNames(): void
     {
         // phone_number's domain is PhoneNumber, so Agent drops it by domain
         // checking -- but PhoneNumber itself must keep it.

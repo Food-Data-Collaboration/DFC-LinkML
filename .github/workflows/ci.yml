@@ -101,6 +101,10 @@ jobs:
       - run: npm install && npm run build
         working-directory: typescript-connector
       - run: python -m pytest tests/conformance -q
+      # Needs all three runtimes: checks that every scenario param survives
+      # into each LinkML connector's export. The matrix cannot see a connector
+      # that emits nothing, so this is the only guard against a stale adapter.
+      - run: python -m pytest tests/test_cross_connector_adapters.py -q
       # LinkML-only subset: the full --verify-drop-in includes
       # ours->original pairs with known upstream v2 gaps (see PR #17).
       - run: python tests/cross_connector/run_matrix.py our-typescript our-ruby our-php

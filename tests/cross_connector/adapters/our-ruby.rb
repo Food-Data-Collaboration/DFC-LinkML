@@ -40,10 +40,14 @@ PARAM_MAP = {
   'dfc-b:OrderLine' => { 'name' => :name, 'quantity' => :quantity, 'concerns' => :concerns },
   'dfc-b:SuppliedProduct' => { 'name' => :name, 'description' => :description },
   'dfc-b:Enterprise' => { 'name' => :name, 'description' => :description, 'vatNumber' => :vatNumber },
-  'dfc-b:Organization' => { 'name' => :name, 'description' => :description, 'vatNumber' => :vatNumber },
+  'dfc-b:Organization' => { 'name' => :name, 'description' => :description, 'vatNumber' => :vatNumber, 'hasAddress' => :address },
   'dfc-b:CatalogItem' => { 'sku' => :sku, 'references' => :references, 'offeredThrough' => :offeredThrough },
   'dfc-b:Price' => { 'vatRate' => :vatRate },
   'dfc-b:Offer' => { 'name' => :name, 'hasPrice' => :price },
+  'dfc-b:Address' => {
+    'street' => :street, 'city' => :city, 'postcode' => :postcode,
+    'region' => :region, 'country' => :country, 'hasCountry' => :hasCountry,
+  },
 }.freeze
 
 def export_scenario(path)

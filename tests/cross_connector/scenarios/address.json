@@ -1,0 +1,26 @@
+{
+  "name": "address",
+  "version": "2.0.0",
+  "objects": [
+    {
+      "type": "dfc-b:Organization",
+      "semanticId": "http://example.com/org1",
+      "params": {
+        "name": "Farm Org",
+        "hasAddress": { "$ref": "http://example.com/addr1" }
+      }
+    },
+    {
+      "type": "dfc-b:Address",
+      "semanticId": "http://example.com/addr1",
+      "params": {
+        "street": "1 Rue de la Paix",
+        "city": "Rennes",
+        "postcode": "35000",
+        "region": "Bretagne",
+        "country": "FR",
+        "hasCountry": "France"
+      }
+    }
+  ]
+}

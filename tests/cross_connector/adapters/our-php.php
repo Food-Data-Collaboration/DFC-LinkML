@@ -19,18 +19,24 @@ function readStdin(): string
 }
 
 // Canonical scenario param name => our-connector constructor param.
-// Note: canonical `quantity` is the bare dfc-b:quantity slot, which the PHP
-// connector exposes as `quantityValue` (bare-slot disambiguation); and
-// `hasPart`/`hasPrice` map to the has_-stripped `part`/`price` params.
+// PHP strips the `has_` prefix for object slots (`hasPart` -> `part`,
+// `hasPrice` -> `price`) but keeps it for the five bare/has_ collision pairs
+// (brand, claim, country, quantity, phone_number), so canonical `quantity`
+// maps to `quantity` (the bare dfc-b:quantity slot) and `hasQuantity` to
+// `hasQuantity`. tests/test_cross_connector_adapters.py pins every entry
+// here against the generated classes, so a rename on the PHP side cannot
+// silently turn into a dropped predicate.
 const PARAM_MAP = [
     'dfc-b:Order' => ['orderNumber' => 'orderNumber', 'orderedBy' => 'orderedBy', 'hasPart' => 'part'],
-    'dfc-b:OrderLine' => ['name' => 'name', 'quantity' => 'quantityValue', 'concerns' => 'concerns'],
+    'dfc-b:OrderLine' => ['name' => 'name', 'quantity' => 'quantity', 'concerns' => 'concerns'],
     'dfc-b:SuppliedProduct' => ['name' => 'name', 'description' => 'description'],
     'dfc-b:Enterprise' => ['name' => 'name', 'description' => 'description', 'vatNumber' => 'vatNumber'],
-    'dfc-b:Organization' => ['name' => 'name', 'description' => 'description', 'vatNumber' => 'vatNumber'],
+    'dfc-b:Organization' => ['name' => 'name', 'description' => 'description', 'vatNumber' => 'vatNumber', 'hasAddress' => 'address'],
     'dfc-b:CatalogItem' => ['sku' => 'sku', 'references' => 'references', 'offeredThrough' => 'offeredThrough'],
     'dfc-b:Price' => ['vatRate' => 'vatRate'],
     'dfc-b:Offer' => ['name' => 'name', 'hasPrice' => 'price'],
+    'dfc-b:Address' => ['street' => 'street', 'city' => 'city', 'postcode' => 'postcode',
+        'region' => 'region', 'country' => 'country', 'hasCountry' => 'hasCountry'],
 ];
 
 function capabilities(): void
