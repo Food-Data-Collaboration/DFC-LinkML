@@ -12,6 +12,7 @@ The Person, if any, who is a principal contact for this physical location
 - **Range**: `Person` (a DFC class)
 - **Target type**: [`Person`](../classes/Person.md)
 - **Inverse**: `main_contact_of`
+- **Cardinality**: **Single-valued on `Organization`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

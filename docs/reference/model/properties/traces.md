@@ -12,6 +12,7 @@ Object property from OWL: traces
 - **Range**: `PhysicalProduct` (a DFC class)
 - **Target type**: [`PhysicalProduct`](../classes/PhysicalProduct.md)
 - **Inverse**: `traced_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

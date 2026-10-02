@@ -12,6 +12,7 @@ All Sales Sessions the ShippingOption is available for selection during.
 - **Range**: `SaleSession` (a DFC class)
 - **Target type**: [`SaleSession`](../classes/SaleSession.md)
 - **Inverse**: `has_option`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

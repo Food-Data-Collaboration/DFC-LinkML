@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface AllergenCharacteristicable
 {
-    public function getAllergenCharacteristic(): string|SemanticObject|array|null;
-    public function setAllergenCharacteristic(string|SemanticObject|array|null $allergenCharacteristic): static;
+    public function getAllergenCharacteristic(): array|string|SemanticObject|null;
+    public function setAllergenCharacteristic(array|string|SemanticObject|null $allergenCharacteristic): static;
+    public function addAllergenCharacteristic(string|SemanticObject $allergenCharacteristic): static;
+    public function removeAllergenCharacteristic(string|SemanticObject $allergenCharacteristic): void;
 }

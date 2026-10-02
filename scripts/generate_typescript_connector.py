@@ -21,6 +21,9 @@ import textwrap
 import yaml
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cardinality  # noqa: E402
+
 
 def parse_schema(schema_path: str) -> dict:
     with open(schema_path, 'r') as f:
@@ -267,25 +270,13 @@ def ts_prop_type(ts_type: str, is_collection: bool) -> str:
     return ts_type
 
 
-def is_collection_property(slot_name: str, slot_data: dict) -> bool:
-    if slot_data.get('multivalued', False):
-        return True
-    name = slot_name.lower()
-    collection_indicators = [
-        'characteristics', 'claims', 'certifications', 'catalogitems',
-        'suppliedproducts', 'technicalproducts', 'customercategories',
-        'catalogs', 'variants', 'images', 'localizations', 'phonenumbers',
-        'socialmedias', 'websites', 'emails', 'offers', 'orderlines',
-        'steps', 'inputs', 'outputs',
-    ]
-    for indicator in collection_indicators:
-        if indicator in name:
-            return True
-    if name.endswith('s') and not name.endswith('ss') and not name.endswith('us'):
-        return True
-    if name.endswith('ies'):
-        return True
-    return False
+def is_collection_property(slot_name: str, slot_data: dict, class_usage: dict = None) -> bool:
+    """True when the property must accept several values.
+
+    Delegates to `scripts/cardinality.py` so the three generators cannot
+    drift apart; see that module for the resolution order.
+    """
+    return cardinality.is_collection_property(slot_name, slot_data, class_usage)
 
 
 # ---------------------------------------------------------------------------
@@ -1218,7 +1209,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
         prop_name = ts_property_name(slot_name)
         ts_type = ts_prop_type(
             ts_type_for_slot(slot_data, schema_data),
-            is_collection_property(slot_name, slot_data),
+            is_collection_property(slot_name, slot_data, cardinality.usage_for(schema_data, owner)),
         )
         doc = _wrap_jsdoc(_slot_doc_lines(slot_name, slot_data), '  ')
         interface_props.append(f'{doc}  {prop_name}?: {ts_type};')
@@ -1278,7 +1269,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
         prop_name = ts_property_name(slot_name)
         ts_type = ts_prop_type(
             ts_type_for_slot(slot_data, schema_data),
-            is_collection_property(slot_name, slot_data),
+            is_collection_property(slot_name, slot_data, cardinality.usage_for(schema_data, owner)),
         )
         class_props.append(
             f'{_wrap_jsdoc(_slot_doc_lines(slot_name, slot_data), "  ")}'

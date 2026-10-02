@@ -10,6 +10,7 @@ Indicates whether the Enterprise charges VAT or not
 
 - **Predicate**: `dfc-b:VATstatus`
 - **Range**: `boolean` (literal)
+- **Cardinality**: **Single-valued** — the ontology declares this property `owl:FunctionalProperty`, so it takes at most one value in every class.
 
 ## Declared domain
 

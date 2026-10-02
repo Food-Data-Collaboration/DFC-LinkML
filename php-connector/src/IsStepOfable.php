@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface IsStepOfable
 {
-    public function getIsStepOf(): string|SemanticObject|array|null;
-    public function setIsStepOf(string|SemanticObject|array|null $isStepOf): static;
+    public function getIsStepOf(): array|string|SemanticObject|null;
+    public function setIsStepOf(array|string|SemanticObject|null $isStepOf): static;
+    public function addIsStepOf(string|SemanticObject $isStepOf): static;
+    public function removeIsStepOf(string|SemanticObject $isStepOf): void;
 }

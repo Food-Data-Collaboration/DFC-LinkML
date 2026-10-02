@@ -11,6 +11,7 @@ Object property from OWL: isIngredientOf
 - **Predicate**: `dfc-b:isIngredientOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_ingredient`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

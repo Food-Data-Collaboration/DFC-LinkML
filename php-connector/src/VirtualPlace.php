@@ -33,7 +33,7 @@ class VirtualPlace extends Place implements IVirtualPlace
     public const SEMANTIC_TYPE = 'dfc-b:VirtualPlace';
 
     private string|SemanticObject|array|null $url = null;
-    private string|SemanticObject|array|null $websitePage = null;
+    private array|string|SemanticObject|null $websitePage = [];
 
     public function __construct(
         string $semanticId,
@@ -42,7 +42,7 @@ class VirtualPlace extends Place implements IVirtualPlace
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->url = $params['url'] ?? null;
-        $this->websitePage = $params['websitePage'] ?? null;
+        $this->websitePage = $params['websitePage'] ?? [];
         $this->registerSemanticProperty('dfc-b:URL', fn() => $this->url);
         $this->registerSemanticProperty('dfc-b:websitePage', fn() => $this->websitePage);
     }
@@ -57,14 +57,46 @@ class VirtualPlace extends Place implements IVirtualPlace
         return $this;
     }
 
-    public function getWebsitePage(): string|SemanticObject|array|null
+    public function getWebsitePage(): array|string|SemanticObject|null
     {
         return $this->websitePage;
     }
 
-    public function setWebsitePage(string|SemanticObject|array|null $websitePage): static
+    public function setWebsitePage(array|string|SemanticObject|null $websitePage): static
     {
         $this->websitePage = $websitePage;
         return $this;
+    }
+
+    public function addWebsitePage(string|SemanticObject $websitePage): static
+    {
+        if ($this->websitePage === null) {
+            $this->websitePage = [];
+        } elseif (!is_array($this->websitePage)) {
+            $this->websitePage = [$this->websitePage];
+        }
+        $this->websitePage[] = $websitePage;
+        return $this;
+    }
+
+    public function removeWebsitePage(string|SemanticObject $websitePage): void
+    {
+        if ($this->websitePage === null) {
+            return;
+        }
+        if (!is_array($this->websitePage)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->websitePage === $websitePage) {
+                $this->websitePage = [];
+            }
+            return;
+        }
+        $key = array_search($websitePage, $this->websitePage, true);
+        if ($key !== false) {
+            unset($this->websitePage[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->websitePage = array_values($this->websitePage);
+        }
     }
 }

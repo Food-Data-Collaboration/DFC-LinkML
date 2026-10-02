@@ -11,6 +11,7 @@ The transformation the consumed product is inputed into
 - **Predicate**: `dfc-b:inputOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_input`
+- **Cardinality**: **Single-valued on `ConsumptionFlow`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

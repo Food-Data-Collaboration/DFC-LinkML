@@ -29,8 +29,6 @@ interface Offerable
 {
     public function getOffer(): string|SemanticObject|array|null;
     public function setOffer(string|SemanticObject|array|null $offer): static;
-    public function getOffers(): array|CatalogItem|string|SemanticObject|null;
-    public function setOffers(array|CatalogItem|string|SemanticObject|null $offers): static;
-    public function addOffers(CatalogItem|string|SemanticObject $offers): static;
-    public function removeOffers(CatalogItem|string|SemanticObject $offers): void;
+    public function getOffers(): CatalogItem|string|SemanticObject|array|null;
+    public function setOffers(CatalogItem|string|SemanticObject|array|null $offers): static;
 }

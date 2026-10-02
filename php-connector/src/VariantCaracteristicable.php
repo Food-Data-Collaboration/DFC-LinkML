@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface VariantCaracteristicable
 {
-    public function getVariantCaracteristic(): VariantCaracteristic|string|SemanticObject|array|null;
-    public function setVariantCaracteristic(VariantCaracteristic|string|SemanticObject|array|null $variantCaracteristic): static;
+    public function getVariantCaracteristic(): array|VariantCaracteristic|string|SemanticObject|null;
+    public function setVariantCaracteristic(array|VariantCaracteristic|string|SemanticObject|null $variantCaracteristic): static;
+    public function addVariantCaracteristic(VariantCaracteristic|string|SemanticObject $variantCaracteristic): static;
+    public function removeVariantCaracteristic(VariantCaracteristic|string|SemanticObject $variantCaracteristic): void;
 }

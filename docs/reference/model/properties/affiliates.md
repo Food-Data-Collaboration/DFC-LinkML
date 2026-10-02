@@ -12,6 +12,7 @@ Enterprises that the Person is affliated to
 - **Range**: `Organization` (a DFC class)
 - **Target type**: [`Organization`](../classes/Organization.md)
 - **Inverse**: `affiliated_to`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

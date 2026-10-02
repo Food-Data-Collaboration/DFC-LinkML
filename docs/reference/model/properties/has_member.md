@@ -11,6 +11,7 @@ Object property from OWL: hasMember
 - **Predicate**: `dfc-b:hasMember`
 - **Range**: `string` (literal)
 - **Inverse**: `is_member_of`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

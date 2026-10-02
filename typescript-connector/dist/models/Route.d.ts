@@ -11,7 +11,7 @@ export interface RouteParams extends WhereSubjectParams {
     /**
      * Serializes as `dfc-b:hasStep`.
      */
-    hasStep?: string;
+    hasStep?: string[];
     /**
      * Serializes as `dfc-b:useVehicle`.
      */
@@ -19,7 +19,7 @@ export interface RouteParams extends WhereSubjectParams {
     /**
      * Serializes as `dfc-b:hasGeoJsonFeature`.
      */
-    hasGeoJsonFeature?: Feature | string;
+    hasGeoJsonFeature?: (Feature | string)[];
 }
 /**
  * A DFC `dfc-b:Route`, serialized with `@type: dfc-b:Route`.
@@ -31,7 +31,7 @@ export declare class Route extends WhereSubject {
     /**
      * Serializes as `dfc-b:hasStep`.
      */
-    hasStep?: string;
+    hasStep?: string[];
     /**
      * Serializes as `dfc-b:useVehicle`.
      */
@@ -39,6 +39,6 @@ export declare class Route extends WhereSubject {
     /**
      * Serializes as `dfc-b:hasGeoJsonFeature`.
      */
-    hasGeoJsonFeature?: Feature | string;
+    hasGeoJsonFeature?: (Feature | string)[];
     constructor(semanticId: string, params?: RouteParams);
 }

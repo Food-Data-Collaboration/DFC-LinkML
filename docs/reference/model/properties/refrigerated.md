@@ -10,6 +10,7 @@ Defines if the parent class supports or requires refrigeration to a safe tempera
 
 - **Predicate**: `dfc-b:refrigerated`
 - **Range**: `boolean` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

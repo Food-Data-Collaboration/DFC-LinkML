@@ -36,11 +36,11 @@ export interface OrganizationParams extends AgentParams {
     /**
      * Serializes as `dfc-b:hasTemplateSaleSession`.
      */
-    hasTemplateSaleSession?: string;
+    hasTemplateSaleSession?: string[];
     /**
      * Serializes as `dfc-b:isCertifiedBy`.
      */
-    isCertifiedBy?: string;
+    isCertifiedBy?: string[];
     /**
      * Enterprises that the Person is affliated to
      *
@@ -121,11 +121,11 @@ export declare class Organization extends Agent {
     /**
      * Serializes as `dfc-b:hasTemplateSaleSession`.
      */
-    hasTemplateSaleSession?: string;
+    hasTemplateSaleSession?: string[];
     /**
      * Serializes as `dfc-b:isCertifiedBy`.
      */
-    isCertifiedBy?: string;
+    isCertifiedBy?: string[];
     /**
      * Enterprises that the Person is affliated to
      *

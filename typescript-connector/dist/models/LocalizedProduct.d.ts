@@ -30,20 +30,20 @@ export interface LocalizedProductParams extends WhatSubjectParams {
     /**
      * Serializes as `dfc-b:constituedBy`.
      */
-    constituedBy?: string;
+    constituedBy?: string[];
     /**
      * The ConsmuptionFlow by which the Product is transformed into other
      *   Products
      *
      * Serializes as `dfc-b:consumedBy`.
      */
-    consumedBy?: string;
+    consumedBy?: string[];
     /**
      * Link to another SuppleidProduct that is produced by this Product
      *
      * Serializes as `dfc-b:producedBy`.
      */
-    producedBy?: string;
+    producedBy?: string[];
     /**
      * The actual numeric value of the Price, in the currency unit specified
      *   with hasUnit
@@ -54,11 +54,11 @@ export interface LocalizedProductParams extends WhatSubjectParams {
     /**
      * Serializes as `dfc-b:hasReference`.
      */
-    hasReference?: SuppliedProduct | string;
+    hasReference?: (SuppliedProduct | string)[];
     /**
      * Serializes as `dfc-b:representedBy`.
      */
-    representedBy?: PhysicalProduct | string;
+    representedBy?: (PhysicalProduct | string)[];
 }
 /**
  * A DFC `dfc-b:LocalizedProduct`, serialized with `@type:
@@ -88,20 +88,20 @@ export declare class LocalizedProduct extends WhatSubject {
     /**
      * Serializes as `dfc-b:constituedBy`.
      */
-    constituedBy?: string;
+    constituedBy?: string[];
     /**
      * The ConsmuptionFlow by which the Product is transformed into other
      *   Products
      *
      * Serializes as `dfc-b:consumedBy`.
      */
-    consumedBy?: string;
+    consumedBy?: string[];
     /**
      * Link to another SuppleidProduct that is produced by this Product
      *
      * Serializes as `dfc-b:producedBy`.
      */
-    producedBy?: string;
+    producedBy?: string[];
     /**
      * The actual numeric value of the Price, in the currency unit specified
      *   with hasUnit
@@ -112,10 +112,10 @@ export declare class LocalizedProduct extends WhatSubject {
     /**
      * Serializes as `dfc-b:hasReference`.
      */
-    hasReference?: SuppliedProduct | string;
+    hasReference?: (SuppliedProduct | string)[];
     /**
      * Serializes as `dfc-b:representedBy`.
      */
-    representedBy?: PhysicalProduct | string;
+    representedBy?: (PhysicalProduct | string)[];
     constructor(semanticId: string, params?: LocalizedProductParams);
 }

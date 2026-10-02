@@ -45,27 +45,27 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
     private float|string|SemanticObject|array|null $quantity = null;
     private string|SemanticObject|array|null $specificCondition = null;
     private array|string|SemanticObject|null $composes = [];
-    private string|SemanticObject|array|null $consumedBy = null;
-    private string|SemanticObject|array|null $allergenCharacteristic = null;
+    private array|string|SemanticObject|null $consumedBy = [];
+    private array|string|SemanticObject|null $allergenCharacteristic = [];
     private string|SemanticObject|array|null $hasBrand = null;
     private string|SemanticObject|array|null $certification = null;
     private string|SemanticObject|array|null $characteristic = null;
-    private string|SemanticObject|array|null $hasClaim = null;
+    private array|string|SemanticObject|null $hasClaim = [];
     private string|SemanticObject|array|null $containerInformation = null;
     private string|SemanticObject|array|null $geographicalOrigin = null;
     private string|SemanticObject|array|null $ingredient = null;
     private string|SemanticObject|array|null $labellingCharacteristic = null;
-    private string|SemanticObject|array|null $natureOrigin = null;
-    private string|SemanticObject|array|null $nutrientCharacteristic = null;
-    private string|SemanticObject|array|null $partOrigin = null;
-    private string|SemanticObject|array|null $physicalCharacteristic = null;
+    private array|string|SemanticObject|null $natureOrigin = [];
+    private array|string|SemanticObject|null $nutrientCharacteristic = [];
+    private array|string|SemanticObject|null $partOrigin = [];
+    private array|string|SemanticObject|null $physicalCharacteristic = [];
     private string|SemanticObject|array|null $type = null;
     private string|SemanticObject|array|null $unit = null;
-    private string|SemanticObject|array|null $variant = null;
+    private array|string|SemanticObject|null $variant = [];
     private string|SemanticObject|array|null $processOf = null;
     private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
-    private ProductOption|string|SemanticObject|array|null $referenceProductOption = null;
-    private CatalogItem|string|SemanticObject|array|null $referencedBy = null;
+    private array|ProductOption|string|SemanticObject|null $referenceProductOption = [];
+    private array|CatalogItem|string|SemanticObject|null $referencedBy = [];
 
     public function __construct(
         string $semanticId,
@@ -83,27 +83,27 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         $this->quantity = $params['quantity'] ?? null;
         $this->specificCondition = $params['specificCondition'] ?? null;
         $this->composes = $params['composes'] ?? [];
-        $this->consumedBy = $params['consumedBy'] ?? null;
-        $this->allergenCharacteristic = $params['allergenCharacteristic'] ?? null;
+        $this->consumedBy = $params['consumedBy'] ?? [];
+        $this->allergenCharacteristic = $params['allergenCharacteristic'] ?? [];
         $this->hasBrand = $params['hasBrand'] ?? null;
         $this->certification = $params['certification'] ?? null;
         $this->characteristic = $params['characteristic'] ?? null;
-        $this->hasClaim = $params['hasClaim'] ?? null;
+        $this->hasClaim = $params['hasClaim'] ?? [];
         $this->containerInformation = $params['containerInformation'] ?? null;
         $this->geographicalOrigin = $params['geographicalOrigin'] ?? null;
         $this->ingredient = $params['ingredient'] ?? null;
         $this->labellingCharacteristic = $params['labellingCharacteristic'] ?? null;
-        $this->natureOrigin = $params['natureOrigin'] ?? null;
-        $this->nutrientCharacteristic = $params['nutrientCharacteristic'] ?? null;
-        $this->partOrigin = $params['partOrigin'] ?? null;
-        $this->physicalCharacteristic = $params['physicalCharacteristic'] ?? null;
+        $this->natureOrigin = $params['natureOrigin'] ?? [];
+        $this->nutrientCharacteristic = $params['nutrientCharacteristic'] ?? [];
+        $this->partOrigin = $params['partOrigin'] ?? [];
+        $this->physicalCharacteristic = $params['physicalCharacteristic'] ?? [];
         $this->type = $params['type'] ?? null;
         $this->unit = $params['unit'] ?? null;
-        $this->variant = $params['variant'] ?? null;
+        $this->variant = $params['variant'] ?? [];
         $this->processOf = $params['processOf'] ?? null;
         $this->hasQuantity = $params['hasQuantity'] ?? null;
-        $this->referenceProductOption = $params['referenceProductOption'] ?? null;
-        $this->referencedBy = $params['referencedBy'] ?? null;
+        $this->referenceProductOption = $params['referenceProductOption'] ?? [];
+        $this->referencedBy = $params['referencedBy'] ?? [];
         $this->registerSemanticProperty('dfc-b:Image', fn() => $this->image);
         $this->registerSemanticProperty('dfc-b:URL', fn() => $this->url);
         $this->registerSemanticProperty('dfc-b:brand', fn() => $this->brand);
@@ -310,26 +310,90 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         }
     }
 
-    public function getConsumedBy(): string|SemanticObject|array|null
+    public function getConsumedBy(): array|string|SemanticObject|null
     {
         return $this->consumedBy;
     }
 
-    public function setConsumedBy(string|SemanticObject|array|null $consumedBy): static
+    public function setConsumedBy(array|string|SemanticObject|null $consumedBy): static
     {
         $this->consumedBy = $consumedBy;
         return $this;
     }
 
-    public function getAllergenCharacteristic(): string|SemanticObject|array|null
+    public function addConsumedBy(string|SemanticObject $consumedBy): static
+    {
+        if ($this->consumedBy === null) {
+            $this->consumedBy = [];
+        } elseif (!is_array($this->consumedBy)) {
+            $this->consumedBy = [$this->consumedBy];
+        }
+        $this->consumedBy[] = $consumedBy;
+        return $this;
+    }
+
+    public function removeConsumedBy(string|SemanticObject $consumedBy): void
+    {
+        if ($this->consumedBy === null) {
+            return;
+        }
+        if (!is_array($this->consumedBy)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->consumedBy === $consumedBy) {
+                $this->consumedBy = [];
+            }
+            return;
+        }
+        $key = array_search($consumedBy, $this->consumedBy, true);
+        if ($key !== false) {
+            unset($this->consumedBy[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->consumedBy = array_values($this->consumedBy);
+        }
+    }
+
+    public function getAllergenCharacteristic(): array|string|SemanticObject|null
     {
         return $this->allergenCharacteristic;
     }
 
-    public function setAllergenCharacteristic(string|SemanticObject|array|null $allergenCharacteristic): static
+    public function setAllergenCharacteristic(array|string|SemanticObject|null $allergenCharacteristic): static
     {
         $this->allergenCharacteristic = $allergenCharacteristic;
         return $this;
+    }
+
+    public function addAllergenCharacteristic(string|SemanticObject $allergenCharacteristic): static
+    {
+        if ($this->allergenCharacteristic === null) {
+            $this->allergenCharacteristic = [];
+        } elseif (!is_array($this->allergenCharacteristic)) {
+            $this->allergenCharacteristic = [$this->allergenCharacteristic];
+        }
+        $this->allergenCharacteristic[] = $allergenCharacteristic;
+        return $this;
+    }
+
+    public function removeAllergenCharacteristic(string|SemanticObject $allergenCharacteristic): void
+    {
+        if ($this->allergenCharacteristic === null) {
+            return;
+        }
+        if (!is_array($this->allergenCharacteristic)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->allergenCharacteristic === $allergenCharacteristic) {
+                $this->allergenCharacteristic = [];
+            }
+            return;
+        }
+        $key = array_search($allergenCharacteristic, $this->allergenCharacteristic, true);
+        if ($key !== false) {
+            unset($this->allergenCharacteristic[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->allergenCharacteristic = array_values($this->allergenCharacteristic);
+        }
     }
 
     public function getHasBrand(): string|SemanticObject|array|null
@@ -365,15 +429,47 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         return $this;
     }
 
-    public function getHasClaim(): string|SemanticObject|array|null
+    public function getHasClaim(): array|string|SemanticObject|null
     {
         return $this->hasClaim;
     }
 
-    public function setHasClaim(string|SemanticObject|array|null $hasClaim): static
+    public function setHasClaim(array|string|SemanticObject|null $hasClaim): static
     {
         $this->hasClaim = $hasClaim;
         return $this;
+    }
+
+    public function addHasClaim(string|SemanticObject $hasClaim): static
+    {
+        if ($this->hasClaim === null) {
+            $this->hasClaim = [];
+        } elseif (!is_array($this->hasClaim)) {
+            $this->hasClaim = [$this->hasClaim];
+        }
+        $this->hasClaim[] = $hasClaim;
+        return $this;
+    }
+
+    public function removeHasClaim(string|SemanticObject $hasClaim): void
+    {
+        if ($this->hasClaim === null) {
+            return;
+        }
+        if (!is_array($this->hasClaim)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->hasClaim === $hasClaim) {
+                $this->hasClaim = [];
+            }
+            return;
+        }
+        $key = array_search($hasClaim, $this->hasClaim, true);
+        if ($key !== false) {
+            unset($this->hasClaim[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->hasClaim = array_values($this->hasClaim);
+        }
     }
 
     public function getContainerInformation(): string|SemanticObject|array|null
@@ -420,48 +516,176 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         return $this;
     }
 
-    public function getNatureOrigin(): string|SemanticObject|array|null
+    public function getNatureOrigin(): array|string|SemanticObject|null
     {
         return $this->natureOrigin;
     }
 
-    public function setNatureOrigin(string|SemanticObject|array|null $natureOrigin): static
+    public function setNatureOrigin(array|string|SemanticObject|null $natureOrigin): static
     {
         $this->natureOrigin = $natureOrigin;
         return $this;
     }
 
-    public function getNutrientCharacteristic(): string|SemanticObject|array|null
+    public function addNatureOrigin(string|SemanticObject $natureOrigin): static
+    {
+        if ($this->natureOrigin === null) {
+            $this->natureOrigin = [];
+        } elseif (!is_array($this->natureOrigin)) {
+            $this->natureOrigin = [$this->natureOrigin];
+        }
+        $this->natureOrigin[] = $natureOrigin;
+        return $this;
+    }
+
+    public function removeNatureOrigin(string|SemanticObject $natureOrigin): void
+    {
+        if ($this->natureOrigin === null) {
+            return;
+        }
+        if (!is_array($this->natureOrigin)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->natureOrigin === $natureOrigin) {
+                $this->natureOrigin = [];
+            }
+            return;
+        }
+        $key = array_search($natureOrigin, $this->natureOrigin, true);
+        if ($key !== false) {
+            unset($this->natureOrigin[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->natureOrigin = array_values($this->natureOrigin);
+        }
+    }
+
+    public function getNutrientCharacteristic(): array|string|SemanticObject|null
     {
         return $this->nutrientCharacteristic;
     }
 
-    public function setNutrientCharacteristic(string|SemanticObject|array|null $nutrientCharacteristic): static
+    public function setNutrientCharacteristic(array|string|SemanticObject|null $nutrientCharacteristic): static
     {
         $this->nutrientCharacteristic = $nutrientCharacteristic;
         return $this;
     }
 
-    public function getPartOrigin(): string|SemanticObject|array|null
+    public function addNutrientCharacteristic(string|SemanticObject $nutrientCharacteristic): static
+    {
+        if ($this->nutrientCharacteristic === null) {
+            $this->nutrientCharacteristic = [];
+        } elseif (!is_array($this->nutrientCharacteristic)) {
+            $this->nutrientCharacteristic = [$this->nutrientCharacteristic];
+        }
+        $this->nutrientCharacteristic[] = $nutrientCharacteristic;
+        return $this;
+    }
+
+    public function removeNutrientCharacteristic(string|SemanticObject $nutrientCharacteristic): void
+    {
+        if ($this->nutrientCharacteristic === null) {
+            return;
+        }
+        if (!is_array($this->nutrientCharacteristic)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->nutrientCharacteristic === $nutrientCharacteristic) {
+                $this->nutrientCharacteristic = [];
+            }
+            return;
+        }
+        $key = array_search($nutrientCharacteristic, $this->nutrientCharacteristic, true);
+        if ($key !== false) {
+            unset($this->nutrientCharacteristic[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->nutrientCharacteristic = array_values($this->nutrientCharacteristic);
+        }
+    }
+
+    public function getPartOrigin(): array|string|SemanticObject|null
     {
         return $this->partOrigin;
     }
 
-    public function setPartOrigin(string|SemanticObject|array|null $partOrigin): static
+    public function setPartOrigin(array|string|SemanticObject|null $partOrigin): static
     {
         $this->partOrigin = $partOrigin;
         return $this;
     }
 
-    public function getPhysicalCharacteristic(): string|SemanticObject|array|null
+    public function addPartOrigin(string|SemanticObject $partOrigin): static
+    {
+        if ($this->partOrigin === null) {
+            $this->partOrigin = [];
+        } elseif (!is_array($this->partOrigin)) {
+            $this->partOrigin = [$this->partOrigin];
+        }
+        $this->partOrigin[] = $partOrigin;
+        return $this;
+    }
+
+    public function removePartOrigin(string|SemanticObject $partOrigin): void
+    {
+        if ($this->partOrigin === null) {
+            return;
+        }
+        if (!is_array($this->partOrigin)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->partOrigin === $partOrigin) {
+                $this->partOrigin = [];
+            }
+            return;
+        }
+        $key = array_search($partOrigin, $this->partOrigin, true);
+        if ($key !== false) {
+            unset($this->partOrigin[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->partOrigin = array_values($this->partOrigin);
+        }
+    }
+
+    public function getPhysicalCharacteristic(): array|string|SemanticObject|null
     {
         return $this->physicalCharacteristic;
     }
 
-    public function setPhysicalCharacteristic(string|SemanticObject|array|null $physicalCharacteristic): static
+    public function setPhysicalCharacteristic(array|string|SemanticObject|null $physicalCharacteristic): static
     {
         $this->physicalCharacteristic = $physicalCharacteristic;
         return $this;
+    }
+
+    public function addPhysicalCharacteristic(string|SemanticObject $physicalCharacteristic): static
+    {
+        if ($this->physicalCharacteristic === null) {
+            $this->physicalCharacteristic = [];
+        } elseif (!is_array($this->physicalCharacteristic)) {
+            $this->physicalCharacteristic = [$this->physicalCharacteristic];
+        }
+        $this->physicalCharacteristic[] = $physicalCharacteristic;
+        return $this;
+    }
+
+    public function removePhysicalCharacteristic(string|SemanticObject $physicalCharacteristic): void
+    {
+        if ($this->physicalCharacteristic === null) {
+            return;
+        }
+        if (!is_array($this->physicalCharacteristic)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->physicalCharacteristic === $physicalCharacteristic) {
+                $this->physicalCharacteristic = [];
+            }
+            return;
+        }
+        $key = array_search($physicalCharacteristic, $this->physicalCharacteristic, true);
+        if ($key !== false) {
+            unset($this->physicalCharacteristic[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->physicalCharacteristic = array_values($this->physicalCharacteristic);
+        }
     }
 
     public function getType(): string|SemanticObject|array|null
@@ -486,15 +710,47 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         return $this;
     }
 
-    public function getVariant(): string|SemanticObject|array|null
+    public function getVariant(): array|string|SemanticObject|null
     {
         return $this->variant;
     }
 
-    public function setVariant(string|SemanticObject|array|null $variant): static
+    public function setVariant(array|string|SemanticObject|null $variant): static
     {
         $this->variant = $variant;
         return $this;
+    }
+
+    public function addVariant(string|SemanticObject $variant): static
+    {
+        if ($this->variant === null) {
+            $this->variant = [];
+        } elseif (!is_array($this->variant)) {
+            $this->variant = [$this->variant];
+        }
+        $this->variant[] = $variant;
+        return $this;
+    }
+
+    public function removeVariant(string|SemanticObject $variant): void
+    {
+        if ($this->variant === null) {
+            return;
+        }
+        if (!is_array($this->variant)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->variant === $variant) {
+                $this->variant = [];
+            }
+            return;
+        }
+        $key = array_search($variant, $this->variant, true);
+        if ($key !== false) {
+            unset($this->variant[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->variant = array_values($this->variant);
+        }
     }
 
     public function getProcessOf(): string|SemanticObject|array|null
@@ -519,25 +775,89 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         return $this;
     }
 
-    public function getReferenceProductOption(): ProductOption|string|SemanticObject|array|null
+    public function getReferenceProductOption(): array|ProductOption|string|SemanticObject|null
     {
         return $this->referenceProductOption;
     }
 
-    public function setReferenceProductOption(ProductOption|string|SemanticObject|array|null $referenceProductOption): static
+    public function setReferenceProductOption(array|ProductOption|string|SemanticObject|null $referenceProductOption): static
     {
         $this->referenceProductOption = $referenceProductOption;
         return $this;
     }
 
-    public function getReferencedBy(): CatalogItem|string|SemanticObject|array|null
+    public function addReferenceProductOption(ProductOption|string|SemanticObject $referenceProductOption): static
+    {
+        if ($this->referenceProductOption === null) {
+            $this->referenceProductOption = [];
+        } elseif (!is_array($this->referenceProductOption)) {
+            $this->referenceProductOption = [$this->referenceProductOption];
+        }
+        $this->referenceProductOption[] = $referenceProductOption;
+        return $this;
+    }
+
+    public function removeReferenceProductOption(ProductOption|string|SemanticObject $referenceProductOption): void
+    {
+        if ($this->referenceProductOption === null) {
+            return;
+        }
+        if (!is_array($this->referenceProductOption)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->referenceProductOption === $referenceProductOption) {
+                $this->referenceProductOption = [];
+            }
+            return;
+        }
+        $key = array_search($referenceProductOption, $this->referenceProductOption, true);
+        if ($key !== false) {
+            unset($this->referenceProductOption[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->referenceProductOption = array_values($this->referenceProductOption);
+        }
+    }
+
+    public function getReferencedBy(): array|CatalogItem|string|SemanticObject|null
     {
         return $this->referencedBy;
     }
 
-    public function setReferencedBy(CatalogItem|string|SemanticObject|array|null $referencedBy): static
+    public function setReferencedBy(array|CatalogItem|string|SemanticObject|null $referencedBy): static
     {
         $this->referencedBy = $referencedBy;
         return $this;
+    }
+
+    public function addReferencedBy(CatalogItem|string|SemanticObject $referencedBy): static
+    {
+        if ($this->referencedBy === null) {
+            $this->referencedBy = [];
+        } elseif (!is_array($this->referencedBy)) {
+            $this->referencedBy = [$this->referencedBy];
+        }
+        $this->referencedBy[] = $referencedBy;
+        return $this;
+    }
+
+    public function removeReferencedBy(CatalogItem|string|SemanticObject $referencedBy): void
+    {
+        if ($this->referencedBy === null) {
+            return;
+        }
+        if (!is_array($this->referencedBy)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->referencedBy === $referencedBy) {
+                $this->referencedBy = [];
+            }
+            return;
+        }
+        $key = array_search($referencedBy, $this->referencedBy, true);
+        if ($key !== false) {
+            unset($this->referencedBy[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->referencedBy = array_values($this->referencedBy);
+        }
     }
 }

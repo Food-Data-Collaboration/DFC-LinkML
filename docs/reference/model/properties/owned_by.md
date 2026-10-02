@@ -12,6 +12,7 @@ Object property from OWL: ownedBy
 - **Range**: `Agent` (a DFC class)
 - **Target type**: [`Agent`](../classes/Agent.md)
 - **Inverse**: `owns`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

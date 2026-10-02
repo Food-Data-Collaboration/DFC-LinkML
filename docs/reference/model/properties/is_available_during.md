@@ -11,6 +11,7 @@ Operating window of the Vehicle.
 - **Predicate**: `dfc-b:isAvailableDuring`
 - **Range**: `OpeningHoursSpecification` (a DFC class)
 - **Target type**: [`OpeningHoursSpecification`](../classes/OpeningHoursSpecification.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

@@ -10,6 +10,7 @@ Percentage of Alcohol (by volume) in the Product, expressed as a number in the r
 
 - **Predicate**: `dfc-b:hasPercentageOfAlcoholByVolume`
 - **Range**: `float` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

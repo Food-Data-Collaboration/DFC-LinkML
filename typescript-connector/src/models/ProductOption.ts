@@ -13,7 +13,7 @@ export interface ProductOptionParams extends WhatSubjectParams {
   /**
    * Serializes as `dfc-b:hasReferenceProductOptionValue`.
    */
-  hasReferenceProductOptionValue?: ProductOptionValue | string;
+  hasReferenceProductOptionValue?: (ProductOptionValue | string)[];
 }
 
 /**
@@ -30,7 +30,7 @@ export class ProductOption extends WhatSubject {
   /**
    * Serializes as `dfc-b:hasReferenceProductOptionValue`.
    */
-  hasReferenceProductOptionValue?: ProductOptionValue | string;
+  hasReferenceProductOptionValue?: (ProductOptionValue | string)[];
 
   constructor(
     semanticId: string,

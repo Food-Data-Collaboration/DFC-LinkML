@@ -39,15 +39,15 @@ LinkML ships a validator that checks instances against the schema: ranges,
 cardinality, required properties. It is not run in CI here, and the
 connectors do not embed it.
 
-**The schema could not support full validation even if it were run.** Every
-slot in the schema carries a description, a range, and a domain, and none
-carries `required` or `multivalued`. So the schema models *which properties
-exist and what they may point at*, and nothing about *how many* or *whether*.
-Cardinality in the generated connectors is decided by a heuristic on the
-property name — a trailing `s` makes it a collection — which is a
-convenience for code generation, not a modelling decision. The generated
-[model reference](../reference/model/index.md) says so on every page rather
-than inventing a cardinality column.
+**The schema supports only part of what SHACL would check.** The converter now
+records cardinality, but only as far as the ontology states it: 42 class-scoped
+restrictions become `slot_usage`, 34 `owl:FunctionalProperty` declarations
+become a slot-level `maximum_cardinality: 1`, and DFC declares no
+`owl:maxCardinality` at all. So the schema models *how many* for the singleton
+side and *whether* for the collection side, and nothing about minimums above
+one. [cardinality.md](cardinality.md) owns the detail; the
+[model reference](../reference/model/index.md) states each property's
+cardinality and names its source.
 
 ## 3. SHACL — implemented
 

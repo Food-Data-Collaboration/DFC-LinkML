@@ -11,6 +11,7 @@ Labelling information about the product (from dfc-m:LabellingDimension)
 - **Predicate**: `dfc-b:hasLabellingCharacteristic`
 - **Range**: `string` (literal)
 - **Inverse**: `labelling_characteristic_of`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

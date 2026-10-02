@@ -36,14 +36,14 @@ export interface PhysicalProductParams extends WhatSubjectParams {
   /**
    * Serializes as `dfc-b:constituedBy`.
    */
-  constituedBy?: string;
+  constituedBy?: string[];
   /**
    * The ConsmuptionFlow by which the Product is transformed into other
    *   Products
    *
    * Serializes as `dfc-b:consumedBy`.
    */
-  consumedBy?: string;
+  consumedBy?: string[];
   /**
    * Serializes as `dfc-b:fulfills`.
    */
@@ -53,7 +53,7 @@ export interface PhysicalProductParams extends WhatSubjectParams {
    *
    * Serializes as `dfc-b:producedBy`.
    */
-  producedBy?: string;
+  producedBy?: string[];
   /**
    * The actual numeric value of the Price, in the currency unit specified
    *   with hasUnit
@@ -72,7 +72,7 @@ export interface PhysicalProductParams extends WhatSubjectParams {
   /**
    * Serializes as `dfc-b:tracedBy`.
    */
-  tracedBy?: ProductBatch | string;
+  tracedBy?: (ProductBatch | string)[];
 }
 
 /**
@@ -109,14 +109,14 @@ export class PhysicalProduct extends WhatSubject {
   /**
    * Serializes as `dfc-b:constituedBy`.
    */
-  constituedBy?: string;
+  constituedBy?: string[];
   /**
    * The ConsmuptionFlow by which the Product is transformed into other
    *   Products
    *
    * Serializes as `dfc-b:consumedBy`.
    */
-  consumedBy?: string;
+  consumedBy?: string[];
   /**
    * Serializes as `dfc-b:fulfills`.
    */
@@ -126,7 +126,7 @@ export class PhysicalProduct extends WhatSubject {
    *
    * Serializes as `dfc-b:producedBy`.
    */
-  producedBy?: string;
+  producedBy?: string[];
   /**
    * The actual numeric value of the Price, in the currency unit specified
    *   with hasUnit
@@ -145,7 +145,7 @@ export class PhysicalProduct extends WhatSubject {
   /**
    * Serializes as `dfc-b:tracedBy`.
    */
-  tracedBy?: ProductBatch | string;
+  tracedBy?: (ProductBatch | string)[];
 
   constructor(
     semanticId: string,

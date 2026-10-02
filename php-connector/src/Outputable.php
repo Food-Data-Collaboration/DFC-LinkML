@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface Outputable
 {
-    public function getOutput(): string|SemanticObject|array|null;
-    public function setOutput(string|SemanticObject|array|null $output): static;
+    public function getOutput(): array|string|SemanticObject|null;
+    public function setOutput(array|string|SemanticObject|null $output): static;
+    public function addOutput(string|SemanticObject $output): static;
+    public function removeOutput(string|SemanticObject $output): void;
 }

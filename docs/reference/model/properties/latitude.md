@@ -10,6 +10,7 @@ numeric latitude of the Address location
 
 - **Predicate**: `dfc-b:latitude`
 - **Range**: `float` (literal)
+- **Cardinality**: **Single-valued** — the ontology declares this property `owl:FunctionalProperty`, so it takes at most one value in every class.
 
 ## Declared domain
 

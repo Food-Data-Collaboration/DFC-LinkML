@@ -10,6 +10,7 @@ The state in which the Order is. See expectations around Order flow controls for
 
 - **Predicate**: `dfc-b:hasOrderStatus`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

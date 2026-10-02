@@ -81,13 +81,13 @@ export interface CatalogItemParams {
    *
    * Serializes as `dfc-b:offeredThrough`.
    */
-  offeredThrough?: Offer | string;
+  offeredThrough?: (Offer | string)[];
   /**
    * The Product that the CatalogItem is listing for sale
    *
    * Serializes as `dfc-b:references`.
    */
-  references?: (DefinedProduct | string)[];
+  references?: DefinedProduct | string;
 }
 
 /**
@@ -172,13 +172,13 @@ export class CatalogItem extends SemanticObject {
    *
    * Serializes as `dfc-b:offeredThrough`.
    */
-  offeredThrough?: Offer | string;
+  offeredThrough?: (Offer | string)[];
   /**
    * The Product that the CatalogItem is listing for sale
    *
    * Serializes as `dfc-b:references`.
    */
-  references?: (DefinedProduct | string)[];
+  references?: DefinedProduct | string;
 
   constructor(
     semanticId: string,

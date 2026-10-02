@@ -11,6 +11,7 @@ The destination of the Shipment.
 - **Predicate**: `dfc-b:endsAt`
 - **Range**: `PhysicalPlace` (a DFC class)
 - **Target type**: [`PhysicalPlace`](../classes/PhysicalPlace.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

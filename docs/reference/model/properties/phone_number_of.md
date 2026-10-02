@@ -11,6 +11,7 @@ The Enterprise or Person (Agent) or Physical Place that the phone numbers is ass
 - **Predicate**: `dfc-b:phoneNumberOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_phone_number`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

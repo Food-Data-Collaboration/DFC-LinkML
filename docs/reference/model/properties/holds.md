@@ -11,6 +11,7 @@ All Orders that were made during the Sales Session
 - **Predicate**: `dfc-b:holds`
 - **Range**: `string` (literal)
 - **Inverse**: `belongs_to`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

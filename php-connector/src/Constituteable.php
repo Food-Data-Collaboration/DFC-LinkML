@@ -27,8 +27,6 @@ namespace DataFoodConsortium\Connector;
 
 interface Constituteable
 {
-    public function getConstitutes(): array|string|SemanticObject|null;
-    public function setConstitutes(array|string|SemanticObject|null $constitutes): static;
-    public function addConstitutes(string|SemanticObject $constitutes): static;
-    public function removeConstitutes(string|SemanticObject $constitutes): void;
+    public function getConstitutes(): string|SemanticObject|array|null;
+    public function setConstitutes(string|SemanticObject|array|null $constitutes): static;
 }

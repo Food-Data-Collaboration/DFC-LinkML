@@ -19,15 +19,15 @@ export interface StepParams extends WhereSubjectParams {
     /**
      * Serializes as `dfc-b:isStepOf`.
      */
-    isStepOf?: string;
+    isStepOf?: string[];
     /**
      * Serializes as `dfc-b:delivery`.
      */
-    delivery?: Shipment | string;
+    delivery?: (Shipment | string)[];
     /**
      * Serializes as `dfc-b:pickUp`.
      */
-    pickUp?: Shipment | string;
+    pickUp?: (Shipment | string)[];
 }
 /**
  * A DFC `dfc-b:Step`, serialized with `@type: dfc-b:Step`.
@@ -47,14 +47,14 @@ export declare class Step extends WhereSubject {
     /**
      * Serializes as `dfc-b:isStepOf`.
      */
-    isStepOf?: string;
+    isStepOf?: string[];
     /**
      * Serializes as `dfc-b:delivery`.
      */
-    delivery?: Shipment | string;
+    delivery?: (Shipment | string)[];
     /**
      * Serializes as `dfc-b:pickUp`.
      */
-    pickUp?: Shipment | string;
+    pickUp?: (Shipment | string)[];
     constructor(semanticId: string, params?: StepParams);
 }

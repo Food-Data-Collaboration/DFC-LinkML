@@ -42,7 +42,7 @@ export interface OfferParams {
    *
    * Serializes as `dfc-b:listedIn`.
    */
-  listedIn?: string;
+  listedIn?: string[];
   /**
    * Serializes as `dfc-b:date`.
    */
@@ -70,13 +70,13 @@ export interface OfferParams {
    *
    * Serializes as `dfc-b:offers`.
    */
-  offers?: (CatalogItem | string)[];
+  offers?: CatalogItem | string;
   /**
    * The (1 & only 1) CustomerCategory that is eligible for this Offer
    *
    * Serializes as `dfc-b:offersTo`.
    */
-  offersTo?: (CustomerCategory | string)[];
+  offersTo?: CustomerCategory | string;
 }
 
 /**
@@ -123,7 +123,7 @@ export class Offer extends SemanticObject {
    *
    * Serializes as `dfc-b:listedIn`.
    */
-  listedIn?: string;
+  listedIn?: string[];
   /**
    * Serializes as `dfc-b:date`.
    */
@@ -151,13 +151,13 @@ export class Offer extends SemanticObject {
    *
    * Serializes as `dfc-b:offers`.
    */
-  offers?: (CatalogItem | string)[];
+  offers?: CatalogItem | string;
   /**
    * The (1 & only 1) CustomerCategory that is eligible for this Offer
    *
    * Serializes as `dfc-b:offersTo`.
    */
-  offersTo?: (CustomerCategory | string)[];
+  offersTo?: CustomerCategory | string;
 
   constructor(
     semanticId: string,

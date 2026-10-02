@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface CertiferReferenceable
 {
-    public function getCertiferReference(): string|SemanticObject|array|null;
-    public function setCertiferReference(string|SemanticObject|array|null $certiferReference): static;
+    public function getCertiferReference(): array|string|SemanticObject|null;
+    public function setCertiferReference(array|string|SemanticObject|null $certiferReference): static;
+    public function addCertiferReference(string|SemanticObject $certiferReference): static;
+    public function removeCertiferReference(string|SemanticObject $certiferReference): void;
 }

@@ -42,8 +42,8 @@ class Organization extends Agent implements IOrganization
     private string|SemanticObject|array|null $vatNumber = null;
     private bool|string|SemanticObject|array|null $vatStatus = null;
     private string|SemanticObject|array|null $enterpriseId = null;
-    private string|SemanticObject|array|null $templateSaleSession = null;
-    private string|SemanticObject|array|null $isCertifiedBy = null;
+    private array|string|SemanticObject|null $templateSaleSession = [];
+    private array|string|SemanticObject|null $isCertifiedBy = [];
     private array|Organization|string|SemanticObject|null $affiliates = [];
     private array|CustomerCategory|string|SemanticObject|null $defines = [];
     private Person|string|SemanticObject|array|null $mainContact = null;
@@ -62,8 +62,8 @@ class Organization extends Agent implements IOrganization
         $this->vatNumber = $params['vatNumber'] ?? null;
         $this->vatStatus = $params['vatStatus'] ?? null;
         $this->enterpriseId = $params['enterpriseId'] ?? null;
-        $this->templateSaleSession = $params['templateSaleSession'] ?? null;
-        $this->isCertifiedBy = $params['isCertifiedBy'] ?? null;
+        $this->templateSaleSession = $params['templateSaleSession'] ?? [];
+        $this->isCertifiedBy = $params['isCertifiedBy'] ?? [];
         $this->affiliates = $params['affiliates'] ?? [];
         $this->defines = $params['defines'] ?? [];
         $this->mainContact = $params['mainContact'] ?? null;
@@ -119,26 +119,90 @@ class Organization extends Agent implements IOrganization
         return $this;
     }
 
-    public function getTemplateSaleSession(): string|SemanticObject|array|null
+    public function getTemplateSaleSession(): array|string|SemanticObject|null
     {
         return $this->templateSaleSession;
     }
 
-    public function setTemplateSaleSession(string|SemanticObject|array|null $templateSaleSession): static
+    public function setTemplateSaleSession(array|string|SemanticObject|null $templateSaleSession): static
     {
         $this->templateSaleSession = $templateSaleSession;
         return $this;
     }
 
-    public function getIsCertifiedBy(): string|SemanticObject|array|null
+    public function addTemplateSaleSession(string|SemanticObject $templateSaleSession): static
+    {
+        if ($this->templateSaleSession === null) {
+            $this->templateSaleSession = [];
+        } elseif (!is_array($this->templateSaleSession)) {
+            $this->templateSaleSession = [$this->templateSaleSession];
+        }
+        $this->templateSaleSession[] = $templateSaleSession;
+        return $this;
+    }
+
+    public function removeTemplateSaleSession(string|SemanticObject $templateSaleSession): void
+    {
+        if ($this->templateSaleSession === null) {
+            return;
+        }
+        if (!is_array($this->templateSaleSession)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->templateSaleSession === $templateSaleSession) {
+                $this->templateSaleSession = [];
+            }
+            return;
+        }
+        $key = array_search($templateSaleSession, $this->templateSaleSession, true);
+        if ($key !== false) {
+            unset($this->templateSaleSession[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->templateSaleSession = array_values($this->templateSaleSession);
+        }
+    }
+
+    public function getIsCertifiedBy(): array|string|SemanticObject|null
     {
         return $this->isCertifiedBy;
     }
 
-    public function setIsCertifiedBy(string|SemanticObject|array|null $isCertifiedBy): static
+    public function setIsCertifiedBy(array|string|SemanticObject|null $isCertifiedBy): static
     {
         $this->isCertifiedBy = $isCertifiedBy;
         return $this;
+    }
+
+    public function addIsCertifiedBy(string|SemanticObject $isCertifiedBy): static
+    {
+        if ($this->isCertifiedBy === null) {
+            $this->isCertifiedBy = [];
+        } elseif (!is_array($this->isCertifiedBy)) {
+            $this->isCertifiedBy = [$this->isCertifiedBy];
+        }
+        $this->isCertifiedBy[] = $isCertifiedBy;
+        return $this;
+    }
+
+    public function removeIsCertifiedBy(string|SemanticObject $isCertifiedBy): void
+    {
+        if ($this->isCertifiedBy === null) {
+            return;
+        }
+        if (!is_array($this->isCertifiedBy)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->isCertifiedBy === $isCertifiedBy) {
+                $this->isCertifiedBy = [];
+            }
+            return;
+        }
+        $key = array_search($isCertifiedBy, $this->isCertifiedBy, true);
+        if ($key !== false) {
+            unset($this->isCertifiedBy[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->isCertifiedBy = array_values($this->isCertifiedBy);
+        }
     }
 
     public function getAffiliates(): array|Organization|string|SemanticObject|null

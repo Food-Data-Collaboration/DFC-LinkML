@@ -10,6 +10,7 @@ Lifetime of the product (in days), expressed as a number
 
 - **Predicate**: `dfc-b:lifetime`
 - **Range**: `float` (literal)
+- **Cardinality**: **Single-valued on `DefinedProduct`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

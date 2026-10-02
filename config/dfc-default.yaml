@@ -43,6 +43,72 @@ skip_properties:
 # Template for class descriptions
 class_description_template: "Class from DFC Business Ontology: #{class_name}"
 
+# Cardinality the ontology cannot supply.
+#
+# DFC v2.0.0 states multiplicity in exactly one direction: 42 class-scoped
+# restrictions and 34 owl:FunctionalProperty declarations, every one of them a
+# singleton, and no owl:maxCardinality anywhere. So the ontology says what is
+# single-valued and says nothing at all about what may repeat -- the n side is
+# unstated, not unbounded. These entries are that missing half, verified against
+# the original DFC v2 connectors: every slot here is a collection there, read
+# via `getSemanticPropertyAll`, written via `addSemanticProperty*`, and in most
+# cases also exposed with an `add*` accessor and an array-typed setter.
+#
+# Resolution order in the generators (first match wins):
+#   1. class-scoped `slot_usage` from the ontology  -> single-valued
+#   2. slot-level `maximum_cardinality: 1`           -> single-valued
+#   3. this list                                     -> collection
+#   4. the plural-name heuristic                     -> collection if the slot
+#                                                       name looks plural
+#
+# Step 1 is why some of these are only collections on *some* of their classes:
+# `has_address` is restricted to exactly one on PhysicalPlace but unstated for
+# Agent, so it is a collection on an Organization and a scalar on a PhysicalPlace.
+cardinality:
+  multi_valued:
+    - certifer_reference
+    - certification_score
+    - constitued_by
+    - consumed_by
+    - delivery
+    - has_address
+    - has_allergen_characteristic
+    - has_claim
+    - has_geo_json_feature
+    - has_input
+    - has_main_contact
+    - has_nature_origin
+    - has_nutrient_characteristic
+    - has_output
+    - has_part
+    - has_part_origin
+    - has_phone_number
+    - has_physical_characteristic
+    - has_reference
+    - has_reference_product_option
+    - has_reference_product_option_value
+    - has_social_media
+    - has_step
+    - has_template_sale_session
+    - has_variant
+    - has_variant_caracteristic
+    - hosted_at
+    - is_certified_by
+    - is_member_of
+    - is_step_of
+    - is_template_sale_session_of
+    - is_variant_of
+    - listed_in
+    - offered_through
+    - operator_id
+    - pick_up
+    - produced_by
+    - reference_of
+    - referenced_by
+    - represented_by
+    - traced_by
+    - website_page
+
 taxonomy_enums:
   facets:
     enum_name: Facet

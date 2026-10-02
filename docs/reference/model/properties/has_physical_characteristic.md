@@ -11,6 +11,7 @@ Physical information about the product (from dfc-m:PhysicalDimension)
 - **Predicate**: `dfc-b:hasPhysicalCharacteristic`
 - **Range**: `string` (literal)
 - **Inverse**: `physical_characteristic_of`
+- **Cardinality**: **Collection** — the ontology states no upper bound for this property, so it takes several values. This comes from the curated list in `config/dfc-default.yaml`, verified against the original DFC v2 connectors; it is not derived from the ontology.
 
 ## Declared domain
 

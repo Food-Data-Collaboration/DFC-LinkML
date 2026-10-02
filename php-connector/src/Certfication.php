@@ -32,9 +32,9 @@ class Certfication extends WhatSubject implements ICertfication
 {
     public const SEMANTIC_TYPE = 'dfc-b:Certfication';
 
-    private string|SemanticObject|array|null $certiferReference = null;
-    private string|SemanticObject|array|null $certificationScore = null;
-    private string|SemanticObject|array|null $operatorId = null;
+    private array|string|SemanticObject|null $certiferReference = [];
+    private array|string|SemanticObject|null $certificationScore = [];
+    private array|string|SemanticObject|null $operatorId = [];
     private array|string|SemanticObject|null $certifies = [];
 
     public function __construct(
@@ -43,46 +43,142 @@ class Certfication extends WhatSubject implements ICertfication
     ) {
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
-        $this->certiferReference = $params['certiferReference'] ?? null;
-        $this->certificationScore = $params['certificationScore'] ?? null;
-        $this->operatorId = $params['operatorId'] ?? null;
+        $this->certiferReference = $params['certiferReference'] ?? [];
+        $this->certificationScore = $params['certificationScore'] ?? [];
+        $this->operatorId = $params['operatorId'] ?? [];
         $this->certifies = $params['certifies'] ?? [];
         $this->registerSemanticProperty('dfc-b:certiferReference', fn() => $this->certiferReference);
         $this->registerSemanticProperty('dfc-b:certificationScore', fn() => $this->certificationScore);
         $this->registerSemanticProperty('dfc-b:operatorId', fn() => $this->operatorId);
         $this->registerSemanticProperty('dfc-b:certifies', fn() => $this->certifies);
     }
-    public function getCertiferReference(): string|SemanticObject|array|null
+    public function getCertiferReference(): array|string|SemanticObject|null
     {
         return $this->certiferReference;
     }
 
-    public function setCertiferReference(string|SemanticObject|array|null $certiferReference): static
+    public function setCertiferReference(array|string|SemanticObject|null $certiferReference): static
     {
         $this->certiferReference = $certiferReference;
         return $this;
     }
 
-    public function getCertificationScore(): string|SemanticObject|array|null
+    public function addCertiferReference(string|SemanticObject $certiferReference): static
+    {
+        if ($this->certiferReference === null) {
+            $this->certiferReference = [];
+        } elseif (!is_array($this->certiferReference)) {
+            $this->certiferReference = [$this->certiferReference];
+        }
+        $this->certiferReference[] = $certiferReference;
+        return $this;
+    }
+
+    public function removeCertiferReference(string|SemanticObject $certiferReference): void
+    {
+        if ($this->certiferReference === null) {
+            return;
+        }
+        if (!is_array($this->certiferReference)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->certiferReference === $certiferReference) {
+                $this->certiferReference = [];
+            }
+            return;
+        }
+        $key = array_search($certiferReference, $this->certiferReference, true);
+        if ($key !== false) {
+            unset($this->certiferReference[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->certiferReference = array_values($this->certiferReference);
+        }
+    }
+
+    public function getCertificationScore(): array|string|SemanticObject|null
     {
         return $this->certificationScore;
     }
 
-    public function setCertificationScore(string|SemanticObject|array|null $certificationScore): static
+    public function setCertificationScore(array|string|SemanticObject|null $certificationScore): static
     {
         $this->certificationScore = $certificationScore;
         return $this;
     }
 
-    public function getOperatorId(): string|SemanticObject|array|null
+    public function addCertificationScore(string|SemanticObject $certificationScore): static
+    {
+        if ($this->certificationScore === null) {
+            $this->certificationScore = [];
+        } elseif (!is_array($this->certificationScore)) {
+            $this->certificationScore = [$this->certificationScore];
+        }
+        $this->certificationScore[] = $certificationScore;
+        return $this;
+    }
+
+    public function removeCertificationScore(string|SemanticObject $certificationScore): void
+    {
+        if ($this->certificationScore === null) {
+            return;
+        }
+        if (!is_array($this->certificationScore)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->certificationScore === $certificationScore) {
+                $this->certificationScore = [];
+            }
+            return;
+        }
+        $key = array_search($certificationScore, $this->certificationScore, true);
+        if ($key !== false) {
+            unset($this->certificationScore[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->certificationScore = array_values($this->certificationScore);
+        }
+    }
+
+    public function getOperatorId(): array|string|SemanticObject|null
     {
         return $this->operatorId;
     }
 
-    public function setOperatorId(string|SemanticObject|array|null $operatorId): static
+    public function setOperatorId(array|string|SemanticObject|null $operatorId): static
     {
         $this->operatorId = $operatorId;
         return $this;
+    }
+
+    public function addOperatorId(string|SemanticObject $operatorId): static
+    {
+        if ($this->operatorId === null) {
+            $this->operatorId = [];
+        } elseif (!is_array($this->operatorId)) {
+            $this->operatorId = [$this->operatorId];
+        }
+        $this->operatorId[] = $operatorId;
+        return $this;
+    }
+
+    public function removeOperatorId(string|SemanticObject $operatorId): void
+    {
+        if ($this->operatorId === null) {
+            return;
+        }
+        if (!is_array($this->operatorId)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->operatorId === $operatorId) {
+                $this->operatorId = [];
+            }
+            return;
+        }
+        $key = array_search($operatorId, $this->operatorId, true);
+        if ($key !== false) {
+            unset($this->operatorId[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->operatorId = array_values($this->operatorId);
+        }
     }
 
     public function getCertifies(): array|string|SemanticObject|null

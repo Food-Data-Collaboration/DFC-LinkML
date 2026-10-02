@@ -11,6 +11,7 @@ Object property from OWL: hasGeographicalOrigin
 - **Predicate**: `dfc-b:hasGeographicalOrigin`
 - **Range**: `string` (literal)
 - **Inverse**: `geographical_origin_of`
+- **Cardinality**: **Single-valued** — the ontology declares this property `owl:FunctionalProperty`, so it takes at most one value in every class.
 
 ## Declared domain
 

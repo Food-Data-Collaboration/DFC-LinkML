@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface Steppable
 {
-    public function getStep(): string|SemanticObject|array|null;
-    public function setStep(string|SemanticObject|array|null $step): static;
+    public function getStep(): array|string|SemanticObject|null;
+    public function setStep(array|string|SemanticObject|null $step): static;
+    public function addStep(string|SemanticObject $step): static;
+    public function removeStep(string|SemanticObject $step): void;
 }

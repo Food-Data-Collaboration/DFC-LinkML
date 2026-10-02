@@ -11,6 +11,7 @@ SKOS:Concept that details the container the product is supplied in (e.g.box, tin
 - **Predicate**: `dfc-b:hasContainerInformation`
 - **Range**: `string` (literal)
 - **Inverse**: `container_information_of`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

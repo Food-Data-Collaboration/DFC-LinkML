@@ -10,6 +10,7 @@ Deprecated onto v5.0
 
 - **Predicate**: `dfc-b:brand`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

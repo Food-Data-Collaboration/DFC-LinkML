@@ -34,14 +34,14 @@ export interface PhysicalProductParams extends WhatSubjectParams {
     /**
      * Serializes as `dfc-b:constituedBy`.
      */
-    constituedBy?: string;
+    constituedBy?: string[];
     /**
      * The ConsmuptionFlow by which the Product is transformed into other
      *   Products
      *
      * Serializes as `dfc-b:consumedBy`.
      */
-    consumedBy?: string;
+    consumedBy?: string[];
     /**
      * Serializes as `dfc-b:fulfills`.
      */
@@ -51,7 +51,7 @@ export interface PhysicalProductParams extends WhatSubjectParams {
      *
      * Serializes as `dfc-b:producedBy`.
      */
-    producedBy?: string;
+    producedBy?: string[];
     /**
      * The actual numeric value of the Price, in the currency unit specified
      *   with hasUnit
@@ -70,7 +70,7 @@ export interface PhysicalProductParams extends WhatSubjectParams {
     /**
      * Serializes as `dfc-b:tracedBy`.
      */
-    tracedBy?: ProductBatch | string;
+    tracedBy?: (ProductBatch | string)[];
 }
 /**
  * A DFC `dfc-b:PhysicalProduct`, serialized with `@type:
@@ -103,14 +103,14 @@ export declare class PhysicalProduct extends WhatSubject {
     /**
      * Serializes as `dfc-b:constituedBy`.
      */
-    constituedBy?: string;
+    constituedBy?: string[];
     /**
      * The ConsmuptionFlow by which the Product is transformed into other
      *   Products
      *
      * Serializes as `dfc-b:consumedBy`.
      */
-    consumedBy?: string;
+    consumedBy?: string[];
     /**
      * Serializes as `dfc-b:fulfills`.
      */
@@ -120,7 +120,7 @@ export declare class PhysicalProduct extends WhatSubject {
      *
      * Serializes as `dfc-b:producedBy`.
      */
-    producedBy?: string;
+    producedBy?: string[];
     /**
      * The actual numeric value of the Price, in the currency unit specified
      *   with hasUnit
@@ -139,6 +139,6 @@ export declare class PhysicalProduct extends WhatSubject {
     /**
      * Serializes as `dfc-b:tracedBy`.
      */
-    tracedBy?: ProductBatch | string;
+    tracedBy?: (ProductBatch | string)[];
     constructor(semanticId: string, params?: PhysicalProductParams);
 }

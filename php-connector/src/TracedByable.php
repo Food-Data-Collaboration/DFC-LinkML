@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface TracedByable
 {
-    public function getTracedBy(): ProductBatch|string|SemanticObject|array|null;
-    public function setTracedBy(ProductBatch|string|SemanticObject|array|null $tracedBy): static;
+    public function getTracedBy(): array|ProductBatch|string|SemanticObject|null;
+    public function setTracedBy(array|ProductBatch|string|SemanticObject|null $tracedBy): static;
+    public function addTracedBy(ProductBatch|string|SemanticObject $tracedBy): static;
+    public function removeTracedBy(ProductBatch|string|SemanticObject $tracedBy): void;
 }

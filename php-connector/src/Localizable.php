@@ -27,6 +27,6 @@ namespace DataFoodConsortium\Connector;
 
 interface Localizable
 {
-    public function getAddress(): Address|string|SemanticObject|array|null;
-    public function setAddress(Address|string|SemanticObject|array|null $address): static;
+    public function getAddress(): array|Address|string|SemanticObject|null;
+    public function setAddress(array|Address|string|SemanticObject|null $address): static;
 }

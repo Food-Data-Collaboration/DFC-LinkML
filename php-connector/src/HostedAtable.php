@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface HostedAtable
 {
-    public function getHostedAt(): Place|string|SemanticObject|array|null;
-    public function setHostedAt(Place|string|SemanticObject|array|null $hostedAt): static;
+    public function getHostedAt(): array|Place|string|SemanticObject|null;
+    public function setHostedAt(array|Place|string|SemanticObject|null $hostedAt): static;
+    public function addHostedAt(Place|string|SemanticObject $hostedAt): static;
+    public function removeHostedAt(Place|string|SemanticObject $hostedAt): void;
 }

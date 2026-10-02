@@ -10,6 +10,7 @@ Any conditions of carriage/transport required by the product (e.g. Fragile, do n
 
 - **Predicate**: `dfc-b:deliveryCondition`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

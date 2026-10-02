@@ -27,7 +27,7 @@ export interface OrderLineParams {
    *
    * Serializes as `dfc-b:concerns`.
    */
-  concerns?: string[];
+  concerns?: string;
   /**
    * The offered Price for the Product listed in the CatalogItem for this
    *   cateogry of Customer
@@ -105,7 +105,7 @@ export class OrderLine extends SemanticObject {
    *
    * Serializes as `dfc-b:concerns`.
    */
-  concerns?: string[];
+  concerns?: string;
   /**
    * The offered Price for the Product listed in the CatalogItem for this
    *   cateogry of Customer

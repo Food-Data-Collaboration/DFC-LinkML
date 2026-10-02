@@ -54,7 +54,7 @@ export interface SuppliedProductParams extends DefinedProductParams {
      *
      * Serializes as `dfc-b:producedBy`.
      */
-    producedBy?: string;
+    producedBy?: string[];
     /**
      * The Technical Product that is created to industrialize this Supplied
      *   Product
@@ -68,7 +68,7 @@ export interface SuppliedProductParams extends DefinedProductParams {
      *
      * Serializes as `dfc-b:referenceOf`.
      */
-    referenceOf?: LocalizedProduct | string;
+    referenceOf?: (LocalizedProduct | string)[];
     /**
      * The Enterprise that supplies the Product
      *
@@ -128,7 +128,7 @@ export declare class SuppliedProduct extends DefinedProduct {
      *
      * Serializes as `dfc-b:producedBy`.
      */
-    producedBy?: string;
+    producedBy?: string[];
     /**
      * The Technical Product that is created to industrialize this Supplied
      *   Product
@@ -142,7 +142,7 @@ export declare class SuppliedProduct extends DefinedProduct {
      *
      * Serializes as `dfc-b:referenceOf`.
      */
-    referenceOf?: LocalizedProduct | string;
+    referenceOf?: (LocalizedProduct | string)[];
     /**
      * The Enterprise that supplies the Product
      *

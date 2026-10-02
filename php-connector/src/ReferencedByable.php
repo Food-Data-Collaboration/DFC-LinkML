@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface ReferencedByable
 {
-    public function getReferencedBy(): CatalogItem|string|SemanticObject|array|null;
-    public function setReferencedBy(CatalogItem|string|SemanticObject|array|null $referencedBy): static;
+    public function getReferencedBy(): array|CatalogItem|string|SemanticObject|null;
+    public function setReferencedBy(array|CatalogItem|string|SemanticObject|null $referencedBy): static;
+    public function addReferencedBy(CatalogItem|string|SemanticObject $referencedBy): static;
+    public function removeReferencedBy(CatalogItem|string|SemanticObject $referencedBy): void;
 }

@@ -10,6 +10,7 @@ Data property from OWL: interval
 
 - **Predicate**: `dfc-b:interval`
 - **Range**: `integer` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

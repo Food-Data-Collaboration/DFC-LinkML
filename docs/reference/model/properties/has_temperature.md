@@ -11,6 +11,7 @@ The maximum storage temperature required by the product (e.g. +5º C )
 - **Predicate**: `dfc-b:hasTemperature`
 - **Range**: `string` (literal)
 - **Inverse**: `is_temperature_of`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

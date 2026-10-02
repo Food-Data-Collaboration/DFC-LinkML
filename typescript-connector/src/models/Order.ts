@@ -65,7 +65,7 @@ export interface OrderParams {
    *
    * Serializes as `dfc-b:uses`.
    */
-  uses?: string[];
+  uses?: string;
   /**
    * Serializes as `dfc-b:date`.
    */
@@ -100,7 +100,7 @@ export interface OrderParams {
    *
    * Serializes as `dfc-b:hasPart`.
    */
-  hasPart?: OrderLine | string;
+  hasPart?: (OrderLine | string)[];
   /**
    * Serializes as `dfc-b:orderedBy`.
    */
@@ -111,7 +111,7 @@ export interface OrderParams {
    *
    * Serializes as `dfc-b:selects`.
    */
-  selects?: (ShippingOption | string)[];
+  selects?: ShippingOption | string;
 }
 
 /**
@@ -179,7 +179,7 @@ export class Order extends SemanticObject {
    *
    * Serializes as `dfc-b:uses`.
    */
-  uses?: string[];
+  uses?: string;
   /**
    * Serializes as `dfc-b:date`.
    */
@@ -214,7 +214,7 @@ export class Order extends SemanticObject {
    *
    * Serializes as `dfc-b:hasPart`.
    */
-  hasPart?: OrderLine | string;
+  hasPart?: (OrderLine | string)[];
   /**
    * Serializes as `dfc-b:orderedBy`.
    */
@@ -225,7 +225,7 @@ export class Order extends SemanticObject {
    *
    * Serializes as `dfc-b:selects`.
    */
-  selects?: (ShippingOption | string)[];
+  selects?: ShippingOption | string;
 
   constructor(
     semanticId: string,

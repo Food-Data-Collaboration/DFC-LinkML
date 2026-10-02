@@ -33,8 +33,8 @@ class Variant extends DefinedProduct implements IVariant
 {
     public const SEMANTIC_TYPE = 'dfc-b:Variant';
 
-    private string|SemanticObject|array|null $isVariantOf = null;
-    private VariantCaracteristic|string|SemanticObject|array|null $variantCaracteristic = null;
+    private array|string|SemanticObject|null $isVariantOf = [];
+    private array|VariantCaracteristic|string|SemanticObject|null $variantCaracteristic = [];
 
     public function __construct(
         string $semanticId,
@@ -42,30 +42,94 @@ class Variant extends DefinedProduct implements IVariant
     ) {
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
-        $this->isVariantOf = $params['isVariantOf'] ?? null;
-        $this->variantCaracteristic = $params['variantCaracteristic'] ?? null;
+        $this->isVariantOf = $params['isVariantOf'] ?? [];
+        $this->variantCaracteristic = $params['variantCaracteristic'] ?? [];
         $this->registerSemanticProperty('dfc-b:isVariantOf', fn() => $this->isVariantOf);
         $this->registerSemanticProperty('dfc-b:hasVariantCaracteristic', fn() => $this->variantCaracteristic);
     }
-    public function getIsVariantOf(): string|SemanticObject|array|null
+    public function getIsVariantOf(): array|string|SemanticObject|null
     {
         return $this->isVariantOf;
     }
 
-    public function setIsVariantOf(string|SemanticObject|array|null $isVariantOf): static
+    public function setIsVariantOf(array|string|SemanticObject|null $isVariantOf): static
     {
         $this->isVariantOf = $isVariantOf;
         return $this;
     }
 
-    public function getVariantCaracteristic(): VariantCaracteristic|string|SemanticObject|array|null
+    public function addIsVariantOf(string|SemanticObject $isVariantOf): static
+    {
+        if ($this->isVariantOf === null) {
+            $this->isVariantOf = [];
+        } elseif (!is_array($this->isVariantOf)) {
+            $this->isVariantOf = [$this->isVariantOf];
+        }
+        $this->isVariantOf[] = $isVariantOf;
+        return $this;
+    }
+
+    public function removeIsVariantOf(string|SemanticObject $isVariantOf): void
+    {
+        if ($this->isVariantOf === null) {
+            return;
+        }
+        if (!is_array($this->isVariantOf)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->isVariantOf === $isVariantOf) {
+                $this->isVariantOf = [];
+            }
+            return;
+        }
+        $key = array_search($isVariantOf, $this->isVariantOf, true);
+        if ($key !== false) {
+            unset($this->isVariantOf[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->isVariantOf = array_values($this->isVariantOf);
+        }
+    }
+
+    public function getVariantCaracteristic(): array|VariantCaracteristic|string|SemanticObject|null
     {
         return $this->variantCaracteristic;
     }
 
-    public function setVariantCaracteristic(VariantCaracteristic|string|SemanticObject|array|null $variantCaracteristic): static
+    public function setVariantCaracteristic(array|VariantCaracteristic|string|SemanticObject|null $variantCaracteristic): static
     {
         $this->variantCaracteristic = $variantCaracteristic;
         return $this;
+    }
+
+    public function addVariantCaracteristic(VariantCaracteristic|string|SemanticObject $variantCaracteristic): static
+    {
+        if ($this->variantCaracteristic === null) {
+            $this->variantCaracteristic = [];
+        } elseif (!is_array($this->variantCaracteristic)) {
+            $this->variantCaracteristic = [$this->variantCaracteristic];
+        }
+        $this->variantCaracteristic[] = $variantCaracteristic;
+        return $this;
+    }
+
+    public function removeVariantCaracteristic(VariantCaracteristic|string|SemanticObject $variantCaracteristic): void
+    {
+        if ($this->variantCaracteristic === null) {
+            return;
+        }
+        if (!is_array($this->variantCaracteristic)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->variantCaracteristic === $variantCaracteristic) {
+                $this->variantCaracteristic = [];
+            }
+            return;
+        }
+        $key = array_search($variantCaracteristic, $this->variantCaracteristic, true);
+        if ($key !== false) {
+            unset($this->variantCaracteristic[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->variantCaracteristic = array_values($this->variantCaracteristic);
+        }
     }
 }

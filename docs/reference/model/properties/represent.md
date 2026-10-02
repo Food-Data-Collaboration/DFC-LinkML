@@ -11,6 +11,7 @@ Object property from OWL: represent
 - **Predicate**: `dfc-b:represent`
 - **Range**: `RepresentedThing` (a DFC class)
 - **Target type**: [`RepresentedThing`](../classes/RepresentedThing.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Notes
 

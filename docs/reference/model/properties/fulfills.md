@@ -11,6 +11,7 @@ Object property from OWL: fulfills
 - **Predicate**: `dfc-b:fulfills`
 - **Range**: `string` (literal)
 - **Inverse**: `is_fulfilled_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

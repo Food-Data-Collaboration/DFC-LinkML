@@ -10,6 +10,7 @@ Any discount applied to the Price
 
 - **Predicate**: `dfc-b:discount`
 - **Range**: `float` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

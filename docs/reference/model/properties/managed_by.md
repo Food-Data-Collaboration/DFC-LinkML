@@ -12,6 +12,7 @@ The Enterprise that manages the CatalogItem (may differ from the owner of the Pr
 - **Range**: `Organization` (a DFC class)
 - **Target type**: [`Organization`](../classes/Organization.md)
 - **Inverse**: `manages`
+- **Cardinality**: **Single-valued on `CatalogItem`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

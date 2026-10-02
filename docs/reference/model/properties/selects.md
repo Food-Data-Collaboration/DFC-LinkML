@@ -12,6 +12,7 @@ The method of shipping selected for the ORder (e.g. Overnight courier, same-day 
 - **Range**: `ShippingOption` (a DFC class)
 - **Target type**: [`ShippingOption`](../classes/ShippingOption.md)
 - **Inverse**: `selected_by`
+- **Cardinality**: **Single-valued on `Order`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

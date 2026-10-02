@@ -12,6 +12,7 @@ Object property from OWL: identifies
 - **Range**: `RealStock` (a DFC class)
 - **Target type**: [`RealStock`](../classes/RealStock.md)
 - **Inverse**: `identified_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

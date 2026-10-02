@@ -10,6 +10,7 @@ Any constraints (time or physical) that are applied to the delivery (e.g. "9am-5
 
 - **Predicate**: `dfc-b:deliveryConstraint`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

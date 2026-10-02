@@ -12,6 +12,7 @@ Any real stock that is associated with this location
 - **Range**: `RealStock` (a DFC class)
 - **Target type**: [`RealStock`](../classes/RealStock.md)
 - **Inverse**: `stored_in`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

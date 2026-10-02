@@ -11,6 +11,7 @@ SKOS:Concept that details any certification the product holds (e.g. Organic, Bio
 - **Predicate**: `dfc-b:hasCertification`
 - **Range**: `string` (literal)
 - **Inverse**: `certificate_of`
+- **Cardinality**: **Single-valued** — the ontology declares this property `owl:FunctionalProperty`, so it takes at most one value in every class.
 
 ## Declared domain
 

@@ -12,6 +12,7 @@ The (1 & only 1) CatalogItem that this Offer relates to
 - **Range**: `CatalogItem` (a DFC class)
 - **Target type**: [`CatalogItem`](../classes/CatalogItem.md)
 - **Inverse**: `offered_through`
+- **Cardinality**: **Single-valued on `Offer`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

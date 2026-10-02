@@ -11,6 +11,7 @@ The Product Type grouping for the Product, for more detail see Taxonomies/Produc
 - **Predicate**: `dfc-b:hasType`
 - **Range**: `string` (literal)
 - **Inverse**: `type_of`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

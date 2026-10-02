@@ -11,6 +11,7 @@ Object property from OWL: claimOf
 - **Predicate**: `dfc-b:claimOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_claim`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

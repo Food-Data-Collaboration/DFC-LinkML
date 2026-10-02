@@ -25,6 +25,9 @@ import sys
 import yaml
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cardinality  # noqa: E402
+
 
 def parse_schema(schema_path: str) -> dict:
     """Parse LinkML schema."""
@@ -392,26 +395,13 @@ def ruby_type_for_slot(slot_data: dict, schema_data: dict) -> str:
         return 'String'
 
 
-def is_collection_property(slot_name: str, slot_data: dict) -> bool:
-    """Determine if a property should be an array (collection)."""
-    if slot_data.get('multivalued', False):
-        return True
-    name = slot_name.lower()
-    collection_indicators = [
-        'characteristics', 'claims', 'certifications', 'catalogitems',
-        'suppliedproducts', 'technicalproducts', 'customercategories',
-        'catalogs', 'variants', 'images', 'localizations', 'phonenumbers',
-        'socialmedias', 'websites', 'emails', 'offers', 'orderlines',
-        'steps', 'inputs', 'outputs',
-    ]
-    for indicator in collection_indicators:
-        if indicator in name:
-            return True
-    if name.endswith('s') and not name.endswith('ss') and not name.endswith('us'):
-        return True
-    if name.endswith('ies'):
-        return True
-    return False
+def is_collection_property(slot_name: str, slot_data: dict, class_usage: dict = None) -> bool:
+    """Determine if a property should be an array (collection).
+
+    Delegates to `scripts/cardinality.py` so the three generators cannot
+    drift apart; see that module for the resolution order.
+    """
+    return cardinality.is_collection_property(slot_name, slot_data, class_usage)
 
 
 # ---------------------------------------------------------------------------
@@ -1210,7 +1200,7 @@ module DfcLinkmlConnector
             continue
         seen_ruby_props.add(prop_name)
         rtype = ruby_type_for_slot(slot_data, schema_data)
-        is_collection = is_collection_property(slot_name, slot_data)
+        is_collection = is_collection_property(slot_name, slot_data, cardinality.usage_for(schema_data, owner))
         if owner == class_name:
             if is_collection:
                 code += f'      # @return [Array<{rtype}>]\n'

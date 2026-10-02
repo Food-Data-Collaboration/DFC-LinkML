@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface HasPhoneNumberable
 {
-    public function getHasPhoneNumber(): string|SemanticObject|array|null;
-    public function setHasPhoneNumber(string|SemanticObject|array|null $hasPhoneNumber): static;
+    public function getHasPhoneNumber(): array|string|SemanticObject|null;
+    public function setHasPhoneNumber(array|string|SemanticObject|null $hasPhoneNumber): static;
+    public function addHasPhoneNumber(string|SemanticObject $hasPhoneNumber): static;
+    public function removeHasPhoneNumber(string|SemanticObject $hasPhoneNumber): void;
 }

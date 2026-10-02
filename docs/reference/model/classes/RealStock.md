@@ -24,5 +24,5 @@ Class from DFC Business Ontology: #RealStock
 
 ## Notes
 
-- The schema carries no `required` or `multivalued` flags, so this page does not state either. Cardinality is decided by the connector generators from the property name, which is a heuristic — do not rely on it for validation.
+- **`maximum_cardinality: 1`** on `constitutes`, `identified_by`, `stored_in`. The ontology restricts this class to exactly one value, so the generated property is a scalar. Subclasses that do not repeat the restriction inherit the cap.
 - `dfc-b:Class:property` local names are never emitted. Predicates are always the original short form.

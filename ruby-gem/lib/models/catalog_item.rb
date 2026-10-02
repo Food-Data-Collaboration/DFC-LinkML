@@ -42,15 +42,15 @@ module DfcLinkmlConnector
       # @return [Organization, String]
       attr_accessor :managed_by
 
-      # @return [Offer, String]
+      # @return [Array<Offer, String>]
       attr_accessor :offered_through
 
-      # @return [Array<DefinedProduct, String>]
+      # @return [DefinedProduct, String]
       attr_accessor :references
 
       # @param semanticId [String]
-      # @param extraAvailabilityTime: nil, extraDeliveryCondition: nil, sku: nil, stockLimitation: nil, listedIn: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, managedBy: nil, offeredThrough: nil, references: []
-      def initialize(semanticId, extraAvailabilityTime: nil, extraDeliveryCondition: nil, sku: nil, stockLimitation: nil, listedIn: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, managedBy: nil, offeredThrough: nil, references: [])
+      # @param extraAvailabilityTime: nil, extraDeliveryCondition: nil, sku: nil, stockLimitation: nil, listedIn: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, managedBy: nil, offeredThrough: [], references: nil
+      def initialize(semanticId, extraAvailabilityTime: nil, extraDeliveryCondition: nil, sku: nil, stockLimitation: nil, listedIn: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, managedBy: nil, offeredThrough: [], references: nil)
         super(semanticId)
         @extra_availability_time = extraAvailabilityTime
         @extra_delivery_condition = extraDeliveryCondition

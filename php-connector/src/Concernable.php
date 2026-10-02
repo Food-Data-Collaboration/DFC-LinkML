@@ -29,6 +29,4 @@ interface Concernable
 {
     public function getConcerns(): array|string|SemanticObject|null;
     public function setConcerns(array|string|SemanticObject|null $concerns): static;
-    public function addConcerns(string|SemanticObject $concerns): static;
-    public function removeConcerns(string|SemanticObject $concerns): void;
 }

@@ -22,6 +22,7 @@ REQUIRED_PAGES = [
     'index.md',
     'identifiers.md',
     'relationships.md',
+    'cardinality.md',
     'context-and-versioning.md',
     'vocabularies.md',
     'validation.md',
@@ -161,6 +162,36 @@ def test_shape_rule_has_exactly_one_home():
     # The index must point at it rather than restate it.
     index = read(CONCEPTS / 'index.md')
     assert '](relationships.md)' in index, 'index should link to relationships.md'
+
+
+def test_cardinality_rule_has_exactly_one_home():
+    """cardinality.md owns the singleton/collection rule.
+
+    validation.md used to explain it, wrongly, when the schema modelled no
+    cardinality at all. It may now point at cardinality.md but must not become
+    a second explanation, or the two will drift.
+    """
+    owners = []
+    for page in CONCEPTS.glob('*.md'):
+        if page.name in ('index.md', 'cardinality.md'):
+            continue
+        text = read(page)
+        if 'FunctionalProperty' in text or 'slot_usage' in text:
+            owners.append(page.name)
+    assert owners == ['validation.md'], (
+        f'the cardinality rule is also explained in: {owners}'
+    )
+    # validation.md must defer rather than restate the resolution order.
+    assert 'cardinality.md' in read(CONCEPTS / 'validation.md'), (
+        'validation.md should point at cardinality.md'
+    )
+
+
+def test_cardinality_page_states_the_resolution_order():
+    text = read(CONCEPTS / 'cardinality.md')
+    for needed in ('owl:FunctionalProperty', 'slot_usage', 'owl:maxCardinality',
+                   'multivalued', 'config/dfc-default.yaml'):
+        assert needed in text, f'cardinality.md should mention {needed}'
 
 
 def test_vocabularies_page_points_at_bundled_data():

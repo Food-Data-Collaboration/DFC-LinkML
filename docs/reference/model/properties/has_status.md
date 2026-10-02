@@ -10,6 +10,7 @@ Object property from OWL: hasStatus
 
 - **Predicate**: `dfc-b:hasStatus`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Notes
 

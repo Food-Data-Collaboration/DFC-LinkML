@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface SocialMediable
 {
-    public function getSocialMedia(): string|SemanticObject|array|null;
-    public function setSocialMedia(string|SemanticObject|array|null $socialMedia): static;
+    public function getSocialMedia(): array|string|SemanticObject|null;
+    public function setSocialMedia(array|string|SemanticObject|null $socialMedia): static;
+    public function addSocialMedia(string|SemanticObject $socialMedia): static;
+    public function removeSocialMedia(string|SemanticObject $socialMedia): void;
 }

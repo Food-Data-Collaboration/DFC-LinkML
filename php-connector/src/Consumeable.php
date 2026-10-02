@@ -27,8 +27,6 @@ namespace DataFoodConsortium\Connector;
 
 interface Consumeable
 {
-    public function getConsumes(): array|string|SemanticObject|null;
-    public function setConsumes(array|string|SemanticObject|null $consumes): static;
-    public function addConsumes(string|SemanticObject $consumes): static;
-    public function removeConsumes(string|SemanticObject $consumes): void;
+    public function getConsumes(): string|SemanticObject|array|null;
+    public function setConsumes(string|SemanticObject|array|null $consumes): static;
 }

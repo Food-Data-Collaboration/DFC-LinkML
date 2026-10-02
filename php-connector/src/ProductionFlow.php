@@ -34,7 +34,7 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
 
     private float|string|SemanticObject|array|null $quantity = null;
     private string|SemanticObject|array|null $outputOf = null;
-    private array|string|SemanticObject|null $produces = [];
+    private string|SemanticObject|array|null $produces = null;
     private string|SemanticObject|array|null $date = null;
     private string|SemanticObject|array|null $description = null;
     private string|SemanticObject|array|null $name = null;
@@ -50,7 +50,7 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->quantity = $params['quantity'] ?? null;
         $this->outputOf = $params['outputOf'] ?? null;
-        $this->produces = $params['produces'] ?? [];
+        $this->produces = $params['produces'] ?? null;
         $this->date = $params['date'] ?? null;
         $this->description = $params['description'] ?? null;
         $this->name = $params['name'] ?? null;
@@ -89,47 +89,15 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
         return $this;
     }
 
-    public function getProduces(): array|string|SemanticObject|null
+    public function getProduces(): string|SemanticObject|array|null
     {
         return $this->produces;
     }
 
-    public function setProduces(array|string|SemanticObject|null $produces): static
+    public function setProduces(string|SemanticObject|array|null $produces): static
     {
         $this->produces = $produces;
         return $this;
-    }
-
-    public function addProduces(string|SemanticObject $produces): static
-    {
-        if ($this->produces === null) {
-            $this->produces = [];
-        } elseif (!is_array($this->produces)) {
-            $this->produces = [$this->produces];
-        }
-        $this->produces[] = $produces;
-        return $this;
-    }
-
-    public function removeProduces(string|SemanticObject $produces): void
-    {
-        if ($this->produces === null) {
-            return;
-        }
-        if (!is_array($this->produces)) {
-            // Singular shape (setX stored a scalar as-is): clear on match.
-            if ($this->produces === $produces) {
-                $this->produces = [];
-            }
-            return;
-        }
-        $key = array_search($produces, $this->produces, true);
-        if ($key !== false) {
-            unset($this->produces[$key]);
-            // Reindex: unset leaves gaps in numeric keys, which json_encode
-            // would emit as an object instead of an array (shape change).
-            $this->produces = array_values($this->produces);
-        }
     }
 
     public function getDate(): string|SemanticObject|array|null

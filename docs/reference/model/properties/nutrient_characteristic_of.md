@@ -11,6 +11,7 @@ Object property from OWL: nutrientCharacteristicOf
 - **Predicate**: `dfc-b:nutrientCharacteristicOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_nutrient_characteristic`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

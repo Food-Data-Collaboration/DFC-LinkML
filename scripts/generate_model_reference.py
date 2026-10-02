@@ -14,11 +14,14 @@ Design notes:
   enough to derive. The reference therefore links to the migration guide for
   the per-language name rather than guessing.
 
-- The schema carries no `required` or `multivalued` flags, so the reference
-  does not claim any. Cardinality is decided at generation time by the
-  connector generators (heuristically, from the property name), which is
-  recorded on each property page as a caveat rather than presented as
-  modelled fact.
+- Cardinality is modelled, but only as far as the ontology states it. The
+  converter reads 42 class-scoped `rdfs:subClassOf` restrictions into
+  `slot_usage` and 34 `owl:FunctionalProperty` declarations into a slot-level
+  `maximum_cardinality: 1`. DFC declares no `owl:maxCardinality` anywhere, so
+  the collection side is not derivable: it comes from the curated list in
+  `config/dfc-default.yaml` plus, for the remainder, the plural-name
+  heuristic. The pages label which is which rather than presenting all three
+  as ontology fact.
 
 - Enum values are not in the schema: the five controlled vocabularies are
   external SKOS taxonomies reached via `reachable_from`. The pages list the
@@ -68,6 +71,90 @@ INTERNAL_SLOT_PREFIXES = ('name_parts',)
 def load_schema(path: Path) -> dict:
     with open(path, encoding='utf-8') as fh:
         return yaml.safe_load(fh)
+
+
+def cardinality_notes(schema: dict, usage: dict) -> str:
+    """The cardinality this class actually declares, as a note.
+
+    Two different sources, and conflating them is what the old caveat was for:
+    a class-scoped `slot_usage` entry comes from an OWL restriction in the
+    ontology and is a real constraint; anything else is the curated n side or
+    the plural-name heuristic and is not.
+    """
+    capped = sorted(
+        slot for slot, bounds in (usage or {}).items()
+        if bounds.get('maximum_cardinality') == 1
+    )
+    lines = []
+    if capped:
+        lines.append(
+            '- **`maximum_cardinality: 1`** on '
+            + ', '.join(f'`{s}`' for s in capped)
+            + '. The ontology restricts this class to exactly one value, so the '
+            'generated property is a scalar. Subclasses that do not repeat the '
+            'restriction inherit the cap.\n'
+        )
+    inherited = sorted(
+        slot for slot, bounds in (usage or {}).items()
+        if bounds.get('minimum_cardinality', 0) >= 1
+        and bounds.get('maximum_cardinality') != 1
+    )
+    if inherited:
+        lines.append(
+            '- **`minimum_cardinality: 1`** on '
+            + ', '.join(f'`{s}`' for s in inherited)
+            + '. `validate()` reports the property when it is absent; the '
+            'connector constructors stay permissive.\n'
+        )
+    if not lines:
+        lines.append(
+            '- The ontology states no cardinality for this class, so none is '
+            'claimed here. Where a property is a collection, that comes from '
+            'the curated list in `config/dfc-default.yaml` or from the '
+            'plural-name heuristic — neither is an ontology fact.\n'
+        )
+    return ''.join(lines)
+
+
+def slot_cardinality(slot_name: str, slot: dict, schema: dict) -> str:
+    """One line describing a property's cardinality, for its own page."""
+    slot = slot or {}
+    slot_level = slot.get('maximum_cardinality') == 1
+    multivalued = bool(slot.get('multivalued'))
+
+    restricted_on = sorted(
+        name for name, definition in (schema.get('classes') or {}).items()
+        if slot_name in ((definition.get('slot_usage') or {}))
+    )
+    parts = []
+    if slot_level:
+        parts.append(
+            '**Single-valued** — the ontology declares this property '
+            '`owl:FunctionalProperty`, so it takes at most one value in every '
+            'class.'
+        )
+    elif restricted_on:
+        parts.append(
+            '**Single-valued on ' + ', '.join(f'`{c}`' for c in restricted_on)
+            + '** — the ontology restricts those classes to exactly one value. '
+            + 'On '
+            + ('that class' if len(restricted_on) == 1 else 'those classes')
+            + ' the property is a scalar; elsewhere it may be a collection, '
+            'because the ontology is silent.'
+        )
+    elif multivalued:
+        parts.append(
+            '**Collection** — the ontology states no upper bound for this '
+            'property, so it takes several values. This comes from the curated '
+            'list in `config/dfc-default.yaml`, verified against the original '
+            'DFC v2 connectors; it is not derived from the ontology.'
+        )
+    else:
+        parts.append(
+            '**Scalar** — the ontology states no upper bound and the property '
+            'is not in the curated collection list.'
+        )
+    return ' '.join(parts)
 
 
 def slug(name: str) -> str:
@@ -255,6 +342,8 @@ def class_page(name: str, schema: dict, classes: dict, slots: dict) -> str:
     if is_deprecated(cls or {}):
         return deprecated_class_page(name, cls, classes)
 
+    usage = (cls or {}).get('slot_usage') or {}
+
     chain = parents_of(name, classes)
     children = [c for c in direct_children_of(name, classes)
                 if not is_deprecated((classes.get(c) or {}))]
@@ -315,11 +404,8 @@ def class_page(name: str, schema: dict, classes: dict, slots: dict) -> str:
     )
     sections.append(
         '## Notes\n\n'
-        '- The schema carries no `required` or `multivalued` flags, so this '
-        'page does not state either. Cardinality is decided by the connector '
-        'generators from the property name, which is a heuristic — do not rely '
-        'on it for validation.\n'
-        '- `dfc-b:Class:property` local names are never emitted. Predicates '
+        + cardinality_notes(schema, usage)
+        + '- `dfc-b:Class:property` local names are never emitted. Predicates '
         'are always the original short form.\n'
     )
 
@@ -371,6 +457,9 @@ def property_page(name: str, schema: dict, classes: dict, slots: dict) -> str:
         )
     if inverse:
         definition.append(f'- **Inverse**: `{inverse}`\n')
+    definition.append(
+        f'- **Cardinality**: {slot_cardinality(name, slot, schema)}\n'
+    )
     sections.append(''.join(definition))
     if domains:
         sections.append(

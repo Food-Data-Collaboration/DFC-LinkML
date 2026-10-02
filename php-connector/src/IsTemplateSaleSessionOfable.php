@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface IsTemplateSaleSessionOfable
 {
-    public function getIsTemplateSaleSessionOf(): string|SemanticObject|array|null;
-    public function setIsTemplateSaleSessionOf(string|SemanticObject|array|null $isTemplateSaleSessionOf): static;
+    public function getIsTemplateSaleSessionOf(): array|string|SemanticObject|null;
+    public function setIsTemplateSaleSessionOf(array|string|SemanticObject|null $isTemplateSaleSessionOf): static;
+    public function addIsTemplateSaleSessionOf(string|SemanticObject $isTemplateSaleSessionOf): static;
+    public function removeIsTemplateSaleSessionOf(string|SemanticObject $isTemplateSaleSessionOf): void;
 }

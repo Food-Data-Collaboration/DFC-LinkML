@@ -10,6 +10,7 @@ The Sales Tax (VAT) rate associated with the Price, given as a percentage value 
 
 - **Predicate**: `dfc-b:VATrate`
 - **Range**: `float` (literal)
+- **Cardinality**: **Single-valued** — the ontology declares this property `owl:FunctionalProperty`, so it takes at most one value in every class.
 
 ## Declared domain
 

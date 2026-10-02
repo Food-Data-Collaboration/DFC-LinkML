@@ -12,7 +12,7 @@ export interface SocialMediaParams extends WhatSubjectParams {
      *
      * Serializes as `dfc-b:websitePage`.
      */
-    websitePage?: string;
+    websitePage?: string[];
     /**
      * Serializes as `dfc-b:socialMediaOf`.
      */
@@ -30,7 +30,7 @@ export declare class SocialMedia extends WhatSubject {
      *
      * Serializes as `dfc-b:websitePage`.
      */
-    websitePage?: string;
+    websitePage?: string[];
     /**
      * Serializes as `dfc-b:socialMediaOf`.
      */

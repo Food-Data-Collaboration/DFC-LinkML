@@ -10,6 +10,7 @@ The date/time that the Sales Session starts
 
 - **Predicate**: `dfc-b:startDate`
 - **Range**: `datetime` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

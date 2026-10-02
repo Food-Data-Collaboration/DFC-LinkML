@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface ReferenceProductOptionable
 {
-    public function getReferenceProductOption(): ProductOption|string|SemanticObject|array|null;
-    public function setReferenceProductOption(ProductOption|string|SemanticObject|array|null $referenceProductOption): static;
+    public function getReferenceProductOption(): array|ProductOption|string|SemanticObject|null;
+    public function setReferenceProductOption(array|ProductOption|string|SemanticObject|null $referenceProductOption): static;
+    public function addReferenceProductOption(ProductOption|string|SemanticObject $referenceProductOption): static;
+    public function removeReferenceProductOption(ProductOption|string|SemanticObject $referenceProductOption): void;
 }

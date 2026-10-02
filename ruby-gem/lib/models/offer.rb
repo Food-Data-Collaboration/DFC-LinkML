@@ -39,15 +39,15 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
-      # @return [Array<CatalogItem, String>]
+      # @return [CatalogItem, String]
       attr_accessor :offers
 
-      # @return [Array<CustomerCategory, String>]
+      # @return [CustomerCategory, String]
       attr_accessor :offers_to
 
       # @param semanticId [String]
-      # @param discount: nil, stockLimitation: nil, concernedBy: nil, price: nil, listedIn: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, offers: [], offersTo: []
-      def initialize(semanticId, discount: nil, stockLimitation: nil, concernedBy: nil, price: nil, listedIn: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, offers: [], offersTo: [])
+      # @param discount: nil, stockLimitation: nil, concernedBy: nil, price: nil, listedIn: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, offers: nil, offersTo: nil
+      def initialize(semanticId, discount: nil, stockLimitation: nil, concernedBy: nil, price: nil, listedIn: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, offers: nil, offersTo: nil)
         super(semanticId)
         @discount = discount
         @stock_limitation = stockLimitation

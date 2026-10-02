@@ -10,6 +10,7 @@ The Region (adminstrative district below Country) the Address is located within
 
 - **Predicate**: `dfc-b:region`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

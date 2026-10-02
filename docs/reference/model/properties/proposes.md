@@ -12,6 +12,7 @@ All TechnicalProducts proposed by the Enterprise
 - **Range**: `TechnicalProduct` (a DFC class)
 - **Target type**: [`TechnicalProduct`](../classes/TechnicalProduct.md)
 - **Inverse**: `proposed_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

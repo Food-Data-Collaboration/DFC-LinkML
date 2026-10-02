@@ -19,7 +19,7 @@ export interface PickupOptionParams extends ShippingOptionParams {
    *
    * Serializes as `dfc-b:uses`.
    */
-  uses?: string[];
+  uses?: string;
 }
 
 /**
@@ -42,7 +42,7 @@ export class PickupOption extends ShippingOption {
    *
    * Serializes as `dfc-b:uses`.
    */
-  uses?: string[];
+  uses?: string;
 
   constructor(
     semanticId: string,

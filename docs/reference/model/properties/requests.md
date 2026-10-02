@@ -12,6 +12,7 @@ Any & all Functional Products that are requested by the Agent
 - **Range**: `FunctionalProduct` (a DFC class)
 - **Target type**: [`FunctionalProduct`](../classes/FunctionalProduct.md)
 - **Inverse**: `requested_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

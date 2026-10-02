@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface RepresentedByable
 {
-    public function getRepresentedBy(): PhysicalProduct|string|SemanticObject|array|null;
-    public function setRepresentedBy(PhysicalProduct|string|SemanticObject|array|null $representedBy): static;
+    public function getRepresentedBy(): array|PhysicalProduct|string|SemanticObject|null;
+    public function setRepresentedBy(array|PhysicalProduct|string|SemanticObject|null $representedBy): static;
+    public function addRepresentedBy(PhysicalProduct|string|SemanticObject $representedBy): static;
+    public function removeRepresentedBy(PhysicalProduct|string|SemanticObject $representedBy): void;
 }

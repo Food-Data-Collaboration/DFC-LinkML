@@ -22,6 +22,8 @@ import yaml
 
 REPO = Path(__file__).resolve().parent.parent
 MODEL = REPO / 'docs' / 'reference' / 'model'
+CLASSES = MODEL / 'classes'
+PROPS = MODEL / 'properties'
 SCHEMA = REPO / 'src' / 'dfc_business_linkml_v2_0.yaml'
 
 sys.path.insert(0, str(REPO))
@@ -112,16 +114,71 @@ def test_predicate_matches_the_connector():
             )
 
 
-def test_no_unmodelled_cardinality_is_claimed():
-    """The schema has no required/multivalued flags, so the docs must not assert them."""
+def test_property_pages_state_cardinality_matching_the_schema():
+    """Every property page states a cardinality, and it matches the schema.
+
+    This used to be the inverse: it asserted the docs claimed *no* cardinality,
+    because the schema modelled none. The converter now records it, so the risk
+    has inverted -- a page that stays silent, or that contradicts the schema, is
+    the defect worth failing on.
+    """
+    sch = schema()
+    slots = sch['slots']
     offenders = []
-    for page in MODEL.rglob('*.md'):
+    for name, slot in slots.items():
+        # Deprecated properties get a stub page with no Definition section --
+        # they are excluded from the tables so a reader finds what to use.
+        if (slot or {}).get('deprecated'):
+            continue
+        page = PROPS / f'{name}.md'
+        if not page.is_file():
+            continue
         text = page.read_text(encoding='utf-8')
-        for pat in (r'\*\*Required\*\*', r'\*\*Multivalued\*\*', r'\brequired:\s*(true|yes)'):
-            if re.search(pat, text, re.I):
-                offenders.append(f'{page.relative_to(MODEL)}: {pat}')
+        match = re.search(r'- \*\*Cardinality\*\*: (.+)', text)
+        if not match:
+            offenders.append(f'{name}: no cardinality line')
+            continue
+        line = match.group(1)
+        capped_everywhere = slot.get('maximum_cardinality') == 1
+        restricted_on = sorted(
+            c for c, d in sch['classes'].items()
+            if name in (d.get('slot_usage') or {})
+        )
+        if capped_everywhere:
+            # Also class-restricted in two cases; the global cap is the stronger
+            # claim, so short-circuit rather than testing both.
+            if '**Single-valued**' not in line:
+                offenders.append(f'{name}: capped at 1 everywhere but page says otherwise')
+        elif restricted_on:
+            if '**Single-valued on' not in line:
+                offenders.append(f'{name}: restricted on {restricted_on} but page says otherwise')
+        else:
+            # Neither capped nor restricted: the page must still say which way
+            # it falls, and must not imply the ontology settled it.
+            if not ('**Collection**' in line or '**Scalar**' in line):
+                offenders.append(f'{name}: page states no collection/scalar claim: {line[:80]}')
     assert not offenders, (
-        'reference asserts cardinality the schema does not model:\n'
+        'reference cardinality disagrees with the schema:\n'
+        + '\n'.join(offenders[:15])
+    )
+
+
+def test_collection_pages_do_not_claim_ontology_authority():
+    """A collection claim must name its real source.
+
+    The ontology states no `owl:maxCardinality` at all, so a page may never say
+    a property is a collection *because the ontology says so*.
+    """
+    offenders = []
+    for page in PROPS.rglob('*.md'):
+        text = page.read_text(encoding='utf-8')
+        for line in text.splitlines():
+            if '**Collection**' not in line:
+                continue
+            if 'ontology states no upper bound' not in line or 'curated' not in line:
+                offenders.append(f'{page.relative_to(MODEL)}: {line.strip()[:110]}')
+    assert not offenders, (
+        'collection cardinality presented as ontology fact:\n'
         + '\n'.join(offenders[:10])
     )
 

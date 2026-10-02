@@ -11,6 +11,7 @@ All Items (which refer to a SuppliedProduct) that are part of the Catalog
 - **Predicate**: `dfc-b:lists`
 - **Range**: `string` (literal)
 - **Inverse**: `listed_in`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

@@ -24,6 +24,9 @@ import sys
 import yaml
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cardinality  # noqa: E402
+
 # Publish identity, shared with the TypeScript and Ruby packages.
 PACKAGIST_PACKAGE_NAME = "siol-data/linkml-connector"
 REPO_HOMEPAGE = "https://github.com/Food-Data-Collaboration/DFC-LinkML"
@@ -358,25 +361,13 @@ def php_nullable(ptype: str) -> str:
     return f'{ptype}|array|null'
 
 
-def is_collection_property(slot_name: str, slot_data: dict) -> bool:
-    if slot_data.get('multivalued', False):
-        return True
-    name = slot_name.lower()
-    collection_indicators = [
-        'characteristics', 'claims', 'certifications', 'catalogitems',
-        'suppliedproducts', 'technicalproducts', 'customercategories',
-        'catalogs', 'variants', 'images', 'localizations', 'phonenumbers',
-        'socialmedias', 'websites', 'emails', 'offers', 'orderlines',
-        'steps', 'inputs', 'outputs',
-    ]
-    for indicator in collection_indicators:
-        if indicator in name:
-            return True
-    if name.endswith('s') and not name.endswith('ss') and not name.endswith('us'):
-        return True
-    if name.endswith('ies'):
-        return True
-    return False
+def is_collection_property(slot_name: str, slot_data: dict, class_usage: dict = None) -> bool:
+    """True when the property must accept several values.
+
+    Delegates to `scripts/cardinality.py` so the three generators cannot
+    drift apart; see that module for the resolution order.
+    """
+    return cardinality.is_collection_property(slot_name, slot_data, class_usage)
 
 
 def interface_name_for_slot(slot_name: str) -> str:
@@ -1168,10 +1159,24 @@ def generate_trait_interface(interface_name: str, slot_names: list, schema_data:
         slot_data = slots.get(slot_name, {})
         prop_name = to_php_property_name(slot_name, slots)
         range_type = php_type_for_slot(slot_data, schema_data)
-        is_collection = is_collection_property(slot_name, slot_data)
+        # Derive the signature from the classes that declare the slot, never from
+        # the unscoped heuristic: a trait has to be satisfied by every one of them.
+        shapes = cardinality.shapes_across_classes(schema_data, slot_name)
         cap = prop_name[0].upper() + prop_name[1:]
 
-        if is_collection:
+        if len(shapes) > 1:
+            # A scalar is not a subtype of an array, so the trait must promise
+            # the union and let each model narrow it. `add*`/`remove*` exist only
+            # on the collection side, so they cannot be promised here at all.
+            union = php_collection_type(range_type)
+            for line in (
+                f'    public function get{cap}(): {union};',
+                f'    public function set{cap}({union} ${prop_name}): static;',
+            ):
+                if line not in seen:
+                    seen.add(line)
+                    methods_lines.append(line)
+        elif True in shapes:
             colltype = php_collection_type(range_type)
             for line in (
                 f'    public function get{cap}(): {colltype};',
@@ -1271,7 +1276,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     slots = schema_data['slots']
     for slot_name, slot_data, owner in all_own_props:
         prop_name = to_php_property_name(slot_name, slots)
-        is_collection = is_collection_property(slot_name, slot_data)
+        is_collection = is_collection_property(slot_name, slot_data, cardinality.usage_for(schema_data, owner))
         ptype = php_prop_type(slot_data, schema_data, is_collection)
 
         if is_collection:
@@ -1286,7 +1291,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     registrations = []
     for slot_name, slot_data, owner in all_own_props:
         prop_name = to_php_property_name(slot_name, slots)
-        if is_collection_property(slot_name, slot_data):
+        if is_collection_property(slot_name, slot_data, cardinality.usage_for(schema_data, owner)):
             body.append(f"        $this->{prop_name} = $params['{prop_name}'] ?? [];")
         else:
             body.append(f"        $this->{prop_name} = $params['{prop_name}'] ?? null;")
@@ -1334,7 +1339,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
             continue
         prop_info[prop_name] = (
             slot_data,
-            is_collection_property(slot_name, slot_data),
+            is_collection_property(slot_name, slot_data, cardinality.usage_for(schema_data, owner)),
             php_type_for_slot(slot_data, schema_data),
             _cap(prop_name),
         )

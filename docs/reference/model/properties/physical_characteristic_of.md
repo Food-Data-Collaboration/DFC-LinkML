@@ -11,6 +11,7 @@ Object property from OWL: physicalCharacteristicOf
 - **Predicate**: `dfc-b:physicalCharacteristicOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_physical_characteristic`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

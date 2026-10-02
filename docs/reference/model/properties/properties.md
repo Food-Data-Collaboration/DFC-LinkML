@@ -11,6 +11,7 @@ Object property from OWL: properties
 - **Predicate**: `dfc-b:properties`
 - **Range**: `Properties` (a DFC class)
 - **Target type**: [`Properties`](../classes/Properties.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

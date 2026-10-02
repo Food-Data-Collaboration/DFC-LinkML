@@ -38,10 +38,10 @@ class PhysicalPlace extends Place implements IPhysicalPlace
 {
     public const SEMANTIC_TYPE = 'dfc-b:PhysicalPlace';
 
-    private string|SemanticObject|array|null $hasPhoneNumber = null;
+    private array|string|SemanticObject|null $hasPhoneNumber = [];
     private Address|string|SemanticObject|array|null $address = null;
-    private Feature|string|SemanticObject|array|null $geoJsonFeature = null;
-    private Person|string|SemanticObject|array|null $mainContact = null;
+    private array|Feature|string|SemanticObject|null $geoJsonFeature = [];
+    private array|Person|string|SemanticObject|null $mainContact = [];
     private OpeningHoursSpecification|string|SemanticObject|array|null $isOpenDuring = null;
     private array|TheoriticalStock|string|SemanticObject|null $localizes = [];
     private array|RealStock|string|SemanticObject|null $stores = [];
@@ -52,10 +52,10 @@ class PhysicalPlace extends Place implements IPhysicalPlace
     ) {
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
-        $this->hasPhoneNumber = $params['hasPhoneNumber'] ?? null;
+        $this->hasPhoneNumber = $params['hasPhoneNumber'] ?? [];
         $this->address = $params['address'] ?? null;
-        $this->geoJsonFeature = $params['geoJsonFeature'] ?? null;
-        $this->mainContact = $params['mainContact'] ?? null;
+        $this->geoJsonFeature = $params['geoJsonFeature'] ?? [];
+        $this->mainContact = $params['mainContact'] ?? [];
         $this->isOpenDuring = $params['isOpenDuring'] ?? null;
         $this->localizes = $params['localizes'] ?? [];
         $this->stores = $params['stores'] ?? [];
@@ -67,15 +67,47 @@ class PhysicalPlace extends Place implements IPhysicalPlace
         $this->registerSemanticProperty('dfc-b:localizes', fn() => $this->localizes);
         $this->registerSemanticProperty('dfc-b:stores', fn() => $this->stores);
     }
-    public function getHasPhoneNumber(): string|SemanticObject|array|null
+    public function getHasPhoneNumber(): array|string|SemanticObject|null
     {
         return $this->hasPhoneNumber;
     }
 
-    public function setHasPhoneNumber(string|SemanticObject|array|null $hasPhoneNumber): static
+    public function setHasPhoneNumber(array|string|SemanticObject|null $hasPhoneNumber): static
     {
         $this->hasPhoneNumber = $hasPhoneNumber;
         return $this;
+    }
+
+    public function addHasPhoneNumber(string|SemanticObject $hasPhoneNumber): static
+    {
+        if ($this->hasPhoneNumber === null) {
+            $this->hasPhoneNumber = [];
+        } elseif (!is_array($this->hasPhoneNumber)) {
+            $this->hasPhoneNumber = [$this->hasPhoneNumber];
+        }
+        $this->hasPhoneNumber[] = $hasPhoneNumber;
+        return $this;
+    }
+
+    public function removeHasPhoneNumber(string|SemanticObject $hasPhoneNumber): void
+    {
+        if ($this->hasPhoneNumber === null) {
+            return;
+        }
+        if (!is_array($this->hasPhoneNumber)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->hasPhoneNumber === $hasPhoneNumber) {
+                $this->hasPhoneNumber = [];
+            }
+            return;
+        }
+        $key = array_search($hasPhoneNumber, $this->hasPhoneNumber, true);
+        if ($key !== false) {
+            unset($this->hasPhoneNumber[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->hasPhoneNumber = array_values($this->hasPhoneNumber);
+        }
     }
 
     public function getAddress(): Address|string|SemanticObject|array|null
@@ -89,26 +121,90 @@ class PhysicalPlace extends Place implements IPhysicalPlace
         return $this;
     }
 
-    public function getGeoJsonFeature(): Feature|string|SemanticObject|array|null
+    public function getGeoJsonFeature(): array|Feature|string|SemanticObject|null
     {
         return $this->geoJsonFeature;
     }
 
-    public function setGeoJsonFeature(Feature|string|SemanticObject|array|null $geoJsonFeature): static
+    public function setGeoJsonFeature(array|Feature|string|SemanticObject|null $geoJsonFeature): static
     {
         $this->geoJsonFeature = $geoJsonFeature;
         return $this;
     }
 
-    public function getMainContact(): Person|string|SemanticObject|array|null
+    public function addGeoJsonFeature(Feature|string|SemanticObject $geoJsonFeature): static
+    {
+        if ($this->geoJsonFeature === null) {
+            $this->geoJsonFeature = [];
+        } elseif (!is_array($this->geoJsonFeature)) {
+            $this->geoJsonFeature = [$this->geoJsonFeature];
+        }
+        $this->geoJsonFeature[] = $geoJsonFeature;
+        return $this;
+    }
+
+    public function removeGeoJsonFeature(Feature|string|SemanticObject $geoJsonFeature): void
+    {
+        if ($this->geoJsonFeature === null) {
+            return;
+        }
+        if (!is_array($this->geoJsonFeature)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->geoJsonFeature === $geoJsonFeature) {
+                $this->geoJsonFeature = [];
+            }
+            return;
+        }
+        $key = array_search($geoJsonFeature, $this->geoJsonFeature, true);
+        if ($key !== false) {
+            unset($this->geoJsonFeature[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->geoJsonFeature = array_values($this->geoJsonFeature);
+        }
+    }
+
+    public function getMainContact(): array|Person|string|SemanticObject|null
     {
         return $this->mainContact;
     }
 
-    public function setMainContact(Person|string|SemanticObject|array|null $mainContact): static
+    public function setMainContact(array|Person|string|SemanticObject|null $mainContact): static
     {
         $this->mainContact = $mainContact;
         return $this;
+    }
+
+    public function addMainContact(Person|string|SemanticObject $mainContact): static
+    {
+        if ($this->mainContact === null) {
+            $this->mainContact = [];
+        } elseif (!is_array($this->mainContact)) {
+            $this->mainContact = [$this->mainContact];
+        }
+        $this->mainContact[] = $mainContact;
+        return $this;
+    }
+
+    public function removeMainContact(Person|string|SemanticObject $mainContact): void
+    {
+        if ($this->mainContact === null) {
+            return;
+        }
+        if (!is_array($this->mainContact)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->mainContact === $mainContact) {
+                $this->mainContact = [];
+            }
+            return;
+        }
+        $key = array_search($mainContact, $this->mainContact, true);
+        if ($key !== false) {
+            unset($this->mainContact[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->mainContact = array_values($this->mainContact);
+        }
     }
 
     public function getIsOpenDuring(): OpeningHoursSpecification|string|SemanticObject|array|null

@@ -10,7 +10,7 @@ export interface TemplateSaleSessionParams {
     /**
      * Serializes as `dfc-b:isTemplateSaleSessionOf`.
      */
-    isTemplateSaleSessionOf?: string;
+    isTemplateSaleSessionOf?: string[];
     /**
      * Serializes as `dfc-b:date`.
      */
@@ -39,7 +39,7 @@ export interface TemplateSaleSessionParams {
      *
      * Serializes as `dfc-b:hostedAt`.
      */
-    hostedAt?: Place | string;
+    hostedAt?: (Place | string)[];
 }
 /**
  * A DFC `dfc-b:TemplateSaleSession`, serialized with `@type:
@@ -53,7 +53,7 @@ export declare class TemplateSaleSession extends SemanticObject {
     /**
      * Serializes as `dfc-b:isTemplateSaleSessionOf`.
      */
-    isTemplateSaleSessionOf?: string;
+    isTemplateSaleSessionOf?: string[];
     /**
      * Serializes as `dfc-b:date`.
      */
@@ -82,6 +82,6 @@ export declare class TemplateSaleSession extends SemanticObject {
      *
      * Serializes as `dfc-b:hostedAt`.
      */
-    hostedAt?: Place | string;
+    hostedAt?: (Place | string)[];
     constructor(semanticId: string, params?: TemplateSaleSessionParams);
 }

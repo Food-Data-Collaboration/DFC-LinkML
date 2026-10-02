@@ -11,6 +11,7 @@ Schedule during which the Physical Place is accessible, may indicate it is open 
 - **Predicate**: `dfc-b:isOpenDuring`
 - **Range**: `OpeningHoursSpecification` (a DFC class)
 - **Target type**: [`OpeningHoursSpecification`](../classes/OpeningHoursSpecification.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

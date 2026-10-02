@@ -33,7 +33,7 @@ class ProductOption extends WhatSubject implements IProductOption
 {
     public const SEMANTIC_TYPE = 'dfc-b:ProductOption';
 
-    private ProductOptionValue|string|SemanticObject|array|null $referenceProductOptionValue = null;
+    private array|ProductOptionValue|string|SemanticObject|null $referenceProductOptionValue = [];
 
     public function __construct(
         string $semanticId,
@@ -41,17 +41,49 @@ class ProductOption extends WhatSubject implements IProductOption
     ) {
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
-        $this->referenceProductOptionValue = $params['referenceProductOptionValue'] ?? null;
+        $this->referenceProductOptionValue = $params['referenceProductOptionValue'] ?? [];
         $this->registerSemanticProperty('dfc-b:hasReferenceProductOptionValue', fn() => $this->referenceProductOptionValue);
     }
-    public function getReferenceProductOptionValue(): ProductOptionValue|string|SemanticObject|array|null
+    public function getReferenceProductOptionValue(): array|ProductOptionValue|string|SemanticObject|null
     {
         return $this->referenceProductOptionValue;
     }
 
-    public function setReferenceProductOptionValue(ProductOptionValue|string|SemanticObject|array|null $referenceProductOptionValue): static
+    public function setReferenceProductOptionValue(array|ProductOptionValue|string|SemanticObject|null $referenceProductOptionValue): static
     {
         $this->referenceProductOptionValue = $referenceProductOptionValue;
         return $this;
+    }
+
+    public function addReferenceProductOptionValue(ProductOptionValue|string|SemanticObject $referenceProductOptionValue): static
+    {
+        if ($this->referenceProductOptionValue === null) {
+            $this->referenceProductOptionValue = [];
+        } elseif (!is_array($this->referenceProductOptionValue)) {
+            $this->referenceProductOptionValue = [$this->referenceProductOptionValue];
+        }
+        $this->referenceProductOptionValue[] = $referenceProductOptionValue;
+        return $this;
+    }
+
+    public function removeReferenceProductOptionValue(ProductOptionValue|string|SemanticObject $referenceProductOptionValue): void
+    {
+        if ($this->referenceProductOptionValue === null) {
+            return;
+        }
+        if (!is_array($this->referenceProductOptionValue)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->referenceProductOptionValue === $referenceProductOptionValue) {
+                $this->referenceProductOptionValue = [];
+            }
+            return;
+        }
+        $key = array_search($referenceProductOptionValue, $this->referenceProductOptionValue, true);
+        if ($key !== false) {
+            unset($this->referenceProductOptionValue[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->referenceProductOptionValue = array_values($this->referenceProductOptionValue);
+        }
     }
 }

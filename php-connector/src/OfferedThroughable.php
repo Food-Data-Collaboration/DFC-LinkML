@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface OfferedThroughable
 {
-    public function getOfferedThrough(): Offer|string|SemanticObject|array|null;
-    public function setOfferedThrough(Offer|string|SemanticObject|array|null $offeredThrough): static;
+    public function getOfferedThrough(): array|Offer|string|SemanticObject|null;
+    public function setOfferedThrough(array|Offer|string|SemanticObject|null $offeredThrough): static;
+    public function addOfferedThrough(Offer|string|SemanticObject $offeredThrough): static;
+    public function removeOfferedThrough(Offer|string|SemanticObject $offeredThrough): void;
 }

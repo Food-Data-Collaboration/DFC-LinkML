@@ -12,6 +12,7 @@ The Enterprise that maintains the Catalog (may differ from the owner of the Prod
 - **Range**: `Organization` (a DFC class)
 - **Target type**: [`Organization`](../classes/Organization.md)
 - **Inverse**: `maintains`
+- **Cardinality**: **Single-valued on `Catalog`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

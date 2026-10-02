@@ -87,13 +87,13 @@ export interface DefinedProductParams extends WhatSubjectParams {
    *
    * Serializes as `dfc-b:consumedBy`.
    */
-  consumedBy?: string;
+  consumedBy?: string[];
   /**
    * Details of allergens contains in the product
    *
    * Serializes as `dfc-b:hasAllergenCharacteristic`.
    */
-  hasAllergenCharacteristic?: string;
+  hasAllergenCharacteristic?: string[];
   /**
    * The brand a Product is sold under (Enterprises can market under
    *   different Brands, some Brands can be collaborative across Enterprises)
@@ -121,7 +121,7 @@ export interface DefinedProductParams extends WhatSubjectParams {
    *
    * Serializes as `dfc-b:hasClaim`.
    */
-  hasClaim?: string;
+  hasClaim?: string[];
   /**
    * SKOS:Concept that details the container the product is supplied in
    *   (e.g.box, tin, paper bag etc), enumerated in the Measures vocabulary
@@ -153,26 +153,26 @@ export interface DefinedProductParams extends WhatSubjectParams {
    *
    * Serializes as `dfc-b:hasNatureOrigin`.
    */
-  hasNatureOrigin?: string;
+  hasNatureOrigin?: string[];
   /**
    * Nutrient information about the product (from dfc-m:NutrientDimension)
    *
    * Serializes as `dfc-b:hasNutrientCharacteristic`.
    */
-  hasNutrientCharacteristic?: string;
+  hasNutrientCharacteristic?: string[];
   /**
    * The part of the plant or animal that the product originated from (e.g.
    *   egg, animal body, seed, root )
    *
    * Serializes as `dfc-b:hasPartOrigin`.
    */
-  hasPartOrigin?: string;
+  hasPartOrigin?: string[];
   /**
    * Physical information about the product (from dfc-m:PhysicalDimension)
    *
    * Serializes as `dfc-b:hasPhysicalCharacteristic`.
    */
-  hasPhysicalCharacteristic?: string;
+  hasPhysicalCharacteristic?: string[];
   /**
    * The Product Type grouping for the Product, for more detail see
    *   Taxonomies/ProductType
@@ -190,7 +190,7 @@ export interface DefinedProductParams extends WhatSubjectParams {
   /**
    * Serializes as `dfc-b:hasVariant`.
    */
-  hasVariant?: string;
+  hasVariant?: string[];
   /**
    * DEPRECATE
    *
@@ -207,13 +207,13 @@ export interface DefinedProductParams extends WhatSubjectParams {
   /**
    * Serializes as `dfc-b:hasReferenceProductOption`.
    */
-  hasReferenceProductOption?: ProductOption | string;
+  hasReferenceProductOption?: (ProductOption | string)[];
   /**
    * Any/all CatalogItems that reference the Product for sale
    *
    * Serializes as `dfc-b:referencedBy`.
    */
-  referencedBy?: CatalogItem | string;
+  referencedBy?: (CatalogItem | string)[];
 }
 
 /**
@@ -302,13 +302,13 @@ export class DefinedProduct extends WhatSubject {
    *
    * Serializes as `dfc-b:consumedBy`.
    */
-  consumedBy?: string;
+  consumedBy?: string[];
   /**
    * Details of allergens contains in the product
    *
    * Serializes as `dfc-b:hasAllergenCharacteristic`.
    */
-  hasAllergenCharacteristic?: string;
+  hasAllergenCharacteristic?: string[];
   /**
    * The brand a Product is sold under (Enterprises can market under
    *   different Brands, some Brands can be collaborative across Enterprises)
@@ -336,7 +336,7 @@ export class DefinedProduct extends WhatSubject {
    *
    * Serializes as `dfc-b:hasClaim`.
    */
-  hasClaim?: string;
+  hasClaim?: string[];
   /**
    * SKOS:Concept that details the container the product is supplied in
    *   (e.g.box, tin, paper bag etc), enumerated in the Measures vocabulary
@@ -368,26 +368,26 @@ export class DefinedProduct extends WhatSubject {
    *
    * Serializes as `dfc-b:hasNatureOrigin`.
    */
-  hasNatureOrigin?: string;
+  hasNatureOrigin?: string[];
   /**
    * Nutrient information about the product (from dfc-m:NutrientDimension)
    *
    * Serializes as `dfc-b:hasNutrientCharacteristic`.
    */
-  hasNutrientCharacteristic?: string;
+  hasNutrientCharacteristic?: string[];
   /**
    * The part of the plant or animal that the product originated from (e.g.
    *   egg, animal body, seed, root )
    *
    * Serializes as `dfc-b:hasPartOrigin`.
    */
-  hasPartOrigin?: string;
+  hasPartOrigin?: string[];
   /**
    * Physical information about the product (from dfc-m:PhysicalDimension)
    *
    * Serializes as `dfc-b:hasPhysicalCharacteristic`.
    */
-  hasPhysicalCharacteristic?: string;
+  hasPhysicalCharacteristic?: string[];
   /**
    * The Product Type grouping for the Product, for more detail see
    *   Taxonomies/ProductType
@@ -405,7 +405,7 @@ export class DefinedProduct extends WhatSubject {
   /**
    * Serializes as `dfc-b:hasVariant`.
    */
-  hasVariant?: string;
+  hasVariant?: string[];
   /**
    * DEPRECATE
    *
@@ -422,13 +422,13 @@ export class DefinedProduct extends WhatSubject {
   /**
    * Serializes as `dfc-b:hasReferenceProductOption`.
    */
-  hasReferenceProductOption?: ProductOption | string;
+  hasReferenceProductOption?: (ProductOption | string)[];
   /**
    * Any/all CatalogItems that reference the Product for sale
    *
    * Serializes as `dfc-b:referencedBy`.
    */
-  referencedBy?: CatalogItem | string;
+  referencedBy?: (CatalogItem | string)[];
 
   constructor(
     semanticId: string,

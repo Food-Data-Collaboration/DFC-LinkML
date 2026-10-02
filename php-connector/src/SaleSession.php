@@ -47,7 +47,7 @@ class SaleSession extends SemanticObject implements ISaleSession
     private string|SemanticObject|array|null $dimension = null;
     private ShippingOption|string|SemanticObject|array|null $option = null;
     private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
-    private Place|string|SemanticObject|array|null $hostedAt = null;
+    private array|Place|string|SemanticObject|null $hostedAt = [];
     private Coordination|string|SemanticObject|array|null $objectOf = null;
 
     public function __construct(
@@ -68,7 +68,7 @@ class SaleSession extends SemanticObject implements ISaleSession
         $this->dimension = $params['dimension'] ?? null;
         $this->option = $params['option'] ?? null;
         $this->hasQuantity = $params['hasQuantity'] ?? null;
-        $this->hostedAt = $params['hostedAt'] ?? null;
+        $this->hostedAt = $params['hostedAt'] ?? [];
         $this->objectOf = $params['objectOf'] ?? null;
         $this->registerSemanticProperty('dfc-b:endDate', fn() => $this->endDate);
         $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantity);
@@ -281,15 +281,47 @@ class SaleSession extends SemanticObject implements ISaleSession
         return $this;
     }
 
-    public function getHostedAt(): Place|string|SemanticObject|array|null
+    public function getHostedAt(): array|Place|string|SemanticObject|null
     {
         return $this->hostedAt;
     }
 
-    public function setHostedAt(Place|string|SemanticObject|array|null $hostedAt): static
+    public function setHostedAt(array|Place|string|SemanticObject|null $hostedAt): static
     {
         $this->hostedAt = $hostedAt;
         return $this;
+    }
+
+    public function addHostedAt(Place|string|SemanticObject $hostedAt): static
+    {
+        if ($this->hostedAt === null) {
+            $this->hostedAt = [];
+        } elseif (!is_array($this->hostedAt)) {
+            $this->hostedAt = [$this->hostedAt];
+        }
+        $this->hostedAt[] = $hostedAt;
+        return $this;
+    }
+
+    public function removeHostedAt(Place|string|SemanticObject $hostedAt): void
+    {
+        if ($this->hostedAt === null) {
+            return;
+        }
+        if (!is_array($this->hostedAt)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->hostedAt === $hostedAt) {
+                $this->hostedAt = [];
+            }
+            return;
+        }
+        $key = array_search($hostedAt, $this->hostedAt, true);
+        if ($key !== false) {
+            unset($this->hostedAt[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->hostedAt = array_values($this->hostedAt);
+        }
     }
 
     public function getObjectOf(): Coordination|string|SemanticObject|array|null

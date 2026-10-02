@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface IsCertifiedByable
 {
-    public function getIsCertifiedBy(): string|SemanticObject|array|null;
-    public function setIsCertifiedBy(string|SemanticObject|array|null $isCertifiedBy): static;
+    public function getIsCertifiedBy(): array|string|SemanticObject|null;
+    public function setIsCertifiedBy(array|string|SemanticObject|null $isCertifiedBy): static;
+    public function addIsCertifiedBy(string|SemanticObject $isCertifiedBy): static;
+    public function removeIsCertifiedBy(string|SemanticObject $isCertifiedBy): void;
 }

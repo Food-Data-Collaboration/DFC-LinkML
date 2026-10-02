@@ -11,6 +11,7 @@ Object property from OWL: hasVariantCaracteristic
 - **Predicate**: `dfc-b:hasVariantCaracteristic`
 - **Range**: `VariantCaracteristic` (a DFC class)
 - **Target type**: [`VariantCaracteristic`](../classes/VariantCaracteristic.md)
+- **Cardinality**: **Collection** — the ontology states no upper bound for this property, so it takes several values. This comes from the curated list in `config/dfc-default.yaml`, verified against the original DFC v2 connectors; it is not derived from the ontology.
 
 ## Declared domain
 

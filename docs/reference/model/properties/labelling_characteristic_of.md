@@ -11,6 +11,7 @@ Object property from OWL: labellingCharacteristicOf
 - **Predicate**: `dfc-b:labellingCharacteristicOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_labelling_characteristic`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

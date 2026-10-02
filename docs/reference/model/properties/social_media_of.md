@@ -11,6 +11,7 @@ Object property from OWL: socialMediaOf
 - **Predicate**: `dfc-b:socialMediaOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_social_media`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

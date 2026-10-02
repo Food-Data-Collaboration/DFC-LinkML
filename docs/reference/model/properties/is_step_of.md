@@ -11,6 +11,7 @@ Object property from OWL: isStepOf
 - **Predicate**: `dfc-b:isStepOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_step`
+- **Cardinality**: **Collection** — the ontology states no upper bound for this property, so it takes several values. This comes from the curated list in `config/dfc-default.yaml`, verified against the original DFC v2 connectors; it is not derived from the ontology.
 
 ## Declared domain
 

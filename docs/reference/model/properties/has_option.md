@@ -12,6 +12,7 @@ Any (and all) ShippingOptions that are available for the session
 - **Range**: `ShippingOption` (a DFC class)
 - **Target type**: [`ShippingOption`](../classes/ShippingOption.md)
 - **Inverse**: `option_of`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

@@ -25,7 +25,7 @@ export interface ProductionFlowParams {
    *
    * Serializes as `dfc-b:produces`.
    */
-  produces?: string[];
+  produces?: string;
   /**
    * Serializes as `dfc-b:date`.
    */
@@ -86,7 +86,7 @@ export class ProductionFlow extends SemanticObject {
    *
    * Serializes as `dfc-b:produces`.
    */
-  produces?: string[];
+  produces?: string;
   /**
    * Serializes as `dfc-b:date`.
    */

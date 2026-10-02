@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface IsMemberOfable
 {
-    public function getIsMemberOf(): CustomerCategory|string|SemanticObject|array|null;
-    public function setIsMemberOf(CustomerCategory|string|SemanticObject|array|null $isMemberOf): static;
+    public function getIsMemberOf(): array|CustomerCategory|string|SemanticObject|null;
+    public function setIsMemberOf(array|CustomerCategory|string|SemanticObject|null $isMemberOf): static;
+    public function addIsMemberOf(CustomerCategory|string|SemanticObject $isMemberOf): static;
+    public function removeIsMemberOf(CustomerCategory|string|SemanticObject $isMemberOf): void;
 }

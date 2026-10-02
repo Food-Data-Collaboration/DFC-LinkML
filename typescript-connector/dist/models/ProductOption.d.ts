@@ -11,7 +11,7 @@ export interface ProductOptionParams extends WhatSubjectParams {
     /**
      * Serializes as `dfc-b:hasReferenceProductOptionValue`.
      */
-    hasReferenceProductOptionValue?: ProductOptionValue | string;
+    hasReferenceProductOptionValue?: (ProductOptionValue | string)[];
 }
 /**
  * A DFC `dfc-b:ProductOption`, serialized with `@type:
@@ -24,6 +24,6 @@ export declare class ProductOption extends WhatSubject {
     /**
      * Serializes as `dfc-b:hasReferenceProductOptionValue`.
      */
-    hasReferenceProductOptionValue?: ProductOptionValue | string;
+    hasReferenceProductOptionValue?: (ProductOptionValue | string)[];
     constructor(semanticId: string, params?: ProductOptionParams);
 }

@@ -11,6 +11,7 @@ The transformation the produced product is outputed from
 - **Predicate**: `dfc-b:outputOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_output`
+- **Cardinality**: **Single-valued on `ProductionFlow`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

@@ -11,6 +11,7 @@ Object property from OWL: certifies
 - **Predicate**: `dfc-b:certifies`
 - **Range**: `string` (literal)
 - **Inverse**: `is_certified_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

@@ -11,6 +11,7 @@ Object property from OWL: natureOriginOf
 - **Predicate**: `dfc-b:natureOriginOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_nature_origin`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

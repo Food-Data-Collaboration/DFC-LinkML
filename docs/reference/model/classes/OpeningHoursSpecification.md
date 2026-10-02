@@ -21,5 +21,5 @@ Class from DFC Business Ontology: #OpeningHoursSpecification
 
 ## Notes
 
-- The schema carries no `required` or `multivalued` flags, so this page does not state either. Cardinality is decided by the connector generators from the property name, which is a heuristic — do not rely on it for validation.
+- The ontology states no cardinality for this class, so none is claimed here. Where a property is a collection, that comes from the curated list in `config/dfc-default.yaml` or from the plural-name heuristic — neither is an ontology fact.
 - `dfc-b:Class:property` local names are never emitted. Predicates are always the original short form.

@@ -10,6 +10,7 @@ Data property from OWL: byday
 
 - **Predicate**: `dfc-b:byday`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

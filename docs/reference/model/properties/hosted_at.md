@@ -12,6 +12,7 @@ The location the session is hosted at. This could be a physical (e.g. a shop or 
 - **Range**: `Place` (a DFC class)
 - **Target type**: [`Place`](../classes/Place.md)
 - **Inverse**: `hosts`
+- **Cardinality**: **Collection** — the ontology states no upper bound for this property, so it takes several values. This comes from the curated list in `config/dfc-default.yaml`, verified against the original DFC v2 connectors; it is not derived from the ontology.
 
 ## Declared domain
 

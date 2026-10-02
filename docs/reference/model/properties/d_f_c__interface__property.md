@@ -10,6 +10,7 @@ Object property from OWL: DFC_Interface_Property
 
 - **Predicate**: `dfc-b:DFC_Interface_Property`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Notes
 

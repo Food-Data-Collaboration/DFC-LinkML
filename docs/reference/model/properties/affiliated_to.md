@@ -12,6 +12,7 @@ URI of a Person associated with the Enterprise
 - **Range**: `Person` (a DFC class)
 - **Target type**: [`Person`](../classes/Person.md)
 - **Inverse**: `affiliates`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

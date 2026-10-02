@@ -51,18 +51,18 @@ module DfcLinkmlConnector
       # @return [SaleSession, String]
       attr_accessor :belongs_to
 
-      # @return [OrderLine, String]
+      # @return [Array<OrderLine, String>]
       attr_accessor :part
 
       # @return [Agent, String]
       attr_accessor :ordered_by
 
-      # @return [Array<ShippingOption, String>]
+      # @return [ShippingOption, String]
       attr_accessor :selects
 
       # @param semanticId [String]
-      # @param discount: nil, orderNumber: nil, fulfilmentStatus: nil, orderStatus: nil, paymentMethod: nil, paymentStatus: nil, soldBy: nil, uses: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, belongsTo: nil, part: nil, orderedBy: nil, selects: []
-      def initialize(semanticId, discount: nil, orderNumber: nil, fulfilmentStatus: nil, orderStatus: nil, paymentMethod: nil, paymentStatus: nil, soldBy: nil, uses: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, belongsTo: nil, part: nil, orderedBy: nil, selects: [])
+      # @param discount: nil, orderNumber: nil, fulfilmentStatus: nil, orderStatus: nil, paymentMethod: nil, paymentStatus: nil, soldBy: nil, uses: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, belongsTo: nil, part: [], orderedBy: nil, selects: nil
+      def initialize(semanticId, discount: nil, orderNumber: nil, fulfilmentStatus: nil, orderStatus: nil, paymentMethod: nil, paymentStatus: nil, soldBy: nil, uses: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, belongsTo: nil, part: [], orderedBy: nil, selects: nil)
         super(semanticId)
         @discount = discount
         @order_number = orderNumber

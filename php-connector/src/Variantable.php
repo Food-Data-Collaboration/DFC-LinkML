@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface Variantable
 {
-    public function getVariant(): string|SemanticObject|array|null;
-    public function setVariant(string|SemanticObject|array|null $variant): static;
+    public function getVariant(): array|string|SemanticObject|null;
+    public function setVariant(array|string|SemanticObject|null $variant): static;
+    public function addVariant(string|SemanticObject $variant): static;
+    public function removeVariant(string|SemanticObject $variant): void;
 }

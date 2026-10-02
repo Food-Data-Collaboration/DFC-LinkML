@@ -13,7 +13,7 @@ export interface TheoriticalStockParams extends StockParams {
   /**
    * Serializes as `dfc-b:constitutes`.
    */
-  constitutes?: string[];
+  constitutes?: string;
   /**
    * Serializes as `dfc-b:localizedBy`.
    */
@@ -34,7 +34,7 @@ export class TheoriticalStock extends Stock {
   /**
    * Serializes as `dfc-b:constitutes`.
    */
-  constitutes?: string[];
+  constitutes?: string;
   /**
    * Serializes as `dfc-b:localizedBy`.
    */

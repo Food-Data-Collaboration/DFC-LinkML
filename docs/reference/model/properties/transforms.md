@@ -12,6 +12,7 @@ Any PlannedLocalTransformations owned by the Enterprise
 - **Range**: `AsPlannedLocalTransformation` (a DFC class)
 - **Target type**: [`AsPlannedLocalTransformation`](../classes/AsPlannedLocalTransformation.md)
 - **Inverse**: `transformed_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

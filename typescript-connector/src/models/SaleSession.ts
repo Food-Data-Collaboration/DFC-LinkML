@@ -84,7 +84,7 @@ export interface SaleSessionParams {
    *
    * Serializes as `dfc-b:hostedAt`.
    */
-  hostedAt?: Place | string;
+  hostedAt?: (Place | string)[];
   /**
    * The Coordination (that defines which Enterprise coordinates the Sales
    *   Sesison)
@@ -178,7 +178,7 @@ export class SaleSession extends SemanticObject {
    *
    * Serializes as `dfc-b:hostedAt`.
    */
-  hostedAt?: Place | string;
+  hostedAt?: (Place | string)[];
   /**
    * The Coordination (that defines which Enterprise coordinates the Sales
    *   Sesison)

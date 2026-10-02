@@ -18,7 +18,7 @@ export interface VirtualPlaceParams extends PlaceParams {
      *
      * Serializes as `dfc-b:websitePage`.
      */
-    websitePage?: string;
+    websitePage?: string[];
 }
 /**
  * A DFC `dfc-b:VirtualPlace`, serialized with `@type: dfc-b:VirtualPlace`.
@@ -38,6 +38,6 @@ export declare class VirtualPlace extends Place {
      *
      * Serializes as `dfc-b:websitePage`.
      */
-    websitePage?: string;
+    websitePage?: string[];
     constructor(semanticId: string, params?: VirtualPlaceParams);
 }

@@ -12,6 +12,7 @@ The Coordination (that defines which Enterprise coordinates the Sales Sesison)
 - **Range**: `Coordination` (a DFC class)
 - **Target type**: [`Coordination`](../classes/Coordination.md)
 - **Inverse**: `has_object`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

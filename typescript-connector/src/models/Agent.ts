@@ -33,19 +33,19 @@ export interface AgentParams extends WhoSubjectParams {
    *
    * Serializes as `dfc-b:websitePage`.
    */
-  websitePage?: string;
+  websitePage?: string[];
   /**
    * Phone Number relating to the Agent
    *
    * Serializes as `dfc-b:hasPhoneNumber`.
    */
-  hasPhoneNumber?: string;
+  hasPhoneNumber?: string[];
   /**
    * Social Media handle of the Agent
    *
    * Serializes as `dfc-b:hasSocialMedia`.
    */
-  hasSocialMedia?: string;
+  hasSocialMedia?: string[];
   /**
    * All Brands owned by the Agent
    *
@@ -67,11 +67,11 @@ export interface AgentParams extends WhoSubjectParams {
    *
    * Serializes as `dfc-b:hasAddress`.
    */
-  hasAddress?: Address | string;
+  hasAddress?: (Address | string)[];
   /**
    * Serializes as `dfc-b:isMemberOf`.
    */
-  isMemberOf?: CustomerCategory | string;
+  isMemberOf?: (CustomerCategory | string)[];
   /**
    * Any Orders placed by the Agent
    *
@@ -115,19 +115,19 @@ export class Agent extends WhoSubject {
    *
    * Serializes as `dfc-b:websitePage`.
    */
-  websitePage?: string;
+  websitePage?: string[];
   /**
    * Phone Number relating to the Agent
    *
    * Serializes as `dfc-b:hasPhoneNumber`.
    */
-  hasPhoneNumber?: string;
+  hasPhoneNumber?: string[];
   /**
    * Social Media handle of the Agent
    *
    * Serializes as `dfc-b:hasSocialMedia`.
    */
-  hasSocialMedia?: string;
+  hasSocialMedia?: string[];
   /**
    * All Brands owned by the Agent
    *
@@ -149,11 +149,11 @@ export class Agent extends WhoSubject {
    *
    * Serializes as `dfc-b:hasAddress`.
    */
-  hasAddress?: Address | string;
+  hasAddress?: (Address | string)[];
   /**
    * Serializes as `dfc-b:isMemberOf`.
    */
-  isMemberOf?: CustomerCategory | string;
+  isMemberOf?: (CustomerCategory | string)[];
   /**
    * Any Orders placed by the Agent
    *

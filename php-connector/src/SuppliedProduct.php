@@ -41,9 +41,9 @@ class SuppliedProduct extends DefinedProduct implements ISuppliedProduct
     private bool|string|SemanticObject|array|null $refrigerated = null;
     private float|string|SemanticObject|array|null $totalTheoriticalStock = null;
     private string|SemanticObject|array|null $temperature = null;
-    private string|SemanticObject|array|null $producedBy = null;
+    private array|string|SemanticObject|null $producedBy = [];
     private array|TechnicalProduct|string|SemanticObject|null $industrializes = [];
-    private LocalizedProduct|string|SemanticObject|array|null $referenceOf = null;
+    private array|LocalizedProduct|string|SemanticObject|null $referenceOf = [];
     private Organization|string|SemanticObject|array|null $suppliedBy = null;
 
     public function __construct(
@@ -58,9 +58,9 @@ class SuppliedProduct extends DefinedProduct implements ISuppliedProduct
         $this->refrigerated = $params['refrigerated'] ?? null;
         $this->totalTheoriticalStock = $params['totalTheoriticalStock'] ?? null;
         $this->temperature = $params['temperature'] ?? null;
-        $this->producedBy = $params['producedBy'] ?? null;
+        $this->producedBy = $params['producedBy'] ?? [];
         $this->industrializes = $params['industrializes'] ?? [];
-        $this->referenceOf = $params['referenceOf'] ?? null;
+        $this->referenceOf = $params['referenceOf'] ?? [];
         $this->suppliedBy = $params['suppliedBy'] ?? null;
         $this->registerSemanticProperty('dfc-b:availabilityTime', fn() => $this->availabilityTime);
         $this->registerSemanticProperty('dfc-b:deliveryCondition', fn() => $this->deliveryCondition);
@@ -139,15 +139,47 @@ class SuppliedProduct extends DefinedProduct implements ISuppliedProduct
         return $this;
     }
 
-    public function getProducedBy(): string|SemanticObject|array|null
+    public function getProducedBy(): array|string|SemanticObject|null
     {
         return $this->producedBy;
     }
 
-    public function setProducedBy(string|SemanticObject|array|null $producedBy): static
+    public function setProducedBy(array|string|SemanticObject|null $producedBy): static
     {
         $this->producedBy = $producedBy;
         return $this;
+    }
+
+    public function addProducedBy(string|SemanticObject $producedBy): static
+    {
+        if ($this->producedBy === null) {
+            $this->producedBy = [];
+        } elseif (!is_array($this->producedBy)) {
+            $this->producedBy = [$this->producedBy];
+        }
+        $this->producedBy[] = $producedBy;
+        return $this;
+    }
+
+    public function removeProducedBy(string|SemanticObject $producedBy): void
+    {
+        if ($this->producedBy === null) {
+            return;
+        }
+        if (!is_array($this->producedBy)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->producedBy === $producedBy) {
+                $this->producedBy = [];
+            }
+            return;
+        }
+        $key = array_search($producedBy, $this->producedBy, true);
+        if ($key !== false) {
+            unset($this->producedBy[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->producedBy = array_values($this->producedBy);
+        }
     }
 
     public function getIndustrializes(): array|TechnicalProduct|string|SemanticObject|null
@@ -193,15 +225,47 @@ class SuppliedProduct extends DefinedProduct implements ISuppliedProduct
         }
     }
 
-    public function getReferenceOf(): LocalizedProduct|string|SemanticObject|array|null
+    public function getReferenceOf(): array|LocalizedProduct|string|SemanticObject|null
     {
         return $this->referenceOf;
     }
 
-    public function setReferenceOf(LocalizedProduct|string|SemanticObject|array|null $referenceOf): static
+    public function setReferenceOf(array|LocalizedProduct|string|SemanticObject|null $referenceOf): static
     {
         $this->referenceOf = $referenceOf;
         return $this;
+    }
+
+    public function addReferenceOf(LocalizedProduct|string|SemanticObject $referenceOf): static
+    {
+        if ($this->referenceOf === null) {
+            $this->referenceOf = [];
+        } elseif (!is_array($this->referenceOf)) {
+            $this->referenceOf = [$this->referenceOf];
+        }
+        $this->referenceOf[] = $referenceOf;
+        return $this;
+    }
+
+    public function removeReferenceOf(LocalizedProduct|string|SemanticObject $referenceOf): void
+    {
+        if ($this->referenceOf === null) {
+            return;
+        }
+        if (!is_array($this->referenceOf)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->referenceOf === $referenceOf) {
+                $this->referenceOf = [];
+            }
+            return;
+        }
+        $key = array_search($referenceOf, $this->referenceOf, true);
+        if ($key !== false) {
+            unset($this->referenceOf[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->referenceOf = array_values($this->referenceOf);
+        }
     }
 
     public function getSuppliedBy(): Organization|string|SemanticObject|array|null

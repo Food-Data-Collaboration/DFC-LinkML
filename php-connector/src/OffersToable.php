@@ -27,8 +27,6 @@ namespace DataFoodConsortium\Connector;
 
 interface OffersToable
 {
-    public function getOffersTo(): array|CustomerCategory|string|SemanticObject|null;
-    public function setOffersTo(array|CustomerCategory|string|SemanticObject|null $offersTo): static;
-    public function addOffersTo(CustomerCategory|string|SemanticObject $offersTo): static;
-    public function removeOffersTo(CustomerCategory|string|SemanticObject $offersTo): void;
+    public function getOffersTo(): CustomerCategory|string|SemanticObject|array|null;
+    public function setOffersTo(CustomerCategory|string|SemanticObject|array|null $offersTo): static;
 }

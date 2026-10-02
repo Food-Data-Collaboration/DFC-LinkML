@@ -11,6 +11,7 @@ The Agent (Person or Enterprise) or PhysicalPlace that the Address relates to
 - **Predicate**: `dfc-b:addressOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_address`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

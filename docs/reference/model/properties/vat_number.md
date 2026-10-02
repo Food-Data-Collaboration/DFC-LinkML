@@ -10,6 +10,7 @@ Any Tax Registration Number that is applicable to the Enterprise, in the jurisdi
 
 - **Predicate**: `dfc-b:VATnumber`
 - **Range**: `string` (literal)
+- **Cardinality**: **Single-valued** — the ontology declares this property `owl:FunctionalProperty`, so it takes at most one value in every class.
 
 ## Declared domain
 

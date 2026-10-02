@@ -12,6 +12,7 @@ Object property from OWL: localizedBy
 - **Range**: `PhysicalPlace` (a DFC class)
 - **Target type**: [`PhysicalPlace`](../classes/PhysicalPlace.md)
 - **Inverse**: `localizes`
+- **Cardinality**: **Single-valued on `TheoriticalStock`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 
