@@ -11,6 +11,10 @@ Class from DFC Business Ontology: #Person
 - **JSON-LD type**: `dfc-b:Person`
 - **Hierarchy**: `Who_Subject` → `Agent` → `Person`
 
+## Equivalence
+
+- **`owl:equivalentClass`**: `vcard:Individual`
+
 ## Properties (15)
 
 | Property | Predicate | Range | Kind | Defined on |

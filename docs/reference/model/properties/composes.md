@@ -1,26 +1,18 @@
-# composes
+# composes (deprecated)
 
-[← all properties](index.md)
+!!! warning
 
-## Description
+    **`composes` is deprecated and should not be used in new data.**
 
-DEPRECATE
+    The DFC ontology does not assert a replacement for it.
 
 ## Definition
 
 - **Predicate**: `dfc-b:composes`
-- **Range**: `string` (literal)
+- **Range**: `string`
 - **Inverse**: `composed_of`
+- **Declared domain**: `DefinedProduct`
 
-## Declared domain
+## Note
 
-[`DefinedProduct`](../classes/DefinedProduct.md)
-
-## Available on (5)
-
-[`DefinedProduct`](../classes/DefinedProduct.md), [`FunctionalProduct`](../classes/FunctionalProduct.md), [`SuppliedProduct`](../classes/SuppliedProduct.md), [`TechnicalProduct`](../classes/TechnicalProduct.md), [`Variant`](../classes/Variant.md)
-
-## Notes
-
-- Declared on 1 class(es) in the ontology, but inherited by 5. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
-- The schema records no `required` or `multivalued` flag for this slot.
+The connectors still accept this predicate on import and will round-trip it. Excluding it from the reference is about not pointing new work at a deprecated property, not about it being unreadable.

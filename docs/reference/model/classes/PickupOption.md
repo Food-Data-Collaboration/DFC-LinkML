@@ -11,19 +11,17 @@ Class from DFC Business Ontology: #PickupOption
 - **JSON-LD type**: `dfc-b:PickupOption`
 - **Hierarchy**: `How_Subject` → `ShippingOption` → `PickupOption`
 
-## Properties (9)
+## Properties (7)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
 | [`end_date`](../properties/end_date.md) | `dfc-b:endDate` | `datetime` | literal | [`ShippingOption`](ShippingOption.md) |
 | [`fee`](../properties/fee.md) | `dfc-b:fee` | `float` | literal | [`ShippingOption`](ShippingOption.md) |
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | [`ShippingOption`](ShippingOption.md) |
 | [`start_date`](../properties/start_date.md) | `dfc-b:startDate` | `datetime` | literal | [`ShippingOption`](ShippingOption.md) |
 | [`has_quantity`](../properties/has_quantity.md) | `dfc-b:hasQuantity` | `QuantitativeValue` | object | [`ShippingOption`](ShippingOption.md) |
 | [`option_of`](../properties/option_of.md) | `dfc-b:optionOf` | `SaleSession` | object | [`ShippingOption`](ShippingOption.md) |
 | [`selected_by`](../properties/selected_by.md) | `dfc-b:selectedBy` | `string` | literal | [`ShippingOption`](ShippingOption.md) |
 | [`picked_up_at`](../properties/picked_up_at.md) | `dfc-b:pickedUpAt` | `string` | literal | this class |
-| [`uses`](../properties/uses.md) | `dfc-b:uses` | `string` | literal | this class |
 
 ## Notes
 

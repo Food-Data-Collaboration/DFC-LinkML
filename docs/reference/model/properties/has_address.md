@@ -17,11 +17,11 @@ Address of Agent
 
 [`Agent`](../classes/Agent.md), [`PhysicalPlace`](../classes/PhysicalPlace.md)
 
-## Available on (5)
+## Available on (4)
 
-[`Agent`](../classes/Agent.md), [`Enterprise`](../classes/Enterprise.md), [`Organization`](../classes/Organization.md), [`Person`](../classes/Person.md), [`PhysicalPlace`](../classes/PhysicalPlace.md)
+[`Agent`](../classes/Agent.md), [`Organization`](../classes/Organization.md), [`Person`](../classes/Person.md), [`PhysicalPlace`](../classes/PhysicalPlace.md)
 
 ## Notes
 
-- Declared on 2 class(es) in the ontology, but inherited by 5. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
+- Declared on 2 class(es) in the ontology, but inherited by 4. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
 - The schema records no `required` or `multivalued` flag for this slot.

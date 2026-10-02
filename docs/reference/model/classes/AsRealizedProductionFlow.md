@@ -11,11 +11,10 @@ Class from DFC Business Ontology: #AsRealizedProductionFlow
 - **JSON-LD type**: `dfc-b:AsRealizedProductionFlow`
 - **Hierarchy**: `ProductionFlow` → `AsRealizedProductionFlow`
 
-## Properties (4)
+## Properties (3)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | [`ProductionFlow`](ProductionFlow.md) |
 | [`has_quantity`](../properties/has_quantity.md) | `dfc-b:hasQuantity` | `QuantitativeValue` | object | [`ProductionFlow`](ProductionFlow.md) |
 | [`output_of`](../properties/output_of.md) | `dfc-b:outputOf` | `string` | literal | [`ProductionFlow`](ProductionFlow.md) |
 | [`produces`](../properties/produces.md) | `dfc-b:produces` | `string` | literal | [`ProductionFlow`](ProductionFlow.md) |

@@ -11,12 +11,11 @@ Class from DFC Business Ontology: #OrderLine
 - **JSON-LD type**: `dfc-b:OrderLine`
 - **Hierarchy**: `OrderLine`
 
-## Properties (7)
+## Properties (6)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
 | [`discount`](../properties/discount.md) | `dfc-b:discount` | `float` | literal | this class |
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | this class |
 | [`concerns`](../properties/concerns.md) | `dfc-b:concerns` | `string` | literal | this class |
 | [`has_price`](../properties/has_price.md) | `dfc-b:hasPrice` | `string` | literal | this class |
 | [`has_quantity`](../properties/has_quantity.md) | `dfc-b:hasQuantity` | `QuantitativeValue` | object | this class |

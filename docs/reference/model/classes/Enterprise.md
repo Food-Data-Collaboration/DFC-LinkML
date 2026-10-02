@@ -1,34 +1,24 @@
-# Enterprise
+# Enterprise (deprecated)
 
-[← all classes](index.md)
+!!! warning
 
-## Description
+    **`Enterprise` is deprecated and should not be used in new data.**
 
-Class from DFC Business Ontology: #Enterprise
+    It is equivalent to [`Organization`](Organization.md) under `owl:equivalentClass`, which is what the DFC v2.0.0 ontology asserts.
 
-## Identity
+## Reading legacy data
 
-- **JSON-LD type**: `dfc-b:Enterprise`
-- **Hierarchy**: `Who_Subject` → `Agent` → `Enterprise`
+Importing a document that uses `Enterprise` still works. The connectors map the legacy type onto `Organization` automatically, so a document written against an older DFC version loads without rewriting:
 
-## Properties (12)
+```typescript
+const [org] = c.import({ "@id": "https://example.org/o/1", "@type": "dfc-b:Enterprise" });
+org.semanticType;  // "dfc-b:Organization"
+```
 
-| Property | Predicate | Range | Kind | Defined on |
-|---|---|---|---|---|
-| [`email`](../properties/email.md) | `dfc-b:email` | `string` | literal | [`Agent`](Agent.md) |
-| [`logo`](../properties/logo.md) | `dfc-b:logo` | `uri` | literal | [`Agent`](Agent.md) |
-| [`website_page`](../properties/website_page.md) | `dfc-b:websitePage` | `uri` | literal | [`Agent`](Agent.md) |
-| [`affiliated_to`](../properties/affiliated_to.md) | `dfc-b:affiliatedTo` | `Person` | object | [`Agent`](Agent.md) |
-| [`has_address`](../properties/has_address.md) | `dfc-b:hasAddress` | `Address` | object | [`Agent`](Agent.md) |
-| [`has_phone_number`](../properties/has_phone_number.md) | `dfc-b:hasPhoneNumber` | `string` | literal | [`Agent`](Agent.md) |
-| [`has_social_media`](../properties/has_social_media.md) | `dfc-b:hasSocialMedia` | `string` | literal | [`Agent`](Agent.md) |
-| [`is_member_of`](../properties/is_member_of.md) | `dfc-b:isMemberOf` | `CustomerCategory` | object | [`Agent`](Agent.md) |
-| [`orders`](../properties/orders.md) | `dfc-b:orders` | `Order` | object | [`Agent`](Agent.md) |
-| [`owns`](../properties/owns.md) | `dfc-b:owns` | `string` | literal | [`Agent`](Agent.md) |
-| [`requests`](../properties/requests.md) | `dfc-b:requests` | `FunctionalProduct` | object | [`Agent`](Agent.md) |
-| [`sells`](../properties/sells.md) | `dfc-b:sells` | `string` | literal | [`Agent`](Agent.md) |
+This is one-way. You cannot export a `Enterprise`.
 
-## Notes
+## Reference
 
-- The schema carries no `required` or `multivalued` flags, so this page does not state either. Cardinality is decided by the connector generators from the property name, which is a heuristic — do not rely on it for validation.
-- `dfc-b:Class:property` local names are never emitted. Predicates are always the original short form.
+- Predicate: `dfc-b:Enterprise`
+- Subclass of: `Agent`
+- Source: [`owl:deprecated` in the DFC v2.0.0 ontology]

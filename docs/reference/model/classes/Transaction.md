@@ -11,12 +11,11 @@ Class from DFC Business Ontology: #Transaction
 - **JSON-LD type**: `dfc-b:Transaction`
 - **Hierarchy**: `How_Subject` → `Transaction`
 
-## Properties (7)
+## Properties (6)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
 | [`invoice_number`](../properties/invoice_number.md) | `dfc-b:invoiceNumber` | `string` | literal | this class |
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | this class |
 | [`concerns`](../properties/concerns.md) | `dfc-b:concerns` | `string` | literal | this class |
 | [`from`](../properties/from.md) | `dfc-b:from` | `Agent` | object | this class |
 | [`has_price`](../properties/has_price.md) | `dfc-b:hasPrice` | `string` | literal | this class |

@@ -42,7 +42,6 @@ properties it gets from its ancestors.
 | [`DefinedProduct`](DefinedProduct.md) | `What_Subject` → `DefinedProduct` | 31 |
 | [`DeliveryOption`](DeliveryOption.md) | `How_Subject` → `ShippingOption` → `DeliveryOption` | 12 |
 | [`DeliveryStep`](DeliveryStep.md) | `Where_Subject` → `Step` → `DeliveryStep` | 5 |
-| [`Enterprise`](Enterprise.md) | `Who_Subject` → `Agent` → `Enterprise` | 12 |
 | [`Feature`](Feature.md) | `Feature` | 2 |
 | [`FunctionalProduct`](FunctionalProduct.md) | `What_Subject` → `DefinedProduct` → `FunctionalProduct` | 33 |
 | [`Geometry`](Geometry.md) | `Geometry` | 1 |

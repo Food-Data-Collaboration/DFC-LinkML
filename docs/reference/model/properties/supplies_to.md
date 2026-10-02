@@ -1,17 +1,20 @@
-# supplies_to
+# supplies_to (deprecated)
 
-[← all properties](index.md)
+!!! warning
+
+    **`supplies_to` is deprecated and should not be used in new data.**
+
+    The DFC ontology does not assert a replacement for it.
+
+## Definition
+
+- **Predicate**: `dfc-b:suppliesTo`
+- **Range**: `string`
 
 ## Description
 
 Object property from OWL: suppliesTo
 
-## Definition
+## Note
 
-- **Predicate**: `dfc-b:suppliesTo`
-- **Range**: `string` (literal)
-
-## Notes
-
-- Declared on 0 class(es) in the ontology, but inherited by 0. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
-- The schema records no `required` or `multivalued` flag for this slot.
+The connectors still accept this predicate on import and will round-trip it. Excluding it from the reference is about not pointing new work at a deprecated property, not about it being unreadable.

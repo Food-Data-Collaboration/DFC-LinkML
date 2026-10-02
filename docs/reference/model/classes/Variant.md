@@ -11,7 +11,7 @@ Class from DFC Business Ontology: #Variant
 - **JSON-LD type**: `dfc-b:Variant`
 - **Hierarchy**: `What_Subject` → `DefinedProduct` → `Variant`
 
-## Properties (33)
+## Properties (31)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
@@ -22,9 +22,7 @@ Class from DFC Business Ontology: #Variant
 | [`has_percentage_of_alcohol_by_volume`](../properties/has_percentage_of_alcohol_by_volume.md) | `dfc-b:hasPercentageOfAlcoholByVolume` | `float` | literal | [`DefinedProduct`](DefinedProduct.md) |
 | [`lifetime`](../properties/lifetime.md) | `dfc-b:lifetime` | `float` | literal | [`DefinedProduct`](DefinedProduct.md) |
 | [`physical_characteristics`](../properties/physical_characteristics.md) | `dfc-b:physicalCharacteristics` | `string` | literal | [`DefinedProduct`](DefinedProduct.md) |
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | [`DefinedProduct`](DefinedProduct.md) |
 | [`specific_condition`](../properties/specific_condition.md) | `dfc-b:specificCondition` | `string` | literal | [`DefinedProduct`](DefinedProduct.md) |
-| [`composes`](../properties/composes.md) | `dfc-b:composes` | `string` | literal | [`DefinedProduct`](DefinedProduct.md) |
 | [`consumed_by`](../properties/consumed_by.md) | `dfc-b:consumedBy` | `string` | literal | [`DefinedProduct`](DefinedProduct.md) |
 | [`has_allergen_characteristic`](../properties/has_allergen_characteristic.md) | `dfc-b:hasAllergenCharacteristic` | `string` | literal | [`DefinedProduct`](DefinedProduct.md) |
 | [`has_brand`](../properties/has_brand.md) | `dfc-b:hasBrand` | `string` | literal | [`DefinedProduct`](DefinedProduct.md) |

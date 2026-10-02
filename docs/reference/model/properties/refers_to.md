@@ -1,26 +1,21 @@
-# refers_to
+# refers_to (deprecated)
 
-[← all properties](index.md)
+!!! warning
+
+    **`refers_to` is deprecated and should not be used in new data.**
+
+    The DFC ontology does not assert a replacement for it.
+
+## Definition
+
+- **Predicate**: `dfc-b:refersTo`
+- **Range**: `Address`
+- **Declared domain**: `DeliveryOption`
 
 ## Description
 
 The Address the delivery will be/was made to
 
-## Definition
+## Note
 
-- **Predicate**: `dfc-b:refersTo`
-- **Range**: `Address` (a DFC class)
-- **Target type**: [`Address`](../classes/Address.md)
-
-## Declared domain
-
-[`DeliveryOption`](../classes/DeliveryOption.md)
-
-## Available on (1)
-
-[`DeliveryOption`](../classes/DeliveryOption.md)
-
-## Notes
-
-- Declared on 1 class(es) in the ontology, but inherited by 1. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
-- The schema records no `required` or `multivalued` flag for this slot.
+The connectors still accept this predicate on import and will round-trip it. Excluding it from the reference is about not pointing new work at a deprecated property, not about it being unreadable.

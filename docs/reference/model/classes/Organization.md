@@ -11,6 +11,10 @@ Class from DFC Business Ontology: #Organization
 - **JSON-LD type**: `dfc-b:Organization`
 - **Hierarchy**: `Who_Subject` → `Agent` → `Organization`
 
+## Equivalence
+
+- **`owl:equivalentClass`**: `vcard:Organization`
+
 ## Properties (25)
 
 | Property | Predicate | Range | Kind | Defined on |

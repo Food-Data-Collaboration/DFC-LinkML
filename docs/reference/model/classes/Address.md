@@ -11,12 +11,11 @@ Class from DFC Business Ontology: #Address
 - **JSON-LD type**: `dfc-b:Address`
 - **Hierarchy**: `Where_Subject` → `Address`
 
-## Properties (9)
+## Properties (8)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
 | [`city`](../properties/city.md) | `dfc-b:city` | `string` | literal | this class |
-| [`country`](../properties/country.md) | `dfc-b:country` | `string` | literal | this class |
 | [`latitude`](../properties/latitude.md) | `dfc-b:latitude` | `float` | literal | this class |
 | [`longitude`](../properties/longitude.md) | `dfc-b:longitude` | `float` | literal | this class |
 | [`postcode`](../properties/postcode.md) | `dfc-b:postcode` | `string` | literal | this class |

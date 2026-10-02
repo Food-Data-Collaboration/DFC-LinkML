@@ -11,11 +11,10 @@ Class from DFC Business Ontology: #AsPlannedLocalConsumptionFlow
 - **JSON-LD type**: `dfc-b:AsPlannedLocalConsumptionFlow`
 - **Hierarchy**: `ConsumptionFlow` → `AsPlannedLocalConsumptionFlow`
 
-## Properties (4)
+## Properties (3)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | [`ConsumptionFlow`](ConsumptionFlow.md) |
 | [`consumes`](../properties/consumes.md) | `dfc-b:consumes` | `string` | literal | [`ConsumptionFlow`](ConsumptionFlow.md) |
 | [`has_quantity`](../properties/has_quantity.md) | `dfc-b:hasQuantity` | `QuantitativeValue` | object | [`ConsumptionFlow`](ConsumptionFlow.md) |
 | [`input_of`](../properties/input_of.md) | `dfc-b:inputOf` | `string` | literal | [`ConsumptionFlow`](ConsumptionFlow.md) |

@@ -1,6 +1,6 @@
 # DFC properties
 
-All 255 slots in the schema, generated. "Object" properties point at
+248 slots in the schema, generated. "Object" properties point at
 another DFC class; "literal" ones carry a scalar.
 
 | Property | Predicate | Range | Kind |
@@ -31,8 +31,6 @@ another DFC class; "literal" ones carry a scalar.
 | [`claim`](claim.md) | `dfc-b:claim` | `string` | literal |
 | [`claim_of`](claim_of.md) | `dfc-b:claimOf` | `string` | literal |
 | [`closes`](closes.md) | `dfc-b:closes` | `string` | literal |
-| [`composed_of`](composed_of.md) | `dfc-b:composedOf` | `string` | literal |
-| [`composes`](composes.md) | `dfc-b:composes` | `string` | literal |
 | [`concerned_by`](concerned_by.md) | `dfc-b:concernedBy` | `string` | literal |
 | [`concerns`](concerns.md) | `dfc-b:concerns` | `string` | literal |
 | [`constitued_by`](constitued_by.md) | `dfc-b:constituedBy` | `string` | literal |
@@ -43,7 +41,6 @@ another DFC class; "literal" ones carry a scalar.
 | [`coordinated_by`](coordinated_by.md) | `dfc-b:coordinatedBy` | `Organization` | object |
 | [`coordinates`](coordinates.md) | `dfc-b:coordinates` | `string` | literal |
 | [`cost`](cost.md) | `dfc-b:cost` | `float` | literal |
-| [`country`](country.md) | `dfc-b:country` | `string` | literal |
 | [`country_code`](country_code.md) | `dfc-b:countryCode` | `string` | literal |
 | [`d_f_c__business_ontology__object_property`](d_f_c__business_ontology__object_property.md) | `dfc-b:DFC_BusinessOntology_ObjectProperty` | `string` | literal |
 | [`d_f_c__interface__property`](d_f_c__interface__property.md) | `dfc-b:DFC_Interface_Property` | `string` | literal |
@@ -210,11 +207,9 @@ another DFC class; "literal" ones carry a scalar.
 | [`properties`](properties.md) | `dfc-b:properties` | `Properties` | object |
 | [`proposed_by`](proposed_by.md) | `dfc-b:proposedBy` | `Organization` | object |
 | [`proposes`](proposes.md) | `dfc-b:proposes` | `TechnicalProduct` | object |
-| [`quantity`](quantity.md) | `dfc-b:quantity` | `float` | literal |
 | [`reference_of`](reference_of.md) | `dfc-b:referenceOf` | `LocalizedProduct` | object |
 | [`referenced_by`](referenced_by.md) | `dfc-b:referencedBy` | `CatalogItem` | object |
 | [`references`](references.md) | `dfc-b:references` | `DefinedProduct` | object |
-| [`refers_to`](refers_to.md) | `dfc-b:refersTo` | `Address` | object |
 | [`refrigerated`](refrigerated.md) | `dfc-b:refrigerated` | `boolean` | literal |
 | [`region`](region.md) | `dfc-b:region` | `string` | literal |
 | [`represent`](represent.md) | `dfc-b:represent` | `RepresentedThing` | object |
@@ -241,7 +236,6 @@ another DFC class; "literal" ones carry a scalar.
 | [`street`](street.md) | `dfc-b:street` | `string` | literal |
 | [`supplied_by`](supplied_by.md) | `dfc-b:suppliedBy` | `Organization` | object |
 | [`supplies`](supplies.md) | `dfc-b:supplies` | `SuppliedProduct` | object |
-| [`supplies_to`](supplies_to.md) | `dfc-b:suppliesTo` | `string` | literal |
 | [`to`](to.md) | `dfc-b:to` | `Agent` | object |
 | [`total_theoritical_stock`](total_theoritical_stock.md) | `dfc-b:totalTheoriticalStock` | `float` | literal |
 | [`traced_by`](traced_by.md) | `dfc-b:tracedBy` | `ProductBatch` | object |
@@ -254,9 +248,14 @@ another DFC class; "literal" ones carry a scalar.
 | [`url`](url.md) | `dfc-b:URL` | `uri` | literal |
 | [`use_vehicle`](use_vehicle.md) | `dfc-b:useVehicle` | `string` | literal |
 | [`used_in_route`](used_in_route.md) | `dfc-b:usedInRoute` | `string` | literal |
-| [`uses`](uses.md) | `dfc-b:uses` | `string` | literal |
 | [`value`](value.md) | `dfc-b:value` | `float` | literal |
 | [`vat_number`](vat_number.md) | `dfc-b:VATnumber` | `string` | literal |
 | [`vat_rate`](vat_rate.md) | `dfc-b:VATrate` | `float` | literal |
 | [`vat_status`](vat_status.md) | `dfc-b:VATstatus` | `boolean` | literal |
 | [`website_page`](website_page.md) | `dfc-b:websitePage` | `uri` | literal |
+
+## Deprecated (7)
+
+Not listed above, and removed from every class page. Each still has a page saying so:
+
+[`composed_of`](composed_of.md), [`composes`](composes.md), [`country`](country.md), [`quantity`](quantity.md), [`refers_to`](refers_to.md), [`supplies_to`](supplies_to.md), [`uses`](uses.md)

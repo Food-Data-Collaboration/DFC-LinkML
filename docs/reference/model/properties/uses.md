@@ -1,29 +1,23 @@
-# uses
+# uses (deprecated)
 
-[← all properties](index.md)
+!!! warning
 
-## Description
+    **`uses` is deprecated and should not be used in new data.**
 
-*** DEPRECATED *** 
-
-Use `refersTo` instead.
-
-The Address the delivery will be/was made to
+    The DFC ontology does not assert a replacement for it.
 
 ## Definition
 
 - **Predicate**: `dfc-b:uses`
-- **Range**: `string` (literal)
+- **Range**: `string`
+- **Declared domain**: `DeliveryOption`, `Order`, `PickupOption`
 
-## Declared domain
+## Replacement
 
-[`DeliveryOption`](../classes/DeliveryOption.md), [`Order`](../classes/Order.md), [`PickupOption`](../classes/PickupOption.md)
+The DFC ontology says to use [`refers_to`](refers_to.md) instead.
 
-## Available on (3)
+**`refers_to` is also deprecated.** The ontology offers no live replacement for either, so this slot has no current equivalent in DFC v2.0.0.
 
-[`DeliveryOption`](../classes/DeliveryOption.md), [`Order`](../classes/Order.md), [`PickupOption`](../classes/PickupOption.md)
+## Note
 
-## Notes
-
-- Declared on 3 class(es) in the ontology, but inherited by 3. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
-- The schema records no `required` or `multivalued` flag for this slot.
+The connectors still accept this predicate on import and will round-trip it. Excluding it from the reference is about not pointing new work at a deprecated property, not about it being unreadable.

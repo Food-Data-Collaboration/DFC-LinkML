@@ -11,13 +11,12 @@ Class from DFC Business Ontology: #LocalizedProduct
 - **JSON-LD type**: `dfc-b:LocalizedProduct`
 - **Hierarchy**: `What_Subject` → `LocalizedProduct`
 
-## Properties (9)
+## Properties (8)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
 | [`image`](../properties/image.md) | `dfc-b:Image` | `uri` | literal | this class |
 | [`cost`](../properties/cost.md) | `dfc-b:cost` | `float` | literal | this class |
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | this class |
 | [`constitued_by`](../properties/constitued_by.md) | `dfc-b:constituedBy` | `string` | literal | this class |
 | [`consumed_by`](../properties/consumed_by.md) | `dfc-b:consumedBy` | `string` | literal | this class |
 | [`has_quantity`](../properties/has_quantity.md) | `dfc-b:hasQuantity` | `QuantitativeValue` | object | this class |
