@@ -37,11 +37,11 @@ class LocalizedProduct extends WhatSubject implements ILocalizedProduct
 
     private string|SemanticObject|array|null $image = null;
     private float|string|SemanticObject|array|null $cost = null;
-    private float|string|SemanticObject|array|null $quantityValue = null;
+    private float|string|SemanticObject|array|null $quantity = null;
     private string|SemanticObject|array|null $constituedBy = null;
     private string|SemanticObject|array|null $consumedBy = null;
     private string|SemanticObject|array|null $producedBy = null;
-    private QuantitativeValue|string|SemanticObject|array|null $quantity = null;
+    private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
     private SuppliedProduct|string|SemanticObject|array|null $reference = null;
     private PhysicalProduct|string|SemanticObject|array|null $representedBy = null;
 
@@ -53,20 +53,20 @@ class LocalizedProduct extends WhatSubject implements ILocalizedProduct
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->image = $params['image'] ?? null;
         $this->cost = $params['cost'] ?? null;
-        $this->quantityValue = $params['quantityValue'] ?? null;
+        $this->quantity = $params['quantity'] ?? null;
         $this->constituedBy = $params['constituedBy'] ?? null;
         $this->consumedBy = $params['consumedBy'] ?? null;
         $this->producedBy = $params['producedBy'] ?? null;
-        $this->quantity = $params['quantity'] ?? null;
+        $this->hasQuantity = $params['hasQuantity'] ?? null;
         $this->reference = $params['reference'] ?? null;
         $this->representedBy = $params['representedBy'] ?? null;
         $this->registerSemanticProperty('dfc-b:Image', fn() => $this->image);
         $this->registerSemanticProperty('dfc-b:cost', fn() => $this->cost);
-        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantityValue);
+        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantity);
         $this->registerSemanticProperty('dfc-b:constituedBy', fn() => $this->constituedBy);
         $this->registerSemanticProperty('dfc-b:consumedBy', fn() => $this->consumedBy);
         $this->registerSemanticProperty('dfc-b:producedBy', fn() => $this->producedBy);
-        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->quantity);
+        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->hasQuantity);
         $this->registerSemanticProperty('dfc-b:hasReference', fn() => $this->reference);
         $this->registerSemanticProperty('dfc-b:representedBy', fn() => $this->representedBy);
     }
@@ -92,14 +92,14 @@ class LocalizedProduct extends WhatSubject implements ILocalizedProduct
         return $this;
     }
 
-    public function getQuantityValue(): float|string|SemanticObject|array|null
+    public function getQuantity(): float|string|SemanticObject|array|null
     {
-        return $this->quantityValue;
+        return $this->quantity;
     }
 
-    public function setQuantityValue(float|string|SemanticObject|array|null $quantityValue): static
+    public function setQuantity(float|string|SemanticObject|array|null $quantity): static
     {
-        $this->quantityValue = $quantityValue;
+        $this->quantity = $quantity;
         return $this;
     }
 
@@ -136,14 +136,14 @@ class LocalizedProduct extends WhatSubject implements ILocalizedProduct
         return $this;
     }
 
-    public function getQuantity(): QuantitativeValue|string|SemanticObject|array|null
+    public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null
     {
-        return $this->quantity;
+        return $this->hasQuantity;
     }
 
-    public function setQuantity(QuantitativeValue|string|SemanticObject|array|null $quantity): static
+    public function setHasQuantity(QuantitativeValue|string|SemanticObject|array|null $hasQuantity): static
     {
-        $this->quantity = $quantity;
+        $this->hasQuantity = $hasQuantity;
         return $this;
     }
 

@@ -65,43 +65,73 @@ def to_snake_case(name: str) -> str:
     return name.lower()
 
 
-# Bare slot names that collide with has_X versions after has_ stripping.
-# These get disambiguated property names and distinct interfaces.
-BARE_SLOT_OVERRIDES = {
-    'quantity': 'quantityValue',
-    'brand': 'brandName',
-    'claim': 'claimText',
-    'country': 'countryName',
+# Bare slots whose name collides with a has_ slot once the prefix is stripped:
+# `has_country` strips to `country`, colliding with the bare `country` slot.
+# For these the has_ prefix is KEPT, which is what TypeScript and Ruby do
+# (`hasCountry`). The bare slot keeps its own name, so the predicate mapping
+# is identical across the three connectors.
+#
+# The previous approach renamed the *bare* slot instead (country ->
+# countryName). That transposed the two: PHP emitted `country` as
+# dfc-b:hasCountry and `countryName` as dfc-b:country, so the same property
+# name produced a different predicate per language. `phone_number` /
+# `has_phone_number` was missed entirely, silently losing dfc-b:phoneNumber.
+PREFIX_COLLISIONS = {
+    'brand': 'has_brand',
+    'claim': 'has_claim',
+    'country': 'has_country',
+    'quantity': 'has_quantity',
+    'phone_number': 'has_phone_number',
 }
 
 
-def to_php_property_name(slot_name: str) -> str:
-    """Convert slot name to PHP property name (camelCase with has- prefix stripped)."""
-    name = slot_name
-    if name.startswith('has_'):
-        name = name[4:]
-    elif name.startswith('has') and len(name) > 3 and name[3].isupper():
-        name = name[3:]
-    if not name:
-        return slot_name
-    if name.startswith('_'):
-        name = name[1:]
-    parts = re.split(r'[_]+', name)
-    result = parts[0].lower() + ''.join(p.capitalize() for p in parts[1:])
-    special = {
-        'uRL': 'url',
-        'vATnumber': 'vatNumber',
-        'vATrate': 'vatRate',
-        'vATstatus': 'vatStatus',
-        'enterpriseID': 'enterpriseId',
-        'operatorID': 'operatorId',
-    }
-    result = special.get(result, result)
-    # Disambiguate bare collision slots (e.g., bare 'quantity' vs has_quantity)
-    is_has_prefixed = slot_name.startswith('has_') or (slot_name.startswith('has') and len(slot_name) > 3 and slot_name[3].isupper())
-    if not is_has_prefixed and slot_name in BARE_SLOT_OVERRIDES:
-        result = BARE_SLOT_OVERRIDES[slot_name]
-    return result
+def _is_has_prefixed(slot_name: str) -> bool:
+    return (slot_name.startswith('has_')
+            or (slot_name.startswith('has') and len(slot_name) > 3
+                and slot_name[3].isupper()))
+
+
+def to_php_property_name(slot_name: str, all_slots: set[str] | None = None) -> str:
+    """Convert a slot name to a PHP property name.
+
+    Strips the `has_` prefix and camelCases, so `has_unit` becomes `unit`.
+    Where that would collide with a bare slot of the same name -- the five in
+    PREFIX_COLLISIONS -- the prefix is kept instead, giving `hasCountry`. The
+    bare slot keeps `country`. That is what the TypeScript and Ruby
+    generators produce, so all three emit the same predicate for a given
+    ontology slot.
+
+    `all_slots` is every slot name in the schema. Without it the collision
+    check cannot run and the prefix is stripped, which is the pre-fix
+    behaviour; callers in this module always pass it.
+    """
+    keep_prefix = slot_name in PREFIX_COLLISIONS.values()
+
+    if not keep_prefix:
+        name = slot_name
+        if name.startswith('has_'):
+            name = name[4:]
+        elif name.startswith('has') and len(name) > 3 and name[3].isupper():
+            name = name[3:]
+        if not name:
+            return slot_name
+        if name.startswith('_'):
+            name = name[1:]
+        parts = re.split(r'[_]+', name)
+        result = parts[0].lower() + ''.join(p.capitalize() for p in parts[1:])
+        special = {
+            'uRL': 'url',
+            'vATnumber': 'vatNumber',
+            'vATrate': 'vatRate',
+            'vATstatus': 'vatStatus',
+            'enterpriseID': 'enterpriseId',
+            'operatorID': 'operatorId',
+        }
+        return special.get(result, result)
+
+    # Keep the has_ prefix: has_country -> hasCountry.
+    parts = re.split(r'[_]+', slot_name)
+    return parts[0] + ''.join(p.capitalize() for p in parts[1:])
 
 
 def to_file_name(name: str) -> str:
@@ -398,17 +428,12 @@ def interface_name_for_slot(slot_name: str) -> str:
         'Longitude': 'Geolocalizable',
     }
 
-    # Disambiguate bare collision slots (e.g., bare 'brand' vs has_brand)
-    # Must check BEFORE special dict lookup to override intended mappings
-    is_has_prefixed = slot_name.startswith('has_') or (slot_name.startswith('has') and len(slot_name) > 3 and slot_name[3].isupper())
-    if not is_has_prefixed and slot_name in BARE_SLOT_OVERRIDES:
-        override = BARE_SLOT_OVERRIDES[slot_name]
-        opascal = override[0].upper() + override[1:]
-        if opascal in special:
-            return special[opascal]
-        if opascal.endswith('s') and not opascal.endswith('ss') and not opascal.endswith('us'):
-            return opascal[:-1] + 'able'
-        return opascal + 'able'
+    # The five collision pairs keep their has_ prefix now, so the trait
+    # interface is named for the slot as it stands. Previously the bare slot
+    # was renamed (brand -> brandName) and this produced `BrandNameable`,
+    # which matched no property on the class.
+    if slot_name in PREFIX_COLLISIONS.values():
+        pascal = ''.join(p.capitalize() for p in re.split(r'[_]+', slot_name))
 
     if pascal in special:
         return special[pascal]
@@ -759,17 +784,21 @@ def generate_connector(schema_data: dict) -> str:
         register_types += f"        SemanticObject::registerType('dfc-b:{cn}', {pcn}::class);\n"
 
     predicate_map_lines = []
-    for slot_name, slot_data in schema_data.get('slots', {}).items():
-        predicate_map_lines.append(f"        '{predicate_for_slot(slot_name, slot_data)}' => '{to_php_property_name(slot_name)}',")
+    slots = schema_data.get('slots', {})
+    for slot_name, slot_data in slots.items():
+        predicate_map_lines.append(f"        '{predicate_for_slot(slot_name, slot_data)}' => '{to_php_property_name(slot_name, slots)}',")
     predicate_map_str = '\n'.join(predicate_map_lines)
 
     alias_lines = '\n'.join(
         f"        '{pred}' => '{target}',"
         for pred, target in sorted(_enterprise_alias(schema_data).items())
     )
+    # Kept for the predicateToPropName fallback. The five collision pairs are
+    # now named after the slot itself (has_country -> hasCountry), so the map
+    # is exactly the property naming and needs no separate override table.
     bare_lines = '\n'.join(
-        f"        '{k}' => '{v}',"
-        for k, v in sorted(BARE_SLOT_OVERRIDES.items())
+        f"        '{predicate_for_slot(sn, sd)}' => '{to_php_property_name(sn, slots)}',"
+        for sn, sd in sorted(slots.items())
     )
 
     code = LICENSE_BLOCK + f'''namespace DataFoodConsortium\\Connector;
@@ -792,8 +821,8 @@ class Connector
 {alias_lines}
     ];
 
-    // Bare slot renames (mirrors BARE_SLOT_OVERRIDES) for the
-    // predicateToPropName fallback.
+    // Full predicate -> property map, used by predicateToPropName when a
+    // predicate is not in PREDICATE_MAP. Mirrors the property naming exactly.
     public const BARE_OVERRIDES = [
 {bare_lines}
     ];
@@ -1137,7 +1166,7 @@ def generate_trait_interface(interface_name: str, slot_names: list, schema_data:
     methods_lines = []
     for slot_name in slot_names:
         slot_data = slots.get(slot_name, {})
-        prop_name = to_php_property_name(slot_name)
+        prop_name = to_php_property_name(slot_name, slots)
         range_type = php_type_for_slot(slot_data, schema_data)
         is_collection = is_collection_property(slot_name, slot_data)
         cap = prop_name[0].upper() + prop_name[1:]
@@ -1239,8 +1268,9 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
 
     # Class properties
     props_code = []
+    slots = schema_data['slots']
     for slot_name, slot_data, owner in all_own_props:
-        prop_name = to_php_property_name(slot_name)
+        prop_name = to_php_property_name(slot_name, slots)
         is_collection = is_collection_property(slot_name, slot_data)
         ptype = php_prop_type(slot_data, schema_data, is_collection)
 
@@ -1255,7 +1285,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     body = []
     registrations = []
     for slot_name, slot_data, owner in all_own_props:
-        prop_name = to_php_property_name(slot_name)
+        prop_name = to_php_property_name(slot_name, slots)
         if is_collection_property(slot_name, slot_data):
             body.append(f"        $this->{prop_name} = $params['{prop_name}'] ?? [];")
         else:
@@ -1299,7 +1329,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     # prop -> (slot_data, is_collection, ptype, cap) for alias binding.
     prop_info: dict[str, tuple] = {}
     for slot_name, slot_data, owner in all_own_props:
-        prop_name = to_php_property_name(slot_name)
+        prop_name = to_php_property_name(slot_name, slots)
         if prop_name in prop_info:
             continue
         prop_info[prop_name] = (

@@ -38,7 +38,7 @@ class PhysicalPlace extends Place implements IPhysicalPlace
 {
     public const SEMANTIC_TYPE = 'dfc-b:PhysicalPlace';
 
-    private string|SemanticObject|array|null $phoneNumber = null;
+    private string|SemanticObject|array|null $hasPhoneNumber = null;
     private Address|string|SemanticObject|array|null $address = null;
     private Feature|string|SemanticObject|array|null $geoJsonFeature = null;
     private Person|string|SemanticObject|array|null $mainContact = null;
@@ -52,14 +52,14 @@ class PhysicalPlace extends Place implements IPhysicalPlace
     ) {
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
-        $this->phoneNumber = $params['phoneNumber'] ?? null;
+        $this->hasPhoneNumber = $params['hasPhoneNumber'] ?? null;
         $this->address = $params['address'] ?? null;
         $this->geoJsonFeature = $params['geoJsonFeature'] ?? null;
         $this->mainContact = $params['mainContact'] ?? null;
         $this->isOpenDuring = $params['isOpenDuring'] ?? null;
         $this->localizes = $params['localizes'] ?? [];
         $this->stores = $params['stores'] ?? [];
-        $this->registerSemanticProperty('dfc-b:hasPhoneNumber', fn() => $this->phoneNumber);
+        $this->registerSemanticProperty('dfc-b:hasPhoneNumber', fn() => $this->hasPhoneNumber);
         $this->registerSemanticProperty('dfc-b:hasAddress', fn() => $this->address);
         $this->registerSemanticProperty('dfc-b:hasGeoJsonFeature', fn() => $this->geoJsonFeature);
         $this->registerSemanticProperty('dfc-b:hasMainContact', fn() => $this->mainContact);
@@ -67,14 +67,14 @@ class PhysicalPlace extends Place implements IPhysicalPlace
         $this->registerSemanticProperty('dfc-b:localizes', fn() => $this->localizes);
         $this->registerSemanticProperty('dfc-b:stores', fn() => $this->stores);
     }
-    public function getPhoneNumber(): string|SemanticObject|array|null
+    public function getHasPhoneNumber(): string|SemanticObject|array|null
     {
-        return $this->phoneNumber;
+        return $this->hasPhoneNumber;
     }
 
-    public function setPhoneNumber(string|SemanticObject|array|null $phoneNumber): static
+    public function setHasPhoneNumber(string|SemanticObject|array|null $hasPhoneNumber): static
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->hasPhoneNumber = $hasPhoneNumber;
         return $this;
     }
 

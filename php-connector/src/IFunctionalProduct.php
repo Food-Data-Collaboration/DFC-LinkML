@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IFunctionalProduct extends AllergenCharacteristicable, BrandNameable, Brandable, Certifiable, CharacteristicOfable, Characteristicable, ClaimTextable, Claimable, Classable, Composeable, ConsumedByable, ContainerInformationable, Dateable, Describable, Dimensionable, GeographicalOriginable, Imageable, Ingredientable, LabellingCharacteristicable, Lifetimeable, Measurable, NatureOriginable, NutrientCharacteristicable, PartOriginable, PercentageOfAlcoholByVolumeable, PhysicalCharacteristicable, ProcessOfable, Quantifiable, QuantityValueable, ReferenceProductOptionable, ReferencedByable, RequestedByable, SatisfiedByable, SpecificConditionable, Urlable, Variantable
+interface IFunctionalProduct extends AllergenCharacteristicable, Brandable, Certifiable, CharacteristicOfable, Characteristicable, Claimable, Classable, Composeable, ConsumedByable, ContainerInformationable, Dateable, Describable, Dimensionable, GeographicalOriginable, HasBrandable, HasClaimable, HasQuantityable, Imageable, Ingredientable, LabellingCharacteristicable, Lifetimeable, Measurable, NatureOriginable, NutrientCharacteristicable, PartOriginable, PercentageOfAlcoholByVolumeable, PhysicalCharacteristicable, ProcessOfable, Quantifiable, ReferenceProductOptionable, ReferencedByable, RequestedByable, SatisfiedByable, SpecificConditionable, Urlable, Variantable
 {
 }

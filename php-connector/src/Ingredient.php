@@ -35,7 +35,7 @@ class Ingredient extends WhatSubject implements IIngredient
 
     private string|SemanticObject|array|null $composedOf = null;
     private string|SemanticObject|array|null $isIngredientOf = null;
-    private QuantitativeValue|string|SemanticObject|array|null $quantity = null;
+    private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
 
     public function __construct(
         string $semanticId,
@@ -45,10 +45,10 @@ class Ingredient extends WhatSubject implements IIngredient
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->composedOf = $params['composedOf'] ?? null;
         $this->isIngredientOf = $params['isIngredientOf'] ?? null;
-        $this->quantity = $params['quantity'] ?? null;
+        $this->hasQuantity = $params['hasQuantity'] ?? null;
         $this->registerSemanticProperty('dfc-b:composedOf', fn() => $this->composedOf);
         $this->registerSemanticProperty('dfc-b:isIngredientOf', fn() => $this->isIngredientOf);
-        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->quantity);
+        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->hasQuantity);
     }
     public function getComposedOf(): string|SemanticObject|array|null
     {
@@ -72,14 +72,14 @@ class Ingredient extends WhatSubject implements IIngredient
         return $this;
     }
 
-    public function getQuantity(): QuantitativeValue|string|SemanticObject|array|null
+    public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null
     {
-        return $this->quantity;
+        return $this->hasQuantity;
     }
 
-    public function setQuantity(QuantitativeValue|string|SemanticObject|array|null $quantity): static
+    public function setHasQuantity(QuantitativeValue|string|SemanticObject|array|null $hasQuantity): static
     {
-        $this->quantity = $quantity;
+        $this->hasQuantity = $hasQuantity;
         return $this;
     }
 }

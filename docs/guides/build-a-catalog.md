@@ -233,12 +233,8 @@ same `@id`.
   an old `dfc-b:Enterprise` document maps it automatically; you cannot write
   it.
 - **Property names differ per language.** `dfc-b:hasUnit` is `hasUnit` in
-  TypeScript, `unit` in Ruby and PHP. Predicates are identical.
-- **`country` and `countryName` are transposed in PHP**, so the same property
-  name emits a different predicate per language — `country` gives
-  `dfc-b:country` in TypeScript and Ruby but `dfc-b:hasCountry` in PHP. Same
-  caution for `quantity`. See
-  [the divergence note](../concepts/validation.md#one-caveat-country-means-different-things-in-php).
+  TypeScript, `unit` in Ruby and PHP. The predicate is identical either way,
+  which is what matters on the wire.
 - **Never compare two exports byte-for-byte.** Key order differs by
   connector — TypeScript and Ruby emit `@context` first, PHP last.
 - **`isPriceOf` is optional in practice.** Nothing enforces the cycle

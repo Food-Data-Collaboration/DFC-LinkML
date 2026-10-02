@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IPickupOption extends CharacteristicOfable, Dateable, Describable, Dimensionable, EndDateable, Feeable, OptionOfable, PickedUpAtable, Quantifiable, QuantityValueable, SelectedByable, StartDateable, Useable
+interface IPickupOption extends CharacteristicOfable, Dateable, Describable, Dimensionable, EndDateable, Feeable, HasQuantityable, OptionOfable, PickedUpAtable, Quantifiable, SelectedByable, StartDateable, Useable
 {
 }

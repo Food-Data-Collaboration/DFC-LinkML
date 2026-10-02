@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IOrganization extends Affiliateable, AffiliatedToable, CharacteristicOfable, Dateable, Defineable, Describable, Dimensionable, Emailable, EnterpriseIDable, IsCertifiedByable, IsMemberOfable, Localizable, Logoble, MainContactable, Maintainable, Manageable, Orderable, Ownable, Proposable, Requestable, Sellable, SocialMediable, Suppliable, TemplateSaleSessionable, Transformable, VatNumberable, VatStatusable, WebsitePageable
+interface IOrganization extends Affiliateable, AffiliatedToable, CharacteristicOfable, Dateable, Defineable, Describable, Dimensionable, Emailable, EnterpriseIDable, HasPhoneNumberable, IsCertifiedByable, IsMemberOfable, Localizable, Logoble, MainContactable, Maintainable, Manageable, Orderable, Ownable, Proposable, Requestable, Sellable, SocialMediable, Suppliable, TemplateSaleSessionable, Transformable, VatNumberable, VatStatusable, WebsitePageable
 {
 }

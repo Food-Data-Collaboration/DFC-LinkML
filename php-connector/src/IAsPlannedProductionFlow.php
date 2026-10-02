@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IAsPlannedProductionFlow extends CharacteristicOfable, Dateable, Describable, Dimensionable, OutputOfable, Produceable, Quantifiable, QuantityValueable
+interface IAsPlannedProductionFlow extends CharacteristicOfable, Dateable, Describable, Dimensionable, HasQuantityable, OutputOfable, Produceable, Quantifiable
 {
 }

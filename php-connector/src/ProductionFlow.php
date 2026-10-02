@@ -32,7 +32,7 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
 {
     public const SEMANTIC_TYPE = 'dfc-b:ProductionFlow';
 
-    private float|string|SemanticObject|array|null $quantityValue = null;
+    private float|string|SemanticObject|array|null $quantity = null;
     private string|SemanticObject|array|null $outputOf = null;
     private array|string|SemanticObject|null $produces = [];
     private string|SemanticObject|array|null $date = null;
@@ -40,7 +40,7 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
     private string|SemanticObject|array|null $name = null;
     private string|SemanticObject|array|null $characteristicOf = null;
     private string|SemanticObject|array|null $dimension = null;
-    private QuantitativeValue|string|SemanticObject|array|null $quantity = null;
+    private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
 
     public function __construct(
         string $semanticId,
@@ -48,7 +48,7 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
     ) {
                 parent::__construct($semanticId);
         $this->semanticType = self::SEMANTIC_TYPE;
-        $this->quantityValue = $params['quantityValue'] ?? null;
+        $this->quantity = $params['quantity'] ?? null;
         $this->outputOf = $params['outputOf'] ?? null;
         $this->produces = $params['produces'] ?? [];
         $this->date = $params['date'] ?? null;
@@ -56,8 +56,8 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
         $this->name = $params['name'] ?? null;
         $this->characteristicOf = $params['characteristicOf'] ?? null;
         $this->dimension = $params['dimension'] ?? null;
-        $this->quantity = $params['quantity'] ?? null;
-        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantityValue);
+        $this->hasQuantity = $params['hasQuantity'] ?? null;
+        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantity);
         $this->registerSemanticProperty('dfc-b:outputOf', fn() => $this->outputOf);
         $this->registerSemanticProperty('dfc-b:produces', fn() => $this->produces);
         $this->registerSemanticProperty('dfc-b:date', fn() => $this->date);
@@ -65,16 +65,16 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
         $this->registerSemanticProperty('dfc-b:name', fn() => $this->name);
         $this->registerSemanticProperty('dfc-b:characteristicOf', fn() => $this->characteristicOf);
         $this->registerSemanticProperty('dfc-b:hasDimension', fn() => $this->dimension);
-        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->quantity);
+        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->hasQuantity);
     }
-    public function getQuantityValue(): float|string|SemanticObject|array|null
+    public function getQuantity(): float|string|SemanticObject|array|null
     {
-        return $this->quantityValue;
+        return $this->quantity;
     }
 
-    public function setQuantityValue(float|string|SemanticObject|array|null $quantityValue): static
+    public function setQuantity(float|string|SemanticObject|array|null $quantity): static
     {
-        $this->quantityValue = $quantityValue;
+        $this->quantity = $quantity;
         return $this;
     }
 
@@ -187,14 +187,14 @@ class ProductionFlow extends SemanticObject implements IProductionFlow
         return $this;
     }
 
-    public function getQuantity(): QuantitativeValue|string|SemanticObject|array|null
+    public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null
     {
-        return $this->quantity;
+        return $this->hasQuantity;
     }
 
-    public function setQuantity(QuantitativeValue|string|SemanticObject|array|null $quantity): static
+    public function setHasQuantity(QuantitativeValue|string|SemanticObject|array|null $hasQuantity): static
     {
-        $this->quantity = $quantity;
+        $this->hasQuantity = $hasQuantity;
         return $this;
     }
 }

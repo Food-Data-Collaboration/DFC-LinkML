@@ -40,7 +40,7 @@ class Agent extends WhoSubject implements IAgent
     private string|SemanticObject|array|null $email = null;
     private string|SemanticObject|array|null $logo = null;
     private string|SemanticObject|array|null $websitePage = null;
-    private string|SemanticObject|array|null $phoneNumber = null;
+    private string|SemanticObject|array|null $hasPhoneNumber = null;
     private string|SemanticObject|array|null $socialMedia = null;
     private array|string|SemanticObject|null $owns = [];
     private array|string|SemanticObject|null $sells = [];
@@ -59,7 +59,7 @@ class Agent extends WhoSubject implements IAgent
         $this->email = $params['email'] ?? null;
         $this->logo = $params['logo'] ?? null;
         $this->websitePage = $params['websitePage'] ?? null;
-        $this->phoneNumber = $params['phoneNumber'] ?? null;
+        $this->hasPhoneNumber = $params['hasPhoneNumber'] ?? null;
         $this->socialMedia = $params['socialMedia'] ?? null;
         $this->owns = $params['owns'] ?? [];
         $this->sells = $params['sells'] ?? [];
@@ -71,7 +71,7 @@ class Agent extends WhoSubject implements IAgent
         $this->registerSemanticProperty('dfc-b:email', fn() => $this->email);
         $this->registerSemanticProperty('dfc-b:logo', fn() => $this->logo);
         $this->registerSemanticProperty('dfc-b:websitePage', fn() => $this->websitePage);
-        $this->registerSemanticProperty('dfc-b:hasPhoneNumber', fn() => $this->phoneNumber);
+        $this->registerSemanticProperty('dfc-b:hasPhoneNumber', fn() => $this->hasPhoneNumber);
         $this->registerSemanticProperty('dfc-b:hasSocialMedia', fn() => $this->socialMedia);
         $this->registerSemanticProperty('dfc-b:owns', fn() => $this->owns);
         $this->registerSemanticProperty('dfc-b:sells', fn() => $this->sells);
@@ -114,14 +114,14 @@ class Agent extends WhoSubject implements IAgent
         return $this;
     }
 
-    public function getPhoneNumber(): string|SemanticObject|array|null
+    public function getHasPhoneNumber(): string|SemanticObject|array|null
     {
-        return $this->phoneNumber;
+        return $this->hasPhoneNumber;
     }
 
-    public function setPhoneNumber(string|SemanticObject|array|null $phoneNumber): static
+    public function setHasPhoneNumber(string|SemanticObject|array|null $hasPhoneNumber): static
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->hasPhoneNumber = $hasPhoneNumber;
         return $this;
     }
 

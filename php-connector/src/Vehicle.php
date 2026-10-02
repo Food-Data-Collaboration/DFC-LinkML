@@ -40,7 +40,7 @@ class Vehicle extends WhatSubject implements IVehicle
     private array|string|SemanticObject|null $ships = [];
     private string|SemanticObject|array|null $usedInRoute = null;
     private PhysicalPlace|string|SemanticObject|array|null $basedAt = null;
-    private QuantitativeValue|string|SemanticObject|array|null $quantity = null;
+    private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
     private OpeningHoursSpecification|string|SemanticObject|array|null $isAvailableDuring = null;
 
     public function __construct(
@@ -54,14 +54,14 @@ class Vehicle extends WhatSubject implements IVehicle
         $this->ships = $params['ships'] ?? [];
         $this->usedInRoute = $params['usedInRoute'] ?? null;
         $this->basedAt = $params['basedAt'] ?? null;
-        $this->quantity = $params['quantity'] ?? null;
+        $this->hasQuantity = $params['hasQuantity'] ?? null;
         $this->isAvailableDuring = $params['isAvailableDuring'] ?? null;
         $this->registerSemanticProperty('dfc-b:frozen', fn() => $this->frozen);
         $this->registerSemanticProperty('dfc-b:refrigerated', fn() => $this->refrigerated);
         $this->registerSemanticProperty('dfc-b:ships', fn() => $this->ships);
         $this->registerSemanticProperty('dfc-b:usedInRoute', fn() => $this->usedInRoute);
         $this->registerSemanticProperty('dfc-b:basedAt', fn() => $this->basedAt);
-        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->quantity);
+        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->hasQuantity);
         $this->registerSemanticProperty('dfc-b:isAvailableDuring', fn() => $this->isAvailableDuring);
     }
     public function getFrozen(): bool|string|SemanticObject|array|null
@@ -151,14 +151,14 @@ class Vehicle extends WhatSubject implements IVehicle
         return $this;
     }
 
-    public function getQuantity(): QuantitativeValue|string|SemanticObject|array|null
+    public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null
     {
-        return $this->quantity;
+        return $this->hasQuantity;
     }
 
-    public function setQuantity(QuantitativeValue|string|SemanticObject|array|null $quantity): static
+    public function setHasQuantity(QuantitativeValue|string|SemanticObject|array|null $hasQuantity): static
     {
-        $this->quantity = $quantity;
+        $this->hasQuantity = $hasQuantity;
         return $this;
     }
 

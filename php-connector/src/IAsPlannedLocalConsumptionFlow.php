@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IAsPlannedLocalConsumptionFlow extends CharacteristicOfable, Consumeable, Dateable, Describable, Dimensionable, InputOfable, Quantifiable, QuantityValueable
+interface IAsPlannedLocalConsumptionFlow extends CharacteristicOfable, Consumeable, Dateable, Describable, Dimensionable, HasQuantityable, InputOfable, Quantifiable
 {
 }

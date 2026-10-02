@@ -37,13 +37,13 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
     public const SEMANTIC_TYPE = 'dfc-b:PhysicalProduct';
 
     private string|SemanticObject|array|null $image = null;
-    private float|string|SemanticObject|array|null $quantityValue = null;
+    private float|string|SemanticObject|array|null $quantity = null;
     private string|SemanticObject|array|null $concernedBy = null;
     private string|SemanticObject|array|null $constituedBy = null;
     private string|SemanticObject|array|null $consumedBy = null;
     private array|string|SemanticObject|null $fulfills = [];
     private string|SemanticObject|array|null $producedBy = null;
-    private QuantitativeValue|string|SemanticObject|array|null $quantity = null;
+    private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
     private Agent|string|SemanticObject|array|null $ownedBy = null;
     private array|LocalizedProduct|string|SemanticObject|null $represents = [];
     private ProductBatch|string|SemanticObject|array|null $tracedBy = null;
@@ -55,24 +55,24 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->image = $params['image'] ?? null;
-        $this->quantityValue = $params['quantityValue'] ?? null;
+        $this->quantity = $params['quantity'] ?? null;
         $this->concernedBy = $params['concernedBy'] ?? null;
         $this->constituedBy = $params['constituedBy'] ?? null;
         $this->consumedBy = $params['consumedBy'] ?? null;
         $this->fulfills = $params['fulfills'] ?? [];
         $this->producedBy = $params['producedBy'] ?? null;
-        $this->quantity = $params['quantity'] ?? null;
+        $this->hasQuantity = $params['hasQuantity'] ?? null;
         $this->ownedBy = $params['ownedBy'] ?? null;
         $this->represents = $params['represents'] ?? [];
         $this->tracedBy = $params['tracedBy'] ?? null;
         $this->registerSemanticProperty('dfc-b:Image', fn() => $this->image);
-        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantityValue);
+        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantity);
         $this->registerSemanticProperty('dfc-b:concernedBy', fn() => $this->concernedBy);
         $this->registerSemanticProperty('dfc-b:constituedBy', fn() => $this->constituedBy);
         $this->registerSemanticProperty('dfc-b:consumedBy', fn() => $this->consumedBy);
         $this->registerSemanticProperty('dfc-b:fulfills', fn() => $this->fulfills);
         $this->registerSemanticProperty('dfc-b:producedBy', fn() => $this->producedBy);
-        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->quantity);
+        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->hasQuantity);
         $this->registerSemanticProperty('dfc-b:ownedBy', fn() => $this->ownedBy);
         $this->registerSemanticProperty('dfc-b:represents', fn() => $this->represents);
         $this->registerSemanticProperty('dfc-b:tracedBy', fn() => $this->tracedBy);
@@ -88,14 +88,14 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
         return $this;
     }
 
-    public function getQuantityValue(): float|string|SemanticObject|array|null
+    public function getQuantity(): float|string|SemanticObject|array|null
     {
-        return $this->quantityValue;
+        return $this->quantity;
     }
 
-    public function setQuantityValue(float|string|SemanticObject|array|null $quantityValue): static
+    public function setQuantity(float|string|SemanticObject|array|null $quantity): static
     {
-        $this->quantityValue = $quantityValue;
+        $this->quantity = $quantity;
         return $this;
     }
 
@@ -186,14 +186,14 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
         return $this;
     }
 
-    public function getQuantity(): QuantitativeValue|string|SemanticObject|array|null
+    public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null
     {
-        return $this->quantity;
+        return $this->hasQuantity;
     }
 
-    public function setQuantity(QuantitativeValue|string|SemanticObject|array|null $quantity): static
+    public function setHasQuantity(QuantitativeValue|string|SemanticObject|array|null $hasQuantity): static
     {
-        $this->quantity = $quantity;
+        $this->hasQuantity = $hasQuantity;
         return $this;
     }
 

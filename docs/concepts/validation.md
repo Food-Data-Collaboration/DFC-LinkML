@@ -145,34 +145,6 @@ term. They exist in the JSON-LD context, not in the object model. Check the
 [class page](../reference/model/classes/Address.md) for what a class actually
 carries rather than assuming a predicate in the context implies a property.
 
-### One caveat: `country` means different things in PHP
-
-`country` and `hasCountry` are **transposed** in the PHP connector, and this
-is a genuine cross-connector divergence, not a naming preference:
-
-| Set this | TypeScript / Ruby emit | PHP emits |
-|---|---|---|
-| `country` | `dfc-b:country` | `dfc-b:hasCountry` |
-| `countryName` | *(not a property)* | `dfc-b:country` |
-
-The same property name produces a **different predicate** depending on the
-language, so a document written in PHP is not interchangeable with one
-written in TypeScript. It comes from `country` being in the PHP generator's
-`BARE_SLOT_OVERRIDES` (renamed to `countryName` to disambiguate it from
-`has_country`), which the TypeScript and Ruby generators do not apply.
-
-If you move data between languages, check `Address` explicitly:
-
-```typescript
-const address = c.createAddress({ semanticId: "https://x/1", country: "FR" });
-// TS/Ruby -> "dfc-b:country"   PHP -> "dfc-b:hasCountry"
-```
-
-`quantity` is in the same `BARE_SLOT_OVERRIDES` list, so the same caution
-applies to it. This is worth reporting upstream; it is pinned by
-`php-connector/tests/PropertyRetentionTest.php` so the current behaviour
-cannot drift unnoticed.
-
 ### Nodes and types
 
 - **An unknown `@type` drops the whole node.** It does not raise; the node

@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IIngredient extends CharacteristicOfable, ComposedOfable, Dateable, Describable, Dimensionable, IsIngredientOfable, Quantifiable
+interface IIngredient extends CharacteristicOfable, ComposedOfable, Dateable, Describable, Dimensionable, HasQuantityable, IsIngredientOfable
 {
 }

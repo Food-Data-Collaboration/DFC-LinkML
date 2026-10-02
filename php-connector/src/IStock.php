@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IStock extends AvailabilityDateable, CharacteristicOfable, Dateable, Describable, Dimensionable, Quantifiable, QuantityValueable, TransportedByable
+interface IStock extends AvailabilityDateable, CharacteristicOfable, Dateable, Describable, Dimensionable, HasQuantityable, Quantifiable, TransportedByable
 {
 }

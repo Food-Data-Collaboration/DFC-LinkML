@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IAgent extends AffiliatedToable, CharacteristicOfable, Dateable, Describable, Dimensionable, Emailable, IsMemberOfable, Localizable, Logoble, Orderable, Ownable, Requestable, Sellable, SocialMediable, WebsitePageable
+interface IAgent extends AffiliatedToable, CharacteristicOfable, Dateable, Describable, Dimensionable, Emailable, HasPhoneNumberable, IsMemberOfable, Localizable, Logoble, Orderable, Ownable, Requestable, Sellable, SocialMediable, WebsitePageable
 {
 }

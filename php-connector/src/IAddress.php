@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IAddress extends AddressOfable, Addressable, CharacteristicOfable, CountryNameable, Dateable, Describable, Dimensionable, Geolocalizable, Regionable
+interface IAddress extends AddressOfable, Addressable, CharacteristicOfable, Dateable, Describable, Dimensionable, Geolocalizable, HasCountryable, Regionable
 {
 }

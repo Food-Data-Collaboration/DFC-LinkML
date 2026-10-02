@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IPhoneNumber extends CharacteristicOfable, CountryCodeable, Dateable, Describable, Dimensionable, PhoneNumberOfable
+interface IPhoneNumber extends CharacteristicOfable, CountryCodeable, Dateable, Describable, Dimensionable, PhoneNumberOfable, Phoneable
 {
 }

@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface ITheoriticalStock extends AvailabilityDateable, CharacteristicOfable, Constituteable, Dateable, Describable, Dimensionable, LocalizedByable, Quantifiable, QuantityValueable, TransportedByable
+interface ITheoriticalStock extends AvailabilityDateable, CharacteristicOfable, Constituteable, Dateable, Describable, Dimensionable, HasQuantityable, LocalizedByable, Quantifiable, TransportedByable
 {
 }

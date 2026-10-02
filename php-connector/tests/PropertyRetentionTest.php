@@ -166,28 +166,71 @@ final class PropertyRetentionTest extends TestCase
 
     public function testTheDeprecatedInReferencePropertyIsStillSettable(): void
     {
-        // PHP exposes the deprecated dfc-b:country as `countryName` and
-        // dfc-b:hasCountry as `country` -- the inverse of TypeScript and
-        // Ruby, which map `country` to dfc-b:country. See the note in
-        // docs/concepts/validation.md; this asserts PHP's actual behaviour so
-        // the divergence is recorded rather than incidental.
-        $address = $this->connector->createAddress('https://x/1', [
-            'countryName' => 'France',
-        ]);
-        $out = json_decode($this->connector->export($address), true);
-        $this->assertSame('France', $out['dfc-b:country']);
-        $this->assertInstanceOf(Address::class, $address);
-    }
-
-    public function testCountryAndHasCountryAreTransposedInPhp(): void
-    {
-        // Pins a real cross-connector divergence: TS and Ruby both write
-        // `country` -> dfc-b:country, PHP writes it to dfc-b:hasCountry.
+        // `country` is owl:deprecated but in domain for Address, so it
+        // round-trips. The property name is the slot's own: `country` maps to
+        // dfc-b:country, as in TypeScript and Ruby.
         $address = $this->connector->createAddress('https://x/1', [
             'country' => 'FR',
         ]);
         $out = json_decode($this->connector->export($address), true);
-        $this->assertSame('FR', $out['dfc-b:hasCountry']);
-        $this->assertArrayNotHasKey('dfc-b:country', $out);
+        $this->assertSame('FR', $out['dfc-b:country']);
+        $this->assertInstanceOf(Address::class, $address);
+    }
+
+    /**
+     * Data-plane parity: the five bare/has_ collision pairs.
+     *
+     * PHP strips the `has_` prefix, so `has_country` and `country` both
+     * wanted the property name `country`. The generator used to rename the
+     * *bare* slot to `countryName`, which transposed the predicates -- the
+     * same property name emitted a different predicate per language -- and
+     * `phone_number`/`has_phone_number` was missed entirely, silently losing
+     * dfc-b:phoneNumber. Each slot now keeps its own name.
+     */
+    public function testCollisionPairsKeepTheirOwnPropertyNames(): void
+    {
+        $cases = [
+            ['Address', 'country', 'dfc-b:country', ['country' => 'FR']],
+            ['Address', 'hasCountry', 'dfc-b:hasCountry', ['hasCountry' => 'FR']],
+            ['DefinedProduct', 'quantity', 'dfc-b:quantity', ['quantity' => 1.0]],
+            ['DefinedProduct', 'hasQuantity', 'dfc-b:hasQuantity', ['hasQuantity' => 3.0]],
+            ['DefinedProduct', 'brand', 'dfc-b:brand', ['brand' => 'Acme']],
+            ['DefinedProduct', 'hasBrand', 'dfc-b:hasBrand', ['hasBrand' => 'Acme']],
+            ['PhoneNumber', 'phoneNumber', 'dfc-b:phoneNumber', ['phoneNumber' => '+33']],
+            ['Agent', 'hasPhoneNumber', 'dfc-b:hasPhoneNumber', ['hasPhoneNumber' => '+33']],
+        ];
+        foreach ($cases as [$class, $prop, $predicate, $params]) {
+            $factory = 'create' . $class;
+            $obj = $this->connector->$factory('https://x/' . md5($prop), $params);
+            $out = json_decode($this->connector->export($obj), true);
+            $this->assertArrayHasKey(
+                $predicate,
+                $out,
+                "{$class}::{$prop} should emit {$predicate}"
+            );
+            $this->assertEquals(
+                $params[$prop],
+                $out[$predicate],
+                "{$class}::{$prop} value"
+            );
+        }
+    }
+
+    /** dfc-b:phoneNumber was previously unreachable through Agent. */
+    public function testPhoneNumberIsNotLost(): void
+    {
+        // phone_number's domain is PhoneNumber, so Agent drops it by domain
+        // checking -- but PhoneNumber itself must keep it.
+        $phone = $this->connector->createPhoneNumber('https://x/1', [
+            'phoneNumber' => '+33',
+        ]);
+        $out = json_decode($this->connector->export($phone), true);
+        $this->assertSame('+33', $out['dfc-b:phoneNumber']);
+
+        $agent = $this->connector->createAgent('https://x/2', [
+            'phoneNumber' => '+33',
+        ]);
+        $agentOut = json_decode($this->connector->export($agent), true);
+        $this->assertArrayNotHasKey('dfc-b:phoneNumber', $agentOut);
     }
 }
