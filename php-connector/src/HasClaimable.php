@@ -25,8 +25,8 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface BrandNameable
+interface HasClaimable
 {
-    public function getBrandName(): string|SemanticObject|array|null;
-    public function setBrandName(string|SemanticObject|array|null $brandName): static;
+    public function getHasClaim(): string|SemanticObject|array|null;
+    public function setHasClaim(string|SemanticObject|array|null $hasClaim): static;
 }

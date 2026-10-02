@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface ILocalizedProduct extends CharacteristicOfable, ConstituedByable, ConsumedByable, Costable, Dateable, Describable, Dimensionable, Imageable, ProducedByable, Quantifiable, QuantityValueable, RepresentedByable
+interface ILocalizedProduct extends CharacteristicOfable, ConstituedByable, ConsumedByable, Costable, Dateable, Describable, Dimensionable, HasQuantityable, Imageable, ProducedByable, Quantifiable, RepresentedByable
 {
 }

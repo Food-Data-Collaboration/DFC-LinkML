@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IVehicle extends BasedAtable, CharacteristicOfable, Dateable, Describable, Dimensionable, Frozenable, IsAvailableDuringable, Quantifiable, Refrigeratedable, Shipable, UsedInRouteable
+interface IVehicle extends BasedAtable, CharacteristicOfable, Dateable, Describable, Dimensionable, Frozenable, HasQuantityable, IsAvailableDuringable, Refrigeratedable, Shipable, UsedInRouteable
 {
 }

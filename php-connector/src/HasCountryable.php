@@ -25,6 +25,8 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface ITransaction extends CharacteristicOfable, Concernable, Dateable, Describable, Dimensionable, Fromable, HasQuantityable, InvoiceNumberable, Pricable, Quantifiable, Toable
+interface HasCountryable
 {
+    public function getHasCountry(): string|SemanticObject|array|null;
+    public function setHasCountry(string|SemanticObject|array|null $hasCountry): static;
 }

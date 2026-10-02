@@ -25,8 +25,8 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface CountryNameable
+interface HasQuantityable
 {
-    public function getCountryName(): string|SemanticObject|array|null;
-    public function setCountryName(string|SemanticObject|array|null $countryName): static;
+    public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null;
+    public function setHasQuantity(QuantitativeValue|string|SemanticObject|array|null $hasQuantity): static;
 }

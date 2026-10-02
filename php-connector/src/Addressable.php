@@ -29,10 +29,10 @@ interface Addressable
 {
     public function getCity(): string|SemanticObject|array|null;
     public function setCity(string|SemanticObject|array|null $city): static;
+    public function getCountry(): string|SemanticObject|array|null;
+    public function setCountry(string|SemanticObject|array|null $country): static;
     public function getPostcode(): string|SemanticObject|array|null;
     public function setPostcode(string|SemanticObject|array|null $postcode): static;
     public function getStreet(): string|SemanticObject|array|null;
     public function setStreet(string|SemanticObject|array|null $street): static;
-    public function getCountry(): string|SemanticObject|array|null;
-    public function setCountry(string|SemanticObject|array|null $country): static;
 }

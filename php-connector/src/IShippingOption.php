@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IShippingOption extends CharacteristicOfable, Dateable, Describable, Dimensionable, EndDateable, Feeable, OptionOfable, Quantifiable, QuantityValueable, SelectedByable, StartDateable
+interface IShippingOption extends CharacteristicOfable, Dateable, Describable, Dimensionable, EndDateable, Feeable, HasQuantityable, OptionOfable, Quantifiable, SelectedByable, StartDateable
 {
 }

@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IPerson extends AffiliatedToable, CharacteristicOfable, Dateable, Describable, Dimensionable, Emailable, IsMemberOfable, Localizable, Logoble, MainContactOfable, Nameable, Orderable, Ownable, Requestable, Sellable, SocialMediable, WebsitePageable
+interface IPerson extends AffiliatedToable, CharacteristicOfable, Dateable, Describable, Dimensionable, Emailable, HasPhoneNumberable, IsMemberOfable, Localizable, Logoble, MainContactOfable, Nameable, Orderable, Ownable, Requestable, Sellable, SocialMediable, WebsitePageable
 {
 }

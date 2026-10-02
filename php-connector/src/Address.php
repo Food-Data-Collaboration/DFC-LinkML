@@ -33,14 +33,14 @@ class Address extends WhereSubject implements IAddress
     public const SEMANTIC_TYPE = 'dfc-b:Address';
 
     private string|SemanticObject|array|null $city = null;
-    private string|SemanticObject|array|null $countryName = null;
+    private string|SemanticObject|array|null $country = null;
     private float|string|SemanticObject|array|null $latitude = null;
     private float|string|SemanticObject|array|null $longitude = null;
     private string|SemanticObject|array|null $postcode = null;
     private string|SemanticObject|array|null $region = null;
     private string|SemanticObject|array|null $street = null;
     private string|SemanticObject|array|null $addressOf = null;
-    private string|SemanticObject|array|null $country = null;
+    private string|SemanticObject|array|null $hasCountry = null;
 
     public function __construct(
         string $semanticId,
@@ -49,23 +49,23 @@ class Address extends WhereSubject implements IAddress
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->city = $params['city'] ?? null;
-        $this->countryName = $params['countryName'] ?? null;
+        $this->country = $params['country'] ?? null;
         $this->latitude = $params['latitude'] ?? null;
         $this->longitude = $params['longitude'] ?? null;
         $this->postcode = $params['postcode'] ?? null;
         $this->region = $params['region'] ?? null;
         $this->street = $params['street'] ?? null;
         $this->addressOf = $params['addressOf'] ?? null;
-        $this->country = $params['country'] ?? null;
+        $this->hasCountry = $params['hasCountry'] ?? null;
         $this->registerSemanticProperty('dfc-b:city', fn() => $this->city);
-        $this->registerSemanticProperty('dfc-b:country', fn() => $this->countryName);
+        $this->registerSemanticProperty('dfc-b:country', fn() => $this->country);
         $this->registerSemanticProperty('dfc-b:latitude', fn() => $this->latitude);
         $this->registerSemanticProperty('dfc-b:longitude', fn() => $this->longitude);
         $this->registerSemanticProperty('dfc-b:postcode', fn() => $this->postcode);
         $this->registerSemanticProperty('dfc-b:region', fn() => $this->region);
         $this->registerSemanticProperty('dfc-b:street', fn() => $this->street);
         $this->registerSemanticProperty('dfc-b:addressOf', fn() => $this->addressOf);
-        $this->registerSemanticProperty('dfc-b:hasCountry', fn() => $this->country);
+        $this->registerSemanticProperty('dfc-b:hasCountry', fn() => $this->hasCountry);
     }
     public function getCity(): string|SemanticObject|array|null
     {
@@ -78,14 +78,14 @@ class Address extends WhereSubject implements IAddress
         return $this;
     }
 
-    public function getCountryName(): string|SemanticObject|array|null
+    public function getCountry(): string|SemanticObject|array|null
     {
-        return $this->countryName;
+        return $this->country;
     }
 
-    public function setCountryName(string|SemanticObject|array|null $countryName): static
+    public function setCountry(string|SemanticObject|array|null $country): static
     {
-        $this->countryName = $countryName;
+        $this->country = $country;
         return $this;
     }
 
@@ -155,14 +155,14 @@ class Address extends WhereSubject implements IAddress
         return $this;
     }
 
-    public function getCountry(): string|SemanticObject|array|null
+    public function getHasCountry(): string|SemanticObject|array|null
     {
-        return $this->country;
+        return $this->hasCountry;
     }
 
-    public function setCountry(string|SemanticObject|array|null $country): static
+    public function setHasCountry(string|SemanticObject|array|null $hasCountry): static
     {
-        $this->country = $country;
+        $this->hasCountry = $hasCountry;
         return $this;
     }
 }

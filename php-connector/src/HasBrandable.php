@@ -25,8 +25,8 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface QuantityValueable
+interface HasBrandable
 {
-    public function getQuantityValue(): float|string|SemanticObject|array|null;
-    public function setQuantityValue(float|string|SemanticObject|array|null $quantityValue): static;
+    public function getHasBrand(): string|SemanticObject|array|null;
+    public function setHasBrand(string|SemanticObject|array|null $hasBrand): static;
 }

@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IPhysicalProduct extends CharacteristicOfable, ConcernedByable, ConstituedByable, ConsumedByable, Dateable, Describable, Dimensionable, Fulfillable, Imageable, OwnedByable, ProducedByable, Quantifiable, QuantityValueable, TracedByable
+interface IPhysicalProduct extends CharacteristicOfable, ConcernedByable, ConstituedByable, ConsumedByable, Dateable, Describable, Dimensionable, Fulfillable, HasQuantityable, Imageable, OwnedByable, ProducedByable, Quantifiable, TracedByable
 {
 }

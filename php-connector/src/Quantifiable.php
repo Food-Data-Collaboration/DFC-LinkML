@@ -27,6 +27,6 @@ namespace DataFoodConsortium\Connector;
 
 interface Quantifiable
 {
-    public function getQuantity(): QuantitativeValue|string|SemanticObject|array|null;
-    public function setQuantity(QuantitativeValue|string|SemanticObject|array|null $quantity): static;
+    public function getQuantity(): float|string|SemanticObject|array|null;
+    public function setQuantity(float|string|SemanticObject|array|null $quantity): static;
 }

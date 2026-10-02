@@ -33,14 +33,14 @@ class Stock extends SemanticObject implements IStock
     public const SEMANTIC_TYPE = 'dfc-b:Stock';
 
     private string|SemanticObject|array|null $availabilityDate = null;
-    private float|string|SemanticObject|array|null $quantityValue = null;
+    private float|string|SemanticObject|array|null $quantity = null;
     private string|SemanticObject|array|null $transportedBy = null;
     private string|SemanticObject|array|null $date = null;
     private string|SemanticObject|array|null $description = null;
     private string|SemanticObject|array|null $name = null;
     private string|SemanticObject|array|null $characteristicOf = null;
     private string|SemanticObject|array|null $dimension = null;
-    private QuantitativeValue|string|SemanticObject|array|null $quantity = null;
+    private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
 
     public function __construct(
         string $semanticId,
@@ -49,23 +49,23 @@ class Stock extends SemanticObject implements IStock
                 parent::__construct($semanticId);
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->availabilityDate = $params['availabilityDate'] ?? null;
-        $this->quantityValue = $params['quantityValue'] ?? null;
+        $this->quantity = $params['quantity'] ?? null;
         $this->transportedBy = $params['transportedBy'] ?? null;
         $this->date = $params['date'] ?? null;
         $this->description = $params['description'] ?? null;
         $this->name = $params['name'] ?? null;
         $this->characteristicOf = $params['characteristicOf'] ?? null;
         $this->dimension = $params['dimension'] ?? null;
-        $this->quantity = $params['quantity'] ?? null;
+        $this->hasQuantity = $params['hasQuantity'] ?? null;
         $this->registerSemanticProperty('dfc-b:availabilityDate', fn() => $this->availabilityDate);
-        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantityValue);
+        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantity);
         $this->registerSemanticProperty('dfc-b:transportedBy', fn() => $this->transportedBy);
         $this->registerSemanticProperty('dfc-b:date', fn() => $this->date);
         $this->registerSemanticProperty('dfc-b:description', fn() => $this->description);
         $this->registerSemanticProperty('dfc-b:name', fn() => $this->name);
         $this->registerSemanticProperty('dfc-b:characteristicOf', fn() => $this->characteristicOf);
         $this->registerSemanticProperty('dfc-b:hasDimension', fn() => $this->dimension);
-        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->quantity);
+        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->hasQuantity);
     }
     public function getAvailabilityDate(): string|SemanticObject|array|null
     {
@@ -78,14 +78,14 @@ class Stock extends SemanticObject implements IStock
         return $this;
     }
 
-    public function getQuantityValue(): float|string|SemanticObject|array|null
+    public function getQuantity(): float|string|SemanticObject|array|null
     {
-        return $this->quantityValue;
+        return $this->quantity;
     }
 
-    public function setQuantityValue(float|string|SemanticObject|array|null $quantityValue): static
+    public function setQuantity(float|string|SemanticObject|array|null $quantity): static
     {
-        $this->quantityValue = $quantityValue;
+        $this->quantity = $quantity;
         return $this;
     }
 
@@ -155,14 +155,14 @@ class Stock extends SemanticObject implements IStock
         return $this;
     }
 
-    public function getQuantity(): QuantitativeValue|string|SemanticObject|array|null
+    public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null
     {
-        return $this->quantity;
+        return $this->hasQuantity;
     }
 
-    public function setQuantity(QuantitativeValue|string|SemanticObject|array|null $quantity): static
+    public function setHasQuantity(QuantitativeValue|string|SemanticObject|array|null $hasQuantity): static
     {
-        $this->quantity = $quantity;
+        $this->hasQuantity = $hasQuantity;
         return $this;
     }
 }

@@ -90,43 +90,101 @@ Everything specific to your deployment: a product must have a price, a farm
 must be in your region, a delivery must precede a pickup. None of this is
 knowable from the DFC model, and the connectors make no attempt at it.
 
-## What the connectors do instead
+## Property retention
 
-They **preserve** and they **normalise**, but they do not **reject**:
+The connectors are **lossy on purpose**. A round trip keeps exactly what the
+schema says a class can hold, and discards the rest — silently, in all three
+connectors, with no warning and no error.
 
-- **Unknown terms are dropped.** A predicate the model does not declare is
-  discarded on import and does not appear on re-export. Verified identical in
-  all three connectors. This is lossy — see below.
-- **Unknown types fail differently.** A `@type` with no matching class does
-  not raise; it is skipped.
-- **Legacy types are mapped.** `dfc-b:Enterprise` becomes
-  `dfc-b:Organization`, following the DFC v2.0 rename, in all three
-  connectors.
-- **Dangling references pass through.** A property pointing at an `@id` not in
-  the document is kept as a string.
+This is a deliberate design decision, not a limitation to work around. The
+model is the contract: a `dfc-b:Organization` is defined to carry `dfc-b:name`
+and its other declared properties. Carrying arbitrary terms forward would mean
+the connectors asserted things about your data that the DFC model does not,
+and re-exported documents would accumulate terms no consumer could interpret.
 
-### The unknown-field caveat, concretely
+The cost is that a document mixing DFC predicates with your own does not
+survive a round trip. Plan for that rather than discovering it.
+
+### The rule
+
+A property survives import **only if the generated model class for the node's
+`@type` registers that predicate**. Three things follow, and they are often
+conflated:
+
+| Input | Round trip | Why |
+|---|---|---|
+| Property declared on the class or an ancestor | **kept** | the class registers it |
+| Deprecated but declared, e.g. `dfc-b:country` on `Address` | **kept** | deprecation is metadata, not removal |
+| Known property, wrong class, e.g. `dfc-b:vatRate` on `Address` | dropped | the class does not declare it |
+| Your own term, e.g. `https://your.org/id` | dropped | not in the schema at all |
+| Property whose schema `domain` names no DFC class, e.g. `dfc-b:hasFacet` | dropped | unreachable through the model — see below |
+
+**Deprecated properties are retained.** This surprises people, and it is the
+most common misreading: `owl:deprecated` in the ontology becomes
+`deprecated: true` in the schema and is excluded from the
+[reference](../reference/model/index.md), but the connectors still generate
+it and still round-trip it. Deprecating something in the reference tells you
+not to *start* using it; it does not make existing data unreadable. There is
+no upgrade path, and no need for one.
+
+**Wrong-class properties are dropped**, which is the rule people miss most
+often. It is domain checking, and it happens whether or not the property
+exists:
+
+```typescript
+const doc = { "@id": "https://x/1", "@type": "dfc-b:Address", "dfc-b:vatRate": 5.5 };
+c.import(doc)[0];   // Address has no vatRate; it is silently absent after re-export
+```
+
+**14 schema properties are unreachable through the model classes.** Slots
+whose `domain` names no DFC class — `hasFacet`, `suppliesTo`, `inScheme`,
+`facetOf`, `broader`, `narrower`, `minValue`, `maxValue` and six others — are
+declared in the schema and appear in the connectors' predicate maps, but no
+generated class registers them, so they are dropped on import like any unknown
+term. They exist in the JSON-LD context, not in the object model. Check the
+[class page](../reference/model/classes/Address.md) for what a class actually
+carries rather than assuming a predicate in the context implies a property.
+
+### Nodes and types
+
+- **An unknown `@type` drops the whole node.** It does not raise; the node
+  simply is not in the returned array. Compare lengths if you expect N nodes.
+- **A legacy type is mapped.** `dfc-b:Enterprise` becomes
+  `dfc-b:Organization` on import, following the DFC v2.0 rename. That is a
+  type *rename*, not a deprecation — the node is kept.
+- **A dangling reference is kept as a string.** A property pointing at an
+  `@id` absent from the document comes back as the raw value, not a fabricated
+  object.
+
+### Concretely
 
 ```typescript
 const doc = {
   "@id": "https://example.org/o/1",
   "@type": "dfc-b:Organization",
   "dfc-b:name": "Acme",
-  "https://example.org/who#invented": "someone",   // your own extension
-  "dfc-b:totallyMadeUp": "value",
+  "https://example.org/who#invented": "someone",   // dropped
+  "dfc-b:totallyMadeUp": "value",                   // dropped
 };
 
-const back = c.import(doc)[0];
-JSON.parse(await c.export(back));
-// keys: @context, @id, @type, dfc-b:name
-// both unknown terms are gone
+const [org] = c.import(doc);
+Object.keys(JSON.parse(await c.export(org)));
+// ["@context", "@id", "@type", "dfc-b:name"]
 ```
 
-If your deployment mixes DFC predicates with your own, **do not round-trip
-through the connectors** without capturing the extras first. The conformance
-suite in `tests/conformance/` covers known-shape round trips; it does not
-cover extension preservation, because the behaviour is that extensions are
-not preserved.
+If you mix your own terms into DFC documents, **capture them before import** —
+there is no way to get them back out:
+
+```typescript
+const extras = Object.fromEntries(
+  Object.entries(doc).filter(([k]) => k.startsWith("https://your.org/"))
+);
+// store `extras` keyed by @id, then re-attach on the way out
+```
+
+The conformance suite in `tests/conformance/` covers known-shape round trips.
+Extension preservation is not tested because the behaviour is that
+extensions are not preserved.
 
 ## Where to put your own checks
 

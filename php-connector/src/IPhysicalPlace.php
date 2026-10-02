@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IPhysicalPlace extends CharacteristicOfable, Dateable, Describable, Dimensionable, GeoJsonable, Hostable, IsOpenDuringable, Localizable, Localizeable, MainContactable, Storeable
+interface IPhysicalPlace extends CharacteristicOfable, Dateable, Describable, Dimensionable, GeoJsonable, HasPhoneNumberable, Hostable, IsOpenDuringable, Localizable, Localizeable, MainContactable, Storeable
 {
 }

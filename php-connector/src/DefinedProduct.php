@@ -37,20 +37,20 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
 
     private string|SemanticObject|array|null $image = null;
     private string|SemanticObject|array|null $url = null;
-    private string|SemanticObject|array|null $brandName = null;
-    private string|SemanticObject|array|null $claimText = null;
+    private string|SemanticObject|array|null $brand = null;
+    private string|SemanticObject|array|null $claim = null;
     private float|string|SemanticObject|array|null $percentageOfAlcoholByVolume = null;
     private float|string|SemanticObject|array|null $lifetime = null;
     private array|string|SemanticObject|null $physicalCharacteristics = [];
-    private float|string|SemanticObject|array|null $quantityValue = null;
+    private float|string|SemanticObject|array|null $quantity = null;
     private string|SemanticObject|array|null $specificCondition = null;
     private array|string|SemanticObject|null $composes = [];
     private string|SemanticObject|array|null $consumedBy = null;
     private string|SemanticObject|array|null $allergenCharacteristic = null;
-    private string|SemanticObject|array|null $brand = null;
+    private string|SemanticObject|array|null $hasBrand = null;
     private string|SemanticObject|array|null $certification = null;
     private string|SemanticObject|array|null $characteristic = null;
-    private string|SemanticObject|array|null $claim = null;
+    private string|SemanticObject|array|null $hasClaim = null;
     private string|SemanticObject|array|null $containerInformation = null;
     private string|SemanticObject|array|null $geographicalOrigin = null;
     private string|SemanticObject|array|null $ingredient = null;
@@ -63,7 +63,7 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
     private string|SemanticObject|array|null $unit = null;
     private string|SemanticObject|array|null $variant = null;
     private string|SemanticObject|array|null $processOf = null;
-    private QuantitativeValue|string|SemanticObject|array|null $quantity = null;
+    private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
     private ProductOption|string|SemanticObject|array|null $referenceProductOption = null;
     private CatalogItem|string|SemanticObject|array|null $referencedBy = null;
 
@@ -75,20 +75,20 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->image = $params['image'] ?? null;
         $this->url = $params['url'] ?? null;
-        $this->brandName = $params['brandName'] ?? null;
-        $this->claimText = $params['claimText'] ?? null;
+        $this->brand = $params['brand'] ?? null;
+        $this->claim = $params['claim'] ?? null;
         $this->percentageOfAlcoholByVolume = $params['percentageOfAlcoholByVolume'] ?? null;
         $this->lifetime = $params['lifetime'] ?? null;
         $this->physicalCharacteristics = $params['physicalCharacteristics'] ?? [];
-        $this->quantityValue = $params['quantityValue'] ?? null;
+        $this->quantity = $params['quantity'] ?? null;
         $this->specificCondition = $params['specificCondition'] ?? null;
         $this->composes = $params['composes'] ?? [];
         $this->consumedBy = $params['consumedBy'] ?? null;
         $this->allergenCharacteristic = $params['allergenCharacteristic'] ?? null;
-        $this->brand = $params['brand'] ?? null;
+        $this->hasBrand = $params['hasBrand'] ?? null;
         $this->certification = $params['certification'] ?? null;
         $this->characteristic = $params['characteristic'] ?? null;
-        $this->claim = $params['claim'] ?? null;
+        $this->hasClaim = $params['hasClaim'] ?? null;
         $this->containerInformation = $params['containerInformation'] ?? null;
         $this->geographicalOrigin = $params['geographicalOrigin'] ?? null;
         $this->ingredient = $params['ingredient'] ?? null;
@@ -101,25 +101,25 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         $this->unit = $params['unit'] ?? null;
         $this->variant = $params['variant'] ?? null;
         $this->processOf = $params['processOf'] ?? null;
-        $this->quantity = $params['quantity'] ?? null;
+        $this->hasQuantity = $params['hasQuantity'] ?? null;
         $this->referenceProductOption = $params['referenceProductOption'] ?? null;
         $this->referencedBy = $params['referencedBy'] ?? null;
         $this->registerSemanticProperty('dfc-b:Image', fn() => $this->image);
         $this->registerSemanticProperty('dfc-b:URL', fn() => $this->url);
-        $this->registerSemanticProperty('dfc-b:brand', fn() => $this->brandName);
-        $this->registerSemanticProperty('dfc-b:claim', fn() => $this->claimText);
+        $this->registerSemanticProperty('dfc-b:brand', fn() => $this->brand);
+        $this->registerSemanticProperty('dfc-b:claim', fn() => $this->claim);
         $this->registerSemanticProperty('dfc-b:hasPercentageOfAlcoholByVolume', fn() => $this->percentageOfAlcoholByVolume);
         $this->registerSemanticProperty('dfc-b:lifetime', fn() => $this->lifetime);
         $this->registerSemanticProperty('dfc-b:physicalCharacteristics', fn() => $this->physicalCharacteristics);
-        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantityValue);
+        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantity);
         $this->registerSemanticProperty('dfc-b:specificCondition', fn() => $this->specificCondition);
         $this->registerSemanticProperty('dfc-b:composes', fn() => $this->composes);
         $this->registerSemanticProperty('dfc-b:consumedBy', fn() => $this->consumedBy);
         $this->registerSemanticProperty('dfc-b:hasAllergenCharacteristic', fn() => $this->allergenCharacteristic);
-        $this->registerSemanticProperty('dfc-b:hasBrand', fn() => $this->brand);
+        $this->registerSemanticProperty('dfc-b:hasBrand', fn() => $this->hasBrand);
         $this->registerSemanticProperty('dfc-b:hasCertification', fn() => $this->certification);
         $this->registerSemanticProperty('dfc-b:hasCharacteristic', fn() => $this->characteristic);
-        $this->registerSemanticProperty('dfc-b:hasClaim', fn() => $this->claim);
+        $this->registerSemanticProperty('dfc-b:hasClaim', fn() => $this->hasClaim);
         $this->registerSemanticProperty('dfc-b:hasContainerInformation', fn() => $this->containerInformation);
         $this->registerSemanticProperty('dfc-b:hasGeographicalOrigin', fn() => $this->geographicalOrigin);
         $this->registerSemanticProperty('dfc-b:hasIngredient', fn() => $this->ingredient);
@@ -132,7 +132,7 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         $this->registerSemanticProperty('dfc-b:hasUnit', fn() => $this->unit);
         $this->registerSemanticProperty('dfc-b:hasVariant', fn() => $this->variant);
         $this->registerSemanticProperty('dfc-b:processOf', fn() => $this->processOf);
-        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->quantity);
+        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->hasQuantity);
         $this->registerSemanticProperty('dfc-b:hasReferenceProductOption', fn() => $this->referenceProductOption);
         $this->registerSemanticProperty('dfc-b:referencedBy', fn() => $this->referencedBy);
     }
@@ -158,25 +158,25 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         return $this;
     }
 
-    public function getBrandName(): string|SemanticObject|array|null
+    public function getBrand(): string|SemanticObject|array|null
     {
-        return $this->brandName;
+        return $this->brand;
     }
 
-    public function setBrandName(string|SemanticObject|array|null $brandName): static
+    public function setBrand(string|SemanticObject|array|null $brand): static
     {
-        $this->brandName = $brandName;
+        $this->brand = $brand;
         return $this;
     }
 
-    public function getClaimText(): string|SemanticObject|array|null
+    public function getClaim(): string|SemanticObject|array|null
     {
-        return $this->claimText;
+        return $this->claim;
     }
 
-    public function setClaimText(string|SemanticObject|array|null $claimText): static
+    public function setClaim(string|SemanticObject|array|null $claim): static
     {
-        $this->claimText = $claimText;
+        $this->claim = $claim;
         return $this;
     }
 
@@ -245,14 +245,14 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         }
     }
 
-    public function getQuantityValue(): float|string|SemanticObject|array|null
+    public function getQuantity(): float|string|SemanticObject|array|null
     {
-        return $this->quantityValue;
+        return $this->quantity;
     }
 
-    public function setQuantityValue(float|string|SemanticObject|array|null $quantityValue): static
+    public function setQuantity(float|string|SemanticObject|array|null $quantity): static
     {
-        $this->quantityValue = $quantityValue;
+        $this->quantity = $quantity;
         return $this;
     }
 
@@ -332,14 +332,14 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         return $this;
     }
 
-    public function getBrand(): string|SemanticObject|array|null
+    public function getHasBrand(): string|SemanticObject|array|null
     {
-        return $this->brand;
+        return $this->hasBrand;
     }
 
-    public function setBrand(string|SemanticObject|array|null $brand): static
+    public function setHasBrand(string|SemanticObject|array|null $hasBrand): static
     {
-        $this->brand = $brand;
+        $this->hasBrand = $hasBrand;
         return $this;
     }
 
@@ -365,14 +365,14 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         return $this;
     }
 
-    public function getClaim(): string|SemanticObject|array|null
+    public function getHasClaim(): string|SemanticObject|array|null
     {
-        return $this->claim;
+        return $this->hasClaim;
     }
 
-    public function setClaim(string|SemanticObject|array|null $claim): static
+    public function setHasClaim(string|SemanticObject|array|null $hasClaim): static
     {
-        $this->claim = $claim;
+        $this->hasClaim = $hasClaim;
         return $this;
     }
 
@@ -508,14 +508,14 @@ class DefinedProduct extends WhatSubject implements IDefinedProduct
         return $this;
     }
 
-    public function getQuantity(): QuantitativeValue|string|SemanticObject|array|null
+    public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null
     {
-        return $this->quantity;
+        return $this->hasQuantity;
     }
 
-    public function setQuantity(QuantitativeValue|string|SemanticObject|array|null $quantity): static
+    public function setHasQuantity(QuantitativeValue|string|SemanticObject|array|null $hasQuantity): static
     {
-        $this->quantity = $quantity;
+        $this->hasQuantity = $hasQuantity;
         return $this;
     }
 

@@ -45,6 +45,7 @@ const PARAM_METHODS = {
     name: "setName",
     description: "setDescription",
     vatNumber: "setVatNumber",
+    hasAddress: "addLocalization",
   },
   "dfc-b:CatalogItem": {
     sku: "setSku",
@@ -57,6 +58,20 @@ const PARAM_METHODS = {
   "dfc-b:Offer": {
     name: "setName",
     hasPrice: "setPrice",
+  },
+  // Address: the original connector has exactly one country slot
+  // (`setCountry`, bound to `dfc-b:hasCountry` as a SKOS reference), so the
+  // canonical `country`/`hasCountry` pair cannot both be expressed here.
+  // They are deliberately left unmapped rather than aliased onto the same
+  // setter — mapping both would make the original emit hasCountry twice and
+  // hide the divergence the scenario exists to measure. The original's own
+  // city/street/postcode setters are mapped so its `hasCity`/`hasStreet`/
+  // `hasPostalCode` output (predicates absent from the DFC ontology) shows up.
+  "dfc-b:Address": {
+    street: "setStreet",
+    city: "setCity",
+    postcode: "setPostalCode",
+    region: "setRegion",
   },
 };
 

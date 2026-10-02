@@ -36,7 +36,7 @@ class SaleSession extends SemanticObject implements ISaleSession
     public const SEMANTIC_TYPE = 'dfc-b:SaleSession';
 
     private string|SemanticObject|array|null $endDate = null;
-    private float|string|SemanticObject|array|null $quantityValue = null;
+    private float|string|SemanticObject|array|null $quantity = null;
     private string|SemanticObject|array|null $startDate = null;
     private array|string|SemanticObject|null $holds = [];
     private array|string|SemanticObject|null $lists = [];
@@ -46,7 +46,7 @@ class SaleSession extends SemanticObject implements ISaleSession
     private string|SemanticObject|array|null $characteristicOf = null;
     private string|SemanticObject|array|null $dimension = null;
     private ShippingOption|string|SemanticObject|array|null $option = null;
-    private QuantitativeValue|string|SemanticObject|array|null $quantity = null;
+    private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
     private Place|string|SemanticObject|array|null $hostedAt = null;
     private Coordination|string|SemanticObject|array|null $objectOf = null;
 
@@ -57,7 +57,7 @@ class SaleSession extends SemanticObject implements ISaleSession
                 parent::__construct($semanticId);
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->endDate = $params['endDate'] ?? null;
-        $this->quantityValue = $params['quantityValue'] ?? null;
+        $this->quantity = $params['quantity'] ?? null;
         $this->startDate = $params['startDate'] ?? null;
         $this->holds = $params['holds'] ?? [];
         $this->lists = $params['lists'] ?? [];
@@ -67,11 +67,11 @@ class SaleSession extends SemanticObject implements ISaleSession
         $this->characteristicOf = $params['characteristicOf'] ?? null;
         $this->dimension = $params['dimension'] ?? null;
         $this->option = $params['option'] ?? null;
-        $this->quantity = $params['quantity'] ?? null;
+        $this->hasQuantity = $params['hasQuantity'] ?? null;
         $this->hostedAt = $params['hostedAt'] ?? null;
         $this->objectOf = $params['objectOf'] ?? null;
         $this->registerSemanticProperty('dfc-b:endDate', fn() => $this->endDate);
-        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantityValue);
+        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantity);
         $this->registerSemanticProperty('dfc-b:startDate', fn() => $this->startDate);
         $this->registerSemanticProperty('dfc-b:holds', fn() => $this->holds);
         $this->registerSemanticProperty('dfc-b:lists', fn() => $this->lists);
@@ -81,7 +81,7 @@ class SaleSession extends SemanticObject implements ISaleSession
         $this->registerSemanticProperty('dfc-b:characteristicOf', fn() => $this->characteristicOf);
         $this->registerSemanticProperty('dfc-b:hasDimension', fn() => $this->dimension);
         $this->registerSemanticProperty('dfc-b:hasOption', fn() => $this->option);
-        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->quantity);
+        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->hasQuantity);
         $this->registerSemanticProperty('dfc-b:hostedAt', fn() => $this->hostedAt);
         $this->registerSemanticProperty('dfc-b:objectOf', fn() => $this->objectOf);
     }
@@ -96,14 +96,14 @@ class SaleSession extends SemanticObject implements ISaleSession
         return $this;
     }
 
-    public function getQuantityValue(): float|string|SemanticObject|array|null
+    public function getQuantity(): float|string|SemanticObject|array|null
     {
-        return $this->quantityValue;
+        return $this->quantity;
     }
 
-    public function setQuantityValue(float|string|SemanticObject|array|null $quantityValue): static
+    public function setQuantity(float|string|SemanticObject|array|null $quantity): static
     {
-        $this->quantityValue = $quantityValue;
+        $this->quantity = $quantity;
         return $this;
     }
 
@@ -270,14 +270,14 @@ class SaleSession extends SemanticObject implements ISaleSession
         return $this;
     }
 
-    public function getQuantity(): QuantitativeValue|string|SemanticObject|array|null
+    public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null
     {
-        return $this->quantity;
+        return $this->hasQuantity;
     }
 
-    public function setQuantity(QuantitativeValue|string|SemanticObject|array|null $quantity): static
+    public function setHasQuantity(QuantitativeValue|string|SemanticObject|array|null $hasQuantity): static
     {
-        $this->quantity = $quantity;
+        $this->hasQuantity = $hasQuantity;
         return $this;
     }
 

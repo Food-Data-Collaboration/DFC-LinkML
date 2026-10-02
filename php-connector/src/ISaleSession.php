@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface ISaleSession extends CharacteristicOfable, Dateable, Describable, Dimensionable, EndDateable, Holdable, HostedAtable, Listable, ObjectOfable, Optionable, Quantifiable, QuantityValueable, StartDateable
+interface ISaleSession extends CharacteristicOfable, Dateable, Describable, Dimensionable, EndDateable, HasQuantityable, Holdable, HostedAtable, Listable, ObjectOfable, Optionable, Quantifiable, StartDateable
 {
 }

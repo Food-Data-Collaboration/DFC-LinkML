@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IDeliveryOption extends AccessibilityInfoable, CharacteristicOfable, Dateable, DeliveredAtable, DeliveryConstraintable, Describable, Dimensionable, EndDateable, Feeable, OptionOfable, Quantifiable, QuantityValueable, RefersToable, SelectedByable, StartDateable, Useable
+interface IDeliveryOption extends AccessibilityInfoable, CharacteristicOfable, Dateable, DeliveredAtable, DeliveryConstraintable, Describable, Dimensionable, EndDateable, Feeable, HasQuantityable, OptionOfable, Quantifiable, RefersToable, SelectedByable, StartDateable, Useable
 {
 }

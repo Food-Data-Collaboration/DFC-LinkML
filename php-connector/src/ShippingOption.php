@@ -36,10 +36,10 @@ class ShippingOption extends HowSubject implements IShippingOption
 
     private string|SemanticObject|array|null $endDate = null;
     private float|string|SemanticObject|array|null $fee = null;
-    private float|string|SemanticObject|array|null $quantityValue = null;
+    private float|string|SemanticObject|array|null $quantity = null;
     private string|SemanticObject|array|null $startDate = null;
     private string|SemanticObject|array|null $selectedBy = null;
-    private QuantitativeValue|string|SemanticObject|array|null $quantity = null;
+    private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
     private SaleSession|string|SemanticObject|array|null $optionOf = null;
 
     public function __construct(
@@ -50,17 +50,17 @@ class ShippingOption extends HowSubject implements IShippingOption
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->endDate = $params['endDate'] ?? null;
         $this->fee = $params['fee'] ?? null;
-        $this->quantityValue = $params['quantityValue'] ?? null;
+        $this->quantity = $params['quantity'] ?? null;
         $this->startDate = $params['startDate'] ?? null;
         $this->selectedBy = $params['selectedBy'] ?? null;
-        $this->quantity = $params['quantity'] ?? null;
+        $this->hasQuantity = $params['hasQuantity'] ?? null;
         $this->optionOf = $params['optionOf'] ?? null;
         $this->registerSemanticProperty('dfc-b:endDate', fn() => $this->endDate);
         $this->registerSemanticProperty('dfc-b:fee', fn() => $this->fee);
-        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantityValue);
+        $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantity);
         $this->registerSemanticProperty('dfc-b:startDate', fn() => $this->startDate);
         $this->registerSemanticProperty('dfc-b:selectedBy', fn() => $this->selectedBy);
-        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->quantity);
+        $this->registerSemanticProperty('dfc-b:hasQuantity', fn() => $this->hasQuantity);
         $this->registerSemanticProperty('dfc-b:optionOf', fn() => $this->optionOf);
     }
     public function getEndDate(): string|SemanticObject|array|null
@@ -85,14 +85,14 @@ class ShippingOption extends HowSubject implements IShippingOption
         return $this;
     }
 
-    public function getQuantityValue(): float|string|SemanticObject|array|null
+    public function getQuantity(): float|string|SemanticObject|array|null
     {
-        return $this->quantityValue;
+        return $this->quantity;
     }
 
-    public function setQuantityValue(float|string|SemanticObject|array|null $quantityValue): static
+    public function setQuantity(float|string|SemanticObject|array|null $quantity): static
     {
-        $this->quantityValue = $quantityValue;
+        $this->quantity = $quantity;
         return $this;
     }
 
@@ -118,14 +118,14 @@ class ShippingOption extends HowSubject implements IShippingOption
         return $this;
     }
 
-    public function getQuantity(): QuantitativeValue|string|SemanticObject|array|null
+    public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null
     {
-        return $this->quantity;
+        return $this->hasQuantity;
     }
 
-    public function setQuantity(QuantitativeValue|string|SemanticObject|array|null $quantity): static
+    public function setHasQuantity(QuantitativeValue|string|SemanticObject|array|null $hasQuantity): static
     {
-        $this->quantity = $quantity;
+        $this->hasQuantity = $hasQuantity;
         return $this;
     }
 

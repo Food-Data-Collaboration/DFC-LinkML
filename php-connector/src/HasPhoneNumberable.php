@@ -25,8 +25,8 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface ClaimTextable
+interface HasPhoneNumberable
 {
-    public function getClaimText(): string|SemanticObject|array|null;
-    public function setClaimText(string|SemanticObject|array|null $claimText): static;
+    public function getHasPhoneNumber(): string|SemanticObject|array|null;
+    public function setHasPhoneNumber(string|SemanticObject|array|null $hasPhoneNumber): static;
 }

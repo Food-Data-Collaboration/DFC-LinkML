@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IRealStock extends AvailabilityDateable, CharacteristicOfable, Constituteable, Dateable, Describable, Dimensionable, IdentifiedByable, Quantifiable, QuantityValueable, StoredInable, TransportedByable
+interface IRealStock extends AvailabilityDateable, CharacteristicOfable, Constituteable, Dateable, Describable, Dimensionable, HasQuantityable, IdentifiedByable, Quantifiable, StoredInable, TransportedByable
 {
 }

@@ -40,6 +40,7 @@ PARAM_METHODS = {
     'name' => :name=,
     'description' => :description=,
     'vatNumber' => :vatNumber=,
+    'hasAddress' => :localizations=,
   },
   'dfc-b:CatalogItem' => {
     'sku' => :sku=,
@@ -50,7 +51,21 @@ PARAM_METHODS = {
     'name' => :name=,
     'hasPrice' => :price=,
   },
+  # Address: see official-typescript.mjs — the original has a single country
+  # slot (`country=` -> dfc-b:hasCountry, a SKOS reference), so the canonical
+  # `country`/`hasCountry` pair is deliberately left unmapped rather than
+  # aliased onto one setter, which would hide the divergence.
+  'dfc-b:Address' => {
+    'street' => :street=,
+    'city' => :city=,
+    'postcode' => :postalCode=,
+    'region' => :region=,
+  },
 }.freeze
+
+# Setters that take an array of objects rather than a single object, so a
+# resolved $ref must be wrapped.
+ARRAY_REF_SETTERS = [:lines=, :offers=, :localizations=].freeze
 
 # Object-reference setters that must never receive a plain string/IRI.
 OBJECT_REF_SETTERS = [:product=, :offer=, :client=, :price=].freeze
@@ -134,12 +149,9 @@ def export_scenario(path)
       else
         resolved = value
       end
-      if method == :lines=
-        next unless inst.respond_to?(:lines=)
-        inst.lines = [resolved].flatten
-      elsif method == :offers=
-        next unless inst.respond_to?(:offers=)
-        inst.offers = [resolved].flatten
+      if ARRAY_REF_SETTERS.include?(method)
+        next unless inst.respond_to?(method)
+        inst.public_send(method, [resolved].flatten)
       else
         next unless inst.respond_to?(method)
         inst.public_send(method, resolved)

@@ -25,6 +25,6 @@
 */
 namespace DataFoodConsortium\Connector;
 
-interface IOrderLine extends CharacteristicOfable, Concernable, Dateable, Describable, Dimensionable, Discountable, IsFulfilledByable, PartOfable, Pricable, Quantifiable, QuantityValueable
+interface IOrderLine extends CharacteristicOfable, Concernable, Dateable, Describable, Dimensionable, Discountable, HasQuantityable, IsFulfilledByable, PartOfable, Pricable, Quantifiable
 {
 }

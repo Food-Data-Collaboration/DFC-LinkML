@@ -135,8 +135,9 @@ meaning. Do not compare exported documents byte-for-byte — the
   array.
 - **The context is a URL and it is bundled.** v2.0.0 works entirely offline.
 - **Nothing validates your data.** The connectors preserve and normalise;
-  they do not reject. See [validation](concepts/validation.md) before you
-  rely on that.
+  they do not reject. A round trip keeps only what the schema says the class
+  can hold, so your own predicates do not survive it. See
+  [property retention](concepts/validation.md#property-retention).
 
 ## Project links
 
