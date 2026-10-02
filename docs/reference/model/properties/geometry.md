@@ -11,6 +11,7 @@ Object property from OWL: geometry
 - **Predicate**: `dfc-b:geometry`
 - **Range**: `Geometry` (a DFC class)
 - **Target type**: [`Geometry`](../classes/Geometry.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

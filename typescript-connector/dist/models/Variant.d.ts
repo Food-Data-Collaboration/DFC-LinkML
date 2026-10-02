@@ -11,11 +11,11 @@ export interface VariantParams extends DefinedProductParams {
     /**
      * Serializes as `dfc-b:isVariantOf`.
      */
-    isVariantOf?: string;
+    isVariantOf?: string[];
     /**
      * Serializes as `dfc-b:hasVariantCaracteristic`.
      */
-    hasVariantCaracteristic?: VariantCaracteristic | string;
+    hasVariantCaracteristic?: (VariantCaracteristic | string)[];
 }
 /**
  * A DFC `dfc-b:Variant`, serialized with `@type: dfc-b:Variant`.
@@ -27,10 +27,10 @@ export declare class Variant extends DefinedProduct {
     /**
      * Serializes as `dfc-b:isVariantOf`.
      */
-    isVariantOf?: string;
+    isVariantOf?: string[];
     /**
      * Serializes as `dfc-b:hasVariantCaracteristic`.
      */
-    hasVariantCaracteristic?: VariantCaracteristic | string;
+    hasVariantCaracteristic?: (VariantCaracteristic | string)[];
     constructor(semanticId: string, params?: VariantParams);
 }

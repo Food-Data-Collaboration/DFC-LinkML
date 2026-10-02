@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface IsVariantOfable
 {
-    public function getIsVariantOf(): string|SemanticObject|array|null;
-    public function setIsVariantOf(string|SemanticObject|array|null $isVariantOf): static;
+    public function getIsVariantOf(): array|string|SemanticObject|null;
+    public function setIsVariantOf(array|string|SemanticObject|null $isVariantOf): static;
+    public function addIsVariantOf(string|SemanticObject $isVariantOf): static;
+    public function removeIsVariantOf(string|SemanticObject $isVariantOf): void;
 }

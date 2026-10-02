@@ -183,6 +183,118 @@ import type { WhereSubjectParams } from "../models/WhereSubject.js";
 import type { WhoSubjectParams } from "../models/WhoSubject.js";
 
 /**
+ * A property the ontology requires that an object does not carry.
+ *
+ * Returned by {@link Connector.validate}. Absent values are reported, never
+ * thrown, so a caller can decide how strict to be.
+ */
+export interface ValidationIssue {
+  /** The object's `@id`. */
+  semanticId: string;
+  /** The object's DFC semantic type, e.g. `dfc-b:Order`. */
+  semanticType: string;
+  /** The missing slot, in LinkML/OWL naming, e.g. `concerns`. */
+  slot: string;
+  /** The predicate the slot serialises to, e.g. `dfc-b:concerns`. */
+  predicate: string;
+}
+
+/**
+ * Properties the ontology requires, per semantic type.
+ *
+ * Every entry comes from an `rdfs:subClassOf` restriction with
+ * `minimum_cardinality 1` -- all 42 DFC restrictions are singletons.
+ * Keyed by the semantic type and holding TS property names.
+ * Generated from the schema; do not edit.
+ */
+const REQUIRED_SLOTS: Record<string, string[]> = {
+  "dfc-b:AsPlannedConsumptionFlow": ["consumes", "inputOf"],
+  "dfc-b:AsPlannedLocalConsumptionFlow": ["consumes", "inputOf"],
+  "dfc-b:AsPlannedLocalProductionFlow": ["outputOf", "produces"],
+  "dfc-b:AsPlannedLocalTransformation": ["transformedBy"],
+  "dfc-b:AsPlannedProductionFlow": ["outputOf", "produces"],
+  "dfc-b:AsRealizedConsumptionFlow": ["consumes", "inputOf"],
+  "dfc-b:AsRealizedProductionFlow": ["outputOf", "produces"],
+  "dfc-b:Catalog": ["maintainedBy"],
+  "dfc-b:CatalogItem": ["listedIn", "managedBy", "references"],
+  "dfc-b:ConsumptionFlow": ["consumes", "inputOf"],
+  "dfc-b:Coordination": ["coordinatedBy", "hasObject"],
+  "dfc-b:CustomerCategory": ["definedBy"],
+  "dfc-b:DefinedProduct": ["lifetime"],
+  "dfc-b:DeliveryOption": ["refersTo"],
+  "dfc-b:FunctionalProduct": ["lifetime", "requestedBy"],
+  "dfc-b:Length": ["value"],
+  "dfc-b:Offer": ["offers", "offersTo"],
+  "dfc-b:Order": ["belongsTo", "orderedBy", "selects", "uses"],
+  "dfc-b:OrderLine": ["concerns", "partOf"],
+  "dfc-b:Organization": ["hasMainContact"],
+  "dfc-b:PaymentMethod": ["paymentMethodProvider", "paymentMethodType"],
+  "dfc-b:PhysicalPlace": ["hasAddress"],
+  "dfc-b:PickupOption": ["uses"],
+  "dfc-b:Price": ["value"],
+  "dfc-b:ProductionFlow": ["outputOf", "produces"],
+  "dfc-b:QuantitativeValue": ["value"],
+  "dfc-b:RealStock": ["availabilityDate", "constitutes", "identifiedBy", "storedIn"],
+  "dfc-b:Stock": ["availabilityDate"],
+  "dfc-b:SuppliedProduct": ["lifetime", "suppliedBy", "totalTheoriticalStock"],
+  "dfc-b:TechnicalProduct": ["lifetime", "proposedBy"],
+  "dfc-b:Temperature": ["value"],
+  "dfc-b:TheoriticalStock": ["availabilityDate", "constitutes", "localizedBy"],
+  "dfc-b:Transaction": ["from", "to"],
+  "dfc-b:Variant": ["lifetime"],
+  "dfc-b:VariantCaracteristic": ["hasProductOption", "hasProductOptionValue"],
+  "dfc-b:Volume": ["value"],
+  "dfc-b:Weight": ["value"],
+};
+
+/**
+ * Slot, property and predicate for every required slot.
+ * Generated from the schema; do not edit.
+ */
+const REQUIRED_SLOT_DATA: Record<string, { slot: string; predicate: string }> = {
+  "availabilityDate": { slot: "availability_date", predicate: "dfc-b:availabilityDate" },
+  "belongsTo": { slot: "belongs_to", predicate: "dfc-b:belongsTo" },
+  "concerns": { slot: "concerns", predicate: "dfc-b:concerns" },
+  "constitutes": { slot: "constitutes", predicate: "dfc-b:constitutes" },
+  "consumes": { slot: "consumes", predicate: "dfc-b:consumes" },
+  "coordinatedBy": { slot: "coordinated_by", predicate: "dfc-b:coordinatedBy" },
+  "definedBy": { slot: "defined_by", predicate: "dfc-b:definedBy" },
+  "from": { slot: "from", predicate: "dfc-b:from" },
+  "hasAddress": { slot: "has_address", predicate: "dfc-b:hasAddress" },
+  "hasMainContact": { slot: "has_main_contact", predicate: "dfc-b:hasMainContact" },
+  "hasObject": { slot: "has_object", predicate: "dfc-b:hasObject" },
+  "hasProductOption": { slot: "has_product_option", predicate: "dfc-b:hasProductOption" },
+  "hasProductOptionValue": { slot: "has_product_option_value", predicate: "dfc-b:hasProductOptionValue" },
+  "identifiedBy": { slot: "identified_by", predicate: "dfc-b:identifiedBy" },
+  "inputOf": { slot: "input_of", predicate: "dfc-b:inputOf" },
+  "lifetime": { slot: "lifetime", predicate: "dfc-b:lifetime" },
+  "listedIn": { slot: "listed_in", predicate: "dfc-b:listedIn" },
+  "localizedBy": { slot: "localized_by", predicate: "dfc-b:localizedBy" },
+  "maintainedBy": { slot: "maintained_by", predicate: "dfc-b:maintainedBy" },
+  "managedBy": { slot: "managed_by", predicate: "dfc-b:managedBy" },
+  "offers": { slot: "offers", predicate: "dfc-b:offers" },
+  "offersTo": { slot: "offers_to", predicate: "dfc-b:offersTo" },
+  "orderedBy": { slot: "ordered_by", predicate: "dfc-b:orderedBy" },
+  "outputOf": { slot: "output_of", predicate: "dfc-b:outputOf" },
+  "partOf": { slot: "part_of", predicate: "dfc-b:partOf" },
+  "paymentMethodProvider": { slot: "payment_method_provider", predicate: "dfc-b:paymentMethodProvider" },
+  "paymentMethodType": { slot: "payment_method_type", predicate: "dfc-b:paymentMethodType" },
+  "produces": { slot: "produces", predicate: "dfc-b:produces" },
+  "proposedBy": { slot: "proposed_by", predicate: "dfc-b:proposedBy" },
+  "references": { slot: "references", predicate: "dfc-b:references" },
+  "refersTo": { slot: "refers_to", predicate: "dfc-b:refersTo" },
+  "requestedBy": { slot: "requested_by", predicate: "dfc-b:requestedBy" },
+  "selects": { slot: "selects", predicate: "dfc-b:selects" },
+  "storedIn": { slot: "stored_in", predicate: "dfc-b:storedIn" },
+  "suppliedBy": { slot: "supplied_by", predicate: "dfc-b:suppliedBy" },
+  "to": { slot: "to", predicate: "dfc-b:to" },
+  "totalTheoriticalStock": { slot: "total_theoritical_stock", predicate: "dfc-b:totalTheoriticalStock" },
+  "transformedBy": { slot: "transformed_by", predicate: "dfc-b:transformedBy" },
+  "uses": { slot: "uses", predicate: "dfc-b:uses" },
+  "value": { slot: "value", predicate: "dfc-b:value" },
+};
+
+/**
  * Entry point for reading and writing DFC data.
  *
  * A `Connector` creates DFC model objects, exports them to JSON-LD, and
@@ -2687,6 +2799,40 @@ export class Connector {
     }
     const { semanticId, ...rest } = semanticIdOrArgs;
     return new WhoSubject(semanticId, rest as WhoSubjectParams);
+  }
+
+  /**
+   * Reports properties the ontology requires and this object does not carry.
+   *
+   * Deliberately not a constructor check. A data-plane connector has to accept
+   * partially built objects -- you set the identifier first and fill in the
+   * rest later -- and several DFC restrictions are heavy enough that enforcing
+   * them would make ordinary documents unusable (every `Organization` would
+   * need a `hasMainContact`, every `SuppliedProduct` a `totalTheoriticalStock`).
+   * `docs/concepts/cardinality.md` explains where the constraint data comes
+   * from and why it is opt-in.
+   *
+   * @param objects One or more objects to check.
+   * @returns One entry per missing required property, empty when all are present.
+   */
+  validate(...objects: SemanticObject[]): ValidationIssue[] {
+    const issues: ValidationIssue[] = [];
+    for (const object of objects) {
+      const required = REQUIRED_SLOTS[object.semanticType] ?? [];
+      for (const property of required) {
+        const spec = REQUIRED_SLOT_DATA[property];
+        const value = (object as unknown as Record<string, unknown>)[property];
+        if (value === undefined || value === null) {
+          issues.push({
+            semanticId: object.semanticId,
+            semanticType: object.semanticType,
+            slot: spec.slot,
+            predicate: spec.predicate,
+          });
+        }
+      }
+    }
+    return issues;
   }
 
   private async fetchContext(): Promise<Record<string, unknown>> {

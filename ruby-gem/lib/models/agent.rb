@@ -34,10 +34,10 @@ module DfcLinkmlConnector
       # @return [Person, String]
       attr_accessor :affiliated_to
 
-      # @return [Address, String]
+      # @return [Array<Address, String>]
       attr_accessor :address
 
-      # @return [CustomerCategory, String]
+      # @return [Array<CustomerCategory, String>]
       attr_accessor :is_member_of
 
       # @return [Array<Order, String>]
@@ -47,8 +47,8 @@ module DfcLinkmlConnector
       attr_accessor :requests
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, email: nil, logo: nil, websitePage: nil, hasPhoneNumber: nil, socialMedia: nil, owns: nil, sells: nil, affiliatedTo: nil, address: nil, isMemberOf: nil, orders: [], requests: []
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, email: nil, logo: nil, websitePage: nil, hasPhoneNumber: nil, socialMedia: nil, owns: nil, sells: nil, affiliatedTo: nil, address: nil, isMemberOf: nil, orders: [], requests: [])
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, email: nil, logo: nil, websitePage: nil, hasPhoneNumber: nil, socialMedia: nil, owns: nil, sells: nil, affiliatedTo: nil, address: [], isMemberOf: [], orders: [], requests: []
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, email: nil, logo: nil, websitePage: nil, hasPhoneNumber: nil, socialMedia: nil, owns: nil, sells: nil, affiliatedTo: nil, address: [], isMemberOf: [], orders: [], requests: [])
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @email = email
         @logo = logo

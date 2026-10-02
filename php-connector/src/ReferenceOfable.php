@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface ReferenceOfable
 {
-    public function getReferenceOf(): LocalizedProduct|string|SemanticObject|array|null;
-    public function setReferenceOf(LocalizedProduct|string|SemanticObject|array|null $referenceOf): static;
+    public function getReferenceOf(): array|LocalizedProduct|string|SemanticObject|null;
+    public function setReferenceOf(array|LocalizedProduct|string|SemanticObject|null $referenceOf): static;
+    public function addReferenceOf(LocalizedProduct|string|SemanticObject $referenceOf): static;
+    public function removeReferenceOf(LocalizedProduct|string|SemanticObject $referenceOf): void;
 }

@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface PartOriginable
 {
-    public function getPartOrigin(): string|SemanticObject|array|null;
-    public function setPartOrigin(string|SemanticObject|array|null $partOrigin): static;
+    public function getPartOrigin(): array|string|SemanticObject|null;
+    public function setPartOrigin(array|string|SemanticObject|null $partOrigin): static;
+    public function addPartOrigin(string|SemanticObject $partOrigin): static;
+    public function removePartOrigin(string|SemanticObject $partOrigin): void;
 }

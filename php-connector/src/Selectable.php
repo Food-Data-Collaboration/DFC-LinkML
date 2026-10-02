@@ -27,8 +27,6 @@ namespace DataFoodConsortium\Connector;
 
 interface Selectable
 {
-    public function getSelects(): array|ShippingOption|string|SemanticObject|null;
-    public function setSelects(array|ShippingOption|string|SemanticObject|null $selects): static;
-    public function addSelects(ShippingOption|string|SemanticObject $selects): static;
-    public function removeSelects(ShippingOption|string|SemanticObject $selects): void;
+    public function getSelects(): ShippingOption|string|SemanticObject|array|null;
+    public function setSelects(ShippingOption|string|SemanticObject|array|null $selects): static;
 }

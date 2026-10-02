@@ -11,6 +11,7 @@ Object property from OWL: hasOffer
 - **Predicate**: `dfc-b:hasOffer`
 - **Range**: `string` (literal)
 - **Inverse**: `offers_to`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

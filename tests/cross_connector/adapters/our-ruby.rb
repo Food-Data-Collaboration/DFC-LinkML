@@ -50,6 +50,15 @@ PARAM_MAP = {
   },
 }.freeze
 
+# Unwrap {"$ref": id} markers, including inside a list. Passing the wrappers
+# through makes the connector serialise them as blank nodes.
+def resolve_param_refs(value)
+  return value['$ref'] if value.is_a?(Hash) && value.key?('$ref')
+  return value.map { |v| resolve_param_refs(v) } if value.is_a?(Array)
+
+  value
+end
+
 def export_scenario(path)
   spec = JSON.parse(File.read(path))
   connector = DfcLinkmlConnector::Core::Connector.new
@@ -61,7 +70,7 @@ def export_scenario(path)
     (obj['params'] || {}).each do |canonical, value|
       kwarg = map[canonical]
       next unless kwarg
-      params[kwarg] = value.is_a?(Hash) && value['$ref'] ? value['$ref'] : value
+      params[kwarg] = resolve_param_refs(value)
     end
     klass.new(obj['semanticId'], **params)
   end

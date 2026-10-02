@@ -11,6 +11,7 @@ Object property from OWL: hasPhysicalDimension
 - **Predicate**: `dfc-b:hasPhysicalDimension`
 - **Range**: `Concept` (a DFC class)
 - **Target type**: [`Concept`](../classes/Concept.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

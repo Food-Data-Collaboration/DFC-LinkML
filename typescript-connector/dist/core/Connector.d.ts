@@ -179,6 +179,22 @@ import type { WhatSubjectParams } from "../models/WhatSubject.js";
 import type { WhereSubjectParams } from "../models/WhereSubject.js";
 import type { WhoSubjectParams } from "../models/WhoSubject.js";
 /**
+ * A property the ontology requires that an object does not carry.
+ *
+ * Returned by {@link Connector.validate}. Absent values are reported, never
+ * thrown, so a caller can decide how strict to be.
+ */
+export interface ValidationIssue {
+    /** The object's `@id`. */
+    semanticId: string;
+    /** The object's DFC semantic type, e.g. `dfc-b:Order`. */
+    semanticType: string;
+    /** The missing slot, in LinkML/OWL naming, e.g. `concerns`. */
+    slot: string;
+    /** The predicate the slot serialises to, e.g. `dfc-b:concerns`. */
+    predicate: string;
+}
+/**
  * Entry point for reading and writing DFC data.
  *
  * A `Connector` creates DFC model objects, exports them to JSON-LD, and
@@ -1519,6 +1535,21 @@ export declare class Connector {
     createWhoSubject(semanticIdOrArgs: string | ({
         semanticId: string;
     } & WhoSubjectParams), params?: WhoSubjectParams): WhoSubject;
+    /**
+     * Reports properties the ontology requires and this object does not carry.
+     *
+     * Deliberately not a constructor check. A data-plane connector has to accept
+     * partially built objects -- you set the identifier first and fill in the
+     * rest later -- and several DFC restrictions are heavy enough that enforcing
+     * them would make ordinary documents unusable (every `Organization` would
+     * need a `hasMainContact`, every `SuppliedProduct` a `totalTheoriticalStock`).
+     * `docs/concepts/cardinality.md` explains where the constraint data comes
+     * from and why it is opt-in.
+     *
+     * @param objects One or more objects to check.
+     * @returns One entry per missing required property, empty when all are present.
+     */
+    validate(...objects: SemanticObject[]): ValidationIssue[];
     private fetchContext;
     private buildNestedHash;
     private predicateToPropName;

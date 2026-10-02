@@ -11,6 +11,7 @@ The part of the plant or animal that the product originated from (e.g. egg, anim
 - **Predicate**: `dfc-b:hasPartOrigin`
 - **Range**: `string` (literal)
 - **Inverse**: `part_origin_of`
+- **Cardinality**: **Collection** — the ontology states no upper bound for this property, so it takes several values. This comes from the curated list in `config/dfc-default.yaml`, verified against the original DFC v2 connectors; it is not derived from the ontology.
 
 ## Declared domain
 

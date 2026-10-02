@@ -10,6 +10,7 @@ Data property from OWL: paymentMethodProvider
 
 - **Predicate**: `dfc-b:paymentMethodProvider`
 - **Range**: `string` (literal)
+- **Cardinality**: **Single-valued** — the ontology declares this property `owl:FunctionalProperty`, so it takes at most one value in every class.
 
 ## Declared domain
 

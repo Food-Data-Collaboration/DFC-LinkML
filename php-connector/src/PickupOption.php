@@ -33,7 +33,7 @@ class PickupOption extends ShippingOption implements IPickupOption
     public const SEMANTIC_TYPE = 'dfc-b:PickupOption';
 
     private string|SemanticObject|array|null $pickedUpAt = null;
-    private array|string|SemanticObject|null $uses = [];
+    private string|SemanticObject|array|null $uses = null;
 
     public function __construct(
         string $semanticId,
@@ -42,7 +42,7 @@ class PickupOption extends ShippingOption implements IPickupOption
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->pickedUpAt = $params['pickedUpAt'] ?? null;
-        $this->uses = $params['uses'] ?? [];
+        $this->uses = $params['uses'] ?? null;
         $this->registerSemanticProperty('dfc-b:pickedUpAt', fn() => $this->pickedUpAt);
         $this->registerSemanticProperty('dfc-b:uses', fn() => $this->uses);
     }
@@ -57,46 +57,14 @@ class PickupOption extends ShippingOption implements IPickupOption
         return $this;
     }
 
-    public function getUses(): array|string|SemanticObject|null
+    public function getUses(): string|SemanticObject|array|null
     {
         return $this->uses;
     }
 
-    public function setUses(array|string|SemanticObject|null $uses): static
+    public function setUses(string|SemanticObject|array|null $uses): static
     {
         $this->uses = $uses;
         return $this;
-    }
-
-    public function addUses(string|SemanticObject $uses): static
-    {
-        if ($this->uses === null) {
-            $this->uses = [];
-        } elseif (!is_array($this->uses)) {
-            $this->uses = [$this->uses];
-        }
-        $this->uses[] = $uses;
-        return $this;
-    }
-
-    public function removeUses(string|SemanticObject $uses): void
-    {
-        if ($this->uses === null) {
-            return;
-        }
-        if (!is_array($this->uses)) {
-            // Singular shape (setX stored a scalar as-is): clear on match.
-            if ($this->uses === $uses) {
-                $this->uses = [];
-            }
-            return;
-        }
-        $key = array_search($uses, $this->uses, true);
-        if ($key !== false) {
-            unset($this->uses[$key]);
-            // Reindex: unset leaves gaps in numeric keys, which json_encode
-            // would emit as an object instead of an array (shape change).
-            $this->uses = array_values($this->uses);
-        }
     }
 }

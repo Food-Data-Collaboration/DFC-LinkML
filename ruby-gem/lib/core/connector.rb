@@ -278,6 +278,51 @@ module DfcLinkmlConnector
       "dfc-t:represent" => "represent",
       }.freeze
 
+      # Slots the ontology requires, per semantic type, with the predicate each
+      # one serialises to. Every entry comes from an `rdfs:subClassOf` restriction
+      # with `minimum_cardinality 1` -- all 42 DFC restrictions are singletons.
+      # Consulted by #validate, which is opt-in: constructors stay permissive
+      # because these would reject ordinary partial documents.
+      REQUIRED_SLOTS = {
+        "dfc-b:AsPlannedConsumptionFlow" => [["consumes", "consumes", "dfc-b:consumes"], ["input_of", "input_of", "dfc-b:inputOf"]],
+        "dfc-b:AsPlannedLocalConsumptionFlow" => [["consumes", "consumes", "dfc-b:consumes"], ["input_of", "input_of", "dfc-b:inputOf"]],
+        "dfc-b:AsPlannedLocalProductionFlow" => [["output_of", "output_of", "dfc-b:outputOf"], ["produces", "produces", "dfc-b:produces"]],
+        "dfc-b:AsPlannedLocalTransformation" => [["transformed_by", "transformed_by", "dfc-b:transformedBy"]],
+        "dfc-b:AsPlannedProductionFlow" => [["output_of", "output_of", "dfc-b:outputOf"], ["produces", "produces", "dfc-b:produces"]],
+        "dfc-b:AsRealizedConsumptionFlow" => [["consumes", "consumes", "dfc-b:consumes"], ["input_of", "input_of", "dfc-b:inputOf"]],
+        "dfc-b:AsRealizedProductionFlow" => [["output_of", "output_of", "dfc-b:outputOf"], ["produces", "produces", "dfc-b:produces"]],
+        "dfc-b:Catalog" => [["maintained_by", "maintained_by", "dfc-b:maintainedBy"]],
+        "dfc-b:CatalogItem" => [["listed_in", "listed_in", "dfc-b:listedIn"], ["managed_by", "managed_by", "dfc-b:managedBy"], ["references", "references", "dfc-b:references"]],
+        "dfc-b:ConsumptionFlow" => [["consumes", "consumes", "dfc-b:consumes"], ["input_of", "input_of", "dfc-b:inputOf"]],
+        "dfc-b:Coordination" => [["coordinated_by", "coordinated_by", "dfc-b:coordinatedBy"], ["has_object", "object", "dfc-b:hasObject"]],
+        "dfc-b:CustomerCategory" => [["defined_by", "defined_by", "dfc-b:definedBy"]],
+        "dfc-b:DefinedProduct" => [["lifetime", "lifetime", "dfc-b:lifetime"]],
+        "dfc-b:DeliveryOption" => [["refers_to", "refers_to", "dfc-b:refersTo"]],
+        "dfc-b:FunctionalProduct" => [["lifetime", "lifetime", "dfc-b:lifetime"], ["requested_by", "requested_by", "dfc-b:requestedBy"]],
+        "dfc-b:Length" => [["value", "value", "dfc-b:value"]],
+        "dfc-b:Offer" => [["offers", "offers", "dfc-b:offers"], ["offers_to", "offers_to", "dfc-b:offersTo"]],
+        "dfc-b:Order" => [["belongs_to", "belongs_to", "dfc-b:belongsTo"], ["ordered_by", "ordered_by", "dfc-b:orderedBy"], ["selects", "selects", "dfc-b:selects"], ["uses", "uses", "dfc-b:uses"]],
+        "dfc-b:OrderLine" => [["concerns", "concerns", "dfc-b:concerns"], ["part_of", "part_of", "dfc-b:partOf"]],
+        "dfc-b:Organization" => [["has_main_contact", "main_contact", "dfc-b:hasMainContact"]],
+        "dfc-b:PaymentMethod" => [["payment_method_provider", "payment_method_provider", "dfc-b:paymentMethodProvider"], ["payment_method_type", "payment_method_type", "dfc-b:paymentMethodType"]],
+        "dfc-b:PhysicalPlace" => [["has_address", "address", "dfc-b:hasAddress"]],
+        "dfc-b:PickupOption" => [["uses", "uses", "dfc-b:uses"]],
+        "dfc-b:Price" => [["value", "value", "dfc-b:value"]],
+        "dfc-b:ProductionFlow" => [["output_of", "output_of", "dfc-b:outputOf"], ["produces", "produces", "dfc-b:produces"]],
+        "dfc-b:QuantitativeValue" => [["value", "value", "dfc-b:value"]],
+        "dfc-b:RealStock" => [["availability_date", "availability_date", "dfc-b:availabilityDate"], ["constitutes", "constitutes", "dfc-b:constitutes"], ["identified_by", "identified_by", "dfc-b:identifiedBy"], ["stored_in", "stored_in", "dfc-b:storedIn"]],
+        "dfc-b:Stock" => [["availability_date", "availability_date", "dfc-b:availabilityDate"]],
+        "dfc-b:SuppliedProduct" => [["lifetime", "lifetime", "dfc-b:lifetime"], ["supplied_by", "supplied_by", "dfc-b:suppliedBy"], ["total_theoritical_stock", "total_theoritical_stock", "dfc-b:totalTheoriticalStock"]],
+        "dfc-b:TechnicalProduct" => [["lifetime", "lifetime", "dfc-b:lifetime"], ["proposed_by", "proposed_by", "dfc-b:proposedBy"]],
+        "dfc-b:Temperature" => [["value", "value", "dfc-b:value"]],
+        "dfc-b:TheoriticalStock" => [["availability_date", "availability_date", "dfc-b:availabilityDate"], ["constitutes", "constitutes", "dfc-b:constitutes"], ["localized_by", "localized_by", "dfc-b:localizedBy"]],
+        "dfc-b:Transaction" => [["from", "from", "dfc-b:from"], ["to", "to", "dfc-b:to"]],
+        "dfc-b:Variant" => [["lifetime", "lifetime", "dfc-b:lifetime"]],
+        "dfc-b:VariantCaracteristic" => [["has_product_option", "product_option", "dfc-b:hasProductOption"], ["has_product_option_value", "product_option_value", "dfc-b:hasProductOptionValue"]],
+        "dfc-b:Volume" => [["value", "value", "dfc-b:value"]],
+        "dfc-b:Weight" => [["value", "value", "dfc-b:value"]],
+      }.freeze
+
       TYPE_ALIASES = {
       "dfc-b:Enterprise" => "dfc-b:Organization",
       }.freeze
@@ -405,6 +450,44 @@ module DfcLinkmlConnector
       def export(*objects)
         serializer = JsonLdSerializer.new(_safe_context, context_url)
         serializer.to_json(*objects)
+      end
+      #
+      # Opt-in by design. A data-plane connector has to accept partially built
+      # objects, and these restrictions are heavy enough that enforcing them in
+      # the constructor would reject ordinary documents -- every Organization
+      # would need a hasMainContact. See docs/concepts/cardinality.md for where
+      # the constraint data comes from.
+      #
+      # @param objects [Array<SemanticObject>] objects to check
+      # @return [Array<Hash>] one entry per missing required property
+      # Reports properties the ontology requires and the object does not carry.
+      #
+      # Opt-in by design. A data-plane connector has to accept partially built
+      # objects, and these restrictions are heavy enough that enforcing them in
+      # the constructor would reject ordinary documents -- every Organization
+      # would need a hasMainContact. See docs/concepts/cardinality.md for where
+      # the constraint data comes from.
+      #
+      # @param objects [Array<SemanticObject>] objects to check
+      # @return [Array<Hash>] one entry per missing required property
+      def validate(*objects)
+        issues = []
+        objects.flatten.each do |object|
+          next unless object.respond_to?(:semanticType)
+
+          REQUIRED_SLOTS.fetch(object.semanticType, []).each do |slot, property, predicate|
+            value = object.respond_to?(property) ? object.public_send(property) : nil
+            next unless value.nil?
+
+            issues << {
+              semanticId: object.semanticId,
+              semanticType: object.semanticType,
+              slot: slot,
+              predicate: predicate,
+            }
+          end
+        end
+        issues
       end
 
       # Import JSON-LD data and return SemanticObject instances.

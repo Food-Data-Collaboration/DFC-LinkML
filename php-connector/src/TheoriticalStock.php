@@ -33,7 +33,7 @@ class TheoriticalStock extends Stock implements ITheoriticalStock
 {
     public const SEMANTIC_TYPE = 'dfc-b:TheoriticalStock';
 
-    private array|string|SemanticObject|null $constitutes = [];
+    private string|SemanticObject|array|null $constitutes = null;
     private PhysicalPlace|string|SemanticObject|array|null $localizedBy = null;
 
     public function __construct(
@@ -42,52 +42,20 @@ class TheoriticalStock extends Stock implements ITheoriticalStock
     ) {
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
-        $this->constitutes = $params['constitutes'] ?? [];
+        $this->constitutes = $params['constitutes'] ?? null;
         $this->localizedBy = $params['localizedBy'] ?? null;
         $this->registerSemanticProperty('dfc-b:constitutes', fn() => $this->constitutes);
         $this->registerSemanticProperty('dfc-b:localizedBy', fn() => $this->localizedBy);
     }
-    public function getConstitutes(): array|string|SemanticObject|null
+    public function getConstitutes(): string|SemanticObject|array|null
     {
         return $this->constitutes;
     }
 
-    public function setConstitutes(array|string|SemanticObject|null $constitutes): static
+    public function setConstitutes(string|SemanticObject|array|null $constitutes): static
     {
         $this->constitutes = $constitutes;
         return $this;
-    }
-
-    public function addConstitutes(string|SemanticObject $constitutes): static
-    {
-        if ($this->constitutes === null) {
-            $this->constitutes = [];
-        } elseif (!is_array($this->constitutes)) {
-            $this->constitutes = [$this->constitutes];
-        }
-        $this->constitutes[] = $constitutes;
-        return $this;
-    }
-
-    public function removeConstitutes(string|SemanticObject $constitutes): void
-    {
-        if ($this->constitutes === null) {
-            return;
-        }
-        if (!is_array($this->constitutes)) {
-            // Singular shape (setX stored a scalar as-is): clear on match.
-            if ($this->constitutes === $constitutes) {
-                $this->constitutes = [];
-            }
-            return;
-        }
-        $key = array_search($constitutes, $this->constitutes, true);
-        if ($key !== false) {
-            unset($this->constitutes[$key]);
-            // Reindex: unset leaves gaps in numeric keys, which json_encode
-            // would emit as an object instead of an array (shape change).
-            $this->constitutes = array_values($this->constitutes);
-        }
     }
 
     public function getLocalizedBy(): PhysicalPlace|string|SemanticObject|array|null

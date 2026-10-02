@@ -11,6 +11,7 @@ Object property from OWL: hostedBy
 - **Predicate**: `dfc-b:hostedBy`
 - **Range**: `Platform` (a DFC class)
 - **Target type**: [`Platform`](../classes/Platform.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Notes
 

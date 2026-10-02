@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface Partable
 {
-    public function getPart(): OrderLine|string|SemanticObject|array|null;
-    public function setPart(OrderLine|string|SemanticObject|array|null $part): static;
+    public function getPart(): array|OrderLine|string|SemanticObject|null;
+    public function setPart(array|OrderLine|string|SemanticObject|null $part): static;
+    public function addPart(OrderLine|string|SemanticObject $part): static;
+    public function removePart(OrderLine|string|SemanticObject $part): void;
 }

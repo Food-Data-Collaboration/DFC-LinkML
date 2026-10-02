@@ -12,6 +12,7 @@ All Products supplied by the Enterprise
 - **Range**: `SuppliedProduct` (a DFC class)
 - **Target type**: [`SuppliedProduct`](../classes/SuppliedProduct.md)
 - **Inverse**: `supplied_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

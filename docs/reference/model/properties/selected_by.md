@@ -11,6 +11,7 @@ Object property from OWL: selectedBy
 - **Predicate**: `dfc-b:selectedBy`
 - **Range**: `string` (literal)
 - **Inverse**: `selects`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

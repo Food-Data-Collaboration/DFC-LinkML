@@ -11,6 +11,7 @@ Any unverified/uncertified claim made by the Product (e.g. "Low Fat", Locally Gr
 - **Predicate**: `dfc-b:hasClaim`
 - **Range**: `string` (literal)
 - **Inverse**: `claim_of`
+- **Cardinality**: **Collection** — the ontology states no upper bound for this property, so it takes several values. This comes from the curated list in `config/dfc-default.yaml`, verified against the original DFC v2 connectors; it is not derived from the ontology.
 
 ## Declared domain
 

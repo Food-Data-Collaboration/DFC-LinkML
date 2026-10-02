@@ -11,6 +11,7 @@ possède un point pivot
 - **Predicate**: `dfc-b:hasPivot`
 - **Range**: `RepresentationPivot` (a DFC class)
 - **Target type**: [`RepresentationPivot`](../classes/RepresentationPivot.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Notes
 

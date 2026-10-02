@@ -11,6 +11,7 @@ Object property from OWL: ships
 - **Predicate**: `dfc-b:ships`
 - **Range**: `string` (literal)
 - **Inverse**: `is_shipped_in`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

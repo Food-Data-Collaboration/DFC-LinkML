@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface OperatorIdable
 {
-    public function getOperatorId(): string|SemanticObject|array|null;
-    public function setOperatorId(string|SemanticObject|array|null $operatorId): static;
+    public function getOperatorId(): array|string|SemanticObject|null;
+    public function setOperatorId(array|string|SemanticObject|null $operatorId): static;
+    public function addOperatorId(string|SemanticObject $operatorId): static;
+    public function removeOperatorId(string|SemanticObject $operatorId): void;
 }

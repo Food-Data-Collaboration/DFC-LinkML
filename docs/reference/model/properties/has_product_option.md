@@ -11,6 +11,7 @@ Object property from OWL: hasProductOption
 - **Predicate**: `dfc-b:hasProductOption`
 - **Range**: `ProductOption` (a DFC class)
 - **Target type**: [`ProductOption`](../classes/ProductOption.md)
+- **Cardinality**: **Single-valued on `VariantCaracteristic`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

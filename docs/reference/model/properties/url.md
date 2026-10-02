@@ -10,6 +10,7 @@ The Universal Resource Locator address of the virtual place
 
 - **Predicate**: `dfc-b:URL`
 - **Range**: `uri` (literal)
+- **Cardinality**: **Single-valued** — the ontology declares this property `owl:FunctionalProperty`, so it takes at most one value in every class.
 
 ## Declared domain
 

@@ -11,6 +11,7 @@ Object property from OWL: brandOf
 - **Predicate**: `dfc-b:brandOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_brand`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

@@ -12,6 +12,7 @@ A reference of a defined product in a catalog managed by an enterprise
 - **Range**: `CatalogItem` (a DFC class)
 - **Target type**: [`CatalogItem`](../classes/CatalogItem.md)
 - **Inverse**: `managed_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

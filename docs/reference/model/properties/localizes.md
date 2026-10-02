@@ -12,6 +12,7 @@ Any theoretical stock that is associated with this location
 - **Range**: `TheoriticalStock` (a DFC class)
 - **Target type**: [`TheoriticalStock`](../classes/TheoriticalStock.md)
 - **Inverse**: `localized_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

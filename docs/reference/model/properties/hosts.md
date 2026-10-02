@@ -12,6 +12,7 @@ All Sales Sessions that have been, are being or will be hosted at this location
 - **Range**: `SaleSession` (a DFC class)
 - **Target type**: [`SaleSession`](../classes/SaleSession.md)
 - **Inverse**: `hosted_at`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

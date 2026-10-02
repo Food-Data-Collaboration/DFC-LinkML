@@ -31,15 +31,15 @@ module DfcLinkmlConnector
       # @return [QuantitativeValue, String]
       attr_accessor :has_quantity
 
-      # @return [SuppliedProduct, String]
+      # @return [Array<SuppliedProduct, String>]
       attr_accessor :reference
 
-      # @return [PhysicalProduct, String]
+      # @return [Array<PhysicalProduct, String>]
       attr_accessor :represented_by
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, cost: nil, quantity: nil, constituedBy: nil, consumedBy: nil, producedBy: nil, hasQuantity: nil, reference: nil, representedBy: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, cost: nil, quantity: nil, constituedBy: nil, consumedBy: nil, producedBy: nil, hasQuantity: nil, reference: nil, representedBy: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, cost: nil, quantity: nil, constituedBy: nil, consumedBy: nil, producedBy: nil, hasQuantity: nil, reference: [], representedBy: []
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, image: nil, cost: nil, quantity: nil, constituedBy: nil, consumedBy: nil, producedBy: nil, hasQuantity: nil, reference: [], representedBy: [])
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @image = image
         @cost = cost

@@ -12,6 +12,7 @@ The Technical Product that is created to industrialize this Supplied Product
 - **Range**: `TechnicalProduct` (a DFC class)
 - **Target type**: [`TechnicalProduct`](../classes/TechnicalProduct.md)
 - **Inverse**: `industrialized_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

@@ -10,6 +10,7 @@ Object property from OWL: broader
 
 - **Predicate**: `dfc-b:broader`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Notes
 

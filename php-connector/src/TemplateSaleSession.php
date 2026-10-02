@@ -32,13 +32,13 @@ class TemplateSaleSession extends SemanticObject implements ITemplateSaleSession
 {
     public const SEMANTIC_TYPE = 'dfc-b:TemplateSaleSession';
 
-    private string|SemanticObject|array|null $isTemplateSaleSessionOf = null;
+    private array|string|SemanticObject|null $isTemplateSaleSessionOf = [];
     private string|SemanticObject|array|null $date = null;
     private string|SemanticObject|array|null $description = null;
     private string|SemanticObject|array|null $name = null;
     private string|SemanticObject|array|null $characteristicOf = null;
     private string|SemanticObject|array|null $dimension = null;
-    private Place|string|SemanticObject|array|null $hostedAt = null;
+    private array|Place|string|SemanticObject|null $hostedAt = [];
 
     public function __construct(
         string $semanticId,
@@ -46,13 +46,13 @@ class TemplateSaleSession extends SemanticObject implements ITemplateSaleSession
     ) {
                 parent::__construct($semanticId);
         $this->semanticType = self::SEMANTIC_TYPE;
-        $this->isTemplateSaleSessionOf = $params['isTemplateSaleSessionOf'] ?? null;
+        $this->isTemplateSaleSessionOf = $params['isTemplateSaleSessionOf'] ?? [];
         $this->date = $params['date'] ?? null;
         $this->description = $params['description'] ?? null;
         $this->name = $params['name'] ?? null;
         $this->characteristicOf = $params['characteristicOf'] ?? null;
         $this->dimension = $params['dimension'] ?? null;
-        $this->hostedAt = $params['hostedAt'] ?? null;
+        $this->hostedAt = $params['hostedAt'] ?? [];
         $this->registerSemanticProperty('dfc-b:isTemplateSaleSessionOf', fn() => $this->isTemplateSaleSessionOf);
         $this->registerSemanticProperty('dfc-b:date', fn() => $this->date);
         $this->registerSemanticProperty('dfc-b:description', fn() => $this->description);
@@ -61,15 +61,47 @@ class TemplateSaleSession extends SemanticObject implements ITemplateSaleSession
         $this->registerSemanticProperty('dfc-b:hasDimension', fn() => $this->dimension);
         $this->registerSemanticProperty('dfc-b:hostedAt', fn() => $this->hostedAt);
     }
-    public function getIsTemplateSaleSessionOf(): string|SemanticObject|array|null
+    public function getIsTemplateSaleSessionOf(): array|string|SemanticObject|null
     {
         return $this->isTemplateSaleSessionOf;
     }
 
-    public function setIsTemplateSaleSessionOf(string|SemanticObject|array|null $isTemplateSaleSessionOf): static
+    public function setIsTemplateSaleSessionOf(array|string|SemanticObject|null $isTemplateSaleSessionOf): static
     {
         $this->isTemplateSaleSessionOf = $isTemplateSaleSessionOf;
         return $this;
+    }
+
+    public function addIsTemplateSaleSessionOf(string|SemanticObject $isTemplateSaleSessionOf): static
+    {
+        if ($this->isTemplateSaleSessionOf === null) {
+            $this->isTemplateSaleSessionOf = [];
+        } elseif (!is_array($this->isTemplateSaleSessionOf)) {
+            $this->isTemplateSaleSessionOf = [$this->isTemplateSaleSessionOf];
+        }
+        $this->isTemplateSaleSessionOf[] = $isTemplateSaleSessionOf;
+        return $this;
+    }
+
+    public function removeIsTemplateSaleSessionOf(string|SemanticObject $isTemplateSaleSessionOf): void
+    {
+        if ($this->isTemplateSaleSessionOf === null) {
+            return;
+        }
+        if (!is_array($this->isTemplateSaleSessionOf)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->isTemplateSaleSessionOf === $isTemplateSaleSessionOf) {
+                $this->isTemplateSaleSessionOf = [];
+            }
+            return;
+        }
+        $key = array_search($isTemplateSaleSessionOf, $this->isTemplateSaleSessionOf, true);
+        if ($key !== false) {
+            unset($this->isTemplateSaleSessionOf[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->isTemplateSaleSessionOf = array_values($this->isTemplateSaleSessionOf);
+        }
     }
 
     public function getDate(): string|SemanticObject|array|null
@@ -127,14 +159,46 @@ class TemplateSaleSession extends SemanticObject implements ITemplateSaleSession
         return $this;
     }
 
-    public function getHostedAt(): Place|string|SemanticObject|array|null
+    public function getHostedAt(): array|Place|string|SemanticObject|null
     {
         return $this->hostedAt;
     }
 
-    public function setHostedAt(Place|string|SemanticObject|array|null $hostedAt): static
+    public function setHostedAt(array|Place|string|SemanticObject|null $hostedAt): static
     {
         $this->hostedAt = $hostedAt;
         return $this;
+    }
+
+    public function addHostedAt(Place|string|SemanticObject $hostedAt): static
+    {
+        if ($this->hostedAt === null) {
+            $this->hostedAt = [];
+        } elseif (!is_array($this->hostedAt)) {
+            $this->hostedAt = [$this->hostedAt];
+        }
+        $this->hostedAt[] = $hostedAt;
+        return $this;
+    }
+
+    public function removeHostedAt(Place|string|SemanticObject $hostedAt): void
+    {
+        if ($this->hostedAt === null) {
+            return;
+        }
+        if (!is_array($this->hostedAt)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->hostedAt === $hostedAt) {
+                $this->hostedAt = [];
+            }
+            return;
+        }
+        $key = array_search($hostedAt, $this->hostedAt, true);
+        if ($key !== false) {
+            unset($this->hostedAt[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->hostedAt = array_values($this->hostedAt);
+        }
     }
 }

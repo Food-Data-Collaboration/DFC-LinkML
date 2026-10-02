@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface Deliveryable
 {
-    public function getDelivery(): Shipment|string|SemanticObject|array|null;
-    public function setDelivery(Shipment|string|SemanticObject|array|null $delivery): static;
+    public function getDelivery(): array|Shipment|string|SemanticObject|null;
+    public function setDelivery(array|Shipment|string|SemanticObject|null $delivery): static;
+    public function addDelivery(Shipment|string|SemanticObject $delivery): static;
+    public function removeDelivery(Shipment|string|SemanticObject $delivery): void;
 }

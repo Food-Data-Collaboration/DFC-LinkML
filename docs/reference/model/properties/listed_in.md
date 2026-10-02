@@ -11,6 +11,7 @@ All Sales Sessions that this Offer is listed in
 - **Predicate**: `dfc-b:listedIn`
 - **Range**: `string` (literal)
 - **Inverse**: `lists`
+- **Cardinality**: **Single-valued on `CatalogItem`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

@@ -27,6 +27,6 @@ namespace DataFoodConsortium\Connector;
 
 interface ListedInable
 {
-    public function getListedIn(): string|SemanticObject|array|null;
-    public function setListedIn(string|SemanticObject|array|null $listedIn): static;
+    public function getListedIn(): array|string|SemanticObject|null;
+    public function setListedIn(array|string|SemanticObject|null $listedIn): static;
 }

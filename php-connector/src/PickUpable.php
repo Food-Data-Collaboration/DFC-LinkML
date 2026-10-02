@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface PickUpable
 {
-    public function getPickUp(): Shipment|string|SemanticObject|array|null;
-    public function setPickUp(Shipment|string|SemanticObject|array|null $pickUp): static;
+    public function getPickUp(): array|Shipment|string|SemanticObject|null;
+    public function setPickUp(array|Shipment|string|SemanticObject|null $pickUp): static;
+    public function addPickUp(Shipment|string|SemanticObject $pickUp): static;
+    public function removePickUp(Shipment|string|SemanticObject $pickUp): void;
 }

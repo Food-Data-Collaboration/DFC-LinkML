@@ -10,6 +10,7 @@ Any specific conditions requried for storage or carriage of the Product
 
 - **Predicate**: `dfc-b:specificCondition`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

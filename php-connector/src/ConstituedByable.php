@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface ConstituedByable
 {
-    public function getConstituedBy(): string|SemanticObject|array|null;
-    public function setConstituedBy(string|SemanticObject|array|null $constituedBy): static;
+    public function getConstituedBy(): array|string|SemanticObject|null;
+    public function setConstituedBy(array|string|SemanticObject|null $constituedBy): static;
+    public function addConstituedBy(string|SemanticObject $constituedBy): static;
+    public function removeConstituedBy(string|SemanticObject $constituedBy): void;
 }

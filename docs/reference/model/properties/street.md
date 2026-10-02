@@ -10,6 +10,7 @@ Street part of the address. May also be referred to as "first line of address" i
 
 - **Predicate**: `dfc-b:street`
 - **Range**: `string` (literal)
+- **Cardinality**: **Single-valued** — the ontology declares this property `owl:FunctionalProperty`, so it takes at most one value in every class.
 
 ## Declared domain
 

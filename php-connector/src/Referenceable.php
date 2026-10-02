@@ -27,10 +27,10 @@ namespace DataFoodConsortium\Connector;
 
 interface Referenceable
 {
-    public function getReference(): SuppliedProduct|string|SemanticObject|array|null;
-    public function setReference(SuppliedProduct|string|SemanticObject|array|null $reference): static;
-    public function getReferences(): array|DefinedProduct|string|SemanticObject|null;
-    public function setReferences(array|DefinedProduct|string|SemanticObject|null $references): static;
-    public function addReferences(DefinedProduct|string|SemanticObject $references): static;
-    public function removeReferences(DefinedProduct|string|SemanticObject $references): void;
+    public function getReference(): array|SuppliedProduct|string|SemanticObject|null;
+    public function setReference(array|SuppliedProduct|string|SemanticObject|null $reference): static;
+    public function addReference(SuppliedProduct|string|SemanticObject $reference): static;
+    public function removeReference(SuppliedProduct|string|SemanticObject $reference): void;
+    public function getReferences(): DefinedProduct|string|SemanticObject|array|null;
+    public function setReferences(DefinedProduct|string|SemanticObject|array|null $references): static;
 }

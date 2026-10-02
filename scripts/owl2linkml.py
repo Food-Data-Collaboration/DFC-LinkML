@@ -456,6 +456,79 @@ def get_deprecated_classes(g: Graph, skip_classes: set[str] = None) -> set[str]:
     return out
 
 
+# OWL cardinality facets. `cardinality` is exact, `minCardinality`/`maxCardinality`
+# are bounds, and `qualifiedCardinality` is exact-but-with-a-range -- all four are
+# singleton assertions in DFC, so all four map onto min=1 plus, where the facet is
+# an upper bound, max=1.
+_CARDINALITY_FACETS = {
+    OWL.cardinality: ("minimum_cardinality", "maximum_cardinality"),
+    OWL.minCardinality: ("minimum_cardinality", None),
+    OWL.maxCardinality: (None, "maximum_cardinality"),
+    OWL.qualifiedCardinality: ("minimum_cardinality", "maximum_cardinality"),
+}
+
+
+def get_cardinality_restrictions(g: Graph, skip_classes: set[str] = None) -> dict:
+    """Class-scoped cardinality restrictions, as {class: {property: {min?, max?}}}.
+
+    The DFC ontology states multiplicity on 43 class restrictions, and every one
+    of them is a singleton (`owl:cardinality 1`, `owl:minCardinality 1`, or
+    `owl:qualifiedCardinality 1`). Nothing anywhere states `owl:maxCardinality`,
+    so this function can only ever return min/max of 1 -- see
+    `docs/concepts/cardinality.md` for why that is enough to fix the generated
+    shape but not to derive it.
+
+    Restricted to named classes: an anonymous restriction node (the subject of the
+    `rdfs:subClassOf`) is never a class we emit, and a restriction whose subject
+    is a blank node belongs to an intersection we do not model.
+    """
+    if skip_classes is None:
+        skip_classes = DEFAULT_SKIP_CLASSES
+    out: dict = {}
+    for subject, restriction in g.subject_objects(RDFS.subClassOf):
+        if not isinstance(subject, URIRef):
+            continue
+        class_name = _local_name(subject)
+        if not class_name or class_name in skip_classes:
+            continue
+        on_property = g.value(restriction, OWL.onProperty)
+        prop_name = _local_name(on_property) if on_property else None
+        if not prop_name:
+            continue
+        for facet, (min_key, max_key) in _CARDINALITY_FACETS.items():
+            value = g.value(restriction, facet)
+            if value is None:
+                continue
+            try:
+                n = int(value)
+            except (TypeError, ValueError):
+                continue
+            entry = out.setdefault(class_name, {}).setdefault(prop_name, {})
+            if min_key:
+                entry[min_key] = n
+            if max_key:
+                entry[max_key] = n
+            break
+    return out
+
+
+def get_functional_properties(g: Graph, skip_properties: set[str] = None) -> set[str]:
+    """Properties declared owl:FunctionalProperty, i.e. at most one value.
+
+    A property characteristic, not a class restriction: it holds for the property
+    wherever it is used, so it becomes a slot-level `maximum_cardinality: 1`
+    rather than a class-scoped `slot_usage` entry.
+    """
+    if skip_properties is None:
+        skip_properties = DEFAULT_SKIP_PROPERTIES
+    out: set[str] = set()
+    for prop in g.subjects(RDF.type, OWL.FunctionalProperty):
+        name = _local_name(prop)
+        if name and name not in skip_properties:
+            out.add(name)
+    return out
+
+
 def _to_curie(iri: URIRef, prefixes: dict[str, str]) -> str:
     """Shorten an IRI to a CURIE where a prefix matches, else return it whole.
 
@@ -573,9 +646,11 @@ def build_linkml_schema(
     inverse_relations: dict[str, str] = None,
     deprecated_classes: set[str] = None,
     equivalences: dict[str, str] = None,
+    cardinality_restrictions: dict = None,
+    functional_properties: set[str] = None,
 ) -> dict:
     """Build LinkML schema dictionary from config.
-    
+
     Args:
         classes: Set of class names extracted from OWL
         data_props: Dict of data property info
@@ -583,6 +658,10 @@ def build_linkml_schema(
         subclass_relations: Dict mapping class to parent class
         config: Configuration dict with ontology settings
         inverse_relations: Dict mapping property name to its inverse property name
+        cardinality_restrictions: {class: {property: {minimum_cardinality?, maximum_cardinality?}}}
+            from `get_cardinality_restrictions`, emitted as class-scoped `slot_usage`
+        functional_properties: Property names from `get_functional_properties`, emitted
+            as a slot-level `maximum_cardinality: 1`
     """
     ontology_version = config.get("ontology_version", "1.0.0")
     taxonomy_version = config.get("taxonomy_version", ontology_version)
@@ -659,6 +738,39 @@ def build_linkml_schema(
                 slot_definitions[slot_name]["inverse"] = inverse_slot_name
                 slot_definitions[inverse_slot_name]["inverse"] = slot_name
 
+    # owl:FunctionalProperty is a property characteristic, so it constrains the
+    # slot everywhere it is used rather than one class at a time.
+    if functional_properties:
+        for prop_name in functional_properties:
+            slot_def = slot_definitions.get(_to_snake_case(prop_name))
+            if slot_def is not None:
+                slot_def["maximum_cardinality"] = 1
+
+    # The ontology never states that a slot may repeat -- it only ever says
+    # "exactly one". The n side therefore comes from the curated list in the
+    # config, which is verified against the original DFC v2 connectors. It is
+    # recorded as `multivalued` so the generators keep reading only the schema.
+    #
+    # This is deliberately *not* derived from the restrictions: absence of a
+    # singleton restriction is not evidence of multiplicity in an open-world
+    # ontology, and inferring it there is what the plural-name heuristic was
+    # doing badly. `config/dfc-default.yaml` documents the provenance.
+    multi_valued = (config.get("cardinality") or {}).get("multi_valued") or []
+    for slot_name in multi_valued:
+        slot_def = slot_definitions.get(slot_name)
+        if slot_def is None:
+            continue
+        # A slot the ontology caps at 1 everywhere cannot be a collection.
+        # `maximum_cardinality` and `multivalued` would otherwise contradict.
+        if slot_def.get("maximum_cardinality") == 1:
+            logger.warning(
+                "cardinality.multi_valued names %s but the ontology caps it at "
+                "1 (owl:FunctionalProperty); keeping it single-valued",
+                slot_name,
+            )
+            continue
+        slot_def["multivalued"] = True
+
     for class_name in sorted(classes):
         description_template = config.get("class_description_template", "OWL class: {class_name}")
         class_def = {
@@ -681,6 +793,20 @@ def build_linkml_schema(
 
         if class_slots:
             class_def["slots"] = class_slots
+
+        # A restriction is scoped to the class that carries it, so it becomes a
+        # class-scoped `slot_usage` rather than a slot-level flag. This matters:
+        # `PhysicalPlace` restricts `hasAddress` to exactly one while `Agent` says
+        # nothing, and the two are siblings, so a slot-level flag would be wrong
+        # for both.
+        if cardinality_restrictions and class_name in cardinality_restrictions:
+            slot_usage = {}
+            for prop_name, bounds in sorted(cardinality_restrictions[class_name].items()):
+                usage_slot = _to_snake_case(prop_name)
+                if usage_slot in class_slots:
+                    slot_usage[usage_slot] = dict(bounds)
+            if slot_usage:
+                class_def["slot_usage"] = slot_usage
 
         schema["classes"][class_name] = class_def
 
@@ -909,6 +1035,18 @@ def main(
     )
     logger.info(f"Found {len(equivalences)} equivalences: {equivalences}")
 
+    cardinality_restrictions = get_cardinality_restrictions(g, skip_classes)
+    functional_properties = get_functional_properties(g, skip_properties)
+    logger.info(
+        f"Found {sum(len(v) for v in cardinality_restrictions.values())} "
+        f"class-scoped cardinality restrictions across "
+        f"{len(cardinality_restrictions)} classes "
+        f"(includes dfc-t classes, which are not emitted)"
+    )
+    logger.info(
+        f"Found {len(functional_properties)} owl:FunctionalProperty declarations"
+    )
+
     config["ontology_version"] = ontology_version
     config["taxonomy_version"] = taxonomy_version
     if "id" not in config:
@@ -923,6 +1061,19 @@ def main(
         inverse_relations,
         deprecated_classes,
         equivalences,
+        cardinality_restrictions,
+        functional_properties,
+    )
+
+    n_usage = sum(
+        len(v["slot_usage"]) for v in schema["classes"].values() if v.get("slot_usage")
+    )
+    n_slots_capped = sum(
+        1 for v in schema["slots"].values() if v.get("maximum_cardinality") == 1
+    )
+    logger.info(
+        f"Emitted {n_usage} class-scoped slot_usage entries and "
+        f"{n_slots_capped} slots with maximum_cardinality: 1"
     )
 
     if output is None:

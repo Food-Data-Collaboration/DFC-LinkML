@@ -11,6 +11,7 @@ The entity responsible for the sale (could be the Enterprise or a Salesperson wi
 - **Predicate**: `dfc-b:soldBy`
 - **Range**: `string` (literal)
 - **Inverse**: `sells`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

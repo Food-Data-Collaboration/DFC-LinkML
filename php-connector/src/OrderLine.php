@@ -35,7 +35,7 @@ class OrderLine extends SemanticObject implements IOrderLine
 
     private float|string|SemanticObject|array|null $discount = null;
     private float|string|SemanticObject|array|null $quantity = null;
-    private array|string|SemanticObject|null $concerns = [];
+    private string|SemanticObject|array|null $concerns = null;
     private string|SemanticObject|array|null $price = null;
     private string|SemanticObject|array|null $isFulfilledBy = null;
     private string|SemanticObject|array|null $date = null;
@@ -54,7 +54,7 @@ class OrderLine extends SemanticObject implements IOrderLine
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->discount = $params['discount'] ?? null;
         $this->quantity = $params['quantity'] ?? null;
-        $this->concerns = $params['concerns'] ?? [];
+        $this->concerns = $params['concerns'] ?? null;
         $this->price = $params['price'] ?? null;
         $this->isFulfilledBy = $params['isFulfilledBy'] ?? null;
         $this->date = $params['date'] ?? null;
@@ -99,47 +99,15 @@ class OrderLine extends SemanticObject implements IOrderLine
         return $this;
     }
 
-    public function getConcerns(): array|string|SemanticObject|null
+    public function getConcerns(): string|SemanticObject|array|null
     {
         return $this->concerns;
     }
 
-    public function setConcerns(array|string|SemanticObject|null $concerns): static
+    public function setConcerns(string|SemanticObject|array|null $concerns): static
     {
         $this->concerns = $concerns;
         return $this;
-    }
-
-    public function addConcerns(string|SemanticObject $concerns): static
-    {
-        if ($this->concerns === null) {
-            $this->concerns = [];
-        } elseif (!is_array($this->concerns)) {
-            $this->concerns = [$this->concerns];
-        }
-        $this->concerns[] = $concerns;
-        return $this;
-    }
-
-    public function removeConcerns(string|SemanticObject $concerns): void
-    {
-        if ($this->concerns === null) {
-            return;
-        }
-        if (!is_array($this->concerns)) {
-            // Singular shape (setX stored a scalar as-is): clear on match.
-            if ($this->concerns === $concerns) {
-                $this->concerns = [];
-            }
-            return;
-        }
-        $key = array_search($concerns, $this->concerns, true);
-        if ($key !== false) {
-            unset($this->concerns[$key]);
-            // Reindex: unset leaves gaps in numeric keys, which json_encode
-            // would emit as an object instead of an array (shape change).
-            $this->concerns = array_values($this->concerns);
-        }
     }
 
     public function getPrice(): string|SemanticObject|array|null

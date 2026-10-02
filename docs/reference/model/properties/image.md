@@ -10,6 +10,7 @@ A URL for an image of the Product
 
 - **Predicate**: `dfc-b:Image`
 - **Range**: `uri` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

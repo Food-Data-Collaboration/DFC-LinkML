@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface NutrientCharacteristicable
 {
-    public function getNutrientCharacteristic(): string|SemanticObject|array|null;
-    public function setNutrientCharacteristic(string|SemanticObject|array|null $nutrientCharacteristic): static;
+    public function getNutrientCharacteristic(): array|string|SemanticObject|null;
+    public function setNutrientCharacteristic(array|string|SemanticObject|null $nutrientCharacteristic): static;
+    public function addNutrientCharacteristic(string|SemanticObject $nutrientCharacteristic): static;
+    public function removeNutrientCharacteristic(string|SemanticObject $nutrientCharacteristic): void;
 }

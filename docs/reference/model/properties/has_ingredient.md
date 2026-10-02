@@ -13,6 +13,7 @@ N.B. This is similar (simplified) functionality to the AsPlannedTransformation l
 - **Predicate**: `dfc-b:hasIngredient`
 - **Range**: `string` (literal)
 - **Inverse**: `is_ingredient_of`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

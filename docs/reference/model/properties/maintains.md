@@ -12,6 +12,7 @@ A set of reference of defined products
 - **Range**: `Catalog` (a DFC class)
 - **Target type**: [`Catalog`](../classes/Catalog.md)
 - **Inverse**: `maintained_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

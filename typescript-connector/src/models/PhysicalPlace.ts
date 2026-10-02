@@ -21,7 +21,7 @@ export interface PhysicalPlaceParams extends PlaceParams {
    *
    * Serializes as `dfc-b:hasPhoneNumber`.
    */
-  hasPhoneNumber?: string;
+  hasPhoneNumber?: string[];
   /**
    * Address of Agent
    *
@@ -31,14 +31,14 @@ export interface PhysicalPlaceParams extends PlaceParams {
   /**
    * Serializes as `dfc-b:hasGeoJsonFeature`.
    */
-  hasGeoJsonFeature?: Feature | string;
+  hasGeoJsonFeature?: (Feature | string)[];
   /**
    * The Person, if any, who is a principal contact for this physical
    *   location
    *
    * Serializes as `dfc-b:hasMainContact`.
    */
-  hasMainContact?: Person | string;
+  hasMainContact?: (Person | string)[];
   /**
    * Schedule during which the Physical Place is accessible, may indicate it
    *   is open to the public or just for business.
@@ -77,7 +77,7 @@ export class PhysicalPlace extends Place {
    *
    * Serializes as `dfc-b:hasPhoneNumber`.
    */
-  hasPhoneNumber?: string;
+  hasPhoneNumber?: string[];
   /**
    * Address of Agent
    *
@@ -87,14 +87,14 @@ export class PhysicalPlace extends Place {
   /**
    * Serializes as `dfc-b:hasGeoJsonFeature`.
    */
-  hasGeoJsonFeature?: Feature | string;
+  hasGeoJsonFeature?: (Feature | string)[];
   /**
    * The Person, if any, who is a principal contact for this physical
    *   location
    *
    * Serializes as `dfc-b:hasMainContact`.
    */
-  hasMainContact?: Person | string;
+  hasMainContact?: (Person | string)[];
   /**
    * Schedule during which the Physical Place is accessible, may indicate it
    *   is open to the public or just for business.

@@ -31,14 +31,14 @@ export interface AsRealizedTransformationParams extends TransformationParams {
    *
    * Serializes as `dfc-b:hasInput`.
    */
-  hasInput?: string;
+  hasInput?: string[];
   /**
    * The PlannedProductionFlow that is the output of the
    *   PlannedTransformation
    *
    * Serializes as `dfc-b:hasOutput`.
    */
-  hasOutput?: string;
+  hasOutput?: string[];
 }
 
 /**
@@ -75,14 +75,14 @@ export class AsRealizedTransformation extends Transformation {
    *
    * Serializes as `dfc-b:hasInput`.
    */
-  hasInput?: string;
+  hasInput?: string[];
   /**
    * The PlannedProductionFlow that is the output of the
    *   PlannedTransformation
    *
    * Serializes as `dfc-b:hasOutput`.
    */
-  hasOutput?: string;
+  hasOutput?: string[];
 
   constructor(
     semanticId: string,

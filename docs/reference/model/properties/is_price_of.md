@@ -11,6 +11,7 @@ The Object that the Price relates to, can be an Offer, a PaymentMethod or a Tran
 - **Predicate**: `dfc-b:isPriceOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_price`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

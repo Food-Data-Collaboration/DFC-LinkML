@@ -54,13 +54,23 @@ function capabilities(): void
 
 function resolveRefs(array $params): array
 {
+    // Declared by reference first: a closure cannot call itself by name, so the
+    // recursive call needs the variable to already exist.
+    $resolve = null;
+    $resolve = static function ($value) use (&$resolve) {
+        if (!is_array($value)) {
+            return $value;
+        }
+        if (array_key_exists('$ref', $value)) {
+            return $value['$ref'];
+        }
+        // A list of $ref entries has to be resolved element-wise; passing the
+        // wrappers through makes the connector serialise them as blank nodes.
+        return array_map($resolve, $value);
+    };
     $out = [];
     foreach ($params as $k => $v) {
-        if (is_array($v) && array_key_exists('$ref', $v)) {
-            $out[$k] = $v['$ref'];
-        } else {
-            $out[$k] = $v;
-        }
+        $out[$k] = $resolve($v);
     }
     return $out;
 }

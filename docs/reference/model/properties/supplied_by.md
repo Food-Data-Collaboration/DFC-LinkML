@@ -12,6 +12,7 @@ The Enterprise that supplies the Product
 - **Range**: `Organization` (a DFC class)
 - **Target type**: [`Organization`](../classes/Organization.md)
 - **Inverse**: `supplies`
+- **Cardinality**: **Single-valued on `SuppliedProduct`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

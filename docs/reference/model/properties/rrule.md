@@ -11,6 +11,7 @@ Object property from OWL: rrule
 - **Predicate**: `dfc-b:rrule`
 - **Range**: `Value_RECUR` (a DFC class)
 - **Target type**: [`Value_RECUR`](../classes/Value_RECUR.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

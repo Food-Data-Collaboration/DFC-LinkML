@@ -11,6 +11,7 @@ The brand a Product is sold under (Enterprises can market under different Brands
 - **Predicate**: `dfc-b:hasBrand`
 - **Range**: `string` (literal)
 - **Inverse**: `brand_of`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

@@ -45,8 +45,8 @@ class CatalogItem extends SemanticObject implements ICatalogItem
     private string|SemanticObject|array|null $characteristicOf = null;
     private string|SemanticObject|array|null $dimension = null;
     private Organization|string|SemanticObject|array|null $managedBy = null;
-    private Offer|string|SemanticObject|array|null $offeredThrough = null;
-    private array|DefinedProduct|string|SemanticObject|null $references = [];
+    private array|Offer|string|SemanticObject|null $offeredThrough = [];
+    private DefinedProduct|string|SemanticObject|array|null $references = null;
 
     public function __construct(
         string $semanticId,
@@ -65,8 +65,8 @@ class CatalogItem extends SemanticObject implements ICatalogItem
         $this->characteristicOf = $params['characteristicOf'] ?? null;
         $this->dimension = $params['dimension'] ?? null;
         $this->managedBy = $params['managedBy'] ?? null;
-        $this->offeredThrough = $params['offeredThrough'] ?? null;
-        $this->references = $params['references'] ?? [];
+        $this->offeredThrough = $params['offeredThrough'] ?? [];
+        $this->references = $params['references'] ?? null;
         $this->registerSemanticProperty('dfc-b:extraAvailabilityTime', fn() => $this->extraAvailabilityTime);
         $this->registerSemanticProperty('dfc-b:extraDeliveryCondition', fn() => $this->extraDeliveryCondition);
         $this->registerSemanticProperty('dfc-b:sku', fn() => $this->sku);
@@ -202,57 +202,57 @@ class CatalogItem extends SemanticObject implements ICatalogItem
         return $this;
     }
 
-    public function getOfferedThrough(): Offer|string|SemanticObject|array|null
+    public function getOfferedThrough(): array|Offer|string|SemanticObject|null
     {
         return $this->offeredThrough;
     }
 
-    public function setOfferedThrough(Offer|string|SemanticObject|array|null $offeredThrough): static
+    public function setOfferedThrough(array|Offer|string|SemanticObject|null $offeredThrough): static
     {
         $this->offeredThrough = $offeredThrough;
         return $this;
     }
 
-    public function getReferences(): array|DefinedProduct|string|SemanticObject|null
+    public function addOfferedThrough(Offer|string|SemanticObject $offeredThrough): static
+    {
+        if ($this->offeredThrough === null) {
+            $this->offeredThrough = [];
+        } elseif (!is_array($this->offeredThrough)) {
+            $this->offeredThrough = [$this->offeredThrough];
+        }
+        $this->offeredThrough[] = $offeredThrough;
+        return $this;
+    }
+
+    public function removeOfferedThrough(Offer|string|SemanticObject $offeredThrough): void
+    {
+        if ($this->offeredThrough === null) {
+            return;
+        }
+        if (!is_array($this->offeredThrough)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->offeredThrough === $offeredThrough) {
+                $this->offeredThrough = [];
+            }
+            return;
+        }
+        $key = array_search($offeredThrough, $this->offeredThrough, true);
+        if ($key !== false) {
+            unset($this->offeredThrough[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->offeredThrough = array_values($this->offeredThrough);
+        }
+    }
+
+    public function getReferences(): DefinedProduct|string|SemanticObject|array|null
     {
         return $this->references;
     }
 
-    public function setReferences(array|DefinedProduct|string|SemanticObject|null $references): static
+    public function setReferences(DefinedProduct|string|SemanticObject|array|null $references): static
     {
         $this->references = $references;
         return $this;
-    }
-
-    public function addReferences(DefinedProduct|string|SemanticObject $references): static
-    {
-        if ($this->references === null) {
-            $this->references = [];
-        } elseif (!is_array($this->references)) {
-            $this->references = [$this->references];
-        }
-        $this->references[] = $references;
-        return $this;
-    }
-
-    public function removeReferences(DefinedProduct|string|SemanticObject $references): void
-    {
-        if ($this->references === null) {
-            return;
-        }
-        if (!is_array($this->references)) {
-            // Singular shape (setX stored a scalar as-is): clear on match.
-            if ($this->references === $references) {
-                $this->references = [];
-            }
-            return;
-        }
-        $key = array_search($references, $this->references, true);
-        if ($key !== false) {
-            unset($this->references[$key]);
-            // Reindex: unset leaves gaps in numeric keys, which json_encode
-            // would emit as an object instead of an array (shape change).
-            $this->references = array_values($this->references);
-        }
     }
 }

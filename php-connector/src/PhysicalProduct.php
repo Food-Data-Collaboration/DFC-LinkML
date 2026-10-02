@@ -39,14 +39,14 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
     private string|SemanticObject|array|null $image = null;
     private float|string|SemanticObject|array|null $quantity = null;
     private string|SemanticObject|array|null $concernedBy = null;
-    private string|SemanticObject|array|null $constituedBy = null;
-    private string|SemanticObject|array|null $consumedBy = null;
+    private array|string|SemanticObject|null $constituedBy = [];
+    private array|string|SemanticObject|null $consumedBy = [];
     private array|string|SemanticObject|null $fulfills = [];
-    private string|SemanticObject|array|null $producedBy = null;
+    private array|string|SemanticObject|null $producedBy = [];
     private QuantitativeValue|string|SemanticObject|array|null $hasQuantity = null;
     private Agent|string|SemanticObject|array|null $ownedBy = null;
     private array|LocalizedProduct|string|SemanticObject|null $represents = [];
-    private ProductBatch|string|SemanticObject|array|null $tracedBy = null;
+    private array|ProductBatch|string|SemanticObject|null $tracedBy = [];
 
     public function __construct(
         string $semanticId,
@@ -57,14 +57,14 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
         $this->image = $params['image'] ?? null;
         $this->quantity = $params['quantity'] ?? null;
         $this->concernedBy = $params['concernedBy'] ?? null;
-        $this->constituedBy = $params['constituedBy'] ?? null;
-        $this->consumedBy = $params['consumedBy'] ?? null;
+        $this->constituedBy = $params['constituedBy'] ?? [];
+        $this->consumedBy = $params['consumedBy'] ?? [];
         $this->fulfills = $params['fulfills'] ?? [];
-        $this->producedBy = $params['producedBy'] ?? null;
+        $this->producedBy = $params['producedBy'] ?? [];
         $this->hasQuantity = $params['hasQuantity'] ?? null;
         $this->ownedBy = $params['ownedBy'] ?? null;
         $this->represents = $params['represents'] ?? [];
-        $this->tracedBy = $params['tracedBy'] ?? null;
+        $this->tracedBy = $params['tracedBy'] ?? [];
         $this->registerSemanticProperty('dfc-b:Image', fn() => $this->image);
         $this->registerSemanticProperty('dfc-b:quantity', fn() => $this->quantity);
         $this->registerSemanticProperty('dfc-b:concernedBy', fn() => $this->concernedBy);
@@ -110,26 +110,90 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
         return $this;
     }
 
-    public function getConstituedBy(): string|SemanticObject|array|null
+    public function getConstituedBy(): array|string|SemanticObject|null
     {
         return $this->constituedBy;
     }
 
-    public function setConstituedBy(string|SemanticObject|array|null $constituedBy): static
+    public function setConstituedBy(array|string|SemanticObject|null $constituedBy): static
     {
         $this->constituedBy = $constituedBy;
         return $this;
     }
 
-    public function getConsumedBy(): string|SemanticObject|array|null
+    public function addConstituedBy(string|SemanticObject $constituedBy): static
+    {
+        if ($this->constituedBy === null) {
+            $this->constituedBy = [];
+        } elseif (!is_array($this->constituedBy)) {
+            $this->constituedBy = [$this->constituedBy];
+        }
+        $this->constituedBy[] = $constituedBy;
+        return $this;
+    }
+
+    public function removeConstituedBy(string|SemanticObject $constituedBy): void
+    {
+        if ($this->constituedBy === null) {
+            return;
+        }
+        if (!is_array($this->constituedBy)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->constituedBy === $constituedBy) {
+                $this->constituedBy = [];
+            }
+            return;
+        }
+        $key = array_search($constituedBy, $this->constituedBy, true);
+        if ($key !== false) {
+            unset($this->constituedBy[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->constituedBy = array_values($this->constituedBy);
+        }
+    }
+
+    public function getConsumedBy(): array|string|SemanticObject|null
     {
         return $this->consumedBy;
     }
 
-    public function setConsumedBy(string|SemanticObject|array|null $consumedBy): static
+    public function setConsumedBy(array|string|SemanticObject|null $consumedBy): static
     {
         $this->consumedBy = $consumedBy;
         return $this;
+    }
+
+    public function addConsumedBy(string|SemanticObject $consumedBy): static
+    {
+        if ($this->consumedBy === null) {
+            $this->consumedBy = [];
+        } elseif (!is_array($this->consumedBy)) {
+            $this->consumedBy = [$this->consumedBy];
+        }
+        $this->consumedBy[] = $consumedBy;
+        return $this;
+    }
+
+    public function removeConsumedBy(string|SemanticObject $consumedBy): void
+    {
+        if ($this->consumedBy === null) {
+            return;
+        }
+        if (!is_array($this->consumedBy)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->consumedBy === $consumedBy) {
+                $this->consumedBy = [];
+            }
+            return;
+        }
+        $key = array_search($consumedBy, $this->consumedBy, true);
+        if ($key !== false) {
+            unset($this->consumedBy[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->consumedBy = array_values($this->consumedBy);
+        }
     }
 
     public function getFulfills(): array|string|SemanticObject|null
@@ -175,15 +239,47 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
         }
     }
 
-    public function getProducedBy(): string|SemanticObject|array|null
+    public function getProducedBy(): array|string|SemanticObject|null
     {
         return $this->producedBy;
     }
 
-    public function setProducedBy(string|SemanticObject|array|null $producedBy): static
+    public function setProducedBy(array|string|SemanticObject|null $producedBy): static
     {
         $this->producedBy = $producedBy;
         return $this;
+    }
+
+    public function addProducedBy(string|SemanticObject $producedBy): static
+    {
+        if ($this->producedBy === null) {
+            $this->producedBy = [];
+        } elseif (!is_array($this->producedBy)) {
+            $this->producedBy = [$this->producedBy];
+        }
+        $this->producedBy[] = $producedBy;
+        return $this;
+    }
+
+    public function removeProducedBy(string|SemanticObject $producedBy): void
+    {
+        if ($this->producedBy === null) {
+            return;
+        }
+        if (!is_array($this->producedBy)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->producedBy === $producedBy) {
+                $this->producedBy = [];
+            }
+            return;
+        }
+        $key = array_search($producedBy, $this->producedBy, true);
+        if ($key !== false) {
+            unset($this->producedBy[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->producedBy = array_values($this->producedBy);
+        }
     }
 
     public function getHasQuantity(): QuantitativeValue|string|SemanticObject|array|null
@@ -251,14 +347,46 @@ class PhysicalProduct extends WhatSubject implements IPhysicalProduct
         }
     }
 
-    public function getTracedBy(): ProductBatch|string|SemanticObject|array|null
+    public function getTracedBy(): array|ProductBatch|string|SemanticObject|null
     {
         return $this->tracedBy;
     }
 
-    public function setTracedBy(ProductBatch|string|SemanticObject|array|null $tracedBy): static
+    public function setTracedBy(array|ProductBatch|string|SemanticObject|null $tracedBy): static
     {
         $this->tracedBy = $tracedBy;
         return $this;
+    }
+
+    public function addTracedBy(ProductBatch|string|SemanticObject $tracedBy): static
+    {
+        if ($this->tracedBy === null) {
+            $this->tracedBy = [];
+        } elseif (!is_array($this->tracedBy)) {
+            $this->tracedBy = [$this->tracedBy];
+        }
+        $this->tracedBy[] = $tracedBy;
+        return $this;
+    }
+
+    public function removeTracedBy(ProductBatch|string|SemanticObject $tracedBy): void
+    {
+        if ($this->tracedBy === null) {
+            return;
+        }
+        if (!is_array($this->tracedBy)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->tracedBy === $tracedBy) {
+                $this->tracedBy = [];
+            }
+            return;
+        }
+        $key = array_search($tracedBy, $this->tracedBy, true);
+        if ($key !== false) {
+            unset($this->tracedBy[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->tracedBy = array_values($this->tracedBy);
+        }
     }
 }

@@ -12,6 +12,7 @@ The Sales Session that is subject to the coordination
 - **Range**: `SaleSession` (a DFC class)
 - **Target type**: [`SaleSession`](../classes/SaleSession.md)
 - **Inverse**: `object_of`
+- **Cardinality**: **Single-valued on `Coordination`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

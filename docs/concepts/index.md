@@ -10,6 +10,7 @@ know *why*.
 |---|---|
 | [Identifiers](identifiers.md) | What counts as an `@id`, what survives a round trip, what breaks references |
 | [Relationships](relationships.md) | How object properties become JSON-LD links, and the single-value shape rule |
+| [Cardinality](cardinality.md) | What the ontology states about how many values a property holds, and what it leaves unstated |
 | [Context and versioning](context-and-versioning.md) | What a `@context` does, why it is a URL, how ontology and taxonomy versions differ |
 | [Vocabularies](vocabularies.md) | Where controlled terms come from, why they are not in the schema |
 | [Validation](validation.md) | The four levels of "valid", which one actually ships, what the connectors do not reject |

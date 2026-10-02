@@ -25,6 +25,7 @@ Every public method on the connector, as declared in the source.
 | `loadProductTypesFromUrl()` | Fetch the ProductType vocabulary |
 | `export()` | Export objects to JSON-LD |
 | `import()` | Import JSON-LD into objects |
+| `validate()` | — |
 
 Read-only property accessors: `c.contextUrl`, `c.facet`, `c.measure`, `c.product_type`, `c.scope`, `c.vocabulary_term`.
 

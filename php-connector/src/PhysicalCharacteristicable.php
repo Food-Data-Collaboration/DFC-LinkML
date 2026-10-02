@@ -31,6 +31,8 @@ interface PhysicalCharacteristicable
     public function setPhysicalCharacteristics(array|string|SemanticObject|null $physicalCharacteristics): static;
     public function addPhysicalCharacteristics(string|SemanticObject $physicalCharacteristics): static;
     public function removePhysicalCharacteristics(string|SemanticObject $physicalCharacteristics): void;
-    public function getPhysicalCharacteristic(): string|SemanticObject|array|null;
-    public function setPhysicalCharacteristic(string|SemanticObject|array|null $physicalCharacteristic): static;
+    public function getPhysicalCharacteristic(): array|string|SemanticObject|null;
+    public function setPhysicalCharacteristic(array|string|SemanticObject|null $physicalCharacteristic): static;
+    public function addPhysicalCharacteristic(string|SemanticObject $physicalCharacteristic): static;
+    public function removePhysicalCharacteristic(string|SemanticObject $physicalCharacteristic): void;
 }

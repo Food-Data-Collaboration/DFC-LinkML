@@ -298,6 +298,52 @@ class Connector
         'dfc-b:Enterprise' => 'dfc-b:Organization',
     ];
 
+    // Slots the ontology requires, per semantic type, as
+    // [slot, property, predicate] triples. Every entry comes from an
+    // `rdfs:subClassOf` restriction with `minimum_cardinality 1` -- all 42 DFC
+    // restrictions are singletons. Consulted by validate(), which is opt-in:
+    // constructors stay permissive because these would reject ordinary
+    // partial documents.
+    public const REQUIRED_SLOTS = [
+        'dfc-b:AsPlannedConsumptionFlow' => [['consumes', 'consumes', 'dfc-b:consumes'], ['input_of', 'inputOf', 'dfc-b:inputOf']],
+        'dfc-b:AsPlannedLocalConsumptionFlow' => [['consumes', 'consumes', 'dfc-b:consumes'], ['input_of', 'inputOf', 'dfc-b:inputOf']],
+        'dfc-b:AsPlannedLocalProductionFlow' => [['output_of', 'outputOf', 'dfc-b:outputOf'], ['produces', 'produces', 'dfc-b:produces']],
+        'dfc-b:AsPlannedLocalTransformation' => [['transformed_by', 'transformedBy', 'dfc-b:transformedBy']],
+        'dfc-b:AsPlannedProductionFlow' => [['output_of', 'outputOf', 'dfc-b:outputOf'], ['produces', 'produces', 'dfc-b:produces']],
+        'dfc-b:AsRealizedConsumptionFlow' => [['consumes', 'consumes', 'dfc-b:consumes'], ['input_of', 'inputOf', 'dfc-b:inputOf']],
+        'dfc-b:AsRealizedProductionFlow' => [['output_of', 'outputOf', 'dfc-b:outputOf'], ['produces', 'produces', 'dfc-b:produces']],
+        'dfc-b:Catalog' => [['maintained_by', 'maintainedBy', 'dfc-b:maintainedBy']],
+        'dfc-b:CatalogItem' => [['listed_in', 'listedIn', 'dfc-b:listedIn'], ['managed_by', 'managedBy', 'dfc-b:managedBy'], ['references', 'references', 'dfc-b:references']],
+        'dfc-b:ConsumptionFlow' => [['consumes', 'consumes', 'dfc-b:consumes'], ['input_of', 'inputOf', 'dfc-b:inputOf']],
+        'dfc-b:Coordination' => [['coordinated_by', 'coordinatedBy', 'dfc-b:coordinatedBy'], ['has_object', 'object', 'dfc-b:hasObject']],
+        'dfc-b:CustomerCategory' => [['defined_by', 'definedBy', 'dfc-b:definedBy']],
+        'dfc-b:DefinedProduct' => [['lifetime', 'lifetime', 'dfc-b:lifetime']],
+        'dfc-b:DeliveryOption' => [['refers_to', 'refersTo', 'dfc-b:refersTo']],
+        'dfc-b:FunctionalProduct' => [['lifetime', 'lifetime', 'dfc-b:lifetime'], ['requested_by', 'requestedBy', 'dfc-b:requestedBy']],
+        'dfc-b:Length' => [['value', 'value', 'dfc-b:value']],
+        'dfc-b:Offer' => [['offers', 'offers', 'dfc-b:offers'], ['offers_to', 'offersTo', 'dfc-b:offersTo']],
+        'dfc-b:Order' => [['belongs_to', 'belongsTo', 'dfc-b:belongsTo'], ['ordered_by', 'orderedBy', 'dfc-b:orderedBy'], ['selects', 'selects', 'dfc-b:selects'], ['uses', 'uses', 'dfc-b:uses']],
+        'dfc-b:OrderLine' => [['concerns', 'concerns', 'dfc-b:concerns'], ['part_of', 'partOf', 'dfc-b:partOf']],
+        'dfc-b:Organization' => [['has_main_contact', 'mainContact', 'dfc-b:hasMainContact']],
+        'dfc-b:PaymentMethod' => [['payment_method_provider', 'paymentMethodProvider', 'dfc-b:paymentMethodProvider'], ['payment_method_type', 'paymentMethodType', 'dfc-b:paymentMethodType']],
+        'dfc-b:PhysicalPlace' => [['has_address', 'address', 'dfc-b:hasAddress']],
+        'dfc-b:PickupOption' => [['uses', 'uses', 'dfc-b:uses']],
+        'dfc-b:Price' => [['value', 'value', 'dfc-b:value']],
+        'dfc-b:ProductionFlow' => [['output_of', 'outputOf', 'dfc-b:outputOf'], ['produces', 'produces', 'dfc-b:produces']],
+        'dfc-b:QuantitativeValue' => [['value', 'value', 'dfc-b:value']],
+        'dfc-b:RealStock' => [['availability_date', 'availabilityDate', 'dfc-b:availabilityDate'], ['constitutes', 'constitutes', 'dfc-b:constitutes'], ['identified_by', 'identifiedBy', 'dfc-b:identifiedBy'], ['stored_in', 'storedIn', 'dfc-b:storedIn']],
+        'dfc-b:Stock' => [['availability_date', 'availabilityDate', 'dfc-b:availabilityDate']],
+        'dfc-b:SuppliedProduct' => [['lifetime', 'lifetime', 'dfc-b:lifetime'], ['supplied_by', 'suppliedBy', 'dfc-b:suppliedBy'], ['total_theoritical_stock', 'totalTheoriticalStock', 'dfc-b:totalTheoriticalStock']],
+        'dfc-b:TechnicalProduct' => [['lifetime', 'lifetime', 'dfc-b:lifetime'], ['proposed_by', 'proposedBy', 'dfc-b:proposedBy']],
+        'dfc-b:Temperature' => [['value', 'value', 'dfc-b:value']],
+        'dfc-b:TheoriticalStock' => [['availability_date', 'availabilityDate', 'dfc-b:availabilityDate'], ['constitutes', 'constitutes', 'dfc-b:constitutes'], ['localized_by', 'localizedBy', 'dfc-b:localizedBy']],
+        'dfc-b:Transaction' => [['from', 'from', 'dfc-b:from'], ['to', 'to', 'dfc-b:to']],
+        'dfc-b:Variant' => [['lifetime', 'lifetime', 'dfc-b:lifetime']],
+        'dfc-b:VariantCaracteristic' => [['has_product_option', 'productOption', 'dfc-b:hasProductOption'], ['has_product_option_value', 'productOptionValue', 'dfc-b:hasProductOptionValue']],
+        'dfc-b:Volume' => [['value', 'value', 'dfc-b:value']],
+        'dfc-b:Weight' => [['value', 'value', 'dfc-b:value']],
+    ];
+
     // Full predicate -> property map, used by predicateToPropName when a
     // predicate is not in PREDICATE_MAP. Mirrors the property naming exactly.
     public const BARE_OVERRIDES = [
@@ -721,12 +767,44 @@ class Connector
         return $this;
     }
 
+    /**
+     * Reports properties the ontology requires and the object does not carry.
+     *
+     * Opt-in by design. A data-plane connector has to accept partially built
+     * objects, and these restrictions are heavy enough that enforcing them in
+     * the constructor would reject ordinary documents -- every Organization
+     * would need a hasMainContact. See docs/concepts/cardinality.md for where
+     * the constraint data comes from.
+     *
+     * @return array<int, array> One entry per missing required property, each
+     *         with semanticId, semanticType, slot and predicate keys; empty
+     *         when all are present.
+     */
+    public function validate(SemanticObject ...$objects): array
+    {
+        $issues = [];
+        foreach ($objects as $object) {
+            $type = $object->getSemanticType();
+            foreach (self::REQUIRED_SLOTS[$type] ?? [] as [$slot, $property, $predicate]) {
+                if ($object->getSemanticPropertyValue($predicate) !== null) {
+                    continue;
+                }
+                $issues[] = [
+                    'semanticId' => $object->getSemanticId(),
+                    'semanticType' => $type,
+                    'slot' => $slot,
+                    'predicate' => $predicate,
+                ];
+            }
+        }
+        return $issues;
+    }
+
     // Export objects to a JSON-LD string. Predicates are already original
     // CURIEs, so no compaction step is needed; the context is emitted as a
     // URL string (never inlined).
     public function export(SemanticObject ...$objects): string
-    {
-        if (count($objects) === 1) {
+    {        if (count($objects) === 1) {
             $doc = $objects[0]->toJsonLd(null);
         } else {
             $doc = ['@graph' => []];

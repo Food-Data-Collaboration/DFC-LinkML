@@ -12,6 +12,7 @@ Any/all CatalogItems that reference the Product for sale
 - **Range**: `CatalogItem` (a DFC class)
 - **Target type**: [`CatalogItem`](../classes/CatalogItem.md)
 - **Inverse**: `references`
+- **Cardinality**: **Collection** — the ontology states no upper bound for this property, so it takes several values. This comes from the curated list in `config/dfc-default.yaml`, verified against the original DFC v2 connectors; it is not derived from the ontology.
 
 ## Declared domain
 

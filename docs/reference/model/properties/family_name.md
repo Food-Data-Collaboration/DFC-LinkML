@@ -10,6 +10,7 @@ Family name or surname of Person
 
 - **Predicate**: `dfc-b:familyName`
 - **Range**: `string` (literal)
+- **Cardinality**: **Single-valued** — the ontology declares this property `owl:FunctionalProperty`, so it takes at most one value in every class.
 
 ## Declared domain
 

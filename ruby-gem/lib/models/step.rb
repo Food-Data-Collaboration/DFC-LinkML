@@ -19,15 +19,15 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :is_step_of
 
-      # @return [Shipment, String]
+      # @return [Array<Shipment, String>]
       attr_accessor :delivery
 
-      # @return [Shipment, String]
+      # @return [Array<Shipment, String>]
       attr_accessor :pick_up
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, arrivalDate: nil, duration: nil, isStepOf: nil, delivery: nil, pickUp: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, arrivalDate: nil, duration: nil, isStepOf: nil, delivery: nil, pickUp: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, arrivalDate: nil, duration: nil, isStepOf: nil, delivery: [], pickUp: []
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, arrivalDate: nil, duration: nil, isStepOf: nil, delivery: [], pickUp: [])
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @arrival_date = arrivalDate
         @duration = duration

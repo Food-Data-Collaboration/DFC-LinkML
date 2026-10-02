@@ -15,6 +15,7 @@ PhysicalCharacteristic
 - **Predicate**: `dfc-b:hasCharacteristic`
 - **Range**: `string` (literal)
 - **Inverse**: `characteristic_of`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

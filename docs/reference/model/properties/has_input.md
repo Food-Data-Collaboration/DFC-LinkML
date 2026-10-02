@@ -11,6 +11,7 @@ The PlannedConsumptionFlow that is the input of the PlannedTransformation
 - **Predicate**: `dfc-b:hasInput`
 - **Range**: `string` (literal)
 - **Inverse**: `input_of`
+- **Cardinality**: **Collection** — the ontology states no upper bound for this property, so it takes several values. This comes from the curated list in `config/dfc-default.yaml`, verified against the original DFC v2 connectors; it is not derived from the ontology.
 
 ## Declared domain
 

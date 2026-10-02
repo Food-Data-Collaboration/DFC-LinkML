@@ -12,6 +12,7 @@ Object property from OWL: represents
 - **Range**: `LocalizedProduct` (a DFC class)
 - **Target type**: [`LocalizedProduct`](../classes/LocalizedProduct.md)
 - **Inverse**: `represented_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

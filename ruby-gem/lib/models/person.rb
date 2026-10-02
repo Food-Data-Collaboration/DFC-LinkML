@@ -20,8 +20,8 @@ module DfcLinkmlConnector
       attr_accessor :main_contact_of
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, email: nil, logo: nil, websitePage: nil, hasPhoneNumber: nil, socialMedia: nil, owns: nil, sells: nil, affiliatedTo: nil, address: nil, isMemberOf: nil, orders: [], requests: [], familyName: nil, firstName: nil, mainContactOf: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, email: nil, logo: nil, websitePage: nil, hasPhoneNumber: nil, socialMedia: nil, owns: nil, sells: nil, affiliatedTo: nil, address: nil, isMemberOf: nil, orders: [], requests: [], familyName: nil, firstName: nil, mainContactOf: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, email: nil, logo: nil, websitePage: nil, hasPhoneNumber: nil, socialMedia: nil, owns: nil, sells: nil, affiliatedTo: nil, address: [], isMemberOf: [], orders: [], requests: [], familyName: nil, firstName: nil, mainContactOf: nil
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, email: nil, logo: nil, websitePage: nil, hasPhoneNumber: nil, socialMedia: nil, owns: nil, sells: nil, affiliatedTo: nil, address: [], isMemberOf: [], orders: [], requests: [], familyName: nil, firstName: nil, mainContactOf: nil)
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension, email: email, logo: logo, websitePage: websitePage, hasPhoneNumber: hasPhoneNumber, socialMedia: socialMedia, owns: owns, sells: sells, affiliatedTo: affiliatedTo, address: address, isMemberOf: isMemberOf, orders: orders, requests: requests)
         @family_name = familyName
         @first_name = firstName

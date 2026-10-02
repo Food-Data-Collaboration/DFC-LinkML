@@ -130,7 +130,17 @@ def export_scenario(path)
     (obj['params'] || {}).each do |canonical, value|
       method = PARAM_METHODS.dig(obj['type'], canonical)
       next unless method
-      if method == :price= && value.is_a?(Hash) && value['$ref']
+      if value.is_a?(Array) && value.any? { |v| v.is_a?(Hash) && v.key?('$ref') }
+        # A list of $ref entries: resolvers wrap or append depending on the
+        # setter, so normalise to a list of instances and let the branch below
+        # decide the shape.
+        resolved = value.map { |v| by_id[v['$ref']] }.compact
+        next if resolved.empty?
+        if method.to_s.start_with?('add_')
+          resolved.each { |r| inst.public_send(method, r) }
+          next
+        end
+      elsif method == :price= && value.is_a?(Hash) && value['$ref']
         price_obj = objects.find { |o| o['semanticId'] == value['$ref'] }
         next unless price_obj && price_obj['type'] == 'dfc-b:Price'
         params = price_obj['params'] || {}

@@ -14,7 +14,7 @@ export interface RealStockParams extends StockParams {
   /**
    * Serializes as `dfc-b:constitutes`.
    */
-  constitutes?: string[];
+  constitutes?: string;
   /**
    * Serializes as `dfc-b:identifiedBy`.
    */
@@ -38,7 +38,7 @@ export class RealStock extends Stock {
   /**
    * Serializes as `dfc-b:constitutes`.
    */
-  constitutes?: string[];
+  constitutes?: string;
   /**
    * Serializes as `dfc-b:identifiedBy`.
    */

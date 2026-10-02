@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface WebsitePageable
 {
-    public function getWebsitePage(): string|SemanticObject|array|null;
-    public function setWebsitePage(string|SemanticObject|array|null $websitePage): static;
+    public function getWebsitePage(): array|string|SemanticObject|null;
+    public function setWebsitePage(array|string|SemanticObject|null $websitePage): static;
+    public function addWebsitePage(string|SemanticObject $websitePage): static;
+    public function removeWebsitePage(string|SemanticObject $websitePage): void;
 }

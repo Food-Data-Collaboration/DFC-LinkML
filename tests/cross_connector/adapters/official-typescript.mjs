@@ -24,6 +24,8 @@ const CTX = "https://w3id.org/dfc/ontology/v2.0.0/context/context_2.0.0.json";
 const PARAM_METHODS = {
   "dfc-b:Order": {
     orderNumber: "setNumber",
+    // A list of $refs goes through addLine once per element; the adapter
+    // handles that, so this stays a scalar setter for the single-ref case.
     hasPart: "addLine",
     orderedBy: "setClient",
   },
@@ -159,13 +161,17 @@ async function exportScenario(path) {
       const method = PARAM_METHODS[obj.type]?.[canonical];
       if (!method) continue;
       const isRef = value && typeof value === "object" && "$ref" in value;
-      if (isRef) {
-        const target = byId.get(value.$ref);
-        if (!target) continue;
-        if (ARRAY_SETTERS.has(method)) {
-          inst[method]([target]);
+      const isRefList = Array.isArray(value) && value.some((v) => v && typeof v === "object" && "$ref" in v);
+      if (isRef || isRefList) {
+        const refs = (isRef ? [value] : value).map((v) => byId.get(v.$ref)).filter(Boolean);
+        if (!refs.length) continue;
+        if (isRefList && method.startsWith("add")) {
+          // An adder takes one object per call, so a list means "call it n times".
+          for (const ref of refs) inst[method](ref);
+        } else if (ARRAY_SETTERS.has(method)) {
+          inst[method](refs);
         } else {
-          inst[method](target);
+          inst[method](refs[0]);
         }
       } else if (typeof inst[method] === "function" && !ARRAY_SETTERS.has(method) && !OBJECT_REF_SETTERS.has(method)) {
         // Literal scalar params (e.g. sku, vatRate) pass through directly.

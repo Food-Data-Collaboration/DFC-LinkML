@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface HasClaimable
 {
-    public function getHasClaim(): string|SemanticObject|array|null;
-    public function setHasClaim(string|SemanticObject|array|null $hasClaim): static;
+    public function getHasClaim(): array|string|SemanticObject|null;
+    public function setHasClaim(array|string|SemanticObject|null $hasClaim): static;
+    public function addHasClaim(string|SemanticObject $hasClaim): static;
+    public function removeHasClaim(string|SemanticObject $hasClaim): void;
 }

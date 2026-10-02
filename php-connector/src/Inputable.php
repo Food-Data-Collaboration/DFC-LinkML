@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface Inputable
 {
-    public function getInput(): string|SemanticObject|array|null;
-    public function setInput(string|SemanticObject|array|null $input): static;
+    public function getInput(): array|string|SemanticObject|null;
+    public function setInput(array|string|SemanticObject|null $input): static;
+    public function addInput(string|SemanticObject $input): static;
+    public function removeInput(string|SemanticObject $input): void;
 }

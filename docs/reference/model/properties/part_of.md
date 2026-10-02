@@ -12,6 +12,7 @@ The Order this OrderLine is associated with (1 and only 1)
 - **Range**: `Order` (a DFC class)
 - **Target type**: [`Order`](../classes/Order.md)
 - **Inverse**: `has_part`
+- **Cardinality**: **Single-valued on `OrderLine`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

@@ -11,6 +11,7 @@ Object property from OWL: constitutes
 - **Predicate**: `dfc-b:constitutes`
 - **Range**: `string` (literal)
 - **Inverse**: `constitued_by`
+- **Cardinality**: **Single-valued on `RealStock`, `TheoriticalStock`** — the ontology restricts those classes to exactly one value. On those classes the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

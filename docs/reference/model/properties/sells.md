@@ -11,6 +11,7 @@ Object property from OWL: sells
 - **Predicate**: `dfc-b:sells`
 - **Range**: `string` (literal)
 - **Inverse**: `sold_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

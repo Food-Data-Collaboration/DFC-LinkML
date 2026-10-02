@@ -13,15 +13,15 @@ export interface CertficationParams extends WhatSubjectParams {
   /**
    * Serializes as `dfc-b:certiferReference`.
    */
-  certiferReference?: string;
+  certiferReference?: string[];
   /**
    * Serializes as `dfc-b:certificationScore`.
    */
-  certificationScore?: string;
+  certificationScore?: string[];
   /**
    * Serializes as `dfc-b:operatorId`.
    */
-  operatorId?: string;
+  operatorId?: string[];
   /**
    * Serializes as `dfc-b:certifies`.
    */
@@ -42,15 +42,15 @@ export class Certfication extends WhatSubject {
   /**
    * Serializes as `dfc-b:certiferReference`.
    */
-  certiferReference?: string;
+  certiferReference?: string[];
   /**
    * Serializes as `dfc-b:certificationScore`.
    */
-  certificationScore?: string;
+  certificationScore?: string[];
   /**
    * Serializes as `dfc-b:operatorId`.
    */
-  operatorId?: string;
+  operatorId?: string[];
   /**
    * Serializes as `dfc-b:certifies`.
    */

@@ -11,6 +11,7 @@ Object property from OWL: containerInformationOf
 - **Predicate**: `dfc-b:containerInformationOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_container_information`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

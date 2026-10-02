@@ -27,12 +27,12 @@ module DfcLinkmlConnector
       # @return [String]
       attr_accessor :dimension
 
-      # @return [Place, String]
+      # @return [Array<Place, String>]
       attr_accessor :hosted_at
 
       # @param semanticId [String]
-      # @param isTemplateSaleSessionOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hostedAt: nil
-      def initialize(semanticId, isTemplateSaleSessionOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hostedAt: nil)
+      # @param isTemplateSaleSessionOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hostedAt: []
+      def initialize(semanticId, isTemplateSaleSessionOf: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, hostedAt: [])
         super(semanticId)
         @is_template_sale_session_of = isTemplateSaleSessionOf
         @date = date

@@ -11,6 +11,7 @@ Any/All Order Lines that relate to this Product
 - **Predicate**: `dfc-b:concernedBy`
 - **Range**: `string` (literal)
 - **Inverse**: `concerns`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

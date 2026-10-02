@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface ConsumedByable
 {
-    public function getConsumedBy(): string|SemanticObject|array|null;
-    public function setConsumedBy(string|SemanticObject|array|null $consumedBy): static;
+    public function getConsumedBy(): array|string|SemanticObject|null;
+    public function setConsumedBy(array|string|SemanticObject|null $consumedBy): static;
+    public function addConsumedBy(string|SemanticObject $consumedBy): static;
+    public function removeConsumedBy(string|SemanticObject $consumedBy): void;
 }

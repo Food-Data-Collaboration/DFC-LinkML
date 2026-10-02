@@ -10,6 +10,7 @@ The Fulfilment State in which the Order is. See expectations around Order flow c
 
 - **Predicate**: `dfc-b:hasFulfilmentStatus`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

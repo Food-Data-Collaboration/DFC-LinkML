@@ -11,6 +11,7 @@ An Enterprise that the Person is the Main Contact for
 - **Predicate**: `dfc-b:mainContactOf`
 - **Range**: `string` (literal)
 - **Inverse**: `has_main_contact`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

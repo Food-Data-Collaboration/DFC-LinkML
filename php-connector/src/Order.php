@@ -42,16 +42,16 @@ class Order extends SemanticObject implements IOrder
     private string|SemanticObject|array|null $paymentMethod = null;
     private string|SemanticObject|array|null $paymentStatus = null;
     private string|SemanticObject|array|null $soldBy = null;
-    private array|string|SemanticObject|null $uses = [];
+    private string|SemanticObject|array|null $uses = null;
     private string|SemanticObject|array|null $date = null;
     private string|SemanticObject|array|null $description = null;
     private string|SemanticObject|array|null $name = null;
     private string|SemanticObject|array|null $characteristicOf = null;
     private string|SemanticObject|array|null $dimension = null;
     private SaleSession|string|SemanticObject|array|null $belongsTo = null;
-    private OrderLine|string|SemanticObject|array|null $part = null;
+    private array|OrderLine|string|SemanticObject|null $part = [];
     private Agent|string|SemanticObject|array|null $orderedBy = null;
-    private array|ShippingOption|string|SemanticObject|null $selects = [];
+    private ShippingOption|string|SemanticObject|array|null $selects = null;
 
     public function __construct(
         string $semanticId,
@@ -66,16 +66,16 @@ class Order extends SemanticObject implements IOrder
         $this->paymentMethod = $params['paymentMethod'] ?? null;
         $this->paymentStatus = $params['paymentStatus'] ?? null;
         $this->soldBy = $params['soldBy'] ?? null;
-        $this->uses = $params['uses'] ?? [];
+        $this->uses = $params['uses'] ?? null;
         $this->date = $params['date'] ?? null;
         $this->description = $params['description'] ?? null;
         $this->name = $params['name'] ?? null;
         $this->characteristicOf = $params['characteristicOf'] ?? null;
         $this->dimension = $params['dimension'] ?? null;
         $this->belongsTo = $params['belongsTo'] ?? null;
-        $this->part = $params['part'] ?? null;
+        $this->part = $params['part'] ?? [];
         $this->orderedBy = $params['orderedBy'] ?? null;
-        $this->selects = $params['selects'] ?? [];
+        $this->selects = $params['selects'] ?? null;
         $this->registerSemanticProperty('dfc-b:discount', fn() => $this->discount);
         $this->registerSemanticProperty('dfc-b:orderNumber', fn() => $this->orderNumber);
         $this->registerSemanticProperty('dfc-b:hasFulfilmentStatus', fn() => $this->fulfilmentStatus);
@@ -171,47 +171,15 @@ class Order extends SemanticObject implements IOrder
         return $this;
     }
 
-    public function getUses(): array|string|SemanticObject|null
+    public function getUses(): string|SemanticObject|array|null
     {
         return $this->uses;
     }
 
-    public function setUses(array|string|SemanticObject|null $uses): static
+    public function setUses(string|SemanticObject|array|null $uses): static
     {
         $this->uses = $uses;
         return $this;
-    }
-
-    public function addUses(string|SemanticObject $uses): static
-    {
-        if ($this->uses === null) {
-            $this->uses = [];
-        } elseif (!is_array($this->uses)) {
-            $this->uses = [$this->uses];
-        }
-        $this->uses[] = $uses;
-        return $this;
-    }
-
-    public function removeUses(string|SemanticObject $uses): void
-    {
-        if ($this->uses === null) {
-            return;
-        }
-        if (!is_array($this->uses)) {
-            // Singular shape (setX stored a scalar as-is): clear on match.
-            if ($this->uses === $uses) {
-                $this->uses = [];
-            }
-            return;
-        }
-        $key = array_search($uses, $this->uses, true);
-        if ($key !== false) {
-            unset($this->uses[$key]);
-            // Reindex: unset leaves gaps in numeric keys, which json_encode
-            // would emit as an object instead of an array (shape change).
-            $this->uses = array_values($this->uses);
-        }
     }
 
     public function getDate(): string|SemanticObject|array|null
@@ -280,15 +248,47 @@ class Order extends SemanticObject implements IOrder
         return $this;
     }
 
-    public function getPart(): OrderLine|string|SemanticObject|array|null
+    public function getPart(): array|OrderLine|string|SemanticObject|null
     {
         return $this->part;
     }
 
-    public function setPart(OrderLine|string|SemanticObject|array|null $part): static
+    public function setPart(array|OrderLine|string|SemanticObject|null $part): static
     {
         $this->part = $part;
         return $this;
+    }
+
+    public function addPart(OrderLine|string|SemanticObject $part): static
+    {
+        if ($this->part === null) {
+            $this->part = [];
+        } elseif (!is_array($this->part)) {
+            $this->part = [$this->part];
+        }
+        $this->part[] = $part;
+        return $this;
+    }
+
+    public function removePart(OrderLine|string|SemanticObject $part): void
+    {
+        if ($this->part === null) {
+            return;
+        }
+        if (!is_array($this->part)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->part === $part) {
+                $this->part = [];
+            }
+            return;
+        }
+        $key = array_search($part, $this->part, true);
+        if ($key !== false) {
+            unset($this->part[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->part = array_values($this->part);
+        }
     }
 
     public function getOrderedBy(): Agent|string|SemanticObject|array|null
@@ -302,46 +302,14 @@ class Order extends SemanticObject implements IOrder
         return $this;
     }
 
-    public function getSelects(): array|ShippingOption|string|SemanticObject|null
+    public function getSelects(): ShippingOption|string|SemanticObject|array|null
     {
         return $this->selects;
     }
 
-    public function setSelects(array|ShippingOption|string|SemanticObject|null $selects): static
+    public function setSelects(ShippingOption|string|SemanticObject|array|null $selects): static
     {
         $this->selects = $selects;
         return $this;
-    }
-
-    public function addSelects(ShippingOption|string|SemanticObject $selects): static
-    {
-        if ($this->selects === null) {
-            $this->selects = [];
-        } elseif (!is_array($this->selects)) {
-            $this->selects = [$this->selects];
-        }
-        $this->selects[] = $selects;
-        return $this;
-    }
-
-    public function removeSelects(ShippingOption|string|SemanticObject $selects): void
-    {
-        if ($this->selects === null) {
-            return;
-        }
-        if (!is_array($this->selects)) {
-            // Singular shape (setX stored a scalar as-is): clear on match.
-            if ($this->selects === $selects) {
-                $this->selects = [];
-            }
-            return;
-        }
-        $key = array_search($selects, $this->selects, true);
-        if ($key !== false) {
-            unset($this->selects[$key]);
-            // Reindex: unset leaves gaps in numeric keys, which json_encode
-            // would emit as an object instead of an array (shape change).
-            $this->selects = array_values($this->selects);
-        }
     }
 }

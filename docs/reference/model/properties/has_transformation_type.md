@@ -10,6 +10,7 @@ The Type of transformation, from the SKOS vocabulary file
 
 - **Predicate**: `dfc-b:hasTransformationType`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

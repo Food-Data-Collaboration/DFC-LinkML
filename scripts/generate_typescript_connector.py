@@ -21,6 +21,9 @@ import textwrap
 import yaml
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cardinality  # noqa: E402
+
 
 def parse_schema(schema_path: str) -> dict:
     with open(schema_path, 'r') as f:
@@ -267,25 +270,13 @@ def ts_prop_type(ts_type: str, is_collection: bool) -> str:
     return ts_type
 
 
-def is_collection_property(slot_name: str, slot_data: dict) -> bool:
-    if slot_data.get('multivalued', False):
-        return True
-    name = slot_name.lower()
-    collection_indicators = [
-        'characteristics', 'claims', 'certifications', 'catalogitems',
-        'suppliedproducts', 'technicalproducts', 'customercategories',
-        'catalogs', 'variants', 'images', 'localizations', 'phonenumbers',
-        'socialmedias', 'websites', 'emails', 'offers', 'orderlines',
-        'steps', 'inputs', 'outputs',
-    ]
-    for indicator in collection_indicators:
-        if indicator in name:
-            return True
-    if name.endswith('s') and not name.endswith('ss') and not name.endswith('us'):
-        return True
-    if name.endswith('ies'):
-        return True
-    return False
+def is_collection_property(slot_name: str, slot_data: dict, class_usage: dict = None) -> bool:
+    """True when the property must accept several values.
+
+    Delegates to `scripts/cardinality.py` so the three generators cannot
+    drift apart; see that module for the resolution order.
+    """
+    return cardinality.is_collection_property(slot_name, slot_data, class_usage)
 
 
 # ---------------------------------------------------------------------------
@@ -759,6 +750,78 @@ def generate_connector_class(schema_data: dict) -> str:
 
     model_imports_str = '\n'.join(model_imports)
 
+    # Slots the ontology restricts to at least one value, per class, with the
+    # nearest ancestor's declaration winning. `scripts/cardinality.py` owns the
+    # walk so this cannot drift from the shape resolution.
+    required_map = ''
+    rows = []
+    for cn in class_names:
+        required = sorted(cardinality.required_slots(cn, classes, schema_data['slots']))
+        if required:
+            rows.append(
+                f'  "dfc-b:{cn}": '
+                f'{json.dumps([ts_property_name(s) for s in required])},'
+            )
+    if rows:
+        required_map = (
+            '/**\n'
+            ' * Properties the ontology requires, per semantic type.\n'
+            ' *\n'
+            ' * Every entry comes from an `rdfs:subClassOf` restriction with\n'
+            ' * `minimum_cardinality 1` -- all 42 DFC restrictions are singletons.\n'
+            ' * Keyed by the semantic type and holding TS property names.\n'
+            ' * Generated from the schema; do not edit.\n'
+            ' */\n'
+            'const REQUIRED_SLOTS: Record<string, string[]> = {\n'
+            + '\n'.join(rows)
+            + '\n};\n'
+        )
+
+    # Per-slot names, precomputed: the generated code cannot call back into the
+    # generator, so `validate()` reads these instead of deriving them at runtime.
+    required_slot_data = ''
+    all_required = sorted({
+        slot
+        for cn in class_names
+        for slot in cardinality.required_slots(cn, classes, schema_data['slots'])
+    })
+    if all_required:
+        rows = []
+        for s in all_required:
+            sd = schema_data['slots'][s]
+            prop = ts_property_name(s)
+            rows.append(
+                f'  "{prop}": {{ slot: "{s}", predicate: "{predicate_for_slot(s, sd)}" }},'
+            )
+        required_slot_data = (
+            '/**\n'
+            ' * Slot, property and predicate for every required slot.\n'
+            ' * Generated from the schema; do not edit.\n'
+            ' */\n'
+            'const REQUIRED_SLOT_DATA: Record<string, '
+            '{ slot: string; predicate: string }> = {\n'
+            + '\n'.join(rows)
+            + '\n};\n'
+        )
+
+    issue_type = '''/**
+ * A property the ontology requires that an object does not carry.
+ *
+ * Returned by {@link Connector.validate}. Absent values are reported, never
+ * thrown, so a caller can decide how strict to be.
+ */
+export interface ValidationIssue {
+  /** The object's `@id`. */
+  semanticId: string;
+  /** The object's DFC semantic type, e.g. `dfc-b:Order`. */
+  semanticType: string;
+  /** The missing slot, in LinkML/OWL naming, e.g. `concerns`. */
+  slot: string;
+  /** The predicate the slot serialises to, e.g. `dfc-b:concerns`. */
+  predicate: string;
+}
+'''
+
     # Type imports for factory method params
     type_imports = []
     for cn in class_names:
@@ -826,6 +889,9 @@ import bundledContextV200 from "../context/context_2.0.0.js";
 {model_imports_str}
 {type_imports_str}
 
+{issue_type}
+{required_map}
+{required_slot_data}
 /**
  * Entry point for reading and writing DFC data.
  *
@@ -1113,6 +1179,40 @@ export class Connector {{
 
 {enum_methods}
 {factory_methods}
+  /**
+   * Reports properties the ontology requires and this object does not carry.
+   *
+   * Deliberately not a constructor check. A data-plane connector has to accept
+   * partially built objects -- you set the identifier first and fill in the
+   * rest later -- and several DFC restrictions are heavy enough that enforcing
+   * them would make ordinary documents unusable (every `Organization` would
+   * need a `hasMainContact`, every `SuppliedProduct` a `totalTheoriticalStock`).
+   * `docs/concepts/cardinality.md` explains where the constraint data comes
+   * from and why it is opt-in.
+   *
+   * @param objects One or more objects to check.
+   * @returns One entry per missing required property, empty when all are present.
+   */
+  validate(...objects: SemanticObject[]): ValidationIssue[] {{
+    const issues: ValidationIssue[] = [];
+    for (const object of objects) {{
+      const required = REQUIRED_SLOTS[object.semanticType] ?? [];
+      for (const property of required) {{
+        const spec = REQUIRED_SLOT_DATA[property];
+        const value = (object as unknown as Record<string, unknown>)[property];
+        if (value === undefined || value === null) {{
+          issues.push({{
+            semanticId: object.semanticId,
+            semanticType: object.semanticType,
+            slot: spec.slot,
+            predicate: spec.predicate,
+          }});
+        }}
+      }}
+    }}
+    return issues;
+  }}
+
   private async fetchContext(): Promise<Record<string, unknown>> {{
     const response = await fetch(this.contextUrl, {{
       headers: {{ "dfc-version": this.ontologyVersion }},
@@ -1218,7 +1318,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
         prop_name = ts_property_name(slot_name)
         ts_type = ts_prop_type(
             ts_type_for_slot(slot_data, schema_data),
-            is_collection_property(slot_name, slot_data),
+            is_collection_property(slot_name, slot_data, cardinality.usage_for(schema_data, owner)),
         )
         doc = _wrap_jsdoc(_slot_doc_lines(slot_name, slot_data), '  ')
         interface_props.append(f'{doc}  {prop_name}?: {ts_type};')
@@ -1278,7 +1378,7 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
         prop_name = ts_property_name(slot_name)
         ts_type = ts_prop_type(
             ts_type_for_slot(slot_data, schema_data),
-            is_collection_property(slot_name, slot_data),
+            is_collection_property(slot_name, slot_data, cardinality.usage_for(schema_data, owner)),
         )
         class_props.append(
             f'{_wrap_jsdoc(_slot_doc_lines(slot_name, slot_data), "  ")}'

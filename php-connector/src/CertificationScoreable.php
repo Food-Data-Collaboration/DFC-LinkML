@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface CertificationScoreable
 {
-    public function getCertificationScore(): string|SemanticObject|array|null;
-    public function setCertificationScore(string|SemanticObject|array|null $certificationScore): static;
+    public function getCertificationScore(): array|string|SemanticObject|null;
+    public function setCertificationScore(array|string|SemanticObject|null $certificationScore): static;
+    public function addCertificationScore(string|SemanticObject $certificationScore): static;
+    public function removeCertificationScore(string|SemanticObject $certificationScore): void;
 }

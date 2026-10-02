@@ -10,6 +10,7 @@
 
 - **Predicate**: `dfc-b:bestBeforeDate`
 - **Range**: `date` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

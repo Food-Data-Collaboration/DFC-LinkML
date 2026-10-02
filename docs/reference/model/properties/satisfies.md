@@ -12,6 +12,7 @@ Object property from OWL: satisfies
 - **Range**: `FunctionalProduct` (a DFC class)
 - **Target type**: [`FunctionalProduct`](../classes/FunctionalProduct.md)
 - **Inverse**: `satisfied_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

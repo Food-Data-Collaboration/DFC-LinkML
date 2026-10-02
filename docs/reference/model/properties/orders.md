@@ -12,6 +12,7 @@ Any Orders placed by the Agent
 - **Range**: `Order` (a DFC class)
 - **Target type**: [`Order`](../classes/Order.md)
 - **Inverse**: `ordered_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

@@ -11,6 +11,7 @@ Link to another SuppleidProduct that is produced from this Product
 - **Predicate**: `dfc-b:produces`
 - **Range**: `string` (literal)
 - **Inverse**: `produced_by`
+- **Cardinality**: **Single-valued on `ProductionFlow`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

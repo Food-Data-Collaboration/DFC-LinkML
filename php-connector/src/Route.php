@@ -33,9 +33,9 @@ class Route extends WhereSubject implements IRoute
 {
     public const SEMANTIC_TYPE = 'dfc-b:Route';
 
-    private string|SemanticObject|array|null $step = null;
+    private array|string|SemanticObject|null $step = [];
     private string|SemanticObject|array|null $useVehicle = null;
-    private Feature|string|SemanticObject|array|null $geoJsonFeature = null;
+    private array|Feature|string|SemanticObject|null $geoJsonFeature = [];
 
     public function __construct(
         string $semanticId,
@@ -43,22 +43,54 @@ class Route extends WhereSubject implements IRoute
     ) {
                 parent::__construct($semanticId, $params ?? []);
         $this->semanticType = self::SEMANTIC_TYPE;
-        $this->step = $params['step'] ?? null;
+        $this->step = $params['step'] ?? [];
         $this->useVehicle = $params['useVehicle'] ?? null;
-        $this->geoJsonFeature = $params['geoJsonFeature'] ?? null;
+        $this->geoJsonFeature = $params['geoJsonFeature'] ?? [];
         $this->registerSemanticProperty('dfc-b:hasStep', fn() => $this->step);
         $this->registerSemanticProperty('dfc-b:useVehicle', fn() => $this->useVehicle);
         $this->registerSemanticProperty('dfc-b:hasGeoJsonFeature', fn() => $this->geoJsonFeature);
     }
-    public function getStep(): string|SemanticObject|array|null
+    public function getStep(): array|string|SemanticObject|null
     {
         return $this->step;
     }
 
-    public function setStep(string|SemanticObject|array|null $step): static
+    public function setStep(array|string|SemanticObject|null $step): static
     {
         $this->step = $step;
         return $this;
+    }
+
+    public function addStep(string|SemanticObject $step): static
+    {
+        if ($this->step === null) {
+            $this->step = [];
+        } elseif (!is_array($this->step)) {
+            $this->step = [$this->step];
+        }
+        $this->step[] = $step;
+        return $this;
+    }
+
+    public function removeStep(string|SemanticObject $step): void
+    {
+        if ($this->step === null) {
+            return;
+        }
+        if (!is_array($this->step)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->step === $step) {
+                $this->step = [];
+            }
+            return;
+        }
+        $key = array_search($step, $this->step, true);
+        if ($key !== false) {
+            unset($this->step[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->step = array_values($this->step);
+        }
     }
 
     public function getUseVehicle(): string|SemanticObject|array|null
@@ -72,14 +104,46 @@ class Route extends WhereSubject implements IRoute
         return $this;
     }
 
-    public function getGeoJsonFeature(): Feature|string|SemanticObject|array|null
+    public function getGeoJsonFeature(): array|Feature|string|SemanticObject|null
     {
         return $this->geoJsonFeature;
     }
 
-    public function setGeoJsonFeature(Feature|string|SemanticObject|array|null $geoJsonFeature): static
+    public function setGeoJsonFeature(array|Feature|string|SemanticObject|null $geoJsonFeature): static
     {
         $this->geoJsonFeature = $geoJsonFeature;
         return $this;
+    }
+
+    public function addGeoJsonFeature(Feature|string|SemanticObject $geoJsonFeature): static
+    {
+        if ($this->geoJsonFeature === null) {
+            $this->geoJsonFeature = [];
+        } elseif (!is_array($this->geoJsonFeature)) {
+            $this->geoJsonFeature = [$this->geoJsonFeature];
+        }
+        $this->geoJsonFeature[] = $geoJsonFeature;
+        return $this;
+    }
+
+    public function removeGeoJsonFeature(Feature|string|SemanticObject $geoJsonFeature): void
+    {
+        if ($this->geoJsonFeature === null) {
+            return;
+        }
+        if (!is_array($this->geoJsonFeature)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->geoJsonFeature === $geoJsonFeature) {
+                $this->geoJsonFeature = [];
+            }
+            return;
+        }
+        $key = array_search($geoJsonFeature, $this->geoJsonFeature, true);
+        if ($key !== false) {
+            unset($this->geoJsonFeature[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->geoJsonFeature = array_values($this->geoJsonFeature);
+        }
     }
 }

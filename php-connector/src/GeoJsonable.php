@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface GeoJsonable
 {
-    public function getGeoJsonFeature(): Feature|string|SemanticObject|array|null;
-    public function setGeoJsonFeature(Feature|string|SemanticObject|array|null $geoJsonFeature): static;
+    public function getGeoJsonFeature(): array|Feature|string|SemanticObject|null;
+    public function setGeoJsonFeature(array|Feature|string|SemanticObject|null $geoJsonFeature): static;
+    public function addGeoJsonFeature(Feature|string|SemanticObject $geoJsonFeature): static;
+    public function removeGeoJsonFeature(Feature|string|SemanticObject $geoJsonFeature): void;
 }

@@ -11,6 +11,7 @@ The Product that has been ordered (1 and only 1)
 - **Predicate**: `dfc-b:concerns`
 - **Range**: `string` (literal)
 - **Inverse**: `concerned_by`
+- **Cardinality**: **Single-valued on `OrderLine`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

@@ -11,6 +11,7 @@ The offered Price for the Product listed in the CatalogItem for this cateogry of
 - **Predicate**: `dfc-b:hasPrice`
 - **Range**: `string` (literal)
 - **Inverse**: `is_price_of`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

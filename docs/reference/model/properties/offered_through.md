@@ -12,6 +12,7 @@ All Offers that this Catalog Item is offered to categories of customer through
 - **Range**: `Offer` (a DFC class)
 - **Target type**: [`Offer`](../classes/Offer.md)
 - **Inverse**: `offers`
+- **Cardinality**: **Collection** — the ontology states no upper bound for this property, so it takes several values. This comes from the curated list in `config/dfc-default.yaml`, verified against the original DFC v2 connectors; it is not derived from the ontology.
 
 ## Declared domain
 

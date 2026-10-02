@@ -45,15 +45,15 @@ module DfcLinkmlConnector
       # @return [QuantitativeValue, String]
       attr_accessor :has_quantity
 
-      # @return [Place, String]
+      # @return [Array<Place, String>]
       attr_accessor :hosted_at
 
       # @return [Coordination, String]
       attr_accessor :object_of
 
       # @param semanticId [String]
-      # @param endDate: nil, quantity: nil, startDate: nil, holds: nil, lists: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, option: nil, hasQuantity: nil, hostedAt: nil, objectOf: nil
-      def initialize(semanticId, endDate: nil, quantity: nil, startDate: nil, holds: nil, lists: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, option: nil, hasQuantity: nil, hostedAt: nil, objectOf: nil)
+      # @param endDate: nil, quantity: nil, startDate: nil, holds: nil, lists: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, option: nil, hasQuantity: nil, hostedAt: [], objectOf: nil
+      def initialize(semanticId, endDate: nil, quantity: nil, startDate: nil, holds: nil, lists: nil, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, option: nil, hasQuantity: nil, hostedAt: [], objectOf: nil)
         super(semanticId)
         @end_date = endDate
         @quantity = quantity

@@ -37,14 +37,14 @@ class Offer extends SemanticObject implements IOffer
     private float|string|SemanticObject|array|null $stockLimitation = null;
     private string|SemanticObject|array|null $concernedBy = null;
     private string|SemanticObject|array|null $price = null;
-    private string|SemanticObject|array|null $listedIn = null;
+    private array|string|SemanticObject|null $listedIn = [];
     private string|SemanticObject|array|null $date = null;
     private string|SemanticObject|array|null $description = null;
     private string|SemanticObject|array|null $name = null;
     private string|SemanticObject|array|null $characteristicOf = null;
     private string|SemanticObject|array|null $dimension = null;
-    private array|CatalogItem|string|SemanticObject|null $offers = [];
-    private array|CustomerCategory|string|SemanticObject|null $offersTo = [];
+    private CatalogItem|string|SemanticObject|array|null $offers = null;
+    private CustomerCategory|string|SemanticObject|array|null $offersTo = null;
 
     public function __construct(
         string $semanticId,
@@ -56,14 +56,14 @@ class Offer extends SemanticObject implements IOffer
         $this->stockLimitation = $params['stockLimitation'] ?? null;
         $this->concernedBy = $params['concernedBy'] ?? null;
         $this->price = $params['price'] ?? null;
-        $this->listedIn = $params['listedIn'] ?? null;
+        $this->listedIn = $params['listedIn'] ?? [];
         $this->date = $params['date'] ?? null;
         $this->description = $params['description'] ?? null;
         $this->name = $params['name'] ?? null;
         $this->characteristicOf = $params['characteristicOf'] ?? null;
         $this->dimension = $params['dimension'] ?? null;
-        $this->offers = $params['offers'] ?? [];
-        $this->offersTo = $params['offersTo'] ?? [];
+        $this->offers = $params['offers'] ?? null;
+        $this->offersTo = $params['offersTo'] ?? null;
         $this->registerSemanticProperty('dfc-b:discount', fn() => $this->discount);
         $this->registerSemanticProperty('dfc-b:stockLimitation', fn() => $this->stockLimitation);
         $this->registerSemanticProperty('dfc-b:concernedBy', fn() => $this->concernedBy);
@@ -121,15 +121,47 @@ class Offer extends SemanticObject implements IOffer
         return $this;
     }
 
-    public function getListedIn(): string|SemanticObject|array|null
+    public function getListedIn(): array|string|SemanticObject|null
     {
         return $this->listedIn;
     }
 
-    public function setListedIn(string|SemanticObject|array|null $listedIn): static
+    public function setListedIn(array|string|SemanticObject|null $listedIn): static
     {
         $this->listedIn = $listedIn;
         return $this;
+    }
+
+    public function addListedIn(string|SemanticObject $listedIn): static
+    {
+        if ($this->listedIn === null) {
+            $this->listedIn = [];
+        } elseif (!is_array($this->listedIn)) {
+            $this->listedIn = [$this->listedIn];
+        }
+        $this->listedIn[] = $listedIn;
+        return $this;
+    }
+
+    public function removeListedIn(string|SemanticObject $listedIn): void
+    {
+        if ($this->listedIn === null) {
+            return;
+        }
+        if (!is_array($this->listedIn)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->listedIn === $listedIn) {
+                $this->listedIn = [];
+            }
+            return;
+        }
+        $key = array_search($listedIn, $this->listedIn, true);
+        if ($key !== false) {
+            unset($this->listedIn[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->listedIn = array_values($this->listedIn);
+        }
     }
 
     public function getDate(): string|SemanticObject|array|null
@@ -187,89 +219,25 @@ class Offer extends SemanticObject implements IOffer
         return $this;
     }
 
-    public function getOffers(): array|CatalogItem|string|SemanticObject|null
+    public function getOffers(): CatalogItem|string|SemanticObject|array|null
     {
         return $this->offers;
     }
 
-    public function setOffers(array|CatalogItem|string|SemanticObject|null $offers): static
+    public function setOffers(CatalogItem|string|SemanticObject|array|null $offers): static
     {
         $this->offers = $offers;
         return $this;
     }
 
-    public function addOffers(CatalogItem|string|SemanticObject $offers): static
-    {
-        if ($this->offers === null) {
-            $this->offers = [];
-        } elseif (!is_array($this->offers)) {
-            $this->offers = [$this->offers];
-        }
-        $this->offers[] = $offers;
-        return $this;
-    }
-
-    public function removeOffers(CatalogItem|string|SemanticObject $offers): void
-    {
-        if ($this->offers === null) {
-            return;
-        }
-        if (!is_array($this->offers)) {
-            // Singular shape (setX stored a scalar as-is): clear on match.
-            if ($this->offers === $offers) {
-                $this->offers = [];
-            }
-            return;
-        }
-        $key = array_search($offers, $this->offers, true);
-        if ($key !== false) {
-            unset($this->offers[$key]);
-            // Reindex: unset leaves gaps in numeric keys, which json_encode
-            // would emit as an object instead of an array (shape change).
-            $this->offers = array_values($this->offers);
-        }
-    }
-
-    public function getOffersTo(): array|CustomerCategory|string|SemanticObject|null
+    public function getOffersTo(): CustomerCategory|string|SemanticObject|array|null
     {
         return $this->offersTo;
     }
 
-    public function setOffersTo(array|CustomerCategory|string|SemanticObject|null $offersTo): static
+    public function setOffersTo(CustomerCategory|string|SemanticObject|array|null $offersTo): static
     {
         $this->offersTo = $offersTo;
         return $this;
-    }
-
-    public function addOffersTo(CustomerCategory|string|SemanticObject $offersTo): static
-    {
-        if ($this->offersTo === null) {
-            $this->offersTo = [];
-        } elseif (!is_array($this->offersTo)) {
-            $this->offersTo = [$this->offersTo];
-        }
-        $this->offersTo[] = $offersTo;
-        return $this;
-    }
-
-    public function removeOffersTo(CustomerCategory|string|SemanticObject $offersTo): void
-    {
-        if ($this->offersTo === null) {
-            return;
-        }
-        if (!is_array($this->offersTo)) {
-            // Singular shape (setX stored a scalar as-is): clear on match.
-            if ($this->offersTo === $offersTo) {
-                $this->offersTo = [];
-            }
-            return;
-        }
-        $key = array_search($offersTo, $this->offersTo, true);
-        if ($key !== false) {
-            unset($this->offersTo[$key]);
-            // Reindex: unset leaves gaps in numeric keys, which json_encode
-            // would emit as an object instead of an array (shape change).
-            $this->offersTo = array_values($this->offersTo);
-        }
     }
 }

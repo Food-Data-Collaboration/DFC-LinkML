@@ -39,14 +39,14 @@ class Agent extends WhoSubject implements IAgent
 
     private string|SemanticObject|array|null $email = null;
     private string|SemanticObject|array|null $logo = null;
-    private string|SemanticObject|array|null $websitePage = null;
-    private string|SemanticObject|array|null $hasPhoneNumber = null;
-    private string|SemanticObject|array|null $socialMedia = null;
+    private array|string|SemanticObject|null $websitePage = [];
+    private array|string|SemanticObject|null $hasPhoneNumber = [];
+    private array|string|SemanticObject|null $socialMedia = [];
     private array|string|SemanticObject|null $owns = [];
     private array|string|SemanticObject|null $sells = [];
     private Person|string|SemanticObject|array|null $affiliatedTo = null;
-    private Address|string|SemanticObject|array|null $address = null;
-    private CustomerCategory|string|SemanticObject|array|null $isMemberOf = null;
+    private array|Address|string|SemanticObject|null $address = [];
+    private array|CustomerCategory|string|SemanticObject|null $isMemberOf = [];
     private array|Order|string|SemanticObject|null $orders = [];
     private array|FunctionalProduct|string|SemanticObject|null $requests = [];
 
@@ -58,14 +58,14 @@ class Agent extends WhoSubject implements IAgent
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->email = $params['email'] ?? null;
         $this->logo = $params['logo'] ?? null;
-        $this->websitePage = $params['websitePage'] ?? null;
-        $this->hasPhoneNumber = $params['hasPhoneNumber'] ?? null;
-        $this->socialMedia = $params['socialMedia'] ?? null;
+        $this->websitePage = $params['websitePage'] ?? [];
+        $this->hasPhoneNumber = $params['hasPhoneNumber'] ?? [];
+        $this->socialMedia = $params['socialMedia'] ?? [];
         $this->owns = $params['owns'] ?? [];
         $this->sells = $params['sells'] ?? [];
         $this->affiliatedTo = $params['affiliatedTo'] ?? null;
-        $this->address = $params['address'] ?? null;
-        $this->isMemberOf = $params['isMemberOf'] ?? null;
+        $this->address = $params['address'] ?? [];
+        $this->isMemberOf = $params['isMemberOf'] ?? [];
         $this->orders = $params['orders'] ?? [];
         $this->requests = $params['requests'] ?? [];
         $this->registerSemanticProperty('dfc-b:email', fn() => $this->email);
@@ -103,37 +103,133 @@ class Agent extends WhoSubject implements IAgent
         return $this;
     }
 
-    public function getWebsitePage(): string|SemanticObject|array|null
+    public function getWebsitePage(): array|string|SemanticObject|null
     {
         return $this->websitePage;
     }
 
-    public function setWebsitePage(string|SemanticObject|array|null $websitePage): static
+    public function setWebsitePage(array|string|SemanticObject|null $websitePage): static
     {
         $this->websitePage = $websitePage;
         return $this;
     }
 
-    public function getHasPhoneNumber(): string|SemanticObject|array|null
+    public function addWebsitePage(string|SemanticObject $websitePage): static
+    {
+        if ($this->websitePage === null) {
+            $this->websitePage = [];
+        } elseif (!is_array($this->websitePage)) {
+            $this->websitePage = [$this->websitePage];
+        }
+        $this->websitePage[] = $websitePage;
+        return $this;
+    }
+
+    public function removeWebsitePage(string|SemanticObject $websitePage): void
+    {
+        if ($this->websitePage === null) {
+            return;
+        }
+        if (!is_array($this->websitePage)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->websitePage === $websitePage) {
+                $this->websitePage = [];
+            }
+            return;
+        }
+        $key = array_search($websitePage, $this->websitePage, true);
+        if ($key !== false) {
+            unset($this->websitePage[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->websitePage = array_values($this->websitePage);
+        }
+    }
+
+    public function getHasPhoneNumber(): array|string|SemanticObject|null
     {
         return $this->hasPhoneNumber;
     }
 
-    public function setHasPhoneNumber(string|SemanticObject|array|null $hasPhoneNumber): static
+    public function setHasPhoneNumber(array|string|SemanticObject|null $hasPhoneNumber): static
     {
         $this->hasPhoneNumber = $hasPhoneNumber;
         return $this;
     }
 
-    public function getSocialMedia(): string|SemanticObject|array|null
+    public function addHasPhoneNumber(string|SemanticObject $hasPhoneNumber): static
+    {
+        if ($this->hasPhoneNumber === null) {
+            $this->hasPhoneNumber = [];
+        } elseif (!is_array($this->hasPhoneNumber)) {
+            $this->hasPhoneNumber = [$this->hasPhoneNumber];
+        }
+        $this->hasPhoneNumber[] = $hasPhoneNumber;
+        return $this;
+    }
+
+    public function removeHasPhoneNumber(string|SemanticObject $hasPhoneNumber): void
+    {
+        if ($this->hasPhoneNumber === null) {
+            return;
+        }
+        if (!is_array($this->hasPhoneNumber)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->hasPhoneNumber === $hasPhoneNumber) {
+                $this->hasPhoneNumber = [];
+            }
+            return;
+        }
+        $key = array_search($hasPhoneNumber, $this->hasPhoneNumber, true);
+        if ($key !== false) {
+            unset($this->hasPhoneNumber[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->hasPhoneNumber = array_values($this->hasPhoneNumber);
+        }
+    }
+
+    public function getSocialMedia(): array|string|SemanticObject|null
     {
         return $this->socialMedia;
     }
 
-    public function setSocialMedia(string|SemanticObject|array|null $socialMedia): static
+    public function setSocialMedia(array|string|SemanticObject|null $socialMedia): static
     {
         $this->socialMedia = $socialMedia;
         return $this;
+    }
+
+    public function addSocialMedia(string|SemanticObject $socialMedia): static
+    {
+        if ($this->socialMedia === null) {
+            $this->socialMedia = [];
+        } elseif (!is_array($this->socialMedia)) {
+            $this->socialMedia = [$this->socialMedia];
+        }
+        $this->socialMedia[] = $socialMedia;
+        return $this;
+    }
+
+    public function removeSocialMedia(string|SemanticObject $socialMedia): void
+    {
+        if ($this->socialMedia === null) {
+            return;
+        }
+        if (!is_array($this->socialMedia)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->socialMedia === $socialMedia) {
+                $this->socialMedia = [];
+            }
+            return;
+        }
+        $key = array_search($socialMedia, $this->socialMedia, true);
+        if ($key !== false) {
+            unset($this->socialMedia[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->socialMedia = array_values($this->socialMedia);
+        }
     }
 
     public function getOwns(): array|string|SemanticObject|null
@@ -233,26 +329,90 @@ class Agent extends WhoSubject implements IAgent
         return $this;
     }
 
-    public function getAddress(): Address|string|SemanticObject|array|null
+    public function getAddress(): array|Address|string|SemanticObject|null
     {
         return $this->address;
     }
 
-    public function setAddress(Address|string|SemanticObject|array|null $address): static
+    public function setAddress(array|Address|string|SemanticObject|null $address): static
     {
         $this->address = $address;
         return $this;
     }
 
-    public function getIsMemberOf(): CustomerCategory|string|SemanticObject|array|null
+    public function addAddress(Address|string|SemanticObject $address): static
+    {
+        if ($this->address === null) {
+            $this->address = [];
+        } elseif (!is_array($this->address)) {
+            $this->address = [$this->address];
+        }
+        $this->address[] = $address;
+        return $this;
+    }
+
+    public function removeAddress(Address|string|SemanticObject $address): void
+    {
+        if ($this->address === null) {
+            return;
+        }
+        if (!is_array($this->address)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->address === $address) {
+                $this->address = [];
+            }
+            return;
+        }
+        $key = array_search($address, $this->address, true);
+        if ($key !== false) {
+            unset($this->address[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->address = array_values($this->address);
+        }
+    }
+
+    public function getIsMemberOf(): array|CustomerCategory|string|SemanticObject|null
     {
         return $this->isMemberOf;
     }
 
-    public function setIsMemberOf(CustomerCategory|string|SemanticObject|array|null $isMemberOf): static
+    public function setIsMemberOf(array|CustomerCategory|string|SemanticObject|null $isMemberOf): static
     {
         $this->isMemberOf = $isMemberOf;
         return $this;
+    }
+
+    public function addIsMemberOf(CustomerCategory|string|SemanticObject $isMemberOf): static
+    {
+        if ($this->isMemberOf === null) {
+            $this->isMemberOf = [];
+        } elseif (!is_array($this->isMemberOf)) {
+            $this->isMemberOf = [$this->isMemberOf];
+        }
+        $this->isMemberOf[] = $isMemberOf;
+        return $this;
+    }
+
+    public function removeIsMemberOf(CustomerCategory|string|SemanticObject $isMemberOf): void
+    {
+        if ($this->isMemberOf === null) {
+            return;
+        }
+        if (!is_array($this->isMemberOf)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->isMemberOf === $isMemberOf) {
+                $this->isMemberOf = [];
+            }
+            return;
+        }
+        $key = array_search($isMemberOf, $this->isMemberOf, true);
+        if ($key !== false) {
+            unset($this->isMemberOf[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->isMemberOf = array_values($this->isMemberOf);
+        }
     }
 
     public function getOrders(): array|Order|string|SemanticObject|null

@@ -10,12 +10,12 @@ module DfcLinkmlConnector
     class ProductOption < WhatSubject
       SEMANTIC_TYPE = "dfc-b:ProductOption".freeze
 
-      # @return [ProductOptionValue, String]
+      # @return [Array<ProductOptionValue, String>]
       attr_accessor :reference_product_option_value
 
       # @param semanticId [String]
-      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, referenceProductOptionValue: nil
-      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, referenceProductOptionValue: nil)
+      # @param date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, referenceProductOptionValue: []
+      def initialize(semanticId, date: nil, description: nil, name: nil, characteristicOf: nil, dimension: nil, referenceProductOptionValue: [])
         super(semanticId, date: date, description: description, name: name, characteristicOf: characteristicOf, dimension: dimension)
         @reference_product_option_value = referenceProductOptionValue
         self.semanticType = "dfc-b:ProductOption"

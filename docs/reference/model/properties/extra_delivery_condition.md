@@ -10,6 +10,7 @@ Additional devilery conditions for this item (append to any Devliery Condition s
 
 - **Predicate**: `dfc-b:extraDeliveryCondition`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

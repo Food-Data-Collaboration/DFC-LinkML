@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface ProducedByable
 {
-    public function getProducedBy(): string|SemanticObject|array|null;
-    public function setProducedBy(string|SemanticObject|array|null $producedBy): static;
+    public function getProducedBy(): array|string|SemanticObject|null;
+    public function setProducedBy(array|string|SemanticObject|null $producedBy): static;
+    public function addProducedBy(string|SemanticObject $producedBy): static;
+    public function removeProducedBy(string|SemanticObject $producedBy): void;
 }

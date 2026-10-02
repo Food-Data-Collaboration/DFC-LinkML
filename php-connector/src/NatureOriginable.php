@@ -27,6 +27,8 @@ namespace DataFoodConsortium\Connector;
 
 interface NatureOriginable
 {
-    public function getNatureOrigin(): string|SemanticObject|array|null;
-    public function setNatureOrigin(string|SemanticObject|array|null $natureOrigin): static;
+    public function getNatureOrigin(): array|string|SemanticObject|null;
+    public function setNatureOrigin(array|string|SemanticObject|null $natureOrigin): static;
+    public function addNatureOrigin(string|SemanticObject $natureOrigin): static;
+    public function removeNatureOrigin(string|SemanticObject $natureOrigin): void;
 }

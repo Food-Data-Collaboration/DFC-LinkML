@@ -31,14 +31,14 @@ export interface AsPlannedLocalTransformationParams extends TransformationParams
      *
      * Serializes as `dfc-b:hasInput`.
      */
-    hasInput?: string;
+    hasInput?: string[];
     /**
      * The PlannedProductionFlow that is the output of the
      *   PlannedTransformation
      *
      * Serializes as `dfc-b:hasOutput`.
      */
-    hasOutput?: string;
+    hasOutput?: string[];
     /**
      * Serializes as `dfc-b:transformedBy`.
      */
@@ -76,14 +76,14 @@ export declare class AsPlannedLocalTransformation extends Transformation {
      *
      * Serializes as `dfc-b:hasInput`.
      */
-    hasInput?: string;
+    hasInput?: string[];
     /**
      * The PlannedProductionFlow that is the output of the
      *   PlannedTransformation
      *
      * Serializes as `dfc-b:hasOutput`.
      */
-    hasOutput?: string;
+    hasOutput?: string[];
     /**
      * Serializes as `dfc-b:transformedBy`.
      */

@@ -11,6 +11,7 @@ All Brands owned by the Agent
 - **Predicate**: `dfc-b:owns`
 - **Range**: `string` (literal)
 - **Inverse**: `owned_by`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

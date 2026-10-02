@@ -19,7 +19,7 @@ export interface ConsumptionFlowParams {
    *
    * Serializes as `dfc-b:consumes`.
    */
-  consumes?: string[];
+  consumes?: string;
   /**
    * The transformation the consumed product is inputed into
    *
@@ -80,7 +80,7 @@ export class ConsumptionFlow extends SemanticObject {
    *
    * Serializes as `dfc-b:consumes`.
    */
-  consumes?: string[];
+  consumes?: string;
   /**
    * The transformation the consumed product is inputed into
    *

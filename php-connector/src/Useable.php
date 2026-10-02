@@ -29,6 +29,4 @@ interface Useable
 {
     public function getUses(): array|string|SemanticObject|null;
     public function setUses(array|string|SemanticObject|null $uses): static;
-    public function addUses(string|SemanticObject $uses): static;
-    public function removeUses(string|SemanticObject $uses): void;
 }

@@ -27,6 +27,7 @@ Every public method on the connector, as declared in the source.
 | `load_measures_from_url()` | Fetch the Measure vocabulary |
 | `load_product_types_from_url()` | Fetch the ProductType vocabulary |
 | `export()` | Export objects to JSON-LD |
+| `validate()` | — |
 | `import()` | Import JSON-LD into objects |
 | `facet()` | — |
 | `measure()` | — |

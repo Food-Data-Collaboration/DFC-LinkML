@@ -25,6 +25,9 @@ import sys
 import yaml
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import cardinality  # noqa: E402
+
 
 def parse_schema(schema_path: str) -> dict:
     """Parse LinkML schema."""
@@ -392,26 +395,13 @@ def ruby_type_for_slot(slot_data: dict, schema_data: dict) -> str:
         return 'String'
 
 
-def is_collection_property(slot_name: str, slot_data: dict) -> bool:
-    """Determine if a property should be an array (collection)."""
-    if slot_data.get('multivalued', False):
-        return True
-    name = slot_name.lower()
-    collection_indicators = [
-        'characteristics', 'claims', 'certifications', 'catalogitems',
-        'suppliedproducts', 'technicalproducts', 'customercategories',
-        'catalogs', 'variants', 'images', 'localizations', 'phonenumbers',
-        'socialmedias', 'websites', 'emails', 'offers', 'orderlines',
-        'steps', 'inputs', 'outputs',
-    ]
-    for indicator in collection_indicators:
-        if indicator in name:
-            return True
-    if name.endswith('s') and not name.endswith('ss') and not name.endswith('us'):
-        return True
-    if name.endswith('ies'):
-        return True
-    return False
+def is_collection_property(slot_name: str, slot_data: dict, class_usage: dict = None) -> bool:
+    """Determine if a property should be an array (collection).
+
+    Delegates to `scripts/cardinality.py` so the three generators cannot
+    drift apart; see that module for the resolution order.
+    """
+    return cardinality.is_collection_property(slot_name, slot_data, class_usage)
 
 
 # ---------------------------------------------------------------------------
@@ -724,6 +714,15 @@ module DfcLinkmlConnector
 __PREDICATE_MAP__
       }.freeze
 
+      # Slots the ontology requires, per semantic type, with the predicate each
+      # one serialises to. Every entry comes from an `rdfs:subClassOf` restriction
+      # with `minimum_cardinality 1` -- all 42 DFC restrictions are singletons.
+      # Consulted by #validate, which is opt-in: constructors stay permissive
+      # because these would reject ordinary partial documents.
+      REQUIRED_SLOTS = {
+__REQUIRED_SLOTS__
+      }.freeze
+
       TYPE_ALIASES = {
 __TYPE_ALIASES__
       }.freeze
@@ -842,6 +841,44 @@ __HAS_PREFIX_KEEP__
       def export(*objects)
         serializer = JsonLdSerializer.new(_safe_context, context_url)
         serializer.to_json(*objects)
+      end
+      #
+      # Opt-in by design. A data-plane connector has to accept partially built
+      # objects, and these restrictions are heavy enough that enforcing them in
+      # the constructor would reject ordinary documents -- every Organization
+      # would need a hasMainContact. See docs/concepts/cardinality.md for where
+      # the constraint data comes from.
+      #
+      # @param objects [Array<SemanticObject>] objects to check
+      # @return [Array<Hash>] one entry per missing required property
+      # Reports properties the ontology requires and the object does not carry.
+      #
+      # Opt-in by design. A data-plane connector has to accept partially built
+      # objects, and these restrictions are heavy enough that enforcing them in
+      # the constructor would reject ordinary documents -- every Organization
+      # would need a hasMainContact. See docs/concepts/cardinality.md for where
+      # the constraint data comes from.
+      #
+      # @param objects [Array<SemanticObject>] objects to check
+      # @return [Array<Hash>] one entry per missing required property
+      def validate(*objects)
+        issues = []
+        objects.flatten.each do |object|
+          next unless object.respond_to?(:semanticType)
+
+          REQUIRED_SLOTS.fetch(object.semanticType, []).each do |slot, property, predicate|
+            value = object.respond_to?(property) ? object.public_send(property) : nil
+            next unless value.nil?
+
+            issues << {
+              semanticId: object.semanticId,
+              semanticType: object.semanticType,
+              slot: slot,
+              predicate: predicate,
+            }
+          end
+        end
+        issues
       end
 
       # Import JSON-LD data and return SemanticObject instances.
@@ -1011,6 +1048,24 @@ end
     code = code.replace('__TAXONOMY_VERSION__', taxonomy_version)
     code = code.replace('ENUM_METHODS', enum_methods.rstrip())
     code = code.replace('__PREDICATE_MAP__', predicate_map_str.rstrip())
+
+    # Required slots: {semanticType => [[slot, property, predicate], ...]}.
+    # `cardinality.required_slots` walks the is_a chain so a subclass inherits
+    # its ancestor's restriction with the nearest declaration winning.
+    required_lines = []
+    classes = schema_data.get('classes', {})
+    all_slots = schema_data.get('slots', {})
+    for class_name in sorted(classes):
+        required = cardinality.required_slots(class_name, classes, all_slots)
+        if not required:
+            continue
+        entries = ', '.join(
+            f'["{slot}", "{ruby_property_name(slot)}", '
+            f'"{predicate_for_slot(slot, all_slots[slot])}"]'
+            for slot in sorted(required)
+        )
+        required_lines.append(f'        "dfc-b:{class_name}" => [{entries}],')
+    code = code.replace('__REQUIRED_SLOTS__', '\n'.join(required_lines))
     code = code.replace('__TYPE_ALIASES__', alias_lines)
     code = code.replace('__HAS_PREFIX_KEEP__', keep_lines)
     return code
@@ -1210,7 +1265,7 @@ module DfcLinkmlConnector
             continue
         seen_ruby_props.add(prop_name)
         rtype = ruby_type_for_slot(slot_data, schema_data)
-        is_collection = is_collection_property(slot_name, slot_data)
+        is_collection = is_collection_property(slot_name, slot_data, cardinality.usage_for(schema_data, owner))
         if owner == class_name:
             if is_collection:
                 code += f'      # @return [Array<{rtype}>]\n'

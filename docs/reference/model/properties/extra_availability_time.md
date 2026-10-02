@@ -10,6 +10,7 @@ Additional lead time for catalog item. To be appended to AvailabilityTime
 
 - **Predicate**: `dfc-b:extraAvailabilityTime`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

@@ -11,6 +11,7 @@ The Shipment that transports Stock.
 - **Predicate**: `dfc-b:transportedBy`
 - **Range**: `string` (literal)
 - **Inverse**: `transports`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

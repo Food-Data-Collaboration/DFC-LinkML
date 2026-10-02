@@ -10,6 +10,7 @@ Any limit on the stock of this particular listing. This ay differ from stock lim
 
 - **Predicate**: `dfc-b:stockLimitation`
 - **Range**: `float` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

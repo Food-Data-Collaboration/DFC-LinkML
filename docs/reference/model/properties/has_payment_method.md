@@ -11,6 +11,7 @@ The PaymentMethod associated with the Order (e.g. Cash, Stripe etc)
 - **Predicate**: `dfc-b:hasPaymentMethod`
 - **Range**: `string` (literal)
 - **Inverse**: `paid_with`
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

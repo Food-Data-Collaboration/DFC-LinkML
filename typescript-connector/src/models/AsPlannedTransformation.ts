@@ -15,14 +15,14 @@ export interface AsPlannedTransformationParams extends TransformationParams {
    *
    * Serializes as `dfc-b:hasInput`.
    */
-  hasInput?: string;
+  hasInput?: string[];
   /**
    * The PlannedProductionFlow that is the output of the
    *   PlannedTransformation
    *
    * Serializes as `dfc-b:hasOutput`.
    */
-  hasOutput?: string;
+  hasOutput?: string[];
   /**
    * The Type of transformation, from the SKOS vocabulary file
    *
@@ -49,14 +49,14 @@ export class AsPlannedTransformation extends Transformation {
    *
    * Serializes as `dfc-b:hasInput`.
    */
-  hasInput?: string;
+  hasInput?: string[];
   /**
    * The PlannedProductionFlow that is the output of the
    *   PlannedTransformation
    *
    * Serializes as `dfc-b:hasOutput`.
    */
-  hasOutput?: string;
+  hasOutput?: string[];
   /**
    * The Type of transformation, from the SKOS vocabulary file
    *

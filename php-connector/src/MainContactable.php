@@ -27,6 +27,6 @@ namespace DataFoodConsortium\Connector;
 
 interface MainContactable
 {
-    public function getMainContact(): Person|string|SemanticObject|array|null;
-    public function setMainContact(Person|string|SemanticObject|array|null $mainContact): static;
+    public function getMainContact(): array|Person|string|SemanticObject|null;
+    public function setMainContact(array|Person|string|SemanticObject|null $mainContact): static;
 }

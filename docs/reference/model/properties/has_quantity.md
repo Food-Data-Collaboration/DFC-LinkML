@@ -11,6 +11,7 @@ The actual numeric value of the Price, in the currency unit specified with hasUn
 - **Predicate**: `dfc-b:hasQuantity`
 - **Range**: `QuantitativeValue` (a DFC class)
 - **Target type**: [`QuantitativeValue`](../classes/QuantitativeValue.md)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 

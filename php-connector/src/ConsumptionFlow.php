@@ -33,7 +33,7 @@ class ConsumptionFlow extends SemanticObject implements IConsumptionFlow
     public const SEMANTIC_TYPE = 'dfc-b:ConsumptionFlow';
 
     private float|string|SemanticObject|array|null $quantity = null;
-    private array|string|SemanticObject|null $consumes = [];
+    private string|SemanticObject|array|null $consumes = null;
     private string|SemanticObject|array|null $inputOf = null;
     private string|SemanticObject|array|null $date = null;
     private string|SemanticObject|array|null $description = null;
@@ -49,7 +49,7 @@ class ConsumptionFlow extends SemanticObject implements IConsumptionFlow
                 parent::__construct($semanticId);
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->quantity = $params['quantity'] ?? null;
-        $this->consumes = $params['consumes'] ?? [];
+        $this->consumes = $params['consumes'] ?? null;
         $this->inputOf = $params['inputOf'] ?? null;
         $this->date = $params['date'] ?? null;
         $this->description = $params['description'] ?? null;
@@ -78,47 +78,15 @@ class ConsumptionFlow extends SemanticObject implements IConsumptionFlow
         return $this;
     }
 
-    public function getConsumes(): array|string|SemanticObject|null
+    public function getConsumes(): string|SemanticObject|array|null
     {
         return $this->consumes;
     }
 
-    public function setConsumes(array|string|SemanticObject|null $consumes): static
+    public function setConsumes(string|SemanticObject|array|null $consumes): static
     {
         $this->consumes = $consumes;
         return $this;
-    }
-
-    public function addConsumes(string|SemanticObject $consumes): static
-    {
-        if ($this->consumes === null) {
-            $this->consumes = [];
-        } elseif (!is_array($this->consumes)) {
-            $this->consumes = [$this->consumes];
-        }
-        $this->consumes[] = $consumes;
-        return $this;
-    }
-
-    public function removeConsumes(string|SemanticObject $consumes): void
-    {
-        if ($this->consumes === null) {
-            return;
-        }
-        if (!is_array($this->consumes)) {
-            // Singular shape (setX stored a scalar as-is): clear on match.
-            if ($this->consumes === $consumes) {
-                $this->consumes = [];
-            }
-            return;
-        }
-        $key = array_search($consumes, $this->consumes, true);
-        if ($key !== false) {
-            unset($this->consumes[$key]);
-            // Reindex: unset leaves gaps in numeric keys, which json_encode
-            // would emit as an object instead of an array (shape change).
-            $this->consumes = array_values($this->consumes);
-        }
     }
 
     public function getInputOf(): string|SemanticObject|array|null

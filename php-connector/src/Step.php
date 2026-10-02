@@ -35,9 +35,9 @@ class Step extends WhereSubject implements IStep
 
     private string|SemanticObject|array|null $arrivalDate = null;
     private string|SemanticObject|array|null $duration = null;
-    private string|SemanticObject|array|null $isStepOf = null;
-    private Shipment|string|SemanticObject|array|null $delivery = null;
-    private Shipment|string|SemanticObject|array|null $pickUp = null;
+    private array|string|SemanticObject|null $isStepOf = [];
+    private array|Shipment|string|SemanticObject|null $delivery = [];
+    private array|Shipment|string|SemanticObject|null $pickUp = [];
 
     public function __construct(
         string $semanticId,
@@ -47,9 +47,9 @@ class Step extends WhereSubject implements IStep
         $this->semanticType = self::SEMANTIC_TYPE;
         $this->arrivalDate = $params['arrivalDate'] ?? null;
         $this->duration = $params['duration'] ?? null;
-        $this->isStepOf = $params['isStepOf'] ?? null;
-        $this->delivery = $params['delivery'] ?? null;
-        $this->pickUp = $params['pickUp'] ?? null;
+        $this->isStepOf = $params['isStepOf'] ?? [];
+        $this->delivery = $params['delivery'] ?? [];
+        $this->pickUp = $params['pickUp'] ?? [];
         $this->registerSemanticProperty('dfc-b:arrivalDate', fn() => $this->arrivalDate);
         $this->registerSemanticProperty('dfc-b:duration', fn() => $this->duration);
         $this->registerSemanticProperty('dfc-b:isStepOf', fn() => $this->isStepOf);
@@ -78,36 +78,132 @@ class Step extends WhereSubject implements IStep
         return $this;
     }
 
-    public function getIsStepOf(): string|SemanticObject|array|null
+    public function getIsStepOf(): array|string|SemanticObject|null
     {
         return $this->isStepOf;
     }
 
-    public function setIsStepOf(string|SemanticObject|array|null $isStepOf): static
+    public function setIsStepOf(array|string|SemanticObject|null $isStepOf): static
     {
         $this->isStepOf = $isStepOf;
         return $this;
     }
 
-    public function getDelivery(): Shipment|string|SemanticObject|array|null
+    public function addIsStepOf(string|SemanticObject $isStepOf): static
+    {
+        if ($this->isStepOf === null) {
+            $this->isStepOf = [];
+        } elseif (!is_array($this->isStepOf)) {
+            $this->isStepOf = [$this->isStepOf];
+        }
+        $this->isStepOf[] = $isStepOf;
+        return $this;
+    }
+
+    public function removeIsStepOf(string|SemanticObject $isStepOf): void
+    {
+        if ($this->isStepOf === null) {
+            return;
+        }
+        if (!is_array($this->isStepOf)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->isStepOf === $isStepOf) {
+                $this->isStepOf = [];
+            }
+            return;
+        }
+        $key = array_search($isStepOf, $this->isStepOf, true);
+        if ($key !== false) {
+            unset($this->isStepOf[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->isStepOf = array_values($this->isStepOf);
+        }
+    }
+
+    public function getDelivery(): array|Shipment|string|SemanticObject|null
     {
         return $this->delivery;
     }
 
-    public function setDelivery(Shipment|string|SemanticObject|array|null $delivery): static
+    public function setDelivery(array|Shipment|string|SemanticObject|null $delivery): static
     {
         $this->delivery = $delivery;
         return $this;
     }
 
-    public function getPickUp(): Shipment|string|SemanticObject|array|null
+    public function addDelivery(Shipment|string|SemanticObject $delivery): static
+    {
+        if ($this->delivery === null) {
+            $this->delivery = [];
+        } elseif (!is_array($this->delivery)) {
+            $this->delivery = [$this->delivery];
+        }
+        $this->delivery[] = $delivery;
+        return $this;
+    }
+
+    public function removeDelivery(Shipment|string|SemanticObject $delivery): void
+    {
+        if ($this->delivery === null) {
+            return;
+        }
+        if (!is_array($this->delivery)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->delivery === $delivery) {
+                $this->delivery = [];
+            }
+            return;
+        }
+        $key = array_search($delivery, $this->delivery, true);
+        if ($key !== false) {
+            unset($this->delivery[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->delivery = array_values($this->delivery);
+        }
+    }
+
+    public function getPickUp(): array|Shipment|string|SemanticObject|null
     {
         return $this->pickUp;
     }
 
-    public function setPickUp(Shipment|string|SemanticObject|array|null $pickUp): static
+    public function setPickUp(array|Shipment|string|SemanticObject|null $pickUp): static
     {
         $this->pickUp = $pickUp;
         return $this;
+    }
+
+    public function addPickUp(Shipment|string|SemanticObject $pickUp): static
+    {
+        if ($this->pickUp === null) {
+            $this->pickUp = [];
+        } elseif (!is_array($this->pickUp)) {
+            $this->pickUp = [$this->pickUp];
+        }
+        $this->pickUp[] = $pickUp;
+        return $this;
+    }
+
+    public function removePickUp(Shipment|string|SemanticObject $pickUp): void
+    {
+        if ($this->pickUp === null) {
+            return;
+        }
+        if (!is_array($this->pickUp)) {
+            // Singular shape (setX stored a scalar as-is): clear on match.
+            if ($this->pickUp === $pickUp) {
+                $this->pickUp = [];
+            }
+            return;
+        }
+        $key = array_search($pickUp, $this->pickUp, true);
+        if ($key !== false) {
+            unset($this->pickUp[$key]);
+            // Reindex: unset leaves gaps in numeric keys, which json_encode
+            // would emit as an object instead of an array (shape change).
+            $this->pickUp = array_values($this->pickUp);
+        }
     }
 }

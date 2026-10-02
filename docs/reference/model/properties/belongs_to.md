@@ -12,6 +12,7 @@ A Customer (as an Agent) can belong to a particular CustomerCategory as defined 
 - **Range**: `SaleSession` (a DFC class)
 - **Target type**: [`SaleSession`](../classes/SaleSession.md)
 - **Inverse**: `holds`
+- **Cardinality**: **Single-valued on `Order`** — the ontology restricts those classes to exactly one value. On that class the property is a scalar; elsewhere it may be a collection, because the ontology is silent.
 
 ## Declared domain
 

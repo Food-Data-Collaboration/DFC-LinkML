@@ -10,6 +10,7 @@ The international dialling code for the country where the phone number is regist
 
 - **Predicate**: `dfc-b:countryCode`
 - **Range**: `string` (literal)
+- **Cardinality**: **Scalar** — the ontology states no upper bound and the property is not in the curated collection list.
 
 ## Declared domain
 
