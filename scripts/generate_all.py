@@ -7,7 +7,8 @@ Reads versions/paths from config/dfc-release.yaml and runs each step:
   typescript  LinkML schema -> typescript-connector/ (offline)
   ruby        LinkML schema -> ruby-gem/ (offline, fixed dirs)
   php         LinkML schema -> php-connector/ + root composer.json (offline)
-  reference   LinkML schema + bundled vocabularies -> docs/reference/model/
+  reference   LinkML schema + bundled vocabularies -> docs/reference/model/,
+              docs/reference/api/ and docs/conformance.md
 
 Usage:
   python3 scripts/generate_all.py [--steps schema,typescript,ruby,php]
@@ -41,6 +42,9 @@ CHECK_PATHS = [
     # cannot leave a stale page behind.
     "docs/reference/model",
     "docs/reference/api",
+    # Conformance report. Regenerated from the fixtures by the reference step,
+    # so it is covered by --check too.
+    "docs/conformance.md",
     "typescript-connector/src",
     "ruby-gem",
     ":(exclude)ruby-gem/vocabularies",
@@ -104,8 +108,10 @@ def step_php(manifest: dict) -> None:
 
 
 def step_reference(manifest: dict) -> None:
-    # Generated docs. Runs last: the API page parses the connector sources
-    # and the model pages read the schema and the bundled vocabularies.
+    # Generated docs. Runs last: the API page parses the connector sources,
+    # the model pages read the schema and the bundled vocabularies, and the
+    # conformance page imports through each connector, so it needs all three
+    # built.
     run([
         sys.executable, "scripts/generate_model_reference.py",
         "--schema", manifest["schema"]["file"],
@@ -115,6 +121,10 @@ def step_reference(manifest: dict) -> None:
         sys.executable, "scripts/generate_api_reference.py",
         "--schema", manifest["schema"]["file"],
         "--output", "docs/reference/api",
+    ])
+    run([
+        sys.executable, "scripts/generate_conformance_report.py",
+        "--output", "docs/conformance.md",
     ])
 
 

@@ -111,6 +111,9 @@ meaning. Do not compare exported documents byte-for-byte — the
     with every concept. The
     [API reference](reference/api/index.md) is parsed from the three
     connector sources, so it cannot describe a method that does not exist.
+    The [conformance report](conformance.md) is the scoreboard: every fixture
+    document against every connector, regenerated on each release so it cannot
+    go stale.
 
 === "I want to know why it works this way"
 
