@@ -714,6 +714,15 @@ module DfcLinkmlConnector
 __PREDICATE_MAP__
       }.freeze
 
+      # Slots the ontology requires, per semantic type, with the predicate each
+      # one serialises to. Every entry comes from an `rdfs:subClassOf` restriction
+      # with `minimum_cardinality 1` -- all 42 DFC restrictions are singletons.
+      # Consulted by #validate, which is opt-in: constructors stay permissive
+      # because these would reject ordinary partial documents.
+      REQUIRED_SLOTS = {
+__REQUIRED_SLOTS__
+      }.freeze
+
       TYPE_ALIASES = {
 __TYPE_ALIASES__
       }.freeze
@@ -832,6 +841,44 @@ __HAS_PREFIX_KEEP__
       def export(*objects)
         serializer = JsonLdSerializer.new(_safe_context, context_url)
         serializer.to_json(*objects)
+      end
+      #
+      # Opt-in by design. A data-plane connector has to accept partially built
+      # objects, and these restrictions are heavy enough that enforcing them in
+      # the constructor would reject ordinary documents -- every Organization
+      # would need a hasMainContact. See docs/concepts/cardinality.md for where
+      # the constraint data comes from.
+      #
+      # @param objects [Array<SemanticObject>] objects to check
+      # @return [Array<Hash>] one entry per missing required property
+      # Reports properties the ontology requires and the object does not carry.
+      #
+      # Opt-in by design. A data-plane connector has to accept partially built
+      # objects, and these restrictions are heavy enough that enforcing them in
+      # the constructor would reject ordinary documents -- every Organization
+      # would need a hasMainContact. See docs/concepts/cardinality.md for where
+      # the constraint data comes from.
+      #
+      # @param objects [Array<SemanticObject>] objects to check
+      # @return [Array<Hash>] one entry per missing required property
+      def validate(*objects)
+        issues = []
+        objects.flatten.each do |object|
+          next unless object.respond_to?(:semanticType)
+
+          REQUIRED_SLOTS.fetch(object.semanticType, []).each do |slot, property, predicate|
+            value = object.respond_to?(property) ? object.public_send(property) : nil
+            next unless value.nil?
+
+            issues << {
+              semanticId: object.semanticId,
+              semanticType: object.semanticType,
+              slot: slot,
+              predicate: predicate,
+            }
+          end
+        end
+        issues
       end
 
       # Import JSON-LD data and return SemanticObject instances.
@@ -1001,6 +1048,24 @@ end
     code = code.replace('__TAXONOMY_VERSION__', taxonomy_version)
     code = code.replace('ENUM_METHODS', enum_methods.rstrip())
     code = code.replace('__PREDICATE_MAP__', predicate_map_str.rstrip())
+
+    # Required slots: {semanticType => [[slot, property, predicate], ...]}.
+    # `cardinality.required_slots` walks the is_a chain so a subclass inherits
+    # its ancestor's restriction with the nearest declaration winning.
+    required_lines = []
+    classes = schema_data.get('classes', {})
+    all_slots = schema_data.get('slots', {})
+    for class_name in sorted(classes):
+        required = cardinality.required_slots(class_name, classes, all_slots)
+        if not required:
+            continue
+        entries = ', '.join(
+            f'["{slot}", "{ruby_property_name(slot)}", '
+            f'"{predicate_for_slot(slot, all_slots[slot])}"]'
+            for slot in sorted(required)
+        )
+        required_lines.append(f'        "dfc-b:{class_name}" => [{entries}],')
+    code = code.replace('__REQUIRED_SLOTS__', '\n'.join(required_lines))
     code = code.replace('__TYPE_ALIASES__', alias_lines)
     code = code.replace('__HAS_PREFIX_KEEP__', keep_lines)
     return code

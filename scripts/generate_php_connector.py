@@ -784,6 +784,24 @@ def generate_connector(schema_data: dict) -> str:
         f"        '{pred}' => '{target}',"
         for pred, target in sorted(_enterprise_alias(schema_data).items())
     )
+
+    # Required slots: 'semanticType' => [[slot, property, predicate], ...].
+    # `cardinality.required_slots` walks the is_a chain so a subclass inherits
+    # its ancestor's restriction with the nearest declaration winning.
+    required_rows = []
+    classes_all = schema_data.get('classes', {})
+    slots_all = schema_data.get('slots', {})
+    for class_name in sorted(classes_all):
+        required = cardinality.required_slots(class_name, classes_all, slots_all)
+        if not required:
+            continue
+        entries = ', '.join(
+            f"['{slot}', '{to_php_property_name(slot, slots_all)}', "
+            f"'{predicate_for_slot(slot, slots_all[slot])}']"
+            for slot in sorted(required)
+        )
+        required_rows.append(f"        'dfc-b:{class_name}' => [{entries}],")
+    required_slots_str = '\n'.join(required_rows)
     # Kept for the predicateToPropName fallback. The five collision pairs are
     # now named after the slot itself (has_country -> hasCountry), so the map
     # is exactly the property naming and needs no separate override table.
@@ -810,6 +828,16 @@ class Connector
     // Enterprise to Organization).
     public const TYPE_ALIASES = [
 {alias_lines}
+    ];
+
+    // Slots the ontology requires, per semantic type, as
+    // [slot, property, predicate] triples. Every entry comes from an
+    // `rdfs:subClassOf` restriction with `minimum_cardinality 1` -- all 42 DFC
+    // restrictions are singletons. Consulted by validate(), which is opt-in:
+    // constructors stay permissive because these would reject ordinary
+    // partial documents.
+    public const REQUIRED_SLOTS = [
+{required_slots_str}
     ];
 
     // Full predicate -> property map, used by predicateToPropName when a
@@ -892,12 +920,44 @@ class Connector
         return $this;
     }}
 
+    /**
+     * Reports properties the ontology requires and the object does not carry.
+     *
+     * Opt-in by design. A data-plane connector has to accept partially built
+     * objects, and these restrictions are heavy enough that enforcing them in
+     * the constructor would reject ordinary documents -- every Organization
+     * would need a hasMainContact. See docs/concepts/cardinality.md for where
+     * the constraint data comes from.
+     *
+     * @return array<int, array> One entry per missing required property, each
+     *         with semanticId, semanticType, slot and predicate keys; empty
+     *         when all are present.
+     */
+    public function validate(SemanticObject ...$objects): array
+    {{
+        $issues = [];
+        foreach ($objects as $object) {{
+            $type = $object->getSemanticType();
+            foreach (self::REQUIRED_SLOTS[$type] ?? [] as [$slot, $property, $predicate]) {{
+                if ($object->getSemanticPropertyValue($predicate) !== null) {{
+                    continue;
+                }}
+                $issues[] = [
+                    'semanticId' => $object->getSemanticId(),
+                    'semanticType' => $type,
+                    'slot' => $slot,
+                    'predicate' => $predicate,
+                ];
+            }}
+        }}
+        return $issues;
+    }}
+
     // Export objects to a JSON-LD string. Predicates are already original
     // CURIEs, so no compaction step is needed; the context is emitted as a
     // URL string (never inlined).
     public function export(SemanticObject ...$objects): string
-    {{
-        if (count($objects) === 1) {{
+    {{        if (count($objects) === 1) {{
             $doc = $objects[0]->toJsonLd(null);
         }} else {{
             $doc = ['@graph' => []];

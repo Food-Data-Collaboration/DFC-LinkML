@@ -20,6 +20,7 @@ Every public method on the connector, as declared in the source.
 | `loadMeasures()` | Replace the Measure vocabulary |
 | `loadProductTypes()` | Replace the ProductType vocabulary |
 | `loadVocabulary()` | Replace an arbitrary vocabulary |
+| `validate()` | — |
 | `export()` | Export objects to JSON-LD |
 | `import()` | Import JSON-LD into objects |
 | `getFacets()` | — |

@@ -3,14 +3,44 @@
   "version": "2.0.0",
   "objects": [
     {
+      "type": "dfc-b:Organization",
+      "semanticId": "http://example.com/org1",
+      "params": { "name": "Farm Org" }
+    },
+    {
       "type": "dfc-b:Order",
       "semanticId": "http://example.com/order1",
-      "params": { "orderNumber": "ORD-001", "hasPart": { "$ref": "http://example.com/line1" } }
+      "params": {
+        "orderNumber": "ORD-001",
+        "orderedBy": { "$ref": "http://example.com/org1" },
+        "hasPart": [
+          { "$ref": "http://example.com/line1" },
+          { "$ref": "http://example.com/line2" }
+        ]
+      }
     },
     {
       "type": "dfc-b:OrderLine",
       "semanticId": "http://example.com/line1",
-      "params": { "name": "Line 1", "quantity": 5 }
+      "params": {
+        "name": "Line 1",
+        "quantity": 5,
+        "concerns": { "$ref": "http://example.com/tomato" }
+      }
+    },
+    {
+      "type": "dfc-b:OrderLine",
+      "semanticId": "http://example.com/line2",
+      "params": {
+        "name": "Line 2",
+        "quantity": 2,
+        "concerns": { "$ref": "http://example.com/tomato" }
+      }
+    },
+    {
+      "type": "dfc-b:SuppliedProduct",
+      "semanticId": "http://example.com/tomato",
+      "params": { "name": "Tomato" }
     }
   ]
 }

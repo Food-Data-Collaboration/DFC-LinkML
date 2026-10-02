@@ -5,9 +5,9 @@ transcribed, so they cannot drift.
 
 | Language | Connector methods | Factories | Package |
 |---|---|---|---|
-| [TypeScript](typescript.md) | 12 | 89 | `@siol-data/linkml-connector` |
-| [Ruby](ruby.md) | 20 | 0 | `dfc-linkml-connector` |
-| [PHP](php.md) | 19 | 89 | `siol-data/linkml-connector` |
+| [TypeScript](typescript.md) | 13 | 89 | `@siol-data/linkml-connector` |
+| [Ruby](ruby.md) | 21 | 0 | `dfc-linkml-connector` |
+| [PHP](php.md) | 20 | 89 | `siol-data/linkml-connector` |
 
 Ruby has no `createX` factories. That is the one structural difference
 between the three, and it is deliberate: Ruby's model classes are

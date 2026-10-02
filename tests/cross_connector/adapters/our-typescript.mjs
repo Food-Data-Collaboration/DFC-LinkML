@@ -48,11 +48,13 @@ const PARAM_MAP = {
 };
 
 function resolveRefs(params) {
+  const resolve = (v) => {
+    if (Array.isArray(v)) return v.map(resolve);
+    if (v && typeof v === "object" && "$ref" in v) return v.$ref;
+    return v;
+  };
   const out = {};
-  for (const [k, v] of Object.entries(params ?? {})) {
-    if (v && typeof v === "object" && "$ref" in v) out[k] = v.$ref;
-    else out[k] = v;
-  }
+  for (const [k, v] of Object.entries(params ?? {})) out[k] = resolve(v);
   return out;
 }
 
