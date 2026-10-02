@@ -333,7 +333,7 @@ def generate(schema_path: Path, out_dir: Path) -> None:
          'core + models, required from `lib/dfc_linkml_connector.rb`',
          rb_accessors, 'method', 2),
         ('php', 'PHP', php_methods, php_factories,
-         'siol-data/linkml-connector',
+         'siol-data/dfc-connector',
          'PSR-4 `DataFoodConsortium\\Connector\\` → `src`',
          php_accessors, 'method', 3),
     ]
@@ -373,7 +373,7 @@ Exports: {export_note}.
         '|---|---|---|---|',
         f'| [TypeScript](typescript.md) | {len(ts_methods)} | {len(ts_factories)} | `@siol-data/linkml-connector` |',
         f'| [Ruby](ruby.md) | {len(rb_methods)} | 0 | `dfc-linkml-connector` |',
-        f'| [PHP](php.md) | {len(php_methods)} | {len(php_factories)} | `siol-data/linkml-connector` |',
+        f'| [PHP](php.md) | {len(php_methods)} | {len(php_factories)} | `siol-data/dfc-connector` |',
     ]
     (out_dir / 'index.md').write_text(f"""# Connector API reference
 

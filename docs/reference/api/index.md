@@ -7,7 +7,7 @@ transcribed, so they cannot drift.
 |---|---|---|---|
 | [TypeScript](typescript.md) | 13 | 89 | `@siol-data/linkml-connector` |
 | [Ruby](ruby.md) | 21 | 0 | `dfc-linkml-connector` |
-| [PHP](php.md) | 20 | 89 | `siol-data/linkml-connector` |
+| [PHP](php.md) | 20 | 89 | `siol-data/dfc-connector` |
 
 Ruby has no `createX` factories. That is the one structural difference
 between the three, and it is deliberate: Ruby's model classes are
