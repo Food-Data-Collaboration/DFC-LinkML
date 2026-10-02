@@ -1,0 +1,50 @@
+# What ships to consumers who run `composer require siol-data/linkml-connector`.
+#
+# Packagist builds the dist from GitHub's zipball of the tagged commit, and that
+# is the whole repository unless paths are export-ignored here. Measured before
+# this file: 1328 files / 7.7 MB installed, for a 2.2 MB library.
+#
+# `archive.exclude` in composer.json does not fix this: it only applies to
+# archives Composer builds itself (a git/source install), not to a dist
+# download. This file is what fixes the common case.
+#
+# Written as an explicit exclude list rather than "ignore everything, then
+# un-ignore the keepers" because negative patterns in .gitattributes are only
+# honoured by newer git, and an archive that silently gains the monorepo is a
+# bad failure mode.
+#
+# Only the PHP connector ships. The TypeScript connector (jsr.io) and the Ruby
+# gem have their own registries and manifests; the LinkML schema, generators,
+# docs and the cross-connector harness are development inputs, not anything a
+# PHP consumer loads.
+#
+# Keep: composer.json, php-connector/LICENSE, php-connector/README.md,
+#       php-connector/src, php-connector/contexts, php-connector/vocabularies.
+# contexts and vocabularies are read from disk at runtime (Connector.php
+# resolves __DIR__/../vocabularies and __DIR__/../contexts), so they must ship.
+# The root LICENSE and README.md are excluded deliberately: the root README
+# documents the monorepo, not the PHP package, and php-connector ships its own
+# README and the MIT notice. Packagist still renders the root README on the
+# package page -- it reads that from the repository, not from the archive.
+
+/.gitattributes          export-ignore
+/.github/               export-ignore
+/.gitignore             export-ignore
+/.opencode/             export-ignore
+/AGENTS.md              export-ignore
+/agents.md              export-ignore
+/Makefile               export-ignore
+/README.md              export-ignore
+/config/                export-ignore
+/docs/                  export-ignore
+/scripts/               export-ignore
+/shacl/                 export-ignore
+/src/                   export-ignore
+/tests/                 export-ignore
+/ruby-gem/              export-ignore
+/typescript-connector/  export-ignore
+
+/php-connector/composer.json   export-ignore
+/php-connector/phpunit.xml    export-ignore
+/php-connector/tests/         export-ignore
+/php-connector/.gitignore     export-ignore
