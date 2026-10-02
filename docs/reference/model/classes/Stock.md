@@ -15,12 +15,11 @@ Class from DFC Business Ontology: #Stock
 
 [`RealStock`](../classes/RealStock.md), [`TheoriticalStock`](../classes/TheoriticalStock.md)
 
-## Properties (4)
+## Properties (3)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
 | [`availability_date`](../properties/availability_date.md) | `dfc-b:availabilityDate` | `date` | literal | this class |
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | this class |
 | [`has_quantity`](../properties/has_quantity.md) | `dfc-b:hasQuantity` | `QuantitativeValue` | object | this class |
 | [`transported_by`](../properties/transported_by.md) | `dfc-b:transportedBy` | `string` | literal | this class |
 

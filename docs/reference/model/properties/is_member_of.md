@@ -17,11 +17,11 @@ Object property from OWL: isMemberOf
 
 [`Agent`](../classes/Agent.md)
 
-## Available on (4)
+## Available on (3)
 
-[`Agent`](../classes/Agent.md), [`Enterprise`](../classes/Enterprise.md), [`Organization`](../classes/Organization.md), [`Person`](../classes/Person.md)
+[`Agent`](../classes/Agent.md), [`Organization`](../classes/Organization.md), [`Person`](../classes/Person.md)
 
 ## Notes
 
-- Declared on 1 class(es) in the ontology, but inherited by 4. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
+- Declared on 1 class(es) in the ontology, but inherited by 3. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
 - The schema records no `required` or `multivalued` flag for this slot.

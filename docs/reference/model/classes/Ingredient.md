@@ -11,11 +11,10 @@ Class from DFC Business Ontology: #Ingredient
 - **JSON-LD type**: `dfc-b:Ingredient`
 - **Hierarchy**: `What_Subject` → `Ingredient`
 
-## Properties (3)
+## Properties (2)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
-| [`composed_of`](../properties/composed_of.md) | `dfc-b:composedOf` | `string` | literal | this class |
 | [`has_quantity`](../properties/has_quantity.md) | `dfc-b:hasQuantity` | `QuantitativeValue` | object | this class |
 | [`is_ingredient_of`](../properties/is_ingredient_of.md) | `dfc-b:isIngredientOf` | `string` | literal | this class |
 

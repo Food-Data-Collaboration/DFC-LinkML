@@ -1,25 +1,17 @@
-# quantity
+# quantity (deprecated)
 
-[← all properties](index.md)
+!!! warning
 
-## Description
+    **`quantity` is deprecated and should not be used in new data.**
 
-DEPRECATE
+    The DFC ontology does not assert a replacement for it.
 
 ## Definition
 
 - **Predicate**: `dfc-b:quantity`
-- **Range**: `float` (literal)
+- **Range**: `float`
+- **Declared domain**: `ConsumptionFlow`, `DefinedProduct`, `LocalizedProduct`, `OrderLine`, `PhysicalProduct`, `ProductionFlow`, `SaleSession`, `ShippingOption`, `Stock`, `Transaction`
 
-## Declared domain
+## Note
 
-[`ConsumptionFlow`](../classes/ConsumptionFlow.md), [`DefinedProduct`](../classes/DefinedProduct.md), [`LocalizedProduct`](../classes/LocalizedProduct.md), [`OrderLine`](../classes/OrderLine.md), [`PhysicalProduct`](../classes/PhysicalProduct.md), [`ProductionFlow`](../classes/ProductionFlow.md), [`SaleSession`](../classes/SaleSession.md), [`ShippingOption`](../classes/ShippingOption.md), [`Stock`](../classes/Stock.md), [`Transaction`](../classes/Transaction.md)
-
-## Available on (24)
-
-[`AsPlannedConsumptionFlow`](../classes/AsPlannedConsumptionFlow.md), [`AsPlannedLocalConsumptionFlow`](../classes/AsPlannedLocalConsumptionFlow.md), [`AsPlannedLocalProductionFlow`](../classes/AsPlannedLocalProductionFlow.md), [`AsPlannedProductionFlow`](../classes/AsPlannedProductionFlow.md), [`AsRealizedConsumptionFlow`](../classes/AsRealizedConsumptionFlow.md), [`AsRealizedProductionFlow`](../classes/AsRealizedProductionFlow.md), [`ConsumptionFlow`](../classes/ConsumptionFlow.md), [`DefinedProduct`](../classes/DefinedProduct.md), [`DeliveryOption`](../classes/DeliveryOption.md), [`FunctionalProduct`](../classes/FunctionalProduct.md), [`LocalizedProduct`](../classes/LocalizedProduct.md), [`OrderLine`](../classes/OrderLine.md), [`PhysicalProduct`](../classes/PhysicalProduct.md), [`PickupOption`](../classes/PickupOption.md), [`ProductionFlow`](../classes/ProductionFlow.md), [`RealStock`](../classes/RealStock.md), [`SaleSession`](../classes/SaleSession.md), [`ShippingOption`](../classes/ShippingOption.md), [`Stock`](../classes/Stock.md), [`SuppliedProduct`](../classes/SuppliedProduct.md), [`TechnicalProduct`](../classes/TechnicalProduct.md), [`TheoriticalStock`](../classes/TheoriticalStock.md), [`Transaction`](../classes/Transaction.md), [`Variant`](../classes/Variant.md)
-
-## Notes
-
-- Declared on 10 class(es) in the ontology, but inherited by 24. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
-- The schema records no `required` or `multivalued` flag for this slot.
+The connectors still accept this predicate on import and will round-trip it. Excluding it from the reference is about not pointing new work at a deprecated property, not about it being unreadable.

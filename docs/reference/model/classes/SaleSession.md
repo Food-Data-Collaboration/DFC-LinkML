@@ -11,12 +11,11 @@ Class from DFC Business Ontology: #SaleSession
 - **JSON-LD type**: `dfc-b:SaleSession`
 - **Hierarchy**: `SaleSession`
 
-## Properties (9)
+## Properties (8)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
 | [`end_date`](../properties/end_date.md) | `dfc-b:endDate` | `datetime` | literal | this class |
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | this class |
 | [`start_date`](../properties/start_date.md) | `dfc-b:startDate` | `datetime` | literal | this class |
 | [`has_option`](../properties/has_option.md) | `dfc-b:hasOption` | `ShippingOption` | object | this class |
 | [`has_quantity`](../properties/has_quantity.md) | `dfc-b:hasQuantity` | `QuantitativeValue` | object | this class |

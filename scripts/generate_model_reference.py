@@ -23,6 +23,17 @@ Design notes:
 - Enum values are not in the schema: the five controlled vocabularies are
   external SKOS taxonomies reached via `reachable_from`. The pages list the
   concepts from the bundled copies, and say where the data came from.
+
+- Deprecated classes and slots are excluded from the class and property
+  tables, the indexes, and the "available on" lists, because browsing a
+  reference is a search for what to use. `owl:deprecated` in the ontology
+  becomes `deprecated: true` in the schema and this generator filters on it.
+  Each deprecated entity still gets one stub page saying what replaced it, so
+  an incoming link or a legacy predicate explains itself rather than 404ing.
+
+- `owl:equivalentClass` becomes `equivalent_to`, holding a full CURIE. The
+  local name would not identify the target: `vcard:Agent` and `dfc-b:Agent`
+  both local-name to "Agent".
 """
 from __future__ import annotations
 
@@ -119,6 +130,31 @@ def is_object_range(slot: dict, classes: dict) -> bool:
     return slot.get('range') in classes
 
 
+def is_deprecated(entry: dict) -> bool:
+    """True when the schema marked the entity owl:deprecated.
+
+    The connectors keep generating these (dropping them would change their
+    public surface); this only affects the reference.
+    """
+    return bool(entry.get('deprecated'))
+
+
+def deprecated_classes(classes: dict) -> set[str]:
+    return {n for n, c in classes.items() if is_deprecated(c or {})}
+
+
+def deprecated_slots(slots: dict) -> set[str]:
+    return {n for n, s in slots.items() if is_deprecated(s or {})}
+
+
+def live_classes(classes: dict) -> dict[str, dict]:
+    return {n: c for n, c in classes.items() if not is_deprecated(c or {})}
+
+
+def live_slots(slots: dict) -> dict[str, dict]:
+    return {n: s for n, s in slots.items() if not is_deprecated(s or {})}
+
+
 def read_vocab(file_name: str) -> list[dict]:
     """Concept labels from a bundled compacted-SKOS vocabulary."""
     path = VOCAB_DIR / file_name
@@ -156,10 +192,12 @@ def read_vocab(file_name: str) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 def class_index_page(schema: dict, classes: dict) -> str:
-    roots = sorted(n for n, c in classes.items() if not (c or {}).get('is_a'))
+    live = live_classes(classes)
+    dep = deprecated_classes(classes)
+    roots = sorted(n for n, c in live.items() if not (c or {}).get('is_a'))
     rows = ['| Class | Parents | Properties |',
             '|---|---|---|']
-    for name in sorted(classes):
+    for name in sorted(live):
         parents = parents_of(name, classes)
         n_props = len(all_slots_of(name, classes, schema['slots']))
         rows.append(
@@ -213,9 +251,17 @@ def defining_class(class_name: str, slot_name: str, classes: dict,
 
 def class_page(name: str, schema: dict, classes: dict, slots: dict) -> str:
     cls = classes[name]
+
+    if is_deprecated(cls or {}):
+        return deprecated_class_page(name, cls, classes)
+
     chain = parents_of(name, classes)
-    children = direct_children_of(name, classes)
-    props = all_slots_of(name, classes, slots)
+    children = [c for c in direct_children_of(name, classes)
+                if not is_deprecated((classes.get(c) or {}))]
+    # Deprecated slots are omitted from the table: this page answers "what
+    # can I set on this class", and a deprecated property is not an answer.
+    props = [s for s in all_slots_of(name, classes, slots)
+             if not is_deprecated(slots.get(s) or {})]
     own = set(own_slots_of(name, classes, slots))
     desc = (cls.get('description') or '').strip()
 
@@ -241,6 +287,21 @@ def class_page(name: str, schema: dict, classes: dict, slots: dict) -> str:
         f'- **JSON-LD type**: `{f"dfc-b:{name}"}`\n'
         f'- **Hierarchy**: {" → ".join(f"`{p}`" for p in chain)}\n'
     )
+    equivalent = (cls or {}).get('equivalent_to')
+    if equivalent:
+        local = equivalent.split(':')[-1]
+        prefix = equivalent.split(':')[0] if ':' in equivalent else ''
+        if prefix == 'dfc-b' and local in classes and not is_deprecated(
+            classes.get(local) or {}
+        ):
+            target = f'[`{local}`]({slug(local)}.md)'
+        else:
+            # Cross-vocabulary alignment (vCard, etc.) or a deprecated target.
+            target = f'`{equivalent}`'
+        sections.append(
+            '## Equivalence\n\n'
+            f'- **`owl:equivalentClass`**: {target}\n'
+        )
     if children:
         sections.append(
             '## Subclasses\n\n'
@@ -271,19 +332,21 @@ def class_page(name: str, schema: dict, classes: dict, slots: dict) -> str:
 
 def property_page(name: str, schema: dict, classes: dict, slots: dict) -> str:
     slot = slots[name]
+
+    if is_deprecated(slot or {}):
+        return deprecated_property_page(name, slot, classes, schema, slots)
+
     desc = (slot.get('description') or '').strip()
     domains = slot_domains(slot)
     rng = slot.get('range', '')
     obj = is_object_range(slot, classes)
     inverse = slot.get('inverse')
 
-    by_domain = defaultdict(list)
-    for d in domains:
-        by_domain[d].append(name)
-
     # Classes that expose this property, directly or by inheritance.
     exposed: list[str] = []
     for cname in classes:
+        if is_deprecated((classes.get(cname) or {})):
+            continue
         if name in all_slots_of(cname, classes, slots):
             exposed.append(cname)
     exposed.sort()
@@ -341,24 +404,200 @@ def property_page(name: str, schema: dict, classes: dict, slots: dict) -> str:
     )
 
 
+def deprecated_class_page(name: str, cls: dict, classes: dict) -> str:
+    """A stub for a deprecated class.
+
+    Exists so a legacy `dfc-b:Enterprise` in someone's data, or an inbound
+    link, lands on something that explains itself. Deliberately short: this
+    is a tombstone, not documentation of something you should use.
+    """
+    equivalent = (cls or {}).get('equivalent_to')
+    lines = [
+        f'# {name} (deprecated)',
+        '',
+        '!!! warning',
+        '',
+        f'    **`{name}` is deprecated and should not be used in new data.**',
+        '',
+    ]
+    if equivalent:
+        local = equivalent.split(':')[-1]
+        if local in classes:
+            lines += [
+                f'    It is equivalent to '
+                f'[`{local}`]({slug(local)}.md) under `owl:equivalentClass`, '
+                'which is what the DFC v2.0.0 ontology asserts.',
+            ]
+        else:
+            lines += [
+                f'    It is equivalent to `{equivalent}` under '
+                '`owl:equivalentClass`, which is what the DFC v2.0.0 '
+                'ontology asserts.',
+            ]
+    else:
+        lines += [
+            '    The DFC ontology does not record a replacement for it.',
+        ]
+    lines += [
+        '',
+        '## Reading legacy data',
+        '',
+    ]
+    if equivalent:
+        local = equivalent.split(':')[-1]
+        if local in classes:
+            lines += [
+                f'Importing a document that uses `{name}` still works. The '
+                'connectors map the legacy type onto '
+                f'`{local}` automatically, so a document written against an '
+                'older DFC version loads without rewriting:',
+                '',
+                '```typescript',
+                f'const [org] = c.import({{ "@id": "https://example.org/o/1", "@type": "dfc-b:{name}" }});',
+                f'org.semanticType;  // "dfc-b:{local}"',
+                '```',
+                '',
+                'This is one-way. You cannot export a `' + name + '`.',
+            ]
+        else:
+            lines.append(
+                f'Importing a document that uses `{name}` maps it to '
+                f'`{equivalent}` on the way in.'
+            )
+    else:
+        lines.append(
+            f'The connectors still accept `{name}` on import. There is no '
+            'automatic mapping, so check what you get back.'
+        )
+    lines += [
+        '',
+        '## Reference',
+        '',
+        f'- Predicate: `dfc-b:{name}`',
+    ]
+    if (cls or {}).get('is_a'):
+        lines.append(f'- Subclass of: `{cls["is_a"]}`')
+    lines += [
+        f'- Source: [`owl:deprecated` in the DFC '
+        f'{schema_version_note()}]',
+        '',
+    ]
+    return '\n'.join(lines)
+
+
+def schema_version_note() -> str:
+    return 'v2.0.0 ontology'
+
+
+def deprecated_property_page(name: str, slot: dict, classes: dict,
+                             schema: dict, slots: dict) -> str:
+    """A stub for a deprecated slot.
+
+    Two of the seven are not obvious: `quantity` and `country` collide with
+    `has_quantity` and `has_country`, so a reader who reaches this page
+    needs to know the non-deprecated spelling.
+    """
+    desc = (slot.get('description') or '').strip()
+    domains = slot_domains(slot)
+    rng = slot.get('range', '')
+    inverse = slot.get('inverse')
+    lines = [
+        f'# {name} (deprecated)',
+        '',
+        '!!! warning',
+        '',
+        f'    **`{name}` is deprecated and should not be used in new data.**',
+        '',
+        '    The DFC ontology does not assert a replacement for it.',
+    ]
+    lines += [
+        '',
+        '## Definition',
+        '',
+        f'- **Predicate**: `{predicate_for(name, slot)}`',
+        f'- **Range**: `{rng}`',
+    ]
+    if inverse:
+        lines.append(f'- **Inverse**: `{inverse}`')
+    if domains:
+        lines += [
+            '- **Declared domain**: '
+            + ', '.join(f'`{d}`' for d in sorted(domains)),
+        ]
+    if desc and not desc.lower().endswith(':' + name.lower()):
+        # The ontology's own rdfs:comment is sometimes just "DEPRECATE",
+        # which says nothing the warning above does not.
+        if desc.lower() not in ('deprecate', 'deprecated'):
+            # The ontology sometimes names a replacement in prose rather
+            # than in an axiom. `uses` says "Use `refersTo` instead" -- but
+            # `refersTo` is itself deprecated, so the chain dead-ends and
+            # saying only the first hop would be misleading.
+            m = re.search(r'[Uu]se\s+`?(\w+)`?\s+instead', desc)
+            if m:
+                named = m.group(1)
+                # The prose names the OWL local name; the schema keys on
+                # snake_case, so resolve through the alias.
+                target = named
+                for sname, sdata in slots.items():
+                    if named in (sdata.get('aliases') or []):
+                        target = sname
+                        break
+                named_dep = is_deprecated(slots.get(target) or {})
+                target_link = (f'[`{target}`]({slug(target)}.md)'
+                               if target in slots else f'`{named}`')
+                lines += ['', '## Replacement', '',
+                          f'The DFC ontology says to use {target_link} instead.']
+                if named_dep:
+                    lines += [
+                        '',
+                        f'**`{target}` is also deprecated.** The ontology '
+                        'offers no live replacement for either, so this slot '
+                        'has no current equivalent in DFC v2.0.0.',
+                    ]
+            else:
+                lines += ['', '## Description', '', desc]
+    lines += [
+        '',
+        '## Note',
+        '',
+        'The connectors still accept this predicate on import and will '
+        'round-trip it. Excluding it from the reference is about not '
+        'pointing new work at a deprecated property, not about it being '
+        'unreadable.',
+        '',
+    ]
+    return '\n'.join(lines)
+
+
 def property_index_page(schema: dict, slots: dict, classes: dict) -> str:
+    live = live_slots(slots)
+    dep = sorted(deprecated_slots(slots))
     rows = ['| Property | Predicate | Range | Kind |',
             '|---|---|---|---|']
-    for name in sorted(slots):
-        slot = slots[name]
+    for name in sorted(live):
+        slot = live[name]
         kind = 'object' if is_object_range(slot, classes) else 'literal'
         rows.append(
             f'| [`{name}`]({slug(name)}.md) '
             f'| `{predicate_for(name, slot)}` '
             f'| `{slot.get("range", "")}` | {kind} |'
         )
+    dep_note = ''
+    if dep:
+        dep_links = ', '.join(f'[`{n}`]({slug(n)}.md)' for n in dep)
+        dep_note = (
+            f'\n## Deprecated ({len(dep)})\n\n'
+            'Not listed above, and removed from every class page. Each still '
+            'has a page saying so:\n\n'
+            f'{dep_links}\n'
+        )
     return f"""# DFC properties
 
-All {len(slots)} slots in the schema, generated. "Object" properties point at
+{len(live)} slots in the schema, generated. "Object" properties point at
 another DFC class; "literal" ones carry a scalar.
 
 {chr(10).join(rows)}
-"""
+{dep_note}"""
 
 
 def enum_page(name: str, schema: dict, concepts: list[dict]) -> str:

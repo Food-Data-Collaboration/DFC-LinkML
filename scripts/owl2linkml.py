@@ -217,6 +217,8 @@ def get_data_properties(g: Graph, skip_properties: set[str] = None) -> dict[str,
             "description": description or f"Data property from OWL: {name}",
             "namespace": _namespace_of(prop),
         }
+        if _is_deprecated(g, prop):
+            props[name]["deprecated"] = True
     return props
 
 
@@ -242,6 +244,8 @@ def get_object_properties(g: Graph, skip_properties: set[str] = None, skip_class
             "description": description or f"Object property from OWL: {name}",
             "namespace": _namespace_of(prop),
         }
+        if _is_deprecated(g, prop):
+            props[name]["deprecated"] = True
     return props
 
 
@@ -419,6 +423,120 @@ def _get_description(g: Graph, entity: URIRef) -> Optional[str]:
     return None
 
 
+def _is_deprecated(g: Graph, entity: URIRef) -> bool:
+    """True when the entity carries owl:deprecated.
+
+    The DFC ontology annotates 8 subjects this way (Enterprise and seven
+    properties). The annotation was previously unreachable because
+    `deprecated` is in the default skip list -- that list is about not
+    emitting an OWL *property* called `deprecated`, which is a different
+    thing from reading the annotation off a class or property.
+    """
+    for value in g.objects(entity, OWL.deprecated):
+        # The ontology uses xsd:boolean true; some annotations are present
+        # but empty, which still means "deprecated".
+        if value is None:
+            return True
+        if str(value).strip().lower() in ("", "true", "1"):
+            return True
+    return False
+
+
+def get_deprecated_classes(g: Graph, skip_classes: set[str] = None) -> set[str]:
+    """Classes carrying owl:deprecated, by local name."""
+    if skip_classes is None:
+        skip_classes = DEFAULT_SKIP_CLASSES
+    out: set[str] = set()
+    for cls in g.subjects(RDF.type, OWL.Class):
+        name = _local_name(cls)
+        if not name or name in skip_classes:
+            continue
+        if _is_deprecated(g, cls):
+            out.add(name)
+    return out
+
+
+def _to_curie(iri: URIRef, prefixes: dict[str, str]) -> str:
+    """Shorten an IRI to a CURIE where a prefix matches, else return it whole.
+
+    Needed because the vCard targets share local names with their DFC
+    counterparts: vcard:Agent and dfc-b:Agent both local-name to "Agent",
+    so keeping only the local name makes the two indistinguishable.
+    """
+    iri_str = str(iri)
+    # Longest prefix first, so a specific prefix wins over a shorter one.
+    for prefix in sorted(prefixes, key=len, reverse=True):
+        base = prefixes[prefix]
+        if base and iri_str.startswith(base):
+            return f"{prefix}:{iri_str[len(base):]}"
+    return iri_str
+
+
+def get_equivalences(
+    g: Graph, skip_classes: set[str] = None, prefixes: dict[str, str] = None,
+    known_class_iris: set[str] = None, deprecated: set[str] = None,
+) -> dict[str, str]:
+    """Map each schema class to the CURIE it is owl:equivalentClass to.
+
+    owl:equivalentClass is symmetric, so the graph holds each pair from both
+    directions, and the vCard alignments are asserted *from the vCard side*:
+    the subject is `vcard:Agent`, the object is `dfc-b:Agent`.
+
+    Membership is decided on the **full IRI**, never the local name.
+    `vcard:Agent` and `dfc-b:Agent` both local-name to "Agent", so a
+    local-name test makes both sides look like schema classes and drops the
+    assertion. That bug cost three of the four mappings before it was caught.
+
+    For each pair, whichever side is a schema class becomes the key. When
+    both sides are (Enterprise ~ Organization) only the deprecated side is a
+    replacement, so the non-deprecated side is not recorded as one.
+
+    The DFC v2.0.0 ontology yields:
+
+      dfc-b:Agent        -> vcard:Agent
+      dfc-b:Organization -> vcard:Organization
+      dfc-b:Person       -> vcard:Individual
+      dfc-b:Enterprise   -> dfc-b:Organization   (the deprecation replacement)
+    """
+    if skip_classes is None:
+        skip_classes = DEFAULT_SKIP_CLASSES
+    if prefixes is None:
+        prefixes = {}
+    if deprecated is None:
+        deprecated = set()
+    if known_class_iris is None:
+        known_class_iris = {
+            str(s) for s in g.subjects(RDF.type, OWL.Class)
+            if _local_name(s) and _local_name(s) not in skip_classes
+        }
+
+    equivalents: dict[str, str] = {}
+    for subject, obj in g.subject_objects(OWL.equivalentClass):
+        sub_iri, obj_iri = str(subject), str(obj)
+        if sub_iri == obj_iri:
+            continue
+        sub_known = sub_iri in known_class_iris
+        obj_known = obj_iri in known_class_iris
+
+        if sub_known and not obj_known:
+            key, target = _local_name(subject), obj_iri
+        elif obj_known and not sub_known:
+            key, target = _local_name(obj), sub_iri
+        elif sub_known and obj_known:
+            # Both are schema classes: record the deprecated one only.
+            sub_name, obj_name = _local_name(subject), _local_name(obj)
+            if sub_name in deprecated and obj_name not in deprecated:
+                key, target = sub_name, obj_iri
+            else:
+                continue
+        else:
+            continue
+        if key in skip_classes:
+            continue
+        equivalents[key] = _to_curie(URIRef(target), prefixes)
+    return equivalents
+
+
 def _get_property(g: Graph, node, prop) -> Optional[object]:
     """Get a single property value."""
     for value in g.objects(node, prop):
@@ -453,6 +571,8 @@ def build_linkml_schema(
     subclass_relations: dict[str, str],
     config: dict,
     inverse_relations: dict[str, str] = None,
+    deprecated_classes: set[str] = None,
+    equivalences: dict[str, str] = None,
 ) -> dict:
     """Build LinkML schema dictionary from config.
     
@@ -512,6 +632,8 @@ def build_linkml_schema(
             "aliases": [prop_name],
             "namespace": prop_info.get("namespace", ""),
         }
+        if prop_info.get("deprecated"):
+            slot_def["deprecated"] = True
         slot_definitions[slot_name] = slot_def
 
     for prop_name, prop_info in obj_props.items():
@@ -525,6 +647,8 @@ def build_linkml_schema(
             "aliases": [prop_name],
             "namespace": prop_info.get("namespace", ""),
         }
+        if prop_info.get("deprecated"):
+            slot_def["deprecated"] = True
         slot_definitions[slot_name] = slot_def
 
     if inverse_relations:
@@ -540,6 +664,12 @@ def build_linkml_schema(
         class_def = {
             "description": description_template.format(class_name=class_name),
         }
+
+        if deprecated_classes and class_name in deprecated_classes:
+            class_def["deprecated"] = True
+
+        if equivalences and class_name in equivalences:
+            class_def["equivalent_to"] = equivalences[class_name]
 
         if class_name in subclass_relations:
             class_def["is_a"] = subclass_relations[class_name]
@@ -751,6 +881,34 @@ def main(
     inverse_relations = get_inverse_relationships(g, skip_properties)
     logger.info(f"Found {len(inverse_relations)} inverse relationships")
 
+    logger.info("Extracting deprecated classes...")
+    deprecated_classes = get_deprecated_classes(g, skip_classes)
+    logger.info(f"Found {len(deprecated_classes)} deprecated classes: "
+                f"{sorted(deprecated_classes)}")
+
+    # Prefixes are needed to render equivalence targets as CURIEs, so read
+    # them before the equivalence pass.
+    eq_prefixes = dict(config.get("prefixes", {}))
+    if "vcard" not in eq_prefixes:
+        eq_prefixes["vcard"] = "http://www.w3.org/2006/vcard/ns#"
+
+    logger.info("Extracting class equivalences (owl:equivalentClass)...")
+    # The DFC file also declares the vCard classes it imports, so
+    # `rdf:type owl:Class` alone includes both sides of every alignment.
+    # Restrict to the DFC ontology namespaces to get one side.
+    dfc_namespaces = {
+        eq_prefixes.get("dfc-b", ""), eq_prefixes.get("dfc-t", ""),
+    } - {""}
+    known_iris = {
+        str(s) for s in g.subjects(RDF.type, OWL.Class)
+        if any(str(s).startswith(ns) for ns in dfc_namespaces)
+        and _local_name(s) in classes
+    }
+    equivalences = get_equivalences(
+        g, skip_classes, eq_prefixes, known_iris, deprecated_classes,
+    )
+    logger.info(f"Found {len(equivalences)} equivalences: {equivalences}")
+
     config["ontology_version"] = ontology_version
     config["taxonomy_version"] = taxonomy_version
     if "id" not in config:
@@ -763,6 +921,8 @@ def main(
         subclass_relations,
         config,
         inverse_relations,
+        deprecated_classes,
+        equivalences,
     )
 
     if output is None:

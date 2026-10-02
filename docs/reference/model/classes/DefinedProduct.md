@@ -15,7 +15,7 @@ Class from DFC Business Ontology: #DefinedProduct
 
 [`FunctionalProduct`](../classes/FunctionalProduct.md), [`SuppliedProduct`](../classes/SuppliedProduct.md), [`TechnicalProduct`](../classes/TechnicalProduct.md), [`Variant`](../classes/Variant.md)
 
-## Properties (31)
+## Properties (29)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
@@ -26,9 +26,7 @@ Class from DFC Business Ontology: #DefinedProduct
 | [`has_percentage_of_alcohol_by_volume`](../properties/has_percentage_of_alcohol_by_volume.md) | `dfc-b:hasPercentageOfAlcoholByVolume` | `float` | literal | this class |
 | [`lifetime`](../properties/lifetime.md) | `dfc-b:lifetime` | `float` | literal | this class |
 | [`physical_characteristics`](../properties/physical_characteristics.md) | `dfc-b:physicalCharacteristics` | `string` | literal | this class |
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | this class |
 | [`specific_condition`](../properties/specific_condition.md) | `dfc-b:specificCondition` | `string` | literal | this class |
-| [`composes`](../properties/composes.md) | `dfc-b:composes` | `string` | literal | this class |
 | [`consumed_by`](../properties/consumed_by.md) | `dfc-b:consumedBy` | `string` | literal | this class |
 | [`has_allergen_characteristic`](../properties/has_allergen_characteristic.md) | `dfc-b:hasAllergenCharacteristic` | `string` | literal | this class |
 | [`has_brand`](../properties/has_brand.md) | `dfc-b:hasBrand` | `string` | literal | this class |

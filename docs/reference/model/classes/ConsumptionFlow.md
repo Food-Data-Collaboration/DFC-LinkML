@@ -15,11 +15,10 @@ Class from DFC Business Ontology: #ConsumptionFlow
 
 [`AsPlannedConsumptionFlow`](../classes/AsPlannedConsumptionFlow.md), [`AsPlannedLocalConsumptionFlow`](../classes/AsPlannedLocalConsumptionFlow.md), [`AsRealizedConsumptionFlow`](../classes/AsRealizedConsumptionFlow.md)
 
-## Properties (4)
+## Properties (3)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | this class |
 | [`consumes`](../properties/consumes.md) | `dfc-b:consumes` | `string` | literal | this class |
 | [`has_quantity`](../properties/has_quantity.md) | `dfc-b:hasQuantity` | `QuantitativeValue` | object | this class |
 | [`input_of`](../properties/input_of.md) | `dfc-b:inputOf` | `string` | literal | this class |

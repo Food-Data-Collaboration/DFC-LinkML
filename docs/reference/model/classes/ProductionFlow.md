@@ -15,11 +15,10 @@ Class from DFC Business Ontology: #ProductionFlow
 
 [`AsPlannedLocalProductionFlow`](../classes/AsPlannedLocalProductionFlow.md), [`AsPlannedProductionFlow`](../classes/AsPlannedProductionFlow.md), [`AsRealizedProductionFlow`](../classes/AsRealizedProductionFlow.md)
 
-## Properties (4)
+## Properties (3)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | this class |
 | [`has_quantity`](../properties/has_quantity.md) | `dfc-b:hasQuantity` | `QuantitativeValue` | object | this class |
 | [`output_of`](../properties/output_of.md) | `dfc-b:outputOf` | `string` | literal | this class |
 | [`produces`](../properties/produces.md) | `dfc-b:produces` | `string` | literal | this class |

@@ -11,9 +11,13 @@ Class from DFC Business Ontology: #Agent
 - **JSON-LD type**: `dfc-b:Agent`
 - **Hierarchy**: `Who_Subject` → `Agent`
 
+## Equivalence
+
+- **`owl:equivalentClass`**: `vcard:Agent`
+
 ## Subclasses
 
-[`Enterprise`](../classes/Enterprise.md), [`Organization`](../classes/Organization.md), [`Person`](../classes/Person.md)
+[`Organization`](../classes/Organization.md), [`Person`](../classes/Person.md)
 
 ## Properties (12)
 

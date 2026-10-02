@@ -1,26 +1,22 @@
-# composed_of
+# composed_of (deprecated)
 
-[← all properties](index.md)
+!!! warning
+
+    **`composed_of` is deprecated and should not be used in new data.**
+
+    The DFC ontology does not assert a replacement for it.
+
+## Definition
+
+- **Predicate**: `dfc-b:composedOf`
+- **Range**: `string`
+- **Inverse**: `composes`
+- **Declared domain**: `Ingredient`
 
 ## Description
 
 Cette propriété représente la composition d'un produit défini par un ensemble d'ingrédients.
 
-## Definition
+## Note
 
-- **Predicate**: `dfc-b:composedOf`
-- **Range**: `string` (literal)
-- **Inverse**: `composes`
-
-## Declared domain
-
-[`Ingredient`](../classes/Ingredient.md)
-
-## Available on (1)
-
-[`Ingredient`](../classes/Ingredient.md)
-
-## Notes
-
-- Declared on 1 class(es) in the ontology, but inherited by 1. The connectors place a slot on every root class when its domain names no schema class, so it is available everywhere.
-- The schema records no `required` or `multivalued` flag for this slot.
+The connectors still accept this predicate on import and will round-trip it. Excluding it from the reference is about not pointing new work at a deprecated property, not about it being unreadable.

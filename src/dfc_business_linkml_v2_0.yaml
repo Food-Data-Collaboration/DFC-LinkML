@@ -6,6 +6,7 @@ version: 2.0.0
 prefixes:
   dfc-b: https://w3id.org/dfc/ontology/v2.0.0/src/DFC_BusinessOntology.owl#
   dfc-t: https://w3id.org/dfc/ontology/v2.0.0/src/DFC_TechnicalOntology.owl#
+  vcard: http://www.w3.org/2006/vcard/ns#
   linkml: https://w3id.org/linkml/
 imports:
 - linkml:types
@@ -26,6 +27,7 @@ classes:
     - has_country
   Agent:
     description: 'Class from DFC Business Ontology: #Agent'
+    equivalent_to: vcard:Agent
     is_a: Who_Subject
     slots:
     - email
@@ -207,6 +209,8 @@ classes:
     is_a: Step
   Enterprise:
     description: 'Class from DFC Business Ontology: #Enterprise'
+    deprecated: true
+    equivalent_to: dfc-b:Organization
     is_a: Agent
   Feature:
     description: 'Class from DFC Business Ontology: #Feature'
@@ -303,6 +307,7 @@ classes:
     - part_of
   Organization:
     description: 'Class from DFC Business Ontology: #Organization'
+    equivalent_to: vcard:Organization
     is_a: Agent
     slots:
     - vat_number
@@ -328,6 +333,7 @@ classes:
     - paid_with
   Person:
     description: 'Class from DFC Business Ontology: #Person'
+    equivalent_to: vcard:Individual
     is_a: Agent
     slots:
     - family_name
@@ -844,6 +850,7 @@ slots:
     aliases:
     - country
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    deprecated: true
   country_code:
     description: The international dialling code for the country where the phone number is registered
     range: string
@@ -1148,6 +1155,7 @@ slots:
     aliases:
     - quantity
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    deprecated: true
   refrigerated:
     description: Defines if the parent class supports or requires refrigeration to a safe temperature to maintain refrigerated products (typically 0-5°C).
     range: boolean
@@ -1403,6 +1411,7 @@ slots:
     aliases:
     - composedOf
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    deprecated: true
     inverse: composes
   composes:
     description: DEPRECATE
@@ -1412,6 +1421,7 @@ slots:
     aliases:
     - composes
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    deprecated: true
     inverse: composed_of
   concerned_by:
     description: Any/All Order Lines that relate to this Product
@@ -2561,6 +2571,7 @@ slots:
     aliases:
     - refersTo
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    deprecated: true
   represented_by:
     description: 'Object property from OWL: representedBy'
     range: PhysicalProduct
@@ -2720,6 +2731,7 @@ slots:
     aliases:
     - suppliesTo
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    deprecated: true
   to:
     description: 'Object property from OWL: to'
     range: Agent
@@ -2819,6 +2831,7 @@ slots:
     aliases:
     - uses
     namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    deprecated: true
   d_f_c__technical_ontology__object_property:
     description: 'Object property from OWL: DFC_TechnicalOntology_ObjectProperty'
     range: string

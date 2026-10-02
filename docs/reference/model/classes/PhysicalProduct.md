@@ -11,12 +11,11 @@ Class from DFC Business Ontology: #PhysicalProduct
 - **JSON-LD type**: `dfc-b:PhysicalProduct`
 - **Hierarchy**: `What_Subject` → `PhysicalProduct`
 
-## Properties (11)
+## Properties (10)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
 | [`image`](../properties/image.md) | `dfc-b:Image` | `uri` | literal | this class |
-| [`quantity`](../properties/quantity.md) | `dfc-b:quantity` | `float` | literal | this class |
 | [`concerned_by`](../properties/concerned_by.md) | `dfc-b:concernedBy` | `string` | literal | this class |
 | [`constitued_by`](../properties/constitued_by.md) | `dfc-b:constituedBy` | `string` | literal | this class |
 | [`consumed_by`](../properties/consumed_by.md) | `dfc-b:consumedBy` | `string` | literal | this class |

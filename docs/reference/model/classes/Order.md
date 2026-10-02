@@ -11,7 +11,7 @@ Class from DFC Business Ontology: #Order
 - **JSON-LD type**: `dfc-b:Order`
 - **Hierarchy**: `Order`
 
-## Properties (12)
+## Properties (11)
 
 | Property | Predicate | Range | Kind | Defined on |
 |---|---|---|---|---|
@@ -26,7 +26,6 @@ Class from DFC Business Ontology: #Order
 | [`ordered_by`](../properties/ordered_by.md) | `dfc-b:orderedBy` | `Agent` | object | this class |
 | [`selects`](../properties/selects.md) | `dfc-b:selects` | `ShippingOption` | object | this class |
 | [`sold_by`](../properties/sold_by.md) | `dfc-b:soldBy` | `string` | literal | this class |
-| [`uses`](../properties/uses.md) | `dfc-b:uses` | `string` | literal | this class |
 
 ## Notes
 
