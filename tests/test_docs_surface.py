@@ -104,7 +104,9 @@ def test_conformance_report_says_what_it_does_not_cover():
 def test_entry_point_links_every_top_level_section():
     text = read(ENTRY)
     for target in (
+        'getting-started/index.md',
         'getting-started/hello-dfc.md',
+        'conformance.md',
         'guides/index.md',
         'concepts/index.md',
         'reference/model/index.md',

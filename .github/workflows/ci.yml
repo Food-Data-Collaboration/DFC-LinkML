@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install pytest pyyaml click rdflib
-      - run: python -m pytest tests/test_owl2linkml.py tests/test_jsr_score.py tests/test_packagist_manifest.py tests/test_release_versioning.py tests/test_model_reference.py tests/test_concepts_docs.py tests/test_docs_surface.py tests/test_php_property_naming.py tests/test_publish_workflows.py tests/test_deprecation.py tests/test_cardinality.py -m "not integration" -q
+      - run: python -m pytest tests/test_owl2linkml.py tests/test_jsr_score.py tests/test_packagist_manifest.py tests/test_release_versioning.py tests/test_model_reference.py tests/test_concepts_docs.py tests/test_docs_surface.py tests/test_docs_site.py tests/test_package_denylists.py tests/test_php_property_naming.py tests/test_publish_workflows.py tests/test_deprecation.py tests/test_cardinality.py -m "not integration" -q
       # php-connector/vendor is needed by the packagist tests: they run
       # `composer validate` and execute the PHP README snippets.
       - uses: shivammathur/setup-php@v2
@@ -101,6 +101,21 @@ jobs:
       - run: npm install && npm run build
         working-directory: typescript-connector
       - run: python -m pytest tests/conformance -q
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # mkdocs.yml is the nav for the published site: a nav entry naming a
+      # page that does not exist is a broken link on the front page, and a new
+      # docs/ directory that nothing points at is invisible. `--strict` fails
+      # the first; tests/test_docs_surface.py covers the second.
+      - run: pip install mkdocs mkdocs-material
+      - run: python3 scripts/generate_all.py --steps reference
+      - run: make docs-check
       # Needs all three runtimes: checks that every scenario param survives
       # into each LinkML connector's export. The matrix cannot see a connector
       # that emits nothing, so this is the only guard against a stale adapter.

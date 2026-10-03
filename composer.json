@@ -32,6 +32,7 @@
             "/Makefile",
             "/config",
             "/docs",
+            "/docs-site",
             "/scripts",
             "/shacl",
             "/src",

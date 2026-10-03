@@ -603,6 +603,9 @@ def generate_root_composer_json(schema_data: dict) -> str:
                 "/Makefile",
                 "/config",
                 "/docs",
+                # MkDocs site build: the hook that rewrites relative links for
+                # the site. Not needed to consume a generated connector.
+                "/docs-site",
                 "/scripts",
                 "/shacl",
                 "/src",
