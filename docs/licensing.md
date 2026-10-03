@@ -6,7 +6,7 @@ DFC-LinkML is licensed under two terms, split along the generator boundary.
 
 | | Licence | Where |
 |---|---|---|
-| The LinkML codebase | **AGPLv3** | root [`LICENSE`](../LICENSE) |
+| The LinkML codebase | **AGPLv3** | root [`LICENSE`](https://github.com/Food-Data-Collaboration/DFC-LinkML/blob/main/LICENSE) |
 | The generated connectors | **MIT** | beside each connector's code |
 
 The **codebase** covers everything that produces or verifies the connectors:

@@ -44,3 +44,7 @@ agents.md
 .opencode
 *_pycache_*
 tests/node_modules/
+
+# Built documentation site (Phase 5). The sources under docs/ are committed;
+# the rendered HTML is not. site_dir in mkdocs.yml.
+site/

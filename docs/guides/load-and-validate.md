@@ -134,7 +134,7 @@ In rough order of value:
 3. **Your own business rules.** Prices positive, dates ordered, references
    resolvable.
 4. **SHACL**, if you need cross-node constraints. The shapes are in `shacl/`;
-   see [validation](../concepts/validation.md#3-shacl--implemented).
+   see [validation](../concepts/validation.md#3-shacl-implemented).
 
 A minimal guard, before you trust an import:
 

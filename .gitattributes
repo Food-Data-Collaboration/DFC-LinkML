@@ -37,6 +37,7 @@
 /README.md              export-ignore
 /config/                export-ignore
 /docs/                  export-ignore
+/docs-site/             export-ignore
 /scripts/               export-ignore
 /shacl/                 export-ignore
 /src/                   export-ignore
