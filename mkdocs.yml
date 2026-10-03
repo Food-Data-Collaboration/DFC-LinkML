@@ -1,0 +1,123 @@
+# MkDocs + Material build of docs/ -> the docs. subdomain (Phase 5).
+#
+# docs/ stays the single source of truth and is written as GitHub-native
+# Markdown. Two things make that work without editing 2400 links:
+#
+#   docs-site/hooks.py  strips the .md extension at build time, so the committed
+#                       Markdown keeps working when read on GitHub.
+#   this nav            is the only place the page order is declared, which is
+#                       why it is hand-maintained rather than generated: the
+#                       generated model reference has 350+ pages that belong
+#                       under a section index, not as individual nav entries.
+#
+# Strict is on: a build should fail on a broken internal reference rather than
+# shipping a dead link. That is the same guarantee
+# tests/test_docs_surface.py::test_all_links_in_docs_resolve gives on GitHub.
+site_name: DFC LinkML SDK
+site_description: >-
+  TypeScript, Ruby and PHP connectors for the Data Food Consortium standard,
+  generated from the DFC LinkML schema.
+site_url: https://docs.siol-data.org.uk/
+repo_url: https://github.com/Food-Data-Collaboration/DFC-LinkML
+repo_name: Food-Data-Collaboration/DFC-LinkML
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+site_dir: site
+strict: true
+
+# The subdomain, committed so Pages serves it. The DNS record is maintained by
+# hand outside the repository.
+# cname: docs.siol-data.org.uk
+
+hooks:
+  - docs-site/hooks.py
+
+validation:
+  links:
+    # MkDocs resolves a relative href against the SOURCE tree. Every link the
+    # hook rewrites is relative to the OUTPUT tree instead, so this check
+    # reports ~2400 of them as unrecognised and all 2400 are false.
+    #
+    # Dropped to `ignore` (DEBUG), the documented level for this exact message,
+    # rather than silenced with a logging filter -- so it survives a MkDocs
+    # upgrade. `not_found` stays at its default of ERROR, so a genuinely missing
+    # target still fails: that is the check that matters, and it is enforced
+    # again independently by scripts/check_site_links.py against the built HTML.
+    unrecognized_links: ignore
+
+theme:
+  name: material
+  features:
+    # 350+ generated reference pages: search is the only way to navigate them.
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Overview: getting-started/index.md
+      - Hello DFC: getting-started/hello-dfc.md
+      - JSON-LD round trip: getting-started/jsonld-roundtrip.md
+  - Guides:
+      - Overview: guides/index.md
+      - Build a catalog: guides/build-a-catalog.md
+      - Read and validate JSON-LD: guides/load-and-validate.md
+      - Handle identifiers: guides/handle-identifiers.md
+      - Work offline: guides/work-offline.md
+  - Concepts:
+      - Overview: concepts/index.md
+      - Identifiers: concepts/identifiers.md
+      - Relationships: concepts/relationships.md
+      - Cardinality: concepts/cardinality.md
+      - Context and versioning: concepts/context-and-versioning.md
+      - Vocabularies: concepts/vocabularies.md
+      - Validation: concepts/validation.md
+  - Conformance: conformance.md
+  - Reference:
+      - Model reference: reference/model/index.md
+      - API reference: reference/api/index.md
+  - SDK development:
+      - SDK contract: sdk-contract.md
+      - Architecture: architecture.md
+      - Generation: generation.md
+      - Migration guide: migration-guide.md
+      - TypeScript API gaps: api-gaps-typescript.md
+      - Ruby API gaps: api-gaps-ruby.md
+      - Licensing: licensing.md
+      - Documentation plan: sdk-doc-plan.md

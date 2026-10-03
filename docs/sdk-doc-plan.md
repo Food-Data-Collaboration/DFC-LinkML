@@ -52,11 +52,29 @@ scratch.
   can't cover cheaply.
 - Conformance report page (fixtures × connectors matrix, auto-updated).
 
-## Phase 5 — Publish + version
+## Phase 5 — Publish
 
-GitHub Pages deploy on merge; versioned docs per SDK release (2.0.x line
-first); changelog wired to releases; README slimmed to install + first
-example.
+MkDocs + Material site on a `docs.` subdomain (GitHub Pages), deployed on
+merge to `main`.
+
+The work is not the config, it is the links: the docs carry 2400+ relative
+`.md` hrefs that render on GitHub and break under MkDocs, which wants the
+extension stripped. Converted by a generator step rather than
+find-and-replace, so hand-written pages and generated ones stay in step, and
+`test_all_links_in_docs_resolve` moves with them.
+
+CNAME for the subdomain is committed; the DNS record is maintained by hand
+outside the repo.
+
+## Phase 6 — Version + release
+
+Versioned docs per SDK release (2.0.x line first); changelog wired to
+releases; README slimmed to install + first example.
+
+Deliberately deferred rather than forgotten. Versioning is the expensive part:
+it means capturing the ~350 generated model pages per tag and re-publishing on
+every release, so it wants a published site to version first and a release
+cadence worth versioning to.
 
 ## Sequencing logic
 

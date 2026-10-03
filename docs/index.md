@@ -84,7 +84,8 @@ meaning. Do not compare exported documents byte-for-byte — the
 
 === "I am new here"
 
-    Start with [hello-dfc](getting-started/hello-dfc.md), then the
+    Start with the [getting started overview](getting-started/index.md), then
+    [hello-dfc](getting-started/hello-dfc.md) and the
     [JSON-LD round trip](getting-started/jsonld-roundtrip.md). Together they
     are about five minutes and cover construct, export, and import.
 

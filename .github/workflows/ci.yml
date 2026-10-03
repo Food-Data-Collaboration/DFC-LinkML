@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install pytest pyyaml click rdflib
-      - run: python -m pytest tests/test_owl2linkml.py tests/test_jsr_score.py tests/test_packagist_manifest.py tests/test_release_versioning.py tests/test_model_reference.py tests/test_concepts_docs.py tests/test_docs_surface.py tests/test_php_property_naming.py tests/test_publish_workflows.py tests/test_deprecation.py tests/test_cardinality.py -m "not integration" -q
+      - run: python -m pytest tests/test_owl2linkml.py tests/test_jsr_score.py tests/test_packagist_manifest.py tests/test_release_versioning.py tests/test_model_reference.py tests/test_concepts_docs.py tests/test_docs_surface.py tests/test_docs_site.py tests/test_package_denylists.py tests/test_php_property_naming.py tests/test_publish_workflows.py tests/test_deprecation.py tests/test_cardinality.py -m "not integration" -q
       # php-connector/vendor is needed by the packagist tests: they run
       # `composer validate` and execute the PHP README snippets.
       - uses: shivammathur/setup-php@v2
@@ -108,3 +108,23 @@ jobs:
       # LinkML-only subset: the full --verify-drop-in includes
       # ours->original pairs with known upstream v2 gaps (see PR #17).
       - run: python tests/cross_connector/run_matrix.py our-typescript our-ruby our-php
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # mkdocs.yml is the nav for the published site: a nav entry naming a
+      # page that does not exist is a broken link on the front page, and a new
+      # docs/ directory that nothing points at is invisible. `--strict` fails
+      # the first; tests/test_docs_surface.py covers the second.
+      - run: pip install mkdocs mkdocs-material pyyaml
+      # Only the reference step: the generated model pages and the conformance
+      # report have to exist before the site is built. This needs no connector
+      # runtime -- the report reports "not run" for a missing one rather than
+      # failing, which is right for a local build but not for the site, which
+      # sets up node, ruby and php in deploy-docs.yml.
+      - run: python3 scripts/generate_all.py --steps reference
+      - run: make docs-check

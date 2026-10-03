@@ -1,0 +1,90 @@
+name: Deploy docs site
+
+# Phase 5 of docs/sdk-doc-plan.md: build docs/ with MkDocs + Material and
+# publish to GitHub Pages on every merge to main.
+#
+# Two gates before deploy, both run by `make docs-check`:
+#
+#   mkdocs build --strict   fails on a WARNING, which covers a nav entry
+#                           pointing at a missing page.
+#   check_site_links.py     resolves every internal href in the built HTML
+#                           against the built tree.
+#
+# The second is not redundant. MkDocs validates a relative link against the
+# *source* tree, so it cannot evaluate a link that is relative to the output
+# tree -- which is every link docs-site/hooks.py rewrites. A site can pass
+# --strict with dead links in it; this is what catches that.
+#
+# The CNAME is deliberately absent. A wrong one makes Pages refuse to serve
+# rather than fall back, so the hostname goes in once the DNS record exists.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never two deploys at once; let the newest queued run win rather than racing.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install mkdocs + material
+        run: pip install mkdocs mkdocs-material
+
+      # The site is generated from the schema, the connector sources and the
+      # conformance fixtures, none of which are on the default branch as
+      # committed output -- docs/reference/ is produced, not stored. Build them
+      # here so the published site matches the commit it claims to describe.
+      - name: Generate reference + conformance pages
+        run: |
+          python3 scripts/generate_all.py \
+            --steps typescript,ruby,php,reference
+
+      # The conformance report imports through each connector, so all three
+      # runtimes have to be present or the page reports "not run" and ships a
+      # table with holes in it.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: dom, mbstring, xmlwriter
+          tools: composer
+      - run: composer dump-autoload
+        working-directory: php-connector
+      - run: npm install && npm run build
+        working-directory: typescript-connector
+
+      - name: Build site and check every link
+        run: make docs-check
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
