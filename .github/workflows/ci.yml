@@ -101,6 +101,13 @@ jobs:
       - run: npm install && npm run build
         working-directory: typescript-connector
       - run: python -m pytest tests/conformance -q
+      # Needs all three runtimes: checks that every scenario param survives
+      # into each LinkML connector's export. The matrix cannot see a connector
+      # that emits nothing, so this is the only guard against a stale adapter.
+      - run: python -m pytest tests/test_cross_connector_adapters.py -q
+      # LinkML-only subset: the full --verify-drop-in includes
+      # ours->original pairs with known upstream v2 gaps (see PR #17).
+      - run: python tests/cross_connector/run_matrix.py our-typescript our-ruby our-php
 
   docs:
     runs-on: ubuntu-latest
@@ -113,13 +120,11 @@ jobs:
       # page that does not exist is a broken link on the front page, and a new
       # docs/ directory that nothing points at is invisible. `--strict` fails
       # the first; tests/test_docs_surface.py covers the second.
-      - run: pip install mkdocs mkdocs-material
+      - run: pip install mkdocs mkdocs-material pyyaml
+      # Only the reference step: the generated model pages and the conformance
+      # report have to exist before the site is built. This needs no connector
+      # runtime -- the report reports "not run" for a missing one rather than
+      # failing, which is right for a local build but not for the site, which
+      # sets up node, ruby and php in deploy-docs.yml.
       - run: python3 scripts/generate_all.py --steps reference
       - run: make docs-check
-      # Needs all three runtimes: checks that every scenario param survives
-      # into each LinkML connector's export. The matrix cannot see a connector
-      # that emits nothing, so this is the only guard against a stale adapter.
-      - run: python -m pytest tests/test_cross_connector_adapters.py -q
-      # LinkML-only subset: the full --verify-drop-in includes
-      # ours->original pairs with known upstream v2 gaps (see PR #17).
-      - run: python tests/cross_connector/run_matrix.py our-typescript our-ruby our-php
