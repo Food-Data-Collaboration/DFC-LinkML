@@ -17,7 +17,7 @@ site_name: DFC LinkML SDK
 site_description: >-
   TypeScript, Ruby and PHP connectors for the Data Food Consortium standard,
   generated from the DFC LinkML schema.
-site_url: https://docs.siol-data.org.uk/
+site_url: https://dfc.docs.sioldata.com/
 repo_url: https://github.com/Food-Data-Collaboration/DFC-LinkML
 repo_name: Food-Data-Collaboration/DFC-LinkML
 edit_uri: edit/main/docs/
@@ -26,9 +26,12 @@ docs_dir: docs
 site_dir: site
 strict: true
 
-# The subdomain, committed so Pages serves it. The DNS record is maintained by
-# hand outside the repository.
-# cname: docs.siol-data.org.uk
+# No `cname:` here on purpose. GitHub Pages ignores a CNAME file when the site
+# is published from a custom Actions workflow and does not require one -- the
+# custom domain is set under Settings > Pages, and the DNS record is maintained
+# by hand outside this repository. site_url above is what this file owns: it
+# drives Material's canonical <link> tags and the sitemap, so it has to match
+# the host the site is actually served from.
 
 hooks:
   - docs-site/hooks.py

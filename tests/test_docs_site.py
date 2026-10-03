@@ -25,6 +25,11 @@ DOCS = REPO / 'docs'
 HOOKS = REPO / 'docs-site' / 'hooks.py'
 CHECKER = REPO / 'scripts' / 'check_site_links.py'
 
+# The host the site is served from. Mirrors the DNS record the project
+# maintains by hand: a CNAME of `dfc.docs` pointing at
+# `food-data-collaboration.github.io`.
+PUBLISHED_HOST = 'dfc.docs.sioldata.com'
+
 
 @pytest.fixture(scope='module')
 def config() -> dict:
@@ -105,24 +110,34 @@ def test_docs_dir_has_no_orphan_directories(config):
         )
 
 
-def test_site_url_is_not_a_placeholder():
-    """site_url has to be the real host, or canonical links and the sitemap lie."""
+def test_site_url_is_the_published_host():
+    """site_url drives Material's canonical links and the sitemap.
+
+    It does not control serving -- with a custom Actions deploy the domain comes
+    from repository settings, and GitHub ignores a `CNAME` file entirely -- so
+    it can silently disagree with the DNS record while every canonical URL on the
+    site points somewhere unresolvable. Pinned to the one host the project
+    publishes on, so it cannot drift back to a guess.
+    """
     config = yaml.safe_load(MKDOCS_YAML.read_text(encoding='utf-8'))
-    site_url = config.get('site_url', '')
-    assert site_url.startswith('https://'), f'site_url must be https, got {site_url!r}'
-    assert 'example' not in site_url, f'site_url still looks like a placeholder: {site_url}'
+    assert config.get('site_url') == f'https://{PUBLISHED_HOST}/', (
+        f'site_url should be https://{PUBLISHED_HOST}/, '
+        f'got {config.get("site_url")!r}'
+    )
 
 
-def test_cname_is_absent_until_the_dns_record_exists():
-    """A wrong CNAME makes Pages refuse to serve rather than fall back.
+def test_no_cname_is_configured():
+    """A `cname:` here would do nothing, and would read as though it did.
 
-    Kept as an explicit test so adding one is a deliberate act with the DNS
-    record already in place, not an accident while tidying the config.
+    GitHub Pages ignores a CNAME file when the site is published from a custom
+    Actions workflow; the custom domain is set under Settings > Pages and the
+    DNS record lives outside this repository. Leaving the key in the config
+    invites someone to believe the file is what serves the site.
     """
     config = yaml.safe_load(MKDOCS_YAML.read_text(encoding='utf-8'))
     assert 'cname' not in config, (
-        'a cname is configured; the DNS record must exist before Pages is '
-        'pointed at a custom domain, and it is maintained outside the repo'
+        'cname has no effect for an Actions deployment; set the domain under '
+        'Settings > Pages instead'
     )
 
 
