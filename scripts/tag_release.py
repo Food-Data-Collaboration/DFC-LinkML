@@ -270,7 +270,7 @@ def main(argv: list[str] | None = None) -> None:
     print(f'\nPushed {version}.')
     print('  jsr.io: publish-jsr.yml fires on the scoped tag')
     print('  packagist: reads v%s from the tag (seconds, via webhook)' % version)
-    print('  RubyGems: not published; tag is in place when it is')
+    print('  RubyGems: publish-rubygems.yml fires on the v tag (gem push)')
 
 
 def set_manifest_version(version: str) -> None:
