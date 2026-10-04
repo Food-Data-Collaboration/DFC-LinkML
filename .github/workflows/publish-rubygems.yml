@@ -21,12 +21,23 @@ on:
   # file, so an input promising to accept one would be a dead control.
   workflow_dispatch:
 
-permissions:
-  contents: read
+# Least privilege for the token exchange itself; id-token: write is declared on
+# the job that needs it, not here.
+
+permissions: {}
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+
+    # Set per job rather than workflow-wide: id-token: write is what lets the
+    # runner prove its identity to rubygems.org in exchange for a push token, so
+    # it should be granted only to the job that publishes, not to anything else
+    # in this file. RubyGems' docs recommend job level over workflow level for
+    # exactly this reason.
+    permissions:
+      contents: read
+      id-token: write
 
     # The gemspec is at ruby-gem/dfc-linkml-connector.gemspec, not the repo
     # root. Every step below operates on the gem, so the directory is set once
@@ -149,15 +160,41 @@ jobs:
             echo "should_push=true" >> "$GITHUB_OUTPUT"
           fi
 
+      # Traded for a long-lived GEM_HOST_API_KEY after MFA blocked the first attempt:
+      #
+      #   You have enabled multifactor authentication but no OTP code provided.
+      #
+      # That is not a workflow bug. A `gem push` against an MFA-enabled account
+      # needs a one-time code, and an OTP is single-use and short-lived, so no
+      # amount of workflow wiring makes a stored key work. RubyGems' own
+      # announcement of Trusted Publishing describes this as the state it was
+      # built to end: "Until now, MFA has been incompatible with automated gem
+      # pushes."
+      #
+      # Trusted Publishing exchanges the runner's OIDC identity token for a
+      # short-lived push token scoped to this one gem, so there is no long-lived
+      # credential in the repository at all. It also settles gem ownership: the
+      # first successful push of a pending publisher adds the pushing account as
+      # an owner, which is what you want for a name that is still unclaimed.
+      #
+      # Requires a pending trusted publisher on rubygems.org naming this repo,
+      # this workflow file, and the gem -- see docs. No inputs are needed; the
+      # action defaults to trusted-publisher mode when nothing else is supplied.
+      #
+      # Pinned to the exact tag because this action has no moving major ref (only
+      # v1.0.0, v2.0.0, v2.1.0 exist), so `@v2` would not resolve. SHA dc5a8d8 is
+      # stricter still and is what rubygems' docs recommend; bump deliberately.
+      - name: Authenticate to rubygems.org
+        uses: rubygems/configure-rubygems-credentials@v2.1.0
+
+      # No `env:` block here on purpose. The action above exports
+      # GEM_HOST_API_KEY for later steps; setting the variable again from
+      # secrets would shadow the exchanged token with an empty string.
       - name: Push to rubygems.org
         if: steps.already.outputs.should_push == 'true'
-        env:
-          # `gem push` reads GEM_HOST_API_KEY; the secret is named for the
-          # registry so the mapping is explicit rather than implicit.
-          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
         run: |
           if [ -z "${GEM_HOST_API_KEY}" ]; then
-            echo "::error::RUBYGEMS_API_KEY is not set; the tag exists but the gem was never published."
+            echo "::error::no credential after the OIDC exchange; check the trusted publisher on rubygems.org."
             exit 1
           fi
           gem push dfc-linkml-connector-*.gem
