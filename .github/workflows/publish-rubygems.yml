@@ -38,17 +38,23 @@ jobs:
         working-directory: ruby-gem
 
     steps:
-      # On a tag push this is just the tag. Under workflow_dispatch the ref is a
-      # branch, and building from that branch would publish whatever the branch
-      # holds now instead of what the release tag says -- so the newest v* tag is
-      # resolved and checked out instead. Without this, dispatching from a branch
-      # that has moved on would publish a version number under the wrong code,
-      # and gem versions cannot be taken back.
+      # The release tag has to be resolved before the tree can be checked out,
+      # but resolving needs the repository's refs -- so this first checkout
+      # exists purely to fetch them. Without it `git tag --list` runs against an
+      # empty workspace and finds nothing.
       #
-      # fetch-depth 0 is required for the tag list: the default shallow checkout
-      # fetches no tags, so the resolution below would find nothing.
+      # fetch-depth 0 is required for that tag list: the default shallow checkout
+      # fetches no tags.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # cwd is the workspace root, not the job default: ruby-gem/ does not exist
+      # until a tree is checked out, so the default cannot apply to this step.
+      # Tag resolution is a git-level concern and belongs at the root regardless.
       - name: Resolve the release tag
         id: release
+        working-directory: ${{ github.workspace }}
         run: |
           case "$GITHUB_REF" in
             refs/tags/*)
@@ -65,10 +71,12 @@ jobs:
           esac
           echo "tag=${tag}" >> "$GITHUB_OUTPUT"
 
+      # Re-checkout at the resolved tag. This is what makes workflow_dispatch
+      # safe: the ref a dispatch arrives on is a branch, and publishing from it
+      # would ship whatever the branch holds rather than what the tag says.
       - uses: actions/checkout@v4
         with:
           ref: ${{ steps.release.outputs.tag }}
-          fetch-depth: 0
 
       - uses: ruby/setup-ruby@v1
         with:
