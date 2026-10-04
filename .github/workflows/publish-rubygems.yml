@@ -1,0 +1,125 @@
+name: Publish Ruby gem
+
+# Publishes dfc-linkml-connector to rubygems.org on a `v*` tag.
+#
+# RubyGems is the one registry here that is not derived from the tag alone: it
+# needs a credentialed `gem push`, so unlike packagist (which reads the git tag
+# via webhook) this job has to run. It therefore cannot be folded into the
+# jsr publish path, which fires on the scoped `@siol-data/linkml-connector@*`
+# tag -- a different tag from the `v*` one this listens to.
+#
+# Unlike packagist's notify step, a failure here is fatal by design. A tag that
+# exists but was never pushed is a released-looking version with no artifact,
+# and gem versions are immutable, so the number is spent. Failing loudly is the
+# only way to notice.
+on:
+  push:
+    tags:
+      - 'v*'
+  # The recovery path for a failed tag publish. There is deliberately no input
+  # for supplying a prebuilt gem: workflow_dispatch cannot receive an uploaded
+  # file, so an input promising to accept one would be a dead control.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          # rubygems is the point of this job, so it is pinned rather than
+          # inherited: an unpinned major could change push semantics under us.
+          rubygems: 'latest'
+
+      # The gem is built from the tagged tree. Regenerating it here would publish
+      # whatever the generator produces today rather than what the tag says, so
+      # the committed .gemspec is used verbatim.
+      - name: Build the gem
+        run: gem build dfc-linkml-connector.gemspec
+
+      # Guards the release invariant that config/dfc-release.yaml's sdk_version is
+      # the single source of truth: a tag whose gemspec disagrees was pushed
+      # against a tree that was never bumped, and publishing it would put a
+      # version number on rubygems.org that nothing else in the repo claims.
+      #
+      # Skipped on workflow_dispatch, where GITHUB_REF_NAME is the branch rather
+      # than a tag -- comparing "main" to "2.0.6" would fail every manual run,
+      # which is exactly the path needed to recover a failed tag publish.
+      - name: Check the built version matches the tag
+        run: |
+          built=$(gem spec dfc-linkml-connector-*.gem version 2>/dev/null | head -1)
+          echo "building dfc-linkml-connector ${built}"
+          case "$GITHUB_REF" in
+            refs/tags/*)
+              tag_version="${GITHUB_REF#refs/tags/v}"
+              if [ "$tag_version" != "$built" ]; then
+                echo "::error::tag is ${GITHUB_REF#refs/tags/} but the gemspec builds ${built}"
+                exit 1
+              fi
+              echo "tag and gemspec agree on ${built}"
+              ;;
+          esac
+
+      # rubygems.org refuses to overwrite an existing version, so finding one
+      # means the tag was pushed before. That is reported as a skip rather than a
+      # failure: the usual cause is a re-run of a workflow that already published,
+      # and failing would report a broken release for a healthy one.
+      #
+      # The API 404s for an unclaimed gem, so a non-2xx means "not published"
+      # rather than an error to retry -- checked explicitly instead of leaning on
+      # `curl -f` short-circuiting, which reads as an accident.
+      #
+      # The decision is handed to the later steps as an output because `exit 0`
+      # only ends *this* step: every `run:` is its own process, so exiting here
+      # would still run the push and fail on the immutable version.
+      - name: Check the version is not already published
+        id: already
+        run: |
+          version=$(gem spec dfc-linkml-connector-*.gem version 2>/dev/null | head -1)
+          published=$(curl -sS -o /tmp/versions.json -w '%{http_code}' \
+            "https://rubygems.org/api/v1/versions/dfc-linkml-connector.json" || echo 000)
+          if [ "$published" = "200" ] && grep -q "\"number\":\"${version}\"" /tmp/versions.json; then
+            echo "::warning::dfc-linkml-connector ${version} is already on rubygems.org; skipping."
+            echo "should_push=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "dfc-linkml-connector ${version} is not published (API HTTP ${published}); will push."
+            echo "should_push=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push to rubygems.org
+        if: steps.already.outputs.should_push == 'true'
+        env:
+          # `gem push` reads GEM_HOST_API_KEY; the secret is named for the
+          # registry so the mapping is explicit rather than implicit.
+          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: |
+          if [ -z "${GEM_HOST_API_KEY}" ]; then
+            echo "::error::RUBYGEMS_API_KEY is not set; the tag exists but the gem was never published."
+            exit 1
+          fi
+          gem push dfc-linkml-connector-*.gem
+
+      # Confirms the artifact is actually served, which is not the same as the
+      # push having exited 0 -- propagation is not immediate and an owner
+      # mismatch surfaces here rather than at the user's install.
+      - name: Confirm it is served
+        if: steps.already.outputs.should_push == 'true'
+        run: |
+          version=$(gem spec dfc-linkml-connector-*.gem version 2>/dev/null | head -1)
+          for attempt in 1 2 3 4 5 6; do
+            if curl -fsS "https://rubygems.org/api/v1/versions/dfc-linkml-connector.json" \
+               | grep -q "\"number\":\"${version}\""; then
+              echo "rubygems.org serves dfc-linkml-connector ${version}"
+              exit 0
+            fi
+            echo "attempt ${attempt}/6: ${version} not visible yet, waiting 30s"
+            sleep 30
+          done
+          echo "::error::pushed ${version} but rubygems.org is not serving it yet"
+          exit 1
