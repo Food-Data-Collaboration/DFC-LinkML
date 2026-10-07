@@ -1495,11 +1495,12 @@ tomato = DfcLinkmlConnector::Models::SuppliedProduct.new(
 )
 
 # Export to JSON-LD
-puts connector.export(tomato)
+jsonld = connector.export(tomato)
+puts jsonld
 
-# Import from JSON-LD
-data = File.read("export.json")
-objects = connector.import(data)
+# Import it back. import() raises on input that is not valid JSON, so a broken
+# document surfaces as an exception rather than an empty array.
+objects = connector.import(jsonld)
 ```
 
 ## Architecture

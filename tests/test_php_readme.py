@@ -133,16 +133,26 @@ def test_readme_snippets_execute(tmp_path):
             bodies.append(check)
         bodies.append('\n'.join(lines))
 
-    # The first snippet ends with `echo $connector->export(...)`; capture it
-    # into pytest's tmp dir so the import block has a file to read, rather
-    # than writing into the repository.
+    # The snippets run with cwd=REPO, so the round-trip block's file write and
+    # read are redirected into pytest's tmp dir to keep the repo clean. The
+    # README round-trips correctly on its own when copy-pasted; this only
+    # relocates the file it touches.
+    #
+    # This used to rewrite block 0's `echo $connector->export(...)` into a
+    # file_put_contents instead, which masked a real defect: block 1 read
+    # org.jsonld, which no snippet ever wrote, and import() coercing the
+    # resulting empty string to [] kept the test green. Fixing import() to raise
+    # on unparseable JSON (issue #36) turned that into a visible failure, so the
+    # README was made self-consistent instead of patched around.
     export_file = tmp_path / 'export.jsonld'
-    bodies[0] = bodies[0].replace(
-        'echo $connector->export($org, $carrots);',
-        f"file_put_contents('{export_file}', $connector->export($org, $carrots));",
-    )
     bodies = [
-        b.replace('file_get_contents(\'org.jsonld\')', f"file_get_contents('{export_file}')")
+        b.replace(
+            "file_put_contents('org.jsonld'",
+            f"file_put_contents('{export_file}'",
+        ).replace(
+            "file_get_contents('org.jsonld')",
+            f"file_get_contents('{export_file}')",
+        )
         for b in bodies
     ]
 
