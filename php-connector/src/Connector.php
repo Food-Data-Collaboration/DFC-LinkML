@@ -816,14 +816,38 @@ class Connector
         return json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 
-    // Import JSON-LD (array or JSON string) and return SemanticObject
-    // instances — always an array, even for a single @graph entry.
-    // Resolves @id references within the same document (shallow).
+    /**
+     * Import JSON-LD (array or JSON string) and return SemanticObject
+     * instances — always an array, even for a single @graph entry.
+     * Resolves @id references within the same document (shallow).
+     *
+     * An empty array means the document parsed but held no DFC nodes. It never
+     * means the input was unreadable: a string that is not valid JSON, or is
+     * valid JSON but not an object or array, throws. That distinction is the
+     * point — without it a caller cannot tell a broken payload from a document
+     * with nothing in it, and a malformed POST becomes a silent no-op.
+     *
+     * The TypeScript and Ruby connectors raise on the same inputs; this keeps
+     * the three in step rather than giving PHP a quieter failure mode.
+     *
+     * @param array<string,mixed>|string $data A JSON string, or an already-parsed document.
+     * @return list<SemanticObject> One instance per recognised node; empty if none were recognised.
+     * @throws \JsonException If a string argument is unparseable, or parses to a non-document.
+     */
     public function import(array|string $data): array
     {
         if (is_string($data)) {
-            $decoded = json_decode($data, true);
-            $data = is_array($decoded) ? $decoded : [];
+            // Without JSON_THROW_ON_ERROR, json_decode() returns null on a
+            // syntax error, so the is_array() test below would quietly rewrite
+            // malformed input into an empty document. That was issue #36.
+            $decoded = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+            if (!is_array($decoded)) {
+                throw new \JsonException(sprintf(
+                    'import() expects a JSON object or array, got %s',
+                    get_debug_type($decoded)
+                ));
+            }
+            $data = $decoded;
         }
         $entries = $data['@graph'] ?? [$data];
         // A single top-level object without @graph arrives wrapped above;

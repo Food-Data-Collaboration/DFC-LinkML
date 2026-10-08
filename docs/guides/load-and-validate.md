@@ -22,8 +22,26 @@ shape of the return, so you never need to special-case it:
 |---|---|
 | One node, no `@graph` | 1-element array |
 | One node in a `@graph` | 1-element array |
-| Many nodes | N-element array |
-| Empty | empty array |
+| A list of nodes | N-element array |
+| A parsed document with no DFC nodes | empty array |
+| A string that is not valid JSON | **throws** |
+
+The last two rows are different failures and it is worth being precise about
+which is which. An empty array always means *the document was readable and held
+nothing we recognise*. Unreadable input never produces an empty array — it
+throws a `JsonException` in PHP, a `SyntaxError` in TypeScript, and a
+`JSON::ParserError` in Ruby:
+
+```typescript
+try {
+  const objects = c.import(requestBody);
+} catch {
+  // The payload was not JSON at all. Nothing was ingested.
+}
+```
+
+If you are forwarding a request body straight into `import()`, catch that. A
+malformed payload otherwise becomes a silent no-op that still returns 2xx.
 
 ## Identify nodes by `@id`
 

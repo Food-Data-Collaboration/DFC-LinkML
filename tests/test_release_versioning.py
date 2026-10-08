@@ -121,16 +121,31 @@ def test_bump_maths():
 
 
 def test_show_reports_a_consistent_state():
-    """`--show` exits nonzero when something has drifted, so it is a check."""
+    """Manifests must always agree with `sdk_version`.
+
+    The exit code additionally goes nonzero once the current release's tags
+    exist, because `--show` refuses to move an immutable tag. That is the
+    correct post-release steady state -- it went red on main the moment 2.0.6 was
+    tagged -- so rc is only asserted as "zero before tagging, nonzero because of
+    existing tags after". Manifest drift is the invariant that must hold
+    unconditionally, and is checked separately.
+    """
     r = subprocess.run(
         [sys.executable, 'scripts/tag_release.py', '--show'],
         cwd=REPO, capture_output=True, text=True,
     )
-    assert r.returncode == 0, (
-        f'release state is inconsistent, --show exited {r.returncode}:\n'
-        f'{r.stdout}{r.stderr}'
-    )
     assert 'OUT OF SYNC' not in r.stdout, r.stdout
+
+    if 'already exists' in r.stdout:
+        assert r.returncode == 1, (
+            f'tags already exist, so --show should exit 1 for that reason alone, '
+            f'not {r.returncode}:\n{r.stdout}{r.stderr}'
+        )
+    else:
+        assert r.returncode == 0, (
+            f'no tags exist yet, so --show should exit 0 but exited '
+            f'{r.returncode}:\n{r.stdout}{r.stderr}'
+        )
 
 
 def test_dry_run_changes_nothing():

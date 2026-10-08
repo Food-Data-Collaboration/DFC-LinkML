@@ -46,6 +46,12 @@ a URL, and predicates use their original short form (`dfc-b:name`, not
 ## Importing
 
 ```php
+// Persist, then read back — the usual shape when a resource server forwards a
+// stored document into import(). import() throws if the text is not valid JSON,
+// so an unreadable file surfaces here rather than coming back as [].
+$jsonld = $connector->export($org, $carrots);
+file_put_contents('org.jsonld', $jsonld);
+
 $objects = $connector->import(file_get_contents('org.jsonld'));
 
 foreach ($objects as $object) {
