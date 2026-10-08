@@ -26,7 +26,7 @@ dfc_taxonomy_version: "2.0.0"
 #   @siol-data/linkml-connector@X.Y.Z   jsr.io     (publish-jsr.yml trigger)
 #   vX.Y.Z                              packagist  (composer require)
 #   vX.Y.Z                              RubyGems   (gem install, once published)
-sdk_version: "2.0.6"
+sdk_version: "2.0.7"
 
 ontology:
   business_url: "https://w3id.org/dfc/ontology/v2.0.0/src/DFC_BusinessOntology.rdf"
