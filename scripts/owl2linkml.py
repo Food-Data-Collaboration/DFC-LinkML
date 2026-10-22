@@ -690,10 +690,16 @@ def build_linkml_schema(
         "enums": {},
     }
     
+    # LinkML's SchemaDefinition has no version keys beyond `version`, so the
+    # ontology and taxonomy versions ride as annotations. Top-level keys make
+    # the schema unloadable by LinkML tooling; see issue #49.
+    version_annotations = {}
     if config.get("ontology_version"):
-        schema["ontology_version"] = ontology_version
+        version_annotations["ontology_version"] = ontology_version
     if config.get("taxonomy_version"):
-        schema["taxonomy_version"] = taxonomy_version
+        version_annotations["taxonomy_version"] = taxonomy_version
+    if version_annotations:
+        schema["annotations"] = version_annotations
     
     taxonomy_enums_config = config.get("taxonomy_enums", {})
     if taxonomy_enums_config:
@@ -709,7 +715,9 @@ def build_linkml_schema(
             "range": prop_info["range"],
             "domain": prop_info.get("domain", []),
             "aliases": [prop_name],
-            "namespace": prop_info.get("namespace", ""),
+            # `namespace` is not a LinkML SlotDefinition field; a top-level key
+            # makes the schema unloadable by LinkML tooling (issue #49).
+            "annotations": {"namespace": prop_info.get("namespace", "")},
         }
         if prop_info.get("deprecated"):
             slot_def["deprecated"] = True
@@ -724,7 +732,9 @@ def build_linkml_schema(
             "range": prop_info["range"],
             "domain": prop_info.get("domain", []),
             "aliases": [prop_name],
-            "namespace": prop_info.get("namespace", ""),
+            # `namespace` is not a LinkML SlotDefinition field; a top-level key
+            # makes the schema unloadable by LinkML tooling (issue #49).
+            "annotations": {"namespace": prop_info.get("namespace", "")},
         }
         if prop_info.get("deprecated"):
             slot_def["deprecated"] = True
@@ -781,7 +791,9 @@ def build_linkml_schema(
             class_def["deprecated"] = True
 
         if equivalences and class_name in equivalences:
-            class_def["equivalent_to"] = equivalences[class_name]
+            # `equivalent_to` is not a LinkML ClassDefinition field; the
+            # owl:equivalentClass target rides as an annotation (issue #49).
+            class_def.setdefault("annotations", {})["equivalent_to"] = equivalences[class_name]
 
         if class_name in subclass_relations:
             class_def["is_a"] = subclass_relations[class_name]
@@ -852,12 +864,22 @@ def fix_class_references(schema: dict) -> None:
 
 def build_taxonomy_enums(taxonomy_enums_config: dict, taxonomy_version: str, taxonomy_base: str) -> dict:
     """Build enum definitions with reachable_from pointing to SKOS taxonomy files.
-    
+
+    `reachable_from` carries only fields LinkML's ``ReachabilityQuery`` defines,
+    so the schema stays loadable by LinkML tooling. Project metadata about how
+    concepts are collected goes in ``annotations`` instead.
+
+    Upstream ``skos:hasTopConcept`` is deliberately *not* described as a
+    navigation path. It lists only the top concepts (6 of 237 facets, 0 of 6
+    scopes), while the connectors load every ``skos:Concept`` in the graph and
+    key it on ``skos:notation``. A path would misdescribe the mechanism; see
+    issue #49.
+
     Args:
         taxonomy_enums_config: Dict of enum configs from config file
         taxonomy_version: Version string for taxonomy
         taxonomy_base: Base URL for taxonomy files (should be without /v{version})
-        
+
     Returns:
         Dict of enum definitions
     """
@@ -868,15 +890,15 @@ def build_taxonomy_enums(taxonomy_enums_config: dict, taxonomy_version: str, tax
         description = config.get("description", f"Values from {key} taxonomy")
         source_path = config.get("source_path", f"{key}.json")
         source_class = config.get("source_class", "Concept")
-        path_navigation = config.get("path_navigation", "skos:hasTopConcept/*")
-        
+
         source_url = f"{versioned_base}/{source_path}"
         enums[enum_name] = {
             "description": description,
             "reachable_from": {
                 "source_ontology": source_url,
+            },
+            "annotations": {
                 "source_class": source_class,
-                "path_navigation": path_navigation,
             },
         }
     return enums

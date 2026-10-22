@@ -10,22 +10,32 @@ reach you, and what happens if you leave them alone.
 | Vocabulary | Used for | Bundled concepts |
 |---|---|---|
 | [`Facet`](../reference/model/Facet.md) | what a product is characterised by | 237 |
-| [`Measure`](../reference/model/Measure.md) | units of quantity | ~200 |
-| [`ProductType`](../reference/model/ProductType.md) | what kind of product | ~700 |
-| [`Scope`](../reference/model/Scope.md) | geographic or thematic scope | ~30 |
-| [`VocabularyTerm`](../reference/model/VocabularyTerm.md) | generic terms | ~50 |
+| [`Measure`](../reference/model/Measure.md) | units of quantity | 128 |
+| [`ProductType`](../reference/model/ProductType.md) | what kind of product | 510 |
+| [`Scope`](../reference/model/Scope.md) | authorisation scopes the DPM assigns to a platform | 6 |
+| [`VocabularyTerm`](../reference/model/VocabularyTerm.md) | generic terms | 43 |
 
 None of these values are in the LinkML schema. The schema records only
-*where* each vocabulary lives, through `reachable_from`:
+*where* each vocabulary lives, through `reachable_from`, plus how concepts are
+collected in an `annotations` block:
 
 ```yaml
 Facet:
   description: Classification facets for categorizing DFC entities.
   reachable_from:
     source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/facets.json
+  annotations:
     source_class: Concept
-    path_navigation: skos:hasTopConcept/*
 ```
+
+`reachable_from` may only carry the fields LinkML's own `ReachabilityQuery`
+defines, so anything project-specific sits in `annotations` — otherwise the
+schema stops loading in LinkML tooling.
+
+There is deliberately no `path_navigation`. The connectors do not walk
+`skos:hasTopConcept`: that predicate names only the *top* concepts (6 of 237
+facets, and none at all for `Scope`), while the generators load every
+`skos:Concept` in the graph and key it on `skos:notation`.
 
 The distinction matters when you read the generated
 [model reference](../reference/model/index.md): a property whose range is a

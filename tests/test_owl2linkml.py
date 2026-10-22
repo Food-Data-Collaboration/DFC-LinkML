@@ -135,8 +135,11 @@ class TestOWLImport:
         )
 
         assert schema["version"] == "2.0.0"
-        assert schema["ontology_version"] == "2.0.0"
-        assert schema["taxonomy_version"] == "2.0.0"
+        # Versions ride as annotations: LinkML's SchemaDefinition has no
+        # ontology_version/taxonomy_version fields, and a top-level key makes
+        # the schema unloadable by LinkML tooling (issue #49).
+        assert schema["annotations"]["ontology_version"] == "2.0.0"
+        assert schema["annotations"]["taxonomy_version"] == "2.0.0"
         assert len(classes) > 50
         assert len(data_props) > 50
         assert len(obj_props) > 100

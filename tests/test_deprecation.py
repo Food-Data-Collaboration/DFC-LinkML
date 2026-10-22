@@ -53,6 +53,15 @@ def schema() -> dict:
         return yaml.safe_load(fh)
 
 
+def equivalence(cls: dict):
+    """`owl:equivalentClass` rides as an annotation; see issue #49.
+
+    `equivalent_to` is not a LinkML `ClassDefinition` field, so keeping it
+    top-level made the schema unloadable by LinkML tooling.
+    """
+    return (cls.get('annotations') or {}).get('equivalent_to')
+
+
 # ---------------------------------------------------------------------------
 # Converter
 # ---------------------------------------------------------------------------
@@ -72,8 +81,8 @@ def test_schema_records_deprecated_slots():
 def test_schema_records_all_four_equivalences():
     """Regression: local-name comparison dropped three of the four."""
     s = schema()
-    got = {n: c['equivalent_to'] for n, c in s['classes'].items()
-           if c.get('equivalent_to')}
+    got = {n: equivalence(c) for n, c in s['classes'].items()
+           if equivalence(c)}
     assert got == EXPECTED_EQUIVALENCES, f'equivalences: {got}'
 
 
@@ -84,7 +93,7 @@ def test_equivalences_are_full_curies():
     prefix.
     """
     s = schema()
-    for name, target in ((n, c.get('equivalent_to'))
+    for name, target in ((n, equivalence(c))
                          for n, c in s['classes'].items()):
         if not target:
             continue
@@ -98,7 +107,7 @@ def test_enterprise_replacement_is_sourced_not_inferred():
     s = schema()
     ent = s['classes']['Enterprise']
     assert ent.get('deprecated') is True
-    assert ent.get('equivalent_to') == 'dfc-b:Organization'
+    assert equivalence(ent) == 'dfc-b:Organization'
     # And the target must be a live class.
     org = s['classes']['Organization']
     assert not org.get('deprecated'), 'Organization is the replacement'
@@ -130,9 +139,9 @@ def test_vcard_individual_does_not_become_an_equivalence_of_individual():
     `Individual -> vcard:Individual`, which is a different and wrong claim.
     """
     s = schema()
-    assert s['classes']['Person']['equivalent_to'] == 'vcard:Individual'
+    assert equivalence(s['classes']['Person']) == 'vcard:Individual'
     # The real Individual class carries no equivalence.
-    assert not s['classes']['Individual'].get('equivalent_to'), (
+    assert not equivalence(s['classes']['Individual']), (
         'Individual must not be recorded as equivalent to vcard:Individual; '
         'it is the Person class that is'
     )
