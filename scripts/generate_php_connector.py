@@ -26,7 +26,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cardinality  # noqa: E402
+import preserve  # noqa: E402
 import schema_meta  # noqa: E402
+
+# Hand-written trees inside src/ that regeneration must not touch. PSR-4 maps
+# `DataFoodConsortium\Connector\` to src/, so src/Auth/ is where the Auth
+# namespace lives (issue #42).
+PRESERVED_SRC_SUBTREES = ('Auth', 'Dpm')
 
 # Publish identity, shared with the TypeScript and Ruby packages.
 PACKAGIST_PACKAGE_NAME = "siol-data/dfc-connector"
@@ -1589,6 +1595,10 @@ def main():
             if f.is_file():
                 preserved_tests[str(f.relative_to(output_dir))] = f.read_text(encoding='utf-8')
 
+    # Explicit allow-list, never "keep anything unrecognised" — see
+    # scripts/preserve.py. src/ is otherwise fully regenerated.
+    preserved_src = preserve.stash(src_dir, PRESERVED_SRC_SUBTREES)
+
     if src_dir.exists():
         import shutil
         shutil.rmtree(src_dir)
@@ -1667,6 +1677,12 @@ def main():
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(content, encoding='utf-8')
         print(f"  - {len(preserved_tests)} preserved test files", file=sys.stderr)
+
+    if preserved_src.subtrees:
+        count = preserved_src.file_count
+        names = ', '.join(preserved_src.subtrees)
+        preserved_src.restore()
+        print(f"  - {count} hand-written src files preserved ({names})", file=sys.stderr)
 
     print(f"\nPHP connector generated in: {output_dir}/", file=sys.stderr)
     print(f"To install: cd {output_dir} && composer install", file=sys.stderr)

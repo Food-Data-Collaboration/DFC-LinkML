@@ -23,7 +23,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cardinality  # noqa: E402
+import preserve  # noqa: E402
 import schema_meta  # noqa: E402
+
+# Trees inside src/ that regeneration must not touch. `context/` and
+# `taxonomies/` are hand-maintained JSON-LD/SKOS exports that generated code
+# imports; `auth/` and `dpm/` are hand-written runtime code (issue #42).
+PRESERVED_SRC_SUBTREES = ('context', 'taxonomies', 'auth', 'dpm')
 
 
 def parse_schema(schema_path: str) -> dict:
@@ -1506,19 +1512,9 @@ def main():
     output_dir = Path(args.output) if args.output else Path("typescript-connector")
     src_dir = output_dir / 'src'
 
-    # Preserve bundled context/taxonomy files (src/context/, src/taxonomies/)
-    # across regeneration. They are hand-maintained SKOS exports / JSON-LD
-    # contexts, not produced from the LinkML schema, but generated core files
-    # import them at build time.
-    preserved_bundled = {}
-    if src_dir.exists():
-        for sub in ('context', 'taxonomies'):
-            base = src_dir / sub
-            if base.exists():
-                for f in base.glob('*'):
-                    if f.is_file():
-                        rel = f.relative_to(src_dir)
-                        preserved_bundled[str(rel)] = f.read_text(encoding='utf-8')
+    # Preserve hand-written and bundled trees across regeneration. Explicit
+    # allow-list, never "keep anything unrecognised" — see scripts/preserve.py.
+    preserved = preserve.stash(src_dir, PRESERVED_SRC_SUBTREES)
 
     # Only clean src/ directory, preserve static files (package.json, tsconfig.json, etc.)
     if src_dir.exists():
@@ -1566,12 +1562,11 @@ def main():
     print("  - src/index.ts", file=sys.stderr)
 
     print("\nRestoring bundled files...", file=sys.stderr)
-    if preserved_bundled:
-        for rel, content in sorted(preserved_bundled.items()):
-            target = src_dir / rel
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(content, encoding='utf-8')
-        print(f"  - {len(preserved_bundled)} bundled files preserved (context + taxonomies)", file=sys.stderr)
+    if preserved.subtrees:
+        count = preserved.file_count
+        names = ', '.join(preserved.subtrees)
+        preserved.restore()
+        print(f"  - {count} files preserved ({names})", file=sys.stderr)
 
     print(f"\nTypeScript connector generated in: {output_dir}/", file=sys.stderr)
     print(f"To build: cd {output_dir} && npm install && npm run build", file=sys.stderr)
