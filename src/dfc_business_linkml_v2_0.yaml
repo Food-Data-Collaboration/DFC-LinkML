@@ -27,7 +27,8 @@ classes:
     - has_country
   Agent:
     description: 'Class from DFC Business Ontology: #Agent'
-    equivalent_to: vcard:Agent
+    annotations:
+      equivalent_to: vcard:Agent
     is_a: Who_Subject
     slots:
     - email
@@ -254,7 +255,8 @@ classes:
   Enterprise:
     description: 'Class from DFC Business Ontology: #Enterprise'
     deprecated: true
-    equivalent_to: dfc-b:Organization
+    annotations:
+      equivalent_to: dfc-b:Organization
     is_a: Agent
   Feature:
     description: 'Class from DFC Business Ontology: #Feature'
@@ -382,7 +384,8 @@ classes:
         maximum_cardinality: 1
   Organization:
     description: 'Class from DFC Business Ontology: #Organization'
-    equivalent_to: vcard:Organization
+    annotations:
+      equivalent_to: vcard:Organization
     is_a: Agent
     slots:
     - vat_number
@@ -419,7 +422,8 @@ classes:
         maximum_cardinality: 1
   Person:
     description: 'Class from DFC Business Ontology: #Person'
-    equivalent_to: vcard:Individual
+    annotations:
+      equivalent_to: vcard:Individual
     is_a: Agent
     slots:
     - family_name
@@ -777,7 +781,8 @@ slots:
     - Value_RECUR
     aliases:
     - byday
-    namespace: http://www.w3.org/2002/12/cal/icaltzd#
+    annotations:
+      namespace: http://www.w3.org/2002/12/cal/icaltzd#
   bymonth:
     description: 'Data property from OWL: bymonth'
     range: string
@@ -785,7 +790,8 @@ slots:
     - Value_RECUR
     aliases:
     - bymonth
-    namespace: http://www.w3.org/2002/12/cal/icaltzd#
+    annotations:
+      namespace: http://www.w3.org/2002/12/cal/icaltzd#
   dtend:
     description: 'Data property from OWL: dtend'
     range: datetime
@@ -793,7 +799,8 @@ slots:
     - Vevent
     aliases:
     - dtend
-    namespace: http://www.w3.org/2002/12/cal/icaltzd#
+    annotations:
+      namespace: http://www.w3.org/2002/12/cal/icaltzd#
   dtstart:
     description: 'Data property from OWL: dtstart'
     range: datetime
@@ -801,7 +808,8 @@ slots:
     - Vevent
     aliases:
     - dtstart
-    namespace: http://www.w3.org/2002/12/cal/icaltzd#
+    annotations:
+      namespace: http://www.w3.org/2002/12/cal/icaltzd#
   freq:
     description: 'Data property from OWL: freq'
     range: string
@@ -809,7 +817,8 @@ slots:
     - Value_RECUR
     aliases:
     - freq
-    namespace: http://www.w3.org/2002/12/cal/icaltzd#
+    annotations:
+      namespace: http://www.w3.org/2002/12/cal/icaltzd#
   interval:
     description: 'Data property from OWL: interval'
     range: integer
@@ -817,7 +826,8 @@ slots:
     - Value_RECUR
     aliases:
     - interval
-    namespace: http://www.w3.org/2002/12/cal/icaltzd#
+    annotations:
+      namespace: http://www.w3.org/2002/12/cal/icaltzd#
   coordinates:
     description: 'Data property from OWL: coordinates'
     range: string
@@ -825,7 +835,8 @@ slots:
     - Geometry
     aliases:
     - coordinates
-    namespace: https://purl.org/geojson/vocab#
+    annotations:
+      namespace: https://purl.org/geojson/vocab#
     inverse: coordinated_by
   day_of_week:
     description: 'Data property from OWL: dayOfWeek'
@@ -834,7 +845,8 @@ slots:
     - OpeningHoursSpecification
     aliases:
     - dayOfWeek
-    namespace: https://schema.org/
+    annotations:
+      namespace: https://schema.org/
   opens:
     description: 'Data property from OWL: opens'
     range: string
@@ -842,7 +854,8 @@ slots:
     - OpeningHoursSpecification
     aliases:
     - opens
-    namespace: https://schema.org/
+    annotations:
+      namespace: https://schema.org/
   image:
     description: A URL for an image of the Product
     range: uri
@@ -852,7 +865,8 @@ slots:
     - PhysicalProduct
     aliases:
     - Image
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   url:
     description: The Universal Resource Locator address of the virtual place
     range: uri
@@ -861,7 +875,8 @@ slots:
     - VirtualPlace
     aliases:
     - URL
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   vat_number:
     description: Any Tax Registration Number that is applicable to the Enterprise, in the jurisdiction the Enterprise is operating in.
@@ -870,7 +885,8 @@ slots:
     - Organization
     aliases:
     - VATnumber
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   vat_rate:
     description: The Sales Tax (VAT) rate associated with the Price, given as a percentage value from 0-100
@@ -879,7 +895,8 @@ slots:
     - Price
     aliases:
     - VATrate
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   vat_status:
     description: Indicates whether the Enterprise charges VAT or not
@@ -888,7 +905,8 @@ slots:
     - Organization
     aliases:
     - VATstatus
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   accessibility_info:
     description: 'Data property from OWL: accessibilityInfo'
@@ -897,7 +915,8 @@ slots:
     - DeliveryOption
     aliases:
     - accessibilityInfo
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   arrival_date:
     description: 'Data property from OWL: arrivalDate'
     range: datetime
@@ -905,7 +924,8 @@ slots:
     - Step
     aliases:
     - arrivalDate
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   availability_date:
     description: '"The date from which the product is available from the information provider, including seasonal or temporary product and services." (source : GS1 model)'
     range: date
@@ -913,7 +933,8 @@ slots:
     - Stock
     aliases:
     - availabilityDate
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   availability_time:
     description: Lead time for supplying the product.
     range: string
@@ -921,7 +942,8 @@ slots:
     - SuppliedProduct
     aliases:
     - availabilityTime
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   batch_number:
     description: 'Data property from OWL: batchNumber'
     range: string
@@ -929,7 +951,8 @@ slots:
     - ProductBatch
     aliases:
     - batchNumber
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   best_before_date:
     description: '" à consommer de préférence avant le… " : après cette date, le produit peut perdre une partie ou la totalité de ses qualités sans présenter un danger pour la santé : par exemple le café
@@ -939,7 +962,8 @@ slots:
     - ProductBatch
     aliases:
     - bestBeforeDate
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   brand:
     description: Deprecated onto v5.0
     range: string
@@ -947,7 +971,8 @@ slots:
     - DefinedProduct
     aliases:
     - brand
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   certifer_reference:
     description: 'Data property from OWL: certiferReference'
     range: string
@@ -955,7 +980,8 @@ slots:
     - Certfication
     aliases:
     - certiferReference
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     multivalued: true
   certification_score:
     description: 'Data property from OWL: certificationScore'
@@ -964,7 +990,8 @@ slots:
     - Certfication
     aliases:
     - certificationScore
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     multivalued: true
   city:
     description: The postal city (may be a town) that the address is located within
@@ -973,7 +1000,8 @@ slots:
     - Address
     aliases:
     - city
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   claim:
     description: " **Deprecated** \nAny claims of a Product. \n**Deprecated**"
@@ -982,7 +1010,8 @@ slots:
     - DefinedProduct
     aliases:
     - claim
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   closes:
     description: 'Data property from OWL: closes'
@@ -991,7 +1020,8 @@ slots:
     - OpeningHoursSpecification
     aliases:
     - closes
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   cost:
     description: 'Data property from OWL: cost'
     range: float
@@ -1001,7 +1031,8 @@ slots:
     - LocalizedProduct
     aliases:
     - cost
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   country:
     description: The ISO country that the address is located within
@@ -1010,7 +1041,8 @@ slots:
     - Address
     aliases:
     - country
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     deprecated: true
     maximum_cardinality: 1
   country_code:
@@ -1020,7 +1052,8 @@ slots:
     - PhoneNumber
     aliases:
     - countryCode
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   date:
     description: 'Data property from OWL: date'
     range: datetime
@@ -1029,7 +1062,8 @@ slots:
     - DFC_BusinessOntology_Subject
     aliases:
     - date
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   delivery_condition:
     description: Any conditions of carriage/transport required by the product (e.g. Fragile, do not stack)
@@ -1038,7 +1072,8 @@ slots:
     - SuppliedProduct
     aliases:
     - deliveryCondition
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   delivery_constraint:
     description: Any constraints (time or physical) that are applied to the delivery (e.g. "9am-5pm Mon - Fri only", "only deliver after 6pm", or "Delivery to be left in porch")
     range: string
@@ -1046,7 +1081,8 @@ slots:
     - DeliveryOption
     aliases:
     - deliveryConstraint
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   description:
     description: 'Data property from OWL: description'
     range: string
@@ -1054,7 +1090,8 @@ slots:
     - DFC_BusinessOntology_Subject
     aliases:
     - description
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   discount:
     description: Any discount applied to the Price
@@ -1065,7 +1102,8 @@ slots:
     - OrderLine
     aliases:
     - discount
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   duration:
     description: 'Data property from OWL: duration'
     range: string
@@ -1073,7 +1111,8 @@ slots:
     - Step
     aliases:
     - duration
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   email:
     description: email address of the Agent
     range: string
@@ -1081,7 +1120,8 @@ slots:
     - Agent
     aliases:
     - email
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   end_date:
     description: The date/time that the Sales Session ends
@@ -1095,7 +1135,8 @@ slots:
     - ShippingOption
     aliases:
     - endDate
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   enterprise_i_d:
     description: 'Data property from OWL: enterpriseID'
     range: string
@@ -1103,7 +1144,8 @@ slots:
     - Organization
     aliases:
     - enterpriseID
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   expiry_date:
     description: 'Data property from OWL: expiryDate'
@@ -1112,7 +1154,8 @@ slots:
     - ProductBatch
     aliases:
     - expiryDate
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   extra_availability_time:
     description: Additional lead time for catalog item. To be appended to AvailabilityTime
@@ -1121,7 +1164,8 @@ slots:
     - CatalogItem
     aliases:
     - extraAvailabilityTime
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   extra_delivery_condition:
     description: Additional devilery conditions for this item (append to any Devliery Condition set at Product level)
     range: string
@@ -1129,7 +1173,8 @@ slots:
     - CatalogItem
     aliases:
     - extraDeliveryCondition
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   family_name:
     description: Family name or surname of Person
     range: string
@@ -1137,7 +1182,8 @@ slots:
     - Person
     aliases:
     - familyName
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   fee:
     description: The value of any fee associated with the Shipping Option
@@ -1146,7 +1192,8 @@ slots:
     - ShippingOption
     aliases:
     - fee
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   first_name:
     description: First name of Person
@@ -1155,7 +1202,8 @@ slots:
     - Person
     aliases:
     - firstName
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   frozen:
     description: Defines if the parent class supports or requires refrigeration to a safe temperature to maintain frozen products.
@@ -1165,7 +1213,8 @@ slots:
     - Vehicle
     aliases:
     - frozen
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_percentage_of_alcohol_by_volume:
     description: Percentage of Alcohol (by volume) in the Product, expressed as a number in the range 0.00 - 100.00
     range: float
@@ -1173,7 +1222,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasPercentageOfAlcoholByVolume
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   invoice_number:
     description: 'Data property from OWL: invoiceNumber'
     range: string
@@ -1181,7 +1231,8 @@ slots:
     - Transaction
     aliases:
     - invoiceNumber
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   latitude:
     description: numeric latitude of the Address location
@@ -1190,7 +1241,8 @@ slots:
     - Address
     aliases:
     - latitude
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   lifetime:
     description: Lifetime of the product (in days), expressed as a number
@@ -1199,7 +1251,8 @@ slots:
     - DefinedProduct
     aliases:
     - lifetime
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   logo:
     description: URI to logo of Agent
     range: uri
@@ -1207,7 +1260,8 @@ slots:
     - Agent
     aliases:
     - logo
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   longitude:
     description: numeric longitude of the Address location
@@ -1216,7 +1270,8 @@ slots:
     - Address
     aliases:
     - longitude
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   margin_percent:
     description: The percentage margin the coordinating Enterprise is charging as comission for managing the Sales Session (from 0-100%)
@@ -1225,7 +1280,8 @@ slots:
     - Coordination
     aliases:
     - marginPercent
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   max_value:
     description: 'Data property from OWL: maxValue'
@@ -1233,14 +1289,16 @@ slots:
     domain: []
     aliases:
     - maxValue
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   min_value:
     description: 'Data property from OWL: minValue'
     range: string
     domain: []
     aliases:
     - minValue
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   name:
     description: Name of the Enterprise
     range: string
@@ -1248,7 +1306,8 @@ slots:
     - DFC_BusinessOntology_Subject
     aliases:
     - name
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   operator_id:
     description: 'Data property from OWL: operatorId'
@@ -1257,7 +1316,8 @@ slots:
     - Certfication
     aliases:
     - operatorId
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     multivalued: true
   order_number:
     description: The Order Number on the parent platform
@@ -1266,7 +1326,8 @@ slots:
     - Order
     aliases:
     - orderNumber
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   payment_method_provider:
     description: 'Data property from OWL: paymentMethodProvider'
@@ -1275,7 +1336,8 @@ slots:
     - PaymentMethod
     aliases:
     - paymentMethodProvider
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   payment_method_type:
     description: 'Data property from OWL: paymentMethodType'
@@ -1284,7 +1346,8 @@ slots:
     - PaymentMethod
     aliases:
     - paymentMethodType
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   phone_number:
     description: The full phone number (not including any country code)
@@ -1293,7 +1356,8 @@ slots:
     - PhoneNumber
     aliases:
     - phoneNumber
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   physical_characteristics:
     description: " **Deprecated** \nAny Physical Characteristics of a Product. \n**Deprecated**"
     range: string
@@ -1301,7 +1365,8 @@ slots:
     - DefinedProduct
     aliases:
     - physicalCharacteristics
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   postcode:
     description: The code defined by the relevant authority that facilitates mail delivery to that address
     range: string
@@ -1309,7 +1374,8 @@ slots:
     - Address
     aliases:
     - postcode
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   production_date:
     description: 'Data property from OWL: productionDate'
@@ -1318,7 +1384,8 @@ slots:
     - ProductBatch
     aliases:
     - productionDate
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   quantity:
     description: DEPRECATE
@@ -1336,7 +1403,8 @@ slots:
     - Transaction
     aliases:
     - quantity
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     deprecated: true
     maximum_cardinality: 1
   refrigerated:
@@ -1347,7 +1415,8 @@ slots:
     - Vehicle
     aliases:
     - refrigerated
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   region:
     description: The Region (adminstrative district below Country) the Address is located within
     range: string
@@ -1355,7 +1424,8 @@ slots:
     - Address
     aliases:
     - region
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   sku:
     description: Only a general "SKU" id is proposed for now. Agents using GTIN could use GTIN as SKU but other IDs than GTIN can be used.
     range: string
@@ -1363,7 +1433,8 @@ slots:
     - CatalogItem
     aliases:
     - sku
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   specific_condition:
     description: Any specific conditions requried for storage or carriage of the Product
@@ -1372,7 +1443,8 @@ slots:
     - DefinedProduct
     aliases:
     - specificCondition
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   start_date:
     description: The date/time that the Sales Session starts
     range: datetime
@@ -1385,7 +1457,8 @@ slots:
     - ShippingOption
     aliases:
     - startDate
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   stock_limitation:
     description: Any limit on the stock of this particular listing. This ay differ from stock limits on the Product (for example if the Product is listed in multiple catalogues)
     range: float
@@ -1394,7 +1467,8 @@ slots:
     - Offer
     aliases:
     - stockLimitation
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   street:
     description: Street part of the address. May also be referred to as "first line of address" in some locales. Generally includes a street name and building name or number (in any order)
     range: string
@@ -1402,7 +1476,8 @@ slots:
     - Address
     aliases:
     - street
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     maximum_cardinality: 1
   total_theoritical_stock:
     description: 'Data property from OWL: totalTheoriticalStock'
@@ -1411,7 +1486,8 @@ slots:
     - SuppliedProduct
     aliases:
     - totalTheoriticalStock
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   value:
     description: 'Data property from OWL: value'
     range: float
@@ -1420,7 +1496,8 @@ slots:
     - QuantitativeValue
     aliases:
     - value
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   website_page:
     description: DEPRECATE
     range: uri
@@ -1430,7 +1507,8 @@ slots:
     - VirtualPlace
     aliases:
     - websitePage
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     multivalued: true
   rrule:
     description: 'Object property from OWL: rrule'
@@ -1439,28 +1517,32 @@ slots:
     - Vevent
     aliases:
     - rrule
-    namespace: http://www.w3.org/2002/12/cal/icaltzd#
+    annotations:
+      namespace: http://www.w3.org/2002/12/cal/icaltzd#
   broader:
     description: 'Object property from OWL: broader'
     range: string
     domain: []
     aliases:
     - broader
-    namespace: http://www.w3.org/2004/02/skos/core#
+    annotations:
+      namespace: http://www.w3.org/2004/02/skos/core#
   in_scheme:
     description: 'Object property from OWL: inScheme'
     range: string
     domain: []
     aliases:
     - inScheme
-    namespace: http://www.w3.org/2004/02/skos/core#
+    annotations:
+      namespace: http://www.w3.org/2004/02/skos/core#
   narrower:
     description: 'Object property from OWL: narrower'
     range: string
     domain: []
     aliases:
     - narrower
-    namespace: http://www.w3.org/2004/02/skos/core#
+    annotations:
+      namespace: http://www.w3.org/2004/02/skos/core#
   geometry:
     description: 'Object property from OWL: geometry'
     range: Geometry
@@ -1468,7 +1550,8 @@ slots:
     - Feature
     aliases:
     - geometry
-    namespace: https://purl.org/geojson/vocab#
+    annotations:
+      namespace: https://purl.org/geojson/vocab#
   properties:
     description: 'Object property from OWL: properties'
     range: Properties
@@ -1476,21 +1559,24 @@ slots:
     - Feature
     aliases:
     - properties
-    namespace: https://purl.org/geojson/vocab#
+    annotations:
+      namespace: https://purl.org/geojson/vocab#
   d_f_c__business_ontology__object_property:
     description: 'Object property from OWL: DFC_BusinessOntology_ObjectProperty'
     range: string
     domain: []
     aliases:
     - DFC_BusinessOntology_ObjectProperty
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   d_f_c__interface__property:
     description: 'Object property from OWL: DFC_Interface_Property'
     range: string
     domain: []
     aliases:
     - DFC_Interface_Property
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   address_of:
     description: The Agent (Person or Enterprise) or PhysicalPlace that the Address relates to
     range: string
@@ -1498,7 +1584,8 @@ slots:
     - Address
     aliases:
     - addressOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_address
   affiliated_to:
     description: URI of a Person associated with the Enterprise
@@ -1507,7 +1594,8 @@ slots:
     - Agent
     aliases:
     - affiliatedTo
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: affiliates
   affiliates:
     description: Enterprises that the Person is affliated to
@@ -1516,7 +1604,8 @@ slots:
     - Organization
     aliases:
     - affiliates
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: affiliated_to
   allergen_characteristic_of:
     description: 'Object property from OWL: allergenCharacteristicOf'
@@ -1525,7 +1614,8 @@ slots:
     - AllergenCharacteristic
     aliases:
     - allergenCharacteristicOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_allergen_characteristic
   based_at:
     description: 'Object property from OWL: basedAt'
@@ -1534,7 +1624,8 @@ slots:
     - Vehicle
     aliases:
     - basedAt
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   belongs_to:
     description: A Customer (as an Agent) can belong to a particular CustomerCategory as defined by the owning Enterprise
     range: SaleSession
@@ -1542,7 +1633,8 @@ slots:
     - Order
     aliases:
     - belongsTo
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: holds
   brand_of:
     description: 'Object property from OWL: brandOf'
@@ -1551,7 +1643,8 @@ slots:
     - Brand
     aliases:
     - brandOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_brand
   certificate_of:
     description: 'Object property from OWL: certificateOf'
@@ -1560,7 +1653,8 @@ slots:
     - Concept
     aliases:
     - certificateOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_certification
   certifies:
     description: 'Object property from OWL: certifies'
@@ -1569,7 +1663,8 @@ slots:
     - Certfication
     aliases:
     - certifies
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: is_certified_by
   characteristic_of:
     description: 'Object property from OWL: characteristicOf'
@@ -1578,7 +1673,8 @@ slots:
     - DFC_BusinessOntology_Characteristic
     aliases:
     - characteristicOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_characteristic
   claim_of:
     description: 'Object property from OWL: claimOf'
@@ -1587,7 +1683,8 @@ slots:
     - Concept
     aliases:
     - claimOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_claim
   composed_of:
     description: Cette propriété représente la composition d'un produit défini par un ensemble d'ingrédients.
@@ -1596,7 +1693,8 @@ slots:
     - Ingredient
     aliases:
     - composedOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     deprecated: true
     inverse: composes
   composes:
@@ -1606,7 +1704,8 @@ slots:
     - DefinedProduct
     aliases:
     - composes
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     deprecated: true
     inverse: composed_of
   concerned_by:
@@ -1617,7 +1716,8 @@ slots:
     - PhysicalProduct
     aliases:
     - concernedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: concerns
   concerns:
     description: The Product that has been ordered (1 and only 1)
@@ -1627,7 +1727,8 @@ slots:
     - Transaction
     aliases:
     - concerns
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: concerned_by
   constitued_by:
     description: 'Object property from OWL: constituedBy'
@@ -1637,7 +1738,8 @@ slots:
     - PhysicalProduct
     aliases:
     - constituedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: constitutes
     multivalued: true
   constitutes:
@@ -1648,7 +1750,8 @@ slots:
     - TheoriticalStock
     aliases:
     - constitutes
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: constitued_by
   consumed_by:
     description: The ConsmuptionFlow by which the Product is transformed into other Products
@@ -1659,7 +1762,8 @@ slots:
     - PhysicalProduct
     aliases:
     - consumedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: consumes
     multivalued: true
   consumes:
@@ -1669,7 +1773,8 @@ slots:
     - ConsumptionFlow
     aliases:
     - consumes
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: consumed_by
   container_information_of:
     description: 'Object property from OWL: containerInformationOf'
@@ -1678,7 +1783,8 @@ slots:
     - Concept
     aliases:
     - containerInformationOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_container_information
   coordinated_by:
     description: Confirms the Enterprise Coordinates certain SaleSessions, and defines margin %age that the Enterprise takes for managing the SaleSession
@@ -1687,7 +1793,8 @@ slots:
     - Coordination
     aliases:
     - coordinatedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: coordinates
   defined_by:
     description: Determines which Enterprise has defined the CustomerCategory
@@ -1696,7 +1803,8 @@ slots:
     - CustomerCategory
     aliases:
     - definedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: defines
   defines:
     description: Defines any/all categories of Customer utilised by the Enterprise for segmentation (primarily for pricing, potentially also for marketing)
@@ -1705,7 +1813,8 @@ slots:
     - Organization
     aliases:
     - defines
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: defined_by
   delivered_at:
     description: 'Object property from OWL: deliveredAt'
@@ -1714,7 +1823,8 @@ slots:
     - DeliveryOption
     aliases:
     - deliveredAt
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   delivery:
     description: 'Object property from OWL: delivery'
     range: Shipment
@@ -1722,7 +1832,8 @@ slots:
     - Step
     aliases:
     - delivery
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     multivalued: true
   ends_at:
     description: The destination of the Shipment.
@@ -1731,14 +1842,16 @@ slots:
     - Shipment
     aliases:
     - endsAt
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   facet_of:
     description: 'Object property from OWL: facetOf'
     range: string
     domain: []
     aliases:
     - facetOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_facet
   from:
     description: 'Object property from OWL: from'
@@ -1747,7 +1860,8 @@ slots:
     - Transaction
     aliases:
     - from
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   fulfills:
     description: 'Object property from OWL: fulfills'
     range: string
@@ -1755,7 +1869,8 @@ slots:
     - PhysicalProduct
     aliases:
     - fulfills
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: is_fulfilled_by
   geographical_origin_of:
     description: 'Object property from OWL: geographicalOriginOf'
@@ -1764,7 +1879,8 @@ slots:
     - Concept
     aliases:
     - geographicalOriginOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_geographical_origin
   has_address:
     description: Address of Agent
@@ -1774,7 +1890,8 @@ slots:
     - PhysicalPlace
     aliases:
     - hasAddress
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: address_of
     multivalued: true
   has_allergen_characteristic:
@@ -1784,7 +1901,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasAllergenCharacteristic
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: allergen_characteristic_of
     multivalued: true
   has_allergen_dimension:
@@ -1794,7 +1912,8 @@ slots:
     - AllergenCharacteristic
     aliases:
     - hasAllergenDimension
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_brand:
     description: The brand a Product is sold under (Enterprises can market under different Brands, some Brands can be collaborative across Enterprises)
     range: string
@@ -1802,7 +1921,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasBrand
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: brand_of
   has_certification:
     description: SKOS:Concept that details any certification the product holds (e.g. Organic, Biodynamic etc), enumerated in the Facets vocabulary
@@ -1811,7 +1931,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasCertification
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: certificate_of
     maximum_cardinality: 1
   has_characteristic:
@@ -1821,7 +1942,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasCharacteristic
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: characteristic_of
   has_claim:
     description: Any unverified/uncertified claim made by the Product (e.g. "Low Fat", Locally Grow")
@@ -1830,7 +1952,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasClaim
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: claim_of
     multivalued: true
   has_container_information:
@@ -1840,7 +1963,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasContainerInformation
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: container_information_of
   has_country:
     description: 'Object property from OWL: hasCountry'
@@ -1849,7 +1973,8 @@ slots:
     - Address
     aliases:
     - hasCountry
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_dimension:
     description: 'Object property from OWL: hasDimension'
     range: string
@@ -1857,14 +1982,16 @@ slots:
     - DFC_BusinessOntology_Characteristic
     aliases:
     - hasDimension
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_facet:
     description: 'Object property from OWL: hasFacet'
     range: string
     domain: []
     aliases:
     - hasFacet
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: facet_of
     maximum_cardinality: 1
   has_fulfilment_status:
@@ -1874,7 +2001,8 @@ slots:
     - Order
     aliases:
     - hasFulfilmentStatus
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_geo_json_feature:
     description: 'Object property from OWL: hasGeoJsonFeature'
     range: Feature
@@ -1883,7 +2011,8 @@ slots:
     - Route
     aliases:
     - hasGeoJsonFeature
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     multivalued: true
   has_geographical_origin:
     description: 'Object property from OWL: hasGeographicalOrigin'
@@ -1892,7 +2021,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasGeographicalOrigin
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: geographical_origin_of
     maximum_cardinality: 1
   has_ingredient:
@@ -1903,7 +2033,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasIngredient
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: is_ingredient_of
   has_input:
     description: The PlannedConsumptionFlow that is the input of the PlannedTransformation
@@ -1914,7 +2045,8 @@ slots:
     - AsRealizedTransformation
     aliases:
     - hasInput
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: input_of
     multivalued: true
   has_labelling_characteristic:
@@ -1924,7 +2056,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasLabellingCharacteristic
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: labelling_characteristic_of
   has_labelling_dimension:
     description: 'Object property from OWL: hasLabellingDimension'
@@ -1933,7 +2066,8 @@ slots:
     - LabellingCharacteristic
     aliases:
     - hasLabellingDimension
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_main_contact:
     description: The Person, if any, who is a principal contact for this physical location
     range: Person
@@ -1942,7 +2076,8 @@ slots:
     - PhysicalPlace
     aliases:
     - hasMainContact
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: main_contact_of
     multivalued: true
   has_member:
@@ -1952,7 +2087,8 @@ slots:
     - CustomerCategory
     aliases:
     - hasMember
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: is_member_of
   has_nature_origin:
     description: The natural origin of the product, e.g. Plant, Animal
@@ -1961,7 +2097,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasNatureOrigin
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: nature_origin_of
     multivalued: true
   has_nutrient_characteristic:
@@ -1971,7 +2108,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasNutrientCharacteristic
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: nutrient_characteristic_of
     multivalued: true
   has_nutrient_dimension:
@@ -1981,7 +2119,8 @@ slots:
     - NutrientCharacteristic
     aliases:
     - hasNutrientDimension
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_object:
     description: The Sales Session that is subject to the coordination
     range: SaleSession
@@ -1989,7 +2128,8 @@ slots:
     - Coordination
     aliases:
     - hasObject
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: object_of
   has_offer:
     description: 'Object property from OWL: hasOffer'
@@ -1998,7 +2138,8 @@ slots:
     - CustomerCategory
     aliases:
     - hasOffer
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: offers_to
   has_option:
     description: Any (and all) ShippingOptions that are available for the session
@@ -2007,7 +2148,8 @@ slots:
     - SaleSession
     aliases:
     - hasOption
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: option_of
   has_order_status:
     description: The state in which the Order is. See expectations around Order flow controls for further details
@@ -2016,7 +2158,8 @@ slots:
     - Order
     aliases:
     - hasOrderStatus
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_output:
     description: The PlannedProductionFlow that is the output of the PlannedTransformation
     range: string
@@ -2026,7 +2169,8 @@ slots:
     - AsRealizedTransformation
     aliases:
     - hasOutput
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: output_of
     multivalued: true
   has_part:
@@ -2036,7 +2180,8 @@ slots:
     - Order
     aliases:
     - hasPart
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: part_of
     multivalued: true
   has_part_origin:
@@ -2046,7 +2191,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasPartOrigin
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: part_origin_of
     multivalued: true
   has_payment_method:
@@ -2056,7 +2202,8 @@ slots:
     - Order
     aliases:
     - hasPaymentMethod
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: paid_with
   has_payment_status:
     description: The Payment State in which the Order is. See expectations around Order flow controls for further details
@@ -2065,7 +2212,8 @@ slots:
     - Order
     aliases:
     - hasPaymentStatus
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_phone_number:
     description: Phone Number relating to the Agent
     range: string
@@ -2074,7 +2222,8 @@ slots:
     - PhysicalPlace
     aliases:
     - hasPhoneNumber
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: phone_number_of
     multivalued: true
   has_physical_characteristic:
@@ -2084,7 +2233,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasPhysicalCharacteristic
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: physical_characteristic_of
     multivalued: true
   has_physical_dimension:
@@ -2094,7 +2244,8 @@ slots:
     - PhysicalCharacteristic
     aliases:
     - hasPhysicalDimension
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_price:
     description: The offered Price for the Product listed in the CatalogItem for this cateogry of Customer
     range: string
@@ -2105,7 +2256,8 @@ slots:
     - Transaction
     aliases:
     - hasPrice
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: is_price_of
   has_product_option:
     description: 'Object property from OWL: hasProductOption'
@@ -2114,7 +2266,8 @@ slots:
     - VariantCaracteristic
     aliases:
     - hasProductOption
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_product_option_value:
     description: 'Object property from OWL: hasProductOptionValue'
     range: ProductOptionValue
@@ -2122,7 +2275,8 @@ slots:
     - VariantCaracteristic
     aliases:
     - hasProductOptionValue
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_quantity:
     description: The actual numeric value of the Price, in the currency unit specified with hasUnit
     range: QuantitativeValue
@@ -2141,7 +2295,8 @@ slots:
     - Vehicle
     aliases:
     - hasQuantity
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_reference:
     description: 'Object property from OWL: hasReference'
     range: SuppliedProduct
@@ -2149,7 +2304,8 @@ slots:
     - LocalizedProduct
     aliases:
     - hasReference
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: reference_of
     multivalued: true
   has_reference_product_option:
@@ -2159,7 +2315,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasReferenceProductOption
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     multivalued: true
   has_reference_product_option_value:
     description: 'Object property from OWL: hasReferenceProductOptionValue'
@@ -2168,7 +2325,8 @@ slots:
     - ProductOption
     aliases:
     - hasReferenceProductOptionValue
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     multivalued: true
   has_social_media:
     description: Social Media handle of the Agent
@@ -2177,7 +2335,8 @@ slots:
     - Agent
     aliases:
     - hasSocialMedia
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: social_media_of
     multivalued: true
   has_status:
@@ -2186,7 +2345,8 @@ slots:
     domain: []
     aliases:
     - hasStatus
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_step:
     description: 'Object property from OWL: hasStep'
     range: string
@@ -2194,7 +2354,8 @@ slots:
     - Route
     aliases:
     - hasStep
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: is_step_of
     multivalued: true
   has_temperature:
@@ -2204,7 +2365,8 @@ slots:
     - SuppliedProduct
     aliases:
     - hasTemperature
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: is_temperature_of
   has_template_sale_session:
     description: 'Object property from OWL: hasTemplateSaleSession'
@@ -2213,7 +2375,8 @@ slots:
     - Organization
     aliases:
     - hasTemplateSaleSession
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: is_template_sale_session_of
     multivalued: true
   has_transformation_type:
@@ -2223,7 +2386,8 @@ slots:
     - AsPlannedTransformation
     aliases:
     - hasTransformationType
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_type:
     description: The Product Type grouping for the Product, for more detail see Taxonomies/ProductType
     range: string
@@ -2231,7 +2395,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasType
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: type_of
   has_unit:
     description: A Currency Unit. listed within the skos:concept of CurrencyUnit in the measures.rdf
@@ -2242,7 +2407,8 @@ slots:
     - QuantitativeValue
     aliases:
     - hasUnit
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   has_variant:
     description: 'Object property from OWL: hasVariant'
     range: string
@@ -2250,7 +2416,8 @@ slots:
     - DefinedProduct
     aliases:
     - hasVariant
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: is_variant_of
     multivalued: true
   has_variant_caracteristic:
@@ -2260,7 +2427,8 @@ slots:
     - Variant
     aliases:
     - hasVariantCaracteristic
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     multivalued: true
   holds:
     description: All Orders that were made during the Sales Session
@@ -2269,7 +2437,8 @@ slots:
     - SaleSession
     aliases:
     - holds
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: belongs_to
   hosted_at:
     description: The location the session is hosted at. This could be a physical (e.g. a shop or market) or virtual place (e.g. online store).
@@ -2279,7 +2448,8 @@ slots:
     - TemplateSaleSession
     aliases:
     - hostedAt
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: hosts
     multivalued: true
   hosts:
@@ -2289,7 +2459,8 @@ slots:
     - Place
     aliases:
     - hosts
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: hosted_at
   identified_by:
     description: 'Object property from OWL: identifiedBy'
@@ -2298,7 +2469,8 @@ slots:
     - RealStock
     aliases:
     - identifiedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: identifies
   identifies:
     description: 'Object property from OWL: identifies'
@@ -2307,7 +2479,8 @@ slots:
     - ProductBatch
     aliases:
     - identifies
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: identified_by
   industrialized_by:
     description: 'Object property from OWL: industrializedBy'
@@ -2316,7 +2489,8 @@ slots:
     - TechnicalProduct
     aliases:
     - industrializedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: industrializes
   industrializes:
     description: The Technical Product that is created to industrialize this Supplied Product
@@ -2325,7 +2499,8 @@ slots:
     - SuppliedProduct
     aliases:
     - industrializes
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: industrialized_by
   input_of:
     description: The transformation the consumed product is inputed into
@@ -2334,7 +2509,8 @@ slots:
     - ConsumptionFlow
     aliases:
     - inputOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_input
   is_available_during:
     description: Operating window of the Vehicle.
@@ -2343,7 +2519,8 @@ slots:
     - Vehicle
     aliases:
     - isAvailableDuring
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   is_certified_by:
     description: 'Object property from OWL: isCertifiedBy'
     range: string
@@ -2351,7 +2528,8 @@ slots:
     - Organization
     aliases:
     - isCertifiedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: certifies
     multivalued: true
   is_fulfilled_by:
@@ -2361,7 +2539,8 @@ slots:
     - OrderLine
     aliases:
     - isFulfilledBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: fulfills
   is_ingredient_of:
     description: 'Object property from OWL: isIngredientOf'
@@ -2370,7 +2549,8 @@ slots:
     - Ingredient
     aliases:
     - isIngredientOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_ingredient
   is_member_of:
     description: 'Object property from OWL: isMemberOf'
@@ -2379,7 +2559,8 @@ slots:
     - Agent
     aliases:
     - isMemberOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_member
     multivalued: true
   is_open_during:
@@ -2389,7 +2570,8 @@ slots:
     - PhysicalPlace
     aliases:
     - isOpenDuring
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   is_price_of:
     description: The Object that the Price relates to, can be an Offer, a PaymentMethod or a Transaction
     range: string
@@ -2397,7 +2579,8 @@ slots:
     - Price
     aliases:
     - isPriceOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_price
   is_shipped_in:
     description: 'Object property from OWL: isShippedIn'
@@ -2406,7 +2589,8 @@ slots:
     - Shipment
     aliases:
     - isShippedIn
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: ships
   is_step_of:
     description: 'Object property from OWL: isStepOf'
@@ -2415,7 +2599,8 @@ slots:
     - Step
     aliases:
     - isStepOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_step
     multivalued: true
   is_temperature_of:
@@ -2425,7 +2610,8 @@ slots:
     - Temperature
     aliases:
     - isTemperatureOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_temperature
   is_template_sale_session_of:
     description: 'Object property from OWL: isTemplateSaleSessionOf'
@@ -2434,7 +2620,8 @@ slots:
     - TemplateSaleSession
     aliases:
     - isTemplateSaleSessionOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_template_sale_session
     multivalued: true
   is_variant_of:
@@ -2444,7 +2631,8 @@ slots:
     - Variant
     aliases:
     - isVariantOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_variant
     multivalued: true
   labelling_characteristic_of:
@@ -2454,7 +2642,8 @@ slots:
     - LabellingCharacteristic
     aliases:
     - labellingCharacteristicOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_labelling_characteristic
   listed_in:
     description: All Sales Sessions that this Offer is listed in
@@ -2464,7 +2653,8 @@ slots:
     - Offer
     aliases:
     - listedIn
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: lists
     multivalued: true
   lists:
@@ -2475,7 +2665,8 @@ slots:
     - SaleSession
     aliases:
     - lists
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: listed_in
   localized_by:
     description: 'Object property from OWL: localizedBy'
@@ -2484,7 +2675,8 @@ slots:
     - TheoriticalStock
     aliases:
     - localizedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: localizes
   localizes:
     description: Any theoretical stock that is associated with this location
@@ -2493,7 +2685,8 @@ slots:
     - PhysicalPlace
     aliases:
     - localizes
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: localized_by
   main_contact_of:
     description: An Enterprise that the Person is the Main Contact for
@@ -2502,7 +2695,8 @@ slots:
     - Person
     aliases:
     - mainContactOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_main_contact
   maintained_by:
     description: The Enterprise that maintains the Catalog (may differ from the owner of the Products)
@@ -2511,7 +2705,8 @@ slots:
     - Catalog
     aliases:
     - maintainedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: maintains
   maintains:
     description: A set of reference of defined products
@@ -2520,7 +2715,8 @@ slots:
     - Organization
     aliases:
     - maintains
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: maintained_by
   managed_by:
     description: The Enterprise that manages the CatalogItem (may differ from the owner of the Product)
@@ -2529,7 +2725,8 @@ slots:
     - CatalogItem
     aliases:
     - managedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: manages
   manages:
     description: A reference of a defined product in a catalog managed by an enterprise
@@ -2538,7 +2735,8 @@ slots:
     - Organization
     aliases:
     - manages
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: managed_by
   nature_origin_of:
     description: 'Object property from OWL: natureOriginOf'
@@ -2547,7 +2745,8 @@ slots:
     - Concept
     aliases:
     - natureOriginOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_nature_origin
   nutrient_characteristic_of:
     description: 'Object property from OWL: nutrientCharacteristicOf'
@@ -2556,7 +2755,8 @@ slots:
     - NutrientCharacteristic
     aliases:
     - nutrientCharacteristicOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_nutrient_characteristic
   object_of:
     description: The Coordination (that defines which Enterprise coordinates the Sales Sesison)
@@ -2565,7 +2765,8 @@ slots:
     - SaleSession
     aliases:
     - objectOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_object
   offered_through:
     description: All Offers that this Catalog Item is offered to categories of customer through
@@ -2574,7 +2775,8 @@ slots:
     - CatalogItem
     aliases:
     - offeredThrough
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: offers
     multivalued: true
   offers:
@@ -2584,7 +2786,8 @@ slots:
     - Offer
     aliases:
     - offers
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: offered_through
   offers_to:
     description: The (1 & only 1) CustomerCategory that is eligible for this Offer
@@ -2593,7 +2796,8 @@ slots:
     - Offer
     aliases:
     - offersTo
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_offer
   option_of:
     description: All Sales Sessions the ShippingOption is available for selection during.
@@ -2602,7 +2806,8 @@ slots:
     - ShippingOption
     aliases:
     - optionOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_option
   ordered_by:
     description: 'Object property from OWL: orderedBy'
@@ -2611,7 +2816,8 @@ slots:
     - Order
     aliases:
     - orderedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: orders
   orders:
     description: Any Orders placed by the Agent
@@ -2620,7 +2826,8 @@ slots:
     - Agent
     aliases:
     - orders
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: ordered_by
   output_of:
     description: The transformation the produced product is outputed from
@@ -2629,7 +2836,8 @@ slots:
     - ProductionFlow
     aliases:
     - outputOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_output
   owned_by:
     description: 'Object property from OWL: ownedBy'
@@ -2639,7 +2847,8 @@ slots:
     - PhysicalProduct
     aliases:
     - ownedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: owns
   owns:
     description: All Brands owned by the Agent
@@ -2648,7 +2857,8 @@ slots:
     - Agent
     aliases:
     - owns
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: owned_by
   paid_with:
     description: 'Object property from OWL: paidWith'
@@ -2657,7 +2867,8 @@ slots:
     - PaymentMethod
     aliases:
     - paidWith
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_payment_method
   part_of:
     description: The Order this OrderLine is associated with (1 and only 1)
@@ -2666,7 +2877,8 @@ slots:
     - OrderLine
     aliases:
     - partOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_part
   part_origin_of:
     description: 'Object property from OWL: partOriginOf'
@@ -2675,7 +2887,8 @@ slots:
     - Concept
     aliases:
     - partOriginOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_part_origin
   phone_number_of:
     description: The Enterprise or Person (Agent) or Physical Place that the phone numbers is associated with.
@@ -2684,7 +2897,8 @@ slots:
     - PhoneNumber
     aliases:
     - phoneNumberOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_phone_number
   physical_characteristic_of:
     description: 'Object property from OWL: physicalCharacteristicOf'
@@ -2693,7 +2907,8 @@ slots:
     - PhysicalCharacteristic
     aliases:
     - physicalCharacteristicOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_physical_characteristic
   pick_up:
     description: 'Object property from OWL: pickUp'
@@ -2702,7 +2917,8 @@ slots:
     - Step
     aliases:
     - pickUp
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     multivalued: true
   picked_up_at:
     description: 'Object property from OWL: pickedUpAt'
@@ -2711,7 +2927,8 @@ slots:
     - PickupOption
     aliases:
     - pickedUpAt
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   process_of:
     description: DEPRECATE
     range: string
@@ -2719,7 +2936,8 @@ slots:
     - DefinedProduct
     aliases:
     - processOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   produced_by:
     description: Link to another SuppleidProduct that is produced by this Product
     range: string
@@ -2729,7 +2947,8 @@ slots:
     - SuppliedProduct
     aliases:
     - producedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: produces
     multivalued: true
   produces:
@@ -2739,7 +2958,8 @@ slots:
     - ProductionFlow
     aliases:
     - produces
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: produced_by
   proposed_by:
     description: 'Object property from OWL: proposedBy'
@@ -2748,7 +2968,8 @@ slots:
     - TechnicalProduct
     aliases:
     - proposedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: proposes
   proposes:
     description: All TechnicalProducts proposed by the Enterprise
@@ -2757,7 +2978,8 @@ slots:
     - Organization
     aliases:
     - proposes
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: proposed_by
   reference_of:
     description: The Localized Product that is created in reference to this Supplied Product
@@ -2766,7 +2988,8 @@ slots:
     - SuppliedProduct
     aliases:
     - referenceOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_reference
     multivalued: true
   referenced_by:
@@ -2776,7 +2999,8 @@ slots:
     - DefinedProduct
     aliases:
     - referencedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: references
     multivalued: true
   references:
@@ -2786,7 +3010,8 @@ slots:
     - CatalogItem
     aliases:
     - references
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: referenced_by
   refers_to:
     description: The Address the delivery will be/was made to
@@ -2795,7 +3020,8 @@ slots:
     - DeliveryOption
     aliases:
     - refersTo
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     deprecated: true
   represented_by:
     description: 'Object property from OWL: representedBy'
@@ -2804,7 +3030,8 @@ slots:
     - LocalizedProduct
     aliases:
     - representedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: represents
     multivalued: true
   represents:
@@ -2814,7 +3041,8 @@ slots:
     - PhysicalProduct
     aliases:
     - represents
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: represented_by
   requested_by:
     description: 'Object property from OWL: requestedBy'
@@ -2823,7 +3051,8 @@ slots:
     - FunctionalProduct
     aliases:
     - requestedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: requests
   requests:
     description: Any & all Functional Products that are requested by the Agent
@@ -2832,7 +3061,8 @@ slots:
     - Agent
     aliases:
     - requests
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: requested_by
   satisfied_by:
     description: 'Object property from OWL: satisfiedBy'
@@ -2841,7 +3071,8 @@ slots:
     - FunctionalProduct
     aliases:
     - satisfiedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: satisfies
   satisfies:
     description: 'Object property from OWL: satisfies'
@@ -2850,7 +3081,8 @@ slots:
     - TechnicalProduct
     aliases:
     - satisfies
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: satisfied_by
   selected_by:
     description: 'Object property from OWL: selectedBy'
@@ -2859,7 +3091,8 @@ slots:
     - ShippingOption
     aliases:
     - selectedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: selects
   selects:
     description: The method of shipping selected for the ORder (e.g. Overnight courier, same-day delivery, economy delivery )
@@ -2868,7 +3101,8 @@ slots:
     - Order
     aliases:
     - selects
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: selected_by
   sells:
     description: 'Object property from OWL: sells'
@@ -2877,7 +3111,8 @@ slots:
     - Agent
     aliases:
     - sells
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: sold_by
   ships:
     description: 'Object property from OWL: ships'
@@ -2886,7 +3121,8 @@ slots:
     - Vehicle
     aliases:
     - ships
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: is_shipped_in
   social_media_of:
     description: 'Object property from OWL: socialMediaOf'
@@ -2895,7 +3131,8 @@ slots:
     - SocialMedia
     aliases:
     - socialMediaOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_social_media
   sold_by:
     description: The entity responsible for the sale (could be the Enterprise or a Salesperson within that Enterprise, or a third party)
@@ -2904,7 +3141,8 @@ slots:
     - Order
     aliases:
     - soldBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: sells
   starts_at:
     description: The origin point of the Shipment.
@@ -2913,7 +3151,8 @@ slots:
     - Shipment
     aliases:
     - startsAt
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   stored_in:
     description: 'Object property from OWL: storedIn'
     range: PhysicalPlace
@@ -2921,7 +3160,8 @@ slots:
     - RealStock
     aliases:
     - storedIn
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: stores
   stores:
     description: Any real stock that is associated with this location
@@ -2930,7 +3170,8 @@ slots:
     - PhysicalPlace
     aliases:
     - stores
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: stored_in
   supplied_by:
     description: The Enterprise that supplies the Product
@@ -2939,7 +3180,8 @@ slots:
     - SuppliedProduct
     aliases:
     - suppliedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: supplies
   supplies:
     description: All Products supplied by the Enterprise
@@ -2948,7 +3190,8 @@ slots:
     - Organization
     aliases:
     - supplies
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: supplied_by
   supplies_to:
     description: 'Object property from OWL: suppliesTo'
@@ -2956,7 +3199,8 @@ slots:
     domain: []
     aliases:
     - suppliesTo
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     deprecated: true
   to:
     description: 'Object property from OWL: to'
@@ -2965,7 +3209,8 @@ slots:
     - Transaction
     aliases:
     - to
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
   traced_by:
     description: 'Object property from OWL: tracedBy'
     range: ProductBatch
@@ -2973,7 +3218,8 @@ slots:
     - PhysicalProduct
     aliases:
     - tracedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: traces
     multivalued: true
   traces:
@@ -2983,7 +3229,8 @@ slots:
     - ProductBatch
     aliases:
     - traces
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: traced_by
   transformed_by:
     description: 'Object property from OWL: transformedBy'
@@ -2992,7 +3239,8 @@ slots:
     - AsPlannedLocalTransformation
     aliases:
     - transformedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: transforms
   transforms:
     description: Any PlannedLocalTransformations owned by the Enterprise
@@ -3001,7 +3249,8 @@ slots:
     - Organization
     aliases:
     - transforms
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: transformed_by
   transported_by:
     description: The Shipment that transports Stock.
@@ -3010,7 +3259,8 @@ slots:
     - Stock
     aliases:
     - transportedBy
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: transports
   transports:
     description: The Stock that is transported by a Shipment.
@@ -3019,7 +3269,8 @@ slots:
     - Shipment
     aliases:
     - transports
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: transported_by
   type_of:
     description: 'Object property from OWL: typeOf'
@@ -3028,7 +3279,8 @@ slots:
     - Concept
     aliases:
     - typeOf
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: has_type
   use_vehicle:
     description: 'Object property from OWL: useVehicle'
@@ -3037,7 +3289,8 @@ slots:
     - Route
     aliases:
     - useVehicle
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: used_in_route
   used_in_route:
     description: 'Object property from OWL: usedInRoute'
@@ -3046,7 +3299,8 @@ slots:
     - Vehicle
     aliases:
     - usedInRoute
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     inverse: use_vehicle
   uses:
     description: "*** DEPRECATED *** \n\nUse `refersTo` instead.\n\nThe Address the delivery will be/was made to\n"
@@ -3057,7 +3311,8 @@ slots:
     - PickupOption
     aliases:
     - uses
-    namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://w3id.org/dfc/ontology/src/DFC_BusinessOntology.owl#
     deprecated: true
   d_f_c__technical_ontology__object_property:
     description: 'Object property from OWL: DFC_TechnicalOntology_ObjectProperty'
@@ -3065,58 +3320,63 @@ slots:
     domain: []
     aliases:
     - DFC_TechnicalOntology_ObjectProperty
-    namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_BusinessOntology.owl#
+    annotations:
+      namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_BusinessOntology.owl#
   has_pivot:
     description: possède un point pivot
     range: RepresentationPivot
     domain: []
     aliases:
     - hasPivot
-    namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_TechnicalOntology.owl#
+    annotations:
+      namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_TechnicalOntology.owl#
   hosted_by:
     description: 'Object property from OWL: hostedBy'
     range: Platform
     domain: []
     aliases:
     - hostedBy
-    namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_TechnicalOntology.owl#
+    annotations:
+      namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_TechnicalOntology.owl#
   represent:
     description: 'Object property from OWL: represent'
     range: RepresentedThing
     domain: []
     aliases:
     - represent
-    namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_TechnicalOntology.owl#
+    annotations:
+      namespace: https://github.com/datafoodconsortium/ontology/releases/latest/download/DFC_TechnicalOntology.owl#
 enums:
   Facet:
     description: Classification facets for categorizing DFC entities. Values loaded from SKOS taxonomy.
     reachable_from:
       source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/facets.json
+    annotations:
       source_class: Concept
-      path_navigation: skos:hasTopConcept/*
   Measure:
     description: Measurement units and quantities for product measurements. Values loaded from SKOS taxonomy.
     reachable_from:
       source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/measures.json
+    annotations:
       source_class: Concept
-      path_navigation: skos:hasTopConcept/*
   ProductType:
     description: Product Type classification for categorizing products. Values loaded from SKOS taxonomy.
     reachable_from:
       source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/productTypes.json
+    annotations:
       source_class: Concept
-      path_navigation: skos:hasTopConcept/*
   Scope:
     description: Authorization Scope definitions for access control. Values loaded from SKOS taxonomy.
     reachable_from:
       source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/scopes.json
+    annotations:
       source_class: Concept
-      path_navigation: skos:hasTopConcept/*
   VocabularyTerm:
     description: Controlled vocabulary terms for DFC semantic interoperability. Values loaded from SKOS taxonomy.
     reachable_from:
       source_ontology: https://w3id.org/dfc/taxonomies/v2.0.0/vocabulary.json
+    annotations:
       source_class: Concept
-      path_navigation: skos:hasTopConcept/*
-ontology_version: 2.0.0
-taxonomy_version: 2.0.0
+annotations:
+  ontology_version: 2.0.0
+  taxonomy_version: 2.0.0

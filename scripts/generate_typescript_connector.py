@@ -23,6 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cardinality  # noqa: E402
+import schema_meta  # noqa: E402
 
 
 def parse_schema(schema_path: str) -> dict:
@@ -36,8 +37,8 @@ def parse_schema(schema_path: str) -> dict:
         'id': schema.get('id', ''),
         'name': schema.get('name', ''),
         'version': schema.get('version', '0.1.0'),
-        'ontology_version': schema.get('ontology_version', schema.get('version', '0.1.0')),
-        'taxonomy_version': schema.get('taxonomy_version', schema.get('version', '0.1.0')),
+        'ontology_version': schema_meta.ontology_version(schema),
+        'taxonomy_version': schema_meta.taxonomy_version(schema),
         'description': schema.get('description', ''),
     }
 
@@ -92,7 +93,7 @@ def predicate_for_slot(slot_name: str, slot_data: dict) -> str:
     """
     aliases = slot_data.get('aliases') or [slot_name]
     alias = aliases[0]
-    namespace = slot_data.get('namespace', '')
+    namespace = schema_meta.annotation(slot_data, 'namespace') or ''
     if 'DFC_BusinessOntology' in namespace:
         return f'dfc-b:{alias}'
     if 'DFC_TechnicalOntology' in namespace:

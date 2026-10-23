@@ -34,7 +34,8 @@ Design notes:
   Each deprecated entity still gets one stub page saying what replaced it, so
   an incoming link or a legacy predicate explains itself rather than 404ing.
 
-- `owl:equivalentClass` becomes `equivalent_to`, holding a full CURIE. The
+- `owl:equivalentClass` becomes an `equivalent_to` annotation, holding a full
+  CURIE. The
   local name would not identify the target: `vcard:Agent` and `dfc-b:Agent`
   both local-name to "Agent".
 """
@@ -48,6 +49,9 @@ from collections import defaultdict
 from pathlib import Path
 
 import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import schema_meta  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 DEFAULT_SCHEMA = REPO / 'src' / 'dfc_business_linkml_v2_0.yaml'
@@ -296,7 +300,7 @@ def class_index_page(schema: dict, classes: dict) -> str:
 
 Every class in the DFC Business Ontology, generated from the LinkML schema
 (`{schema.get('version', '')}` DFC version, ontology
-`v{schema.get('ontology_version', '')}`).
+`v{schema_meta.ontology_version(schema, '')}`).
 
 {len(classes)} classes, {len(roots)} of them roots of a hierarchy. Property
 counts include everything inherited, so a leaf class still shows the
@@ -376,7 +380,7 @@ def class_page(name: str, schema: dict, classes: dict, slots: dict) -> str:
         f'- **JSON-LD type**: `{f"dfc-b:{name}"}`\n'
         f'- **Hierarchy**: {" → ".join(f"`{p}`" for p in chain)}\n'
     )
-    equivalent = (cls or {}).get('equivalent_to')
+    equivalent = schema_meta.annotation(cls or {}, 'equivalent_to')
     if equivalent:
         local = equivalent.split(':')[-1]
         prefix = equivalent.split(':')[0] if ':' in equivalent else ''
@@ -500,7 +504,7 @@ def deprecated_class_page(name: str, cls: dict, classes: dict) -> str:
     link, lands on something that explains itself. Deliberately short: this
     is a tombstone, not documentation of something you should use.
     """
-    equivalent = (cls or {}).get('equivalent_to')
+    equivalent = schema_meta.annotation(cls or {}, 'equivalent_to')
     lines = [
         f'# {name} (deprecated)',
         '',
@@ -701,7 +705,7 @@ def enum_page(name: str, schema: dict, concepts: list[dict]) -> str:
     sections.append(
         '## Source\n\n'
         f'- **Upstream**: <{source}>\n'
-        f'- **Root concept class**: `{reach.get("source_class", "")}`\n'
+        f'- **Root concept class**: `{schema_meta.annotation(enum, "source_class") or ""}`\n'
         '- **Values are not embedded in the schema.** The vocabulary is '
         'fetched or bundled separately; the concept list below comes from the '
         'copy bundled with the connectors, so it works offline.\n'
