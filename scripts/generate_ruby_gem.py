@@ -27,7 +27,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cardinality  # noqa: E402
+import preserve  # noqa: E402
 import schema_meta  # noqa: E402
+
+# Hand-written trees inside the gem that regeneration must not touch. The
+# gemspec ships lib/**/*.rb, so these are packaged automatically (issue #42).
+PRESERVED_LIB_SUBTREES = ('lib/auth', 'lib/dpm')
 
 
 def parse_schema(schema_path: str) -> dict:
@@ -1559,6 +1564,10 @@ def main():
     gem_name = "dfc-linkml-connector"
     output_dir = Path("ruby-gem")
 
+    # Hand-written runtime code (lib/auth, lib/dpm) lives inside the gem but is
+    # not generated. Explicit allow-list — see scripts/preserve.py.
+    preserved_lib = preserve.stash(output_dir, PRESERVED_LIB_SUBTREES)
+
     if output_dir.exists():
         import shutil
         # Preserve static vocabulary files (SKOS taxonomy exports) across regeneration.
@@ -1676,6 +1685,12 @@ def main():
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(content, encoding='utf-8')
         print(f"  - {len(preserved_spec)} preserved spec files", file=sys.stderr)
+
+    if preserved_lib.subtrees:
+        count = preserved_lib.file_count
+        names = ', '.join(preserved_lib.subtrees)
+        preserved_lib.restore()
+        print(f"  - {count} hand-written lib files preserved ({names})", file=sys.stderr)
 
     print(f"\nGem generated in: {output_dir}/", file=sys.stderr)
     print(f"To build: cd {output_dir} && gem build {gem_name}.gemspec", file=sys.stderr)

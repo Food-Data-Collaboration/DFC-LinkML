@@ -25,7 +25,7 @@ python3 scripts/generate_php_connector.py [--schema …] [--output …]  # defau
 ```
 
 - **Never hand-edit generated code** (`typescript-connector/src/models|core/`, `ruby-gem/lib/models|core/`, `php-connector/src/`) or `src/*.yaml` — always change the generator and regenerate.
-- Regeneration only wipes what it regenerates: TS preserves `src/context/` + `src/taxonomies/`, Ruby preserves `vocabularies/` + `contexts/` + `spec/`; PHP wipes only `src/` and preserves `tests/`, copies `vocabularies/` + `contexts/` from `ruby-gem/` when absent. `package.json`, `composer.json`, `phpunit.xml`, `tsconfig.json`, `Rakefile`, `*.gemspec` are static. New bundled/static files must be added to the generators' preservation lists (and Ruby `spec.files`).
+- Regeneration only wipes what it regenerates: TS preserves `src/context/` + `src/taxonomies/` + `src/auth/` + `src/dpm/`, Ruby preserves `vocabularies/` + `contexts/` + `spec/` + `lib/auth/` + `lib/dpm/`; PHP wipes only `src/` and preserves `tests/` + `src/Auth/` + `src/Dpm/`, copies `vocabularies/` + `contexts/` from `ruby-gem/` when absent. Preservation is an explicit allow-list implemented by `scripts/preserve.py` — never "keep anything unrecognised". `package.json`, `composer.json`, `phpunit.xml`, `tsconfig.json`, `Rakefile`, `*.gemspec` are static. New bundled/static files must be added to the generators' preservation lists (and Ruby `spec.files`). Preservation only stops the wipe: `src/index.ts` and `lib/dfc_linkml_connector.rb` are generated, so a phase that adds `auth/`/`dpm/` modules must also teach the generator to emit their export/require.
 
 ## Generator invariants (TS ↔ Ruby ↔ PHP must stay in sync)
 
