@@ -111,6 +111,7 @@ nav:
       - Context and versioning: concepts/context-and-versioning.md
       - Vocabularies: concepts/vocabularies.md
       - Validation: concepts/validation.md
+      - Authorization: concepts/authorization.md
   - Conformance: conformance.md
   - Reference:
       - Model reference: reference/model/index.md

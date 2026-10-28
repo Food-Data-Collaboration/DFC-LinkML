@@ -94,6 +94,7 @@ require_relative 'models/weight'
 require_relative 'models/what_subject'
 require_relative 'models/where_subject'
 require_relative 'models/who_subject'
+require_relative 'dpm'
 
 module DfcLinkmlConnector
   VERSION = '2.0.0'

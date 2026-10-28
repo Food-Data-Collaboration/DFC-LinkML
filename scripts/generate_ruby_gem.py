@@ -30,9 +30,23 @@ import cardinality  # noqa: E402
 import preserve  # noqa: E402
 import schema_meta  # noqa: E402
 
-# Hand-written trees inside the gem that regeneration must not touch. The
-# gemspec ships lib/**/*.rb, so these are packaged automatically (issue #42).
-PRESERVED_LIB_SUBTREES = ('lib/auth', 'lib/dpm')
+# Hand-written runtime trees inside the gem that regeneration must not touch.
+# The gemspec ships lib/**/*.rb, so these are packaged automatically. The entry
+# point lib/dpm.rb is a single file rather than a directory: it is preserved so
+# the generated lib/dfc_linkml_connector.rb can require it (issues #42, #44).
+PRESERVED_LIB_SUBTREES = ('lib/auth', 'lib/dpm', 'lib/dpm.rb')
+
+# Hand-written lib entry points the generated main file requires. `lib/dpm` is
+# the DPM scope model, `lib/auth` the OIDC layer; each ships as lib/<name>.rb.
+HAND_WRITTEN_ENTRIES = ('auth', 'dpm')
+
+
+def _present_hand_written_entries(output_dir) -> list:
+    """Which of HAND_WRITTEN_ENTRIES actually ship, so the main file only requires them."""
+    return [
+        name for name in HAND_WRITTEN_ENTRIES
+        if (output_dir / 'lib' / f'{name}.rb').exists()
+    ]
 
 
 def parse_schema(schema_path: str) -> dict:
@@ -1346,13 +1360,19 @@ end
     return code
 
 
-def generate_main_entry_point(schema_data: dict) -> str:
-    """Generate the main dfc_linkml_connector.rb entry point."""
+def generate_main_entry_point(schema_data: dict, hand_written=None) -> str:
+    """Generate the main dfc_linkml_connector.rb entry point.
+
+    `hand_written` names the lib/<name>.rb entry points actually present, so
+    generating a gem that has none of them does not require a missing file.
+    """
     class_names = sorted(schema_data.get('classes', {}).keys())
     requires = []
     for class_name in class_names:
         file_name = to_file_name(to_ruby_class_name(class_name))
         requires.append(f"require_relative 'models/{file_name}'")
+    for entry in (hand_written or []):
+        requires.append(f"require_relative '{entry}'")
 
     requires_str = '\n'.join(requires)
     version = schema_data.get('version', '0.1.0')
@@ -1603,6 +1623,15 @@ def main():
     (output_dir / 'lib' / 'models').mkdir()
     (output_dir / 'vocabularies').mkdir()
 
+    # Restore before generating: lib/dfc_linkml_connector.rb requires the
+    # hand-written entries, so lib/dpm.rb must exist when it is written.
+    if preserved_lib.subtrees:
+        count = preserved_lib.file_count
+        names = ', '.join(preserved_lib.subtrees)
+        preserved_lib.restore()
+        print(f"  - {count} hand-written lib files preserved ({names})",
+              file=sys.stderr)
+
     print(f"Generating gem: {gem_name}", file=sys.stderr)
     print(f"Classes: {len(schema_data['classes'])}", file=sys.stderr)
     print(f"Slots: {len(schema_data['slots'])}", file=sys.stderr)
@@ -1644,7 +1673,9 @@ def main():
     (output_dir / 'lib' / 'core' / 'connector.rb').write_text(generate_connector_class(schema_data))
     print("  - lib/core/connector.rb", file=sys.stderr)
 
-    (output_dir / 'lib' / 'dfc_linkml_connector.rb').write_text(generate_main_entry_point(schema_data))
+    (output_dir / 'lib' / 'dfc_linkml_connector.rb').write_text(
+        generate_main_entry_point(
+            schema_data, _present_hand_written_entries(output_dir)))
     print("  - lib/dfc_linkml_connector.rb", file=sys.stderr)
 
     print("\nGenerating vocabulary files...", file=sys.stderr)
@@ -1685,12 +1716,6 @@ def main():
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(content, encoding='utf-8')
         print(f"  - {len(preserved_spec)} preserved spec files", file=sys.stderr)
-
-    if preserved_lib.subtrees:
-        count = preserved_lib.file_count
-        names = ', '.join(preserved_lib.subtrees)
-        preserved_lib.restore()
-        print(f"  - {count} hand-written lib files preserved ({names})", file=sys.stderr)
 
     print(f"\nGem generated in: {output_dir}/", file=sys.stderr)
     print(f"To build: cd {output_dir} && gem build {gem_name}.gemspec", file=sys.stderr)

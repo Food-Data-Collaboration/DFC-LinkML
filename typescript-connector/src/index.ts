@@ -91,3 +91,4 @@ export { Weight, type WeightParams } from "./models/Weight.js";
 export { WhatSubject, type WhatSubjectParams } from "./models/WhatSubject.js";
 export { WhereSubject, type WhereSubjectParams } from "./models/WhereSubject.js";
 export { WhoSubject, type WhoSubjectParams } from "./models/WhoSubject.js";
+export * from "./dpm/index.js";

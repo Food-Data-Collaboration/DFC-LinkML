@@ -32,28 +32,38 @@ class Stash:
         self.subtrees: list[str] = []
         for sub in subtrees:
             source = self._root / sub
-            if source.exists():
+            if source.is_dir():
                 shutil.copytree(source, self._base / sub)
+                self.subtrees.append(sub)
+            elif source.exists():
+                (self._base / sub).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, self._base / sub)
                 self.subtrees.append(sub)
 
     @property
     def file_count(self) -> int:
         """How many files were saved, for the generator's progress output."""
-        return sum(
-            1
-            for sub in self.subtrees
-            for path in (self._base / sub).rglob("*")
-            if path.is_file()
-        )
+        total = 0
+        for sub in self.subtrees:
+            source = self._base / sub
+            if source.is_dir():
+                total += sum(1 for path in source.rglob("*") if path.is_file())
+            elif source.is_file():
+                total += 1
+        return total
 
     def restore(self) -> None:
-        """Put every saved subtree back, replacing anything already there."""
+        """Put every saved path back, replacing anything already there."""
         for sub in self.subtrees:
+            source = self._base / sub
             target = self._root / sub
-            if target.exists():
-                shutil.rmtree(target)
+            if target.exists() or target.is_symlink():
+                shutil.rmtree(target) if target.is_dir() else target.unlink()
             target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copytree(self._base / sub, target)
+            if source.is_dir():
+                shutil.copytree(source, target)
+            else:
+                shutil.copy2(source, target)
         self._tmp.cleanup()
 
     def discard(self) -> None:
@@ -62,7 +72,10 @@ class Stash:
 
 
 def stash(root, subtrees) -> Stash:
-    """Copy ``root/<subtree>`` for every subtree that exists.
+    """Copy ``root/<subtree>`` for every path that exists.
+
+    A subtree may be a directory (kept whole, however deeply nested) or a single
+    file — the Ruby gem's hand-written ``lib/dpm.rb`` entry point is the latter.
 
     Call this before deleting ``root``, then :meth:`Stash.restore` once the
     generator has rewritten its output.

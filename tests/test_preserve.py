@@ -64,6 +64,18 @@ class TestStash:
         assert stashed.file_count == 0
         stashed.restore()  # must not raise
 
+    def test_single_file_subtree_is_preserved(self, tmp_path):
+        root = tmp_path / "out"
+        root.mkdir()
+        (root / "dpm.rb").write_text("module Dpm; end\n")
+
+        stashed = preserve.stash(root, ("dpm.rb",))
+        assert stashed.file_count == 1
+        (root / "dpm.rb").unlink()
+        stashed.restore()
+
+        assert (root / "dpm.rb").read_text() == "module Dpm; end\n"
+
     def test_restore_replaces_whatever_the_wipe_left(self, tmp_path):
         root = tmp_path / "out"
         (root / "dpm").mkdir(parents=True)
@@ -93,6 +105,8 @@ def test_typescript_generator_keeps_hand_written_trees(tmp_path):
     out = tmp_path / "ts"
     (out / "src" / "auth").mkdir(parents=True)
     (out / "src" / "auth" / "keep.ts").write_text("// auth\n")
+    (out / "src" / "dpm").mkdir(parents=True)
+    (out / "src" / "dpm" / "index.ts").write_text("export const scope = 1;\n")
     (out / "src" / "dpm" / "nested").mkdir(parents=True)
     (out / "src" / "dpm" / "nested" / "deep.ts").write_text("// deep\n")
     (out / "src" / "stray").mkdir()
@@ -105,6 +119,18 @@ def test_typescript_generator_keeps_hand_written_trees(tmp_path):
     assert (out / "src" / "dpm" / "nested" / "deep.ts").read_text() == "// deep\n"
     assert (out / "src" / "core" / "Connector.ts").exists()
     assert not (out / "src" / "stray").exists()
+    # Preservation stops the wipe; the barrel also has to re-export the module
+    # or nothing outside the package can reach it.
+    assert 'export * from "./dpm/index.js";' in (out / "src" / "index.ts").read_text()
+
+
+def test_typescript_barrel_stays_quiet_without_hand_written_modules(tmp_path):
+    out = tmp_path / "ts"
+
+    result = _run("generate_typescript_connector.py", "--output", str(out), cwd=REPO)
+
+    assert result.returncode == 0, result.stderr
+    assert "dpm" not in (out / "src" / "index.ts").read_text()
 
 
 def test_php_generator_keeps_hand_written_trees(tmp_path):
@@ -135,6 +161,8 @@ def test_ruby_generator_keeps_hand_written_trees(tmp_path):
     (gem / "lib" / "auth" / "verifier.rb").write_text("module Auth; end\n")
     (gem / "lib" / "dpm").mkdir(parents=True)
     (gem / "lib" / "dpm" / "scope.rb").write_text("module Dpm; end\n")
+    # The gem entry point is a single file, preserved alongside the directory.
+    (gem / "lib" / "dpm.rb").write_text("require_relative 'dpm/scope'\n")
     (gem / "lib" / "stray.rb").write_text("# not allow-listed\n")
 
     result = _run("generate_ruby_gem.py", cwd=tmp_path)
@@ -142,5 +170,10 @@ def test_ruby_generator_keeps_hand_written_trees(tmp_path):
     assert result.returncode == 0, result.stderr
     assert (gem / "lib" / "auth" / "verifier.rb").exists()
     assert (gem / "lib" / "dpm" / "scope.rb").exists()
+    assert (gem / "lib" / "dpm.rb").read_text() == "require_relative 'dpm/scope'\n"
     assert (gem / "lib" / "core" / "connector.rb").exists()
     assert not (gem / "lib" / "stray.rb").exists()
+    # The generated main file must require it, or nothing loads the module.
+    assert "require_relative 'dpm'" in (
+        gem / "lib" / "dfc_linkml_connector.rb"
+    ).read_text()
