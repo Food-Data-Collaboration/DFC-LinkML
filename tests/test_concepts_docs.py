@@ -26,6 +26,7 @@ REQUIRED_PAGES = [
     'context-and-versioning.md',
     'vocabularies.md',
     'validation.md',
+    'authorization.md',
 ]
 
 LINK = re.compile(r'\]\((?!https?:|mailto:|#)([^)#]+)')

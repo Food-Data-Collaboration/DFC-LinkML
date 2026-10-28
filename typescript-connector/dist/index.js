@@ -91,3 +91,4 @@ export { Weight } from "./models/Weight.js";
 export { WhatSubject } from "./models/WhatSubject.js";
 export { WhereSubject } from "./models/WhereSubject.js";
 export { WhoSubject } from "./models/WhoSubject.js";
+export * from "./dpm/index.js";

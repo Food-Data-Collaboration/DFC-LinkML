@@ -26,10 +26,14 @@ import cardinality  # noqa: E402
 import preserve  # noqa: E402
 import schema_meta  # noqa: E402
 
+# Hand-written source trees whose public API the package root re-exports.
+# `context/` and `taxonomies/` are bundled data, not API (issue #42).
+HAND_WRITTEN_MODULES = ('auth', 'dpm')
+
 # Trees inside src/ that regeneration must not touch. `context/` and
 # `taxonomies/` are hand-maintained JSON-LD/SKOS exports that generated code
 # imports; `auth/` and `dpm/` are hand-written runtime code (issue #42).
-PRESERVED_SRC_SUBTREES = ('context', 'taxonomies', 'auth', 'dpm')
+PRESERVED_SRC_SUBTREES = ('context', 'taxonomies') + HAND_WRITTEN_MODULES
 
 
 def parse_schema(schema_path: str) -> dict:
@@ -1447,22 +1451,35 @@ def generate_model(class_name: str, class_data: dict, schema_data: dict) -> str:
     return code
 
 
-def generate_main_entry_point(schema_data: dict) -> str:
+def _present_hand_written_modules(src_dir: Path) -> list[str]:
+    """Which of HAND_WRITTEN_MODULES actually ship, so the barrel only names them."""
+    return [
+        module for module in HAND_WRITTEN_MODULES
+        if (src_dir / module / 'index.ts').exists()
+    ]
+
+
+def generate_main_entry_point(schema_data: dict, hand_written=None) -> str:
+    """The package root: core, then every model, then the hand-written modules.
+
+    `hand_written` names the dpm/auth trees actually present in src/, so
+    generating a connector that has none of them does not reference a missing
+    directory.
+    """
     class_names = sorted(schema_data.get('classes', {}).keys())
-    model_exports = []
+    lines = [
+        'export { SemanticObject } from "./core/SemanticObject.js";',
+        'export { Connector } from "./core/Connector.js";',
+        'export { JsonLdSerializer } from "./core/JsonLdSerializer.js";',
+        'export { VocabularyLoader } from "./core/VocabularyLoader.js";',
+    ]
     for cn in class_names:
         ts = to_ts_class_name(cn)
         if ts != 'SemanticObject':
-            model_exports.append(f'export {{ {ts}, type {ts}Params }} from "./models/{ts}.js";')
-
-    model_exports_str = '\n'.join(model_exports)
-
-    return f'''export {{ SemanticObject }} from "./core/SemanticObject.js";
-export {{ Connector }} from "./core/Connector.js";
-export {{ JsonLdSerializer }} from "./core/JsonLdSerializer.js";
-export {{ VocabularyLoader }} from "./core/VocabularyLoader.js";
-{model_exports_str}
-'''
+            lines.append(f'export {{ {ts}, type {ts}Params }} from "./models/{ts}.js";')
+    for module in (hand_written or []):
+        lines.append(f'export * from "./{module}/index.js";')
+    return '\n'.join(lines) + '\n'
 
 
 def generate_models_index(schema_data: dict) -> str:
@@ -1525,6 +1542,14 @@ def main():
     (src_dir / 'core').mkdir()
     (src_dir / 'models').mkdir()
 
+    # Restore before generating: src/index.ts re-exports the hand-written
+    # modules, so they must be present when the entry point is written.
+    if preserved.subtrees:
+        count = preserved.file_count
+        names = ', '.join(preserved.subtrees)
+        preserved.restore()
+        print(f"  - {count} files preserved ({names})", file=sys.stderr)
+
     print(f"\nGenerating TypeScript connector in: {src_dir}/", file=sys.stderr)
     print(f"Classes: {len(schema_data['classes'])}", file=sys.stderr)
     print(f"Slots: {len(schema_data['slots'])}", file=sys.stderr)
@@ -1558,15 +1583,9 @@ def main():
     (src_dir / 'models' / 'index.ts').write_text(generate_models_index(schema_data))
     print("  - src/models/index.ts", file=sys.stderr)
 
-    (src_dir / 'index.ts').write_text(generate_main_entry_point(schema_data))
+    (src_dir / 'index.ts').write_text(
+        generate_main_entry_point(schema_data, _present_hand_written_modules(src_dir)))
     print("  - src/index.ts", file=sys.stderr)
-
-    print("\nRestoring bundled files...", file=sys.stderr)
-    if preserved.subtrees:
-        count = preserved.file_count
-        names = ', '.join(preserved.subtrees)
-        preserved.restore()
-        print(f"  - {count} files preserved ({names})", file=sys.stderr)
 
     print(f"\nTypeScript connector generated in: {output_dir}/", file=sys.stderr)
     print(f"To build: cd {output_dir} && npm install && npm run build", file=sys.stderr)
